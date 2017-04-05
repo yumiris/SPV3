@@ -12,10 +12,10 @@
         <ImageBrush ImageSource="Resources/Graphics/background.jpg" Stretch="UniformToFill" />
     </Window.Background>
     <Grid>
-        <Grid.RowDefinitions>
+        <!--<Grid.RowDefinitions>
             <RowDefinition Height="75*" />
             <RowDefinition Height="25*" />
-        </Grid.RowDefinitions>
+        </Grid.RowDefinitions>-->
         <MediaElement
             Name="backgroundMusic"
             LoadedBehavior="Play"
@@ -23,15 +23,30 @@
             Opacity="0"
             Source="Resources/Sounds/loop.mp3"
             UnloadedBehavior="Manual" />
-        <Grid Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image
+                    Grid.Row="0"
+                    Width="215"
+                    Height="50"
+                    Margin="45,45,380,225"
+                    Source="Resources/Graphics/spv3_logo.png"
+                    Stretch="Fill" />
+            </Grid>
             <Image
                 Name="launchButton"
-                Width="500"
-                Height="50"
+                Grid.Row="1"
+                Grid.Column="0"
+                Width="750"
+                Height="75"
                 MouseEnter="LaunchButton_OnMouseEnter"
                 MouseLeave="LaunchButton_OnMouseLeave"
                 Source="Resources/Graphics/Buttons/launch.png"
