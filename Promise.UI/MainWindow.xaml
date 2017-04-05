@@ -25,8 +25,8 @@
             UnloadedBehavior="Manual" />
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="75*" />
+                <RowDefinition Height="25*" />
             </Grid.RowDefinitions>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -37,20 +37,28 @@
                     Grid.Row="0"
                     Width="215"
                     Height="50"
-                    Margin="45,45,380,225"
+                    Margin="50,50,375,380"
                     Source="Resources/Graphics/spv3_logo.png"
                     Stretch="Fill" />
             </Grid>
-            <Image
-                Name="launchButton"
-                Grid.Row="1"
-                Grid.Column="0"
-                Width="750"
-                Height="75"
-                MouseEnter="LaunchButton_OnMouseEnter"
-                MouseLeave="LaunchButton_OnMouseLeave"
-                Source="Resources/Graphics/Buttons/launch.png"
-                Stretch="Fill" />
+            <StackPanel Grid.Row="1">
+                <Image
+                    Name="launchButton"
+                    Width="750"
+                    Height="75"
+                    MouseEnter="LaunchButton_OnMouseEnter"
+                    MouseLeave="LaunchButton_OnMouseLeave"
+                    Source="Resources/Graphics/Buttons/launch.png"
+                    Stretch="Fill" />
+                <Image
+                    Name="configButton"
+                    Width="750"
+                    Height="75"
+                    MouseEnter="ConfigButton_MouseEnter"
+                    MouseLeave="ConfigButton_MouseLeave"
+                    Source="Resources/Graphics/Buttons/config.png"
+                    Stretch="Fill" />
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>

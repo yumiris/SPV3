@@ -103,17 +103,29 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Resource Include="Resources\Graphics\background.jpg">
+    <Content Include="Resources\Graphics\background.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Graphics\spv3_logo.png" />
+    <Content Include="Resources\Graphics\Buttons\config.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Buttons\config_hover.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\spv3_logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Sounds\hover.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Resources\Graphics\Buttons\launch.png" />
-    <Resource Include="Resources\Graphics\Buttons\launch_hover.png" />
+    <Content Include="Resources\Graphics\Buttons\launch.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Graphics\Buttons\launch_hover.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Sounds\loop.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

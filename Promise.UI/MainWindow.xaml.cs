@@ -26,6 +26,17 @@ namespace Promise.UI
             launchButton.Source = GetBitmapImage("Resources/Graphics/Buttons/launch.png");
         }
 
+        private void ConfigButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            TriggerSoundEffect("Resources/Sounds/hover.wav");
+            configButton.Source = GetBitmapImage("Resources/Graphics/Buttons/config_hover.png");
+        }
+
+        private void ConfigButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            configButton.Source = GetBitmapImage("Resources/Graphics/Buttons/config.png");
+        }
+
         private BitmapImage GetBitmapImage(string uri)
         {
             return new BitmapImage(new Uri(uri, UriKind.Relative));
