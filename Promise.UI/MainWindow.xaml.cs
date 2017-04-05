@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Media;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -15,9 +16,17 @@ namespace Promise.UI
             InitializeComponent();
         }
 
+        // Handlers
+        private void backgroundMusic_MediaEnded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            backgroundMusic.Position = TimeSpan.Zero;
+            backgroundMusic.Play();
+        }
+
+        // Button events
         private void LaunchButton_OnMouseEnter(object sender, MouseEventArgs e)
         {
-            TriggerSoundEffect("Resources/Sounds/hover.wav");
+            ToggleHoverSoundEffect();
             launchButton.Source = GetBitmapImage("Resources/Graphics/Buttons/launch_hover.png");
         }
 
@@ -28,7 +37,7 @@ namespace Promise.UI
 
         private void ConfigButton_MouseEnter(object sender, MouseEventArgs e)
         {
-            TriggerSoundEffect("Resources/Sounds/hover.wav");
+            ToggleHoverSoundEffect();
             configButton.Source = GetBitmapImage("Resources/Graphics/Buttons/config_hover.png");
         }
 
@@ -37,20 +46,16 @@ namespace Promise.UI
             configButton.Source = GetBitmapImage("Resources/Graphics/Buttons/config.png");
         }
 
+        // Helper functions
         private BitmapImage GetBitmapImage(string uri)
         {
             return new BitmapImage(new Uri(uri, UriKind.Relative));
         }
 
-        private void backgroundMusic_MediaEnded(object sender, System.Windows.RoutedEventArgs e)
+        private void ToggleHoverSoundEffect()
         {
-            backgroundMusic.Position = TimeSpan.Zero;
-            backgroundMusic.Play();
-        }
-
-        private void TriggerSoundEffect(string soundLocation)
-        {
-            SoundPlayer soundPlayer = new SoundPlayer(soundLocation);
+            Stream soundEffect = Properties.Resources.Hover;
+            SoundPlayer soundPlayer = new SoundPlayer(soundEffect);
             soundPlayer.Play();
         }
     }
