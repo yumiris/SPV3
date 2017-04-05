@@ -108,6 +108,10 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Graphics\spv3_logo.png" />
+    <Content Include="Resources\Sounds\hover.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Resources\Graphics\Buttons\launch.png" />
     <Resource Include="Resources\Graphics\Buttons\launch_hover.png" />
     <Content Include="Resources\Sounds\loop.mp3">

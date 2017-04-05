@@ -17,6 +17,7 @@ namespace Promise.UI
 
         private void LaunchButton_OnMouseEnter(object sender, MouseEventArgs e)
         {
+            TriggerSoundEffect("Resources/Sounds/hover.wav");
             launchButton.Source = GetBitmapImage("Resources/Graphics/Buttons/launch_hover.png");
         }
 
@@ -36,13 +37,10 @@ namespace Promise.UI
             backgroundMusic.Play();
         }
 
-
-
         private void TriggerSoundEffect(string soundLocation)
         {
-            throw new NotImplementedException();
-            //SoundPlayer soundPlayer = new SoundPlayer(soundLocation);
-            //soundPlayer.Play();
+            SoundPlayer soundPlayer = new SoundPlayer(soundLocation);
+            soundPlayer.Play();
         }
     }
 }
