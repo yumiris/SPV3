@@ -1,0 +1,161 @@
+﻿<Window
+    x:Class="Promise.UI.AboutWindowxaml"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="AboutWindowxaml"
+    Width="720"
+    Height="480"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="1">
+            <Image
+                Width="215"
+                Height="50"
+                Source="Resources/Graphics/spv3_logo_black.png"
+                Stretch="Fill" />
+            <ScrollViewer Height="320" Margin="10">
+                <TextBlock TextWrapping="Wrap">
+                    <Run FontWeight="Bold" Text="Project Lead" />
+                    <LineBreak /><Run Text=" - Masterz1337" />
+                    <LineBreak /><Run />
+                    <LineBreak /><Run FontWeight="Bold" Text="Project Co-Leaders" />
+                    <LineBreak /><Run Text=" - Teh Lag" />
+                    <LineBreak /><Run Text=" - SOI7" />
+                    <LineBreak /><Run />
+                    <LineBreak /><Run FontWeight="Bold" Text="2D Artists" />
+                    <LineBreak /><Run Text=" - Dano" />
+                    <LineBreak /><Run Text=" - SOI7" />
+                    <LineBreak /><Run Text=" - Alexis" />
+                    <LineBreak /><Run Text=" - KillaFTW" />
+                    <LineBreak /><Run Text=" - BobTheGreat" />
+                    <LineBreak /><Run Text=" - Conscars" />
+                    <LineBreak /><Run />
+                    <LineBreak /><Run FontWeight="Bold" Text="3D Artists" />
+                    <LineBreak /><Run Text=" - BobtheGreat" />
+                    <LineBreak /><Run Text=" - SOI7" />
+                    <LineBreak /><Run Text=" - Dano" />
+                    <LineBreak /><Run />
+                    <LineBreak /><Run FontWeight="Bold" Text="Environmental Artists" />
+                    <LineBreak /><Run Text=" - Arteen" />
+                    <LineBreak /><Run Text=" - Teh Lag" />
+                    <LineBreak /><Run Text=" - Siliconmaster" />
+                    <LineBreak /><Run Text=" - BobtheGreat" />
+                    <LineBreak /><Run Text=" - Teh Lag" />
+                    <LineBreak /><Run Text=" - LlamaJuice" />
+                    <LineBreak /><Run Text=" - Neodos" />
+                    <LineBreak /><Run Text=" - Slappy The Pirate" />
+                    <LineBreak /><Run />
+                    <LineBreak /><Run FontWeight="Bold" Text="Animation Artists" />
+                    <LineBreak /><Run Text=" - Teh Lag" />
+                    <LineBreak /><Run Text=" - ODX" />
+                    <LineBreak /><Run Text=" - SOI7" />
+                    <LineBreak /><Run Text=" - KillaFTW" />
+                    <LineBreak /><Run Text=" - Megasean" />
+                    <LineBreak /><Run />
+                    <LineBreak /><Run FontWeight="Bold" Text="Effects Artists" />
+                    <LineBreak /><Run Text=" - Ifafudafi" />
+                    <LineBreak /><Run Text=" - SOI7" />
+                    <LineBreak /><Run Text=" - Teh Lag" />
+                    <LineBreak /><Run Text=" - Mastez1337" />
+                    <LineBreak /><Run />
+                    <LineBreak /><Run FontWeight="Bold" Text="Shader Team" />
+                    <LineBreak /><Run Text=" - Alexis" />
+                    <LineBreak /><Run Text=" - KillaFTW" />
+                    <LineBreak /><Run Text=" - SOI7" />
+                    <LineBreak /><Run Text=" - Teh Lag" />
+                    <LineBreak /><Run Text=" - Masterz1337" />
+                    <LineBreak /><Run />
+                    <LineBreak /><Run FontWeight="Bold" Text="UI and HUD Design" />
+                    <LineBreak /><Run Text=" - H3Freak09" />
+                    <LineBreak /><Run Text=" - Mooseguy" />
+                    <LineBreak /><Run Text=" - Jesse" />
+                    <LineBreak /><Run />
+                    <LineBreak /><Run FontWeight="Bold" Text="Audio Designers" />
+                    <LineBreak /><Run Text=" - Seamus Bradd" />
+                    <LineBreak /><Run Text=" - Xalener" />
+                    <LineBreak /><Run Text=" - Daniel Calibyrnes Baylis" />
+                    <LineBreak /><Run Text=" - Bungie &amp; 343" />
+                    <LineBreak /><Run />
+                    <LineBreak /><Run FontWeight="Bold" Text="Voice Actors" />
+                    <LineBreak /><Run Text=" - Dominique Mabille" />
+                    <LineBreak /><Run Text=" - Xalener" />
+                    <LineBreak /><Run />
+                    <LineBreak /><Run FontWeight="Bold" Text="Soundtrack" />
+                    <LineBreak /><Run Text=" - Jafet Meza" />
+                    <LineBreak /><Run Text=" - Seamus Bradd" />
+                    <LineBreak /><Run Text=" - Robbie Scias Johnson" />
+                    <LineBreak /><Run Text=" - Marty O'Donnel &amp; Michael Salvatori " />
+                    <LineBreak /><Run />
+                    <LineBreak /><Run FontWeight="Bold" Text="Terminal Team (Writers)" />
+                    <LineBreak /><Run Text=" - Masterz1337" />
+                    <LineBreak /><Run Text=" - Daniel Calibyrnes Baylis" />
+                    <LineBreak /><Run Text=" - Idaho " />
+                    <LineBreak /><Run Text=" - Matthew Langdon" />
+                    <LineBreak /><Run />
+                    <LineBreak /><Run FontWeight="Bold" Text="Addition Tool support" />
+                    <LineBreak /><Run Text=" - ShadowSpartan1" />
+                    <LineBreak /><Run Text=" - SteelixB" />
+                    <LineBreak /><Run Text=" - ChokingVictim" />
+                    <LineBreak /><Run />
+                    <LineBreak /><Run FontWeight="Bold" Text="Mission Designers" />
+                    <LineBreak /><Run Text=" - Masterz1337 (SPV3)" />
+                    <LineBreak /><Run Text=" - Arteen (SPV3)" />
+                    <LineBreak /><Run Text=" - The Lag (TSC:E)" />
+                    <LineBreak /><Run Text=" - Ifafudafi (TSC:E)" />
+                    <LineBreak /><Run />
+                    <LineBreak /><Run FontWeight="Bold" Text="Scripters" />
+                    <LineBreak /><Run Text=" - Kirby" />
+                    <LineBreak /><Run Text=" - Teh Lag" />
+                    <LineBreak /><Run Text=" - Masterz1337" />
+                    <LineBreak /><Run />
+                    <LineBreak /><Run FontWeight="Bold" Text="Sandbox and Gameplay Designer" />
+                    <LineBreak /><Run Text=" - Masterz1337" />
+                    <LineBreak /><Run />
+                    <LineBreak /><Run FontWeight="Bold" Text="Additional Contributors" />
+                    <LineBreak /><Run Text=" - Master Noob (3D Art)" />
+                    <LineBreak /><Run Text=" - Mike Belousov (3D Art)" />
+                    <LineBreak /><Run Text=" - Wave of Lag (3D Art)" />
+                    <LineBreak /><Run Text=" - NeurologicalDisorder (3D and Texture Art)" />
+                    <LineBreak /><Run Text=" - Rob Oplawar (3D Art)" />
+                    <LineBreak /><Run Text=" - Hunter/MartynLeeBall (3D Art)" />
+                    <LineBreak /><Run Text=" - Moses (Content Optimizations)" />
+                    <LineBreak /><Run Text=" - NuggetWarmer (3D Art)" />
+                    <LineBreak /><Run Text=" - Flyinrooster/Roostervier (3D and Texture Art)" />
+                    <LineBreak /><Run Text=" - Boba (2D)" />
+                    <LineBreak /><Run Text=" - aLtis (Physics)" />
+                    <LineBreak /><Run Text=" - Axial (TSC:E  Concept)" />
+                    <LineBreak /><Run Text=" - Zteam (Tag references)" />
+                    <LineBreak /><Run Text=" - Hokiebird428 (Gameplay advisor)" />
+                    <LineBreak /><Run Text=" - Andrea Perlot (Environmental Artist)" />
+                    <LineBreak /><Run Text=" - Scooby Doo Dog (3D and 2D artist)" />
+                    <LineBreak /><Run Text=" - Sins of the Prophet Mod (POA textures)" />
+                    <LineBreak /><Run Text=" - SBB Michelle (Environmental Artist)" />
+                    <LineBreak /><Run Text=" - MattDratt (Environmental Artist)" />
+                    <LineBreak /><Run Text=" - CE3 (Sponsor)" />
+                    <LineBreak /><Run Text=" - Koo294 (3D Artist)" />
+                    <LineBreak /><Run Text=" - masterchief117 (HCEA Sounds)" />
+                    <LineBreak /><Run Text=" - TM Team for the Shadow" />
+                    <LineBreak /><Run Text=" - Mortis for Technical Consulting and donating his lens flares. " />
+                    <LineBreak /><Run />
+                    <LineBreak /><Run Text=" - All those countless people who have tested and supported us through the years." />
+                    <LineBreak /><Run Text=" - --" />
+                    <LineBreak /><Run />
+                    <LineBreak /><Run FontWeight="Bold" Text="Kornner Studios &amp; the Open-Sauce people:" />
+                    <LineBreak /><Run />
+                    <LineBreak /><Run Text="Kornman00" />
+                    <LineBreak /><Run Text="TheFieryScythe" />
+                    <LineBreak /><Run Text="Choking Victim" />
+                    <LineBreak /><Run />
+                    <LineBreak /><Run Text="We also would like to credit the people at Bungie Studios (past and present) for Halo 1, 2, 3, ODST and Reach; Gearbox Software for Halo Custom Edition; and 343 Industries for their continued stewardship of the franchise. Our mod would not exist without them!" /></TextBlock>
+            </ScrollViewer>
+        </StackPanel>
+    </Grid>
+</Window>
