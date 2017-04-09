@@ -32,15 +32,15 @@ namespace Promise.UI
             ToggleHoverSoundEffect();
         }
 
-        private void ChangeButtonImage(Button button)
+        private void AboutButton_Click(object sender, RoutedEventArgs e)
         {
-            Uri resourceUri = new Uri($"Resources/Graphics/Buttons/{button.Tag}_hover.png", UriKind.Relative);
+            AboutWindow aboutWindow = new AboutWindow();
+            aboutWindow.Show();
+        }
 
-            StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUri);
-            BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
-            var brush = new ImageBrush { ImageSource = temp };
-
-            button.Background = brush;
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown(0);
         }
     }
 }

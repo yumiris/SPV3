@@ -93,7 +93,10 @@
                     </Image>
                 </Button>
 
-                <Button Name="AboutButton" Template="{StaticResource ButtonTemplate}">
+                <Button
+                    Name="AboutButton"
+                    Click="AboutButton_Click"
+                    Template="{StaticResource ButtonTemplate}">
                     <Image>
                         <Image.Style>
                             <Style TargetType="{x:Type Image}">
@@ -108,7 +111,10 @@
                     </Image>
                 </Button>
 
-                <Button Name="ExitButton" Template="{StaticResource ButtonTemplate}">
+                <Button
+                    Name="ExitButton"
+                    Click="ExitButton_Click"
+                    Template="{StaticResource ButtonTemplate}">
                     <Image>
                         <Image.Style>
                             <Style TargetType="{x:Type Image}">

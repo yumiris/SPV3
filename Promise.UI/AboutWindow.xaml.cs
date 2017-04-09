@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace Promise.UI
 {
     /// <summary>
-    /// Interaction logic for AboutWindowxaml.xaml
+    /// Interaction logic for AboutWindow.xaml
     /// </summary>
-    public partial class AboutWindowxaml : Window
+    public partial class AboutWindow : Window
     {
-        public AboutWindowxaml()
+        public AboutWindow()
         {
             InitializeComponent();
         }
