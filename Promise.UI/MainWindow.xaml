@@ -12,82 +12,69 @@
         <ImageBrush ImageSource="Resources/Graphics/background.jpg" Stretch="UniformToFill" />
     </Window.Background>
     <Grid>
-        <!--<Grid.RowDefinitions>
-            <RowDefinition Height="75*" />
-            <RowDefinition Height="25*" />
-        </Grid.RowDefinitions>-->
-        <MediaElement
-            Name="backgroundMusic"
-            LoadedBehavior="Play"
-            MediaEnded="backgroundMusic_MediaEnded"
-            Opacity="0"
-            Source="Resources/Sounds/loop.mp3"
-            UnloadedBehavior="Manual" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image
+                Grid.Row="0"
+                Width="215"
+                Height="50"
+                Source="Resources/Graphics/spv3_logo.png"
+                Stretch="Fill" Margin="30,30,395,240" />
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
                 <Image
-                    Grid.Row="0"
-                    Width="215"
-                    Height="50"
-                    Source="Resources/Graphics/spv3_logo.png"
-                    Stretch="Fill" Margin="30,30,395,240" />
-            </Grid>
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0">
-                    <Image
-                    Name="launchButton"
-                    Width="500"
-                    Height="50"
-                    MouseEnter="launchButton_OnMouseEnter"
-                    MouseLeave="launchButton_OnMouseLeave"
-                    Source="Resources/Graphics/Buttons/launch.png"
-                    Stretch="Fill" />
-                    <Image
-                    Name="configButton"
-                    Width="500"
-                    Height="50"
-                    MouseEnter="configButton_MouseEnter"
-                    MouseLeave="configButton_MouseLeave"
-                    Source="Resources/Graphics/Buttons/config.png"
-                    Stretch="Fill" />
-                    <Image
-                    Name="helpButton"
-                    Width="500"
-                    Height="50"
-                    MouseEnter="helpButton_MouseEnter"
-                    MouseLeave="helpButton_MouseLeave"
-                    Source="Resources/Graphics/Buttons/help.png"
-                    Stretch="Fill" />
-                    <Image
-                    Name="aboutButton"
-                    Width="500"
-                    Height="50"
-                    MouseEnter="aboutButton_MouseEnter"
-                    MouseLeave="aboutButton_MouseLeave"
-                    Source="Resources/Graphics/Buttons/about.png"
-                    Stretch="Fill" />
-                    <Image
-                    Name="exitButton"
-                    Width="500"
-                    Height="50"
-                    MouseEnter="exitButton_MouseEnter"
-                    MouseLeave="exitButton_MouseLeave"
-                    Source="Resources/Graphics/Buttons/exit.png"
-                    Stretch="Fill" />
-                </StackPanel>
-            </Grid>
+                Name="launchButton"
+                Width="500"
+                Height="50"
+                MouseEnter="launchButton_OnMouseEnter"
+                MouseLeave="launchButton_OnMouseLeave"
+                Source="Resources/Graphics/Buttons/launch.png"
+                Stretch="Fill" />
+                <Image
+                Name="configButton"
+                Width="500"
+                Height="50"
+                MouseEnter="configButton_MouseEnter"
+                MouseLeave="configButton_MouseLeave"
+                Source="Resources/Graphics/Buttons/config.png"
+                Stretch="Fill" />
+                <Image
+                Name="helpButton"
+                Width="500"
+                Height="50"
+                MouseEnter="helpButton_MouseEnter"
+                MouseLeave="helpButton_MouseLeave"
+                Source="Resources/Graphics/Buttons/help.png"
+                Stretch="Fill" />
+                <Image
+                Name="aboutButton"
+                Width="500"
+                Height="50"
+                MouseEnter="aboutButton_MouseEnter"
+                MouseLeave="aboutButton_MouseLeave"
+                Source="Resources/Graphics/Buttons/about.png"
+                Stretch="Fill" />
+                <Image
+                Name="exitButton"
+                Width="500"
+                Height="50"
+                MouseEnter="exitButton_MouseEnter"
+                MouseLeave="exitButton_MouseLeave"
+                Source="Resources/Graphics/Buttons/exit.png"
+                Stretch="Fill" />
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>

@@ -16,13 +16,6 @@ namespace Promise.UI
             InitializeComponent();
         }
 
-        // Handlers
-        private void backgroundMusic_MediaEnded(object sender, System.Windows.RoutedEventArgs e)
-        {
-            backgroundMusic.Position = TimeSpan.Zero;
-            backgroundMusic.Play();
-        }
-
         // Button events
         private void launchButton_OnMouseEnter(object sender, MouseEventArgs e)
         {
