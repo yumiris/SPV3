@@ -48,7 +48,10 @@
             <StackPanel Grid.Column="0">
 
                 <!--  Launch Button  -->
-                <Button Name="LaunchButton" Template="{StaticResource ButtonTemplate}">
+                <Button
+                    Name="LaunchButton"
+                    Click="LaunchButton_Click"
+                    Template="{StaticResource ButtonTemplate}">
                     <Image>
                         <Image.Style>
                             <Style TargetType="{x:Type Image}">
@@ -63,7 +66,11 @@
                     </Image>
                 </Button>
 
-                <Button Name="ConfigButton" Template="{StaticResource ButtonTemplate}">
+                <!--  Config Button  -->
+                <Button
+                    Name="ConfigButton"
+                    Click="ConfigButton_Click"
+                    Template="{StaticResource ButtonTemplate}">
                     <Image>
                         <Image.Style>
                             <Style TargetType="{x:Type Image}">
@@ -78,7 +85,30 @@
                     </Image>
                 </Button>
 
-                <Button Name="HelpButton" Template="{StaticResource ButtonTemplate}">
+                <!--  Community Button  -->
+                <Button
+                    Name="CommunityButton"
+                    Click="CommunityButton_Click"
+                    Template="{StaticResource ButtonTemplate}">
+                    <Image>
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="Resources/Graphics/Buttons/community.png" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Source" Value="Resources/Graphics/Buttons/community_hover.png" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                </Button>
+
+                <!--  Help Button  -->
+                <Button
+                    Name="HelpButton"
+                    Click="HelpButton_Click"
+                    Template="{StaticResource ButtonTemplate}">
                     <Image>
                         <Image.Style>
                             <Style TargetType="{x:Type Image}">
@@ -93,6 +123,7 @@
                     </Image>
                 </Button>
 
+                <!--  About Button  -->
                 <Button
                     Name="AboutButton"
                     Click="AboutButton_Click"
@@ -111,6 +142,7 @@
                     </Image>
                 </Button>
 
+                <!--  Exit Button  -->
                 <Button
                     Name="ExitButton"
                     Click="ExitButton_Click"
