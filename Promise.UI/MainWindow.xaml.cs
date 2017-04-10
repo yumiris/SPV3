@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Media;
 using System.Windows;
@@ -30,6 +31,26 @@ namespace Promise.UI
         private void ContentPresenter_MouseEnter(object sender, MouseEventArgs e)
         {
             ToggleHoverSoundEffect();
+        }
+
+        private void LaunchButton_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ConfigButton_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void CommunityButton_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://www.reddit.com/r/halospv3/");
+        }
+
+        private void HelpButton_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void AboutButton_Click(object sender, RoutedEventArgs e)
