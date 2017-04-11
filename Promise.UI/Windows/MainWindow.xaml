@@ -1,10 +1,10 @@
 ﻿<Window
-    x:Class="Promise.UI.MainWindow"
+    x:Class="Promise.UI.Windows.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Width="1280"
     Height="640"
-    Icon="haloce_103.ico"
+    Icon="/haloce_103.ico"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None">
@@ -20,7 +20,7 @@
     </Window.Resources>
 
     <Window.Background>
-        <ImageBrush ImageSource="Resources/Graphics/background.jpg" Stretch="UniformToFill" />
+        <ImageBrush ImageSource="/Resources/Graphics/background.jpg" Stretch="UniformToFill" />
     </Window.Background>
 
     <Grid>
@@ -38,7 +38,7 @@
                 Width="215"
                 Height="50"
                 Margin="30,30,395,240"
-                Source="Resources/Graphics/spv3_logo.png"
+                Source="/Resources/Graphics/spv3_logo.png"
                 Stretch="Fill" />
         </Grid>
         <Grid Grid.Row="1">
@@ -56,10 +56,10 @@
                     <Image>
                         <Image.Style>
                             <Style TargetType="{x:Type Image}">
-                                <Setter Property="Source" Value="Resources/Graphics/Buttons/launch.png" />
+                                <Setter Property="Source" Value="/Resources/Graphics/Buttons/launch.png" />
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Source" Value="Resources/Graphics/Buttons/launch_hover.png" />
+                                        <Setter Property="Source" Value="/Resources/Graphics/Buttons/launch_hover.png" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -75,10 +75,10 @@
                     <Image>
                         <Image.Style>
                             <Style TargetType="{x:Type Image}">
-                                <Setter Property="Source" Value="Resources/Graphics/Buttons/config.png" />
+                                <Setter Property="Source" Value="/Resources/Graphics/Buttons/config.png" />
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Source" Value="Resources/Graphics/Buttons/config_hover.png" />
+                                        <Setter Property="Source" Value="/Resources/Graphics/Buttons/config_hover.png" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -94,10 +94,10 @@
                     <Image>
                         <Image.Style>
                             <Style TargetType="{x:Type Image}">
-                                <Setter Property="Source" Value="Resources/Graphics/Buttons/community.png" />
+                                <Setter Property="Source" Value="/Resources/Graphics/Buttons/community.png" />
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Source" Value="Resources/Graphics/Buttons/community_hover.png" />
+                                        <Setter Property="Source" Value="/Resources/Graphics/Buttons/community_hover.png" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -113,10 +113,10 @@
                     <Image>
                         <Image.Style>
                             <Style TargetType="{x:Type Image}">
-                                <Setter Property="Source" Value="Resources/Graphics/Buttons/help.png" />
+                                <Setter Property="Source" Value="/Resources/Graphics/Buttons/help.png" />
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Source" Value="Resources/Graphics/Buttons/help_hover.png" />
+                                        <Setter Property="Source" Value="/Resources/Graphics/Buttons/help_hover.png" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -132,10 +132,10 @@
                     <Image>
                         <Image.Style>
                             <Style TargetType="{x:Type Image}">
-                                <Setter Property="Source" Value="Resources/Graphics/Buttons/about.png" />
+                                <Setter Property="Source" Value="/Resources/Graphics/Buttons/about.png" />
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Source" Value="Resources/Graphics/Buttons/about_hover.png" />
+                                        <Setter Property="Source" Value="/Resources/Graphics/Buttons/about_hover.png" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -151,10 +151,10 @@
                     <Image>
                         <Image.Style>
                             <Style TargetType="{x:Type Image}">
-                                <Setter Property="Source" Value="Resources/Graphics/Buttons/exit.png" />
+                                <Setter Property="Source" Value="/Resources/Graphics/Buttons/exit.png" />
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Source" Value="Resources/Graphics/Buttons/exit_hover.png" />
+                                        <Setter Property="Source" Value="/Resources/Graphics/Buttons/exit_hover.png" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>

@@ -3,13 +3,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Media;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Resources;
 
-namespace Promise.UI
+namespace Promise.UI.Windows
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -55,7 +51,7 @@ namespace Promise.UI
 
         private void AboutButton_Click(object sender, RoutedEventArgs e)
         {
-            AboutWindow aboutWindow = new AboutWindow();
+            Windows.AboutWindow aboutWindow = new Windows.AboutWindow();
             aboutWindow.Show();
         }
 
