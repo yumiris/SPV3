@@ -4,58 +4,67 @@ namespace Promise.Library
 {
     public class Configuration
     {
-        public string ExecutableName { get; set; }
+        private const string ConfigurationFile = "config.ini";
 
+        // Common toggling parameters.
         public bool IsWindow { get; set; } = false;
         public bool IsConsole { get; set; } = false;
         public bool IsDev { get; set; } = false;
         public bool IsSafeMode { get; set; } = false;
         public bool IsLowEnd { get; set; } = false;
+        public bool CanScreenshot { get; set; } = false;
 
+        // Display configurations.
         public int ResolutionX { get; set; } = 640;
         public int ResolutionY { get; set; } = 480;
         public int RefreshRate { get; set; } = 60;
+        public int Adapter { get; set; } = 1;
 
         public void WriteConfiguration()
         {
-            string videoConfiguration = $"{GetResolution()} {GetWindowMode()}";
-            string consoleConfiguration = $"{GetConsoleMode()} {GetDeveloperMode()}";
-            string lowendConfiguration = $"{GetSafeMode()} {GetLowEndMode()}";
-
-            using (StreamWriter configFile = new StreamWriter("config.ini"))
+            using (StreamWriter configFile = new StreamWriter(ConfigurationFile))
             {
-                configFile.Write($"{Halo.ExeName} {videoConfiguration} {consoleConfiguration} {lowendConfiguration}");
+                configFile.Write($"{GetVideoConfigurations()}{GetLaunchToggles()}");
             }
         }
 
-        private string GetResolution()
+        public string ReadConfiguration()
         {
-            return $"-vidmode {ResolutionX},{ResolutionY},{RefreshRate}";
+            using (StreamReader configFile = new StreamReader(ConfigurationFile))
+            {
+                return configFile.ReadToEnd();
+            }
         }
 
-        private string GetWindowMode()
+        private string GetVideoConfigurations()
         {
-            return IsWindow ? "-window" : string.Empty;
+            string[] videoStrings =
+            {
+                $"-vidmode {ResolutionX},{ResolutionY},{RefreshRate}",
+                $"-adapter {Adapter}",
+                IsWindow ? "-window" : string.Empty,
+                IsLowEnd ? "-useff" : string.Empty,
+            };
+
+            return GetStringsFromArray(videoStrings);
         }
 
-        private string GetConsoleMode()
+        private string GetLaunchToggles()
         {
-            return IsConsole ? "-console" : string.Empty;
+            string[] launchStrings =
+            {
+                IsConsole ? "-console" : string.Empty,
+                IsDev ? "-devmode" : string.Empty,
+                IsSafeMode ? "-safemode" : string.Empty,
+                CanScreenshot ? "-screenshot" : string.Empty
+            };
+
+            return GetStringsFromArray(launchStrings);
         }
 
-        private string GetDeveloperMode()
+        private string GetStringsFromArray(string[] stringsArray)
         {
-            return IsDev ? "-devmode" : string.Empty;
-        }
-
-        private string GetSafeMode()
-        {
-            return IsSafeMode ? "-safemode" : string.Empty;
-        }
-
-        private string GetLowEndMode()
-        {
-            return IsLowEnd ? "-useff" : string.Empty;
+            return string.Join(" ", stringsArray);
         }
     }
 }

@@ -27,14 +27,15 @@
                 <Label Content="Game Resolution:" />
                 <DockPanel DockPanel.Dock="Top">
                     <Label Width="50" Content="Width:" />
-                    <TextBox />
+                    <TextBox Text="{Binding ResolutionX}" />
                 </DockPanel>
                 <DockPanel DockPanel.Dock="Top">
                     <Label Width="50" Content="Height:" />
-                    <TextBox />
+                    <TextBox Text="{Binding ResolutionY}" />
+
                 </DockPanel>
                 <Label Content="Display Adapter:" />
-                <ComboBox>
+                <ComboBox SelectedIndex="{Binding ChosenAdapter}">
                     <ComboBoxItem Content="Monitor 01" />
                     <ComboBoxItem Content="Monitor 02" />
                 </ComboBox>
@@ -47,18 +48,18 @@
             Margin="5"
             Header="Additional Toggles">
             <StackPanel Margin="5">
-                <CheckBox Content="Console" />
-                <CheckBox Content="Developer" />
-                <CheckBox Content="Window Mode" />
-                <CheckBox Content="Safe Mode" />
-                <CheckBox Content="FF Mode" />
-                <CheckBox Content="Screenshot" />
+                <CheckBox Content="Console" IsChecked="{Binding IsConsole}" />
+                <CheckBox Content="Developer" IsChecked="{Binding IsDev}" />
+                <CheckBox Content="Window Mode" IsChecked="{Binding IsWindow}" />
+                <CheckBox Content="Safe Mode" IsChecked="{Binding IsSafeMode}" />
+                <CheckBox Content="FF Mode" IsChecked="{Binding IsLowEnd}" />
+                <CheckBox Content="Screenshot" IsChecked="{Binding CanScreenshot}" />
             </StackPanel>
         </GroupBox>
 
         <!--  Save button  -->
         <Grid Grid.Row="2" Margin="5">
-            <Button Content="Save" />
+            <Button x:Name="SaveButton" Click="SaveButton_Click" Content="Save" />
         </Grid>
     </Grid>
 </Window>

@@ -41,8 +41,7 @@
                 Stretch="Fill" />
             <ScrollViewer Height="320" Margin="25">
                 <TextBlock TextWrapping="Wrap">
-                    <Run Text="A little launcher for the SPV3 Halo CE mod" /><Run Text=", by yumiris" />
-                    <Run Text="." />
+                    <Run Text="A little launcher for the SPV3 Halo CE mod" /><Run Text=", by yumiris." />
                     <LineBreak /><Run />
                     <LineBreak /><Run FontWeight="Bold" Text="Version 0.1.0" />
                     <LineBreak />

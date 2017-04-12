@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Media;
 using System.Windows;
+using Promise.Library;
 using Application = System.Windows.Application;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 
@@ -32,7 +33,9 @@ namespace Promise.UI.Views
 
         private void LaunchButton_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            Configuration configuration = new Configuration();
+            Halo halo = new Halo();
+            halo.LaunchGame(configuration.ReadConfiguration());
         }
 
         private void ConfigButton_Click(object sender, RoutedEventArgs e)
