@@ -3,11 +3,11 @@
 namespace Promise.UI.Windows
 {
     /// <summary>
-    /// Interaction logic for HelpWindow.xaml
+    /// Interaction logic for AboutView.xaml
     /// </summary>
-    public partial class HelpWindow : Window
+    public partial class AboutView : Window
     {
-        public HelpWindow()
+        public AboutView()
         {
             InitializeComponent();
         }

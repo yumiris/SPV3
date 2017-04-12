@@ -8,11 +8,11 @@ using System.Windows.Input;
 namespace Promise.UI.Windows
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainView.xaml
     /// </summary>
-    public partial class MainWindow
+    public partial class MainView
     {
-        public MainWindow()
+        public MainView()
         {
             InitializeComponent();
         }
@@ -51,8 +51,8 @@ namespace Promise.UI.Windows
 
         private void AboutButton_Click(object sender, RoutedEventArgs e)
         {
-            Windows.AboutWindow aboutWindow = new Windows.AboutWindow();
-            aboutWindow.Show();
+            Windows.AboutView aboutView = new Windows.AboutView();
+            aboutView.Show();
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
