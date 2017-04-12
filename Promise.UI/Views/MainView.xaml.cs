@@ -3,12 +3,13 @@ using System.Diagnostics;
 using System.IO;
 using System.Media;
 using System.Windows;
-using System.Windows.Input;
+using Application = System.Windows.Application;
+using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 
-namespace Promise.UI.Windows
+namespace Promise.UI.Views
 {
     /// <summary>
-    /// Interaction logic for MainView.xaml
+    ///     Interaction logic for MainView.xaml
     /// </summary>
     public partial class MainView
     {
@@ -36,7 +37,8 @@ namespace Promise.UI.Windows
 
         private void ConfigButton_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            ConfigView configView = new ConfigView();
+            configView.Show();
         }
 
         private void CommunityButton_Click(object sender, RoutedEventArgs e)
@@ -51,7 +53,7 @@ namespace Promise.UI.Windows
 
         private void AboutButton_Click(object sender, RoutedEventArgs e)
         {
-            Windows.AboutView aboutView = new Windows.AboutView();
+            AboutView aboutView = new AboutView();
             aboutView.Show();
         }
 

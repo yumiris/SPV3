@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 
-namespace Promise.UI.Windows
+namespace Promise.UI.Views
 {
     /// <summary>
-    /// Interaction logic for AboutView.xaml
+    ///     Interaction logic for AboutView.xaml
     /// </summary>
     public partial class AboutView : Window
     {

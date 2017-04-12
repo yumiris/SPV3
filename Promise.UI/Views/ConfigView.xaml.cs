@@ -3,11 +3,11 @@
 namespace Promise.UI.Views
 {
     /// <summary>
-    ///     Interaction logic for HelpView.xaml
+    /// Interaction logic for ConfigView.xaml
     /// </summary>
-    public partial class HelpView : Window
+    public partial class ConfigView : Window
     {
-        public HelpView()
+        public ConfigView()
         {
             InitializeComponent();
         }
