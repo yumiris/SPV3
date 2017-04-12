@@ -2,6 +2,6 @@
 {
     public class Halo
     {
-        public const string Executable = "haloce.exe";
+        public const string ExeName = "haloce.exe";
     }
 }
