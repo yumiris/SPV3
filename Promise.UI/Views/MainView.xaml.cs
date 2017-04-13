@@ -3,9 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Media;
 using System.Windows;
-using Promise.Library;
-using Application = System.Windows.Application;
-using MouseEventArgs = System.Windows.Input.MouseEventArgs;
+using System.Windows.Input;
 
 namespace Promise.UI.Views
 {
@@ -33,15 +31,14 @@ namespace Promise.UI.Views
 
         private void LaunchButton_Click(object sender, RoutedEventArgs e)
         {
-            Configuration configuration = new Configuration();
-            Halo halo = new Halo();
-            halo.LaunchGame(configuration.ReadConfiguration());
+//            Halo haloInstance = new Halo {Configuration = new HaloConfiguration()};
+//            haloInstance.Launch();
         }
 
         private void ConfigButton_Click(object sender, RoutedEventArgs e)
         {
-            ConfigView configView = new ConfigView();
-            configView.Show();
+            ConfigurationView configurationView = new ConfigurationView();
+            configurationView.Show();
         }
 
         private void CommunityButton_Click(object sender, RoutedEventArgs e)

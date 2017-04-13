@@ -1,5 +1,5 @@
 ﻿<Window
-    x:Class="Promise.UI.Views.ConfigView"
+    x:Class="Promise.UI.Views.ConfigurationView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -14,7 +14,7 @@
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="180" />
-            <RowDefinition Height="140" />
+            <RowDefinition Height="100" />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
 
@@ -27,15 +27,15 @@
                 <Label Content="Game Resolution:" />
                 <DockPanel DockPanel.Dock="Top">
                     <Label Width="50" Content="Width:" />
-                    <TextBox Text="{Binding ResolutionX}" />
+                    <TextBox Text="{Binding Width}" />
                 </DockPanel>
                 <DockPanel DockPanel.Dock="Top">
                     <Label Width="50" Content="Height:" />
-                    <TextBox Text="{Binding ResolutionY}" />
+                    <TextBox Text="{Binding Height}" />
 
                 </DockPanel>
                 <Label Content="Display Adapter:" />
-                <ComboBox SelectedIndex="{Binding ChosenAdapter}">
+                <ComboBox SelectedIndex="{Binding Adapter}">
                     <ComboBoxItem Content="Monitor 01" />
                     <ComboBoxItem Content="Monitor 02" />
                 </ComboBox>
@@ -48,18 +48,18 @@
             Margin="5"
             Header="Additional Toggles">
             <StackPanel Margin="5">
-                <CheckBox Content="Console" IsChecked="{Binding IsConsole}" />
-                <CheckBox Content="Developer" IsChecked="{Binding IsDev}" />
                 <CheckBox Content="Window Mode" IsChecked="{Binding IsWindow}" />
                 <CheckBox Content="Safe Mode" IsChecked="{Binding IsSafeMode}" />
-                <CheckBox Content="FF Mode" IsChecked="{Binding IsLowEnd}" />
-                <CheckBox Content="Screenshot" IsChecked="{Binding CanScreenshot}" />
+                <CheckBox Content="FF Mode" IsChecked="{Binding IsFixedMode}" />
             </StackPanel>
         </GroupBox>
 
         <!--  Save button  -->
         <Grid Grid.Row="2" Margin="5">
-            <Button x:Name="SaveButton" Click="SaveButton_Click" Content="Save" />
+            <Button
+                x:Name="SaveButton"
+                Click="SaveButton_Click"
+                Content="Save" />
         </Grid>
     </Grid>
 </Window>

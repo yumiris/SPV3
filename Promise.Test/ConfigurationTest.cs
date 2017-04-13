@@ -1,26 +1,28 @@
 ﻿using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Promise.Library;
+using Promise.Library.Configuration;
 
 namespace Promise.Test
 {
     [TestClass]
     public class ConfigurationTest
     {
+        private readonly HaloConfiguration _haloConfiguration = new HaloConfiguration();
+
         [TestMethod]
         public void WriteConfiguration_ConfigurationWritten_True()
         {
-            Configuration configuration = new Configuration
-            {
-                IsWindow = true,
-                IsConsole = true,
-                IsDev = true,
-                IsSafeMode = true
-            };
-
-            configuration.WriteConfiguration();
-
+            File.Delete("config.ini");
+            _haloConfiguration.WriteConfiguration("-window");
             Assert.AreEqual(File.Exists("config.ini"), true);
+        }
+
+        [TestMethod]
+        public void ReadConfiguration_ContainsParameter_True()
+        {
+            string configurationData = _haloConfiguration.ReadConfiguration();
+            Assert.AreEqual(configurationData.Contains("-window"), true);
         }
     }
 }

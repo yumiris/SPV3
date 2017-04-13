@@ -61,6 +61,33 @@ namespace Promise.Library.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to -adapter.
+        /// </summary>
+        internal static string Adapter {
+            get {
+                return ResourceManager.GetString("Adapter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -console.
+        /// </summary>
+        internal static string ConsoleMode {
+            get {
+                return ResourceManager.GetString("ConsoleMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -devmode.
+        /// </summary>
+        internal static string DeveloperMode {
+            get {
+                return ResourceManager.GetString("DeveloperMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\froman\fprq2\fcharset0 Times New Roman;}{\f1\fswiss\fprq2\fcharset0 Arial;}{\f2\fnil\fcharset0 CG Times;}{\f3\froman\fprq2\fcharset2 Symbol;}{\f4\fswiss\fcharset0 Arial;}}
         ///{\colortbl ;\red255\green0\blue0;\red0\green0\blue0;\red0\green0\blue255;}
         ///{\*\generator Msftedit 5.41.15.1503;}\viewkind4\uc1\pard\keepn\cf1\f0\fs22 Be sure to carefully read and understand all of the rights and restrictions described in this End User License Agreement (\ldblquote  [rest of string was truncated]&quot;;.
@@ -78,6 +105,42 @@ namespace Promise.Library.Properties {
             get {
                 object obj = ResourceManager.GetObject("EulaLib", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -useff.
+        /// </summary>
+        internal static string LowendMode {
+            get {
+                return ResourceManager.GetString("LowendMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -vidmode.
+        /// </summary>
+        internal static string Resolution {
+            get {
+                return ResourceManager.GetString("Resolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -safemode.
+        /// </summary>
+        internal static string SafeMode {
+            get {
+                return ResourceManager.GetString("SafeMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -window.
+        /// </summary>
+        internal static string WindowMode {
+            get {
+                return ResourceManager.GetString("WindowMode", resourceCulture);
             }
         }
     }

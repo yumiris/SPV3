@@ -1,14 +1,16 @@
 ﻿using System.Diagnostics;
+using Promise.Library.Configuration;
 
 namespace Promise.Library
 {
     public class Halo
     {
         public const string ExeName = "haloce.exe";
+        public HaloConfiguration Configuration { private get; set; }
 
-        public void LaunchGame(string launchParameters)
+        public void Launch()
         {
-            Process.Start(ExeName, launchParameters);
+            Process.Start(ExeName, Configuration.ReadConfiguration());
         }
     }
 }
