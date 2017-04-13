@@ -1,5 +1,4 @@
-﻿using Promise.Library;
-using Promise.Library.Configuration;
+﻿using Promise.Library.Configuration;
 using Promise.UI.Model;
 using PropertyChanged;
 
@@ -10,12 +9,16 @@ namespace Promise.UI.Controller
     {
         public void SaveConfiguration()
         {
-            var vidConfig = new VideoConfiguration(Width, Height, 60, Adapter + 1, IsWindow, IsFixedMode);
-            var parConfig = new ParameterConfiguration(isSafemode: IsSafeMode);
-            var hceConfig = $"{vidConfig.GetConfiguration()} {parConfig.GetConfiguration()}";
+            // Fixes dropdown's zero-based index.
+            var chosenAdapter = Adapter + 1;
 
-            HaloConfiguration haloVideoConfiguration = new HaloConfiguration();
-            haloVideoConfiguration.WriteConfiguration(hceConfig);
+            var videoConfig = new VideoConfiguration(Width, Height, 60, chosenAdapter, IsWindow, IsFixedMode);
+            var paramConfig = new ParameterConfiguration(isSafemode: IsSafeMode);
+
+            var configurationData = $"{videoConfig.GetConfiguration()} {paramConfig.GetConfiguration()}";
+
+            var haloVideoConfiguration = new HaloConfiguration();
+            haloVideoConfiguration.WriteConfiguration(configurationData);
         }
     }
 }

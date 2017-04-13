@@ -5,24 +5,22 @@ using Promise.Library;
 namespace Promise.Test
 {
     [TestClass]
-    public class EulaTest
+    public class EulaInjectionTest
     {
         [TestMethod]
         public void WriteEulaLibrary_LibraryIsDumped_True()
         {
-            Eula eula = new Eula();
-            eula.WriteEulaLibrary();
-
-            Assert.AreEqual(File.Exists(Eula.EulaLibrary), true);
+            var eulaInjection = new EulaInjection();
+            eulaInjection.WriteEulaLibrary();
+            Assert.AreEqual(File.Exists("eula.dll"), true);
         }
 
         [TestMethod]
         public void WriteEulaDocument_DocumentIsDumped_True()
         {
-            Eula eula = new Eula();
-            eula.WriteEulaDocument();
-
-            Assert.AreEqual(File.Exists(Eula.EulaDocument), true);
+            var eulaInjection = new EulaInjection();
+            eulaInjection.WriteEulaDocument();
+            Assert.AreEqual(File.Exists("eula.rtf"), true);
         }
     }
 }

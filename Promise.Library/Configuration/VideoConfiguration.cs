@@ -1,9 +1,12 @@
-﻿using Promise.Library.Properties;
-
-namespace Promise.Library.Configuration
+﻿namespace Promise.Library.Configuration
 {
     public class VideoConfiguration : IConfiguration
     {
+        private const string ParameterResolution = "-vidmode";
+        private const string ParameterAdapter = "-adapter";
+        private const string ParameterWindowMode = "-window";
+        private const string ParameterFixedMode = "-useff";
+
         private readonly int _resolutionX;
         private readonly int _resolutionY;
         private readonly int _refreshRate;
@@ -14,12 +17,12 @@ namespace Promise.Library.Configuration
         private readonly bool _isLowend;
 
         // Video configuration expressions.
-        private string Resolution => $"{Resources.Resolution} {_resolutionX},{_resolutionY},{_refreshRate}";
-        private string Parameters => $"{Resources.Adapter} {_adapter}";
+        private string Resolution => $"{ParameterResolution} {_resolutionX},{_resolutionY},{_refreshRate}";
+        private string Parameters => $"{ParameterAdapter} {_adapter}";
 
         // Toggles expressions.
-        private string WindowMode => (_isWindow) ? Resources.WindowMode : string.Empty;
-        private string LowendMode => (_isLowend) ? Resources.LowendMode : string.Empty;
+        private string WindowMode => (_isWindow) ? ParameterWindowMode : string.Empty;
+        private string LowendMode => (_isLowend) ? ParameterFixedMode : string.Empty;
 
         public VideoConfiguration(int width = 800, int height = 600, int refreshRate = 60, int adapter = 1, bool isWindow = false, bool isLowend = false)
         {
@@ -31,7 +34,7 @@ namespace Promise.Library.Configuration
             _isLowend = isLowend;
         }
 
-        public virtual string GetConfiguration()
+        public string GetConfiguration()
         {
             return $"{Resolution} {Parameters} {WindowMode} {LowendMode}";
         }

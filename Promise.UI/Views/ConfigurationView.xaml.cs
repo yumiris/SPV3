@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using Promise.Library;
 using Promise.UI.Controller;
 
 namespace Promise.UI.Views

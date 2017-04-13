@@ -3,7 +3,7 @@ using Promise.Library.Configuration;
 
 namespace Promise.Library
 {
-    public class Halo
+    public class HaloProcess
     {
         public const string ExeName = "haloce.exe";
         public HaloConfiguration Configuration { private get; set; }

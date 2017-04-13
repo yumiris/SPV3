@@ -20,7 +20,7 @@ namespace Promise.UI.Views
         private void ToggleHoverSoundEffect()
         {
             Stream soundEffect = Properties.Resources.Hover;
-            SoundPlayer soundPlayer = new SoundPlayer(soundEffect);
+            var soundPlayer = new SoundPlayer(soundEffect);
             soundPlayer.Play();
         }
 
@@ -37,7 +37,7 @@ namespace Promise.UI.Views
 
         private void ConfigButton_Click(object sender, RoutedEventArgs e)
         {
-            ConfigurationView configurationView = new ConfigurationView();
+            var configurationView = new ConfigurationView();
             configurationView.Show();
         }
 
@@ -53,7 +53,7 @@ namespace Promise.UI.Views
 
         private void AboutButton_Click(object sender, RoutedEventArgs e)
         {
-            AboutView aboutView = new AboutView();
+            var aboutView = new AboutView();
             aboutView.Show();
         }
 

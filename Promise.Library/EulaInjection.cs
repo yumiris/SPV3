@@ -3,10 +3,10 @@ using Promise.Library.Properties;
 
 namespace Promise.Library
 {
-    public class Eula
+    public class EulaInjection
     {
-        public const string EulaLibrary = "eula.dll";
-        public const string EulaDocument = "eula.rtf";
+        private const string EulaLibrary = "eula.dll";
+        private const string EulaDocument = "eula.rtf";
 
         public void WriteEulaLibrary()
         {

@@ -39,7 +39,7 @@ namespace Promise.Library.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Promise.Library.Properties.Resources", typeof(Resources).Assembly);
+                    var temp = new global::System.Resources.ResourceManager("Promise.Library.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,29 +61,11 @@ namespace Promise.Library.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to -adapter.
+        ///   Looks up a localized string similar to config.ini.
         /// </summary>
-        internal static string Adapter {
+        internal static string ConfigurationFile {
             get {
-                return ResourceManager.GetString("Adapter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to -console.
-        /// </summary>
-        internal static string ConsoleMode {
-            get {
-                return ResourceManager.GetString("ConsoleMode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to -devmode.
-        /// </summary>
-        internal static string DeveloperMode {
-            get {
-                return ResourceManager.GetString("DeveloperMode", resourceCulture);
+                return ResourceManager.GetString("ConfigurationFile", resourceCulture);
             }
         }
         
@@ -103,44 +85,8 @@ namespace Promise.Library.Properties {
         /// </summary>
         internal static byte[] EulaLib {
             get {
-                object obj = ResourceManager.GetObject("EulaLib", resourceCulture);
+                var obj = ResourceManager.GetObject("EulaLib", resourceCulture);
                 return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to -useff.
-        /// </summary>
-        internal static string LowendMode {
-            get {
-                return ResourceManager.GetString("LowendMode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to -vidmode.
-        /// </summary>
-        internal static string Resolution {
-            get {
-                return ResourceManager.GetString("Resolution", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to -safemode.
-        /// </summary>
-        internal static string SafeMode {
-            get {
-                return ResourceManager.GetString("SafeMode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to -window.
-        /// </summary>
-        internal static string WindowMode {
-            get {
-                return ResourceManager.GetString("WindowMode", resourceCulture);
             }
         }
     }

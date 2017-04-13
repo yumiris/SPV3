@@ -42,8 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\HaloConfiguration.cs" />
-    <Compile Include="Eula.cs" />
-    <Compile Include="Halo.cs" />
+    <Compile Include="EulaInjection.cs" />
+    <Compile Include="HaloProcess.cs" />
     <Compile Include="Configuration\IConfiguration.cs" />
     <Compile Include="Configuration\ParameterConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
