@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Promise.Library.Properties;
 
-namespace Promise.Library
+namespace Promise.Library.Utilities
 {
     public class EulaInjection
     {

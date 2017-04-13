@@ -6,14 +6,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="HCE Configuration"
     Width="240"
-    Height="420"
+    Height="360"
     Icon="/Resources/haloce_103.ico"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid Margin="5">
         <Grid.RowDefinitions>
-            <RowDefinition Height="180" />
+            <RowDefinition Height="150" />
             <RowDefinition Height="100" />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
@@ -24,21 +24,28 @@
             Margin="5"
             Header="Video Configuration">
             <StackPanel Margin="5">
-                <Label Content="Game Resolution:" />
-                <DockPanel DockPanel.Dock="Top">
-                    <Label Width="50" Content="Width:" />
-                    <TextBox Text="{Binding Width}" />
-                </DockPanel>
-                <DockPanel DockPanel.Dock="Top">
-                    <Label Width="50" Content="Height:" />
-                    <TextBox Text="{Binding Height}" />
-
+                <Label Content="Game Resolution and Framerate:" />
+                <DockPanel>
+                    <ComboBox
+                        x:Name="RefreshRatesComboBox"
+                        DisplayMemberPath="Description"
+                        DockPanel.Dock="Right"
+                        Loaded="RefreshRatesComboBox_Loaded"
+                        SelectedIndex="0"
+                        SelectionChanged="RefreshRatesComboBox_SelectionChanged" />
+                    <ComboBox
+                        x:Name="ResolutionsComboBox"
+                        DisplayMemberPath="Description"
+                        Loaded="ResolutionsComboBox_Loaded"
+                        SelectedIndex="0"
+                        SelectionChanged="ResolutionsComboBox_SelectionChanged" />
                 </DockPanel>
                 <Label Content="Display Adapter:" />
-                <ComboBox SelectedIndex="{Binding Adapter}">
-                    <ComboBoxItem Content="Monitor 01" />
-                    <ComboBoxItem Content="Monitor 02" />
-                </ComboBox>
+                <ComboBox
+                    x:Name="AdaptersComboBox"
+                    Loaded="AdaptersComboBox_Loaded"
+                    SelectedIndex="0"
+                    SelectionChanged="AdaptersComboBox_SelectionChanged" />
             </StackPanel>
         </GroupBox>
 
@@ -50,7 +57,7 @@
             <StackPanel Margin="5">
                 <CheckBox Content="Window Mode" IsChecked="{Binding IsWindow}" />
                 <CheckBox Content="Safe Mode" IsChecked="{Binding IsSafeMode}" />
-                <CheckBox Content="FF Mode" IsChecked="{Binding IsFixedMode}" />
+                <CheckBox Content="FF (low GFX) Mode" IsChecked="{Binding IsFixedMode}" />
             </StackPanel>
         </GroupBox>
 

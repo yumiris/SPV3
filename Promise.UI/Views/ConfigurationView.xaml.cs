@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
+using Promise.Library.Video;
 using Promise.UI.Controller;
 
 namespace Promise.UI.Views
@@ -20,6 +22,36 @@ namespace Promise.UI.Views
         {
             _configurationController.SaveConfiguration();
             Close();
+        }
+
+        private void ResolutionsComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            ResolutionsComboBox.ItemsSource = new VideoResolution().GameScreenResolutions;
+        }
+
+        private void RefreshRatesComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            RefreshRatesComboBox.ItemsSource = new VideoRefreshRate().GameRefreshRates;
+        }
+
+        private void AdaptersComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            AdaptersComboBox.ItemsSource = new VideoAdapter().AdapterNamesList;
+        }
+
+        private void AdaptersComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _configurationController.SelectedAdapterIndex = AdaptersComboBox.SelectedIndex;
+        }
+
+        private void ResolutionsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _configurationController.SelectedVideoResolution = ResolutionsComboBox.SelectedItem as VideoResolution;
+        }
+
+        private void RefreshRatesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _configurationController.SelectedVideoRefreshRate = RefreshRatesComboBox.SelectedItem as VideoRefreshRate;
         }
     }
 }

@@ -10,16 +10,16 @@
         private readonly bool _isDeveloper;
         private readonly bool _isSafemode;
 
-        private string ConsoleMode => (_isConsole) ? ParameterConsoleMode : string.Empty;
-        private string DeveloperMode => (_isDeveloper) ? ParameterDeveloperMode : string.Empty;
-        private string SafeMode => (_isSafemode) ? ParameterSafeMode : string.Empty;
-
         public ParameterConfiguration(bool isConsole = false, bool isDeveloper = false, bool isSafemode = false)
         {
             _isConsole = isConsole;
             _isDeveloper = isDeveloper;
             _isSafemode = isSafemode;
         }
+
+        private string ConsoleMode => _isConsole ? ParameterConsoleMode : string.Empty;
+        private string DeveloperMode => _isDeveloper ? ParameterDeveloperMode : string.Empty;
+        private string SafeMode => _isSafemode ? ParameterSafeMode : string.Empty;
 
         public string GetConfiguration()
         {

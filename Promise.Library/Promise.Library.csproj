@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,9 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\HaloConfiguration.cs" />
-    <Compile Include="EulaInjection.cs" />
-    <Compile Include="HaloProcess.cs" />
+    <Compile Include="Video\VideoAdapter.cs" />
+    <Compile Include="Video\VideoRefreshRate.cs" />
+    <Compile Include="Video\VideoResolution.cs" />
+    <Compile Include="Utilities\EulaInjection.cs" />
+    <Compile Include="Halo.cs" />
     <Compile Include="Configuration\IConfiguration.cs" />
     <Compile Include="Configuration\ParameterConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -52,7 +55,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Configuration\VideoConfiguration.cs" />
+    <Compile Include="Configuration\DisplayConfiguration.cs" />
+    <Compile Include="Utilities\ConfigOperation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Eula.dll" />
@@ -64,6 +68,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Promise.Library;
+using Promise.Library.Utilities;
 
 namespace Promise.Test
 {

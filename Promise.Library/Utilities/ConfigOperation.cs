@@ -1,14 +1,14 @@
 ﻿using System.IO;
 
-namespace Promise.Library.Configuration
+namespace Promise.Library.Utilities
 {
-    public class HaloConfiguration
+    public class ConfigOperation
     {
-        public const string ConfigurationFile = "config.ini";
+        public const string FileName = "config.ini";
 
         public void WriteConfiguration(string configurationData)
         {
-            using (var configFile = new StreamWriter(ConfigurationFile))
+            using (var configFile = new StreamWriter(FileName))
             {
                 configFile.Write(configurationData);
             }
@@ -16,7 +16,7 @@ namespace Promise.Library.Configuration
 
         public string ReadConfiguration()
         {
-            using (var configFile = new StreamReader(ConfigurationFile))
+            using (var configFile = new StreamReader(FileName))
             {
                 return configFile.ReadToEnd();
             }
