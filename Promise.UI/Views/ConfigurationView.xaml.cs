@@ -26,7 +26,7 @@ namespace Promise.UI.Views
 
         private void ResolutionsComboBox_Loaded(object sender, RoutedEventArgs e)
         {
-            ResolutionsComboBox.ItemsSource = new VideoResolution().GameScreenResolutions;
+            ResolutionsComboBox.ItemsSource = new VideoResolution().GameVideoResolutions;
         }
 
         private void RefreshRatesComboBox_Loaded(object sender, RoutedEventArgs e)

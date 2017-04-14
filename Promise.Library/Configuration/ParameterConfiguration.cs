@@ -1,6 +1,6 @@
 ﻿namespace Promise.Library.Configuration
 {
-    public class ParameterConfiguration : IConfiguration
+    public class ParameterConfiguration : Configuration
     {
         private const string ParameterConsoleMode = "-console";
         private const string ParameterDeveloperMode = "-devmode";
@@ -17,11 +17,11 @@
             _isSafemode = isSafemode;
         }
 
-        private string ConsoleMode => _isConsole ? ParameterConsoleMode : string.Empty;
-        private string DeveloperMode => _isDeveloper ? ParameterDeveloperMode : string.Empty;
-        private string SafeMode => _isSafemode ? ParameterSafeMode : string.Empty;
+        private string ConsoleMode => GetParameterString(ParameterConsoleMode, _isConsole);
+        private string DeveloperMode => GetParameterString(ParameterDeveloperMode, _isDeveloper);
+        private string SafeMode => GetParameterString(ParameterSafeMode, _isSafemode);
 
-        public string GetConfiguration()
+        public override string GetConfiguration()
         {
             return $"{ConsoleMode} {DeveloperMode} {SafeMode}";
         }

@@ -19,9 +19,7 @@ namespace Promise.UI.Views
 
         private void ToggleHoverSoundEffect()
         {
-            Stream soundEffect = Properties.Resources.Hover;
-            var soundPlayer = new SoundPlayer(soundEffect);
-            soundPlayer.Play();
+            new SoundPlayer(Properties.Resources.Hover).Play();
         }
 
         private void ContentPresenter_MouseEnter(object sender, MouseEventArgs e)
@@ -37,8 +35,7 @@ namespace Promise.UI.Views
 
         private void ConfigButton_Click(object sender, RoutedEventArgs e)
         {
-            var configurationView = new ConfigurationView();
-            configurationView.Show();
+            new ConfigurationView().Show();
         }
 
         private void CommunityButton_Click(object sender, RoutedEventArgs e)
@@ -53,8 +50,7 @@ namespace Promise.UI.Views
 
         private void AboutButton_Click(object sender, RoutedEventArgs e)
         {
-            var aboutView = new AboutView();
-            aboutView.Show();
+            new AboutView().Show();
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)

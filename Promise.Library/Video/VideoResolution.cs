@@ -9,7 +9,7 @@ namespace Promise.Library.Video
 
         public string Description => $"{Width} x {Height}";
 
-        public List<VideoResolution> GameScreenResolutions => new List<VideoResolution>
+        public List<VideoResolution> GameVideoResolutions => new List<VideoResolution>
         {
             new VideoResolution {Width = 1920, Height = 1080},
             new VideoResolution {Width = 1680, Height = 1050},

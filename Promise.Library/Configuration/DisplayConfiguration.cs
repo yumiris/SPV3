@@ -1,6 +1,6 @@
 ﻿namespace Promise.Library.Configuration
 {
-    public class DisplayConfiguration : IConfiguration
+    public class DisplayConfiguration : Configuration
     {
         private const string ParameterResolution = "-vidmode";
         private const string ParameterAdapter = "-adapter";
@@ -26,17 +26,12 @@
             _isLowend = isLowend;
         }
 
-        // Video configuration expressions.
         private string Resolution => $"{ParameterResolution} {_resolutionX},{_resolutionY},{_refreshRate}";
-
         private string Parameters => $"{ParameterAdapter} {_adapter}";
+        private string WindowMode => GetParameterString(ParameterWindowMode, _isWindow);
+        private string LowendMode => GetParameterString(ParameterFixedMode, _isLowend);
 
-        // Toggles expressions.
-        private string WindowMode => _isWindow ? ParameterWindowMode : string.Empty;
-
-        private string LowendMode => _isLowend ? ParameterFixedMode : string.Empty;
-
-        public string GetConfiguration()
+        public override string GetConfiguration()
         {
             return $"{Resolution} {Parameters} {WindowMode} {LowendMode}";
         }
