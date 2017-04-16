@@ -3,7 +3,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:Promise.UI.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="OpenSauce Configuration"
     Width="260"
@@ -23,30 +22,31 @@
                             Maximum="100"
                             Minimum="70"
                             TickFrequency="5"
-                            TickPlacement="Both" />
+                            TickPlacement="Both"
+                            Value="{Binding FieldOfView}" />
                     </DockPanel>
-                    <CheckBox Content="Ignore FOV change in Cinematics" />
-                    <CheckBox Content="Ignore FOV change in Main Menu" />
+                    <CheckBox Content="Ignore FOV change in Cinematics" IsChecked="{Binding IsCinematicsFovIgnored}" />
+                    <CheckBox Content="Ignore FOV change in Main Menu" IsChecked="{Binding IsMenuFovIgnored}" />
                 </StackPanel>
             </GroupBox>
             <GroupBox Margin="5" Header="Shader Extensions">
                 <StackPanel Margin="5" Orientation="Vertical">
-                    <CheckBox Content="Enabled" />
-                    <CheckBox Content="Normal Maps" />
-                    <CheckBox Content="Specular Maps" />
-                    <CheckBox Content="Specular Lighting" />
-                    <CheckBox Content="Diffuse Directional Lightmaps" />
-                    <CheckBox Content="Specular Directional Lightmaps" />
-                    <CheckBox Content="Depth Fade" />
+                    <CheckBox Content="Enabled" IsChecked="{Binding IsShader}" />
+                    <CheckBox Content="Normal Maps" IsChecked="{Binding IsNormalMaps}" />
+                    <CheckBox Content="Specular Maps" IsChecked="{Binding IsSpecularMaps}" />
+                    <CheckBox Content="Specular Lighting" IsChecked="{Binding IsSpecularLighting}" />
+                    <CheckBox Content="Diffuse Directional Lightmaps" IsChecked="{Binding IsDiffuseDirectionalLightMaps}" />
+                    <CheckBox Content="Specular Directional Lightmaps" IsChecked="{Binding IsDiffuseSpecularLightMaps}" />
+                    <CheckBox Content="Depth Fade" IsChecked="{Binding IsDepthFade}" />
                 </StackPanel>
             </GroupBox>
             <GroupBox Margin="5" Header="Post Processing">
                 <StackPanel Margin="5" Orientation="Vertical">
-                    <CheckBox Content="Motion Blur" />
-                    <CheckBox Content="Bloom" />
-                    <CheckBox Content="Anti Aliasing" />
-                    <CheckBox Content="External Effects" />
-                    <CheckBox Content="Map Effects" />
+                    <CheckBox Content="Motion Blur" IsChecked="{Binding IsMotionBlur}" />
+                    <CheckBox Content="Bloom" IsChecked="{Binding IsBloom}" />
+                    <CheckBox Content="Anti Aliasing" IsChecked="{Binding IsAntiAliasing}" />
+                    <CheckBox Content="External Effects" IsChecked="{Binding IsExternalEffects}" />
+                    <CheckBox Content="Map Effects" IsChecked="{Binding IsMapEffects}" />
                 </StackPanel>
             </GroupBox>
             <!--  Save button  -->
@@ -54,6 +54,7 @@
                 x:Name="SaveButton"
                 Height="30"
                 Margin="5"
+                Click="SaveButton_Click"
                 Content="Save" />
         </StackPanel>
     </Grid>
