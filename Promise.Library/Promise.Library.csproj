@@ -43,6 +43,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\Configuration.cs" />
+    <Compile Include="OpenSauce\HUD\Hud.cs" />
+    <Compile Include="OpenSauce\HUD\HudScale.cs" />
+    <Compile Include="OpenSauce\Networking\CacheFiles.cs" />
+    <Compile Include="OpenSauce\Networking\Date.cs" />
+    <Compile Include="OpenSauce\Networking\GameSpy.cs" />
+    <Compile Include="OpenSauce\Networking\MapDownload.cs" />
+    <Compile Include="OpenSauce\Networking\Networking.cs" />
+    <Compile Include="OpenSauce\Networking\ServerList.cs" />
+    <Compile Include="OpenSauce\Networking\VersionCheck.cs" />
+    <Compile Include="OpenSauce\Objects.cs" />
+    <Compile Include="OpenSauce\OpenSauce.cs" />
+    <Compile Include="OpenSauce\OpenSauceConfiguration.cs" />
+    <Compile Include="OpenSauce\Camera.cs" />
+    <Compile Include="OpenSauce\Rasterizer\GBuffer.cs" />
+    <Compile Include="OpenSauce\Rasterizer\PostProcessing\AntiAliasing.cs" />
+    <Compile Include="OpenSauce\Rasterizer\PostProcessing\Bloom.cs" />
+    <Compile Include="OpenSauce\Rasterizer\PostProcessing\ExternalEffects.cs" />
+    <Compile Include="OpenSauce\Rasterizer\PostProcessing\MapEffects.cs" />
+    <Compile Include="OpenSauce\Rasterizer\PostProcessing\MotionBlur.cs" />
+    <Compile Include="OpenSauce\Rasterizer\PostProcessing\PostProcessing.cs" />
+    <Compile Include="OpenSauce\Rasterizer\Rasterizer.cs" />
+    <Compile Include="OpenSauce\Rasterizer\ShaderExtensions\Effect.cs" />
+    <Compile Include="OpenSauce\Rasterizer\ShaderExtensions\Environment.cs" />
+    <Compile Include="OpenSauce\Rasterizer\ShaderExtensions\ShaderExtensions.cs" />
+    <Compile Include="OpenSauce\Rasterizer\Upgrades.cs" />
     <Compile Include="Video\VideoAdapter.cs" />
     <Compile Include="Video\VideoRefreshRate.cs" />
     <Compile Include="Video\VideoResolution.cs" />
