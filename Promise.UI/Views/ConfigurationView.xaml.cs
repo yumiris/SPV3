@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using Promise.Library.OpenSauce;
 using Promise.Library.Video;
 using Promise.UI.Controller;
 
@@ -20,6 +21,9 @@ namespace Promise.UI.Views
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            OpenSauceConfiguration openSauce = new OpenSauceConfiguration();
+            openSauce.ChangeData();
+
             _configurationController.SaveConfiguration();
             Close();
         }
@@ -52,6 +56,11 @@ namespace Promise.UI.Views
         private void RefreshRatesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _configurationController.SelectedVideoRefreshRate = RefreshRatesComboBox.SelectedItem as VideoRefreshRate;
+        }
+
+        private void OSConfigButton_Click(object sender, RoutedEventArgs e)
+        {
+            new OsConfigurationView().Show();
         }
     }
 }

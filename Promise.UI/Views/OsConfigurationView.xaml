@@ -1,0 +1,60 @@
+﻿<Window
+    x:Class="Promise.UI.Views.OsConfigurationView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Promise.UI.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="OpenSauce Configuration"
+    Width="260"
+    Height="460"
+    Icon="/Resources/haloce_103.ico"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Grid Margin="5">
+        <StackPanel Orientation="Vertical">
+            <GroupBox Margin="5" Header="Camera">
+                <StackPanel Margin="5" Orientation="Vertical">
+                    <DockPanel>
+                        <Label Content="Field of View:" />
+                        <Slider
+                            IsSnapToTickEnabled="True"
+                            Maximum="100"
+                            Minimum="70"
+                            TickFrequency="5"
+                            TickPlacement="Both" />
+                    </DockPanel>
+                    <CheckBox Content="Ignore FOV change in Cinematics" />
+                    <CheckBox Content="Ignore FOV change in Main Menu" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Margin="5" Header="Shader Extensions">
+                <StackPanel Margin="5" Orientation="Vertical">
+                    <CheckBox Content="Enabled" />
+                    <CheckBox Content="Normal Maps" />
+                    <CheckBox Content="Specular Maps" />
+                    <CheckBox Content="Specular Lighting" />
+                    <CheckBox Content="Diffuse Directional Lightmaps" />
+                    <CheckBox Content="Specular Directional Lightmaps" />
+                    <CheckBox Content="Depth Fade" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Margin="5" Header="Post Processing">
+                <StackPanel Margin="5" Orientation="Vertical">
+                    <CheckBox Content="Motion Blur" />
+                    <CheckBox Content="Bloom" />
+                    <CheckBox Content="Anti Aliasing" />
+                    <CheckBox Content="External Effects" />
+                    <CheckBox Content="Map Effects" />
+                </StackPanel>
+            </GroupBox>
+            <!--  Save button  -->
+            <Button
+                x:Name="SaveButton"
+                Height="30"
+                Margin="5"
+                Content="Save" />
+        </StackPanel>
+    </Grid>
+</Window>
