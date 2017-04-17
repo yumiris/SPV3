@@ -44,7 +44,7 @@ namespace Promise.UI.Views
 
         private void ConfigButton_Click(object sender, RoutedEventArgs e)
         {
-            new ConfigurationView().Show();
+            new Configuration.ConfigurationView().Show();
         }
 
         private void CommunityButton_Click(object sender, RoutedEventArgs e)

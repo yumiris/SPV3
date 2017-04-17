@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using Promise.Library.Video;
 using Promise.UI.Controller;
 
-namespace Promise.UI.Views
+namespace Promise.UI.Views.Configuration
 {
     /// <summary>
     ///     Interaction logic for ConfigView.xaml
@@ -56,7 +56,7 @@ namespace Promise.UI.Views
 
         private void OSConfigButton_Click(object sender, RoutedEventArgs e)
         {
-            new OsConfigurationView().Show();
+            new Configuration.OpenSauceView().Show();
         }
     }
 }
