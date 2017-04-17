@@ -1,4 +1,5 @@
 ![Main UI Screenshot](http://i64.tinypic.com/kcnxgg.png)
+
 A stunning and functional loader for the acclaimed [Halo CE: SV3](https://reddit.com/r/halospv3) campaign mod!
 
 ![Main UI Screenshot](http://i63.tinypic.com/rr13zb.png)
