@@ -17,10 +17,17 @@
                 <StackPanel Margin="5" Orientation="Vertical">
                     <DockPanel>
                         <Label Content="Field of View:" />
+                        <TextBox
+                            Width="30"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            DockPanel.Dock="Right"
+                            Text="{Binding ElementName=FovSlider, Path=Value}" />
                         <Slider
+                            Name="FovSlider"
                             IsSnapToTickEnabled="True"
-                            Maximum="100"
-                            Minimum="70"
+                            Maximum="160"
+                            Minimum="40"
                             TickFrequency="5"
                             TickPlacement="Both"
                             Value="{Binding FieldOfView}" />
