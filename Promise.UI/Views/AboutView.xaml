@@ -30,8 +30,7 @@
                     <StackPanel.OpacityMask>
                         <VisualBrush Visual="{Binding ElementName=RoundedCornerMask}" />
                     </StackPanel.OpacityMask>
-                    <Image Source="https://secure.gravatar.com/avatar/71af2ba8dad3fdc308440b1f5e96fedb?s=180"
-                           Stretch="Fill" />
+                    <Image Source="https://secure.gravatar.com/avatar/71af2ba8dad3fdc308440b1f5e96fedb?s=180" Stretch="Fill" />
                 </StackPanel>
             </Grid>
 
@@ -50,16 +49,13 @@
                     <Run Text="Roman Emilian/yumiris" />
                     <LineBreak /><Run />
                     <LineBreak />
-                    <Run
-                        Text="Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:" />
+                    <Run Text="Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:" />
                     <LineBreak /><Run />
                     <LineBreak />
-                    <Run
-                        Text="The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software." />
+                    <Run Text="The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software." />
                     <LineBreak /><Run />
                     <LineBreak />
-                    <Run
-                        Text="THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE." />
+                    <Run Text="THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE." />
                 </TextBlock>
             </ScrollViewer>
         </StackPanel>
@@ -124,6 +120,7 @@
                     <LineBreak /><Run />
                     <LineBreak /><Run FontWeight="Bold" Text="UI and HUD Design" />
                     <LineBreak /><Run Text=" - H3Freak09" />
+                    <LineBreak /><Run Text=" - sbdJazz" />
                     <LineBreak /><Run Text=" - Mooseguy" />
                     <LineBreak /><Run Text=" - Jesse" />
                     <LineBreak /><Run />
@@ -205,8 +202,7 @@
                     <LineBreak /><Run Text="Choking Victim" />
                     <LineBreak /><Run />
                     <LineBreak />
-                    <Run
-                        Text="We also would like to credit the people at Bungie Studios (past and present) for Halo 1, 2, 3, ODST and Reach; Gearbox Software for Halo Custom Edition; and 343 Industries for their continued stewardship of the franchise. Our mod would not exist without them!" />
+                    <Run Text="We also would like to credit the people at Bungie Studios (past and present) for Halo 1, 2, 3, ODST and Reach; Gearbox Software for Halo Custom Edition; and 343 Industries for their continued stewardship of the franchise. Our mod would not exist without them!" />
                 </TextBlock>
             </ScrollViewer>
         </StackPanel>
