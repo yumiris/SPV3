@@ -53,5 +53,10 @@ namespace Promise.UI.Views
         {
             _configurationController.SelectedVideoRefreshRate = RefreshRatesComboBox.SelectedItem as VideoRefreshRate;
         }
+
+        private void OSConfigButton_Click(object sender, RoutedEventArgs e)
+        {
+            new OsConfigurationView().Show();
+        }
     }
 }
