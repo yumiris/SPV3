@@ -1,7 +1,6 @@
 ﻿using Promise.Library.Configuration;
 using Promise.Library.Utilities;
 using Promise.Library.Video;
-using Promise.UI.Model;
 using PropertyChanged;
 using Configuration = Promise.UI.Model.Configuration;
 

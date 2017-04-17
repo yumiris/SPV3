@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using Promise.Library.OpenSauce;
 using Promise.Library.Video;
 using Promise.UI.Controller;
 
@@ -21,9 +20,6 @@ namespace Promise.UI.Views
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            OpenSauceConfiguration openSauce = new OpenSauceConfiguration();
-            openSauce.ChangeData();
-
             _configurationController.SaveConfiguration();
             Close();
         }

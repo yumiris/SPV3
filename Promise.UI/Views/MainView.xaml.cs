@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Media;
 using System.Windows;
 using System.Windows.Input;
+using Promise.Library.Utilities;
 
 namespace Promise.UI.Views
 {
@@ -28,8 +29,17 @@ namespace Promise.UI.Views
 
         private void LaunchButton_Click(object sender, RoutedEventArgs e)
         {
-//            Halo haloInstance = new Halo {Configuration = new HaloConfiguration()};
-//            haloInstance.Launch();
+            EulaInjection eulaInjection = new EulaInjection();
+            eulaInjection.WriteEulaDocument();
+            eulaInjection.WriteEulaLibrary();
+
+//            Process p = new System.Diagnostics.Process();
+//            p.StartInfo.FileName = "data.bin";
+//            p.StartInfo.UseShellExecute = false;
+//            p.Start();
+
+            //            Halo haloInstance = new Halo {Configuration = new HaloConfiguration()};
+            //            haloInstance.Launch();
         }
 
         private void ConfigButton_Click(object sender, RoutedEventArgs e)

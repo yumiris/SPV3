@@ -22,29 +22,23 @@ namespace Promise.UI.Controller
                 },
                 Rasterizer = new Rasterizer
                 {
-                    GBuffer = new GBuffer { IsEnabled = true },
-                    Upgrades = new Upgrades { IsMaximumRenderedTrianglesEnabled = true },
                     ShaderExtensions = new ShaderExtensions
                     {
-                        IsEnabled = IsShader,
+                        IsEnabled = UseShader,
                         Environment = new Environment
                         {
                             DiffuseDirectionalLightmaps = IsDiffuseDirectionalLightMaps,
                             SpecularDirectionalLightmaps = IsDiffuseSpecularLightMaps
                         },
-                        Effect = new Effect { IsDepthFadeEnabled = IsDepthFade }
+                        Effect = new Effect { IsDepthFadeEnabled = UseDepthFade }
                     },
                     PostProcessing = new PostProcessing
                     {
-                        MotionBlur = new MotionBlur
-                        {
-                            IsEnabled = IsMotionBlur,
-                            BlurAmount = 0.005
-                        },
-                        Bloom = new Bloom { IsEnabled = IsBloom },
-                        AntiAliasing = new AntiAliasing { IsEnabled = IsAntiAliasing },
-                        ExternalEffects = new ExternalEffects() { IsEnabled = IsExternalEffects },
-                        MapEffects = new MapEffects { IsEnabled = IsMapEffects }
+                        MotionBlur = new MotionBlur { IsEnabled = UseMotionBlur },
+                        Bloom = new Bloom { IsEnabled = UseBloom },
+                        AntiAliasing = new AntiAliasing { IsEnabled = UseAntiAliasing },
+                        ExternalEffects = new ExternalEffects { IsEnabled = UseExternalEffects },
+                        MapEffects = new MapEffects { IsEnabled = UseMapEffects }
                     }
                 }
             };

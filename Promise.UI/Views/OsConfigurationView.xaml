@@ -31,22 +31,22 @@
             </GroupBox>
             <GroupBox Margin="5" Header="Shader Extensions">
                 <StackPanel Margin="5" Orientation="Vertical">
-                    <CheckBox Content="Enabled" IsChecked="{Binding IsShader}" />
-                    <CheckBox Content="Normal Maps" IsChecked="{Binding IsNormalMaps}" />
-                    <CheckBox Content="Specular Maps" IsChecked="{Binding IsSpecularMaps}" />
-                    <CheckBox Content="Specular Lighting" IsChecked="{Binding IsSpecularLighting}" />
+                    <CheckBox Content="Enabled" IsChecked="{Binding UseShader}" />
+                    <CheckBox Content="Normal Maps" IsChecked="{Binding UseNormalMaps}" />
+                    <CheckBox Content="Specular Maps" IsChecked="{Binding UseSpecularMaps}" />
+                    <CheckBox Content="Specular Lighting" IsChecked="{Binding UseSpecularLighting}" />
                     <CheckBox Content="Diffuse Directional Lightmaps" IsChecked="{Binding IsDiffuseDirectionalLightMaps}" />
                     <CheckBox Content="Specular Directional Lightmaps" IsChecked="{Binding IsDiffuseSpecularLightMaps}" />
-                    <CheckBox Content="Depth Fade" IsChecked="{Binding IsDepthFade}" />
+                    <CheckBox Content="Depth Fade" IsChecked="{Binding UseDepthFade}" />
                 </StackPanel>
             </GroupBox>
             <GroupBox Margin="5" Header="Post Processing">
                 <StackPanel Margin="5" Orientation="Vertical">
-                    <CheckBox Content="Motion Blur" IsChecked="{Binding IsMotionBlur}" />
-                    <CheckBox Content="Bloom" IsChecked="{Binding IsBloom}" />
-                    <CheckBox Content="Anti Aliasing" IsChecked="{Binding IsAntiAliasing}" />
-                    <CheckBox Content="External Effects" IsChecked="{Binding IsExternalEffects}" />
-                    <CheckBox Content="Map Effects" IsChecked="{Binding IsMapEffects}" />
+                    <CheckBox Content="Motion Blur" IsChecked="{Binding UseMotionBlur}" />
+                    <CheckBox Content="Bloom" IsChecked="{Binding UseBloom}" />
+                    <CheckBox Content="Anti Aliasing" IsChecked="{Binding UseAntiAliasing}" />
+                    <CheckBox Content="External Effects" IsChecked="{Binding UseExternalEffects}" />
+                    <CheckBox Content="Map Effects" IsChecked="{Binding UseMapEffects}" />
                 </StackPanel>
             </GroupBox>
             <!--  Save button  -->
