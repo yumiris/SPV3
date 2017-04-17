@@ -10,12 +10,18 @@ namespace Promise.Library.Utilities
 
         public void WriteEulaLibrary()
         {
-            File.WriteAllBytes(EulaLibrary, Resources.EulaLib);
+            if (!File.Exists(EulaLibrary))
+            {
+                File.WriteAllBytes(EulaLibrary, Resources.EulaLib);
+            }
         }
 
         public void WriteEulaDocument()
         {
-            File.WriteAllText(EulaDocument, Resources.EulaDoc);
+            if (!File.Exists(EulaDocument))
+            {
+                File.WriteAllText(EulaDocument, Resources.EulaDoc);
+            }
         }
     }
 }

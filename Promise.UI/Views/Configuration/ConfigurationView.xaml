@@ -49,7 +49,10 @@
                     <CheckBox Content="FF (low GFX) Mode" IsChecked="{Binding IsFixedMode}" />
                     <Separator Margin="0,10,0,10" />
                     <DockPanel VerticalAlignment="Center">
-                        <Button x:Name="OSConfigButton" Content="OpenSauce Configuration" Click="OSConfigButton_Click" />
+                        <Button
+                            x:Name="OsConfigButton"
+                            Click="OSConfigButton_Click"
+                            Content="OpenSauce Configuration" />
                     </DockPanel>
                 </StackPanel>
             </GroupBox>

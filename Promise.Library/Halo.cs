@@ -5,7 +5,7 @@ namespace Promise.Library
 {
     public class Halo
     {
-        public const string ExeName = "haloce.exe";
+        private const string ExeName = "haloce.exe";
 
         public void Launch(ConfigOperation configOperation)
         {
