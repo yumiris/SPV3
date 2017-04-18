@@ -20,7 +20,15 @@ namespace Promise.UI.Views.Configuration
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            _configurationController.SaveConfiguration();
+            try
+            {
+                _configurationController.SaveConfiguration();
+            }
+            catch
+            {
+                MessageBox.Show("Hmm, looks like we can't save. Try running as an Administrator, please!");
+            }
+
             Close();
         }
 
