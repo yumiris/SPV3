@@ -16,9 +16,16 @@ namespace Promise.Library.Utilities
 
         public string ReadConfiguration()
         {
-            using (var configFile = new StreamReader(FileName))
+            try
             {
-                return configFile.ReadToEnd();
+                using (var configFile = new StreamReader(FileName))
+                {
+                    return configFile.ReadToEnd();
+                }
+            }
+            catch
+            {
+                return "-vidmode 640,480,30";
             }
         }
     }

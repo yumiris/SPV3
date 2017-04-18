@@ -41,8 +41,15 @@ namespace Promise.UI.Views
                 MessageBox.Show("EULA does not exist! Please run this loader as admin nex time!");
             }
 
-            Halo haloInstance = new Halo();
-            haloInstance.Launch(new ConfigOperation());
+            try
+            {
+                Halo haloInstance = new Halo();
+                haloInstance.Launch(new ConfigOperation());
+            }
+            catch
+            {
+                MessageBox.Show("Hmm, no Halo executable to be found in this directory.");
+            }
         }
 
         private void ConfigButton_Click(object sender, RoutedEventArgs e)
