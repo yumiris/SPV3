@@ -8,7 +8,6 @@
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None">
-
     <Window.Resources>
         <ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
             <ContentPresenter
@@ -34,6 +33,9 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
+        </Grid>
+        <Grid Grid.Row="0">
+            <Image Margin="30,30,1050,240" Source="../Resources/Graphics/spv3_logo.png" />
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -90,8 +92,7 @@
                                 <Setter Property="Source" Value="/Resources/Graphics/Buttons/community.png" />
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Source"
-                                                Value="/Resources/Graphics/Buttons/community_hover.png" />
+                                        <Setter Property="Source" Value="/Resources/Graphics/Buttons/community_hover.png" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -160,7 +161,7 @@
                 <Label
                     HorizontalContentAlignment="Right"
                     VerticalContentAlignment="Bottom"
-                    Content="Version 0.1.0"
+                    Content="Version 0.1.1"
                     Foreground="DimGray" />
             </DockPanel>
         </Grid>
