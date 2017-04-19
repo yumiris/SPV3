@@ -6,11 +6,11 @@ namespace Promise.UI.Views.Configuration
     /// <summary>
     ///     Interaction logic for OSConfigurationView.xaml
     /// </summary>
-    public partial class OpenSauceView : Window
+    public partial class OsConfigurationView : Window
     {
         private readonly OsConfigurationController _osConfigurationController = new OsConfigurationController();
 
-        public OpenSauceView()
+        public OsConfigurationView()
         {
             InitializeComponent();
             DataContext = _osConfigurationController;

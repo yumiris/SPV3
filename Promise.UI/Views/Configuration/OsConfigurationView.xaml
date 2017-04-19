@@ -1,5 +1,5 @@
 ﻿<Window
-    x:Class="Promise.UI.Views.Configuration.OpenSauceView"
+    x:Class="Promise.UI.Views.Configuration.OsConfigurationView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -43,10 +43,8 @@
                     <CheckBox Content="Detail Maps" IsChecked="{Binding UseDetailMaps}" />
                     <CheckBox Content="Specular Maps" IsChecked="{Binding UseSpecularMaps}" />
                     <CheckBox Content="Specular Lighting" IsChecked="{Binding UseSpecularLighting}" />
-                    <CheckBox Content="Diffuse Directional Lightmaps"
-                              IsChecked="{Binding IsDiffuseDirectionalLightMaps}" />
-                    <CheckBox Content="Specular Directional Lightmaps"
-                              IsChecked="{Binding IsSpecularDirectionalLightMaps}" />
+                    <CheckBox Content="Diffuse Directional Lightmaps" IsChecked="{Binding IsDiffuseDirectionalLightMaps}" />
+                    <CheckBox Content="Specular Directional Lightmaps" IsChecked="{Binding IsSpecularDirectionalLightMaps}" />
                     <CheckBox Content="Depth Fade" IsChecked="{Binding UseDepthFade}" />
                 </StackPanel>
             </GroupBox>

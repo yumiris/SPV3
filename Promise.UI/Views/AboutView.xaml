@@ -43,7 +43,7 @@
                 <TextBlock TextWrapping="Wrap">
                     <Run Text="A little launcher for the SPV3 Halo CE mod" /><Run Text=", by yumiris." />
                     <LineBreak /><Run />
-                    <LineBreak /><Run FontWeight="Bold" Text="Version 0.1.1" />
+                    <LineBreak /><Run FontWeight="Bold" Text="Version 0.1.2" />
                     <LineBreak />
                     <LineBreak /><Run Text="Copyright " /><Run Text="2017" /><Run Text="" />
                     <Run Text="Roman Emilian/yumiris" />

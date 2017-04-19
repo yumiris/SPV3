@@ -66,7 +66,7 @@ namespace Promise.UI.Views.Configuration
 
         private void OSConfigButton_Click(object sender, RoutedEventArgs e)
         {
-            new OpenSauceView().Show();
+            new OsConfigurationView().Show();
         }
     }
 }

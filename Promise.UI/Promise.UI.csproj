@@ -66,8 +66,8 @@
     <Compile Include="Controller\IConfigurationController.cs" />
     <Compile Include="Controller\OsConfigurationController.cs" />
     <Compile Include="Model\OsConfiguration.cs" />
-    <Compile Include="Views\Configuration\OpenSauceView.xaml.cs">
-      <DependentUpon>OpenSauceView.xaml</DependentUpon>
+    <Compile Include="Views\Configuration\OsConfigurationView.xaml.cs">
+      <DependentUpon>OsConfigurationView.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\AboutView.xaml">
       <SubType>Designer</SubType>
@@ -104,7 +104,7 @@
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\Configuration\OpenSauceView.xaml">
+    <Page Include="Views\Configuration\OsConfigurationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
