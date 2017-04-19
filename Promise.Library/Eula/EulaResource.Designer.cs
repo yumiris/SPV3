@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Promise.Library.Properties {
+namespace Promise.Library.Eula {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Promise.Library.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    internal class EulaResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal EulaResource() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Promise.Library.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    var temp = new global::System.Resources.ResourceManager("Promise.Library.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Promise.Library.Eula.EulaResource", typeof(EulaResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,31 +61,11 @@ namespace Promise.Library.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to config.ini.
-        /// </summary>
-        internal static string ConfigurationFile {
-            get {
-                return ResourceManager.GetString("ConfigurationFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\froman\fprq2\fcharset0 Times New Roman;}{\f1\fswiss\fprq2\fcharset0 Arial;}{\f2\fnil\fcharset0 CG Times;}{\f3\froman\fprq2\fcharset2 Symbol;}{\f4\fswiss\fcharset0 Arial;}}
-        ///{\colortbl ;\red255\green0\blue0;\red0\green0\blue0;\red0\green0\blue255;}
-        ///{\*\generator Msftedit 5.41.15.1503;}\viewkind4\uc1\pard\keepn\cf1\f0\fs22 Be sure to carefully read and understand all of the rights and restrictions described in this End User License Agreement (\ldblquote  [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string EulaDoc {
-            get {
-                return ResourceManager.GetString("EulaDoc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] EulaLib {
+        internal static byte[] EulaDLL {
             get {
-                var obj = ResourceManager.GetObject("EulaLib", resourceCulture);
+                object obj = ResourceManager.GetObject("EulaDLL", resourceCulture);
                 return ((byte[])(obj));
             }
         }
