@@ -1,9 +1,6 @@
 ![Main UI Screenshot](http://i64.tinypic.com/kcnxgg.png)
 
 [![Build status](https://ci.appveyor.com/api/projects/status/f57ignemhal4foga?svg=true)](https://ci.appveyor.com/project/yumiris/spv3-promise)
-[![Code Climate](https://codeclimate.com/github/yumiris/spv3-promise/badges/gpa.svg)](https://codeclimate.com/github/yumiris/spv3-promise)
-[![Test Coverage](https://codeclimate.com/github/yumiris/spv3-promise/badges/coverage.svg)](https://codeclimate.com/github/yumiris/spv3-promise/coverage)
-[![Issue Count](https://codeclimate.com/github//yumiris/spv3-promise/badges/issue_count.svg)](https://codeclimate.com/github/yumiris/spv3-promise)
 
 A stunning and functional loader for the acclaimed [Halo CE: SV3](https://reddit.com/r/halospv3) campaign mod!
 
