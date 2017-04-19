@@ -42,7 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\Configuration.cs" />
+    <Compile Include="Eula\EulaResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EulaResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Serialisation\HaloXml.cs" />
+    <Compile Include="Halo\Launch.cs" />
+    <Compile Include="Serialisation\XmlSerialisation.cs" />
     <Compile Include="OpenSauce\HUD\Hud.cs" />
     <Compile Include="OpenSauce\HUD\HudScale.cs" />
     <Compile Include="OpenSauce\Networking\CacheFiles.cs" />
@@ -54,8 +61,8 @@
     <Compile Include="OpenSauce\Networking\VersionCheck.cs" />
     <Compile Include="OpenSauce\Objects.cs" />
     <Compile Include="OpenSauce\OpenSauce.cs" />
-    <Compile Include="OpenSauce\OpenSauceConfiguration.cs" />
     <Compile Include="OpenSauce\Camera.cs" />
+    <Compile Include="Serialisation\OpenSauceXml.cs" />
     <Compile Include="OpenSauce\Rasterizer\GBuffer.cs" />
     <Compile Include="OpenSauce\Rasterizer\PostProcessing\AntiAliasing.cs" />
     <Compile Include="OpenSauce\Rasterizer\PostProcessing\Bloom.cs" />
@@ -67,34 +74,24 @@
     <Compile Include="OpenSauce\Rasterizer\ShaderExtensions\Effect.cs" />
     <Compile Include="OpenSauce\Rasterizer\ShaderExtensions\Environment.cs" />
     <Compile Include="OpenSauce\Rasterizer\ShaderExtensions\ShaderExtensions.cs" />
+    <Compile Include="OpenSauce\Rasterizer\ShaderExtensions\ShaderObject.cs" />
     <Compile Include="OpenSauce\Rasterizer\Upgrades.cs" />
-    <Compile Include="Video\VideoAdapter.cs" />
-    <Compile Include="Video\VideoRefreshRate.cs" />
-    <Compile Include="Video\VideoResolution.cs" />
-    <Compile Include="Utilities\EulaInjection.cs" />
-    <Compile Include="Halo.cs" />
-    <Compile Include="Configuration\IConfiguration.cs" />
-    <Compile Include="Configuration\ParameterConfiguration.cs" />
+    <Compile Include="Halo\Video\VideoAdapter.cs" />
+    <Compile Include="Halo\Video\VideoRefreshRate.cs" />
+    <Compile Include="Halo\Video\VideoResolution.cs" />
+    <Compile Include="Eula\Eula.cs" />
+    <Compile Include="Halo\Halo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Configuration\DisplayConfiguration.cs" />
-    <Compile Include="Utilities\ConfigOperation.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Eula.dll" />
-    <None Include="Resources\Eula.rtf" />
+    <None Include="Eula\Eula.dll" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <EmbeddedResource Include="Eula\EulaResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <LastGenOutput>EulaResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using Promise.Library.Video;
+using Promise.Library.Halo.Video;
 using Promise.UI.Controller;
 
 namespace Promise.UI.Views.Configuration
@@ -8,21 +8,22 @@ namespace Promise.UI.Views.Configuration
     /// <summary>
     ///     Interaction logic for ConfigView.xaml
     /// </summary>
-    public partial class ConfigurationView : Window
+    public partial class HaloConfigurationView : Window
     {
-        private readonly ConfigurationController _configurationController = new ConfigurationController();
+        private readonly HaloConfigurationController _haloConfigurationController = new HaloConfigurationController();
 
-        public ConfigurationView()
+        public HaloConfigurationView()
         {
             InitializeComponent();
-            DataContext = _configurationController;
+            DataContext = _haloConfigurationController;
+            _haloConfigurationController.GetConfiguration();
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                _configurationController.SaveConfiguration();
+                _haloConfigurationController.SaveConfiguration();
             }
             catch
             {
@@ -34,37 +35,38 @@ namespace Promise.UI.Views.Configuration
 
         private void ResolutionsComboBox_Loaded(object sender, RoutedEventArgs e)
         {
-            ResolutionsComboBox.ItemsSource = new VideoResolution().GameVideoResolutions;
+            ResolutionsComboBox.ItemsSource = new VideoResolution().GetVideoResolutions();
         }
 
         private void RefreshRatesComboBox_Loaded(object sender, RoutedEventArgs e)
         {
-            RefreshRatesComboBox.ItemsSource = new VideoRefreshRate().GameRefreshRates;
+            RefreshRatesComboBox.ItemsSource = new VideoRefreshRate().GetVideoRefreshRates();
         }
 
         private void AdaptersComboBox_Loaded(object sender, RoutedEventArgs e)
         {
-            AdaptersComboBox.ItemsSource = new VideoAdapter().AdapterNamesList;
+            AdaptersComboBox.ItemsSource = new VideoAdapter().GetAdaptersList();
         }
 
         private void AdaptersComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _configurationController.SelectedAdapterIndex = AdaptersComboBox.SelectedIndex;
+            _haloConfigurationController.SelectedAdapterIndex = AdaptersComboBox.SelectedIndex;
         }
 
         private void ResolutionsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _configurationController.SelectedVideoResolution = ResolutionsComboBox.SelectedItem as VideoResolution;
+            _haloConfigurationController.SelectedVideoResolution = ResolutionsComboBox.SelectedItem as VideoResolution;
         }
 
         private void RefreshRatesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _configurationController.SelectedVideoRefreshRate = RefreshRatesComboBox.SelectedItem as VideoRefreshRate;
+            _haloConfigurationController.SelectedVideoRefreshRate =
+                RefreshRatesComboBox.SelectedItem as VideoRefreshRate;
         }
 
         private void OSConfigButton_Click(object sender, RoutedEventArgs e)
         {
-            new Configuration.OpenSauceView().Show();
+            new OpenSauceView().Show();
         }
     }
 }

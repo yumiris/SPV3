@@ -1,18 +1,22 @@
-﻿using Promise.Library.OpenSauce;
+﻿using System.IO;
+using Promise.Library.OpenSauce;
 using Promise.Library.OpenSauce.Rasterizer;
 using Promise.Library.OpenSauce.Rasterizer.PostProcessing;
 using Promise.Library.OpenSauce.Rasterizer.ShaderExtensions;
+using Promise.Library.Serialisation;
 using Promise.UI.Model;
 using PropertyChanged;
 
 namespace Promise.UI.Controller
 {
     [ImplementPropertyChanged]
-    internal class OsConfigurationController : OsConfiguration
+    internal class OsConfigurationController : OsConfiguration, IConfigurationController
     {
-        public void SaveData()
+        private readonly OpenSauceXml _osXml = new OpenSauceXml();
+
+        public void SaveConfiguration()
         {
-            OpenSauce openSauce = new OpenSauce
+            var openSauce = new OpenSauce
             {
                 Camera = new Camera
                 {
@@ -20,31 +24,57 @@ namespace Promise.UI.Controller
                     IgnoreFovChangeInCinematics = IsCinematicsFovIgnored,
                     IgnoreFovChangeInMainMenu = IsMenuFovIgnored
                 },
+
                 Rasterizer = new Rasterizer
                 {
                     ShaderExtensions = new ShaderExtensions
                     {
                         IsEnabled = UseShader,
+                        ShaderObject = new ShaderObject
+                        {
+                            IsDetailNormalMaps = UseDetailMaps,
+                            IsNormalMaps = UseNormalMaps,
+                            IsSpecularLighting = UseSpecularLighting,
+                            IsSpecularMaps = UseSpecularMaps
+                        },
+
                         Environment = new Environment
                         {
                             DiffuseDirectionalLightmaps = IsDiffuseDirectionalLightMaps,
-                            SpecularDirectionalLightmaps = IsDiffuseSpecularLightMaps
+                            SpecularDirectionalLightmaps = IsSpecularDirectionalLightMaps
                         },
-                        Effect = new Effect { IsDepthFadeEnabled = UseDepthFade }
+
+                        Effect = new Effect {IsDepthFadeEnabled = UseDepthFade}
                     },
+
                     PostProcessing = new PostProcessing
                     {
-                        MotionBlur = new MotionBlur { IsEnabled = UseMotionBlur },
-                        Bloom = new Bloom { IsEnabled = UseBloom },
-                        AntiAliasing = new AntiAliasing { IsEnabled = UseAntiAliasing },
-                        ExternalEffects = new ExternalEffects { IsEnabled = UseExternalEffects },
-                        MapEffects = new MapEffects { IsEnabled = UseMapEffects }
+                        MotionBlur = new MotionBlur {IsEnabled = UseMotionBlur},
+                        Bloom = new Bloom {IsEnabled = UseBloom},
+                        AntiAliasing = new AntiAliasing {IsEnabled = UseAntiAliasing},
+                        ExternalEffects = new ExternalEffects {IsEnabled = UseExternalEffects},
+                        MapEffects = new MapEffects {IsEnabled = UseMapEffects}
                     }
                 }
             };
 
-            OpenSauceConfiguration openSauceConfiguration = new OpenSauceConfiguration {OpenSauce = openSauce};
-            openSauceConfiguration.SaveData();
+            var osXmlSerialisation = new XmlSerialisation<OpenSauce>();
+
+            osXmlSerialisation.SerialiseNewXml(openSauce, _osXml.GetConfigurationFilename());
+        }
+
+        public void GetConfiguration()
+        {
+            var osXmlSerialisation = new XmlSerialisation<OpenSauce>();
+
+            if (!File.Exists(_osXml.GetConfigurationFilename()))
+            {
+                _osXml.CreateConfigurationDirectory();
+                osXmlSerialisation.SerialiseNewXml(new OpenSauce(), _osXml.GetConfigurationFilename());
+            }
+
+            var deserialisedOpenSauce = osXmlSerialisation.GetDeserialisedInstance(_osXml.GetConfigurationFilename());
+            GetValuesFromInstance(deserialisedOpenSauce);
         }
     }
 }

@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="OpenSauce Configuration"
     Width="260"
-    Height="460"
+    Height="470"
     Icon="/Resources/haloce_103.ico"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
@@ -40,10 +40,13 @@
                 <StackPanel Margin="5" Orientation="Vertical">
                     <CheckBox Content="Enabled" IsChecked="{Binding UseShader}" />
                     <CheckBox Content="Normal Maps" IsChecked="{Binding UseNormalMaps}" />
+                    <CheckBox Content="Detail Maps" IsChecked="{Binding UseDetailMaps}" />
                     <CheckBox Content="Specular Maps" IsChecked="{Binding UseSpecularMaps}" />
                     <CheckBox Content="Specular Lighting" IsChecked="{Binding UseSpecularLighting}" />
-                    <CheckBox Content="Diffuse Directional Lightmaps" IsChecked="{Binding IsDiffuseDirectionalLightMaps}" />
-                    <CheckBox Content="Specular Directional Lightmaps" IsChecked="{Binding IsDiffuseSpecularLightMaps}" />
+                    <CheckBox Content="Diffuse Directional Lightmaps"
+                              IsChecked="{Binding IsDiffuseDirectionalLightMaps}" />
+                    <CheckBox Content="Specular Directional Lightmaps"
+                              IsChecked="{Binding IsSpecularDirectionalLightMaps}" />
                     <CheckBox Content="Depth Fade" IsChecked="{Binding UseDepthFade}" />
                 </StackPanel>
             </GroupBox>

@@ -4,7 +4,7 @@ namespace Promise.Library.OpenSauce
 {
     public class Camera
     {
-        public int FieldOfView { get; set; } = 70;
+        public int FieldOfView { get; set; } = 85;
 
         [XmlElement(ElementName = "IgnoreFOVChangeInCinematics")]
         public bool IgnoreFovChangeInCinematics { get; set; } = true;

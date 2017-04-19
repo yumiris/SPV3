@@ -63,6 +63,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controller\IConfigurationController.cs" />
     <Compile Include="Controller\OsConfigurationController.cs" />
     <Compile Include="Model\OsConfiguration.cs" />
     <Compile Include="Views\Configuration\OpenSauceView.xaml.cs">
@@ -72,7 +73,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Configuration\ConfigurationView.xaml">
+    <Page Include="Views\Configuration\HaloConfigurationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -84,8 +85,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Controller\ConfigurationController.cs" />
-    <Compile Include="Model\Configuration.cs" />
+    <Compile Include="Controller\HaloConfigurationController.cs" />
+    <Compile Include="Model\HaloConfiguration.cs" />
     <Compile Include="Views\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
@@ -93,8 +94,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\Configuration\ConfigurationView.xaml.cs">
-      <DependentUpon>ConfigurationView.xaml</DependentUpon>
+    <Compile Include="Views\Configuration\HaloConfigurationView.xaml.cs">
+      <DependentUpon>HaloConfigurationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HelpView.xaml.cs">
       <DependentUpon>HelpView.xaml</DependentUpon>

@@ -4,7 +4,7 @@ using Promise.UI.Controller;
 namespace Promise.UI.Views.Configuration
 {
     /// <summary>
-    /// Interaction logic for OSConfigurationView.xaml
+    ///     Interaction logic for OSConfigurationView.xaml
     /// </summary>
     public partial class OpenSauceView : Window
     {
@@ -14,11 +14,13 @@ namespace Promise.UI.Views.Configuration
         {
             InitializeComponent();
             DataContext = _osConfigurationController;
+            _osConfigurationController.GetConfiguration();
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            _osConfigurationController.SaveData();
+            _osConfigurationController.SaveConfiguration();
+            Close();
         }
     }
 }

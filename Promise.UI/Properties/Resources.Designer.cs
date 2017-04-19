@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Resources;
+
 namespace Promise.UI.Properties {
     using System;
     
@@ -39,7 +41,7 @@ namespace Promise.UI.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    var temp = new global::System.Resources.ResourceManager("Promise.UI.Properties.Resources", typeof(Resources).Assembly);
+                    ResourceManager temp = new global::System.Resources.ResourceManager("Promise.UI.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

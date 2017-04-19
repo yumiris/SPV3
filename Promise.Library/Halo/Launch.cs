@@ -5,9 +5,8 @@ namespace Promise.Library.Halo
 {
     public class Launch
     {
-        private readonly Halo _halo;
-
         private const string ExecutableName = "haloce.exe";
+        private readonly Halo _halo;
 
         public Launch(Halo halo)
         {
@@ -24,12 +23,13 @@ namespace Promise.Library.Halo
 
         private string GetLaunchParameters()
         {
-            string windowMode = _halo.IsWindow ? "-window" : string.Empty;
-            string safeMode = _halo.IsSafeMode ? "-safemode" : string.Empty;
-            string fixedMode = _halo.IsFixedMode ? "-useff" : string.Empty;
+            var windowMode = _halo.IsWindow ? "-window" : string.Empty;
+            var safeMode = _halo.IsSafeMode ? "-safemode" : string.Empty;
+            var fixedMode = _halo.IsFixedMode ? "-useff" : string.Empty;
 
-            string resolution = $"{_halo.VideoResolution.Width },{_halo.VideoResolution.Height},{_halo.VideoRefreshRate.Rate}";
-            string toggles = $"{windowMode} {safeMode} {fixedMode}";
+            var resolution =
+                $"{_halo.VideoResolution.Width},{_halo.VideoResolution.Height},{_halo.VideoRefreshRate.Rate}";
+            var toggles = $"{windowMode} {safeMode} {fixedMode}";
 
             return $"-vidmode {resolution} -adapter {_halo.VideoAdapter.Index} {toggles}";
         }

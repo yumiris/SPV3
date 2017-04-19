@@ -54,7 +54,6 @@
   <ItemGroup>
     <Compile Include="EulaInjectionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ConfigurationTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Promise.Library\Promise.Library.csproj">

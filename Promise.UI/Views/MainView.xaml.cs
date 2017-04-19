@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Media;
 using System.Windows;
 using System.Windows.Input;
-using Promise.Library;
-using Promise.Library.Utilities;
+using Promise.Library.Eula;
+using Promise.Library.Halo;
+using Promise.Library.Serialisation;
+using Promise.UI.Views.Configuration;
 
 namespace Promise.UI.Views
 {
@@ -32,29 +35,25 @@ namespace Promise.UI.Views
         {
             try
             {
-                EulaInjection eulaInjection = new EulaInjection();
-                eulaInjection.WriteEulaDocument();
-                eulaInjection.WriteEulaLibrary();
-            }
-            catch
-            {
-                MessageBox.Show("EULA does not exist! Please run this loader as admin nex time!");
-            }
+                new Eula().Inject();
 
-            try
-            {
-                Halo haloInstance = new Halo();
-                haloInstance.Launch(new ConfigOperation());
+                var haloInstace = new XmlSerialisation<Halo>().GetDeserialisedInstance("Halo_Settings.User.xml");
+                new Launch(haloInstace).Start();
             }
-            catch
+            catch (FileNotFoundException)
             {
-                MessageBox.Show("Hmm, no Halo executable to be found in this directory.");
+                MessageBox.Show("Hmmm, seems like there is no haloce.exe here.");
+            }
+            catch (IOException)
+            {
+                MessageBox.Show(
+                    "No EULA found, which Halo requires. Attempting to inject it resulted in failure. Please run as an administrator!");
             }
         }
 
         private void ConfigButton_Click(object sender, RoutedEventArgs e)
         {
-            new Configuration.ConfigurationView().Show();
+            new HaloConfigurationView().Show();
         }
 
         private void CommunityButton_Click(object sender, RoutedEventArgs e)

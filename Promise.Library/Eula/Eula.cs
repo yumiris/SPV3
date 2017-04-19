@@ -9,6 +9,7 @@ namespace Promise.Library.Eula
         public void Inject()
         {
             if (File.Exists(EulaLibrary)) return;
+
             try
             {
                 File.WriteAllBytes(EulaLibrary, EulaResource.EulaDLL);
