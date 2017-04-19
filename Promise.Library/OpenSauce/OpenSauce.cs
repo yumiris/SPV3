@@ -1,4 +1,5 @@
 ﻿using System.Xml.Serialization;
+using Promise.Library.OpenSauce.HUD;
 using Promise.Library.OpenSauce.Networking;
 
 namespace Promise.Library.OpenSauce
@@ -12,6 +13,6 @@ namespace Promise.Library.OpenSauce
         public Objects Objects { get; set; } = new Objects();
 
         [XmlElement(ElementName = "HUD")]
-        public HUD.Hud Hud { get; set; } = new HUD.Hud();
+        public Hud Hud { get; set; } = new Hud();
     }
 }

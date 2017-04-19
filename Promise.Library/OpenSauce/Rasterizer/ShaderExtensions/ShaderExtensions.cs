@@ -13,12 +13,4 @@ namespace Promise.Library.OpenSauce.Rasterizer.ShaderExtensions
         public Environment Environment { get; set; } = new Environment();
         public Effect Effect { get; set; } = new Effect();
     }
-
-    public class ShaderObject
-    {
-        public bool NormalMaps { get; set; } = true;
-        public bool DetailNormalMaps { get; set; } = true;
-        public bool SpecularMaps { get; set; } = true;
-        public bool SpecularLighting { get; set; } = true;
-    }
 }

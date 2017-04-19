@@ -8,16 +8,15 @@ namespace Promise.Library.OpenSauce
     public class OpenSauceConfiguration
     {
         private const string OpenSauceConfigFileName = "OS_Settings.User.xml";
-        public OpenSauce OpenSauce { private get; set; }
 
-        public void Serialise()
+        public void Serialise(OpenSauce openSauce)
         {
             CreateOpenSauceDirectory();
 
             using (var file = File.Create(GetOpenSauceFilePath()))
             {
                 var writer = new XmlSerializer(typeof(OpenSauce));
-                writer.Serialize(file, OpenSauce);
+                writer.Serialize(file, openSauce);
             }
         }
 
@@ -28,8 +27,7 @@ namespace Promise.Library.OpenSauce
 
             if (!File.Exists(GetOpenSauceFilePath()))
             {
-                OpenSauce = new OpenSauce();
-                Serialise();
+                Serialise(new OpenSauce());
             }
 
             using (var reader = XmlReader.Create(GetOpenSauceFilePath()))
