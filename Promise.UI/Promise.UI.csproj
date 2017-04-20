@@ -63,7 +63,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controller\IConfigurationController.cs" />
+    <Compile Include="Controller\MainViewController.cs" />
     <Compile Include="Controller\OsConfigurationController.cs" />
     <Compile Include="Model\OsConfiguration.cs" />
     <Compile Include="Views\Configuration\OsConfigurationView.xaml.cs">

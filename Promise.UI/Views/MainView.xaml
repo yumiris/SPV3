@@ -13,7 +13,6 @@
             <ContentPresenter
                 Width="500"
                 Height="50"
-                Margin="70,0,222,0"
                 Content="{TemplateBinding Content}"
                 MouseEnter="ContentPresenter_MouseEnter" />
         </ControlTemplate>
@@ -35,14 +34,15 @@
             </Grid.ColumnDefinitions>
         </Grid>
         <Grid Grid.Row="0">
-            <Image Margin="30,30,1050,240" Source="../Resources/Graphics/spv3_logo.png" />
+            <Image Margin="50,50,1000,220" Source="../Resources/Graphics/spv3_logo.png" />
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0">
+
+            <StackPanel>
                 <!--  Launch Button  -->
                 <Button
                     Name="LaunchButton"
@@ -157,13 +157,6 @@
                     </Image>
                 </Button>
             </StackPanel>
-            <DockPanel Grid.Column="1">
-                <Label
-                    HorizontalContentAlignment="Right"
-                    VerticalContentAlignment="Bottom"
-                    Content="Version 0.1.2"
-                    Foreground="DimGray" />
-            </DockPanel>
         </Grid>
     </Grid>
 </Window>

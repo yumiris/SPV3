@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 using System.Media;
 using System.Windows;
 using System.Windows.Input;
-using Promise.Library.Eula;
-using Promise.Library.Halo;
-using Promise.Library.Serialisation;
+using Promise.UI.Controller;
 using Promise.UI.Views.Configuration;
 
 namespace Promise.UI.Views
@@ -16,9 +13,12 @@ namespace Promise.UI.Views
     /// </summary>
     public partial class MainView
     {
+        private readonly MainViewController _mainViewController = new MainViewController();
+
         public MainView()
         {
             InitializeComponent();
+            DataContext = _mainViewController;
         }
 
         private void ToggleHoverSoundEffect()
@@ -33,22 +33,7 @@ namespace Promise.UI.Views
 
         private void LaunchButton_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                new Eula().Inject();
-
-                var haloInstace = new XmlSerialisation<Halo>().GetDeserialisedInstance("Halo_Settings.User.xml");
-                new Launch(haloInstace).Start();
-            }
-            catch (FileNotFoundException)
-            {
-                MessageBox.Show("Hmmm, seems like there is no haloce.exe here.");
-            }
-            catch (IOException)
-            {
-                MessageBox.Show(
-                    "No EULA found, which Halo requires. Attempting to inject it resulted in failure. Please run as an administrator!");
-            }
+            _mainViewController.LaunchHalo();
         }
 
         private void ConfigButton_Click(object sender, RoutedEventArgs e)
@@ -63,7 +48,7 @@ namespace Promise.UI.Views
 
         private void HelpButton_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("Help screen hasn't been developed yet.");
         }
 
         private void AboutButton_Click(object sender, RoutedEventArgs e)
