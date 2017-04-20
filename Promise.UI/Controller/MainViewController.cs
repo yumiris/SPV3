@@ -10,19 +10,13 @@ namespace Promise.UI.Controller
     {
         public void LaunchHalo()
         {
-            try
-            {
+            try {
                 new Eula().Inject();
-
                 Halo haloInstace = new XmlSerialisation<Halo>().GetDeserialisedInstance("Halo_Settings.User.xml");
                 new Launch(haloInstace).Start();
-            }
-            catch (FileNotFoundException)
-            {
+            } catch (FileNotFoundException) {
                 MessageBox.Show("Hmmm, seems like there is no haloce.exe here.");
-            }
-            catch (IOException)
-            {
+            } catch (IOException) {
                 MessageBox.Show("Cannot inject EULA. Please run as an administrator!");
             }
         }

@@ -10,12 +10,9 @@ namespace Promise.Library.Eula
         {
             if (File.Exists(EulaLibrary)) return;
 
-            try
-            {
+            try {
                 File.WriteAllBytes(EulaLibrary, EulaResource.EulaDLL);
-            }
-            catch (IOException)
-            {
+            } catch (IOException) {
                 throw new IOException("Could not dump the EULA. Administrator privileges may be required.");
             }
         }

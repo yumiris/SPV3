@@ -24,24 +24,24 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="25*" />
+            <RowDefinition Height="25*" />
+            <RowDefinition Height="50*" />
         </Grid.RowDefinitions>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-        </Grid>
-        <Grid Grid.Row="0">
-            <Image Margin="50,50,1000,220" Source="../Resources/Graphics/spv3_logo.png" />
-        </Grid>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Image
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="85,90,140,10"
+            Source="../Resources/Graphics/spv3_logo.png" />
+
+        <Grid Grid.Row="2" Grid.Column="0">
             <StackPanel>
                 <!--  Launch Button  -->
                 <Button

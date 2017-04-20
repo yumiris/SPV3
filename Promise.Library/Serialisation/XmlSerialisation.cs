@@ -8,8 +8,7 @@ namespace Promise.Library.Serialisation
     {
         public void SerialiseNewXml(T objectToSerialise, string xmlFileName)
         {
-            using (FileStream fileStream = File.Create(xmlFileName))
-            {
+            using (FileStream fileStream = File.Create(xmlFileName)) {
                 new XmlSerializer(objectToSerialise.GetType()).Serialize(fileStream, objectToSerialise);
             }
         }
@@ -19,9 +18,8 @@ namespace Promise.Library.Serialisation
             if (!File.Exists(xmlFileName))
                 throw new FileNotFoundException($"Could not find {xmlFileName} configuration file.");
 
-            using (XmlReader xmlReader = XmlReader.Create(xmlFileName))
-            {
-                return (T) new XmlSerializer(typeof(T)).Deserialize(xmlReader);
+            using (XmlReader xmlReader = XmlReader.Create(xmlFileName)) {
+                return (T)new XmlSerializer(typeof(T)).Deserialize(xmlReader);
             }
         }
     }

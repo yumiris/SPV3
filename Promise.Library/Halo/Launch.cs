@@ -15,23 +15,28 @@ namespace Promise.Library.Halo
 
         public void Start()
         {
-            if (File.Exists(ExecutableName))
-                Process.Start(ExecutableName, GetLaunchParameters());
-            else
+            if (!File.Exists(ExecutableName))
                 throw new FileNotFoundException("Halo executable has not been found in this directory.");
+
+            Process.Start(ExecutableName, GetLaunchParameters());
         }
 
         private string GetLaunchParameters()
         {
-            string windowMode = _halo.IsWindow ? "-window" : string.Empty;
-            string safeMode = _halo.IsSafeMode ? "-safemode" : string.Empty;
-            string fixedMode = _halo.IsFixedMode ? "-useff" : string.Empty;
+            string windowMode = GetParameterValue("-window", _halo.IsWindow);
+            string safeMode = GetParameterValue("-safemode", _halo.IsSafeMode);
+            string fixedMode = GetParameterValue("useff", _halo.IsFixedMode);
+            string toggles = $"{windowMode} {safeMode} {fixedMode}";
 
             string resolution =
                 $"{_halo.VideoResolution.Width},{_halo.VideoResolution.Height},{_halo.VideoRefreshRate.Rate}";
-            string toggles = $"{windowMode} {safeMode} {fixedMode}";
 
             return $"-vidmode {resolution} -adapter {_halo.VideoAdapter.Index} {toggles}";
+        }
+
+        private string GetParameterValue(string parameter, bool toggle)
+        {
+            return (toggle) ? parameter : string.Empty;
         }
     }
 }

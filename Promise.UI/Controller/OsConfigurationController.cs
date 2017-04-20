@@ -16,50 +16,42 @@ namespace Promise.UI.Controller
 
         public void SaveConfiguration()
         {
-            OpenSauce openSauce = new OpenSauce
-            {
-                Camera = new Camera
-                {
+            OpenSauce openSauce = new OpenSauce {
+                Camera = new Camera {
                     FieldOfView = FieldOfView,
                     IgnoreFovChangeInCinematics = IsCinematicsFovIgnored,
                     IgnoreFovChangeInMainMenu = IsMenuFovIgnored
                 },
 
-                Rasterizer = new Rasterizer
-                {
-                    ShaderExtensions = new ShaderExtensions
-                    {
+                Rasterizer = new Rasterizer {
+                    ShaderExtensions = new ShaderExtensions {
                         IsEnabled = UseShader,
-                        ShaderObject = new ShaderObject
-                        {
+                        ShaderObject = new ShaderObject {
                             IsDetailNormalMaps = UseDetailMaps,
                             IsNormalMaps = UseNormalMaps,
                             IsSpecularLighting = UseSpecularLighting,
                             IsSpecularMaps = UseSpecularMaps
                         },
 
-                        Environment = new Environment
-                        {
+                        Environment = new Environment {
                             DiffuseDirectionalLightmaps = IsDiffuseDirectionalLightMaps,
                             SpecularDirectionalLightmaps = IsSpecularDirectionalLightMaps
                         },
 
-                        Effect = new Effect {IsDepthFadeEnabled = UseDepthFade}
+                        Effect = new Effect { IsDepthFadeEnabled = UseDepthFade }
                     },
 
-                    PostProcessing = new PostProcessing
-                    {
-                        MotionBlur = new MotionBlur {IsEnabled = UseMotionBlur},
-                        Bloom = new Bloom {IsEnabled = UseBloom},
-                        AntiAliasing = new AntiAliasing {IsEnabled = UseAntiAliasing},
-                        ExternalEffects = new ExternalEffects {IsEnabled = UseExternalEffects},
-                        MapEffects = new MapEffects {IsEnabled = UseMapEffects}
+                    PostProcessing = new PostProcessing {
+                        MotionBlur = new MotionBlur { IsEnabled = UseMotionBlur },
+                        Bloom = new Bloom { IsEnabled = UseBloom },
+                        AntiAliasing = new AntiAliasing { IsEnabled = UseAntiAliasing },
+                        ExternalEffects = new ExternalEffects { IsEnabled = UseExternalEffects },
+                        MapEffects = new MapEffects { IsEnabled = UseMapEffects }
                     }
                 }
             };
 
             XmlSerialisation<OpenSauce> osXmlSerialisation = new XmlSerialisation<OpenSauce>();
-
             osXmlSerialisation.SerialiseNewXml(openSauce, _osXml.GetConfigurationFilename());
         }
 
@@ -67,8 +59,7 @@ namespace Promise.UI.Controller
         {
             XmlSerialisation<OpenSauce> osXmlSerialisation = new XmlSerialisation<OpenSauce>();
 
-            if (!File.Exists(_osXml.GetConfigurationFilename()))
-            {
+            if (!File.Exists(_osXml.GetConfigurationFilename())) {
                 _osXml.CreateConfigurationDirectory();
                 osXmlSerialisation.SerialiseNewXml(new OpenSauce(), _osXml.GetConfigurationFilename());
             }

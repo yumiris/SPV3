@@ -18,16 +18,14 @@ namespace Promise.UI.Controller
 
         public void SaveConfiguration()
         {
-            Halo halo = new Halo
-            {
-                VideoResolution = new VideoResolution
-                {
+            Halo halo = new Halo {
+                VideoResolution = new VideoResolution {
                     Width = SelectedVideoResolution.Width,
                     Height = SelectedVideoResolution.Height
                 },
 
-                VideoRefreshRate = new VideoRefreshRate {Rate = SelectedVideoRefreshRate.Rate},
-                VideoAdapter = new VideoAdapter {Index = SelectedAdapterIndex + 1},
+                VideoRefreshRate = new VideoRefreshRate { Rate = SelectedVideoRefreshRate.Rate },
+                VideoAdapter = new VideoAdapter { Index = SelectedAdapterIndex + 1 },
 
                 IsWindow = IsWindow,
                 IsSafeMode = IsSafeMode,
@@ -43,9 +41,7 @@ namespace Promise.UI.Controller
             XmlSerialisation<Halo> haloXmlSerialisation = new XmlSerialisation<Halo>();
 
             if (!File.Exists(_haloXml.GetConfigurationFilename()))
-            {
                 haloXmlSerialisation.SerialiseNewXml(new Halo(), _haloXml.GetConfigurationFilename());
-            }
 
             Halo deserialisedHalo = haloXmlSerialisation.GetDeserialisedInstance(_haloXml.GetConfigurationFilename());
             GetValuesFromInstance(deserialisedHalo);

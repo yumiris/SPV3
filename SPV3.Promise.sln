@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Promise.UI", "Promise.UI\Pr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Promise.Library", "Promise.Library\Promise.Library.csproj", "{0AB59B86-5F62-4D4C-AE4E-2BBB4C09A222}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Promise.Test", "Promise.Test\Promise.Test.csproj", "{9B62081D-C0DF-4C82-9ADA-4E676AC724AF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{0AB59B86-5F62-4D4C-AE4E-2BBB4C09A222}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AB59B86-5F62-4D4C-AE4E-2BBB4C09A222}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AB59B86-5F62-4D4C-AE4E-2BBB4C09A222}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9B62081D-C0DF-4C82-9ADA-4E676AC724AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9B62081D-C0DF-4C82-9ADA-4E676AC724AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9B62081D-C0DF-4C82-9ADA-4E676AC724AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9B62081D-C0DF-4C82-9ADA-4E676AC724AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

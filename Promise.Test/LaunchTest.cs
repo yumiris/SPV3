@@ -3,7 +3,8 @@
 namespace Promise.Test
 {
     [TestClass]
-    public class EulaInjectionTest
+    public class LaunchTest
     {
+
     }
 }
