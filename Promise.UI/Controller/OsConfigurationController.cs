@@ -10,13 +10,13 @@ using PropertyChanged;
 namespace Promise.UI.Controller
 {
     [ImplementPropertyChanged]
-    internal class OsConfigurationController : OsConfiguration, IConfigurationController
+    internal class OsConfigurationController : OsConfiguration
     {
         private readonly OpenSauceXml _osXml = new OpenSauceXml();
 
         public void SaveConfiguration()
         {
-            var openSauce = new OpenSauce
+            OpenSauce openSauce = new OpenSauce
             {
                 Camera = new Camera
                 {
@@ -58,14 +58,14 @@ namespace Promise.UI.Controller
                 }
             };
 
-            var osXmlSerialisation = new XmlSerialisation<OpenSauce>();
+            XmlSerialisation<OpenSauce> osXmlSerialisation = new XmlSerialisation<OpenSauce>();
 
             osXmlSerialisation.SerialiseNewXml(openSauce, _osXml.GetConfigurationFilename());
         }
 
         public void GetConfiguration()
         {
-            var osXmlSerialisation = new XmlSerialisation<OpenSauce>();
+            XmlSerialisation<OpenSauce> osXmlSerialisation = new XmlSerialisation<OpenSauce>();
 
             if (!File.Exists(_osXml.GetConfigurationFilename()))
             {
@@ -73,7 +73,7 @@ namespace Promise.UI.Controller
                 osXmlSerialisation.SerialiseNewXml(new OpenSauce(), _osXml.GetConfigurationFilename());
             }
 
-            var deserialisedOpenSauce = osXmlSerialisation.GetDeserialisedInstance(_osXml.GetConfigurationFilename());
+            OpenSauce deserialisedOpenSauce = osXmlSerialisation.GetDeserialisedInstance(_osXml.GetConfigurationFilename());
             GetValuesFromInstance(deserialisedOpenSauce);
         }
     }

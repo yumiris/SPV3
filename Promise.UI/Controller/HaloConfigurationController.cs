@@ -8,7 +8,7 @@ using PropertyChanged;
 namespace Promise.UI.Controller
 {
     [ImplementPropertyChanged]
-    internal class HaloConfigurationController : HaloConfiguration, IConfigurationController
+    internal class HaloConfigurationController : HaloConfiguration
     {
         private readonly HaloXml _haloXml = new HaloXml();
 
@@ -18,7 +18,7 @@ namespace Promise.UI.Controller
 
         public void SaveConfiguration()
         {
-            var halo = new Halo
+            Halo halo = new Halo
             {
                 VideoResolution = new VideoResolution
                 {
@@ -34,20 +34,20 @@ namespace Promise.UI.Controller
                 IsFixedMode = IsFixedMode
             };
 
-            var haloXmlSerialisation = new XmlSerialisation<Halo>();
+            XmlSerialisation<Halo> haloXmlSerialisation = new XmlSerialisation<Halo>();
             haloXmlSerialisation.SerialiseNewXml(halo, _haloXml.GetConfigurationFilename());
         }
 
         public void GetConfiguration()
         {
-            var haloXmlSerialisation = new XmlSerialisation<Halo>();
+            XmlSerialisation<Halo> haloXmlSerialisation = new XmlSerialisation<Halo>();
 
             if (!File.Exists(_haloXml.GetConfigurationFilename()))
             {
                 haloXmlSerialisation.SerialiseNewXml(new Halo(), _haloXml.GetConfigurationFilename());
             }
 
-            var deserialisedHalo = haloXmlSerialisation.GetDeserialisedInstance(_haloXml.GetConfigurationFilename());
+            Halo deserialisedHalo = haloXmlSerialisation.GetDeserialisedInstance(_haloXml.GetConfigurationFilename());
             GetValuesFromInstance(deserialisedHalo);
         }
     }
