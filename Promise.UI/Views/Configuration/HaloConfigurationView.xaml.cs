@@ -21,12 +21,9 @@ namespace Promise.UI.Views.Configuration
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
+            try {
                 _haloConfigurationController.SaveConfiguration();
-            }
-            catch
-            {
+            } catch {
                 MessageBox.Show("Hmm, looks like we can't save. Try running as an Administrator, please!");
             }
 
