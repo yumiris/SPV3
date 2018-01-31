@@ -1,6 +1,6 @@
 <h1 align="center">Eaxir</h1>
 <p align="center">
-  Library & GUI for enable EAX on HCE
+  Library & GUI for enabling EAX on HCE
 </p>
 
 # Introduction
