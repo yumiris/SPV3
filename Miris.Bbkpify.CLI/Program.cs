@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using static System.Console;
 using static System.ConsoleColor;
@@ -32,21 +33,23 @@ namespace Miris.Bbkpify.CLI
 
             var files = Directory.GetFiles(filesFolderPath, $"*{fileNamePattern}*");
 
-            foreach (var file in files)
+            for (int i = 0; i < files.Length; i++)
             {
+                var file = files[i];
                 var bbkpFile = $"{file}.{Extension}";
+                var progress = new Func<string>(() => $"[{i + 1}/{files.Length}]")();
                 
                 if (!file.Contains(Extension) && !Exists(bbkpFile))
                 {
                     ForegroundColor = Green;
-                    WriteLine($"Handling {file}");
+                    WriteLine($"{progress}\t| HANDLING {file}");
                     Move(file, bbkpFile);
                     Copy(placeholderPath, file);
                 }
                 else
                 {
                     ForegroundColor = Yellow;
-                    WriteLine($"Skipping {file}");
+                    WriteLine($"{progress}\t| SKIPPING {file}");
                 }
             }
         }
