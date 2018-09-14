@@ -1,6 +1,8 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
+using static System.Console;
+using static System.Environment;
+using static System.IO.File;
 
 namespace Miris.Bbkpify.CLI
 {
@@ -21,7 +23,7 @@ namespace Miris.Bbkpify.CLI
             var filesFolderPath = args[1];
             var fileNamePattern = args[2];
 
-            ExitIfFalse(File.Exists(placeholderPath), "Provided placeholder file does not exist.", 2);
+            ExitIfFalse(Exists(placeholderPath), "Provided placeholder file does not exist.", 2);
             ExitIfFalse(Directory.Exists(filesFolderPath), "Provided files directory does not exist.", 3);
             ExitIfFalse(Types.Contains(fileNamePattern), "Provided file name pattern is invalid.", 4);
 
@@ -31,15 +33,15 @@ namespace Miris.Bbkpify.CLI
             {
                 var bbkpFile = $"{file}.{Extension}";
                 
-                if (!File.Exists(bbkpFile))
+                if (!Exists(bbkpFile))
                 {
-                    Console.WriteLine($"Handling ${file}");
-                    File.Move(file, bbkpFile);
-                    File.Copy(placeholderPath, file);
+                    WriteLine($"Handling ${file}");
+                    Move(file, bbkpFile);
+                    Copy(placeholderPath, file);
                 }
                 else
                 {
-                    Console.WriteLine($"Skipping ${file}");
+                    WriteLine($"Skipping ${file}");
                 }
             }
         }
@@ -47,8 +49,8 @@ namespace Miris.Bbkpify.CLI
         private static void ExitIfFalse(bool condition, string exitMessage, int exitCode)
         {
             if (condition) return;
-            Console.WriteLine(exitMessage);
-            Environment.Exit(exitCode);
+            WriteLine(exitMessage);
+            Exit(exitCode);
         }
     }
 }
