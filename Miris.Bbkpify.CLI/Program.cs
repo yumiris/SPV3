@@ -33,6 +33,10 @@ namespace Miris.Bbkpify.CLI
 
             var files = Directory.GetFiles(filesFolderPath, $"*{fileNamePattern}*");
             BbkpifyFiles(files, placeholderPath);
+
+            ForegroundColor = Green;
+            WriteLine($"\nFinished applying '{placeholderPath}' to '{filesFolderPath}'!");
+            Exit(0);
         }
 
         private static void BbkpifyFiles(string[] files, string placeholderPath)
