@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miris.Bbkpify.CLI", "Miris.Bbkpify.CLI\Miris.Bbkpify.CLI.csproj", "{F67E6D12-A135-4B89-8944-A9D685595333}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YuMi.Bbkpify.CLI", "YuMi.Bbkpify.CLI\YuMi.Bbkpify.CLI.csproj", "{F67E6D12-A135-4B89-8944-A9D685595333}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Miris.Bbkpify.CLI")]
+[assembly: AssemblyTitle("YuMi.Bbkpify.CLI")]
 [assembly: AssemblyDescription("Safely replace Sapien texture bitmaps with placeholders.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Yu:Miris")]
-[assembly: AssemblyProduct("Miris Bbkpify CLI")]
+[assembly: AssemblyCompany("Yu:YuMi")]
+[assembly: AssemblyProduct("YuMi Bbkpify CLI")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

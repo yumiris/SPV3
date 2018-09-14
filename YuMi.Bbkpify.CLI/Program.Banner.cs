@@ -4,7 +4,7 @@ using static System.AppDomain;
 using static System.Console;
 using static System.ConsoleColor;
 
-namespace Miris.Bbkpify.CLI
+namespace YuMi.Bbkpify.CLI
 {
     /// <summary>
     /// Visual portion of the program.
@@ -25,7 +25,7 @@ namespace Miris.Bbkpify.CLI
 /_.___/_.___/_/|_/ .___/_/_/  \__, /  
                 /_/          /____/   
 ======================================
-                           // Yu:Miris
+                           // Yu:YuMi
 ");
 
             // outputs a string with available patterns ...

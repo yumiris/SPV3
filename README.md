@@ -22,7 +22,7 @@ The original bitmaps are backed up, thus making the process completely safe and 
 # Usage
 
 ```ps
-.\Miris.Bbkpify.CLI.exe <1> <2> <3>
+.\YuMi.Bbkpify.CLI.exe <1> <2> <3>
                          |   |   |
                          |   |   +- Placeholder bitmap path (e.g. 'placeholder.bmp')
                          |   +----- Files directory path (e.g. 'cmt\tags')

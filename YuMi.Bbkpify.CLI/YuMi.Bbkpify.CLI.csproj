@@ -7,8 +7,8 @@
     <ProjectGuid>{F67E6D12-A135-4B89-8944-A9D685595333}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Miris.Bbkpify.CLI</RootNamespace>
-    <AssemblyName>Miris.Bbkpify.CLI</AssemblyName>
+    <RootNamespace>YuMi.Bbkpify.CLI</RootNamespace>
+    <AssemblyName>YuMi.Bbkpify.CLI</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

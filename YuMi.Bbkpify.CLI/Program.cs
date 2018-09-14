@@ -4,9 +4,9 @@ using System.Linq;
 using static System.Console;
 using static System.ConsoleColor;
 using static System.Environment;
-using static Miris.Bbkpify.CLI.ExitCodes;
+using static YuMi.Bbkpify.CLI.ExitCodes;
 
-namespace Miris.Bbkpify.CLI
+namespace YuMi.Bbkpify.CLI
 {
     /// <summary>
     /// Main application exit codes.
