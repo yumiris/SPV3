@@ -39,7 +39,7 @@ namespace YuMi.Unbbkpify.CLI
             }
             
             var files = Directory.GetFiles(directoryPath, $"*.{Extension}*");
-            UnbkkpifyFiles(files);
+            Revert(files);
             
             WriteLine($"\nFinished restoring bitmaps in '{directoryPath}'!");
             Exit((int)Success);

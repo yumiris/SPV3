@@ -81,39 +81,11 @@ namespace YuMi.Bbkpify.CLI
 
             // if everything is successful, get all files and back them up
             var files = Directory.GetFiles(filesFolderPath, $"*{fileNamePattern}*");
-            BbkpifyFiles(files, placeholderPath);
+            Commit(files, placeholderPath);
 
             ForegroundColor = Green;
             WriteLine($"\nFinished applying '{placeholderPath}' to '{filesFolderPath}'!");
             Exit((int) Success);
-        }
-
-        private static void BbkpifyFiles(string[] files, string placeholderPath)
-        {
-            for (var i = 0; i < files.Length; i++)
-            {
-                var file = files[i];
-                var bbkpFile = $"{file}.{Extension}";
-
-                // looks like: [1/10]
-                var progress = Ascii.Progress(i, files.Length);
-
-                // check if the current file has been handled in a previous execution
-                if (!file.Contains(Extension) && !File.Exists(bbkpFile))
-                {
-                    ForegroundColor = Green;
-                    WriteLine($"{progress}\t| HANDLING {file}");
-
-                    // backup through renaming, and replace with the placeholder
-                    File.Move(file, bbkpFile);
-                    File.Copy(placeholderPath, file);
-                }
-                else
-                {
-                    ForegroundColor = Yellow;
-                    WriteLine($"{progress}\t| SKIPPING {file}");
-                }
-            }
         }
 
         /// <summary>
