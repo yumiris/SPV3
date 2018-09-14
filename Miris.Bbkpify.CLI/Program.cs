@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Xml.Xsl.Runtime;
 
 namespace Miris.Bbkpify.CLI
 {
@@ -15,33 +16,15 @@ namespace Miris.Bbkpify.CLI
 
         public static void Main(string[] args)
         {
-            if (args.Length < 3)
-            {
-                Console.WriteLine("Not enough arguments provided.");
-                Environment.Exit(1);
-            }
+            ExitIfFalse(args.Length >= 3, "Not enough arguments provided.", 1);
 
             var placeholderPath = args[0];
             var filesFolderPath = args[1];
             var fileNamePattern = args[2];
 
-            if (!File.Exists(placeholderPath))
-            {
-                Console.WriteLine("Provided placeholder file does not exist.");
-                Environment.Exit(2);
-            }
-
-            if (!Directory.Exists(filesFolderPath))
-            {
-                Console.WriteLine("Provided files directory does not exist.");
-                Environment.Exit(3);
-            }
-
-            if (Types.Contains(fileNamePattern) == false)
-            {
-                Console.WriteLine("Provided file name pattern is invalid.");
-                Environment.Exit(4);
-            }
+            ExitIfFalse(File.Exists(placeholderPath), "Provided placeholder file does not exist.", 2);
+            ExitIfFalse(Directory.Exists(filesFolderPath), "Provided files directory does not exist.", 3);
+            ExitIfFalse(Types.Contains(fileNamePattern), "Provided file name pattern is invalid.", 4);
 
             var files = Directory.GetFiles(filesFolderPath, $"*{fileNamePattern}*");
 
@@ -60,6 +43,13 @@ namespace Miris.Bbkpify.CLI
                     Console.WriteLine($"Skipping ${file}");
                 }
             }
+        }
+
+        private static void ExitIfFalse(bool condition, string exitMessage, int exitCode)
+        {
+            if (condition) return;
+            Console.WriteLine(exitMessage);
+            Environment.Exit(exitCode);
         }
     }
 }
