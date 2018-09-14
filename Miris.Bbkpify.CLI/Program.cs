@@ -4,7 +4,6 @@ using System.Linq;
 using static System.Console;
 using static System.ConsoleColor;
 using static System.Environment;
-using static System.IO.File;
 using static Miris.Bbkpify.CLI.ExitCodes;
 
 namespace Miris.Bbkpify.CLI
@@ -37,7 +36,7 @@ namespace Miris.Bbkpify.CLI
             var filesFolderPath = args[1];
             var fileNamePattern = args[2];
 
-            ExitIfFalse(Exists(placeholderPath), "Placeholder file does not exist.", InvalidPlaceholderPath);
+            ExitIfFalse(File.Exists(placeholderPath), "Placeholder file does not exist.", InvalidPlaceholderPath);
             ExitIfFalse(Directory.Exists(filesFolderPath), "Files directory does not exist.", InvalidFilesFolderPath);
             ExitIfFalse(Types.Contains(fileNamePattern), "File name pattern is invalid.", InvalidFileNamePattern);
 
@@ -57,12 +56,12 @@ namespace Miris.Bbkpify.CLI
                 var bbkpFile = $"{file}.{Extension}";
                 var progress = new Func<string>(() => $"[{i + 1}/{files.Length}]")();
 
-                if (!file.Contains(Extension) && !Exists(bbkpFile))
+                if (!file.Contains(Extension) && !File.Exists(bbkpFile))
                 {
                     ForegroundColor = Green;
                     WriteLine($"{progress}\t| HANDLING {file}");
-                    Move(file, bbkpFile);
-                    Copy(placeholderPath, file);
+                    File.Move(file, bbkpFile);
+                    File.Copy(placeholderPath, file);
                 }
                 else
                 {
