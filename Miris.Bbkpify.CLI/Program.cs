@@ -1,10 +1,18 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 
 namespace Miris.Bbkpify.CLI
 {
     internal static class Program
     {
+        private const string Extension = "bbkp";
+
+        private static readonly string[] Types = {
+            "nrml",
+            "multi"
+        };
+
         public static void Main(string[] args)
         {
             if (args.Length < 3)
@@ -29,7 +37,7 @@ namespace Miris.Bbkpify.CLI
                 Environment.Exit(3);
             }
 
-            if (!fileNamePattern.Equals("nrml") && !fileNamePattern.Equals("multi"))
+            if (Types.Contains(fileNamePattern) == false)
             {
                 Console.WriteLine("Provided file name pattern is invalid.");
                 Environment.Exit(4);
@@ -39,10 +47,10 @@ namespace Miris.Bbkpify.CLI
 
             foreach (var file in files)
             {
-                if (!file.Contains(".bbkp"))
+                if (!file.Contains($".{Extension}"))
                 {
                     Console.WriteLine($"Handling ${file}");
-                    File.Move(file, $"{file}.bbkp");
+                    File.Move(file, $"{file}.{Extension}");
                     File.Copy(placeholderPath, file);
                 }
                 else
