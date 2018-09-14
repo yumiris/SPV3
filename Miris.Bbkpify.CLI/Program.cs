@@ -39,7 +39,7 @@ namespace Miris.Bbkpify.CLI
             {
                 var bbkpFile = $"{file}.{Extension}";
                 
-                if (!Exists(bbkpFile))
+                if (!file.Contains(Extension) && !Exists(bbkpFile))
                 {
                     ForegroundColor = Green;
                     WriteLine($"Handling {file}");
