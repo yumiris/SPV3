@@ -37,9 +37,9 @@ namespace Miris.Bbkpify.CLI
             var filesFolderPath = args[1];
             var fileNamePattern = args[2];
 
-            ExitIfFalse(Exists(placeholderPath), "Provided placeholder file does not exist.", InvalidPlaceholderPath);
-            ExitIfFalse(Directory.Exists(filesFolderPath), "Provided files directory does not exist.", InvalidFilesFolderPath);
-            ExitIfFalse(Types.Contains(fileNamePattern), "Provided file name pattern is invalid.", InvalidFileNamePattern);
+            ExitIfFalse(Exists(placeholderPath), "Placeholder file does not exist.", InvalidPlaceholderPath);
+            ExitIfFalse(Directory.Exists(filesFolderPath), "Files directory does not exist.", InvalidFilesFolderPath);
+            ExitIfFalse(Types.Contains(fileNamePattern), "File name pattern is invalid.", InvalidFileNamePattern);
 
             var files = Directory.GetFiles(filesFolderPath, $"*{fileNamePattern}*");
             BbkpifyFiles(files, placeholderPath);
