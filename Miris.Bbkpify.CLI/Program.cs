@@ -9,6 +9,7 @@ namespace Miris.Bbkpify.CLI
         {
             if (args.Length < 3)
             {
+                Console.WriteLine("Not enough arguments provided.");
                 Environment.Exit(1);
             }
 
@@ -18,16 +19,19 @@ namespace Miris.Bbkpify.CLI
 
             if (!File.Exists(placeholderPath))
             {
+                Console.WriteLine("Provided placeholder file does not exist.");
                 Environment.Exit(2);
             }
 
             if (!Directory.Exists(filesFolderPath))
             {
+                Console.WriteLine("Provided files directory does not exist.");
                 Environment.Exit(3);
             }
 
             if (!fileNamePattern.Equals("nrml") && !fileNamePattern.Equals("multi"))
             {
+                Console.WriteLine("Provided file name pattern is invalid.");
                 Environment.Exit(4);
             }
 
@@ -37,8 +41,13 @@ namespace Miris.Bbkpify.CLI
             {
                 if (!file.Contains(".bbkp"))
                 {
+                    Console.WriteLine($"Handling ${file}");
                     File.Move(file, $"{file}.bbkp");
                     File.Copy(placeholderPath, file);
+                }
+                else
+                {
+                    Console.WriteLine($"Skipping ${file}");
                 }
             }
         }
