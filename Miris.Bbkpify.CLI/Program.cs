@@ -14,7 +14,6 @@ namespace Miris.Bbkpify.CLI
     internal enum ExitCodes
     {
         Success = 0,
-        MoreArgumentsNecessary,
         InvalidPlaceholderPath,
         InvalidFilesFolderPath,
         InvalidFileNamePattern
@@ -51,17 +50,50 @@ namespace Miris.Bbkpify.CLI
         {
             ShowBanner();
 
-            // TODO: Prompt for input instead of exiting prematurely!
-            ExitIfFalse(args.Length >= 3, "Not enough arguments provided.", MoreArgumentsNecessary);
+            var placeholderPath = string.Empty;
+            var filesFolderPath = string.Empty;
+            var fileNamePattern = string.Empty;
 
-            var placeholderPath = args[0];
-            var filesFolderPath = args[1];
-            var fileNamePattern = args[2];
+            if (args.Length < 3)
+            {
+                ForegroundColor = Red;
+                WriteLine("Not enough arguments provided. Falling back to manual input.");
 
-            // prematurely exit if the following conditions aren't satisfied
-            ExitIfFalse(File.Exists(placeholderPath), "Placeholder file does not exist.", InvalidPlaceholderPath);
-            ExitIfFalse(Directory.Exists(filesFolderPath), "Files directory does not exist.", InvalidFilesFolderPath);
-            ExitIfFalse(Types.Contains(fileNamePattern), "File name pattern is invalid.", InvalidFileNamePattern);
+                ForegroundColor = Cyan;
+                while (!File.Exists(placeholderPath))
+                {
+                    WriteLine("Please provide a valid placeholder file path:");
+                    placeholderPath = ReadLine();
+                    ForegroundColor = Red;
+                }
+                
+                ForegroundColor = Cyan;
+                while (!Directory.Exists(filesFolderPath))
+                {
+                    WriteLine("Please provide a valid target directory path:");
+                    filesFolderPath = ReadLine();
+                    ForegroundColor = Red;
+                }
+                
+                ForegroundColor = Cyan;
+                while (!Types.Contains(fileNamePattern))
+                {
+                    WriteLine("Please provide a valid file search pattern:");
+                    fileNamePattern = ReadLine();
+                    ForegroundColor = Red;
+                }
+            }
+            else
+            {
+                placeholderPath = args[0];
+                filesFolderPath = args[1];
+                fileNamePattern = args[2];
+            
+                // prematurely exit if the following conditions aren't satisfied
+                ExitIfFalse(File.Exists(placeholderPath), "Placeholder file does not exist.", InvalidPlaceholderPath);
+                ExitIfFalse(Directory.Exists(filesFolderPath), "Target folder does not exist.", InvalidFilesFolderPath);
+                ExitIfFalse(Types.Contains(fileNamePattern), "File name pattern is invalid.", InvalidFileNamePattern);
+            }
 
             // if everything is successful, get all files and back them up
             var files = Directory.GetFiles(filesFolderPath, $"*{fileNamePattern}*");
