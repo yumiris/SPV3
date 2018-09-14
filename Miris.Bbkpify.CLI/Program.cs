@@ -42,14 +42,14 @@ namespace Miris.Bbkpify.CLI
                 if (!Exists(bbkpFile))
                 {
                     ForegroundColor = Green;
-                    WriteLine($"Handling ${file}");
+                    WriteLine($"Handling {file}");
                     Move(file, bbkpFile);
                     Copy(placeholderPath, file);
                 }
                 else
                 {
                     ForegroundColor = Yellow;
-                    WriteLine($"Skipping ${file}");
+                    WriteLine($"Skipping {file}");
                 }
             }
         }
