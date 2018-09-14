@@ -47,10 +47,12 @@ namespace Miris.Bbkpify.CLI
 
             foreach (var file in files)
             {
-                if (!file.Contains($".{Extension}"))
+                var bbkpFile = $"{file}.{Extension}";
+                
+                if (!File.Exists(bbkpFile))
                 {
                     Console.WriteLine($"Handling ${file}");
-                    File.Move(file, $"{file}.{Extension}");
+                    File.Move(file, bbkpFile);
                     File.Copy(placeholderPath, file);
                 }
                 else
