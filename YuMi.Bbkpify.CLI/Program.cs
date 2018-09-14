@@ -9,7 +9,7 @@ using static YuMi.Bbkpify.CLI.ExitCodes;
 namespace YuMi.Bbkpify.CLI
 {
     /// <summary>
-    /// Main application exit codes.
+    ///     Main application exit codes.
     /// </summary>
     internal enum ExitCodes
     {
@@ -20,17 +20,17 @@ namespace YuMi.Bbkpify.CLI
     }
 
     /// <summary>
-    /// Logical portion of the program.
+    ///     Logical portion of the program.
     /// </summary>
     internal static partial class Program
     {
         /// <summary>
-        /// File extension to use for the backup file.
+        ///     File extension to use for the backup file.
         /// </summary>
         private const string Extension = "bbkp";
 
         /// <summary>
-        /// Allowed file search patterns.
+        ///     Allowed file search patterns.
         /// </summary>
         private static readonly string[] Types =
         {
@@ -39,12 +39,12 @@ namespace YuMi.Bbkpify.CLI
         };
 
         /// <summary>
-        /// Console program entry.
+        ///     Console program entry.
         /// </summary>
         /// <param name="args">
-        /// args[0]: Placeholder path
-        /// args[1]: Target directory path
-        /// args[2]: File search pattern
+        ///     args[0]: Placeholder path
+        ///     args[1]: Target directory path
+        ///     args[2]: File search pattern
         /// </param>
         public static void Main(string[] args)
         {
@@ -66,7 +66,7 @@ namespace YuMi.Bbkpify.CLI
                     placeholderPath = ReadLine();
                     ForegroundColor = Red;
                 }
-                
+
                 ForegroundColor = Cyan;
                 while (!Directory.Exists(filesFolderPath))
                 {
@@ -74,7 +74,7 @@ namespace YuMi.Bbkpify.CLI
                     filesFolderPath = ReadLine();
                     ForegroundColor = Red;
                 }
-                
+
                 ForegroundColor = Cyan;
                 while (!Types.Contains(fileNamePattern))
                 {
@@ -88,7 +88,7 @@ namespace YuMi.Bbkpify.CLI
                 placeholderPath = args[0];
                 filesFolderPath = args[1];
                 fileNamePattern = args[2];
-            
+
                 // prematurely exit if the following conditions aren't satisfied
                 ExitIfFalse(File.Exists(placeholderPath), "Placeholder file does not exist.", InvalidPlaceholderPath);
                 ExitIfFalse(Directory.Exists(filesFolderPath), "Target folder does not exist.", InvalidFilesFolderPath);
@@ -106,7 +106,7 @@ namespace YuMi.Bbkpify.CLI
 
         private static void BbkpifyFiles(string[] files, string placeholderPath)
         {
-            for (int i = 0; i < files.Length; i++)
+            for (var i = 0; i < files.Length; i++)
             {
                 var file = files[i];
                 var bbkpFile = $"{file}.{Extension}";
@@ -119,7 +119,7 @@ namespace YuMi.Bbkpify.CLI
                 {
                     ForegroundColor = Green;
                     WriteLine($"{progress}\t| HANDLING {file}");
-                    
+
                     // backup through renaming, and replace with the placeholder
                     File.Move(file, bbkpFile);
                     File.Copy(placeholderPath, file);
@@ -133,7 +133,7 @@ namespace YuMi.Bbkpify.CLI
         }
 
         /// <summary>
-        /// Exit the application if the inbound condition is false.
+        ///     Exit the application if the inbound condition is false.
         /// </summary>
         /// <param name="condition">Condition outcome to check.</param>
         /// <param name="exitMessage">Message to write to the console upon exit.</param>

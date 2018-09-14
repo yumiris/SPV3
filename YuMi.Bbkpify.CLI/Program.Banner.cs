@@ -7,12 +7,12 @@ using static System.ConsoleColor;
 namespace YuMi.Bbkpify.CLI
 {
     /// <summary>
-    /// Visual portion of the program.
+    ///     Visual portion of the program.
     /// </summary>
     internal static partial class Program
     {
         /// <summary>
-        /// Outputs the main ASCII banner.
+        ///     Outputs the main ASCII banner.
         /// </summary>
         private static void ShowBanner()
         {
