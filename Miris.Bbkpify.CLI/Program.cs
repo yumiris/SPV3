@@ -41,12 +41,14 @@ namespace Miris.Bbkpify.CLI
                 
                 if (!Exists(bbkpFile))
                 {
+                    ForegroundColor = Green;
                     WriteLine($"Handling ${file}");
                     Move(file, bbkpFile);
                     Copy(placeholderPath, file);
                 }
                 else
                 {
+                    ForegroundColor = Yellow;
                     WriteLine($"Skipping ${file}");
                 }
             }
@@ -55,6 +57,7 @@ namespace Miris.Bbkpify.CLI
         private static void ExitIfFalse(bool condition, string exitMessage, int exitCode)
         {
             if (condition) return;
+            ForegroundColor = Red;
             WriteLine(exitMessage);
             Exit(exitCode);
         }
