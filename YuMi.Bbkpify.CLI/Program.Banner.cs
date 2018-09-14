@@ -17,16 +17,7 @@ namespace YuMi.Bbkpify.CLI
         private static void ShowBanner()
         {
             ForegroundColor = Magenta;
-            WriteLine(@"
-    __    __    __         _ ____     
-   / /_  / /_  / /______  (_) __/_  __
-  / __ \/ __ \/ //_/ __ \/ / /_/ / / /
- / /_/ / /_/ / ,< / /_/ / / __/ /_/ / 
-/_.___/_.___/_/|_/ .___/_/_/  \__, /  
-                /_/          /____/   
-======================================
-                           // Yu:YuMi
-");
+            WriteLine(Ascii.Banner);
 
             // outputs a string with available patterns ...
             // ... and neatly separates each pattern

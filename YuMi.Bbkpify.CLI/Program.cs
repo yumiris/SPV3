@@ -1,34 +1,18 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using static System.Console;
 using static System.ConsoleColor;
 using static System.Environment;
-using static YuMi.Bbkpify.CLI.ExitCodes;
+using static YuMi.Bbkpify.Core;
+using static YuMi.Bbkpify.ExitCodes;
 
 namespace YuMi.Bbkpify.CLI
 {
-    /// <summary>
-    ///     Main application exit codes.
-    /// </summary>
-    internal enum ExitCodes
-    {
-        Success = 0,
-        InvalidPlaceholderPath,
-        InvalidFilesFolderPath,
-        InvalidFileNamePattern
-    }
-
     /// <summary>
     ///     Logical portion of the program.
     /// </summary>
     internal static partial class Program
     {
-        /// <summary>
-        ///     File extension to use for the backup file.
-        /// </summary>
-        private const string Extension = "bbkp";
-
         /// <summary>
         ///     Allowed file search patterns.
         /// </summary>
@@ -112,7 +96,7 @@ namespace YuMi.Bbkpify.CLI
                 var bbkpFile = $"{file}.{Extension}";
 
                 // looks like: [1/10]
-                var progress = new Func<string>(() => $"[{i + 1}/{files.Length}]")();
+                var progress = Ascii.Progress(i, files.Length);
 
                 // check if the current file has been handled in a previous execution
                 if (!file.Contains(Extension) && !File.Exists(bbkpFile))
