@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using YuMi.Bbkpify;
 using static System.Console;
 using static System.ConsoleColor;
@@ -38,8 +39,17 @@ namespace YuMi.Unbbkpify.CLI
                 }
             }
             
-            var files = Directory.GetFiles(directoryPath, $"*.{Extension}*");
-            Revert(files);
+            try
+            {
+                var files = Directory.GetFiles(directoryPath, $"*.{Extension}*");
+                Revert(files);
+            }
+            catch (Exception e)
+            {
+                ForegroundColor = Red;
+                WriteLine(e.Message);
+                Exit((int)ExceptionHasBeenThrown);
+            }
             
             WriteLine($"\nFinished restoring bitmaps in '{directoryPath}'!");
             Exit((int)Success);

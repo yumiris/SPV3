@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.IO;
 using static System.Console;
 using static System.ConsoleColor;
@@ -53,12 +54,21 @@ namespace YuMi.Bbkpify
         /// <param name="bitmapBbkpPaths">
         /// Bitmaps to restore. They must end in ".bbkp"!
         /// </param>
+        /// <exception cref="InvalidEnumArgumentException">
+        /// One of the files in the array is not a ".bbkp" file.
+        /// </exception>
         public static void Revert(string[] bitmapBbkpPaths)
         {
             ForegroundColor = Green;
             for (var i = 0; i < bitmapBbkpPaths.Length; i++)
             {
                 var currentFile = bitmapBbkpPaths[i];
+
+                if (!currentFile.Contains($".{Extension}"))
+                {
+                    throw new InvalidEnumArgumentException($"Bitmap '{currentFile}' is not a backup file.");
+                }
+                
                 var placeholder = currentFile.Substring(0, currentFile.Length - Extension.Length - 1);
 
                 var progress = Ascii.Progress(i, bitmapBbkpPaths.Length);

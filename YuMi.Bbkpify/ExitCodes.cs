@@ -8,6 +8,7 @@ namespace YuMi.Bbkpify
         Success = 0,
         InvalidPlaceholderPath,
         InvalidFilesFolderPath,
-        InvalidFileNamePattern
+        InvalidFileNamePattern,
+        ExceptionHasBeenThrown
     }
 }
