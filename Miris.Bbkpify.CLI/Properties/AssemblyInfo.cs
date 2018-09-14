@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Miris.Bbkpify.CLI")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Safely replace Sapien texture bitmaps with placeholders.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Miris.Bbkpify.CLI")]
+[assembly: AssemblyCompany("Yu:Miris")]
+[assembly: AssemblyProduct("Miris Bbkpify CLI")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
