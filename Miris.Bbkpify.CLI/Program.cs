@@ -32,13 +32,17 @@ namespace Miris.Bbkpify.CLI
             ExitIfFalse(Types.Contains(fileNamePattern), "Provided file name pattern is invalid.", 4);
 
             var files = Directory.GetFiles(filesFolderPath, $"*{fileNamePattern}*");
+            BbkpifyFiles(files, placeholderPath);
+        }
 
+        private static void BbkpifyFiles(string[] files, string placeholderPath)
+        {
             for (int i = 0; i < files.Length; i++)
             {
                 var file = files[i];
                 var bbkpFile = $"{file}.{Extension}";
                 var progress = new Func<string>(() => $"[{i + 1}/{files.Length}]")();
-                
+
                 if (!file.Contains(Extension) && !Exists(bbkpFile))
                 {
                     ForegroundColor = Green;
