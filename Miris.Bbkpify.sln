@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miris.Bbkpify.CLI", "Miris.Bbkpify.CLI\Miris.Bbkpify.CLI.csproj", "{F67E6D12-A135-4B89-8944-A9D685595333}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F67E6D12-A135-4B89-8944-A9D685595333}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F67E6D12-A135-4B89-8944-A9D685595333}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F67E6D12-A135-4B89-8944-A9D685595333}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F67E6D12-A135-4B89-8944-A9D685595333}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
