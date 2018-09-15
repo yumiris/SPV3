@@ -44,7 +44,7 @@ namespace YuMi.Unbbkpify.CLI
                 if (!Directory.Exists(directoryPath))
                 {
                     ForegroundColor = Red;
-                    WriteLine("Target folder does not exist.");
+                    Error.WriteLine("Target folder does not exist.");
                     Exit((int)InvalidFilesFolderPath);
                 }
             }
@@ -57,7 +57,7 @@ namespace YuMi.Unbbkpify.CLI
             catch (Exception e)
             {
                 ForegroundColor = Red;
-                WriteLine(e.Message);
+                Error.WriteLine(e.Message);
                 Exit((int)ExceptionHasBeenThrown);
             }
             

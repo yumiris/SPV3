@@ -102,7 +102,7 @@ namespace YuMi.Bbkpify.CLI
         {
             if (condition) return;
             ForegroundColor = Red;
-            WriteLine(exitMessage);
+            Error.WriteLine(exitMessage);
             Exit((int) exitCode);
         }
         
