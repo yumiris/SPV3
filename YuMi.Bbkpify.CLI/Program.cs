@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using static System.Console;
 using static System.ConsoleColor;
 using static System.Environment;
@@ -85,8 +86,7 @@ namespace YuMi.Bbkpify.CLI
 
             // if everything is successful, get all files and back them up
             var files = Directory.GetFiles(filesFolderPath, $"*{fileNamePattern}*");
-            ApplyPlaceholder(files, placeholderPath);
-
+            ApplyPlaceholderAsync(files, placeholderPath).GetAwaiter().GetResult();
             ForegroundColor = Green;
             WriteLine($"\nFinished applying '{placeholderPath}' to '{filesFolderPath}'!");
             Exit((int) Success);

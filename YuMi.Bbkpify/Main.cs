@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Threading.Tasks;
 using static System.Console;
 using static System.ConsoleColor;
 
@@ -20,8 +22,10 @@ namespace YuMi.Bbkpify
         /// </summary>
         /// <param name="bitmapPaths">Array of bitmaps to back up and replace.</param>
         /// <param name="placeholderPath">Path to the placeholder file.</param>
-        public static void ApplyPlaceholder(string[] bitmapPaths, string placeholderPath)
+        public static async Task ApplyPlaceholderAsync(string[] bitmapPaths, string placeholderPath)
         {
+            var tasks = new List<Task>();
+            
             for (var i = 0; i < bitmapPaths.Length; i++)
             {
                 var file = bitmapPaths[i];
@@ -33,12 +37,15 @@ namespace YuMi.Bbkpify
                 // check if the current file has been handled in a previous execution
                 if (!file.Contains(Extension) && !File.Exists(bbkpFile))
                 {
-                    ForegroundColor = Green;
-                    WriteLine($"{progress}\t| HANDLING {file}");
+                    tasks.Add(Task.Run(() =>
+                    {
+                        ForegroundColor = Green;
+                        WriteLine($"{progress}\t| HANDLING {file}");
 
-                    // backup through renaming, and replace with the placeholder
-                    File.Move(file, bbkpFile);
-                    File.Copy(placeholderPath, file);
+                        // backup through renaming, and replace with the placeholder
+                        File.Move(file, bbkpFile);
+                        File.Copy(placeholderPath, file);
+                    }));
                 }
                 else
                 {
@@ -46,6 +53,8 @@ namespace YuMi.Bbkpify
                     WriteLine($"{progress}\t| SKIPPING {file}");
                 }
             }
+            
+            await Task.WhenAll(tasks);
         }
 
         /// <summary>
