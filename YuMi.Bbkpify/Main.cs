@@ -42,7 +42,7 @@ namespace YuMi.Bbkpify
                         ForegroundColor = Green;
                         WriteLine($"{progress}\t| HANDLING {file}");
 
-                        // backup through renaming, and replace with the placeholder
+                        // backup by renaming, and replace with the placeholder
                         File.Move(file, bbkpFile);
                         File.Copy(placeholderPath, file);
                     }));
