@@ -3,6 +3,7 @@ using System.Text;
 using static System.AppDomain;
 using static System.Console;
 using static System.ConsoleColor;
+using static YuMi.Bbkpify.Ascii;
 
 namespace YuMi.Bbkpify.CLI
 {
@@ -17,7 +18,7 @@ namespace YuMi.Bbkpify.CLI
         private static void ShowBanner()
         {
             ForegroundColor = Magenta;
-            WriteLine(Ascii.Banner);
+            WriteLine(Banner);
 
             // outputs a string with available patterns ...
             // ... and neatly separates each pattern

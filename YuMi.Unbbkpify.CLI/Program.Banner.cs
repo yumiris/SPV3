@@ -1,7 +1,7 @@
-﻿using YuMi.Bbkpify;
-using static System.AppDomain;
+﻿using static System.AppDomain;
 using static System.Console;
 using static System.ConsoleColor;
+using static YuMi.Bbkpify.Ascii;
 
 namespace YuMi.Unbbkpify.CLI
 {
@@ -10,7 +10,7 @@ namespace YuMi.Unbbkpify.CLI
         private static void ShowBanner()
         {
             ForegroundColor = Magenta;
-            WriteLine(Ascii.Banner);
+            WriteLine(Banner);
             ForegroundColor = Cyan;
             WriteLine($@"
 Usage: .\{CurrentDomain.FriendlyName} <1>
