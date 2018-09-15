@@ -1,16 +1,26 @@
 ﻿using System;
 using System.IO;
-using YuMi.Bbkpify;
 using static System.Console;
 using static System.ConsoleColor;
 using static System.Environment;
 using static YuMi.Bbkpify.Main;
 using static YuMi.Bbkpify.ExitCodes;
+using static System.AppDomain;
+using static YuMi.Bbkpify.Ascii;
 
 namespace YuMi.Unbbkpify.CLI
 {
-    internal static partial class Program
+    /// <summary>
+    ///     Main program class.
+    /// </summary>
+    internal static class Program
     {
+        /// <summary>
+        ///     Console program entry.
+        /// </summary>
+        /// <param name="args">
+        ///     args[0]: BBKP bitmaps directory path
+        /// </param>
         internal static void Main(string[] args)
         {
             ShowBanner();
@@ -53,6 +63,20 @@ namespace YuMi.Unbbkpify.CLI
             
             WriteLine($"\nFinished restoring bitmaps in '{directoryPath}'!");
             Exit((int)Success);
+        }
+        
+        /// <summary>
+        ///     Outputs the main ASCII banner.
+        /// </summary>
+        private static void ShowBanner()
+        {
+            ForegroundColor = Magenta;
+            WriteLine(Banner);
+            ForegroundColor = Cyan;
+            WriteLine($@"
+Usage: .\{CurrentDomain.FriendlyName} <1>
+         1 - Directory name to undo the bbkpify process in (e.g. '.\cmt\tags', 'C:\cmt\tags')
+");
         }
     }
 }
