@@ -3,7 +3,7 @@ using System.Linq;
 using static System.Console;
 using static System.ConsoleColor;
 using static System.Environment;
-using static YuMi.Bbkpify.Core;
+using static YuMi.Bbkpify.Main;
 using static YuMi.Bbkpify.ExitCodes;
 
 namespace YuMi.Bbkpify.CLI
@@ -81,7 +81,7 @@ namespace YuMi.Bbkpify.CLI
 
             // if everything is successful, get all files and back them up
             var files = Directory.GetFiles(filesFolderPath, $"*{fileNamePattern}*");
-            Commit(files, placeholderPath);
+            ApplyPlaceholder(files, placeholderPath);
 
             ForegroundColor = Green;
             WriteLine($"\nFinished applying '{placeholderPath}' to '{filesFolderPath}'!");

@@ -8,7 +8,7 @@ namespace YuMi.Bbkpify
     /// <summary>
     ///     Class with core properties or methods.
     /// </summary>
-    public static class Core
+    public static class Main
     {
         /// <summary>
         ///     File extension to use for the backup file.
@@ -20,7 +20,7 @@ namespace YuMi.Bbkpify
         /// </summary>
         /// <param name="bitmapPaths">Array of bitmaps to back up and replace.</param>
         /// <param name="placeholderPath">Path to the placeholder file.</param>
-        public static void Commit(string[] bitmapPaths, string placeholderPath)
+        public static void ApplyPlaceholder(string[] bitmapPaths, string placeholderPath)
         {
             for (var i = 0; i < bitmapPaths.Length; i++)
             {
@@ -57,7 +57,7 @@ namespace YuMi.Bbkpify
         /// <exception cref="InvalidEnumArgumentException">
         /// One of the files in the array is not a ".bbkp" file.
         /// </exception>
-        public static void Revert(string[] bitmapBbkpPaths)
+        public static void ResetBitmapFiles(string[] bitmapBbkpPaths)
         {
             ForegroundColor = Green;
             for (var i = 0; i < bitmapBbkpPaths.Length; i++)

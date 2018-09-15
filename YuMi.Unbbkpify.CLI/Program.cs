@@ -4,7 +4,7 @@ using YuMi.Bbkpify;
 using static System.Console;
 using static System.ConsoleColor;
 using static System.Environment;
-using static YuMi.Bbkpify.Core;
+using static YuMi.Bbkpify.Main;
 using static YuMi.Bbkpify.ExitCodes;
 
 namespace YuMi.Unbbkpify.CLI
@@ -42,7 +42,7 @@ namespace YuMi.Unbbkpify.CLI
             try
             {
                 var files = Directory.GetFiles(directoryPath, $"*.{Extension}*");
-                Revert(files);
+                ResetBitmapFiles(files);
             }
             catch (Exception e)
             {
