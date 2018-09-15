@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -21,7 +22,7 @@ namespace YuMi.Bbkpify.CLI
         /// <summary>
         ///     Allowed file search patterns.
         /// </summary>
-        private static readonly string[] Types =
+        private static readonly List<string> Types = new List<string>
         {
             "nrml",
             "multi"
@@ -121,9 +122,9 @@ namespace YuMi.Bbkpify.CLI
             {
                 var x = new StringBuilder();
 
-                for (var i = 0; i < Types.Length; i++)
+                for (var i = 0; i < Types.Count; i++)
                 {
-                    var s = i + 1 == Types.Length ? string.Empty : " | ";
+                    var s = i + 1 == Types.Count ? string.Empty : " | ";
                     x.Append($"'{Types[i]}'{s}");
                 }
 
