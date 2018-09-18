@@ -7,6 +7,7 @@ using static YuMi.Bbkpify.Main;
 using static YuMi.Bbkpify.ExitCodes;
 using static System.AppDomain;
 using static YuMi.Bbkpify.Ascii;
+using static YuMi.Output.Line;
 
 namespace YuMi.Unbbkpify.CLI
 {
@@ -32,9 +33,8 @@ namespace YuMi.Unbbkpify.CLI
                 ForegroundColor = Cyan;
                 while (!Directory.Exists(directoryPath))
                 {
-                    WriteLine("Please input a valid directory path:");
+                    Write("Please input a valid directory path:", Red);
                     directoryPath = ReadLine();
-                    ForegroundColor = Red;
                 }
             }
             else
@@ -61,7 +61,7 @@ namespace YuMi.Unbbkpify.CLI
                 Exit((int)ExceptionHasBeenThrown);
             }
             
-            WriteLine($"\nFinished restoring bitmaps in '{directoryPath}'!");
+            Write($"\nFinished restoring bitmaps in '{directoryPath}'!", Green);
             Exit((int)Success);
         }
         
@@ -70,13 +70,11 @@ namespace YuMi.Unbbkpify.CLI
         /// </summary>
         private static void ShowBanner()
         {
-            ForegroundColor = Magenta;
-            WriteLine(Banner);
-            ForegroundColor = Cyan;
-            WriteLine($@"
+            Write(Banner, Magenta);
+            Write($@"
 Usage: .\{CurrentDomain.FriendlyName} <1>
          1 - Directory name to undo the bbkpify process in (e.g. '.\cmt\tags', 'C:\cmt\tags')
-");
+", Cyan);
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using static System.Console;
 using static System.ConsoleColor;
 using static System.Environment;
@@ -11,6 +9,7 @@ using static YuMi.Bbkpify.Main;
 using static YuMi.Bbkpify.ExitCodes;
 using static System.AppDomain;
 using static YuMi.Bbkpify.Ascii;
+using static YuMi.Output.Line;
 
 namespace YuMi.Bbkpify.CLI
 {
@@ -46,31 +45,24 @@ namespace YuMi.Bbkpify.CLI
 
             if (args.Length < 3)
             {
-                ForegroundColor = Red;
-                WriteLine("Not enough arguments provided. Falling back to manual input.");
+                Write("Not enough arguments provided. Falling back to manual input.", Red);
 
-                ForegroundColor = Cyan;
                 while (!File.Exists(placeholderPath))
                 {
-                    WriteLine("Please provide a valid placeholder file path:");
+                    Write("Please provide a valid placeholder file path:", Red);
                     placeholderPath = ReadLine();
-                    ForegroundColor = Red;
                 }
 
-                ForegroundColor = Cyan;
                 while (!Directory.Exists(filesFolderPath))
                 {
-                    WriteLine("Please provide a valid target directory path:");
+                    Write("Please provide a valid target directory path:", Red);
                     filesFolderPath = ReadLine();
-                    ForegroundColor = Red;
                 }
 
-                ForegroundColor = Cyan;
                 while (!Types.Contains(fileNamePattern))
                 {
-                    WriteLine("Please provide a valid file search pattern:");
+                    Write("Please provide a valid file search pattern:", Red);
                     fileNamePattern = ReadLine();
-                    ForegroundColor = Red;
                 }
             }
             else
@@ -88,8 +80,7 @@ namespace YuMi.Bbkpify.CLI
             // if everything is successful, get all files and back them up
             var files = Directory.GetFiles(filesFolderPath, $"*{fileNamePattern}*");
             ApplyPlaceholderAsync(files, placeholderPath).GetAwaiter().GetResult();
-            ForegroundColor = Green;
-            WriteLine($"\nFinished applying '{placeholderPath}' to '{filesFolderPath}'!");
+            Write($"\nFinished applying '{placeholderPath}' to '{filesFolderPath}'!", Green);
             Exit((int) Success);
         }
 
@@ -112,8 +103,7 @@ namespace YuMi.Bbkpify.CLI
         /// </summary>
         private static void ShowBanner()
         {
-            ForegroundColor = Magenta;
-            WriteLine(Banner);
+            Write(Banner, Magenta);
 
             // outputs a string with available patterns ...
             // ... and neatly separates each pattern
@@ -131,13 +121,12 @@ namespace YuMi.Bbkpify.CLI
                 return x.ToString();
             })();
 
-            ForegroundColor = Cyan;
-            WriteLine($@"
+            Write($@"
 Usage: .\{CurrentDomain.FriendlyName} <1> <2> <3>
          1 - Placeholder file path (e.g. '.\placeholder.bmp', 'C:\placeholder.bmp')
          2 - Files directory path (e.g. '.\cmt\tags', 'C:\cmt\tags')
          3 - One of the following: {availablePatterns}
-");
+", Cyan);
         }
     }
 }

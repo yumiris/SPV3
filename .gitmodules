@@ -1,0 +1,3 @@
+[submodule "YuMi.Output"]
+	path = YuMi.Output
+	url = ../output.git

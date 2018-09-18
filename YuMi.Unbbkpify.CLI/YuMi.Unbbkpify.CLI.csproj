@@ -46,6 +46,10 @@
       <Project>{86d173c7-d59d-4736-9c32-54b78478e73d}</Project>
       <Name>YuMi.Bbkpify</Name>
     </ProjectReference>
+    <ProjectReference Include="..\YuMi.Output\YuMi.Output\YuMi.Output.csproj">
+      <Project>{a01b3ec3-0ee7-4626-b126-41d1436250ad}</Project>
+      <Name>YuMi.Output</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

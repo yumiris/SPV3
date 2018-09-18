@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using static System.Console;
 using static System.ConsoleColor;
+using static YuMi.Output.Line;
 
 namespace YuMi.Bbkpify
 {
@@ -39,8 +40,7 @@ namespace YuMi.Bbkpify
                 {
                     tasks.Add(Task.Run(() =>
                     {
-                        ForegroundColor = Green;
-                        WriteLine($"{progress}\t| HANDLING {file}");
+                        Write($"{progress}\t| HANDLING {file}",Green);
 
                         // backup by renaming, and replace with the placeholder
                         File.Move(file, bbkpFile);
@@ -49,8 +49,7 @@ namespace YuMi.Bbkpify
                 }
                 else
                 {
-                    ForegroundColor = Yellow;
-                    WriteLine($"{progress}\t| SKIPPING {file}");
+                    Write($"{progress}\t| SKIPPING {file}", Yellow);
                 }
             }
             
@@ -81,7 +80,7 @@ namespace YuMi.Bbkpify
                 var placeholder = currentFile.Substring(0, currentFile.Length - Extension.Length - 1);
 
                 var progress = Ascii.Progress(i, bitmapBbkpPaths.Length);
-                WriteLine($"{progress}\t| RESTORING {placeholder}");
+                Write($"{progress}\t| RESTORING {placeholder}", Green);
                 
                 File.Delete(placeholder);
                 File.Move(currentFile, placeholder);
