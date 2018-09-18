@@ -16,8 +16,13 @@ namespace YuMi.Bbkpify
         /// <summary>
         ///     File extension to use for the backup file.
         /// </summary>
-        public static readonly string Extension = "bbkp";
-        
+        public const string Extension = "bbkp";
+
+        /// <summary>
+        ///     Maximum placeholder file size.
+        /// </summary>
+        public const int SafeFileSize = 0x800000;
+
         /// <summary>
         /// Backs up all given bitmaps and replaces them with the given placeholder.
         /// </summary>
