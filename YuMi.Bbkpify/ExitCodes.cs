@@ -9,6 +9,7 @@ namespace YuMi.Bbkpify
         InvalidPlaceholderPath,
         InvalidFilesFolderPath,
         InvalidFileNamePattern,
-        ExceptionHasBeenThrown
+        ExceptionHasBeenThrown,
+        PlaceholderFileTooLong,
     }
 }

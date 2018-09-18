@@ -49,8 +49,17 @@ namespace YuMi.Bbkpify.CLI
 
                 while (!File.Exists(placeholderPath))
                 {
-                    Write("Please provide a valid placeholder file path:", Red);
+                    Write("Please provide a valid placeholder file under the size of 16MiB:", Red);
                     placeholderPath = ReadLine();
+
+                    if (placeholderPath != null && File.Exists(placeholderPath))
+                    {
+                        if (new FileInfo(placeholderPath).Length > 0x1000000)
+                        {
+                            Write("Provided placeholder is larger than 16MiB!", Red);
+                            placeholderPath = string.Empty;
+                        }
+                    }
                 }
 
                 while (!Directory.Exists(filesFolderPath))
@@ -73,6 +82,10 @@ namespace YuMi.Bbkpify.CLI
 
                 // prematurely exit if the following conditions aren't satisfied
                 ExitIfFalse(File.Exists(placeholderPath), "Placeholder file does not exist.", InvalidPlaceholderPath);
+
+                var sizeIsUnder16MiB = new FileInfo(placeholderPath).Length <= 0x1000000; 
+                
+                ExitIfFalse(sizeIsUnder16MiB, "Placeholder file is larger than 16MiB.", PlaceholderFileTooLong);
                 ExitIfFalse(Directory.Exists(filesFolderPath), "Target folder does not exist.", InvalidFilesFolderPath);
                 ExitIfFalse(Types.Contains(fileNamePattern), "File name pattern is invalid.", InvalidFileNamePattern);
             }
