@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using YuMi.Output;
 using static System.Console;
 using static System.ConsoleColor;
 using static System.Environment;
@@ -45,18 +46,20 @@ namespace YuMi.Bbkpify.CLI
 
             if (args.Length < 3)
             {
-                Write("Not enough arguments provided. Falling back to manual input.", Red);
+                Write("Not enough arguments provided. Falling back to manual input.", Yellow, "WARN");
 
                 while (!File.Exists(placeholderPath))
                 {
-                    Write("Please provide a valid placeholder file under the size of 16MiB:", Red);
+                    Write("Please provide a valid placeholder file under the size of 8MiB:", Cyan, "STEP");
                     placeholderPath = ReadLine();
 
                     if (placeholderPath != null && File.Exists(placeholderPath))
                     {
-                        if (new FileInfo(placeholderPath).Length > 0x1000000)
+                        var fileSize = new FileInfo(placeholderPath).Length; 
+                        
+                        if (fileSize > SafeFileSize)
                         {
-                            Write("Provided placeholder is larger than 16MiB!", Red);
+                            Write($"Provided placeholder size ({fileSize}) is larger than 8MiB!", Red, "STOP");
                             placeholderPath = string.Empty;
                         }
                     }
@@ -64,13 +67,13 @@ namespace YuMi.Bbkpify.CLI
 
                 while (!Directory.Exists(filesFolderPath))
                 {
-                    Write("Please provide a valid target directory path:", Red);
+                    Write("Please provide a valid target directory path:", Cyan, "STEP");
                     filesFolderPath = ReadLine();
                 }
 
                 while (!Types.Contains(fileNamePattern))
                 {
-                    Write("Please provide a valid file search pattern:", Red);
+                    Write("Please provide a valid file search pattern:", Cyan, "STEP");
                     fileNamePattern = ReadLine();
                 }
             }
@@ -82,10 +85,8 @@ namespace YuMi.Bbkpify.CLI
 
                 // prematurely exit if the following conditions aren't satisfied
                 ExitIfFalse(File.Exists(placeholderPath), "Placeholder file does not exist.", InvalidPlaceholderPath);
-
-                var sizeIsUnder16MiB = new FileInfo(placeholderPath).Length <= 0x1000000; 
-                
-                ExitIfFalse(sizeIsUnder16MiB, "Placeholder file is larger than 16MiB.", PlaceholderFileTooLong);
+                var sizeIsUnder16MiB = new FileInfo(placeholderPath).Length <= SafeFileSize; 
+                ExitIfFalse(sizeIsUnder16MiB, "Placeholder file is larger than 8MiB.", PlaceholderFileTooLong);
                 ExitIfFalse(Directory.Exists(filesFolderPath), "Target folder does not exist.", InvalidFilesFolderPath);
                 ExitIfFalse(Types.Contains(fileNamePattern), "File name pattern is invalid.", InvalidFileNamePattern);
             }
@@ -106,7 +107,7 @@ namespace YuMi.Bbkpify.CLI
         private static void ExitIfFalse(bool condition, string exitMessage, ExitCodes exitCode)
         {
             if (condition) return;
-            ForegroundColor = Red;
+            Write(exitMessage, Red, "HALT");
             Error.WriteLine(exitMessage);
             Exit((int) exitCode);
         }
