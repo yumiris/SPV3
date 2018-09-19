@@ -51,7 +51,7 @@ namespace YuMi.Unbbkpify.CLI
             
             try
             {
-                var files = Directory.GetFiles(directoryPath, $"*.{Extension}*");
+                var files = Directory.GetFiles(directoryPath, $"*.{Extension}*", SearchOption.AllDirectories);
                 ResetBitmapFiles(files);
             }
             catch (Exception e)

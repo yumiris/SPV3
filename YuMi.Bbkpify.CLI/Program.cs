@@ -92,7 +92,7 @@ namespace YuMi.Bbkpify.CLI
             }
 
             // if everything is successful, get all files and back them up
-            var files = Directory.GetFiles(filesFolderPath, $"*{fileNamePattern}*");
+            var files = Directory.GetFiles(filesFolderPath, $"*{fileNamePattern}*", SearchOption.AllDirectories);
             ApplyPlaceholderAsync(files, placeholderPath).GetAwaiter().GetResult();
             Write($"\nFinished applying '{placeholderPath}' to '{filesFolderPath}'!", Green);
             Exit((int) Success);
