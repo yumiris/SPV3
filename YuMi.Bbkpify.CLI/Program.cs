@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using YuMi.Output;
 using static System.Console;
@@ -92,7 +93,11 @@ namespace YuMi.Bbkpify.CLI
             }
 
             // if everything is successful, get all files and back them up
-            var files = Directory.GetFiles(filesFolderPath, $"*{fileNamePattern}*", SearchOption.AllDirectories);
+            var files = Directory
+                .GetFiles(filesFolderPath, $"*{fileNamePattern}*", SearchOption.AllDirectories)
+                .Where(x => !x.Contains("multiplayer"))
+                .ToArray();
+            
             ApplyPlaceholderAsync(files, placeholderPath).GetAwaiter().GetResult();
             Write($"\nFinished applying '{placeholderPath}' to '{filesFolderPath}'!", Green);
             Exit((int) Success);
