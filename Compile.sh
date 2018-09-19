@@ -9,6 +9,7 @@ ISO_DIR="YuMi.Bbkpify.ISO"
 msbuild /t:Build /p:Configuration=Release /p:TargetFramework=v4.5
 
 # Preparation
+rm -rvf "${BIN_DIR}"
 mkdir -p "${BIN_DIR}" "${ISO_DIR}"
 rsync -rav --progress ./*/bin/Release/*.{dll,exe} README.md "${BIN_DIR}"
 
@@ -18,3 +19,6 @@ ISO_PATH="${ISO_DIR}/${ISO_NAME}.iso" && mkisofs -v -udf -iso-level 4 -V "${ISO_
 
 # Signing
 gpg --sign "${ISO_PATH}"
+
+# Clean up
+rm -rvf "${BIN_DIR}"
