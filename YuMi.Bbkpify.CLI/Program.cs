@@ -4,14 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using YuMi.Output;
-using static System.Console;
-using static System.ConsoleColor;
-using static System.Environment;
-using static YuMi.Bbkpify.Main;
-using static YuMi.Bbkpify.ExitCodes;
-using static System.AppDomain;
-using static YuMi.Bbkpify.Ascii;
-using static YuMi.Output.Line;
 
 namespace YuMi.Bbkpify.CLI
 {
@@ -47,20 +39,20 @@ namespace YuMi.Bbkpify.CLI
 
             if (args.Length < 3)
             {
-                Write("Not enough arguments provided. Falling back to manual input.", Yellow, "WARN");
+                Line.Write("Not enough arguments provided. Falling back to manual input.", ConsoleColor.Yellow, "WARN");
 
                 while (!File.Exists(placeholderPath))
                 {
-                    Write("Please provide a valid placeholder file under the size of 8MiB:", Cyan, "STEP");
-                    placeholderPath = ReadLine();
+                    Line.Write("Provide a valid placeholder file under the size of 8MiB:", ConsoleColor.Cyan, "STEP");
+                    placeholderPath = Console.ReadLine();
 
                     if (placeholderPath != null && File.Exists(placeholderPath))
                     {
                         var fileSize = new FileInfo(placeholderPath).Length; 
                         
-                        if (fileSize > SafeFileSize)
+                        if (fileSize > Bbkpify.Main.SafeFileSize)
                         {
-                            Write($"Provided placeholder size ({fileSize}) is larger than 8MiB!", Red, "STOP");
+                            Line.Write($"Placeholder size ({fileSize}) is larger than 8MiB!", ConsoleColor.Red, "STOP");
                             placeholderPath = string.Empty;
                         }
                     }
@@ -68,14 +60,14 @@ namespace YuMi.Bbkpify.CLI
 
                 while (!Directory.Exists(filesFolderPath))
                 {
-                    Write("Please provide a valid target directory path:", Cyan, "STEP");
-                    filesFolderPath = ReadLine();
+                    Line.Write("Please provide a valid target directory path:", ConsoleColor.Cyan, "STEP");
+                    filesFolderPath = Console.ReadLine();
                 }
 
                 while (!Types.Contains(fileNamePattern))
                 {
-                    Write("Please provide a valid file search pattern:", Cyan, "STEP");
-                    fileNamePattern = ReadLine();
+                    Line.Write("Please provide a valid file search pattern:", ConsoleColor.Cyan, "STEP");
+                    fileNamePattern = Console.ReadLine();
                 }
             }
             else
@@ -84,12 +76,16 @@ namespace YuMi.Bbkpify.CLI
                 filesFolderPath = args[1];
                 fileNamePattern = args[2];
 
+                var fileExists = File.Exists(placeholderPath);
+                var sizeIsUnder16MiB = new FileInfo(placeholderPath).Length <= Bbkpify.Main.SafeFileSize;
+                var directoryExists = Directory.Exists(filesFolderPath);
+                var patternIsValid = Types.Contains(fileNamePattern);
+
                 // prematurely exit if the following conditions aren't satisfied
-                ExitIfFalse(File.Exists(placeholderPath), "Placeholder file does not exist.", InvalidPlaceholderPath);
-                var sizeIsUnder16MiB = new FileInfo(placeholderPath).Length <= SafeFileSize; 
-                ExitIfFalse(sizeIsUnder16MiB, "Placeholder file is larger than 8MiB.", PlaceholderFileTooLong);
-                ExitIfFalse(Directory.Exists(filesFolderPath), "Target folder does not exist.", InvalidFilesFolderPath);
-                ExitIfFalse(Types.Contains(fileNamePattern), "File name pattern is invalid.", InvalidFileNamePattern);
+                ExitIfFalse(fileExists, "File does not exist.", ExitCodes.InvalidPlaceholderPath);
+                ExitIfFalse(sizeIsUnder16MiB, "File is larger than 8MiB.", ExitCodes.PlaceholderFileTooLong);
+                ExitIfFalse(directoryExists, "Folder does not exist.", ExitCodes.InvalidFilesFolderPath);
+                ExitIfFalse(patternIsValid, "Pattern is invalid.", ExitCodes.InvalidFileNamePattern);
             }
 
             // if everything is successful, get all files and back them up
@@ -97,10 +93,10 @@ namespace YuMi.Bbkpify.CLI
                 .GetFiles(filesFolderPath, $"*{fileNamePattern}*", SearchOption.AllDirectories)
                 .Where(x => !x.Contains("multiplayer"))
                 .ToArray();
-            
-            ApplyPlaceholderAsync(files, placeholderPath).GetAwaiter().GetResult();
-            Write($"\nFinished applying '{placeholderPath}' to '{filesFolderPath}'!", Green);
-            Exit((int) Success);
+
+            Bbkpify.Main.ApplyPlaceholderAsync(files, placeholderPath).GetAwaiter().GetResult();
+            Line.Write($"\nFinished applying '{placeholderPath}' to '{filesFolderPath}'!", ConsoleColor.Green);
+            Environment.Exit((int) ExitCodes.Success);
         }
 
         /// <summary>
@@ -112,9 +108,9 @@ namespace YuMi.Bbkpify.CLI
         private static void ExitIfFalse(bool condition, string exitMessage, ExitCodes exitCode)
         {
             if (condition) return;
-            Write(exitMessage, Red, "HALT");
-            Error.WriteLine(exitMessage);
-            Exit((int) exitCode);
+            Line.Write(exitMessage, ConsoleColor.Red, "HALT");
+            Console.Error.WriteLine(exitMessage);
+            Environment.Exit((int) exitCode);
         }
         
         /// <summary>
@@ -122,7 +118,7 @@ namespace YuMi.Bbkpify.CLI
         /// </summary>
         private static void ShowBanner()
         {
-            Write(Banner, Magenta);
+            Line.Write(Ascii.Banner, ConsoleColor.Magenta);
 
             // outputs a string with available patterns ...
             // ... and neatly separates each pattern
@@ -140,12 +136,12 @@ namespace YuMi.Bbkpify.CLI
                 return x.ToString();
             })();
 
-            Write($@"
-Usage: .\{CurrentDomain.FriendlyName} <1> <2> <3>
+            Line.Write($@"
+Usage: .\{AppDomain.CurrentDomain.FriendlyName} <1> <2> <3>
          1 - Placeholder file path (e.g. '.\placeholder.bmp', 'C:\placeholder.bmp')
          2 - Files directory path (e.g. '.\cmt\tags', 'C:\cmt\tags')
          3 - One of the following: {availablePatterns}
-", Cyan);
+", ConsoleColor.Cyan);
         }
     }
 }

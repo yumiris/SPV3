@@ -1,10 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
-using static System.Console;
-using static System.ConsoleColor;
-using static YuMi.Output.Line;
+using YuMi.Output;
 
 namespace YuMi.Bbkpify
 {
@@ -45,7 +44,7 @@ namespace YuMi.Bbkpify
                 {
                     tasks.Add(Task.Run(() =>
                     {
-                        Write($"{progress}\t| HANDLING {file}",Green);
+                        Line.Write($"{progress}\t| HANDLING {file}", ConsoleColor.Green);
 
                         // backup by renaming, and replace with the placeholder
                         File.Move(file, bbkpFile);
@@ -54,7 +53,7 @@ namespace YuMi.Bbkpify
                 }
                 else
                 {
-                    Write($"{progress}\t| SKIPPING {file}", Yellow);
+                    Line.Write($"{progress}\t| SKIPPING {file}", ConsoleColor.Yellow);
                 }
             }
             
@@ -72,7 +71,7 @@ namespace YuMi.Bbkpify
         /// </exception>
         public static void ResetBitmapFiles(string[] bitmapBbkpPaths)
         {
-            ForegroundColor = Green;
+            Console.ForegroundColor = ConsoleColor.Green;
             for (var i = 0; i < bitmapBbkpPaths.Length; i++)
             {
                 var currentFile = bitmapBbkpPaths[i];
@@ -85,7 +84,7 @@ namespace YuMi.Bbkpify
                 var placeholder = currentFile.Substring(0, currentFile.Length - Extension.Length - 1);
 
                 var progress = Ascii.Progress(i, bitmapBbkpPaths.Length);
-                Write($"{progress}\t| RESTORING {placeholder}", Green);
+                Line.Write($"{progress}\t| RESTORING {placeholder}", ConsoleColor.Green);
                 
                 File.Delete(placeholder);
                 File.Move(currentFile, placeholder);
