@@ -15,7 +15,7 @@ namespace YuMi.Bbkpify.CLI
         /// <summary>
         ///     Allowed file search patterns.
         /// </summary>
-        private static readonly List<string> Types = new List<string>
+        private static readonly List<string> Patterns = new List<string>
         {
             "nrml",
             "multi"
@@ -64,7 +64,7 @@ namespace YuMi.Bbkpify.CLI
                     filesFolderPath = Console.ReadLine();
                 }
 
-                while (!Types.Contains(fileNamePattern))
+                while (!Patterns.Contains(fileNamePattern))
                 {
                     Line.Write("Please provide a valid file search pattern:", ConsoleColor.Cyan, "STEP");
                     fileNamePattern = Console.ReadLine();
@@ -79,7 +79,7 @@ namespace YuMi.Bbkpify.CLI
                 var fileExists = File.Exists(placeholderPath);
                 var sizeIsUnder16MiB = new FileInfo(placeholderPath).Length <= Bbkpify.Main.SafeFileSize;
                 var directoryExists = Directory.Exists(filesFolderPath);
-                var patternIsValid = Types.Contains(fileNamePattern);
+                var patternIsValid = Patterns.Contains(fileNamePattern);
 
                 // prematurely exit if the following conditions aren't satisfied
                 ExitIfFalse(fileExists, "File does not exist.", ExitCodes.InvalidPlaceholderPath);
@@ -127,10 +127,10 @@ namespace YuMi.Bbkpify.CLI
             {
                 var x = new StringBuilder();
 
-                for (var i = 0; i < Types.Count; i++)
+                for (var i = 0; i < Patterns.Count; i++)
                 {
-                    var s = i + 1 == Types.Count ? string.Empty : " | ";
-                    x.Append($"'{Types[i]}'{s}");
+                    var s = i + 1 == Patterns.Count ? string.Empty : " | ";
+                    x.Append($"'{Patterns[i]}'{s}");
                 }
 
                 return x.ToString();
