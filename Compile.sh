@@ -1,25 +1,27 @@
 #!/bin/sh
-# Rudimentary script to compile the CLI DLLs & EXEs to an ISO file then sign it!
+# Rudimentary script to compile the CLI DLLs & EXEs to an ZIP file then sign it!
+
+TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
 
 # Directories
-BIN_DIR="YuMi.Bbkpify.Build"
-ISO_DIR="YuMi.Bbkpify.ISO"
+BIN_DIR="YuMi.Bbkpify.${TAG}"
+ZIP_DIR="YuMi.Bbkpify.ZIP"
 
 # Building
 msbuild /t:Build /p:Configuration=Release /p:TargetFramework=v4.5
 
 # Preparation
 rm -rvf "${BIN_DIR}"
-mkdir -p "${BIN_DIR}" "${ISO_DIR}"
+mkdir -p "${BIN_DIR}" "${ZIP_DIR}"
 rsync -rav --progress ./*/bin/Release/*.{dll,exe} README.md "${BIN_DIR}"
 
 # Compiling
-ISO_NAME="YuMi.Bbkpify.CLI.$(git describe --tags $(git rev-list --tags --max-count=1))"
-ISO_PATH="${ISO_DIR}/${ISO_NAME}.iso"
-mkisofs -v -r -udf -iso-level 4 -V "${ISO_NAME}" -o "${ISO_PATH}" "${BIN_DIR}"
+ZIP_NAME="${BIN_DIR}.zip"
+ZIP_PATH="${ZIP_DIR}/${ZIP_NAME}"
+zip -r0vo "${ZIP_PATH}" "${BIN_DIR}"
 
 # Signing
-gpg --sign "${ISO_PATH}"
+gpg --sign "${ZIP_PATH}"
 
 # Clean up
 rm -rvf "${BIN_DIR}"
