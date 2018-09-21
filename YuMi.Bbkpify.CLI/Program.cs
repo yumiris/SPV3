@@ -103,7 +103,7 @@ namespace YuMi.Bbkpify.CLI
 
             // if everything is successful, get all files and back them up
             var files = Directory
-                .GetFiles(filesFolderPath, $"*{fileNamePattern}*", SearchOption.AllDirectories)
+                .GetFiles(filesFolderPath, $"*{fileNamePattern}*.bitmap", SearchOption.AllDirectories)
                 .Where(x => !x.Contains("multiplayer"))
                 .ToArray();
 
