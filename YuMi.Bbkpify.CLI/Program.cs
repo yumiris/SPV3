@@ -12,6 +12,8 @@ namespace YuMi.Bbkpify.CLI
     /// </summary>
     internal static class Program
     {
+        private static bool firstRun = true;
+
         /// <summary>
         ///     Allowed file search patterns.
         /// </summary>
@@ -32,7 +34,10 @@ namespace YuMi.Bbkpify.CLI
         /// </param>
         public static void Main(string[] args)
         {
-            ShowBanner();
+            if (firstRun)
+            {
+                ShowBanner();
+            }
 
             var placeholderPath = string.Empty;
             var filesFolderPath = string.Empty;
@@ -40,7 +45,14 @@ namespace YuMi.Bbkpify.CLI
 
             if (args.Length < 3)
             {
-                Line.Write("Not enough arguments provided. Falling back to manual input.", ConsoleColor.Yellow, "WARN");
+                if (firstRun)
+                {
+                    Line.Write("Not enough arguments provided. Using manual input...", ConsoleColor.Yellow, "WARN");
+                }
+                else
+                {
+                    Line.Write("Press Ctrl-C to exit, or continue with the following...", ConsoleColor.Yellow, "INFO");
+                }
 
                 while (!File.Exists(placeholderPath))
                 {
@@ -49,8 +61,8 @@ namespace YuMi.Bbkpify.CLI
 
                     if (placeholderPath != null && File.Exists(placeholderPath))
                     {
-                        var fileSize = new FileInfo(placeholderPath).Length; 
-                        
+                        var fileSize = new FileInfo(placeholderPath).Length;
+
                         if (fileSize > Bbkpify.Main.SafeFileSize)
                         {
                             Line.Write($"Placeholder size ({fileSize}) is larger than 8MiB!", ConsoleColor.Red, "STOP");
@@ -96,8 +108,11 @@ namespace YuMi.Bbkpify.CLI
                 .ToArray();
 
             Bbkpify.Main.ApplyPlaceholderAsync(files, placeholderPath).GetAwaiter().GetResult();
+
             Line.Write($"\nFinished applying '{placeholderPath}' to '{filesFolderPath}'!", ConsoleColor.Green);
-            Environment.Exit((int) ExitCodes.Success);
+
+            firstRun = false;
+            Main(new string[] { });
         }
 
         /// <summary>
@@ -111,9 +126,9 @@ namespace YuMi.Bbkpify.CLI
             if (condition) return;
             Line.Write(exitMessage, ConsoleColor.Red, "HALT");
             Console.Error.WriteLine(exitMessage);
-            Environment.Exit((int) exitCode);
+            Environment.Exit((int)exitCode);
         }
-        
+
         /// <summary>
         ///     Outputs the main ASCII banner.
         /// </summary>
