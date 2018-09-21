@@ -18,7 +18,8 @@ namespace YuMi.Bbkpify.CLI
         private static readonly List<string> Patterns = new List<string>
         {
             "nrml",
-            "multi"
+            "multi",
+            "diff"
         };
 
         /// <summary>
