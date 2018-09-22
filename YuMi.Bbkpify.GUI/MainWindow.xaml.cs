@@ -18,6 +18,7 @@ namespace YuMi.Bbkpify.GUI
 
         private void Commit(object sender, RoutedEventArgs e) => main.Commit();
         private void Revert(object sender, RoutedEventArgs e) => main.Revert();
+        private void LoadSapien(object sender, RoutedEventArgs e) => main.LoadSapien();
 
         private void ChoosePlaceholder(object sender, RoutedEventArgs e)
         {

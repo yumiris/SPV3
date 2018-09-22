@@ -1,11 +1,16 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.CompilerServices;
 
 namespace YuMi.Bbkpify.GUI
 {
     public class Main : INotifyPropertyChanged
     {
+        private const string BbkpifyExecutable = "YuMi.Bbkpify.CLI.exe";
+        private const string UnbbkpifyExecutable = "YuMi.Unbbkpify.CLI.exe";
+        private const string SapienExecutable = "os_sapien2.exe";
+        
         private string placeholder;
         private string directory;
 
@@ -120,6 +125,11 @@ namespace YuMi.Bbkpify.GUI
         }
 
         /// <summary>
+        ///     Checks if the Sapien executable exists.
+        /// </summary>
+        public bool CanLoadSapien => File.Exists(SapienExecutable);
+
+        /// <summary>
         ///     Checks if the property values are valid, thereby enabling commands.
         /// </summary>
         private void ValidateProperties()
@@ -133,28 +143,35 @@ namespace YuMi.Bbkpify.GUI
 
         public void Commit()
         {
-            var proc = "YuMi.Bbkpify.CLI.exe";
             var args = $"{Placeholder} {Directory}";
 
             if (NrmlPattern)
             {
-                Process.Start(proc, $"{args} nrml");
+                Process.Start(BbkpifyExecutable, $"{args} nrml");
             }
 
             if (MultiPattern)
             {
-                Process.Start(proc, $"{args} multi");
+                Process.Start(BbkpifyExecutable, $"{args} multi");
             }
 
             if (DiffPattern)
             {
-                Process.Start(proc, $"{args} diff");
+                Process.Start(BbkpifyExecutable, $"{args} diff");
             }
         }
 
         public void Revert()
         {
-            Process.Start("YuMi.Unbbkpify.CLI.exe", $"{Directory}");
+            Process.Start(UnbbkpifyExecutable, $"{Directory}");
+        }
+
+        public void LoadSapien()
+        {
+            if (CanLoadSapien)
+            {
+                Process.Start(SapienExecutable);
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

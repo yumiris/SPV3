@@ -98,7 +98,9 @@
         <!-- Sapien -->
         <GroupBox Header="Sapien">
             <Button Margin="1,5,1,1"
-                    Content="Launch Sapien" />
+                    Content="Launch Sapien"
+                    IsEnabled="{Binding CanLoadSapien}"
+                    Click="LoadSapien"/>
         </GroupBox>
     </StackPanel>
 </Window>
