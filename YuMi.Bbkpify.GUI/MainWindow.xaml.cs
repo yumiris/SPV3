@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using Microsoft.Win32;
 
 namespace YuMi.Bbkpify.GUI
@@ -19,6 +20,8 @@ namespace YuMi.Bbkpify.GUI
         private void Commit(object sender, RoutedEventArgs e) => main.Commit();
         private void Revert(object sender, RoutedEventArgs e) => main.Revert();
         private void LoadSapien(object sender, RoutedEventArgs e) => main.LoadSapien();
+
+        private void Quit(object sender, RoutedEventArgs e) => Environment.Exit(0);
 
         private void ChoosePlaceholder(object sender, RoutedEventArgs e)
         {
