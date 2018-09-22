@@ -22,12 +22,14 @@ namespace YuMi.Unbbkpify.CLI
 
             var directoryPath = string.Empty;
 
-            if (args.Length == 0)
+            if (args.Length < 1)
             {
+                Line.Write("Not enough arguments provided. Using manual input...", ConsoleColor.Yellow, "WARN");
+
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 while (DirectoryValidator.GetStatus(directoryPath) != DirectoryStatus.IsValid)
                 {
-                    Line.Write("Please input a valid directory path:", ConsoleColor.Red);
+                    Line.Write("Please input a valid directory path:", ConsoleColor.Cyan, "STEP");
                     directoryPath = Console.ReadLine();
                 }
             }
@@ -56,7 +58,7 @@ namespace YuMi.Unbbkpify.CLI
                 Environment.Exit((int)ExitCodes.ExceptionHasBeenThrown);
             }
 
-            Line.Write($"\nFinished restoring bitmaps in '{directoryPath}'!", ConsoleColor.Green);
+            Line.Write($"\nRestored bitmaps in '{directoryPath}'!", ConsoleColor.Green, "DONE");
             Console.ReadLine();
             Environment.Exit((int)ExitCodes.Success);
         }

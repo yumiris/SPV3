@@ -86,9 +86,9 @@ namespace YuMi.Bbkpify.CLI
 
             Bbkpify.Main.ApplyPlaceholderAsync(files, bitmapPlaceholder).GetAwaiter().GetResult();
 
-            Line.Write($"\nFinished applying '{bitmapPlaceholder}' to '{bitmapsDirectory}'!", ConsoleColor.Green);
+            Line.Write($"\nApplied '{bitmapPlaceholder}' to '{bitmapsDirectory}'!", ConsoleColor.Green, "DONE");
             Console.ReadLine();
-            Environment.Exit((int) ExitCodes.Success);
+            Environment.Exit((int)ExitCodes.Success);
         }
 
         /// <summary>
