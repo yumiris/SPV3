@@ -15,6 +15,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YuMi.Bbkpify.GUI", "YuMi.Bbkpify.GUI\YuMi.Bbkpify.GUI.csproj", "{83E5B392-564E-49AA-825A-C7ECDE74AA91}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{F53381E4-8634-488B-AB7B-875901A52B6E}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		SCREENSHOT.png = SCREENSHOT.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
