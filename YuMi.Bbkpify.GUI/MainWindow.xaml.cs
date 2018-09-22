@@ -20,6 +20,8 @@ namespace YuMi.Bbkpify.GUI
         private void Commit(object sender, RoutedEventArgs e) => main.Commit();
         private void Revert(object sender, RoutedEventArgs e) => main.Revert();
         private void LoadSapien(object sender, RoutedEventArgs e) => main.LoadSapien();
+        private void LoadBbkpify(object sender, RoutedEventArgs e) => main.LoadBbkpify();
+        private void LoadUnbbkpify(object sender, RoutedEventArgs e) => main.LoadUnbbkpify();
 
         private void Quit(object sender, RoutedEventArgs e) => Environment.Exit(0);
 

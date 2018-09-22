@@ -174,6 +174,16 @@ namespace YuMi.Bbkpify.GUI
             }
         }
 
+        public void LoadBbkpify()
+        {
+            Process.Start(BbkpifyExecutable);
+        }
+
+        public void LoadUnbbkpify()
+        {
+            Process.Start(UnbbkpifyExecutable);
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = null)

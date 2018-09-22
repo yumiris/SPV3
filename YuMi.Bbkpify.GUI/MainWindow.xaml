@@ -99,7 +99,8 @@
                         <Button Margin="1,5,1,1"
                                 Content="Apply Placeholder"
                                 IsEnabled="{Binding ReadyToCommit}"
-                                Click="Commit" />
+                                Click="Commit"
+                                Height="38"/>
                     </StackPanel>
                 </GroupBox>
                 <StackPanel Grid.Column="1">
@@ -128,6 +129,24 @@
                                 Content="Launch Sapien"
                                 IsEnabled="{Binding CanLoadSapien}"
                                 Click="LoadSapien" />
+                    </GroupBox>
+
+                    <!-- Sapien -->
+                    <GroupBox Header="Bbkpify CLIs">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0"
+                                    Margin="1,5,1,1"
+                                    Content="Bbkpify CLI"
+                                    Click="LoadBbkpify" />
+                            <Button Grid.Column="1"
+                                    Margin="1,5,1,1"
+                                    Content="Unbbkpify CLI"
+                                    Click="LoadUnbbkpify" />
+                        </Grid>
                     </GroupBox>
                 </StackPanel>
             </Grid>
