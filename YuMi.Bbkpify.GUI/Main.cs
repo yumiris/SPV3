@@ -147,17 +147,17 @@ namespace YuMi.Bbkpify.GUI
 
             if (NrmlPattern)
             {
-                Process.Start(BbkpifyExecutable, $"{args} nrml");
+                Process.Start(BbkpifyExecutable, $"{args} {Bbkpify.Main.Patterns[0]}");
             }
 
             if (MultiPattern)
             {
-                Process.Start(BbkpifyExecutable, $"{args} multi");
+                Process.Start(BbkpifyExecutable, $"{args} {Bbkpify.Main.Patterns[1]}");
             }
 
             if (DiffPattern)
             {
-                Process.Start(BbkpifyExecutable, $"{args} diff");
+                Process.Start(BbkpifyExecutable, $"{args} {Bbkpify.Main.Patterns[2]}");
             }
         }
 
