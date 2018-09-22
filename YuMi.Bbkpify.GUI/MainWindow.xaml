@@ -35,13 +35,19 @@
         </Menu>
         <StackPanel Margin="5">
             <!-- Header -->
-            <Image Source="/bbkpify.ico"
-                   Stretch="None" />
-            <Label Content="Bbkpify"
-                   FontSize="32"
-                   FontFamily="Segoe UI Light"
-                   HorizontalAlignment="Center"
-                   Margin="0,5,0,0" />
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/bbkpify.ico"
+                       Stretch="None" />
+                <StackPanel Margin="10,0,0,0"
+                            VerticalAlignment="Center">
+                    <Label Content="Bbkpify"
+                           FontSize="32"
+                           FontFamily="Segoe UI Light"/>
+                    <Label Content="Safely replace Sapien texture bitmaps with placeholders."></Label>
+                    <Label Content="Author: Yu:Miris"
+                           Foreground="Gray"/>
+                </StackPanel>
+            </StackPanel>
 
             <!-- Main -->
             <Grid>
