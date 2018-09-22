@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -18,9 +18,14 @@ namespace YuMi.Bbkpify
         public const string Extension = "bbkp";
 
         /// <summary>
-        ///     Maximum placeholder file size.
+        ///     Available bitmap search patterns.
         /// </summary>
-        public const int SafeFileSize = 0x800000;
+        public static readonly List<string> Patterns = new List<string>
+        {
+            "nrml",
+            "multi",
+            "diff"
+        };
 
         /// <summary>
         /// Backs up all given bitmaps and replaces them with the given placeholder.
@@ -30,7 +35,7 @@ namespace YuMi.Bbkpify
         public static async Task ApplyPlaceholderAsync(string[] bitmapPaths, string placeholderPath)
         {
             var tasks = new List<Task>();
-            
+
             for (var i = 0; i < bitmapPaths.Length; i++)
             {
                 var file = bitmapPaths[i];
@@ -56,7 +61,7 @@ namespace YuMi.Bbkpify
                     Line.Write($"{progress}\t| SKIPPING {file}", ConsoleColor.Yellow);
                 }
             }
-            
+
             await Task.WhenAll(tasks);
         }
 
@@ -80,12 +85,12 @@ namespace YuMi.Bbkpify
                 {
                     throw new InvalidEnumArgumentException($"Bitmap '{currentFile}' is not a backup file.");
                 }
-                
+
                 var placeholder = currentFile.Substring(0, currentFile.Length - Extension.Length - 1);
 
                 var progress = Ascii.Progress(i, bitmapBbkpPaths.Length);
                 Line.Write($"{progress}\t| RESTORING {placeholder}", ConsoleColor.Green);
-                
+
                 File.Delete(placeholder);
                 File.Move(currentFile, placeholder);
             }

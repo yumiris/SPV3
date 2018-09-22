@@ -25,7 +25,7 @@ namespace YuMi.Unbbkpify.CLI
             if (args.Length == 0)
             {
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                while (!Directory.Exists(directoryPath))
+                while (DirectoryValidator.GetStatus(directoryPath) != DirectoryStatus.IsValid)
                 {
                     Line.Write("Please input a valid directory path:", ConsoleColor.Red);
                     directoryPath = Console.ReadLine();
@@ -35,14 +35,14 @@ namespace YuMi.Unbbkpify.CLI
             {
                 directoryPath = args[0];
 
-                if (!Directory.Exists(directoryPath))
+                if (DirectoryValidator.GetStatus(directoryPath) == DirectoryStatus.DoesNotExist)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Error.WriteLine("Target folder does not exist.");
-                    Environment.Exit((int) ExitCodes.InvalidFilesFolderPath);
+                    Environment.Exit((int)ExitCodes.InvalidFilesFolderPath);
                 }
             }
-            
+
             var files = Directory.GetFiles(directoryPath, $"*.{Bbkpify.Main.Extension}*", SearchOption.AllDirectories);
 
             try
@@ -53,13 +53,13 @@ namespace YuMi.Unbbkpify.CLI
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Error.WriteLine(e.Message);
-                Environment.Exit((int) ExitCodes.ExceptionHasBeenThrown);
+                Environment.Exit((int)ExitCodes.ExceptionHasBeenThrown);
             }
 
             Line.Write($"\nFinished restoring bitmaps in '{directoryPath}'!", ConsoleColor.Green);
-            Environment.Exit((int) ExitCodes.Success);
+            Environment.Exit((int)ExitCodes.Success);
         }
-        
+
         /// <summary>
         ///     Outputs the main ASCII banner.
         /// </summary>

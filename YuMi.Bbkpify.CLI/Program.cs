@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -15,22 +14,12 @@ namespace YuMi.Bbkpify.CLI
         private static bool firstRun = true;
 
         /// <summary>
-        ///     Allowed file search patterns.
-        /// </summary>
-        private static readonly List<string> Patterns = new List<string>
-        {
-            "nrml",
-            "multi",
-            "diff"
-        };
-
-        /// <summary>
         ///     Console program entry.
         /// </summary>
         /// <param name="args">
-        ///     args[0]: Placeholder path
-        ///     args[1]: Target directory path
-        ///     args[2]: File search pattern
+        ///     args[0]: Placeholder bitmap path
+        ///     args[1]: Target bitmaps directory path
+        ///     args[2]: Bitmaps search pattern
         /// </param>
         public static void Main(string[] args)
         {
@@ -39,9 +28,9 @@ namespace YuMi.Bbkpify.CLI
                 ShowBanner();
             }
 
-            var placeholderPath = string.Empty;
-            var filesFolderPath = string.Empty;
-            var fileNamePattern = string.Empty;
+            var bitmapPlaceholder = string.Empty;
+            var bitmapsDirectory = string.Empty;
+            var bitmapsPattern = string.Empty;
 
             if (args.Length < 3)
             {
@@ -54,62 +43,62 @@ namespace YuMi.Bbkpify.CLI
                     Line.Write("Press Ctrl-C to exit, or continue with the following...", ConsoleColor.Yellow, "INFO");
                 }
 
-                while (!File.Exists(placeholderPath))
+                while (PlaceholderValidator.GetStatus(bitmapPlaceholder) != PlaceholderStatus.IsValid)
                 {
-                    Line.Write("Provide a valid placeholder file under the size of 8MiB:", ConsoleColor.Cyan, "STEP");
-                    placeholderPath = Console.ReadLine();
+                    Line.Write("Please type a valid placeholder file under the size of 8MiB:", ConsoleColor.Cyan, "STEP");
+                    bitmapPlaceholder = Console.ReadLine();
 
-                    if (placeholderPath != null && File.Exists(placeholderPath))
+                    if (bitmapPlaceholder != null && File.Exists(bitmapPlaceholder))
                     {
-                        var fileSize = new FileInfo(placeholderPath).Length;
-
-                        if (fileSize > Bbkpify.Main.SafeFileSize)
+                        if (PlaceholderValidator.GetStatus(bitmapPlaceholder) == PlaceholderStatus.IsTooLarge)
                         {
-                            Line.Write($"Placeholder size ({fileSize}) is larger than 8MiB!", ConsoleColor.Red, "STOP");
-                            placeholderPath = string.Empty;
+                            Line.Write($"Placeholder file is larger than 8MiB!", ConsoleColor.Red, "STOP");
+                            bitmapPlaceholder = string.Empty;
                         }
                     }
                 }
 
-                while (!Directory.Exists(filesFolderPath))
+                while (DirectoryValidator.GetStatus(bitmapsDirectory) != DirectoryStatus.IsValid)
                 {
-                    Line.Write("Please provide a valid target directory path:", ConsoleColor.Cyan, "STEP");
-                    filesFolderPath = Console.ReadLine();
+                    Line.Write("Please type a valid target directory path:", ConsoleColor.Cyan, "STEP");
+                    bitmapsDirectory = Console.ReadLine();
                 }
 
-                while (!Patterns.Contains(fileNamePattern))
+                while (PatternValidator.GetStatus(bitmapsPattern) != PatternStatus.IsValid)
                 {
-                    Line.Write("Please provide a valid file search pattern:", ConsoleColor.Cyan, "STEP");
-                    fileNamePattern = Console.ReadLine();
+                    Line.Write("Please type a valid file search pattern:", ConsoleColor.Cyan, "STEP");
+                    bitmapsPattern = Console.ReadLine();
                 }
             }
             else
             {
-                placeholderPath = args[0];
-                filesFolderPath = args[1];
-                fileNamePattern = args[2];
+                bitmapPlaceholder = args[0];
+                bitmapsDirectory = args[1];
+                bitmapsPattern = args[2];
 
-                var fileExists = File.Exists(placeholderPath);
-                var sizeIsUnder16MiB = new FileInfo(placeholderPath).Length <= Bbkpify.Main.SafeFileSize;
-                var directoryExists = Directory.Exists(filesFolderPath);
-                var patternIsValid = Patterns.Contains(fileNamePattern);
+                var placeholderStatus = PlaceholderValidator.GetStatus(bitmapPlaceholder);
+                var fileExists = placeholderStatus != PlaceholderStatus.DoesNotExist;
+                var sizeIsUnder16MiB = placeholderStatus != PlaceholderStatus.IsTooLarge;
+
+                var directoryExists = DirectoryValidator.GetStatus(bitmapsDirectory) != DirectoryStatus.DoesNotExist;
+                var patternIsValid = PatternValidator.GetStatus(bitmapsPattern) != PatternStatus.IsInvalid;
 
                 // prematurely exit if the following conditions aren't satisfied
-                ExitIfFalse(fileExists, "File does not exist.", ExitCodes.InvalidPlaceholderPath);
-                ExitIfFalse(sizeIsUnder16MiB, "File is larger than 8MiB.", ExitCodes.PlaceholderFileTooLong);
-                ExitIfFalse(directoryExists, "Folder does not exist.", ExitCodes.InvalidFilesFolderPath);
-                ExitIfFalse(patternIsValid, "Pattern is invalid.", ExitCodes.InvalidFileNamePattern);
+                ExitIfFalse(fileExists, "Placeholder does not exist.", ExitCodes.InvalidPlaceholderPath);
+                ExitIfFalse(sizeIsUnder16MiB, "Placeholder is larger than 8MiB.", ExitCodes.PlaceholderFileTooLong);
+                ExitIfFalse(directoryExists, "Bitmaps directory does not exist.", ExitCodes.InvalidFilesFolderPath);
+                ExitIfFalse(patternIsValid, "Searcg pattern is invalid.", ExitCodes.InvalidFileNamePattern);
             }
 
             // if everything is successful, get all files and back them up
             var files = Directory
-                .GetFiles(filesFolderPath, $"*{fileNamePattern}*.bitmap", SearchOption.AllDirectories)
+                .GetFiles(bitmapsDirectory, $"*{bitmapsPattern}*.bitmap", SearchOption.AllDirectories)
                 .Where(x => !x.Contains("multiplayer"))
                 .ToArray();
 
-            Bbkpify.Main.ApplyPlaceholderAsync(files, placeholderPath).GetAwaiter().GetResult();
+            Bbkpify.Main.ApplyPlaceholderAsync(files, bitmapPlaceholder).GetAwaiter().GetResult();
 
-            Line.Write($"\nFinished applying '{placeholderPath}' to '{filesFolderPath}'!", ConsoleColor.Green);
+            Line.Write($"\nFinished applying '{bitmapPlaceholder}' to '{bitmapsDirectory}'!", ConsoleColor.Green);
 
             firstRun = false;
             Main(new string[] { });
@@ -143,10 +132,10 @@ namespace YuMi.Bbkpify.CLI
             {
                 var x = new StringBuilder();
 
-                for (var i = 0; i < Patterns.Count; i++)
+                for (var i = 0; i < Bbkpify.Main.Patterns.Count; i++)
                 {
-                    var s = i + 1 == Patterns.Count ? string.Empty : " | ";
-                    x.Append($"'{Patterns[i]}'{s}");
+                    var s = i + 1 == Bbkpify.Main.Patterns.Count ? string.Empty : " | ";
+                    x.Append($"'{Bbkpify.Main.Patterns[i]}'{s}");
                 }
 
                 return x.ToString();
