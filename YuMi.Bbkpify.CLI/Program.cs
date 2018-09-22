@@ -11,8 +11,6 @@ namespace YuMi.Bbkpify.CLI
     /// </summary>
     internal static class Program
     {
-        private static bool firstRun = true;
-
         /// <summary>
         ///     Console program entry.
         /// </summary>
@@ -23,10 +21,7 @@ namespace YuMi.Bbkpify.CLI
         /// </param>
         public static void Main(string[] args)
         {
-            if (firstRun)
-            {
-                ShowBanner();
-            }
+            ShowBanner();
 
             var bitmapPlaceholder = string.Empty;
             var bitmapsDirectory = string.Empty;
@@ -34,14 +29,7 @@ namespace YuMi.Bbkpify.CLI
 
             if (args.Length < 3)
             {
-                if (firstRun)
-                {
-                    Line.Write("Not enough arguments provided. Using manual input...", ConsoleColor.Yellow, "WARN");
-                }
-                else
-                {
-                    Line.Write("Press Ctrl-C to exit, or continue with the following...", ConsoleColor.Yellow, "INFO");
-                }
+                Line.Write("Not enough arguments provided. Using manual input...", ConsoleColor.Yellow, "WARN");
 
                 while (PlaceholderValidator.GetStatus(bitmapPlaceholder) != PlaceholderStatus.IsValid)
                 {
@@ -99,9 +87,8 @@ namespace YuMi.Bbkpify.CLI
             Bbkpify.Main.ApplyPlaceholderAsync(files, bitmapPlaceholder).GetAwaiter().GetResult();
 
             Line.Write($"\nFinished applying '{bitmapPlaceholder}' to '{bitmapsDirectory}'!", ConsoleColor.Green);
-
-            firstRun = false;
-            Main(new string[] { });
+            Console.ReadLine();
+            Environment.Exit((int) ExitCodes.Success);
         }
 
         /// <summary>

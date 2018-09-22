@@ -57,6 +57,7 @@ namespace YuMi.Unbbkpify.CLI
             }
 
             Line.Write($"\nFinished restoring bitmaps in '{directoryPath}'!", ConsoleColor.Green);
+            Console.ReadLine();
             Environment.Exit((int)ExitCodes.Success);
         }
 
