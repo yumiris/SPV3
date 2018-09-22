@@ -14,11 +14,11 @@
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Height" Value="25" />
-            <Setter Property="Margin" Value="1,0" />
+            <Setter Property="Margin" Value="1" />
             <Setter Property="Padding" Value="5,0" />
         </Style>
         <Style TargetType="TextBox">
-            <Setter Property="Margin" Value="1,0" />
+            <Setter Property="Margin" Value="1" />
             <Setter Property="Padding" Value="1,0" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
         </Style>
@@ -44,7 +44,7 @@
                            FontSize="32"
                            FontFamily="Segoe UI Light"/>
                     <Label Content="Safely replace Sapien texture bitmaps with placeholders."></Label>
-                    <Label Content="Author: Yu:Miris"
+                    <Label Content="GitHub: yumiris/bbkpify.git"
                            Foreground="Gray"/>
                 </StackPanel>
             </StackPanel>
@@ -57,35 +57,36 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Bbkpify -->
-                <GroupBox Grid.Column="0"
-                          Header="Commit">
-                    <StackPanel>
-                        <!-- Placeholder -->
-                        <StackPanel>
-                            <Label Content="Placeholder Asset:" />
-                            <DockPanel>
+                <DockPanel Grid.Column="0">
+                    <GroupBox DockPanel.Dock="Top"
+                              Header="Commit">
+                        <DockPanel>
+                            <!-- Placeholder -->
+                            <Label DockPanel.Dock="Top"
+                               Content="Placeholder Asset:" />
+                            <DockPanel
+                            DockPanel.Dock="Top">
                                 <Button DockPanel.Dock="Right"
                                         Content="Browse"
                                         Click="ChoosePlaceholder" />
                                 <TextBox Text="{Binding Placeholder}" />
                             </DockPanel>
-                        </StackPanel>
 
-                        <!-- Directory -->
-                        <StackPanel>
-                            <Label Content="Bitmaps Directory:" />
-                            <DockPanel>
+                            <!-- Directory -->
+                            <Label DockPanel.Dock="Top"
+                               Content="Bitmaps Directory:" />
+                            <DockPanel DockPanel.Dock="Top">
                                 <Button DockPanel.Dock="Right"
                                         Content="Browse"
                                         Click="ChooseDirectory" />
                                 <TextBox Text="{Binding Directory}" />
                             </DockPanel>
-                        </StackPanel>
 
-                        <!-- Placeholder -->
-                        <StackPanel>
-                            <Label Content="Bitmap Types:" />
-                            <Grid>
+                            <!-- Placeholder -->
+                            <Label DockPanel.Dock="Top"
+                               Content="Bitmap Types:" />
+                            <Grid DockPanel.Dock="Top"
+                              Margin="0,0,0,5">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
                                     <ColumnDefinition />
@@ -101,60 +102,62 @@
                                           Content="diff"
                                           IsChecked="{Binding DiffPattern}" />
                             </Grid>
-                        </StackPanel>
-                        <Button Margin="1,5,1,1"
+                            <Button DockPanel.Dock="Top"
                                 Content="Apply Placeholder"
                                 IsEnabled="{Binding ReadyToCommit}"
                                 Click="Commit"
-                                Height="38"/>
-                    </StackPanel>
-                </GroupBox>
-                <StackPanel Grid.Column="1">
+                                Height="Auto"/>
+                        </DockPanel>
+                    </GroupBox>
+                </DockPanel>
+
+
+                <DockPanel Grid.Column="1">
                     <!-- Unbbkpify -->
-                    <GroupBox Header="Revert">
+                    <GroupBox DockPanel.Dock="Top"
+                              Header="Revert">
                         <!-- Directory -->
-                        <StackPanel>
-                            <Label Content="BBKPs Directory:" />
-                            <DockPanel>
+                        <DockPanel>
+                            <Label DockPanel.Dock="Top"
+                                   Content="BBKPs Directory:" />
+                            <DockPanel DockPanel.Dock="Top">
                                 <Button DockPanel.Dock="Right"
                                         Content="Browse"
                                         Click="ChooseDirectory" />
                                 <TextBox Text="{Binding Directory}" />
                             </DockPanel>
-
-                            <Button Margin="1,2,1,1"
+                            <Button DockPanel.Dock="Top"
                                     Content="Restore Bitmaps"
                                     IsEnabled="{Binding ReadyToRevert}"
                                     Click="Revert" />
-                        </StackPanel>
+                        </DockPanel>
                     </GroupBox>
 
                     <!-- Sapien -->
-                    <GroupBox Header="Sapien">
-                        <Button Margin="1,5,1,1"
-                                Content="Launch Sapien"
+                    <GroupBox DockPanel.Dock="Top"
+                              Header="Sapien">
+                        <Button Content="Launch Sapien"
                                 IsEnabled="{Binding CanLoadSapien}"
                                 Click="LoadSapien" />
                     </GroupBox>
 
-                    <!-- Sapien -->
-                    <GroupBox Header="Bbkpify CLIs">
+                    <!-- CLIs -->
+                    <GroupBox DockPanel.Dock="Top"
+                              Header="Bbkpify CLIs">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Button Grid.Column="0"
-                                    Margin="1,5,1,1"
                                     Content="Bbkpify CLI"
                                     Click="LoadBbkpify" />
                             <Button Grid.Column="1"
-                                    Margin="1,5,1,1"
                                     Content="Unbbkpify CLI"
                                     Click="LoadUnbbkpify" />
                         </Grid>
                     </GroupBox>
-                </StackPanel>
+                </DockPanel>
             </Grid>
             <Label HorizontalAlignment="Center"
                    Margin="0,4,0,0"
