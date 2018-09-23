@@ -1,6 +1,6 @@
 <html>
     <p align="center">
-        <img src="./SCREENSHOT-CLI.png">
+        <img src="./SCREENSHOT-GUI.png">
     </p>
     <h1 align="center">bbkpify</h1>
     <p align="center">
@@ -23,18 +23,23 @@ The following bitmap types are supported:
 - `multi`
 - `diff`
 
-
 The original bitmaps are backed up, thus making the process completely safe and reversible.
 
-# GUI
+## CLI
 
-![GUI Screenshot](SCREENSHOT-GUI.png)
+![GUI Screenshot](SCREENSHOT-CLI.png)
 
-- The left side of the GUI deals with applying (committing) a placeholder bitmap to a given directory.
-- The right side handles the restoring (reverting) of the said process. Additionally, it also offers the ability to load
-  Sapien and the Bbkpify CLIs.
+The program is powered by two CLI programs:
 
-# CLI
+| CLI | Description |
+| --- | ----------- |
+| `YuMi.Bbkpify.CLI.exe` | Applies a given placeholder to a given bitmaps directory |
+| `YuMi.Unbbkpify.CLI.exe` | Restores the original bitmaps from BBKPs in a given bitmaps directory |
+
+Both CLIs are cross-platform programs which handle the bitmaps in parallel. Both programs can be ran either through:
+
+- startup arguments, which facilitates easy scripting or interfacing to front-end GUIs;
+- interactive arguments, which allows the user to provide the requested arguments.
 
 ```ps
 .\YuMi.Bbkpify.CLI.exe <1> <2> <3>
