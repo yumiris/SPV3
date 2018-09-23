@@ -29,6 +29,11 @@
     <StackPanel>
         <Menu>
             <MenuItem Header="_Bbkpify">
+                <MenuItem Header="_Bbkpify CLI"
+                          Click="LoadBbkpify" />
+                <MenuItem Header="_Unbbkpify CLI"
+                          Click="LoadUnbbkpify" />
+                <Separator/>
                 <MenuItem Header="_Exit"
                           Click="Quit" />
             </MenuItem>
