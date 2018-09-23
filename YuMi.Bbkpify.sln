@@ -18,8 +18,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{F53381E4-8634-488B-AB7B-875901A52B6E}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
-		SCREENSHOT-CLI.png = SCREENSHOT-CLI.png
-		SCREENSHOT-GUI.png = SCREENSHOT-GUI.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Screenshots", "Screenshots", "{579884A8-63C7-4200-AFF4-9BBC841048A9}"
+	ProjectSection(SolutionItems) = preProject
+		Screenshots\CLI.png = Screenshots\CLI.png
+		Screenshots\GUI.png = Screenshots\GUI.png
 	EndProjectSection
 EndProject
 Global
@@ -54,6 +58,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A01B3EC3-0EE7-4626-B126-41D1436250AD} = {E6AAEF61-1E4E-4EDF-B565-BA56B5A478D2}
+		{579884A8-63C7-4200-AFF4-9BBC841048A9} = {F53381E4-8634-488B-AB7B-875901A52B6E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3674F5A7-9945-4DDF-82B1-1C5A23767583}

@@ -1,6 +1,6 @@
 <html>
     <p align="center">
-        <img src="./SCREENSHOT-GUI.png">
+        <img src="./Screenshots/GUI.png">
     </p>
     <h1 align="center">bbkpify</h1>
     <p align="center">
@@ -27,7 +27,7 @@ The original bitmaps are backed up, thus making the process completely safe and 
 
 ## CLI
 
-![GUI Screenshot](SCREENSHOT-CLI.png)
+![GUI Screenshot](Screenshots/CLI.png)
 
 The program is powered by two CLI programs:
 
