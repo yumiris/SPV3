@@ -32,6 +32,10 @@
                 <MenuItem Header="_Exit"
                           Click="Quit" />
             </MenuItem>
+            <MenuItem Header="_Options">
+                <MenuItem Header="_Sapien"
+                          Click="ConfigSapien" />
+            </MenuItem>
         </Menu>
         <StackPanel Margin="5">
             <!-- Header -->

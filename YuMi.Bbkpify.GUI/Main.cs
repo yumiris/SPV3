@@ -7,16 +7,9 @@ using System.Runtime.CompilerServices;
 namespace YuMi.Bbkpify.GUI
 {
     public class Main : INotifyPropertyChanged
-    {
-        /// <summary>
-        /// Location of the configuration file used for persistent values.
-        /// </summary>
-        private static string ConfigFile =>
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "YuMi.Bbkpify.cfg");
-        
+    {   
         private const string BbkpifyExecutable = "YuMi.Bbkpify.CLI.exe";
         private const string UnbbkpifyExecutable = "YuMi.Unbbkpify.CLI.exe";
-        private const string SapienExecutable = "os_sapien2.exe";
         
         private string placeholder;
         private string directory;
@@ -28,6 +21,8 @@ namespace YuMi.Bbkpify.GUI
         private bool readyToCommit;
         private bool readyToRevert;
 
+        private string sapienExecutable;
+        
         /// <summary>
         ///     Bitmaps placeholder path.
         /// </summary>
@@ -137,6 +132,20 @@ namespace YuMi.Bbkpify.GUI
         }
 
         /// <summary>
+        ///     Path of the Sapien executable.
+        /// </summary>
+        public string SapienExecutable
+        {
+            get => sapienExecutable;
+            set
+            {
+                if (value == sapienExecutable) return;
+                sapienExecutable = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>
         ///     Checks if the Sapien executable exists.
         /// </summary>
         public bool CanLoadSapien => File.Exists(SapienExecutable);
@@ -180,19 +189,26 @@ namespace YuMi.Bbkpify.GUI
 
         public void SaveConfig()
         {
-            File.WriteAllText(ConfigFile, $@"{Placeholder}|{Directory}|{NrmlPattern}|{MultiPattern}|{DiffPattern}");
+            Configuration.Save(new Configuration
+            {
+                Placeholder = Placeholder,
+                Directory = Directory,
+                NrmlPattern = NrmlPattern,
+                MultiPattern = MultiPattern,
+                DiffPattern = DiffPattern,
+                SapienExecutable = SapienExecutable
+            });
         }
 
         public void LoadConfig()
         {
-            if (!File.Exists(ConfigFile)) return;
-            
-            var config = File.ReadAllText(ConfigFile).Split('|');
-            Placeholder = config[0];
-            Directory = config[1];
-            NrmlPattern = config[2].Equals("True");
-            MultiPattern = config[3].Equals("True");
-            DiffPattern = config[4].Equals("True");
+            var config = Configuration.Load();
+            Placeholder = config.Placeholder;
+            Directory = config.Directory;
+            NrmlPattern = config.NrmlPattern;
+            MultiPattern = config.MultiPattern;
+            DiffPattern = config.DiffPattern;
+            SapienExecutable = config.SapienExecutable;
         }
 
         public void LoadSapien()

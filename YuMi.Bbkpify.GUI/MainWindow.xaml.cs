@@ -15,20 +15,23 @@ namespace YuMi.Bbkpify.GUI
         {
             DataContext = main;
             main.LoadConfig();
+            main.SaveConfig();
             InitializeComponent();
         }
 
         private void Commit(object sender, RoutedEventArgs e) => main.Commit();
         private void Revert(object sender, RoutedEventArgs e) => main.Revert();
+
         private void LoadSapien(object sender, RoutedEventArgs e) => main.LoadSapien();
         private void LoadBbkpify(object sender, RoutedEventArgs e) => main.LoadBbkpify();
         private void LoadUnbbkpify(object sender, RoutedEventArgs e) => main.LoadUnbbkpify();
 
+        private void ConfigSapien(object sender, RoutedEventArgs e) => new SapienWindow().Show();
         private void Quit(object sender, RoutedEventArgs e) => Environment.Exit(0);
 
         private void ChoosePlaceholder(object sender, RoutedEventArgs e)
         {
-            var placeholderDialog = new OpenFileDialog()
+            var placeholderDialog = new OpenFileDialog
             {
                 Filter = "Bitmap files (*.bitmap)|*.bitmap|All files (*.*)|*.*"
             };
