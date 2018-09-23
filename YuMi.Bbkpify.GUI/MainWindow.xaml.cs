@@ -9,14 +9,14 @@ namespace YuMi.Bbkpify.GUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly Main main = new Main();
+        private readonly Main main;
 
         public MainWindow()
         {
-            DataContext = main;
+            InitializeComponent();
+            main = (Main) DataContext;
             main.LoadConfig();
             main.SaveConfig();
-            InitializeComponent();
         }
 
         private void Commit(object sender, RoutedEventArgs e) => main.Commit();

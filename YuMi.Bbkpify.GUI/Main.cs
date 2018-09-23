@@ -27,9 +27,10 @@ namespace YuMi.Bbkpify.GUI
 
         private bool readyToCommit;
         private bool readyToRevert;
+        private bool canLoadSapien;
 
         private string sapienExecutable;
-        
+
         /// <summary>
         ///     Bitmaps placeholder path.
         /// </summary>
@@ -149,13 +150,23 @@ namespace YuMi.Bbkpify.GUI
                 if (value == sapienExecutable) return;
                 sapienExecutable = value;
                 NotifyPropertyChanged();
+                CheckSapien();
             }
         }
 
         /// <summary>
         ///     Checks if the Sapien executable exists.
         /// </summary>
-        public bool CanLoadSapien => File.Exists(SapienExecutable);
+        public bool CanLoadSapien
+        {
+            get => canLoadSapien;
+            set
+            {
+                if (value == canLoadSapien) return;
+                canLoadSapien = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         /// <summary>
         ///     Checks if the property values are valid, thereby enabling commands.
@@ -238,6 +249,11 @@ namespace YuMi.Bbkpify.GUI
             MultiPattern = config[3].Equals("True");
             DiffPattern = config[4].Equals("True");
             SapienExecutable = config[5];
+        }
+
+        private void CheckSapien()
+        {
+            CanLoadSapien = File.Exists(SapienExecutable);
         }
 
         /// <summary>
