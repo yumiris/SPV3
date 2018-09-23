@@ -14,6 +14,7 @@ namespace YuMi.Bbkpify.GUI
         public MainWindow()
         {
             DataContext = main;
+            main.LoadConfig();
             InitializeComponent();
         }
 

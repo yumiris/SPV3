@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -7,6 +8,12 @@ namespace YuMi.Bbkpify.GUI
 {
     public class Main : INotifyPropertyChanged
     {
+        /// <summary>
+        /// Location of the configuration file used for persistent values.
+        /// </summary>
+        private static string ConfigFile =>
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "YuMi.Bbkpify.cfg");
+        
         private const string BbkpifyExecutable = "YuMi.Bbkpify.CLI.exe";
         private const string UnbbkpifyExecutable = "YuMi.Unbbkpify.CLI.exe";
         private const string SapienExecutable = "os_sapien2.exe";
@@ -33,6 +40,7 @@ namespace YuMi.Bbkpify.GUI
                 placeholder = value;
                 NotifyPropertyChanged();
                 ValidateProperties();
+                SaveConfig();
             }
         }
 
@@ -48,6 +56,7 @@ namespace YuMi.Bbkpify.GUI
                 directory = value;
                 NotifyPropertyChanged();
                 ValidateProperties();
+                SaveConfig();
             }
         }
 
@@ -63,6 +72,7 @@ namespace YuMi.Bbkpify.GUI
                 nrmlPattern = value;
                 NotifyPropertyChanged();
                 ValidateProperties();
+                SaveConfig();
             }
         }
 
@@ -78,6 +88,7 @@ namespace YuMi.Bbkpify.GUI
                 multiPattern = value;
                 NotifyPropertyChanged();
                 ValidateProperties();
+                SaveConfig();
             }
         }
 
@@ -93,6 +104,7 @@ namespace YuMi.Bbkpify.GUI
                 diffPattern = value;
                 NotifyPropertyChanged();
                 ValidateProperties();
+                SaveConfig();
             }
         }
 
@@ -164,6 +176,23 @@ namespace YuMi.Bbkpify.GUI
         public void Revert()
         {
             Process.Start(UnbbkpifyExecutable, $"{Directory}");
+        }
+
+        public void SaveConfig()
+        {
+            File.WriteAllText(ConfigFile, $@"{Placeholder}|{Directory}|{NrmlPattern}|{MultiPattern}|{DiffPattern}");
+        }
+
+        public void LoadConfig()
+        {
+            if (!File.Exists(ConfigFile)) return;
+            
+            var config = File.ReadAllText(ConfigFile).Split('|');
+            Placeholder = config[0];
+            Directory = config[1];
+            NrmlPattern = config[2].Equals("True");
+            MultiPattern = config[3].Equals("True");
+            DiffPattern = config[4].Equals("True");
         }
 
         public void LoadSapien()
