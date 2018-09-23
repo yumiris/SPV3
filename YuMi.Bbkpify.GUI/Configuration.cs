@@ -19,6 +19,12 @@ namespace YuMi.Bbkpify.GUI
         public bool DiffPattern { get; set; }
         public string SapienExecutable { get; set; }
 
+        /// <summary>
+        ///     Serialises the inbound Configuration instance to a persistent file.
+        /// </summary>
+        /// <param name="configuration">
+        ///    Instance of the Configuration class.
+        /// </param>
         public static void Save(Configuration configuration)
         {
             var config = new Func<string>(() =>
@@ -38,6 +44,9 @@ namespace YuMi.Bbkpify.GUI
             File.WriteAllText(ConfigFile, config);
         }
 
+        /// <summary>
+        ///     Deserialises the persistent file to a new Configuration instance.
+        /// </summary>
         public static Configuration Load()
         {
             if (!File.Exists(ConfigFile))

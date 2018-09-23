@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -162,6 +161,9 @@ namespace YuMi.Bbkpify.GUI
             ReadyToRevert = DirectoryValidator.GetStatus(Directory) == DirectoryStatus.IsValid;
         }
 
+        /// <summary>
+        ///    Calls the Bbkpify CLI to apply the placeholder the target directory.
+        /// </summary>
         public void Commit()
         {
             var args = $"{Placeholder} {Directory}";
@@ -182,11 +184,17 @@ namespace YuMi.Bbkpify.GUI
             }
         }
 
+        /// <summary>
+        ///    Calls the Unbbkpify CLI to apply the placeholder the target directory.
+        /// </summary>
         public void Revert()
         {
             Process.Start(UnbbkpifyExecutable, $"{Directory}");
         }
 
+        /// <summary>
+        ///     Saves the current state to a persistent file.
+        /// </summary>
         public void SaveConfig()
         {
             Configuration.Save(new Configuration
@@ -200,6 +208,9 @@ namespace YuMi.Bbkpify.GUI
             });
         }
 
+        /// <summary>
+        ///     Loads the saved state to the properties.
+        /// </summary>
         public void LoadConfig()
         {
             var config = Configuration.Load();
@@ -211,6 +222,9 @@ namespace YuMi.Bbkpify.GUI
             SapienExecutable = config.SapienExecutable;
         }
 
+        /// <summary>
+        ///     Runs the Sapien process.
+        /// </summary>
         public void LoadSapien()
         {
             if (CanLoadSapien)
@@ -219,11 +233,17 @@ namespace YuMi.Bbkpify.GUI
             }
         }
 
+        /// <summary>
+        ///     Runs the Bbkpify CLI process.
+        /// </summary>
         public void LoadBbkpify()
         {
             Process.Start(BbkpifyExecutable);
         }
 
+        /// <summary>
+        ///     Runs the Unbbkpify CLI process.
+        /// </summary>
         public void LoadUnbbkpify()
         {
             Process.Start(UnbbkpifyExecutable);

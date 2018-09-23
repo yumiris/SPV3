@@ -10,7 +10,7 @@
         WindowStartupLocation="CenterScreen"
         Width="480"
         SnapsToDevicePixels="True"
-        Icon="bbkpify.ico">
+        Icon="/bbkpify.ico">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Height" Value="25" />
