@@ -1,4 +1,3 @@
-using System;
 using System.Windows;
 using Microsoft.Win32;
 
@@ -18,8 +17,7 @@ namespace YuMi.Bbkpify.GUI
         private void SavePath(object sender, RoutedEventArgs e)
         {
             main.SaveConfig();
-            System.Windows.Forms.Application.Restart();
-            Environment.Exit(0);
+            Close();
         }
 
         private void PickPath(object sender, RoutedEventArgs e)
