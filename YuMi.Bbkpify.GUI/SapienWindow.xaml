@@ -28,7 +28,7 @@
                     Content="Browse"
                     Click="PickPath"/>
             <TextBox VerticalContentAlignment="Center"
-                     Text="{Binding Path}"/>
+                     Text="{Binding SapienExecutable}"/>
         </DockPanel>
         <Button Content="Save"
                 Click="SavePath"/>

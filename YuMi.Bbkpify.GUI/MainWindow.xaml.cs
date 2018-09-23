@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows;
 using Microsoft.Win32;
-using YuMi.Bbkpify.GUI.Sapien;
 
 namespace YuMi.Bbkpify.GUI
 {
@@ -27,7 +26,7 @@ namespace YuMi.Bbkpify.GUI
         private void LoadBbkpify(object sender, RoutedEventArgs e) => main.LoadBbkpify();
         private void LoadUnbbkpify(object sender, RoutedEventArgs e) => main.LoadUnbbkpify();
 
-        private void ConfigSapien(object sender, RoutedEventArgs e) => new SapienWindow().Show();
+        private void ConfigSapien(object sender, RoutedEventArgs e) => new SapienWindow(main).Show();
         private void Quit(object sender, RoutedEventArgs e) => Environment.Exit(0);
 
         private void ChoosePlaceholder(object sender, RoutedEventArgs e)

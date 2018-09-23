@@ -6,18 +6,18 @@ namespace YuMi.Bbkpify.GUI
 {
     public partial class SapienWindow : Window
     {
-        private readonly Sapien sapien = new Sapien();
+        private readonly Main main;
         
-        public SapienWindow()
+        public SapienWindow(Main main)
         {
-            DataContext = sapien;
+            this.main = main;
+            DataContext = main;
             InitializeComponent();
-            sapien.LoadPath();
         }
 
         private void SavePath(object sender, RoutedEventArgs e)
         {
-            sapien.SavePath();
+            main.SaveConfig();
             System.Windows.Forms.Application.Restart();
             Environment.Exit(0);
         }
@@ -31,7 +31,7 @@ namespace YuMi.Bbkpify.GUI
             
             if (placeholderDialog.ShowDialog() == true)
             {
-                sapien.Path = placeholderDialog.FileName;
+                main.SapienExecutable = placeholderDialog.FileName;
             }
         }
     }
