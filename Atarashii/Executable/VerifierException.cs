@@ -1,10 +1,10 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Atarashii
+namespace Atarashii.Executable
 {
     [Serializable]
-    public class LoaderException : Exception
+    public class VerifierException : Exception
     {
         //
         // For guidelines regarding the creation of new exception types, see
@@ -13,19 +13,19 @@ namespace Atarashii
         //    http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dncscol/html/csharp07192001.asp
         //
 
-        public LoaderException()
+        public VerifierException()
         {
         }
 
-        public LoaderException(string message) : base(message)
+        public VerifierException(string message) : base(message)
         {
         }
 
-        public LoaderException(string message, Exception inner) : base(message, inner)
+        public VerifierException(string message, Exception inner) : base(message, inner)
         {
         }
 
-        protected LoaderException(
+        protected VerifierException(
             SerializationInfo info,
             StreamingContext context) : base(info, context)
         {

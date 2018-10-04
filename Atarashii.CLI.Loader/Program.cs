@@ -1,4 +1,5 @@
 ﻿using System;
+using Atarashii.Executable;
 
 namespace Atarashii.CLI.Loader
 {
@@ -9,17 +10,15 @@ namespace Atarashii.CLI.Loader
     {
         public static void Main(string[] args)
         {
-            if (args.Length == 0)
-            {
-                ErrorExit($"The specified executable '{args[0]}' was not found.", 1);
-            }
+            if (args.Length == 0) ErrorExit($"The specified executable '{args[0]}' was not found.", 1);
 
             var hceExe = args[0];
-            var loader = new Atarashii.Loader();
+            var loader = new Executable.Loader();
+            var verifier = new Verifier();
 
             try
             {
-                loader.Execute(hceExe);
+                loader.Execute(hceExe, verifier);
             }
             catch (LoaderException e)
             {
@@ -29,7 +28,7 @@ namespace Atarashii.CLI.Loader
             {
                 ErrorExit(e.Message, 3);
             }
-            
+
             Console.WriteLine($"The specified executable '{hceExe}' has been loaded.");
             Environment.Exit(0);
         }

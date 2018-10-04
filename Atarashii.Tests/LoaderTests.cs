@@ -1,4 +1,7 @@
 ﻿using System;
+using System.IO;
+using System.Net;
+using Atarashii.Executable;
 using NUnit.Framework;
 
 namespace Atarashii.Tests
@@ -14,6 +17,21 @@ namespace Atarashii.Tests
 
             var ex = Assert.Throws<LoaderException>(() => loader.Execute(executable));
             Assert.That(ex.Message, Is.EqualTo($"The specified executable '{executable}' was not found."));
+        }
+
+        [Test]
+        public void LoadInvalidExecutable_ThrowsException_True()
+        {
+            var executable = $"{new Guid().ToString()}.exe";
+            var loader = new Loader();
+            var verifier = new Verifier();
+            
+            File.WriteAllText(executable, "Once upon a time, in Gensokyo...");
+
+            var ex = Assert.Throws<LoaderException>(() => loader.Execute(executable, verifier));
+            Assert.That(ex.Message, Is.EqualTo($"The specified executable '{executable}' is deemed invalid."));
+            
+            File.Delete(executable);
         }
     }
 }
