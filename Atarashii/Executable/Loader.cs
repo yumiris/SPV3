@@ -22,7 +22,14 @@ namespace Atarashii.Executable
             if (!File.Exists(executable))
                 throw new LoaderException($"The specified executable '{executable}' was not found.");
 
-            Process.Start(executable);
+            new Process
+            {
+                StartInfo =
+                {
+                    FileName = executable,
+                    WorkingDirectory = Path.GetDirectoryName(executable)
+                }
+            }.Start();
         }
 
         /// <summary>
@@ -44,7 +51,7 @@ namespace Atarashii.Executable
 
             if (!verifier.Verify(executable))
                 throw new LoaderException($"The specified executable '{executable}' is deemed invalid.");
-            
+
             Execute(executable);
         }
     }
