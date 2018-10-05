@@ -11,6 +11,7 @@ namespace Atarashii.GUI.Loader
     {
         private readonly Executable.Loader _loader = new Executable.Loader();
         private readonly Verifier _verifier = new Verifier();
+        private readonly Detector _detector = new Detector();
 
         private string _hcePath;
         private string _logs;
@@ -71,7 +72,7 @@ namespace Atarashii.GUI.Loader
         /// </summary>
         public void AttemptDetection()
         {
-            HcePath = new Detector().Detect();
+            HcePath = _detector.Detect();
         }
 
         /// <summary>
