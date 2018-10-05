@@ -4,7 +4,7 @@ using Microsoft.Win32;
 namespace Atarashii.GUI.Loader
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    ///     Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow
     {
@@ -16,17 +16,20 @@ namespace Atarashii.GUI.Loader
             _main = (Main) DataContext;
         }
 
-        private void Load(object sender, RoutedEventArgs e) => _main.Load();
+        private void Load(object sender, RoutedEventArgs e)
+        {
+            _main.Load();
+        }
 
         private void Browse(object sender, RoutedEventArgs e)
         {
             var openFileDialog = new OpenFileDialog();
-            if (openFileDialog.ShowDialog() == true)
-            {
-                _main.HcePath = openFileDialog.FileName;
-            }
+            if (openFileDialog.ShowDialog() == true) _main.HcePath = openFileDialog.FileName;
         }
 
-        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e) => _main.AttemptDetection();
+        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            _main.AttemptDetection();
+        }
     }
 }

@@ -7,9 +7,9 @@ namespace Atarashii.GUI.Detector
     {
         private string _detectedPath;
         private string _logs;
-        
+
         /// <summary>
-        /// Detected HCE executable path.
+        ///     Detected HCE executable path.
         /// </summary>
         public string DetectedPath
         {
@@ -23,7 +23,7 @@ namespace Atarashii.GUI.Detector
         }
 
         /// <summary>
-        /// Log messages to output to the GUI.
+        ///     Log messages to output to the GUI.
         /// </summary>
         public string Logs
         {
@@ -35,6 +35,8 @@ namespace Atarashii.GUI.Detector
                 OnPropertyChanged();
             }
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         ///     Invokes the HCE executable path detection.
@@ -48,17 +50,15 @@ namespace Atarashii.GUI.Detector
         }
 
         /// <summary>
-        /// Adds a given message to the log property.
+        ///     Adds a given message to the log property.
         /// </summary>
         /// <param name="message">
-        /// Message to append to the log.
+        ///     Message to append to the log.
         /// </param>
         private void AppendToLog(string message)
         {
             Logs = $"{message}\n\n{Logs}";
         }
-        
-        public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

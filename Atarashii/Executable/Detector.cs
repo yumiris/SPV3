@@ -32,7 +32,7 @@ namespace Atarashii.Executable
         ///     Retrieves the path of the HCE executable on the system.
         /// </summary>
         /// <returns>
-        ///    Absolute executable path if found, otherwise an empty string.
+        ///     Absolute executable path if found, otherwise an empty string.
         /// </returns>
         public string Detect()
         {
@@ -40,18 +40,12 @@ namespace Atarashii.Executable
             using (var key = view.OpenSubKey(RegKeyLocation))
             {
                 var path = key?.GetValue(RegKeyIdentity);
-                if (path != null)
-                {
-                    return $@"{path}\{ExecutableName}";
-                }
+                if (path != null) return $@"{path}\{ExecutableName}";
             }
 
             var fullDefaultPath = $@"{DefaultInstall}\{ExecutableName}";
 
-            if (File.Exists(fullDefaultPath))
-            {
-                return fullDefaultPath;
-            }
+            if (File.Exists(fullDefaultPath)) return fullDefaultPath;
 
             var currentDirectoryPath = Path.Combine(Directory.GetCurrentDirectory(), ExecutableName);
             return File.Exists(ExecutableName) ? currentDirectoryPath : string.Empty;

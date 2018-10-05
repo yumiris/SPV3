@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:Atarashii.GUI.Detector"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+
     </Application.Resources>
 </Application>

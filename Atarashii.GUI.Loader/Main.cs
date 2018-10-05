@@ -5,7 +5,7 @@ using Atarashii.Executable;
 namespace Atarashii.GUI.Loader
 {
     /// <summary>
-    /// HCE Atarashii GUI main entity
+    ///     HCE Atarashii GUI main entity
     /// </summary>
     public class Main : INotifyPropertyChanged
     {
@@ -14,10 +14,9 @@ namespace Atarashii.GUI.Loader
 
         private string _hcePath;
         private string _logs;
-        private bool _canLoad;
 
         /// <summary>
-        /// HCE executable path.
+        ///     HCE executable path.
         /// </summary>
         public string HcePath
         {
@@ -29,18 +28,14 @@ namespace Atarashii.GUI.Loader
                 OnPropertyChanged();
 
                 if (string.IsNullOrWhiteSpace(value))
-                {
                     AppendToLog("Cleared selection.");
-                }
                 else
-                {
                     AppendToLog($"Selected {value}.");
-                }
             }
         }
 
         /// <summary>
-        /// Log messages to output to the GUI.
+        ///     Log messages to output to the GUI.
         /// </summary>
         public string Logs
         {
@@ -53,8 +48,10 @@ namespace Atarashii.GUI.Loader
             }
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         /// <summary>
-        /// Attempt to load the HCE executable.
+        ///     Attempt to load the HCE executable.
         /// </summary>
         public void Load()
         {
@@ -70,7 +67,7 @@ namespace Atarashii.GUI.Loader
         }
 
         /// <summary>
-        /// Invokes HCE executable detection.
+        ///     Invokes HCE executable detection.
         /// </summary>
         public void AttemptDetection()
         {
@@ -78,17 +75,15 @@ namespace Atarashii.GUI.Loader
         }
 
         /// <summary>
-        /// Adds a given message to the log property.
+        ///     Adds a given message to the log property.
         /// </summary>
         /// <param name="message">
-        /// Message to append to the log.
+        ///     Message to append to the log.
         /// </param>
         private void AppendToLog(string message)
         {
             Logs = $"{message}\n\n{Logs}";
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

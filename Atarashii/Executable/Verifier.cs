@@ -8,7 +8,7 @@ namespace Atarashii.Executable
     public class Verifier
     {
         /// <summary>
-        /// Known file length of the 1.10 executable.
+        ///     Known file length of the 1.10 executable.
         /// </summary>
         private const int ValidLength = 0x24B000;
 

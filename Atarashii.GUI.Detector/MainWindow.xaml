@@ -18,16 +18,16 @@
         <TextBox Height="25"
                  IsReadOnly="True"
                  VerticalContentAlignment="Center"
-                 Text="{Binding DetectedPath}"/>
+                 Text="{Binding DetectedPath}" />
         <Button Margin="0,5"
                 Content="Detect HCE Executable Path"
                 Padding="5,0"
                 Height="25"
-                Click="Detect"/>
+                Click="Detect" />
         <TextBox Height="75"
                  IsReadOnly="True"
                  TextWrapping="Wrap"
                  VerticalScrollBarVisibility="Visible"
-                 Text="{Binding Logs}"/>
+                 Text="{Binding Logs}" />
     </StackPanel>
 </Window>

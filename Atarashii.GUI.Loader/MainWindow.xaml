@@ -13,29 +13,29 @@
         Icon="/icon.ico"
         Loaded="MainWindow_OnLoaded">
     <Window.DataContext>
-        <local:Main/>
+        <local:Main />
     </Window.DataContext>
     <StackPanel Margin="5">
-        <Label Content="HCE Executable Path:"/>
+        <Label Content="HCE Executable Path:" />
         <DockPanel>
             <Button DockPanel.Dock="Right"
                     Margin="5,0,0,0"
                     Height="25"
                     Content="Browse"
                     Padding="5,0"
-                    Click="Browse"/>
+                    Click="Browse" />
             <TextBox Height="25"
                      VerticalContentAlignment="Center"
-                     Text="{Binding HcePath}"/>
+                     Text="{Binding HcePath}" />
         </DockPanel>
         <Button Margin="0,5"
                 Height="25"
                 Content="Load HCE Executable"
-                Click="Load"/>
-            <TextBox Height="75"
-                     IsReadOnly="True"
-                     TextWrapping="Wrap"
-                     VerticalScrollBarVisibility="Visible"
-                     Text="{Binding Logs}"/>
+                Click="Load" />
+        <TextBox Height="75"
+                 IsReadOnly="True"
+                 TextWrapping="Wrap"
+                 VerticalScrollBarVisibility="Visible"
+                 Text="{Binding Logs}" />
     </StackPanel>
 </Window>
