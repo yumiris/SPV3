@@ -26,5 +26,7 @@ namespace Atarashii.GUI.Loader
                 _main.HcePath = openFileDialog.FileName;
             }
         }
+
+        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e) => _main.AttemptDetection();
     }
 }

@@ -10,7 +10,8 @@
         SnapsToDevicePixels="True"
         WindowStartupLocation="CenterScreen"
         Width="240"
-        Icon="/icon.ico">
+        Icon="/icon.ico"
+        Loaded="MainWindow_OnLoaded">
     <Window.DataContext>
         <local:Main/>
     </Window.DataContext>
@@ -30,8 +31,7 @@
         <Button Margin="0,5"
                 Height="25"
                 Content="Load HCE Executable"
-                Click="Load"
-                IsEnabled="{Binding CanLoad}"/>
+                Click="Load"/>
             <TextBox Height="75"
                      IsReadOnly="True"
                      TextWrapping="Wrap"

@@ -10,9 +10,10 @@ namespace Atarashii.CLI.Loader
     {
         public static void Main(string[] args)
         {
-            if (args.Length == 0) ErrorExit("No arguments provided.", 1);
+            var hceExe = args.Length == 0
+                ? new Detector().Detect()
+                : args[0];
 
-            var hceExe = args[0];
             var loader = new Executable.Loader();
             var verifier = new Verifier();
 

@@ -35,7 +35,6 @@ namespace Atarashii.GUI.Loader
                 else
                 {
                     AppendToLog($"Selected {value}.");
-                    CheckIfCanLoad();
                 }
             }
         }
@@ -50,20 +49,6 @@ namespace Atarashii.GUI.Loader
             {
                 if (value == _logs) return;
                 _logs = value;
-                OnPropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// Specified HCE executable can be loaded.
-        /// </summary>
-        public bool CanLoad
-        {
-            get => _canLoad;
-            set
-            {
-                if (value == _canLoad) return;
-                _canLoad = value;
                 OnPropertyChanged();
             }
         }
@@ -85,14 +70,11 @@ namespace Atarashii.GUI.Loader
         }
 
         /// <summary>
-        /// Checks if the HCE executable can be loaded.
+        /// Invokes HCE executable detection.
         /// </summary>
-        private void CheckIfCanLoad()
+        public void AttemptDetection()
         {
-            CanLoad = _verifier.Verify(HcePath);
-            AppendToLog(CanLoad
-                ? "Executable ready to load."
-                : "Executable is not valid.");
+            HcePath = new Detector().Detect();
         }
 
         /// <summary>
