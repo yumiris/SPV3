@@ -18,7 +18,8 @@ Atarashii's goals are to cater to both end-users and developers. It accomplishes
 
 Atarashii's design consists of one library that contains the logic for all of the project's features and abilities. At the moment, the project provides the following features:
 
-- secure loading of the HCE executable, by verifying the provided executable and loading it if it passes the validation checks.
+- secure loading of the HCE executable, by verifying the provided executable and loading it if it passes the validation checks;
+- detection of a legally installed HCE executable on the filesystem -- a feature also used by the loader as a fallback mechanism.
 
 ## CLIs
 
