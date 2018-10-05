@@ -9,7 +9,8 @@
         ResizeMode="CanMinimize"
         SnapsToDevicePixels="True"
         WindowStartupLocation="CenterScreen"
-        Width="240">
+        Width="240"
+        Icon="/icon.ico">
     <Window.DataContext>
         <local:Main/>
     </Window.DataContext>
