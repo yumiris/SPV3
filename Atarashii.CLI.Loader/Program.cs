@@ -10,7 +10,7 @@ namespace Atarashii.CLI.Loader
     {
         public static void Main(string[] args)
         {
-            if (args.Length == 0) ErrorExit($"The specified executable '{args[0]}' was not found.", 1);
+            if (args.Length == 0) ErrorExit("No arguments provided.", 1);
 
             var hceExe = args[0];
             var loader = new Executable.Loader();
