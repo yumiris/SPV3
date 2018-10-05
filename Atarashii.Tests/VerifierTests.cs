@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace Atarashii.Tests
 {
     [TestFixture]
-    public class VerifierTest
+    public class VerifierTests
     {
         [Test]
         public void VerifyValidExecutable_ValueIsTrue_True()
