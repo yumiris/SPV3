@@ -36,7 +36,8 @@ namespace Atarashii.Executable
         /// </returns>
         public string Detect()
         {
-            using (var key = Registry.LocalMachine.OpenSubKey(RegKeyLocation))
+            using (var view = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
+            using (var key = view.OpenSubKey(RegKeyLocation))
             {
                 var path = key?.GetValue(RegKeyIdentity);
                 if (path != null)
