@@ -16,7 +16,7 @@ namespace Atarashii.Executable
         /// <summary>
         ///     Default location set by the HCE installer.
         /// </summary>
-        private const string DefaultInstall = @"C:\Program Files (x86)\Halo Custom Edition";
+        private const string DefaultInstall = @"C:\Program Files (x86)\Microsoft Games\Halo Custom Edition";
 
         /// <summary>
         ///     HCE registry keys location.
