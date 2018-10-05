@@ -23,7 +23,11 @@ namespace Atarashii.GUI.Loader
 
         private void Browse(object sender, RoutedEventArgs e)
         {
-            var openFileDialog = new OpenFileDialog();
+            var openFileDialog = new OpenFileDialog()
+            {
+                Filter = "HCE Executable|haloce.exe"
+            };
+
             if (openFileDialog.ShowDialog() == true) _main.HcePath = openFileDialog.FileName;
         }
 
