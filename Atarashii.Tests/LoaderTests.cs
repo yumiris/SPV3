@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Net;
 using Atarashii.Executable;
 using NUnit.Framework;
 

@@ -5,12 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Atarashii.GUI.Loader"
         mc:Ignorable="d"
-        Title="HCE Atarashii GUI Loader"
         SizeToContent="Height"
         ResizeMode="CanMinimize"
         SnapsToDevicePixels="True"
         WindowStartupLocation="CenterScreen"
         Width="240">
+    <Window.DataContext>
+        <local:Main/>
+    </Window.DataContext>
     <StackPanel Margin="5">
         <Label Content="HCE Executable Path:"/>
         <DockPanel>
@@ -18,12 +20,21 @@
                     Margin="5,0,0,0"
                     Height="25"
                     Content="Browse"
-                    Padding="5,0"/>
+                    Padding="5,0"
+                    Click="Browse"/>
             <TextBox Height="25"
-                     VerticalContentAlignment="Center"/>
+                     VerticalContentAlignment="Center"
+                     Text="{Binding HcePath}"/>
         </DockPanel>
-        <Button Margin="0,5,0,0"
+        <Button Margin="0,5"
                 Height="25"
-                Content="Load HCE Executable"/>
+                Content="Load HCE Executable"
+                Click="Load"
+                IsEnabled="{Binding CanLoad}"/>
+            <TextBox Height="75"
+                     IsReadOnly="True"
+                     TextWrapping="Wrap"
+                     VerticalScrollBarVisibility="Visible"
+                     Text="{Binding Logs}"/>
     </StackPanel>
 </Window>
