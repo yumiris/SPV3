@@ -5,6 +5,8 @@ namespace Atarashii.GUI.Detector
 {
     public class Main : INotifyPropertyChanged
     {
+        private readonly Executable _executable = new Executable();
+        
         private string _detectedPath;
         private string _logs;
 
@@ -43,7 +45,7 @@ namespace Atarashii.GUI.Detector
         /// </summary>
         public void DetectExecutablePath()
         {
-            DetectedPath = new Executable.Detector().Detect();
+            DetectedPath = _executable.Detect();
             AppendToLog(string.IsNullOrWhiteSpace(DetectedPath)
                 ? "Legally installed executable not found."
                 : "Executable found!");

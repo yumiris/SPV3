@@ -57,8 +57,9 @@ namespace Atarashii
         public string Parse()
         {
             var file = Detect();
-
-            if (string.IsNullOrWhiteSpace(file)) throw new ParserException("Lastprof text file not found.");
+            
+            if (!File.Exists(file))
+                throw new ParserException("Lastprof text file not found.");
 
             return Parse(File.ReadAllText(file));
         }

@@ -9,7 +9,7 @@ namespace Atarashii.CLI.Detector
     {
         public static void Main()
         {
-            var path = new Executable.Detector().Detect();
+            var path = new Executable().Detect();
 
             if (string.IsNullOrWhiteSpace(path))
             {

@@ -1,6 +1,5 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Atarashii.Executable;
 
 namespace Atarashii.GUI.Loader
 {
@@ -9,9 +8,7 @@ namespace Atarashii.GUI.Loader
     /// </summary>
     public class Main : INotifyPropertyChanged
     {
-        private readonly Detector _detector = new Detector();
-        private readonly Executable.Loader _loader = new Executable.Loader();
-        private readonly Verifier _verifier = new Verifier();
+        private readonly Executable _executable = new Executable();
 
         private string _hcePath;
         private string _logs;
@@ -58,7 +55,7 @@ namespace Atarashii.GUI.Loader
         {
             try
             {
-                _loader.Execute(HcePath, _verifier);
+                _executable.Load(HcePath);
                 AppendToLog($"Successfully loaded {HcePath}");
             }
             catch (LoaderException e)
@@ -72,7 +69,7 @@ namespace Atarashii.GUI.Loader
         /// </summary>
         public void AttemptDetection()
         {
-            HcePath = _detector.Detect();
+            HcePath = _executable.Detect();
         }
 
         /// <summary>

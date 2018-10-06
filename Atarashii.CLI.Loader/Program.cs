@@ -1,5 +1,4 @@
 ﻿using System;
-using Atarashii.Executable;
 
 namespace Atarashii.CLI.Loader
 {
@@ -10,16 +9,15 @@ namespace Atarashii.CLI.Loader
     {
         public static void Main(string[] args)
         {
+            var executable = new Executable();
+            
             var hceExe = args.Length == 0
-                ? new Detector().Detect()
+                ? executable.Detect()
                 : args[0];
-
-            var loader = new Executable.Loader();
-            var verifier = new Verifier();
 
             try
             {
-                loader.Execute(hceExe, verifier);
+                executable.Load(hceExe);
             }
             catch (LoaderException e)
             {

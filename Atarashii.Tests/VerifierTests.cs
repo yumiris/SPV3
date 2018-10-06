@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using Atarashii.Executable;
 using NUnit.Framework;
 
 namespace Atarashii.Tests
@@ -11,12 +10,12 @@ namespace Atarashii.Tests
         [Test]
         public void VerifyValidExecutable_ValueIsTrue_True()
         {
-            var executable = $"{new Guid().ToString()}.exe";
-            var verifier = new Verifier();
+            var exeName = $"{new Guid().ToString()}.exe";
+            var executable = new Executable();
 
-            File.WriteAllBytes(executable, new byte[0x24B000]);
-            Assert.IsTrue(verifier.Verify(executable));
-            File.Delete(executable);
+            File.WriteAllBytes(exeName, new byte[0x24B000]);
+            Assert.IsTrue(executable.Verify(exeName));
+            File.Delete(exeName);
         }
     }
 }

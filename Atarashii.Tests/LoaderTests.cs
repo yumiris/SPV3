@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using Atarashii.Executable;
 using NUnit.Framework;
 
 namespace Atarashii.Tests
@@ -11,26 +10,25 @@ namespace Atarashii.Tests
         [Test]
         public void LoadInvalidExecutable_ThrowsException_True()
         {
-            var executable = $"{new Guid().ToString()}.exe";
-            var loader = new Loader();
-            var verifier = new Verifier();
+            var exeName = $"{new Guid().ToString()}.exe";
+            var executable = new Executable();
 
-            File.WriteAllText(executable, "Once upon a time, in Gensokyo...");
+            File.WriteAllText(exeName, "Once upon a time, in Gensokyo...");
 
-            var ex = Assert.Throws<LoaderException>(() => loader.Execute(executable, verifier));
-            Assert.That(ex.Message, Is.EqualTo($"The specified executable '{executable}' is deemed invalid."));
+            var ex = Assert.Throws<LoaderException>(() => executable.Load(exeName));
+            Assert.That(ex.Message, Is.EqualTo($"The specified executable '{exeName}' is deemed invalid."));
 
-            File.Delete(executable);
+            File.Delete(exeName);
         }
 
         [Test]
         public void LoadNonExistentExecutable_ThrowsException_True()
         {
-            var executable = $"{new Guid().ToString()}.exe";
-            var loader = new Loader();
+            var exeName = $"{new Guid().ToString()}.exe";
+            var executable = new Executable();
 
-            var ex = Assert.Throws<LoaderException>(() => loader.Execute(executable));
-            Assert.That(ex.Message, Is.EqualTo($"The specified executable '{executable}' was not found."));
+            var ex = Assert.Throws<LoaderException>(() => executable.Load(exeName));
+            Assert.That(ex.Message, Is.EqualTo($"The specified executable '{exeName}' was not found."));
         }
     }
 }

@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Atarashii.Executable
+namespace Atarashii
 {
     [Serializable]
     public class LoaderException : Exception
