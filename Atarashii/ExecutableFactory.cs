@@ -4,6 +4,9 @@ using Microsoft.Win32;
 
 namespace Atarashii
 {
+    /// <summary>
+    ///     Instantiates Executable types.
+    /// </summary>
     public static class ExecutableFactory
     {
         /// <summary>

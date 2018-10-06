@@ -3,6 +3,9 @@ using System.IO;
 
 namespace Atarashii
 {
+    /// <summary>
+    ///     Instantiates Lastprof types.
+    /// </summary>
     public static class LastprofFactory
     {
         /// <summary>
