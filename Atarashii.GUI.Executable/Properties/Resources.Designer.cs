@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Atarashii.GUI.Loader.Properties
+namespace Atarashii.GUI.Executable.Properties
 {
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
@@ -45,7 +45,7 @@ namespace Atarashii.GUI.Loader.Properties
                 if ((resourceMan == null))
                 {
                     global::System.Resources.ResourceManager temp =
-                        new global::System.Resources.ResourceManager("Atarashii.GUI.Loader.Properties.Resources",
+                        new global::System.Resources.ResourceManager("Atarashii.GUI.Executable.Properties.Resources",
                             typeof(Resources).Assembly);
                     resourceMan = temp;
                 }

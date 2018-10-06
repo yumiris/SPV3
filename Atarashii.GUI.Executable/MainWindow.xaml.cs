@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using Microsoft.Win32;
 
-namespace Atarashii.GUI.Loader
+namespace Atarashii.GUI.Executable
 {
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
@@ -21,6 +21,11 @@ namespace Atarashii.GUI.Loader
             _main.Load();
         }
 
+        private void Detect(object sender, RoutedEventArgs e)
+        {
+            _main.Detect();
+        }
+
         private void Browse(object sender, RoutedEventArgs e)
         {
             var openFileDialog = new OpenFileDialog
@@ -29,11 +34,6 @@ namespace Atarashii.GUI.Loader
             };
 
             if (openFileDialog.ShowDialog() == true) _main.HcePath = openFileDialog.FileName;
-        }
-
-        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            _main.AttemptDetection();
         }
     }
 }

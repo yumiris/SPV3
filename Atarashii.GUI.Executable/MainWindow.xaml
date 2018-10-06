@@ -1,17 +1,13 @@
-﻿<Window x:Class="Atarashii.GUI.Loader.MainWindow"
+﻿<Window x:Class="Atarashii.GUI.Executable.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Atarashii.GUI.Loader"
-        mc:Ignorable="d"
+        xmlns:local="clr-namespace:Atarashii.GUI.Executable"
         SizeToContent="Height"
         ResizeMode="CanMinimize"
         SnapsToDevicePixels="True"
         WindowStartupLocation="CenterScreen"
         Width="240"
-        Icon="/icon.ico"
-        Loaded="MainWindow_OnLoaded">
+        Icon="/icon.ico">
     <Window.DataContext>
         <local:Main />
     </Window.DataContext>
@@ -28,10 +24,22 @@
                      VerticalContentAlignment="Center"
                      Text="{Binding HcePath}" />
         </DockPanel>
-        <Button Margin="0,5"
-                Height="25"
-                Content="Load HCE Executable"
-                Click="Load" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"
+                    Margin="0,5,1,5"
+                    Height="25"
+                    Content="Load HCE"
+                    Click="Load" />
+            <Button Grid.Column="1"
+                    Margin="1,5,0,5"
+                    Height="25"
+                    Content="Detect HCE"
+                    Click="Detect" />
+        </Grid>
         <TextBox Height="75"
                  IsReadOnly="True"
                  TextWrapping="Wrap"

@@ -1,25 +1,38 @@
+using System;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
+using Atarashii.Exceptions;
 
-namespace Atarashii.GUI.Detector
+namespace Atarashii.GUI.Executable
 {
+    /// <summary>
+    ///     HCE Atarashii GUI main entity
+    /// </summary>
     public class Main : INotifyPropertyChanged
     {
-        private string _detectedPath;
+        private Atarashii.Executable _executable;
+
+        private string _hcePath;
         private string _logs;
 
         /// <summary>
-        ///     Detected HCE executable path.
+        ///     HCE executable path.
         /// </summary>
-        public string DetectedPath
+        public string HcePath
         {
-            get => _detectedPath;
+            get => _hcePath;
             set
             {
-                if (value == _detectedPath) return;
-                _detectedPath = value;
+                if (value == _hcePath) return;
+                _hcePath = value;
                 OnPropertyChanged();
+
+                if (string.IsNullOrWhiteSpace(value))
+                    AppendToLog("Cleared selection.");
+                else
+                    AppendToLog($"Selected {value}.");
+                _executable = new Atarashii.Executable(value);
             }
         }
 
@@ -40,14 +53,31 @@ namespace Atarashii.GUI.Detector
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        ///     Invokes the HCE executable path detection.
+        ///     Attempt to load the HCE executable.
         /// </summary>
-        public void DetectExecutablePath()
+        public void Load()
         {
             try
             {
-                DetectedPath = ExecutableFactory.Get(ExecutableFactory.Type.Detect).Path;
-                AppendToLog("Executable found!");
+                if (_executable == null) _executable = ExecutableFactory.Get(ExecutableFactory.Type.Detect);
+                _executable.Load();
+                AppendToLog($"Successfully loaded {HcePath}");
+            }
+            catch (Exception e)
+            {
+                if (e is LoaderException || e is FileNotFoundException)
+                    AppendToLog(e.Message);
+            }
+        }
+
+        /// <summary>
+        ///     Invokes the HCE executable path detection.
+        /// </summary>
+        public void Detect()
+        {
+            try
+            {
+                HcePath = ExecutableFactory.Get(ExecutableFactory.Type.Detect).Path;
             }
             catch (FileNotFoundException e)
             {

@@ -8,10 +8,7 @@ namespace Atarashii.CLI.Executable
     {
         public static void Main(string[] args)
         {
-            if (args.Length == 0)
-            {
-                ErrorExit("No commands provided.", 1);
-            }
+            if (args.Length == 0) ErrorExit("No commands provided.", 1);
 
             switch (args[0])
             {
