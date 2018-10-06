@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using Atarashii.Exceptions;
 
@@ -9,7 +10,7 @@ namespace Atarashii.GUI.Loader
     /// </summary>
     public class Main : INotifyPropertyChanged
     {
-        private readonly Executable _executable = new Executable();
+        private Executable _executable;
 
         private string _hcePath;
         private string _logs;
@@ -30,6 +31,7 @@ namespace Atarashii.GUI.Loader
                     AppendToLog("Cleared selection.");
                 else
                     AppendToLog($"Selected {value}.");
+                    _executable = new Executable(value);
             }
         }
 
@@ -56,7 +58,7 @@ namespace Atarashii.GUI.Loader
         {
             try
             {
-                _executable.Load(HcePath);
+                _executable.Load();
                 AppendToLog($"Successfully loaded {HcePath}");
             }
             catch (LoaderException e)
@@ -70,7 +72,16 @@ namespace Atarashii.GUI.Loader
         /// </summary>
         public void AttemptDetection()
         {
-            HcePath = _executable.Detect();
+            try
+            {
+                _executable = ExecutableFactory.Get(ExecutableFactory.Type.Detect);
+                HcePath = _executable.Path;
+                AppendToLog("Successfully detected legal executable.");
+            }
+            catch (FileNotFoundException e)
+            {
+                AppendToLog(e.Message);   
+            }
         }
 
         /// <summary>

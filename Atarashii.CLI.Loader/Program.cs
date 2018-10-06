@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Atarashii.Exceptions;
 
 namespace Atarashii.CLI.Loader
@@ -10,15 +11,27 @@ namespace Atarashii.CLI.Loader
     {
         public static void Main(string[] args)
         {
-            var executable = new Executable();
+            var executable = new Executable(Executable.Name);
 
-            var hceExe = args.Length == 0
-                ? executable.Detect()
-                : args[0];
+            if (args.Length > 0)
+            {
+                executable = new Executable(args[0]);
+            }
+            else
+            {
+                try
+                {
+                    executable = ExecutableFactory.Get(ExecutableFactory.Type.Detect);
+                }
+                catch (FileNotFoundException e)
+                {
+                    ErrorExit(e.Message, 1);
+                }
+            }
 
             try
             {
-                executable.Load(hceExe);
+                executable.Load();
             }
             catch (LoaderException e)
             {
@@ -29,7 +42,7 @@ namespace Atarashii.CLI.Loader
                 ErrorExit(e.Message, 3);
             }
 
-            Console.WriteLine($"The specified executable '{hceExe}' has been loaded.");
+            Console.WriteLine($"The specified executable '{executable.Path}' has been loaded.");
             Environment.Exit(0);
         }
 

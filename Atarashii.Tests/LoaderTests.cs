@@ -12,11 +12,11 @@ namespace Atarashii.Tests
         public void LoadInvalidExecutable_ThrowsException_True()
         {
             var exeName = $"{new Guid().ToString()}.exe";
-            var executable = new Executable();
+            var executable = new Executable(exeName);
 
             File.WriteAllText(exeName, "Once upon a time, in Gensokyo...");
 
-            var ex = Assert.Throws<LoaderException>(() => executable.Load(exeName));
+            var ex = Assert.Throws<LoaderException>(() => executable.Load());
             Assert.That(ex.Message, Is.EqualTo($"The specified executable '{exeName}' is deemed invalid."));
 
             File.Delete(exeName);
@@ -26,9 +26,9 @@ namespace Atarashii.Tests
         public void LoadNonExistentExecutable_ThrowsException_True()
         {
             var exeName = $"{new Guid().ToString()}.exe";
-            var executable = new Executable();
+            var executable = new Executable(exeName);
 
-            var ex = Assert.Throws<LoaderException>(() => executable.Load(exeName));
+            var ex = Assert.Throws<LoaderException>(() => executable.Load());
             Assert.That(ex.Message, Is.EqualTo($"The specified executable '{exeName}' was not found."));
         }
     }

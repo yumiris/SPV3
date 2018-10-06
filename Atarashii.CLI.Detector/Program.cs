@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Atarashii.CLI.Detector
 {
@@ -9,17 +10,15 @@ namespace Atarashii.CLI.Detector
     {
         public static void Main()
         {
-            var path = new Executable().Detect();
-
-            if (string.IsNullOrWhiteSpace(path))
+            try
             {
-                Console.Error.WriteLine("Legally installed executable not found.");
-                Environment.Exit(1);
-            }
-            else
-            {
-                Console.WriteLine(path);
+                Console.WriteLine(ExecutableFactory.Get(ExecutableFactory.Type.Detect));
                 Environment.Exit(0);
+            }
+            catch (FileNotFoundException e)
+            {
+                Console.Error.WriteLine(e.Message);
+                Environment.Exit(1);
             }
         }
     }

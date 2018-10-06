@@ -1,12 +1,11 @@
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 
 namespace Atarashii.GUI.Detector
 {
     public class Main : INotifyPropertyChanged
     {
-        private readonly Executable _executable = new Executable();
-
         private string _detectedPath;
         private string _logs;
 
@@ -45,10 +44,15 @@ namespace Atarashii.GUI.Detector
         /// </summary>
         public void DetectExecutablePath()
         {
-            DetectedPath = _executable.Detect();
-            AppendToLog(string.IsNullOrWhiteSpace(DetectedPath)
-                ? "Legally installed executable not found."
-                : "Executable found!");
+            try
+            {
+                DetectedPath = ExecutableFactory.Get(ExecutableFactory.Type.Detect).Path;
+                AppendToLog("Executable found!");
+            }
+            catch (FileNotFoundException e)
+            {
+                AppendToLog(e.Message);
+            }
         }
 
         /// <summary>
