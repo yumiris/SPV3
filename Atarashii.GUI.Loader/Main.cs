@@ -9,9 +9,9 @@ namespace Atarashii.GUI.Loader
     /// </summary>
     public class Main : INotifyPropertyChanged
     {
+        private readonly Detector _detector = new Detector();
         private readonly Executable.Loader _loader = new Executable.Loader();
         private readonly Verifier _verifier = new Verifier();
-        private readonly Detector _detector = new Detector();
 
         private string _hcePath;
         private string _logs;
