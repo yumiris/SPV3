@@ -1,6 +1,6 @@
-namespace Atarashii.Profile.Lastprof
+namespace Atarashii.Profile
 {
-    public partial class Parser
+    public partial class Lastprof
     {
         /// <summary>
         ///     Separation character which is guaranteed to be present.

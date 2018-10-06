@@ -1,9 +1,9 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Atarashii.Profile.Lastprof
+namespace Atarashii.Profile
 {
-    public partial class Parser
+    public partial class Lastprof
     {
         [Serializable]
         public class ParserException : Exception

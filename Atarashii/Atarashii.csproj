@@ -43,16 +43,16 @@
         <Compile Include="Executable\LoaderException.cs"/>
         <Compile Include="Executable\Verifier.cs"/>
         <Compile Include="Executable\VerifierException.cs"/>
-        <Compile Include="Profile\Lastprof\Parser.cs"/>
-        <Compile Include="Profile\Lastprof\ParserException.cs"/>
+        <Compile Include="Profile\Lastprof.cs"/>
+        <Compile Include="Profile\ParserException.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-                   Other similar extension points exist, see Microsoft.Common.targets.
-              <Target Name="BeforeBuild">
-              </Target>
-              <Target Name="AfterBuild">
-              </Target>
-              -->
+                     Other similar extension points exist, see Microsoft.Common.targets.
+                <Target Name="BeforeBuild">
+                </Target>
+                <Target Name="AfterBuild">
+                </Target>
+                -->
 </Project>
