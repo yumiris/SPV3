@@ -12,7 +12,7 @@
 
 # Introduction
 
-Atarashii's goals are to cater to both end-users and developers. It accomplishes this goal by offering a set of modular tools that are sleek and scriptable for users and developers, respectively. It is the result of learning from the mistakes of the SPV3 loader and installer.
+Atarashii's goal is to cater to both end-users and developers. It accomplishes this goal by offering a set of modular tools that are sleek and scriptable for users and developers, respectively. It is the result of learning from the mistakes of the SPV3 loader and installer.
 
 # About
 
@@ -23,7 +23,7 @@ Atarashii's design consists of one library that contains the logic for all of th
 
 ## CLIs
 
-All of the library's major features have CLI front-ends to them. All of the CLIs are cross-platform, scriptable and informative programs for developers and calling processes to use.
+All of the library's major features have CLI front-ends to them. All of the CLIs are cross-platform, script-friendly and informative programs for developers and calling processes to use.
 
 Interaction is carried out using start-up arguments, with detailed instructions & logs being provided for each interaction. Appropriate exit codes and error messages are used for communication with calling processes and developers.
 
@@ -38,4 +38,4 @@ The GUIs serve as straightforward, simple and intuitive programs for users (and 
 
 The main repository and issue tracker are hosted privately. A read-only mirror of the Git repository is available on GitHub, and a copy of the source code's latest revision is available on the SPV3 network.
 
-Code is written mainly in C#, targetting .NET 4.5.2 for a balance between security and compatibility. The library's features are covered with automated tests to ensure that the core logic fulfils the expected requirements and proposed specifications.
+Code is written mainly in C#, targeting .NET 4.5.2 for a balance between security and compatibility. The library's features are covered with automated tests to ensure that the core logic fulfils the expected requirements and proposed specifications.
