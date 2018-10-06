@@ -1,10 +1,10 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Atarashii
+namespace Atarashii.Exceptions
 {
     [Serializable]
-    public class VerifierException : Exception
+    public class ParserException : Exception
     {
         //
         // For guidelines regarding the creation of new exception types, see
@@ -13,19 +13,19 @@ namespace Atarashii
         //    http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dncscol/html/csharp07192001.asp
         //
 
-        public VerifierException()
+        public ParserException()
         {
         }
 
-        public VerifierException(string message) : base(message)
+        public ParserException(string message) : base(message)
         {
         }
 
-        public VerifierException(string message, Exception inner) : base(message, inner)
+        public ParserException(string message, Exception inner) : base(message, inner)
         {
         }
 
-        protected VerifierException(
+        protected ParserException(
             SerializationInfo info,
             StreamingContext context) : base(info, context)
         {

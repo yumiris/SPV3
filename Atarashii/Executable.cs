@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.IO;
+using Atarashii.Exceptions;
 using Microsoft.Win32;
 
 namespace Atarashii
@@ -63,7 +64,7 @@ namespace Atarashii
         }
 
         /// <summary>
-        /// <inheritdoc cref="Load(string,bool)"/>
+        ///     <inheritdoc cref="Load(string,bool)" />
         /// </summary>
         /// <param name="verify"></param>
         public void Load(bool verify = true)
@@ -115,7 +116,7 @@ namespace Atarashii
         }
 
         /// <summary>
-        /// <inheritdoc cref="Verify(string)"/>
+        ///     <inheritdoc cref="Verify(string)" />
         /// </summary>
         /// <returns></returns>
         public bool Verify()

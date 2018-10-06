@@ -6,7 +6,7 @@ namespace Atarashii.GUI.Detector
     public class Main : INotifyPropertyChanged
     {
         private readonly Executable _executable = new Executable();
-        
+
         private string _detectedPath;
         private string _logs;
 

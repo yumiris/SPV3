@@ -1,4 +1,5 @@
 ﻿using System;
+using Atarashii.Exceptions;
 
 namespace Atarashii.CLI.Loader
 {
@@ -10,7 +11,7 @@ namespace Atarashii.CLI.Loader
         public static void Main(string[] args)
         {
             var executable = new Executable();
-            
+
             var hceExe = args.Length == 0
                 ? executable.Detect()
                 : args[0];

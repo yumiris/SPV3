@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Atarashii.Exceptions;
 
 namespace Atarashii.GUI.Loader
 {

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Atarashii.Exceptions;
 
 namespace Atarashii
 {
@@ -57,7 +58,7 @@ namespace Atarashii
         public string Parse()
         {
             var file = Detect();
-            
+
             if (!File.Exists(file))
                 throw new ParserException("Lastprof text file not found.");
 
@@ -76,7 +77,7 @@ namespace Atarashii
             var txtFilePath = Path.Combine(myDocuments, "My Games",
                 "Halo CE", FileName);
 
-            return txtFilePath ;
+            return txtFilePath;
         }
     }
 }
