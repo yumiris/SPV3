@@ -22,7 +22,8 @@
                     Click="Browse" />
             <TextBox Height="25"
                      VerticalContentAlignment="Center"
-                     Text="{Binding HcePath}" />
+                     Text="{Binding HcePath}"
+                     IsReadOnly="True" />
         </DockPanel>
         <Grid>
             <Grid.ColumnDefinitions>
