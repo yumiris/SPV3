@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using System.IO;
 using Atarashii.Exceptions;
-using Microsoft.Win32;
 
 namespace Atarashii
 {
@@ -17,15 +16,15 @@ namespace Atarashii
         /// </summary>
         private const int ValidLength = 0x24B000;
 
-        /// <summary>
-        ///     Executable file path.
-        /// </summary>
-        public string Path { get; }
-
         public Executable(string path)
         {
             Path = path;
         }
+
+        /// <summary>
+        ///     Executable file path.
+        /// </summary>
+        public string Path { get; }
 
         /// <summary>
         ///     Executes the given HCE executable.

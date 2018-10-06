@@ -14,11 +14,8 @@ namespace Atarashii.CLI.Loader
             var executable = new Executable(Executable.Name);
 
             if (args.Length > 0)
-            {
                 executable = new Executable(args[0]);
-            }
             else
-            {
                 try
                 {
                     executable = ExecutableFactory.Get(ExecutableFactory.Type.Detect);
@@ -27,7 +24,6 @@ namespace Atarashii.CLI.Loader
                 {
                     ErrorExit(e.Message, 1);
                 }
-            }
 
             try
             {

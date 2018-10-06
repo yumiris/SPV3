@@ -31,7 +31,7 @@ namespace Atarashii.GUI.Loader
                     AppendToLog("Cleared selection.");
                 else
                     AppendToLog($"Selected {value}.");
-                    _executable = new Executable(value);
+                _executable = new Executable(value);
             }
         }
 
@@ -80,7 +80,7 @@ namespace Atarashii.GUI.Loader
             }
             catch (FileNotFoundException e)
             {
-                AppendToLog(e.Message);   
+                AppendToLog(e.Message);
             }
         }
 

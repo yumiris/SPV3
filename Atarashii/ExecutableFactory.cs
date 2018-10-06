@@ -7,6 +7,14 @@ namespace Atarashii
     public static class ExecutableFactory
     {
         /// <summary>
+        ///     Types of Executable instantiations.
+        /// </summary>
+        public enum Type
+        {
+            Detect
+        }
+
+        /// <summary>
         ///     Default location set by the HCE installer.
         /// </summary>
         private const string DefaultInstall = @"C:\Program Files (x86)\Microsoft Games\Halo Custom Edition";
@@ -20,24 +28,22 @@ namespace Atarashii
         ///     HCE executable path registry key name.
         /// </summary>
         private const string RegKeyIdentity = @"EXE Path";
-        
-        /// <summary>
-        ///     Types of executable instantiations.
-        /// </summary>
-        public enum Type
-        {
-            Detect
-        }
 
         /// <summary>
         ///     Instantiate an Executable type.
         /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
+        /// <param name="type">
+        ///     Types of executable instantiation.
+        /// </param>
+        /// <returns>
+        ///     Executable instance.
+        /// </returns>
         /// <exception cref="FileNotFoundException">
-        ///    Attempted to detect an executable and none has been found on the file system.
+        ///     Attempted to detect an executable and none has been found on the file system.
         /// </exception>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     Invalid enum value.
+        /// </exception>
         public static Executable Get(Type type)
         {
             switch (type)
@@ -55,7 +61,7 @@ namespace Atarashii
 
                     var currentDirectoryPath = Path.Combine(Directory.GetCurrentDirectory(), Executable.Name);
                     if (File.Exists(currentDirectoryPath)) return new Executable(currentDirectoryPath);
-                    
+
                     throw new FileNotFoundException("Could not find a legal executable through the detection attempt.");
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);

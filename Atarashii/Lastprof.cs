@@ -1,5 +1,3 @@
-using System;
-using System.IO;
 using Atarashii.Exceptions;
 
 namespace Atarashii
@@ -9,7 +7,7 @@ namespace Atarashii
         /// <summary>
         ///     Official name of the lastprof text file.
         /// </summary>
-        private const string FileName = "lastprof.txt";
+        public const string Name = "lastprof.txt";
 
         /// <summary>
         ///     Separation character which is guaranteed to be present.
@@ -26,6 +24,16 @@ namespace Atarashii
         /// </summary>
         private const string Signature = "lam.sav";
 
+        public Lastprof(string data)
+        {
+            Data = data;
+        }
+
+        /// <summary>
+        ///     Latprof.txt data.
+        /// </summary>
+        public string Data { get; }
+
         /// <summary>
         ///     Retrieves the profile name from a lastprof.txt string.
         /// </summary>
@@ -38,46 +46,12 @@ namespace Atarashii
         /// <returns>
         ///     The profile name. In actual environments, it's the profile used in the last HCE instance.
         /// </returns>
-        public string Parse(string data)
-        {
-            if (!data.Contains(Signature)) throw new ParserException("Invalid lastprof string.");
-
-            var array = data.Split(Delimiter);
-            return array[array.Length - NameOffset];
-        }
-
-        /// <summary>
-        ///     Attempts to parse an official lastprof.txt present on the filesystem.
-        /// </summary>
-        /// <returns>
-        ///     The profile name used in the last HCE instance.
-        /// </returns>
-        /// <exception cref="ParserException">
-        ///     Lastprof text file was not found.
-        /// </exception>
         public string Parse()
         {
-            var file = Detect();
+            if (!Data.Contains(Signature)) throw new ParserException("Invalid lastprof string.");
 
-            if (!File.Exists(file))
-                throw new ParserException("Lastprof text file not found.");
-
-            return Parse(File.ReadAllText(file));
-        }
-
-        /// <summary>
-        ///     Attempts to retrieve the path of the lastprof.txt on the filesystem.
-        /// </summary>
-        /// <returns>
-        ///     Path if found, otherwise an empty string.
-        /// </returns>
-        public string Detect()
-        {
-            var myDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            var txtFilePath = Path.Combine(myDocuments, "My Games",
-                "Halo CE", FileName);
-
-            return txtFilePath;
+            var array = Data.Split(Delimiter);
+            return array[array.Length - NameOffset];
         }
     }
 }
