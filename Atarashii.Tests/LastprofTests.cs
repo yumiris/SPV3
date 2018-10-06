@@ -8,7 +8,8 @@ namespace Atarashii.Tests
         [Test]
         public void ParseTest_CorrectProfileName_True()
         {
-            var result = new Profile.Lastprof().Parse(@"E:\roman\Documents\My Games\Halo CE\savegames\Miris\ lam.sav           ");
+            var result =
+                new Lastprof().Parse(@"E:\roman\Documents\My Games\Halo CE\savegames\Miris\ lam.sav           ");
             Assert.That(result, Is.EqualTo("Miris"));
         }
     }
