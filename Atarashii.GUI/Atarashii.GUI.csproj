@@ -49,7 +49,6 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="BaseModel.cs"/>
-        <Compile Include="BaseApplication.cs"/>
         <Compile Include="LogWindow.xaml.cs">
             <DependentUpon>LogWindow.xaml</DependentUpon>
         </Compile>
