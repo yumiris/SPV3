@@ -48,9 +48,11 @@
         <Reference Include="PresentationFramework"/>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="BaseModel.cs"/>
         <Compile Include="LogWindow.xaml.cs">
             <DependentUpon>LogWindow.xaml</DependentUpon>
         </Compile>
+        <Compile Include="Properties\Annotations.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs">
             <SubType>Code</SubType>
         </Compile>

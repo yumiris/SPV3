@@ -25,7 +25,7 @@
                      IsReadOnly="True"
                      VerticalScrollBarVisibility="Visible"
                      FontFamily="Consolas"
-                     TextWrapping="Wrap"/>
+                     TextWrapping="Wrap" />
         </GroupBox>
 
         <!-- Actions -->

@@ -1,5 +1,3 @@
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using Atarashii.Exceptions;
 
 namespace Atarashii.GUI.Loader
@@ -7,11 +5,9 @@ namespace Atarashii.GUI.Loader
     /// <summary>
     ///     HCE Atarashii GUI main entity
     /// </summary>
-    public class Main : INotifyPropertyChanged
+    public class Main : BaseModel
     {
         private string _hcePath;
-        
-        public LogWindow LogWindow { get; set; }
 
         /// <summary>
         ///     HCE executable path.
@@ -46,13 +42,6 @@ namespace Atarashii.GUI.Loader
             {
                 LogWindow.Output(e.Message);
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -43,7 +43,7 @@ namespace Atarashii.GUI
         public void Output(string message)
         {
             var output = $"{DateTime.Now:s}: {message}";
-            
+
             OutputTextBox.Text = string.IsNullOrWhiteSpace(OutputTextBox.Text)
                 ? $"{output}"
                 : $"{OutputTextBox.Text}\n\n{output}";

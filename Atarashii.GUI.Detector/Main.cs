@@ -1,15 +1,11 @@
-using System.ComponentModel;
 using System.IO;
-using System.Runtime.CompilerServices;
 
 namespace Atarashii.GUI.Detector
 {
-    public class Main : INotifyPropertyChanged
+    public class Main : BaseModel
     {
-        public LogWindow LogWindow { get; set; }
-        
         private string _detectedPath;
-        
+
         /// <summary>
         ///     Detected HCE executable path.
         /// </summary>
@@ -23,8 +19,6 @@ namespace Atarashii.GUI.Detector
                 OnPropertyChanged();
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         ///     Invokes the HCE executable path detection.
@@ -40,11 +34,6 @@ namespace Atarashii.GUI.Detector
             {
                 LogWindow.Output(e.Message);
             }
-        }
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
