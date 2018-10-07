@@ -1,10 +1,11 @@
 ﻿using System;
+using System.IO;
 using Atarashii.Exceptions;
 
-namespace Atarashii.CLI.Loader
+namespace Atarashii.CLI.Lastprof
 {
     /// <summary>
-    ///     CLI front-end for loading a HCE executable.
+    ///     CLI front-end for loading a lastprof.txt file.
     /// </summary>
     internal class Program
     {
@@ -13,21 +14,18 @@ namespace Atarashii.CLI.Loader
             if (args.Length == 0)
                 ErrorExit("No arguments provided.", 1);
 
+            if (!File.Exists(args[0]))
+                ErrorExit("File does not exist.", 2);
+
             try
             {
-                new Executable(args[0]).Load();
+                var result = new Atarashii.Lastprof(File.ReadAllText(args[0])).Parse();
+                Console.WriteLine(result);
             }
-            catch (LoaderException e)
-            {
-                ErrorExit(e.Message, 2);
-            }
-            catch (Exception e)
+            catch (ParserException e)
             {
                 ErrorExit(e.Message, 3);
             }
-
-            Console.WriteLine("The specified executable has been loaded.");
-            Environment.Exit(0);
         }
 
         private static void ErrorExit(string error, int code)

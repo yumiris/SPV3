@@ -46,6 +46,9 @@ namespace Atarashii
         /// <returns>
         ///     The profile name. In actual environments, it's the profile used in the last HCE instance.
         /// </returns>
+        /// <exception cref="ParserException">
+        ///     Given Lastprof data is deemed as invalid.
+        /// </exception>
         public string Parse()
         {
             if (!Data.Contains(Signature)) throw new ParserException("Invalid lastprof string.");
