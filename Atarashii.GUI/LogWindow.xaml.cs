@@ -18,6 +18,7 @@ namespace Atarashii.GUI
         private void Copy(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(OutputTextBox.Text);
+            Output("Copied log to the clipboard.");
         }
 
         private void Save(object sender, RoutedEventArgs e)
@@ -31,7 +32,10 @@ namespace Atarashii.GUI
 
             var result = dlg.ShowDialog();
 
-            if (result == true) File.WriteAllText(dlg.FileName, OutputTextBox.Text);
+            if (result != true) return;
+
+            File.WriteAllText(dlg.FileName, OutputTextBox.Text);
+            Output($"Saved log to {dlg.FileName}");
         }
 
         /// <summary>
