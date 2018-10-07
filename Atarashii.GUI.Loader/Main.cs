@@ -1,3 +1,5 @@
+using System.IO;
+using System.Windows;
 using Atarashii.Exceptions;
 
 namespace Atarashii.GUI.Loader
@@ -25,6 +27,38 @@ namespace Atarashii.GUI.Loader
                     LogWindow.Output("Cleared selection.");
                 else
                     LogWindow.Output($"Selected {value}.");
+            }
+        }
+
+        /// <summary>
+        ///     Invokes the HCE executable path detection.
+        /// </summary>
+        public void DetectExecutablePath()
+        {
+            try
+            {
+                HcePath = ExecutableFactory.Get(ExecutableFactory.Type.Detect).Path;
+                LogWindow.Output($"Executable found: {HcePath}");
+            }
+            catch (FileNotFoundException e)
+            {
+                LogWindow.Output(e.Message);
+            }
+        }
+
+        /// <summary>
+        ///     Copies the detected HCE path to the clipboard.
+        /// </summary>
+        public void CopyToClipboard()
+        {
+            if (!string.IsNullOrWhiteSpace(HcePath))
+            {
+                Clipboard.SetText(HcePath);
+                LogWindow.Output("Copied detected HCE path to the clipboard.");
+            }
+            else
+            {
+                LogWindow.Output("Refusing to copy null result to the clipboard.");
             }
         }
 

@@ -27,6 +27,16 @@ namespace Atarashii.GUI.Loader
             _main.HcePath = BaseApplication.PickFile("HCE Executable|haloce.exe");
         }
 
+        private void Detect(object sender, RoutedEventArgs e)
+        {
+            _main.DetectExecutablePath();
+        }
+
+        private void Copy(object sender, RoutedEventArgs e)
+        {
+            _main.CopyToClipboard();
+        }
+
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
             BaseApplication.Exit();
