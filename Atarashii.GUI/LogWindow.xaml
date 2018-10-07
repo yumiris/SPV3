@@ -10,8 +10,7 @@
         Width="480"
         SnapsToDevicePixels="True"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanMinimize"
-        WindowStyle="ToolWindow">
+        ResizeMode="CanMinimize">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition />
