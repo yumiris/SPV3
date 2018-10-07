@@ -23,16 +23,13 @@ namespace Atarashii
         ///     Known string that is present in the lastprof.txt.
         /// </summary>
         private const string Signature = "lam.sav";
+        
+        private readonly string _data;
 
         public Lastprof(string data)
         {
-            Data = data;
+            _data = data;
         }
-
-        /// <summary>
-        ///     Latprof.txt data.
-        /// </summary>
-        public string Data { get; }
 
         /// <summary>
         ///     Retrieves the profile name from a lastprof.txt string.
@@ -40,9 +37,6 @@ namespace Atarashii
         /// <example>
         ///     new Lastprof.Parser().Parse(File.ReadAllText("lastprof.txt"));
         /// </example>
-        /// <param name="data">
-        ///     Text data from a lastprof.txt file.
-        /// </param>
         /// <returns>
         ///     The profile name. In actual environments, it's the profile used in the last HCE instance.
         /// </returns>
@@ -51,9 +45,9 @@ namespace Atarashii
         /// </exception>
         public string Parse()
         {
-            if (!Data.Contains(Signature)) throw new ParserException("Invalid lastprof string.");
+            if (!_data.Contains(Signature)) throw new ParserException("Invalid lastprof string.");
 
-            var array = Data.Split(Delimiter);
+            var array = _data.Split(Delimiter);
             return array[array.Length - NameOffset];
         }
     }
