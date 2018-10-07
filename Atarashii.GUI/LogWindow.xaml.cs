@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Windows;
 using Microsoft.Win32;
 
@@ -31,6 +32,23 @@ namespace Atarashii.GUI
             var result = dlg.ShowDialog();
 
             if (result == true) File.WriteAllText(dlg.FileName, OutputTextBox.Text);
+        }
+
+        /// <summary>
+        ///     Adds a given message to the log property.
+        /// </summary>
+        /// <param name="message">
+        ///     Message to append to the log.
+        /// </param>
+        public void Output(string message)
+        {
+            var output = $"{DateTime.Now:s}: {message}";
+            
+            OutputTextBox.Text = string.IsNullOrWhiteSpace(OutputTextBox.Text)
+                ? $"{output}"
+                : $"{OutputTextBox.Text}\n\n{output}";
+
+            OutputTextBox.ScrollToEnd();
         }
     }
 }
