@@ -10,7 +10,8 @@
         WindowStartupLocation="CenterScreen"
         Width="240"
         Height="360"
-        Icon="/icon.ico">
+        Icon="/icon.ico"
+        Closing="MainWindow_OnClosing">
     <Window.DataContext>
         <local:Main />
     </Window.DataContext>

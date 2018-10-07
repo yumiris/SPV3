@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.ComponentModel;
+using System.Windows;
 
 namespace Atarashii.GUI.Detector
 {
@@ -26,6 +28,11 @@ namespace Atarashii.GUI.Detector
         private void Copy(object sender, RoutedEventArgs e)
         {
             _main.CopyToClipboard();
+        }
+
+        private void MainWindow_OnClosing(object sender, CancelEventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }

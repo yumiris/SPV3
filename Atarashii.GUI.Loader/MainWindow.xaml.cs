@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.ComponentModel;
+using System.Windows;
 using Microsoft.Win32;
 
 namespace Atarashii.GUI.Loader
@@ -32,6 +34,11 @@ namespace Atarashii.GUI.Loader
             };
 
             if (openFileDialog.ShowDialog() == true) _main.HcePath = openFileDialog.FileName;
+        }
+
+        private void MainWindow_OnClosing(object sender, CancelEventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }
