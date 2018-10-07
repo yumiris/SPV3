@@ -32,6 +32,7 @@
         <StackPanel>
             <Label Content="Profile Name:" />
             <TextBox Height="25"
+                     TextAlignment="Center"
                      VerticalContentAlignment="Center"
                      IsReadOnly="True"
                      Text="{Binding ProfileName}" />
