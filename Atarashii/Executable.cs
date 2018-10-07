@@ -38,11 +38,11 @@ namespace Atarashii
         public void Load(bool verify = true)
         {
             if (!File.Exists(Path))
-                throw new LoaderException($"The specified executable '{Path}' was not found.");
+                throw new LoaderException("The specified executable was not found.");
 
             if (verify)
                 if (!Verify())
-                    throw new LoaderException($"The specified executable '{Path}' is deemed invalid.");
+                    throw new LoaderException("The specified executable is deemed invalid.");
 
             new Process
             {
@@ -66,7 +66,7 @@ namespace Atarashii
         public bool Verify()
         {
             if (!File.Exists(Path))
-                throw new VerifierException($"The specified executable '{Path}' was not found.");
+                throw new VerifierException("The specified executable was not found.");
 
             return new FileInfo(Path).Length == ValidLength;
         }
