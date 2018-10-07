@@ -9,8 +9,6 @@ namespace Atarashii.GUI.Loader
     /// </summary>
     public class Main : INotifyPropertyChanged
     {
-        private Executable _executable;
-
         private string _hcePath;
         private string _logs;
 
@@ -30,7 +28,6 @@ namespace Atarashii.GUI.Loader
                     AppendToLog("Cleared selection.");
                 else
                     AppendToLog($"Selected {value}.");
-                _executable = new Executable(value);
             }
         }
 
@@ -57,7 +54,7 @@ namespace Atarashii.GUI.Loader
         {
             try
             {
-                _executable.Load();
+                new Executable(HcePath).Load();
                 AppendToLog($"Successfully loaded {HcePath}");
             }
             catch (LoaderException e)
