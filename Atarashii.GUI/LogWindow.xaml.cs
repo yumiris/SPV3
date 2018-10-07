@@ -17,12 +17,25 @@ namespace Atarashii.GUI
 
         private void Copy(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(OutputTextBox.Text);
-            Output("Copied log to the clipboard.");
+            if (!string.IsNullOrWhiteSpace(OutputTextBox.Text))
+            {
+                Clipboard.SetText(OutputTextBox.Text);
+                Output("Copied log to the clipboard.");
+            }
+            else
+            {
+                Output("Refusing to copy empty log to the clipboard.");
+            }
         }
 
         private void Save(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(OutputTextBox.Text))
+            {
+                Output("Refusing to save empty log.");
+                return;
+            }
+            
             var dlg = new SaveFileDialog
             {
                 FileName = "atarashii",
