@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows;
 
 namespace Atarashii.GUI.Detector
@@ -15,9 +14,7 @@ namespace Atarashii.GUI.Detector
         {
             InitializeComponent();
             _main = (Main) DataContext;
-            _main.LogWindow = new LogWindow();
-            _main.LogWindow.Show();
-            _main.LogWindow.Left += Width * 1.5;
+            BaseApplication.Initialise(this, _main);
         }
 
         private void Detect(object sender, RoutedEventArgs e)
@@ -32,7 +29,7 @@ namespace Atarashii.GUI.Detector
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
-            Environment.Exit(0);
+            BaseApplication.Exit();
         }
     }
 }

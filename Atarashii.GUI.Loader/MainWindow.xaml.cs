@@ -1,7 +1,5 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows;
-using Microsoft.Win32;
 
 namespace Atarashii.GUI.Loader
 {
@@ -16,9 +14,7 @@ namespace Atarashii.GUI.Loader
         {
             InitializeComponent();
             _main = (Main) DataContext;
-            _main.LogWindow = new LogWindow();
-            _main.LogWindow.Show();
-            _main.LogWindow.Left += Width * 1.5;
+            BaseApplication.Initialise(this, _main);
         }
 
         private void Load(object sender, RoutedEventArgs e)
@@ -28,17 +24,12 @@ namespace Atarashii.GUI.Loader
 
         private void Browse(object sender, RoutedEventArgs e)
         {
-            var openFileDialog = new OpenFileDialog
-            {
-                Filter = "HCE Executable|haloce.exe"
-            };
-
-            if (openFileDialog.ShowDialog() == true) _main.HcePath = openFileDialog.FileName;
+            _main.HcePath = BaseApplication.PickFile("HCE Executable|haloce.exe");
         }
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
-            Environment.Exit(0);
+            BaseApplication.Exit();
         }
     }
 }
