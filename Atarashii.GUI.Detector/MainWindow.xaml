@@ -16,16 +16,22 @@
     </Window.DataContext>
     <StackPanel Margin="5">
         <Image Source="/icon.ico"
-               Stretch="None"/>
-        <Label Content="Detection Result:"/>
+               Stretch="None" />
+        <Label Content="Detection Result:" />
         <TextBox Height="25"
                  IsReadOnly="True"
                  VerticalContentAlignment="Center"
                  Text="{Binding DetectedPath}" />
-        <Button Margin="0,5"
-                Content="Detect HCE Executable Path"
-                Padding="5,0"
-                Height="25"
-                Click="Detect" />
+        <DockPanel Margin="0,5,0,0">
+            <Button Content="Detect HCE Executable Path"
+                    Padding="5,0"
+                    Height="25"
+                    Click="Detect" />
+            <Button Margin="5,0,0,0"
+                    Content="Copy"
+                    Padding="5,0"
+                    Height="25"
+                    Click="Copy" />
+        </DockPanel>
     </StackPanel>
 </Window>

@@ -22,5 +22,10 @@ namespace Atarashii.GUI.Detector
         {
             _main.DetectExecutablePath();
         }
+
+        private void Copy(object sender, RoutedEventArgs e)
+        {
+            _main.CopyToClipboard();
+        }
     }
 }
