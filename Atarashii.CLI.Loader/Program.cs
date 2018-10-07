@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using Atarashii.Exceptions;
 
 namespace Atarashii.CLI.Loader
@@ -11,19 +10,10 @@ namespace Atarashii.CLI.Loader
     {
         public static void Main(string[] args)
         {
-            var executable = new Executable(Executable.Name);
+            if (args.Length == 0)
+                ErrorExit("No arguments provided.", 1);
 
-            if (args.Length > 0)
-                executable = new Executable(args[0]);
-            else
-                try
-                {
-                    executable = ExecutableFactory.Get(ExecutableFactory.Type.Detect);
-                }
-                catch (FileNotFoundException e)
-                {
-                    ErrorExit(e.Message, 1);
-                }
+            var executable = new Executable(args[0]);
 
             try
             {

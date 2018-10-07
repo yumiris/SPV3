@@ -1,5 +1,4 @@
 using System.ComponentModel;
-using System.IO;
 using System.Runtime.CompilerServices;
 using Atarashii.Exceptions;
 
@@ -62,23 +61,6 @@ namespace Atarashii.GUI.Loader
                 AppendToLog($"Successfully loaded {HcePath}");
             }
             catch (LoaderException e)
-            {
-                AppendToLog(e.Message);
-            }
-        }
-
-        /// <summary>
-        ///     Invokes HCE executable detection.
-        /// </summary>
-        public void AttemptDetection()
-        {
-            try
-            {
-                _executable = ExecutableFactory.Get(ExecutableFactory.Type.Detect);
-                HcePath = _executable.Path;
-                AppendToLog("Successfully detected legal executable.");
-            }
-            catch (FileNotFoundException e)
             {
                 AppendToLog(e.Message);
             }
