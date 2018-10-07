@@ -12,6 +12,12 @@ namespace Atarashii.GUI
         public LogWindow LogWindow { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        ///     Shows the log window to the right of the given window. 
+        /// </summary>
+        /// <param name="window">
+        ///     Window to calculate the dimensions of.
+        /// </param>
         public void ShowLogWindow(Window window)
         {
             LogWindow = new LogWindow();
@@ -19,6 +25,15 @@ namespace Atarashii.GUI
             LogWindow.Left += window.Width * 1.5;
         }
 
+        /// <summary>
+        ///     Opens up a file picking dialogue window.
+        /// </summary>
+        /// <param name="filter">
+        ///    File filter to use in the dialogue window.
+        /// </param>
+        /// <returns>
+        ///    File name chosen by the end-user.
+        /// </returns>
         public string PickFile(string filter)
         {
             var openFileDialog = new OpenFileDialog
@@ -31,6 +46,9 @@ namespace Atarashii.GUI
                 : string.Empty;
         }
 
+        /// <summary>
+        ///     Exits the application with exit code 0.
+        /// </summary>
         public void Exit()
         {
             Environment.Exit(0);
