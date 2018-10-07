@@ -38,11 +38,11 @@
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0"
                         Content="Copy"
-                        Margin="0,0,1,0"
+                        Margin="0,0,2.5,0"
                         Click="Copy" />
                 <Button Grid.Column="1"
                         Content="Save"
-                        Margin="1,0,0,0"
+                        Margin="2.5,0,0,0"
                         Click="Save" />
             </Grid>
         </GroupBox>
