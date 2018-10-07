@@ -34,7 +34,7 @@ namespace Atarashii.GUI.Executable
 
         private void Copy(object sender, RoutedEventArgs e)
         {
-            _main.CopyToClipboard();
+            _main.CopyToClipboard(_main.HcePath);
         }
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)

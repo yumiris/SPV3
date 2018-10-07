@@ -34,16 +34,32 @@ namespace Atarashii.GUI
         /// <returns>
         ///    File name chosen by the end-user.
         /// </returns>
-        public string PickFile(string filter)
+        public string PickFile(string filter = null)
         {
             var openFileDialog = new OpenFileDialog
             {
-                Filter = filter
+                Filter = filter ?? string.Empty
             };
 
             return openFileDialog.ShowDialog() == true
                 ? openFileDialog.FileName
                 : string.Empty;
+        }
+        
+        /// <summary>
+        ///     Copies given data to the clipboard.
+        /// </summary>
+        public void CopyToClipboard(string data)
+        {
+            if (!string.IsNullOrWhiteSpace(data))
+            {
+                Clipboard.SetText(data);
+                LogWindow.Output("Copied data to the clipboard.");
+            }
+            else
+            {
+                LogWindow.Output("Refusing to copy empty data to the clipboard.");
+            }
         }
 
         /// <summary>

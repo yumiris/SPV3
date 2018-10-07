@@ -47,22 +47,6 @@ namespace Atarashii.GUI.Executable
         }
 
         /// <summary>
-        ///     Copies the detected HCE path to the clipboard.
-        /// </summary>
-        public void CopyToClipboard()
-        {
-            if (!string.IsNullOrWhiteSpace(HcePath))
-            {
-                Clipboard.SetText(HcePath);
-                LogWindow.Output("Copied HCE executable path to the clipboard.");
-            }
-            else
-            {
-                LogWindow.Output("Refusing to copy empty path to the clipboard.");
-            }
-        }
-
-        /// <summary>
         ///     Attempt to load the HCE executable.
         /// </summary>
         public void Load()
