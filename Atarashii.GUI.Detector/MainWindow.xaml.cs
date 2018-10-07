@@ -15,6 +15,7 @@ namespace Atarashii.GUI.Detector
             _main = (Main) DataContext;
             _main.LogWindow = new LogWindow();
             _main.LogWindow.Show();
+            _main.LogWindow.Left += Width * 1.5;
         }
 
         private void Detect(object sender, RoutedEventArgs e)
