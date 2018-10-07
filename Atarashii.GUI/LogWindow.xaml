@@ -12,7 +12,7 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize"
         WindowStyle="ToolWindow">
-    <Grid>
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="50" />

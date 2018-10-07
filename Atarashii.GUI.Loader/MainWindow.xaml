@@ -14,7 +14,7 @@
     <Window.DataContext>
         <local:Main />
     </Window.DataContext>
-    <StackPanel Margin="5">
+    <StackPanel Margin="10">
         <Image Source="/icon.ico"
                Stretch="None" />
         <Label Content="HCE Executable Path:" />
