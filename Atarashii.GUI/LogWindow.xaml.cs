@@ -54,5 +54,10 @@ namespace Atarashii.GUI
 
             OutputTextBox.ScrollToEnd();
         }
+
+        private void Clear(object sender, RoutedEventArgs e)
+        {
+            OutputTextBox.Clear();
+        }
     }
 }
