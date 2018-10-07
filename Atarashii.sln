@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Atarashii.GUI.Executable", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Atarashii.CLI.Executable", "Atarashii.CLI.Executable\Atarashii.CLI.Executable.csproj", "{F1088A69-E536-4A0B-A3A2-2130880926EB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Atarashii.GUI.Lastprof", "Atarashii.GUI.Lastprof\Atarashii.GUI.Lastprof.csproj", "{24A87333-C064-4C4D-B616-06845C04196A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,10 @@ Global
 		{F1088A69-E536-4A0B-A3A2-2130880926EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1088A69-E536-4A0B-A3A2-2130880926EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1088A69-E536-4A0B-A3A2-2130880926EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24A87333-C064-4C4D-B616-06845C04196A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24A87333-C064-4C4D-B616-06845C04196A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24A87333-C064-4C4D-B616-06845C04196A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24A87333-C064-4C4D-B616-06845C04196A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +73,7 @@ Global
 		{90F5884D-D0AC-451B-9796-34A8D3CAEF4C} = {A8350F0E-1082-489D-BC78-B4379E9DB070}
 		{CB9B7583-F2DE-419A-9C17-2BBC8770087B} = {434674B1-D193-4F0B-8303-5B36DBDFA778}
 		{F1088A69-E536-4A0B-A3A2-2130880926EB} = {9889437D-AF09-4C2E-9DDB-0110620A2CB2}
+		{24A87333-C064-4C4D-B616-06845C04196A} = {434674B1-D193-4F0B-8303-5B36DBDFA778}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3249B2F7-F993-46AD-A3EB-85718856A4E0}

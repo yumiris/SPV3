@@ -1,5 +1,4 @@
 using System.IO;
-using System.Windows;
 using Atarashii.Exceptions;
 
 namespace Atarashii.GUI.Executable

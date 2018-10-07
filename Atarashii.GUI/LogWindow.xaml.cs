@@ -35,7 +35,7 @@ namespace Atarashii.GUI
                 Output("Refusing to save empty log.");
                 return;
             }
-            
+
             var dlg = new SaveFileDialog
             {
                 FileName = "atarashii",

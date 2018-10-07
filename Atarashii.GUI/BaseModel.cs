@@ -13,7 +13,7 @@ namespace Atarashii.GUI
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        ///     Shows the log window to the right of the given window. 
+        ///     Shows the log window to the right of the given window.
         /// </summary>
         /// <param name="window">
         ///     Window to calculate the dimensions of.
@@ -29,10 +29,10 @@ namespace Atarashii.GUI
         ///     Opens up a file picking dialogue window.
         /// </summary>
         /// <param name="filter">
-        ///    File filter to use in the dialogue window.
+        ///     File filter to use in the dialogue window.
         /// </param>
         /// <returns>
-        ///    File name chosen by the end-user.
+        ///     File name chosen by the end-user.
         /// </returns>
         public string PickFile(string filter = null)
         {
@@ -45,7 +45,7 @@ namespace Atarashii.GUI
                 ? openFileDialog.FileName
                 : string.Empty;
         }
-        
+
         /// <summary>
         ///     Copies given data to the clipboard.
         /// </summary>
