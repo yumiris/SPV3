@@ -16,7 +16,7 @@
     </Window.DataContext>
     <StackPanel Margin="5">
         <Image Source="/icon.ico"
-               Stretch="None"/>
+               Stretch="None" />
         <Label Content="HCE Executable Path:" />
         <DockPanel>
             <Button DockPanel.Dock="Right"
