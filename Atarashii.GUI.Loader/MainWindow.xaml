@@ -5,16 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Atarashii.GUI.Loader"
         mc:Ignorable="d"
-        SizeToContent="Height"
         ResizeMode="CanMinimize"
         SnapsToDevicePixels="True"
         WindowStartupLocation="CenterScreen"
         Width="240"
+        Height="360"
         Icon="/icon.ico">
     <Window.DataContext>
         <local:Main />
     </Window.DataContext>
     <StackPanel Margin="5">
+        <Image Source="/icon.ico"
+               Stretch="None"/>
         <Label Content="HCE Executable Path:" />
         <DockPanel>
             <Button DockPanel.Dock="Right"
