@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 
-namespace Atarashii.GUI.Loader
+namespace Atarashii.GUI.Executable
 {
     /// <summary>
     ///     Interaction logic for MainWindow.xaml

@@ -1,6 +1,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Atarashii.GUI.Annotations;
+using Atarashii.GUI.Properties;
 
 namespace Atarashii.GUI
 {
