@@ -12,7 +12,7 @@ namespace Atarashii.CLI.Detector
         {
             try
             {
-                Console.WriteLine(ExecutableFactory.Get(ExecutableFactory.Type.Detect));
+                Console.WriteLine(LoaderFactory.Get(LoaderFactory.Type.Detect));
                 Environment.Exit(0);
             }
             catch (FileNotFoundException e)

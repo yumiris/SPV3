@@ -15,7 +15,7 @@ namespace Atarashii.CLI.Loader
 
             try
             {
-                new Executable(args[0]).Load();
+                new Atarashii.Loader(args[0]).Execute();
             }
             catch (LoaderException e)
             {

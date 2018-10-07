@@ -11,7 +11,7 @@ namespace Atarashii.Tests
         public void VerifyValidExecutable_ValueIsTrue_True()
         {
             var exeName = $"{new Guid().ToString()}.exe";
-            var executable = new Executable(exeName);
+            var executable = new Loader(exeName);
 
             File.WriteAllBytes(exeName, new byte[0x24B000]);
             Assert.IsTrue(executable.Verify());
