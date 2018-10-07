@@ -4,7 +4,7 @@ using Atarashii.Exceptions;
 
 namespace Atarashii
 {
-    public class Loader
+    public class Executable
     {
         /// <summary>
         ///     HCE executable name.
@@ -16,7 +16,7 @@ namespace Atarashii
         /// </summary>
         private const int ValidLength = 0x24B000;
 
-        public Loader(string path)
+        public Executable(string path)
         {
             Path = path;
         }
@@ -35,7 +35,7 @@ namespace Atarashii
         /// <exception cref="LoaderException">
         ///     The specified executable was not found.
         /// </exception>
-        public void Execute(bool verify = true)
+        public void Load(bool verify = true)
         {
             if (!File.Exists(Path))
                 throw new LoaderException("The specified executable was not found.");

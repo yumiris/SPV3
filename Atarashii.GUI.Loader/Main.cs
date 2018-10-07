@@ -37,7 +37,7 @@ namespace Atarashii.GUI.Loader
         {
             try
             {
-                HcePath = LoaderFactory.Get(LoaderFactory.Type.Detect).Path;
+                HcePath = ExecutableFactory.Get(ExecutableFactory.Type.Detect).Path;
                 LogWindow.Output($"Executable found: {HcePath}");
             }
             catch (FileNotFoundException e)
@@ -69,7 +69,7 @@ namespace Atarashii.GUI.Loader
         {
             try
             {
-                new Atarashii.Loader(HcePath).Execute();
+                new Executable(HcePath).Load();
                 LogWindow.Output($"Successfully loaded {HcePath}");
             }
             catch (LoaderException e)

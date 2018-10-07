@@ -4,7 +4,7 @@ using Microsoft.Win32;
 
 namespace Atarashii
 {
-    public static class LoaderFactory
+    public static class ExecutableFactory
     {
         /// <summary>
         ///     Types of Executable instantiations.
@@ -44,7 +44,7 @@ namespace Atarashii
         /// <exception cref="ArgumentOutOfRangeException">
         ///     Invalid enum value.
         /// </exception>
-        public static Loader Get(Type type)
+        public static Executable Get(Type type)
         {
             switch (type)
             {
@@ -53,14 +53,14 @@ namespace Atarashii
                     using (var key = view.OpenSubKey(RegKeyLocation))
                     {
                         var path = key?.GetValue(RegKeyIdentity);
-                        if (path != null) return new Loader($@"{path}\{Loader.Name}");
+                        if (path != null) return new Executable($@"{path}\{Executable.Name}");
                     }
 
-                    var fullDefaultPath = $@"{DefaultInstall}\{Loader.Name}";
-                    if (File.Exists(fullDefaultPath)) return new Loader(fullDefaultPath);
+                    var fullDefaultPath = $@"{DefaultInstall}\{Executable.Name}";
+                    if (File.Exists(fullDefaultPath)) return new Executable(fullDefaultPath);
 
-                    var currentDirectoryPath = Path.Combine(Directory.GetCurrentDirectory(), Loader.Name);
-                    if (File.Exists(currentDirectoryPath)) return new Loader(currentDirectoryPath);
+                    var currentDirectoryPath = Path.Combine(Directory.GetCurrentDirectory(), Executable.Name);
+                    if (File.Exists(currentDirectoryPath)) return new Executable(currentDirectoryPath);
 
                     throw new FileNotFoundException("Could not find a legal executable through the detection attempt.");
                 default:
