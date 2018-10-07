@@ -31,6 +31,7 @@
                 Height="25"
                 Content="Load HCE Executable"
                 Click="Load" />
+        <Label Content="Output:" />
         <TextBox Height="75"
                  IsReadOnly="True"
                  TextWrapping="Wrap"
