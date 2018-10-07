@@ -24,10 +24,5 @@
                 Padding="5,0"
                 Height="25"
                 Click="Detect" />
-        <TextBox Height="75"
-                 IsReadOnly="True"
-                 TextWrapping="Wrap"
-                 VerticalScrollBarVisibility="Visible"
-                 Text="{Binding Logs}" />
     </StackPanel>
 </Window>

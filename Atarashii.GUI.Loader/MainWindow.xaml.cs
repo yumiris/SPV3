@@ -14,6 +14,8 @@ namespace Atarashii.GUI.Loader
         {
             InitializeComponent();
             _main = (Main) DataContext;
+            _main.LogWindow = new LogWindow();
+            _main.LogWindow.Show();
         }
 
         private void Load(object sender, RoutedEventArgs e)

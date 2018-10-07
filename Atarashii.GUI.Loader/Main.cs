@@ -10,7 +10,8 @@ namespace Atarashii.GUI.Loader
     public class Main : INotifyPropertyChanged
     {
         private string _hcePath;
-        private string _logs;
+        
+        public LogWindow LogWindow { get; set; }
 
         /// <summary>
         ///     HCE executable path.
@@ -25,27 +26,11 @@ namespace Atarashii.GUI.Loader
                 OnPropertyChanged();
 
                 if (string.IsNullOrWhiteSpace(value))
-                    AppendToLog("Cleared selection.");
+                    LogWindow.Output("Cleared selection.");
                 else
-                    AppendToLog($"Selected {value}.");
+                    LogWindow.Output($"Selected {value}.");
             }
         }
-
-        /// <summary>
-        ///     Log messages to output to the GUI.
-        /// </summary>
-        public string Logs
-        {
-            get => _logs;
-            set
-            {
-                if (value == _logs) return;
-                _logs = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         ///     Attempt to load the HCE executable.
@@ -55,24 +40,15 @@ namespace Atarashii.GUI.Loader
             try
             {
                 new Executable(HcePath).Load();
-                AppendToLog($"Successfully loaded {HcePath}");
+                LogWindow.Output($"Successfully loaded {HcePath}");
             }
             catch (LoaderException e)
             {
-                AppendToLog(e.Message);
+                LogWindow.Output(e.Message);
             }
         }
 
-        /// <summary>
-        ///     Adds a given message to the log property.
-        /// </summary>
-        /// <param name="message">
-        ///     Message to append to the log.
-        /// </param>
-        private void AppendToLog(string message)
-        {
-            Logs = $"{message}\n\n{Logs}";
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

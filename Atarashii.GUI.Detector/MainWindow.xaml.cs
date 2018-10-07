@@ -13,6 +13,8 @@ namespace Atarashii.GUI.Detector
         {
             InitializeComponent();
             _main = (Main) DataContext;
+            _main.LogWindow = new LogWindow();
+            _main.LogWindow.Show();
         }
 
         private void Detect(object sender, RoutedEventArgs e)

@@ -6,9 +6,10 @@ namespace Atarashii.GUI.Detector
 {
     public class Main : INotifyPropertyChanged
     {
+        public LogWindow LogWindow { get; set; }
+        
         private string _detectedPath;
-        private string _logs;
-
+        
         /// <summary>
         ///     Detected HCE executable path.
         /// </summary>
@@ -23,20 +24,6 @@ namespace Atarashii.GUI.Detector
             }
         }
 
-        /// <summary>
-        ///     Log messages to output to the GUI.
-        /// </summary>
-        public string Logs
-        {
-            get => _logs;
-            set
-            {
-                if (value == _logs) return;
-                _logs = value;
-                OnPropertyChanged();
-            }
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
@@ -47,23 +34,12 @@ namespace Atarashii.GUI.Detector
             try
             {
                 DetectedPath = ExecutableFactory.Get(ExecutableFactory.Type.Detect).Path;
-                AppendToLog("Executable found!");
+                LogWindow.Output("Executable found!");
             }
             catch (FileNotFoundException e)
             {
-                AppendToLog(e.Message);
+                LogWindow.Output(e.Message);
             }
-        }
-
-        /// <summary>
-        ///     Adds a given message to the log property.
-        /// </summary>
-        /// <param name="message">
-        ///     Message to append to the log.
-        /// </param>
-        private void AppendToLog(string message)
-        {
-            Logs = $"{message}\n\n{Logs}";
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
