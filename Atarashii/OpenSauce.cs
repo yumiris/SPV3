@@ -31,6 +31,22 @@ namespace Atarashii
             if (!File.Exists(Path.Combine(hcePath, Executable.Name)))
                 throw new OpenSauceException("Invalid HCE directory path.");
         }
+
+        /// <summary>
+        ///     Converts this instance to an XML string.
+        /// </summary>
+        /// <returns>
+        ///     XML representation of this instance.
+        /// </returns>
+        public string ToXml()
+        {
+            using (var writer = new StringWriter())
+            {
+                var serialiser = new XmlSerializer(typeof(OpenSauce));
+                serialiser.Serialize(writer, this);
+                return writer.ToString();
+            }
+        }
     }
 
     public class CacheFiles

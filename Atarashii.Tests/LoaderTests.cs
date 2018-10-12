@@ -17,7 +17,7 @@ namespace Atarashii.Tests
             File.WriteAllText(exeName, "Once upon a time, in Gensokyo...");
 
             var ex = Assert.Throws<LoaderException>(() => executable.Load());
-            Assert.That(ex.Message, Is.EqualTo($"The specified executable '{exeName}' is deemed invalid."));
+            Assert.That(ex.Message, Is.EqualTo("The specified executable is deemed invalid."));
 
             File.Delete(exeName);
         }
@@ -29,7 +29,7 @@ namespace Atarashii.Tests
             var executable = new Executable(exeName);
 
             var ex = Assert.Throws<LoaderException>(() => executable.Load());
-            Assert.That(ex.Message, Is.EqualTo($"The specified executable '{exeName}' was not found."));
+            Assert.That(ex.Message, Is.EqualTo("The specified executable was not found."));
         }
     }
 }
