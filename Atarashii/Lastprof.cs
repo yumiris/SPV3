@@ -23,7 +23,7 @@ namespace Atarashii
         ///     Known string that is present in the lastprof.txt.
         /// </summary>
         private const string Signature = "lam.sav";
-        
+
         private readonly string _data;
 
         public Lastprof(string data)

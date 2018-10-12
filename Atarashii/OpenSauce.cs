@@ -8,20 +8,6 @@ namespace Atarashii
     /// </summary>
     public class OpenSauce
     {
-        /// <summary>
-        ///     Installs the OpenSauce libraries to the given HCE directory path.
-        /// </summary>
-        /// <param name="hcePath">
-        ///    A valid HCE directory path.
-        /// </param>
-        public void InstallTo(string hcePath)
-        {
-            if (!File.Exists(Path.Combine(hcePath, Executable.Name)))
-            {
-                throw new OpenSauceException("Invalid HCE directory path.");
-            }
-        }
-        
         public CacheFiles CacheFiles { get; set; } = new CacheFiles();
 
         public Rasterizer Rasterizer { get; set; } = new Rasterizer();
@@ -33,6 +19,18 @@ namespace Atarashii
         public Objects Objects { get; set; } = new Objects();
 
         [XmlElement(ElementName = "HUD")] public Hud Hud { get; set; } = new Hud();
+
+        /// <summary>
+        ///     Installs the OpenSauce libraries to the given HCE directory path.
+        /// </summary>
+        /// <param name="hcePath">
+        ///     A valid HCE directory path.
+        /// </param>
+        public void InstallTo(string hcePath)
+        {
+            if (!File.Exists(Path.Combine(hcePath, Executable.Name)))
+                throw new OpenSauceException("Invalid HCE directory path.");
+        }
     }
 
     public class CacheFiles
@@ -64,7 +62,7 @@ namespace Atarashii
     public class ShaderExtensions
     {
         public bool Enabled = true;
-        
+
         [XmlElement(ElementName = "Rasterizer")]
         public ShaderRasterizer ShaderRasterizer { get; set; } = new ShaderRasterizer();
     }
@@ -77,8 +75,7 @@ namespace Atarashii
 
     public class RasterizerShaderExtensions
     {
-        [XmlElement(ElementName = "Object")]
-        public ShaderObject ShaderObject { get; set; } = new ShaderObject();
+        [XmlElement(ElementName = "Object")] public ShaderObject ShaderObject { get; set; } = new ShaderObject();
 
         [XmlElement(ElementName = "Environment")]
         public ShaderEnvironment ShaderEnvironment { get; set; } = new ShaderEnvironment();
@@ -89,8 +86,11 @@ namespace Atarashii
     public class ShaderObject
     {
         public bool NormalMaps { get; set; } = true;
+
         public bool DetailNormalMaps { get; set; } = true;
+
         public bool SpecularMaps { get; set; } = true;
+
         public bool SpecularLighting { get; set; } = true;
     }
 
@@ -109,13 +109,13 @@ namespace Atarashii
     public class PostProcessing
     {
         public MotionBlur MotionBlur { get; set; } = new MotionBlur();
-        
+
         public Bloom Bloom { get; set; } = new Bloom();
 
         public AntiAliasing AntiAliasing { get; set; } = new AntiAliasing();
-        
+
         public ExternalEffects ExternalEffects { get; set; } = new ExternalEffects();
-        
+
         public MapEffects MapEffects { get; set; } = new MapEffects();
     }
 
