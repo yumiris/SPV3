@@ -69,11 +69,6 @@ namespace Atarashii
             {
                 logger.Log($"{Description} data already exists. This is fine!");
             }
-            catch (Exception e)
-            {
-                logger.Log($"Exception caught when attempting to install {Description}: {e.Message}. Throwing...");
-                throw;
-            }
 
             logger.Log($"{Description} data has been installed successfully to the filesystem.");
         }
