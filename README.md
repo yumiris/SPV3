@@ -20,7 +20,8 @@ Atarashii's design consists of one library that contains the logic for all of th
 
 - secure loading of the HCE executable, by verifying the provided executable and loading it if it passes the validation checks;
 - detection of a legally installed HCE executable on the filesystem -- a feature also used by the loader as a fallback mechanism;
-- determining the currently used HCE profile, thereby allowing automatic integration with the HCE profile instead.
+- determining the currently used HCE profile, thereby allowing automatic integration with the HCE profile instead;
+- installation and configuration of the OpenSauce mod, with a balance between safety and flexibility.
 
 ## Interfaces
 
