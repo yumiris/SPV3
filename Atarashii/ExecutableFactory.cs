@@ -56,10 +56,10 @@ namespace Atarashii
                         if (path != null) return new Executable($@"{path}\{Executable.Name}");
                     }
 
-                    var fullDefaultPath = $@"{DefaultInstall}\{Executable.Name}";
+                    string fullDefaultPath = $@"{DefaultInstall}\{Executable.Name}";
                     if (File.Exists(fullDefaultPath)) return new Executable(fullDefaultPath);
 
-                    var currentDirectoryPath = Path.Combine(Directory.GetCurrentDirectory(), Executable.Name);
+                    string currentDirectoryPath = Path.Combine(Directory.GetCurrentDirectory(), Executable.Name);
                     if (File.Exists(currentDirectoryPath)) return new Executable(currentDirectoryPath);
 
                     throw new FileNotFoundException("Could not find a legal executable through the detection attempt.");

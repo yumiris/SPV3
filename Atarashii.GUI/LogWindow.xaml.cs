@@ -1,7 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Windows;
-using Microsoft.Win32;
 
 namespace Atarashii.GUI
 {
@@ -59,7 +57,7 @@ namespace Atarashii.GUI
         /// </param>
         public void Output(string message)
         {
-            var output = $"{DateTime.Now:s}: {message}";
+            string output = $"{DateTime.Now:s}: {message}";
 
             OutputTextBox.Text = string.IsNullOrWhiteSpace(OutputTextBox.Text)
                 ? $"{output}"

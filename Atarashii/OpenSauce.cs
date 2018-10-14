@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
+using Atarashii.Exceptions;
 
 namespace Atarashii
 {
@@ -45,25 +46,25 @@ namespace Atarashii
         ///     A valid HCE directory path.
         /// </param>
         /// <exception cref="OpenSauceException">
-        ///    Invalid HCE directory path.
+        ///     Invalid HCE directory path.
         /// </exception>
         /// <exception cref="OpenSauceException">
-        ///    Target directory does not exist.
+        ///     Target directory does not exist.
         /// </exception>
         /// <exception cref="OpenSauceException">
-        ///    Package does not exist.
+        ///     Package does not exist.
         /// </exception>
         public void InstallTo(string hcePath)
-        {  
+        {
             if (!File.Exists(Path.Combine(hcePath, Executable.Name)))
                 throw new OpenSauceException("Invalid HCE directory path.");
-            
+
             if (!Directory.Exists(hcePath))
                 throw new OpenSauceException("Target directory does not exist.");
 
-            var guiDirPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-            var usrDirPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            
+            string guiDirPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            string usrDirPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+
             var packages = new List<Package>
             {
                 new Package("lib.pkg", "OpenSauce core and dependencies", hcePath),
@@ -72,10 +73,8 @@ namespace Atarashii
             };
 
             foreach (var package in packages)
-            {
                 if (!File.Exists(package.ArchiveName))
                     throw new OpenSauceException("Package does not exist.");
-            }
         }
     }
 

@@ -1,9 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows;
 using Atarashii.GUI.Properties;
-using Microsoft.Win32;
 
 namespace Atarashii.GUI
 {

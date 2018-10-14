@@ -4,9 +4,6 @@ namespace Atarashii
 {
     public class Verification
     {
-        public bool IsValid { get; }
-        public string Reason { get; }
-
         public Verification(bool isValid)
         {
             IsValid = isValid;
@@ -15,11 +12,12 @@ namespace Atarashii
         public Verification(bool isValid, string reason) : this(isValid)
         {
             if (!isValid && string.IsNullOrWhiteSpace(reason))
-            {
                 throw new ArgumentException("Please provide a reason for the false isValid status.");
-            }
-            
+
             Reason = reason;
         }
+
+        public bool IsValid { get; }
+        public string Reason { get; }
     }
 }

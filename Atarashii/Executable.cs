@@ -67,10 +67,10 @@ namespace Atarashii
         {
             if (!File.Exists(Path))
                 return new Verification(false, "The specified executable was not found.");
-            
+
             if (new FileInfo(Path).Length != ValidLength)
                 return new Verification(false, "The specified executable is invalid in size.");
-                
+
             return new Verification(true);
         }
     }

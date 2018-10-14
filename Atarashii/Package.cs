@@ -1,5 +1,6 @@
 using System.IO;
 using System.IO.Compression;
+using Atarashii.Exceptions;
 
 namespace Atarashii
 {
@@ -18,21 +19,6 @@ namespace Atarashii
         /// </summary>
         public const string Extension = "pkg";
 
-        /// <summary>
-        ///     Name of the archive file without any extensions or paths. 
-        /// </summary>
-        public string ArchiveName { get; }
-        
-        /// <summary>
-        ///     Informative line about the package.
-        /// </summary>
-        public string Description { get; }
-        
-        /// <summary>
-        ///     Destination directory path for the installed contents.
-        /// </summary>
-        public string Destination { get; }
-
         public Package(string archiveName, string description, string destination)
         {
             ArchiveName = archiveName + $".{Extension}";
@@ -41,17 +27,32 @@ namespace Atarashii
         }
 
         /// <summary>
+        ///     Name of the archive file without any extensions or paths.
+        /// </summary>
+        public string ArchiveName { get; }
+
+        /// <summary>
+        ///     Informative line about the package.
+        /// </summary>
+        public string Description { get; }
+
+        /// <summary>
+        ///     Destination directory path for the installed contents.
+        /// </summary>
+        public string Destination { get; }
+
+        /// <summary>
         ///     Applies the files in the package to the destination on the filesystem.
         /// </summary>
         /// <exception cref="PackageException">
-        ///    Package archive does not exist.
+        ///     Package archive does not exist.
         /// </exception>
         /// <exception cref="PackageException">
-        ///    Destination directory does not exist.
+        ///     Destination directory does not exist.
         /// </exception>
         public void Install()
         {
-            var package = Path.Combine(Directory, ArchiveName);
+            string package = Path.Combine(Directory, ArchiveName);
 
             if (!File.Exists(package))
                 throw new PackageException("Package archive does not exist.");

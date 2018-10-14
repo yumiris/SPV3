@@ -1,10 +1,10 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Atarashii
+namespace Atarashii.Exceptions
 {
     [Serializable]
-    public class PackageException : Exception
+    public class OpenSauceException : Exception
     {
         //
         // For guidelines regarding the creation of new exception types, see
@@ -13,19 +13,19 @@ namespace Atarashii
         //    http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dncscol/html/csharp07192001.asp
         //
 
-        public PackageException()
+        public OpenSauceException()
         {
         }
 
-        public PackageException(string message) : base(message)
+        public OpenSauceException(string message) : base(message)
         {
         }
 
-        public PackageException(string message, Exception inner) : base(message, inner)
+        public OpenSauceException(string message, Exception inner) : base(message, inner)
         {
         }
 
-        protected PackageException(
+        protected OpenSauceException(
             SerializationInfo info,
             StreamingContext context) : base(info, context)
         {

@@ -33,8 +33,8 @@ namespace Atarashii
             switch (type)
             {
                 case Type.Detect:
-                    var myDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                    var txtFilePath = Path.Combine(myDocuments, "My Games", "Halo CE", Lastprof.Name);
+                    string myDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                    string txtFilePath = Path.Combine(myDocuments, "My Games", "Halo CE", Lastprof.Name);
 
                     if (!File.Exists(txtFilePath))
                         throw new FileNotFoundException("Could not find lastprof.txt through the detection attempt.");

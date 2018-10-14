@@ -11,7 +11,7 @@ namespace Atarashii.Tests
         [Test]
         public void LoadInvalidExecutable_ThrowsException_True()
         {
-            var exeName = $"{new Guid().ToString()}.exe";
+            string exeName = $"{new Guid().ToString()}.exe";
             var executable = new Executable(exeName);
 
             File.WriteAllText(exeName, "Once upon a time, in Gensokyo...");
@@ -25,7 +25,7 @@ namespace Atarashii.Tests
         [Test]
         public void LoadNonExistentExecutable_ThrowsException_True()
         {
-            var exeName = $"{new Guid().ToString()}.exe";
+            string exeName = $"{new Guid().ToString()}.exe";
             var executable = new Executable(exeName);
 
             var ex = Assert.Throws<LoaderException>(() => executable.Load());
