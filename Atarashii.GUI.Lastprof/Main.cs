@@ -23,9 +23,9 @@ namespace Atarashii.GUI.Lastprof
                 OnPropertyChanged();
 
                 if (string.IsNullOrWhiteSpace(value))
-                    LogWindow.Output("Cleared selection.");
+                    LogWindow.Log("Cleared selection.");
                 else
-                    LogWindow.Output($"Selected {value}.");
+                    LogWindow.Log($"Selected {value}.");
             }
         }
 
@@ -50,18 +50,18 @@ namespace Atarashii.GUI.Lastprof
         {
             if (!File.Exists(LastprofFile))
             {
-                LogWindow.Output("No existent lastprof.txt provided.");
+                LogWindow.Log("No existent lastprof.txt provided.");
                 return;
             }
 
             try
             {
                 ProfileName = new Atarashii.Lastprof(File.ReadAllText(LastprofFile)).Parse();
-                LogWindow.Output($"Successfully parsed profile name: {ProfileName}");
+                LogWindow.Log($"Successfully parsed profile name: {ProfileName}");
             }
             catch (ParserException e)
             {
-                LogWindow.Output(e.Message);
+                LogWindow.Log(e.Message);
             }
         }
 
@@ -73,12 +73,12 @@ namespace Atarashii.GUI.Lastprof
             try
             {
                 ProfileName = LastprofFactory.Get(LastprofFactory.Type.Detect).Parse();
-                LogWindow.Output($"Successfully detected lastprof.txt and parsed profile name: {ProfileName}");
+                LogWindow.Log($"Successfully detected lastprof.txt and parsed profile name: {ProfileName}");
             }
             catch (Exception e)
             {
                 if (e is ParserException || e is FileNotFoundException)
-                    LogWindow.Output(e.Message);
+                    LogWindow.Log(e.Message);
             }
         }
     }

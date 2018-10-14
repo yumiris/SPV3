@@ -46,6 +46,7 @@
     <Compile Include="Exceptions\VerifierException.cs" />
     <Compile Include="Executable.cs" />
     <Compile Include="ExecutableFactory.cs" />
+      <Compile Include="ILogger.cs"/>
     <Compile Include="Lastprof.cs" />
     <Compile Include="LastprofFactory.cs" />
     <Compile Include="OpenSauce.cs" />

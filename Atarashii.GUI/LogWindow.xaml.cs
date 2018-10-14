@@ -6,7 +6,7 @@ namespace Atarashii.GUI
     /// <summary>
     ///     Interaction logic for LogWindow.xaml
     /// </summary>
-    public partial class LogWindow : Window
+    public partial class LogWindow : Window, ILogger
     {
         public LogWindow()
         {
@@ -18,11 +18,11 @@ namespace Atarashii.GUI
             if (!string.IsNullOrWhiteSpace(OutputTextBox.Text))
             {
                 Clipboard.SetText(OutputTextBox.Text);
-                Output("Copied log to the clipboard.");
+                Log("Copied log to the clipboard.");
             }
             else
             {
-                Output("Refusing to copy empty log to the clipboard.");
+                Log("Refusing to copy empty log to the clipboard.");
             }
         }
 
@@ -30,7 +30,7 @@ namespace Atarashii.GUI
         {
             if (string.IsNullOrWhiteSpace(OutputTextBox.Text))
             {
-                Output("Refusing to save empty log.");
+                Log("Refusing to save empty log.");
                 return;
             }
 
@@ -46,16 +46,17 @@ namespace Atarashii.GUI
             if (result != true) return;
 
             File.WriteAllText(dlg.FileName, OutputTextBox.Text);
-            Output($"Saved log to {dlg.FileName}");
+            Log($"Saved log to {dlg.FileName}");
         }
 
+        /// <inheritdoc />
         /// <summary>
         ///     Adds a given message to the log property.
         /// </summary>
         /// <param name="message">
         ///     Message to append to the log.
         /// </param>
-        public void Output(string message)
+        public void Log(string message)
         {
             string output = $"{DateTime.Now:s}: {message}";
 

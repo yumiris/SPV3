@@ -44,13 +44,15 @@ namespace Atarashii
         /// <summary>
         ///     Applies the files in the package to the destination on the filesystem.
         /// </summary>
+        /// <param name="logger">
+        ///    Logging instance for appending package installation progress.
+        /// </param>
         /// <exception cref="PackageException">
         ///     Package archive does not exist.
-        /// </exception>
-        /// <exception cref="PackageException">
+        ///     - or -
         ///     Destination directory does not exist.
         /// </exception>
-        public void Install()
+        public void Install(ILogger logger)
         {
             string package = Path.Combine(Directory, ArchiveName);
 
@@ -60,7 +62,13 @@ namespace Atarashii
             if (!System.IO.Directory.Exists(Destination))
                 throw new PackageException("Destination does not exist.");
 
-            ZipFile.ExtractToDirectory(package, Destination);
+            try
+            {
+                ZipFile.ExtractToDirectory(package, Destination);
+            }
+            catch (IOException)
+            {
+            }
         }
     }
 }

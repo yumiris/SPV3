@@ -52,11 +52,11 @@ namespace Atarashii.GUI
             if (!string.IsNullOrWhiteSpace(data))
             {
                 Clipboard.SetText(data);
-                LogWindow.Output("Copied data to the clipboard.");
+                LogWindow.Log("Copied data to the clipboard.");
             }
             else
             {
-                LogWindow.Output("Refusing to copy empty data to the clipboard.");
+                LogWindow.Log("Refusing to copy empty data to the clipboard.");
             }
         }
 

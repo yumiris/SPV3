@@ -23,9 +23,9 @@ namespace Atarashii.GUI.Executable
                 OnPropertyChanged();
 
                 if (string.IsNullOrWhiteSpace(value))
-                    LogWindow.Output("Cleared selection.");
+                    LogWindow.Log("Cleared selection.");
                 else
-                    LogWindow.Output($"Selected {value}.");
+                    LogWindow.Log($"Selected {value}.");
             }
         }
 
@@ -37,11 +37,11 @@ namespace Atarashii.GUI.Executable
             try
             {
                 HcePath = ExecutableFactory.Get(ExecutableFactory.Type.Detect).Path;
-                LogWindow.Output($"Executable found: {HcePath}");
+                LogWindow.Log($"Executable found: {HcePath}");
             }
             catch (FileNotFoundException e)
             {
-                LogWindow.Output(e.Message);
+                LogWindow.Log(e.Message);
             }
         }
 
@@ -53,11 +53,11 @@ namespace Atarashii.GUI.Executable
             try
             {
                 new Atarashii.Executable(HcePath).Load();
-                LogWindow.Output($"Successfully loaded {HcePath}");
+                LogWindow.Log($"Successfully loaded {HcePath}");
             }
             catch (LoaderException e)
             {
-                LogWindow.Output(e.Message);
+                LogWindow.Log(e.Message);
             }
         }
     }
