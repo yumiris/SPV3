@@ -21,18 +21,6 @@ namespace Atarashii
         [XmlElement(ElementName = "HUD")] public Hud Hud { get; set; } = new Hud();
 
         /// <summary>
-        ///     Installs the OpenSauce libraries to the given HCE directory path.
-        /// </summary>
-        /// <param name="hcePath">
-        ///     A valid HCE directory path.
-        /// </param>
-        public void InstallTo(string hcePath)
-        {
-            if (!File.Exists(Path.Combine(hcePath, Executable.Name)))
-                throw new OpenSauceException("Invalid HCE directory path.");
-        }
-
-        /// <summary>
         ///     Converts this instance to an XML string.
         /// </summary>
         /// <returns>
