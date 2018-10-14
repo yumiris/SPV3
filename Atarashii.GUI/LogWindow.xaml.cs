@@ -13,6 +13,24 @@ namespace Atarashii.GUI
             InitializeComponent();
         }
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Adds a given message to the log property.
+        /// </summary>
+        /// <param name="message">
+        ///     Message to append to the log.
+        /// </param>
+        public void Log(string message)
+        {
+            string output = $"{DateTime.Now:s}: {message}";
+
+            OutputTextBox.Text = string.IsNullOrWhiteSpace(OutputTextBox.Text)
+                ? $"{output}"
+                : $"{OutputTextBox.Text}\n\n{output}";
+
+            OutputTextBox.ScrollToEnd();
+        }
+
         private void Copy(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(OutputTextBox.Text))
@@ -47,24 +65,6 @@ namespace Atarashii.GUI
 
             File.WriteAllText(dlg.FileName, OutputTextBox.Text);
             Log($"Saved log to {dlg.FileName}");
-        }
-
-        /// <inheritdoc />
-        /// <summary>
-        ///     Adds a given message to the log property.
-        /// </summary>
-        /// <param name="message">
-        ///     Message to append to the log.
-        /// </param>
-        public void Log(string message)
-        {
-            string output = $"{DateTime.Now:s}: {message}";
-
-            OutputTextBox.Text = string.IsNullOrWhiteSpace(OutputTextBox.Text)
-                ? $"{output}"
-                : $"{OutputTextBox.Text}\n\n{output}";
-
-            OutputTextBox.ScrollToEnd();
         }
 
         private void Clear(object sender, RoutedEventArgs e)

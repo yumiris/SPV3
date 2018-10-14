@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.IO.Compression;
 using Atarashii.Exceptions;
@@ -45,7 +46,7 @@ namespace Atarashii
         ///     Applies the files in the package to the destination on the filesystem.
         /// </summary>
         /// <param name="logger">
-        ///    Logging instance for appending package installation progress.
+        ///     Logging instance for appending package installation progress.
         /// </param>
         /// <exception cref="PackageException">
         ///     Package archive does not exist.
@@ -56,11 +57,9 @@ namespace Atarashii
         {
             string package = Path.Combine(Directory, ArchiveName);
 
-            if (!File.Exists(package))
-                throw new PackageException("Package archive does not exist.");
+            if (!File.Exists(package)) throw new PackageException("Package archive does not exist.");
 
-            if (!System.IO.Directory.Exists(Destination))
-                throw new PackageException("Destination does not exist.");
+            if (!System.IO.Directory.Exists(Destination)) throw new PackageException("Destination does not exist.");
 
             try
             {
@@ -68,7 +67,15 @@ namespace Atarashii
             }
             catch (IOException)
             {
+                logger.Log($"{Description} data already exists. This is fine!");
             }
+            catch (Exception e)
+            {
+                logger.Log($"Exception caught when attempting to install {Description}: {e.Message}. Throwing...");
+                throw;
+            }
+
+            logger.Log($"{Description} data has been installed successfully to the filesystem.");
         }
     }
 }
