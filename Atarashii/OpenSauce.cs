@@ -44,10 +44,22 @@ namespace Atarashii
         /// <param name="hcePath">
         ///     A valid HCE directory path.
         /// </param>
+        /// <exception cref="OpenSauceException">
+        ///    Invalid HCE directory path.
+        /// </exception>
+        /// <exception cref="OpenSauceException">
+        ///    Target directory does not exist.
+        /// </exception>
+        /// <exception cref="OpenSauceException">
+        ///    Package does not exist.
+        /// </exception>
         public void InstallTo(string hcePath)
-        {
+        {  
             if (!File.Exists(Path.Combine(hcePath, Executable.Name)))
                 throw new OpenSauceException("Invalid HCE directory path.");
+            
+            if (!Directory.Exists(hcePath))
+                throw new OpenSauceException("Target directory does not exist.");
 
             var guiDirPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
             var usrDirPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
@@ -62,7 +74,7 @@ namespace Atarashii
             foreach (var package in packages)
             {
                 if (!File.Exists(package.ArchiveName))
-                    throw new OpenSauceException($"Cannot install {package.Description}. Package does not exist.");
+                    throw new OpenSauceException("Package does not exist.");
             }
         }
     }
