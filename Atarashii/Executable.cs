@@ -41,8 +41,11 @@ namespace Atarashii
                 throw new LoaderException("The specified executable was not found.");
 
             if (verify)
-                if (!Verify())
-                    throw new LoaderException("The specified executable is deemed invalid.");
+            {
+                var state = Verify();
+                if (!state.IsValid)
+                    throw new LoaderException(state.Reason);
+            }
 
             new Process
             {
@@ -58,17 +61,17 @@ namespace Atarashii
         ///     Checks if the specified HCE executable is valid.
         /// </summary>
         /// <returns>
-        ///     True on executable being deemed as valid; otherwise false.
+        ///     Verification object representing the verification outcome.
         /// </returns>
-        /// <exception cref="VerifierException">
-        ///     Executable is not found.
-        /// </exception>
-        public bool Verify()
+        public Verification Verify()
         {
             if (!File.Exists(Path))
-                throw new VerifierException("The specified executable was not found.");
-
-            return new FileInfo(Path).Length == ValidLength;
+                return new Verification(false, "The specified executable was not found.");
+            
+            if (new FileInfo(Path).Length != ValidLength)
+                return new Verification(false, "The specified executable is invalid in size.");
+                
+            return new Verification(true);
         }
     }
 }
