@@ -17,7 +17,7 @@ namespace Atarashii.Tests
             File.WriteAllText(exeName, "Once upon a time, in Gensokyo...");
 
             var ex = Assert.Throws<LoaderException>(() => executable.Load());
-            Assert.That(ex.Message, Is.EqualTo("The specified executable is deemed invalid."));
+            Assert.That(ex.Message, Is.EqualTo("The specified executable is invalid in size."));
 
             File.Delete(exeName);
         }

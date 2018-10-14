@@ -59,11 +59,12 @@ namespace Atarashii
         /// </exception>
         public void InstallTo(string hcePath, ILogger logger)
         {
-            if (!File.Exists(Path.Combine(hcePath, Executable.Name)))
-                throw new OpenSauceException("Invalid target HCE directory path.");
-
             if (!Directory.Exists(hcePath))
-                throw new OpenSauceException("Installation target directory does not exist.");
+                throw new OpenSauceException(
+                    "Cannot install specified package. Installation target directory does not exist.");
+
+            if (!File.Exists(Path.Combine(hcePath, Executable.Name)))
+                throw new OpenSauceException("Cannot install specified package. Invalid target HCE directory path.");
 
             string guiDirPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
             string usrDirPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);

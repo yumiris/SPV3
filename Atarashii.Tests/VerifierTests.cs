@@ -14,7 +14,7 @@ namespace Atarashii.Tests
             var executable = new Executable(exeName);
 
             File.WriteAllBytes(exeName, new byte[0x24B000]);
-            Assert.IsTrue(executable.Verify());
+            Assert.IsTrue(executable.Verify().IsValid);
             File.Delete(exeName);
         }
     }

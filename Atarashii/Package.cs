@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using System.IO.Compression;
 using Atarashii.Exceptions;
@@ -55,15 +54,15 @@ namespace Atarashii
         /// </exception>
         public void Install(ILogger logger)
         {
-            string package = Path.Combine(Directory, ArchiveName);
+            if (!File.Exists(ArchiveName))
+                throw new PackageException("Cannot install specified package. Package archive does not exist.");
 
-            if (!File.Exists(package)) throw new PackageException("Package archive does not exist.");
-
-            if (!System.IO.Directory.Exists(Destination)) throw new PackageException("Destination does not exist.");
+            if (!System.IO.Directory.Exists(Destination))
+                throw new PackageException("Cannot install specified package. Destination does not exist.");
 
             try
             {
-                ZipFile.ExtractToDirectory(package, Destination);
+                ZipFile.ExtractToDirectory(ArchiveName, Destination);
             }
             catch (IOException)
             {
