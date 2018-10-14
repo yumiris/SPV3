@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 
@@ -33,6 +35,34 @@ namespace Atarashii
                 var serialiser = new XmlSerializer(typeof(OpenSauce));
                 serialiser.Serialize(writer, this);
                 return writer.ToString();
+            }
+        }
+
+        /// <summary>
+        ///     Installs the OpenSauce libraries to the given HCE directory path.
+        /// </summary>
+        /// <param name="hcePath">
+        ///     A valid HCE directory path.
+        /// </param>
+        public void InstallTo(string hcePath)
+        {
+            if (!File.Exists(Path.Combine(hcePath, Executable.Name)))
+                throw new OpenSauceException("Invalid HCE directory path.");
+
+            var guiDirPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            var usrDirPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            
+            var packages = new List<Package>
+            {
+                new Package("lib.pkg", "OpenSauce core and dependencies", hcePath),
+                new Package("gui.pkg", "In-game OpenSauce UI assets", guiDirPath),
+                new Package("usr.pkg", "OpenSauce XML user configuration", usrDirPath)
+            };
+
+            foreach (var package in packages)
+            {
+                if (!File.Exists(package.ArchiveName))
+                    throw new OpenSauceException($"Cannot install {package.Description}. Package does not exist.");
             }
         }
     }
