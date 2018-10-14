@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 using Atarashii.Exceptions;
@@ -61,20 +59,12 @@ namespace Atarashii
         {
             if (!Directory.Exists(hcePath))
                 throw new OpenSauceException(
-                    "Cannot install specified package. Installation target directory does not exist.");
+                    "Cannot install OpenSauce. Installation target directory does not exist.");
 
             if (!File.Exists(Path.Combine(hcePath, Executable.Name)))
-                throw new OpenSauceException("Cannot install specified package. Invalid target HCE directory path.");
+                throw new OpenSauceException("Cannot install OpenSauce. Invalid target HCE directory path.");
 
-            string guiDirPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-            string usrDirPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-
-            var packages = new List<Package>
-            {
-                new Package("lib.pkg", "OpenSauce core and dependencies", hcePath),
-                new Package("gui.pkg", "In-game OpenSauce UI assets", guiDirPath),
-                new Package("usr.pkg", "OpenSauce XML user configuration", usrDirPath)
-            };
+            var packages = OpenSauceFactory.GetPackages(hcePath);
 
             foreach (var package in packages)
                 if (!File.Exists(package.ArchiveName))

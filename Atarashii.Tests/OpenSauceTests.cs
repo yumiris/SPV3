@@ -34,7 +34,7 @@ namespace Atarashii.Tests
             Directory.CreateDirectory(hcePath);
 
             var ex = Assert.Throws<OpenSauceException>(() => opensauce.InstallTo(hcePath, new MockLogger()));
-            Assert.That(ex.Message, Is.EqualTo("Cannot install specified package. Invalid target HCE directory path."));
+            Assert.That(ex.Message, Is.EqualTo("Cannot install OpenSauce. Invalid target HCE directory path."));
 
             Directory.Delete(hcePath);
         }
@@ -47,7 +47,7 @@ namespace Atarashii.Tests
 
             var ex = Assert.Throws<OpenSauceException>(() => opensauce.InstallTo(falsePath, new MockLogger()));
             Assert.That(ex.Message,
-                Is.EqualTo("Cannot install specified package. Installation target directory does not exist."));
+                Is.EqualTo("Cannot install OpenSauce. Installation target directory does not exist."));
         }
 
         [Test]
