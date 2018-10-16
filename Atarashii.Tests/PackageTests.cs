@@ -14,7 +14,7 @@ namespace Atarashii.Tests
             var package = new Package(new Guid().ToString(), "Non-existent package!", "Directory that does not exist!");
             File.WriteAllBytes(package.ArchiveName, new byte[256]);
 
-            var ex = Assert.Throws<PackageException>(() => package.Install(new MockLogger()));
+            var ex = Assert.Throws<PackageException>(() => package.Install());
             Assert.That(ex.Message, Is.EqualTo("Cannot install specified package. Destination does not exist."));
 
             File.Delete(package.ArchiveName);
@@ -25,7 +25,7 @@ namespace Atarashii.Tests
         {
             var package = new Package(new Guid().ToString(), "Non-existent package!", string.Empty);
 
-            var ex = Assert.Throws<PackageException>(() => package.Install(new MockLogger()));
+            var ex = Assert.Throws<PackageException>(() => package.Install());
             Assert.That(ex.Message, Is.EqualTo("Cannot install specified package. Package archive does not exist."));
         }
 

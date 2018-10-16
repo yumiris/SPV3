@@ -11,19 +11,12 @@ namespace Atarashii
     {
         private readonly string _hcePath;
 
-        private readonly ILogger _logger;
-
         private readonly List<Package> _packages;
 
         public OpenSauceInstaller(string hcePath, List<Package> packages)
         {
             _hcePath = hcePath;
             _packages = packages;
-        }
-
-        public OpenSauceInstaller(string hcePath, List<Package> packages, ILogger logger) : this(hcePath, packages)
-        {
-            _logger = logger;
         }
 
         /// <inheritdoc />
@@ -63,7 +56,7 @@ namespace Atarashii
                 throw new OpenSauceException(state.Reason);
 
             foreach (var package in _packages)
-                package.Install(_logger);
+                package.Install();
         }
     }
 }

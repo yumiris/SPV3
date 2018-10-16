@@ -19,11 +19,19 @@ namespace Atarashii
         /// </summary>
         public const string Extension = "pkg";
 
+        private readonly ILogger _logger;
+
         public Package(string archiveName, string description, string destination)
         {
             ArchiveName = archiveName + $".{Extension}";
             Description = description;
             Destination = destination;
+        }
+
+        public Package(string archiveName, string description, string destination, ILogger logger)
+            : this(archiveName, description, destination)
+        {
+            _logger = logger;
         }
 
         /// <summary>
@@ -56,15 +64,12 @@ namespace Atarashii
         /// <summary>
         ///     Applies the files in the package to the destination on the filesystem.
         /// </summary>
-        /// <param name="logger">
-        ///     Logging instance for appending package installation progress.
-        /// </param>
         /// <exception cref="PackageException">
         ///     Package archive does not exist.
         ///     - or -
         ///     Destination directory does not exist.
         /// </exception>
-        public void Install(ILogger logger)
+        public void Install()
         {
             var state = Verify();
 
@@ -77,10 +82,13 @@ namespace Atarashii
             }
             catch (IOException)
             {
-                logger.Log($"{Description} data already exists. This is fine!");
+                if (_logger != null)
+                    _logger.Log($"{Description} data already exists. This is fine!");
+                else
+                    throw;
             }
 
-            logger.Log($"{Description} data has been installed successfully to the filesystem.");
+            _logger?.Log($"{Description} data has been installed successfully to the filesystem.");
         }
     }
 }
