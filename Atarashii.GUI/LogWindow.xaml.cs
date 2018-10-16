@@ -24,7 +24,7 @@ namespace Atarashii.GUI
         /// </param>
         public void Log(string message)
         {
-            string output = $"{DateTime.Now:s}: {message}";
+            var output = $"{DateTime.Now:s}: {message}";
 
             OutputTextBox.Text = string.IsNullOrWhiteSpace(OutputTextBox.Text)
                 ? $"{output}"

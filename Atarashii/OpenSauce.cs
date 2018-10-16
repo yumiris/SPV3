@@ -1,13 +1,10 @@
 using System.IO;
 using System.Xml.Serialization;
-using Atarashii.Exceptions;
 
 namespace Atarashii
 {
     /// <summary>
-    ///     OpenSauce installation and configuration representative.
-    ///     This type is used to represent an OpenSauce user XML configuration or to install the OpenSauce packages to
-    ///     the filesystem, by wrapping itself around the Package type.
+    ///     This type is used to represent an OpenSauce user XML configuration as an object.
     /// </summary>
     public class OpenSauce
     {
@@ -37,40 +34,6 @@ namespace Atarashii
                 serialiser.Serialize(writer, this);
                 return writer.ToString();
             }
-        }
-
-        /// <summary>
-        ///     Installs the OpenSauce libraries to the given HCE directory path.
-        /// </summary>
-        /// <param name="hcePath">
-        ///     A valid HCE directory path.
-        /// </param>
-        /// <param name="logger">
-        ///     Logging instance to be injected into each Package instance's Install() method.
-        /// </param>
-        /// <exception cref="OpenSauceException">
-        ///     Invalid HCE directory path.
-        ///     - or -
-        ///     Target directory does not exist.
-        ///     - or -
-        ///     Package does not exist.
-        /// </exception>
-        public void InstallTo(string hcePath, ILogger logger)
-        {
-            if (!Directory.Exists(hcePath))
-                throw new OpenSauceException("Target directory for OpenSauce installation does not exist.");
-
-            if (!File.Exists(Path.Combine(hcePath, Executable.Name)))
-                throw new OpenSauceException("Invalid target HCE directory path for OpenSauce installation.");
-
-            var packages = OpenSauceFactory.GetPackages(hcePath);
-
-            foreach (var package in packages)
-                if (!File.Exists(package.ArchiveName))
-                    throw new OpenSauceException("OpenSauce package does not exist on the filesystem.");
-
-            foreach (var package in packages)
-                package.Install(logger);
         }
     }
 

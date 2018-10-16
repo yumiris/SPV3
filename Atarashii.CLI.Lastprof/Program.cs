@@ -19,7 +19,7 @@ namespace Atarashii.CLI.Lastprof
 
             try
             {
-                string result = new Atarashii.Lastprof(File.ReadAllText(args[0])).Parse();
+                var result = new Atarashii.Lastprof(File.ReadAllText(args[0])).Parse();
                 Console.WriteLine(result);
             }
             catch (ParserException e)

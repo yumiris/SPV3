@@ -4,7 +4,7 @@ using Atarashii.Exceptions;
 
 namespace Atarashii
 {
-    public class Executable
+    public class Executable : IVerifiable
     {
         /// <summary>
         ///     HCE executable name.
@@ -25,6 +25,18 @@ namespace Atarashii
         ///     Executable file path.
         /// </summary>
         public string Path { get; }
+
+        /// <inheritdoc />
+        public Verification Verify()
+        {
+            if (!File.Exists(Path))
+                return new Verification(false, "The specified executable was not found.");
+
+            if (new FileInfo(Path).Length != ValidLength)
+                return new Verification(false, "The specified executable is invalid in size.");
+
+            return new Verification(true);
+        }
 
         /// <summary>
         ///     Executes the given HCE executable.
@@ -55,23 +67,6 @@ namespace Atarashii
                     WorkingDirectory = System.IO.Path.GetDirectoryName(Path)
                 }
             }.Start();
-        }
-
-        /// <summary>
-        ///     Checks if the specified HCE executable is valid.
-        /// </summary>
-        /// <returns>
-        ///     Verification object representing the verification outcome.
-        /// </returns>
-        public Verification Verify()
-        {
-            if (!File.Exists(Path))
-                return new Verification(false, "The specified executable was not found.");
-
-            if (new FileInfo(Path).Length != ValidLength)
-                return new Verification(false, "The specified executable is invalid in size.");
-
-            return new Verification(true);
         }
     }
 }

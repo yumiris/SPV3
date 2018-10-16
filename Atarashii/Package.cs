@@ -7,7 +7,7 @@ namespace Atarashii
     /// <summary>
     ///     Archive installer and verifier.
     /// </summary>
-    public class Package
+    public class Package : IVerifiable
     {
         /// <summary>
         ///     Directory containing the expected packages.
@@ -41,6 +41,18 @@ namespace Atarashii
         /// </summary>
         public string Destination { get; }
 
+        /// <inheritdoc />
+        public Verification Verify()
+        {
+            if (!File.Exists(ArchiveName))
+                return new Verification(false, "Cannot install specified package. Package archive does not exist.");
+
+            if (!System.IO.Directory.Exists(Destination))
+                return new Verification(false, "Cannot install specified package. Destination does not exist.");
+
+            return new Verification(true);
+        }
+
         /// <summary>
         ///     Applies the files in the package to the destination on the filesystem.
         /// </summary>
@@ -54,11 +66,10 @@ namespace Atarashii
         /// </exception>
         public void Install(ILogger logger)
         {
-            if (!File.Exists(ArchiveName))
-                throw new PackageException("Cannot install specified package. Package archive does not exist.");
+            var state = Verify();
 
-            if (!System.IO.Directory.Exists(Destination))
-                throw new PackageException("Cannot install specified package. Destination does not exist.");
+            if (!state.IsValid)
+                throw new PackageException(state.Reason);
 
             try
             {

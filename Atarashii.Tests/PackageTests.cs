@@ -28,5 +28,21 @@ namespace Atarashii.Tests
             var ex = Assert.Throws<PackageException>(() => package.Install(new MockLogger()));
             Assert.That(ex.Message, Is.EqualTo("Cannot install specified package. Package archive does not exist."));
         }
+
+        [Test]
+        public void VerifyDirectoryNotFound_ReturnsFalse()
+        {
+            var package = new Package(new Guid().ToString(), "Non-existent package!", "Directory that does not exist!");
+            File.WriteAllBytes(package.ArchiveName, new byte[256]);
+            Assert.IsFalse(package.Verify().IsValid);
+            File.Delete(package.ArchiveName);
+        }
+
+        [Test]
+        public void VerifyPackageNotFound_ReturnsFalse()
+        {
+            var package = new Package(new Guid().ToString(), "Non-existent package!", string.Empty);
+            Assert.IsFalse(package.Verify().IsValid);
+        }
     }
 }
