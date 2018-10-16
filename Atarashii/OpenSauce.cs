@@ -58,11 +58,10 @@ namespace Atarashii
         public void InstallTo(string hcePath, ILogger logger)
         {
             if (!Directory.Exists(hcePath))
-                throw new OpenSauceException(
-                    "Cannot install OpenSauce. Installation target directory does not exist.");
+                throw new OpenSauceException("Target directory for OpenSauce installation does not exist.");
 
             if (!File.Exists(Path.Combine(hcePath, Executable.Name)))
-                throw new OpenSauceException("Cannot install OpenSauce. Invalid target HCE directory path.");
+                throw new OpenSauceException("Invalid target HCE directory path for OpenSauce installation.");
 
             var packages = OpenSauceFactory.GetPackages(hcePath);
 
