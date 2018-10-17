@@ -54,7 +54,7 @@
     <Compile Include="OpenSauceFactory.cs" />
       <Compile Include="OpenSauceInstaller.cs"/>
     <Compile Include="Package.cs" />
-      <Compile Include="PackageFactory.cs"/>
+      <Compile Include="OpenSauceInstallerFactory.cs"/>
     <Compile Include="Properties\AssemblyInfo.cs" />
       <Compile Include="Verification.cs"/>
   </ItemGroup>
