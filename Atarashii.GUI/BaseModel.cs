@@ -34,7 +34,7 @@ namespace Atarashii.GUI
         /// <returns>
         ///     File name chosen by the end-user.
         /// </returns>
-        public string PickFile(string filter = null)
+        public static string PickFile(string filter = null)
         {
             var openFileDialog = new OpenFileDialog
             {
@@ -65,7 +65,7 @@ namespace Atarashii.GUI
         /// <summary>
         ///     Exits the application with exit code 0.
         /// </summary>
-        public void Exit()
+        public static void Exit()
         {
             Environment.Exit(0);
         }

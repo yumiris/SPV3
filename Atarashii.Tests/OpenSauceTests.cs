@@ -6,7 +6,7 @@ namespace Atarashii.Tests
     [TestFixture]
     public class OpenSauceTests
     {
-        private readonly string result = new Configuration().ToXml();
+        private readonly string _result = new Configuration().ToXml();
 
         [Test]
         public void FromXml_PropertyValueIsCorrect_True()
@@ -26,13 +26,13 @@ namespace Atarashii.Tests
         [Test]
         public void ToXml_BooleansAreCorrect_True()
         {
-            StringAssert.Contains("<DepthFade>true</DepthFade>", result);
+            StringAssert.Contains("<DepthFade>true</DepthFade>", _result);
         }
 
         [Test]
         public void ToXml_NumbersAreCorrect_True()
         {
-            StringAssert.Contains("<FieldOfView>70</FieldOfView>", result);
+            StringAssert.Contains("<FieldOfView>70</FieldOfView>", _result);
         }
     }
 }

@@ -19,12 +19,12 @@ namespace Atarashii.GUI.Lastprof
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
-            _main.Exit();
+            BaseModel.Exit();
         }
 
         private void Browse(object sender, RoutedEventArgs e)
         {
-            _main.LastprofFile = _main.PickFile("Lastprof File|lastprof.txt");
+            _main.LastprofFile = BaseModel.PickFile("Lastprof File|lastprof.txt");
         }
 
         private void Copy(object sender, RoutedEventArgs e)

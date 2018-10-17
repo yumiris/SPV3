@@ -64,7 +64,7 @@ namespace Atarashii
                 StartInfo =
                 {
                     FileName = Path,
-                    WorkingDirectory = System.IO.Path.GetDirectoryName(Path)
+                    WorkingDirectory = System.IO.Path.GetDirectoryName(Path) ?? string.Empty
                 }
             }.Start();
         }

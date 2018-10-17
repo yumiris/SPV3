@@ -154,9 +154,11 @@ namespace Atarashii.OpenSauce
     {
         public double FieldOfView { get; set; } = 70.0;
 
-        public bool IgnoreFOVChangeInCinematics { get; set; } = true;
+        [XmlElement(ElementName = "IgnoreFOVChangeInCinematics")]
+        public bool IgnoreFovChangeInCinematics { get; set; } = true;
 
-        public bool IgnoreFOVChangeInMainMenu { get; set; } = true;
+        [XmlElement(ElementName = "IgnoreFOVChangeInMainMenu")]
+        public bool IgnoreFovChangeInMainMenu { get; set; } = true;
     }
 
     public class Networking

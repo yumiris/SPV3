@@ -24,7 +24,7 @@ namespace Atarashii.GUI.Executable
 
         private void Browse(object sender, RoutedEventArgs e)
         {
-            _main.HcePath = _main.PickFile("HCE Executable|haloce.exe");
+            _main.HcePath = BaseModel.PickFile("HCE Executable|haloce.exe");
         }
 
         private void Detect(object sender, RoutedEventArgs e)
@@ -39,7 +39,7 @@ namespace Atarashii.GUI.Executable
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
-            _main.Exit();
+            BaseModel.Exit();
         }
     }
 }

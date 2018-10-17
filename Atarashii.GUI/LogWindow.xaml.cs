@@ -8,7 +8,7 @@ namespace Atarashii.GUI
     /// <summary>
     ///     Interaction logic for LogWindow.xaml
     /// </summary>
-    public partial class LogWindow : Window, ILogger
+    public partial class LogWindow : ILogger
     {
         public LogWindow()
         {
