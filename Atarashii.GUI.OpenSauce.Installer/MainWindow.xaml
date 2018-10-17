@@ -1,0 +1,22 @@
+﻿<Window x:Class="Atarashii.GUI.OpenSauce.Installer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Atarashii.GUI.OpenSauce.Installer"
+        mc:Ignorable="d"
+        ResizeMode="CanMinimize"
+        SnapsToDevicePixels="True"
+        WindowStartupLocation="CenterScreen"
+        Width="240"
+        Height="360"
+        Icon="/icon.ico"
+        Closing="MainWindow_OnClosing">
+    <Window.DataContext>
+        <local:Main />
+    </Window.DataContext>
+    <StackPanel Margin="10">
+        <Image Source="/icon.ico"
+               Stretch="None" />
+    </StackPanel>
+</Window>
