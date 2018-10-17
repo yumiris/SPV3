@@ -34,29 +34,29 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-      <Reference Include="System.IO.Compression"/>
-      <Reference Include="System.IO.Compression.FileSystem"/>
+    <Reference Include="System.IO.Compression"/>
+    <Reference Include="System.IO.Compression.FileSystem"/>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\LoaderException.cs" />
-      <Compile Include="Exceptions\OpenSauceException.cs"/>
-      <Compile Include="Exceptions\PackageException.cs"/>
+    <Compile Include="Exceptions\OpenSauceException.cs"/>
+    <Compile Include="Exceptions\PackageException.cs"/>
     <Compile Include="Exceptions\ParserException.cs" />
     <Compile Include="Exceptions\VerifierException.cs" />
     <Compile Include="Executable.cs" />
     <Compile Include="ExecutableFactory.cs" />
-      <Compile Include="ILogger.cs"/>
-      <Compile Include="IVerifiable.cs"/>
+    <Compile Include="ILogger.cs"/>
+    <Compile Include="IVerifiable.cs"/>
     <Compile Include="Lastprof.cs" />
     <Compile Include="LastprofFactory.cs" />
-    <Compile Include="OpenSauce.cs" />
-    <Compile Include="OpenSauceFactory.cs" />
-      <Compile Include="OpenSauceInstaller.cs"/>
+    <Compile Include="OpenSauce\Configuration.cs"/>
+    <Compile Include="OpenSauce\ConfigurationFactory.cs"/>
+    <Compile Include="OpenSauce\Installer.cs"/>
+    <Compile Include="OpenSauce\InstallerFactory.cs"/>
     <Compile Include="Package.cs" />
-      <Compile Include="OpenSauceInstallerFactory.cs"/>
     <Compile Include="Properties\AssemblyInfo.cs" />
-      <Compile Include="Verification.cs"/>
+    <Compile Include="Verification.cs"/>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

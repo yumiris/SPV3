@@ -1,3 +1,4 @@
+using Atarashii.OpenSauce;
 using NUnit.Framework;
 
 namespace Atarashii.Tests
@@ -5,12 +6,12 @@ namespace Atarashii.Tests
     [TestFixture]
     public class OpenSauceTests
     {
-        private readonly string result = new OpenSauce().ToXml();
+        private readonly string result = new Configuration().ToXml();
 
         [Test]
         public void FromXml_PropertyValueIsCorrect_True()
         {
-            var object01 = new OpenSauce
+            var object01 = new Configuration
             {
                 Camera = new Camera
                 {
@@ -18,7 +19,7 @@ namespace Atarashii.Tests
                 }
             };
 
-            var object02 = OpenSauceFactory.GetFromXml(object01.ToXml());
+            var object02 = ConfigurationFactory.GetFromXml(object01.ToXml());
             Assert.AreEqual(object02.Camera.FieldOfView, object01.Camera.FieldOfView);
         }
 

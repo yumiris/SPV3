@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Atarashii.Exceptions;
+using Atarashii.OpenSauce;
 using NUnit.Framework;
 
 namespace Atarashii.Tests
@@ -23,7 +24,7 @@ namespace Atarashii.Tests
             Directory.CreateDirectory(hcePath);
             File.WriteAllBytes(hceFile, new byte[256]);
 
-            var installer = new OpenSauceInstaller(hcePath, _packages);
+            var installer = new Installer(hcePath, _packages);
 
             var ex = Assert.Throws<OpenSauceException>(() => installer.Install());
             Assert.That(ex.Message,
@@ -37,7 +38,7 @@ namespace Atarashii.Tests
         public void InstallToInvalidHceDirectory_ThrowsException()
         {
             var hcePath = new Guid().ToString();
-            var installer = new OpenSauceInstaller(hcePath, _packages);
+            var installer = new Installer(hcePath, _packages);
 
             Directory.CreateDirectory(hcePath);
 
@@ -51,7 +52,7 @@ namespace Atarashii.Tests
         public void InstallToNonExistentDirectory_ThrowsException()
         {
             var fakePath = new Guid().ToString();
-            var installer = new OpenSauceInstaller(fakePath, _packages);
+            var installer = new Installer(fakePath, _packages);
 
             var ex = Assert.Throws<OpenSauceException>(() => installer.Install());
             Assert.That(ex.Message,
@@ -62,7 +63,7 @@ namespace Atarashii.Tests
         public void VerifyInvalidHceDirectory_ReturnsFalse()
         {
             var hcePath = new Guid().ToString();
-            var installer = new OpenSauceInstaller(hcePath, _packages);
+            var installer = new Installer(hcePath, _packages);
 
             Directory.CreateDirectory(hcePath);
             Assert.IsFalse(installer.Verify().IsValid);
@@ -73,7 +74,7 @@ namespace Atarashii.Tests
         public void VerifyNonExistentDirectory_ReturnsFalse()
         {
             var fakePath = new Guid().ToString();
-            var installer = new OpenSauceInstaller(fakePath, _packages);
+            var installer = new Installer(fakePath, _packages);
             Assert.IsFalse(installer.Verify().IsValid);
         }
 
@@ -86,7 +87,7 @@ namespace Atarashii.Tests
             Directory.CreateDirectory(hcePath);
             File.WriteAllBytes(hceFile, new byte[256]);
 
-            var installer = new OpenSauceInstaller(hcePath, _packages);
+            var installer = new Installer(hcePath, _packages);
             Assert.IsFalse(installer.Verify().IsValid);
 
             File.Delete(hceFile);

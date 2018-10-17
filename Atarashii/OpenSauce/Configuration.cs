@@ -1,12 +1,12 @@
 using System.IO;
 using System.Xml.Serialization;
 
-namespace Atarashii
+namespace Atarashii.OpenSauce
 {
     /// <summary>
     ///     This type is used to represent an OpenSauce user XML configuration as an object.
     /// </summary>
-    public class OpenSauce
+    public class Configuration
     {
         public CacheFiles CacheFiles { get; set; } = new CacheFiles();
 
@@ -30,7 +30,7 @@ namespace Atarashii
         {
             using (var writer = new StringWriter())
             {
-                var serialiser = new XmlSerializer(typeof(OpenSauce));
+                var serialiser = new XmlSerializer(typeof(Configuration));
                 serialiser.Serialize(writer, this);
                 return writer.ToString();
             }

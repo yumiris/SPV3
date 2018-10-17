@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Atarashii
+namespace Atarashii.OpenSauce
 {
-    public class OpenSauceInstallerFactory
+    public class InstallerFactory
     {
         public enum Type
         {
@@ -20,7 +20,7 @@ namespace Atarashii
         /// <param name="installationPath">
         ///     The HCE directory path -- used to install the OpenSauce library data to.
         /// </param>
-        public OpenSauceInstallerFactory(string installationPath)
+        public InstallerFactory(string installationPath)
         {
             _installationPath = installationPath;
         }
@@ -32,7 +32,7 @@ namespace Atarashii
         /// <param name="logger">
         ///     Logging class for logging the packages' output.
         /// </param>
-        public OpenSauceInstallerFactory(string installationPath, ILogger logger) : this(installationPath)
+        public InstallerFactory(string installationPath, ILogger logger) : this(installationPath)
         {
             _logger = logger;
         }
@@ -49,12 +49,12 @@ namespace Atarashii
         /// <exception cref="ArgumentOutOfRangeException">
         ///     Invalid OpenSauceInstaller type given.
         /// </exception>
-        public OpenSauceInstaller Get(Type type = Type.Default)
+        public Installer Get(Type type = Type.Default)
         {
             switch (type)
             {
                 case Type.Default:
-                    return new OpenSauceInstaller(_installationPath, GetOpenSaucePackages());
+                    return new Installer(_installationPath, GetOpenSaucePackages());
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }

@@ -2,18 +2,18 @@ using System.Collections.Generic;
 using System.IO;
 using Atarashii.Exceptions;
 
-namespace Atarashii
+namespace Atarashii.OpenSauce
 {
     /// <summary>
     ///     Type for installing OpenSauce to the file system.
     /// </summary>
-    public class OpenSauceInstaller : IVerifiable
+    public class Installer : IVerifiable
     {
         private readonly string _hcePath;
 
         private readonly List<Package> _packages;
 
-        public OpenSauceInstaller(string hcePath, List<Package> packages)
+        public Installer(string hcePath, List<Package> packages)
         {
             _hcePath = hcePath;
             _packages = packages;
