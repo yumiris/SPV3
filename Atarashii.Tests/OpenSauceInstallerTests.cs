@@ -28,7 +28,7 @@ namespace Atarashii.Tests
 
             var ex = Assert.Throws<OpenSauceException>(() => installer.Install());
             Assert.That(ex.Message,
-                Is.EqualTo("An OpenSauce package does not exist on the filesystem."));
+                Is.EqualTo("Cannot install specified package. Package archive does not exist."));
 
             File.Delete(hceFile);
             Directory.Delete(hcePath);
