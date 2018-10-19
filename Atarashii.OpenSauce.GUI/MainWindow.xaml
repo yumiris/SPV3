@@ -9,7 +9,7 @@
         SnapsToDevicePixels="True"
         WindowStartupLocation="CenterScreen"
         Width="240"
-        Height="360"
+        Height="480"
         Icon="/icon.ico"
         Closing="MainWindow_OnClosing">
     <Window.DataContext>
@@ -25,20 +25,51 @@
             <Setter Property="VerticalContentAlignment" Value="Center" />
         </Style>
     </Window.Resources>
-    <StackPanel Margin="10">
-        <Image Source="/icon.ico"
+    <DockPanel Margin="10">
+        <Image DockPanel.Dock="Top"
+               Source="/icon.ico"
                Stretch="None" />
-        <Label Content="HCE Directory Path:" />
-        <DockPanel>
-            <Button DockPanel.Dock="Right"
-                    Content="Browse"
-                    Margin="5,0,0,0"
-                    Click="Browse" />
-            <TextBox Text="{Binding InstallationPath}" />
-        </DockPanel>
-        <Button Margin="0,5,0,0"
-                Content="Install OpenSauce"
-                IsEnabled="{Binding CanInstall}"
-                Click="Install" />
-    </StackPanel>
+
+        <!-- Installation -->
+        <GroupBox DockPanel.Dock="Top"
+                  Header="Installation">
+            <StackPanel>
+                <Label Content="HCE Directory Path:" />
+                <DockPanel>
+                    <Button DockPanel.Dock="Right"
+                            Content="Browse"
+                            Margin="5,0,0,0"
+                            Click="Browse" />
+                    <TextBox Text="{Binding InstallationPath}" />
+                </DockPanel>
+                <Button Margin="0,5,0,0"
+                        Content="Install OpenSauce"
+                        IsEnabled="{Binding CanInstall}"
+                        Click="Install" />
+            </StackPanel>
+        </GroupBox>
+
+        <!-- Configuration -->
+        <GroupBox DockPanel.Dock="Top"
+                  Header="Configuration">
+            <DockPanel>
+                <!-- Path -->
+                <DockPanel DockPanel.Dock="Top">
+                    <Label DockPanel.Dock="Top"
+                           Content="OpenSauce XML Settings:" />
+                    <Button DockPanel.Dock="Right"
+                            Margin="5,0,0,0"
+                            Content="Browse"/>
+                    <TextBox />
+                </DockPanel>
+
+                <!-- Options -->
+                <TabControl DockPanel.Dock="Top"
+                            Margin="0,10,0,0">
+                    <TabItem Header="General" />
+                    <TabItem Header="Rasteriser" />
+                </TabControl>
+            </DockPanel>
+        </GroupBox>
+    </DockPanel>
 </Window>

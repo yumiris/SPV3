@@ -16,6 +16,8 @@ namespace Atarashii.OpenSauce.GUI
             InitializeComponent();
             _main = (Main) DataContext;
             _main.ShowLogWindow(this);
+            _main.LogWindow.Height = 480;
+            _main.LogWindow.Top = _main.LogWindow.Top - 60; // (new height - old height) / 2
         }
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
