@@ -1,8 +1,8 @@
 using System;
 using System.IO;
-using Atarashii.Exceptions;
+using Atarashii.GUI;
 
-namespace Atarashii.GUI.Lastprof
+namespace Atarashii.Profile.GUI
 {
     public class Main : BaseModel
     {
@@ -56,10 +56,10 @@ namespace Atarashii.GUI.Lastprof
 
             try
             {
-                ProfileName = new Atarashii.Lastprof(File.ReadAllText(LastprofFile)).Parse();
+                ProfileName = new Lastprof(File.ReadAllText(LastprofFile)).Parse();
                 LogWindow.Log($"Successfully parsed profile name: {ProfileName}");
             }
-            catch (ParserException e)
+            catch (ProfileException e)
             {
                 LogWindow.Log(e.Message);
             }
@@ -77,7 +77,7 @@ namespace Atarashii.GUI.Lastprof
             }
             catch (Exception e)
             {
-                if (e is ParserException || e is FileNotFoundException)
+                if (e is ProfileException || e is FileNotFoundException)
                     LogWindow.Log(e.Message);
             }
         }

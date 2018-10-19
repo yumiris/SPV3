@@ -1,10 +1,10 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Atarashii.Exceptions
+namespace Atarashii.Profile
 {
     [Serializable]
-    public class ParserException : Exception
+    public class ProfileException : Exception
     {
         //
         // For guidelines regarding the creation of new exception types, see
@@ -13,19 +13,19 @@ namespace Atarashii.Exceptions
         //    http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dncscol/html/csharp07192001.asp
         //
 
-        public ParserException()
+        public ProfileException()
         {
         }
 
-        public ParserException(string message) : base(message)
+        public ProfileException(string message) : base(message)
         {
         }
 
-        public ParserException(string message, Exception inner) : base(message, inner)
+        public ProfileException(string message, Exception inner) : base(message, inner)
         {
         }
 
-        protected ParserException(
+        protected ProfileException(
             SerializationInfo info,
             StreamingContext context) : base(info, context)
         {

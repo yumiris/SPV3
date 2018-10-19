@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Windows;
+using Atarashii.GUI;
 
-namespace Atarashii.GUI.Lastprof
+namespace Atarashii.Profile.GUI
 {
     /// <summary>
     ///     Interaction logic for MainWindow.xaml

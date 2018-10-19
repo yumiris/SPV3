@@ -1,4 +1,4 @@
-﻿namespace Atarashii.GUI.Lastprof
+﻿namespace Atarashii.Profile.GUI
 {
     /// <summary>
     ///     Interaction logic for App.xaml

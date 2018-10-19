@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 
-namespace Atarashii
+namespace Atarashii.Profile
 {
     public static class LastprofFactory
     {

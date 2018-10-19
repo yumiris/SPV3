@@ -1,8 +1,7 @@
 ﻿using System;
 using System.IO;
-using Atarashii.Exceptions;
 
-namespace Atarashii.CLI.Lastprof
+namespace Atarashii.Profile.CLI
 {
     /// <summary>
     ///     CLI front-end for loading a lastprof.txt file.
@@ -19,10 +18,10 @@ namespace Atarashii.CLI.Lastprof
 
             try
             {
-                var result = new Atarashii.Lastprof(File.ReadAllText(args[0])).Parse();
+                var result = new Lastprof(File.ReadAllText(args[0])).Parse();
                 Console.WriteLine(result);
             }
-            catch (ParserException e)
+            catch (ProfileException e)
             {
                 ErrorExit(e.Message, 3);
             }

@@ -1,3 +1,4 @@
+using Atarashii.Profile;
 using NUnit.Framework;
 
 namespace Atarashii.Tests

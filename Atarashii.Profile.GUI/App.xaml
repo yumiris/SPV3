@@ -1,4 +1,4 @@
-﻿<Application x:Class="Atarashii.GUI.Lastprof.App"
+﻿<Application x:Class="Atarashii.Profile.GUI.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">

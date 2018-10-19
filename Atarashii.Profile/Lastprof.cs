@@ -1,6 +1,4 @@
-using Atarashii.Exceptions;
-
-namespace Atarashii
+namespace Atarashii.Profile
 {
     public class Lastprof
     {
@@ -40,12 +38,12 @@ namespace Atarashii
         /// <returns>
         ///     The profile name. In actual environments, it's the profile used in the last HCE instance.
         /// </returns>
-        /// <exception cref="ParserException">
+        /// <exception cref="ProfileException">
         ///     Given Lastprof data is deemed as invalid.
         /// </exception>
         public string Parse()
         {
-            if (!_data.Contains(Signature)) throw new ParserException("Invalid lastprof string.");
+            if (!_data.Contains(Signature)) throw new ProfileException("Invalid lastprof string.");
 
             var array = _data.Split(Delimiter);
             return array[array.Length - NameOffset];
