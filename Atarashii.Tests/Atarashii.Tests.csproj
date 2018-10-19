@@ -54,6 +54,10 @@
     <Compile Include="VerifierTests.cs" />
   </ItemGroup>
   <ItemGroup>
+      <ProjectReference Include="..\Atarashii.OpenSauce\Atarashii.OpenSauce.csproj">
+          <Project>{93b4f105-d49e-499e-8058-ef8e3d81a464}</Project>
+          <Name>Atarashii.OpenSauce</Name>
+      </ProjectReference>
     <ProjectReference Include="..\Atarashii\Atarashii.csproj">
       <Project>{9665535f-b184-41f6-ac56-85db14fd3b79}</Project>
       <Name>Atarashii</Name>
