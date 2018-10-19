@@ -6,6 +6,9 @@ namespace Atarashii.OpenSauce
 {
     public class InstallerFactory
     {
+        /// <summary>
+        ///     Available OpenSauce Installer types.
+        /// </summary>
         public enum Type
         {
             Default
@@ -72,9 +75,9 @@ namespace Atarashii.OpenSauce
             var guiDirPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
             var usrDirPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 
-            var libPackage = Path.Combine(Package.Directory, "lib.pkg");
-            var guiPackage = Path.Combine(Package.Directory, "gui.pkg");
-            var usrPackage = Path.Combine(Package.Directory, "usr.pkg");
+            var libPackage = Path.Combine(Package.Directory, $"{Installer.LibPackage}.{Package.Extension}");
+            var guiPackage = Path.Combine(Package.Directory, $"{Installer.GuiPackage}.{Package.Extension}");
+            var usrPackage = Path.Combine(Package.Directory, $"{Installer.UsrPackage}.{Package.Extension}");
 
             return new List<Package>
             {

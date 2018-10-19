@@ -9,6 +9,21 @@ namespace Atarashii.OpenSauce
     /// </summary>
     public class Installer : IVerifiable
     {
+        /// <summary>
+        ///     Name of the OpenSauce core and dependencies package.
+        /// </summary>
+        public const string LibPackage = "lib";
+        
+        /// <summary>
+        ///     Name of the in-game OpenSauce UI assets package.
+        /// </summary>
+        public const string GuiPackage = "gui";
+        
+        /// <summary>
+        ///     Name of the OpenSauce XML user configuration package.
+        /// </summary>
+        public const string UsrPackage = "usr";
+
         private readonly string _hcePath;
 
         private readonly List<Package> _packages;
