@@ -2,8 +2,10 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Forms;
 using Atarashii.GUI.Properties;
-using Microsoft.Win32;
+using Clipboard = System.Windows.Clipboard;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace Atarashii.GUI
 {
@@ -44,6 +46,21 @@ namespace Atarashii.GUI
             return openFileDialog.ShowDialog() == true
                 ? openFileDialog.FileName
                 : string.Empty;
+        }
+
+        /// <summary>
+        ///     Opens up a folder picking dialogue window.
+        /// </summary>
+        /// <returns>
+        ///     Folder path chosen by the end-user.
+        /// </returns>
+        public static string PickFolder()
+        {
+            using (var dialog = new FolderBrowserDialog())
+            {
+                dialog.ShowDialog();
+                return dialog.SelectedPath;
+            }
         }
 
         /// <summary>

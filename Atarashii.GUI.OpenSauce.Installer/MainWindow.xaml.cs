@@ -1,14 +1,15 @@
 ﻿using System.ComponentModel;
+using System.Windows;
 
 namespace Atarashii.GUI.OpenSauce.Installer
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    ///     Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow
     {
         private readonly Main _main;
-        
+
         public MainWindow()
         {
             InitializeComponent();
@@ -19,6 +20,16 @@ namespace Atarashii.GUI.OpenSauce.Installer
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
             BaseModel.Exit();
+        }
+
+        private void Browse(object sender, RoutedEventArgs e)
+        {
+            _main.InstallationPath = BaseModel.PickFolder();
+        }
+
+        private void Install(object sender, RoutedEventArgs e)
+        {
+            _main.InstallOpenSauce();
         }
     }
 }

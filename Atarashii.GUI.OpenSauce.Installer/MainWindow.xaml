@@ -15,8 +15,30 @@
     <Window.DataContext>
         <local:Main />
     </Window.DataContext>
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Height" Value="25" />
+            <Setter Property="Padding" Value="5,0" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="25" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+    </Window.Resources>
     <StackPanel Margin="10">
         <Image Source="/icon.ico"
                Stretch="None" />
+        <Label Content="HCE Directory Path:" />
+        <DockPanel>
+            <Button DockPanel.Dock="Right"
+                    Content="Browse"
+                    Margin="5,0,0,0"
+                    Click="Browse" />
+            <TextBox Text="{Binding InstallationPath}" />
+        </DockPanel>
+        <Button Margin="0,5,0,0"
+                Content="Install OpenSauce"
+                IsEnabled="{Binding CanInstall}"
+                Click="Install" />
     </StackPanel>
 </Window>
