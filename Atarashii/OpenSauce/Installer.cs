@@ -35,6 +35,9 @@ namespace Atarashii.OpenSauce
         }
 
         /// <inheritdoc />
+        /// <returns>
+        ///    Verification type representing the verification outcome. True if chosen HCE path exists and is valid.
+        /// </returns>
         public Verification Verify()
         {
             if (!Directory.Exists(_hcePath))
@@ -47,7 +50,7 @@ namespace Atarashii.OpenSauce
             {
                 var packageState = package.Verify();
                 if (!packageState.IsValid)
-                    return new Verification(false, "An OpenSauce package does not exist on the filesystem.");
+                    return new Verification(false, packageState.Reason);
             }
 
             return new Verification(true);
