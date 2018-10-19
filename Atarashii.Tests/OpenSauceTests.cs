@@ -1,4 +1,5 @@
 using Atarashii.OpenSauce;
+using Atarashii.OpenSauce.Options;
 using NUnit.Framework;
 
 namespace Atarashii.Tests

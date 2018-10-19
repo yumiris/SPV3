@@ -42,6 +42,29 @@
         <Compile Include="ConfigurationFactory.cs"/>
         <Compile Include="Installer.cs"/>
         <Compile Include="InstallerFactory.cs"/>
+        <Compile Include="Options\AntiAliasing.cs"/>
+        <Compile Include="Options\Bloom.cs"/>
+        <Compile Include="Options\CacheFiles.cs"/>
+        <Compile Include="Options\Camera.cs"/>
+        <Compile Include="Options\Effect.cs"/>
+        <Compile Include="Options\ExternalEffects.cs"/>
+        <Compile Include="Options\GameSpy.cs"/>
+        <Compile Include="Options\Gbuffer.cs"/>
+        <Compile Include="Options\Hud.cs"/>
+        <Compile Include="Options\HudScale.cs"/>
+        <Compile Include="Options\MapDownload.cs"/>
+        <Compile Include="Options\MapEffects.cs"/>
+        <Compile Include="Options\MotionBlur.cs"/>
+        <Compile Include="Options\Networking.cs"/>
+        <Compile Include="Options\Objects.cs"/>
+        <Compile Include="Options\PostProcessing.cs"/>
+        <Compile Include="Options\Rasterizer.cs"/>
+        <Compile Include="Options\RasterizerShaderExtensions.cs"/>
+        <Compile Include="Options\ShaderEnvironment.cs"/>
+        <Compile Include="Options\ShaderExtensions.cs"/>
+        <Compile Include="Options\ShaderObject.cs"/>
+        <Compile Include="Options\ShaderRasterizer.cs"/>
+        <Compile Include="Options\Upgrades.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
     </ItemGroup>
     <ItemGroup>
@@ -52,10 +75,10 @@
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-           Other similar extension points exist, see Microsoft.Common.targets.
-      <Target Name="BeforeBuild">
-      </Target>
-      <Target Name="AfterBuild">
-      </Target>
-      -->
+             Other similar extension points exist, see Microsoft.Common.targets.
+        <Target Name="BeforeBuild">
+        </Target>
+        <Target Name="AfterBuild">
+        </Target>
+        -->
 </Project>
