@@ -15,6 +15,16 @@
     <Window.DataContext>
         <local:Main />
     </Window.DataContext>
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Height" Value="25" />
+            <Setter Property="Padding" Value="5,0" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="25" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+    </Window.Resources>
     <StackPanel Margin="10">
         <Image Source="/icon.ico"
                Stretch="None" />
@@ -22,26 +32,19 @@
         <DockPanel>
             <Button DockPanel.Dock="Right"
                     Content="Browse"
-                    Height="25"
                     Margin="5,0,0,0"
-                    Padding="5,0"
                     Click="Browse" />
             <TextBox VerticalContentAlignment="Center"
                      Text="{Binding LastprofFile}" />
         </DockPanel>
         <StackPanel>
             <Label Content="Profile Name:" />
-            <TextBox Height="25"
-                     TextAlignment="Center"
-                     VerticalContentAlignment="Center"
+            <TextBox VerticalContentAlignment="Center"
                      IsReadOnly="True"
                      Text="{Binding ProfileName}" />
-            <Button
-                Content="Parse Profile Name"
-                Height="25"
-                Margin="0,5,0,0"
-                Padding="5,0"
-                Click="Parse" />
+            <Button Content="Parse Profile Name"
+                    Margin="0,5,0,0"
+                    Click="Parse" />
         </StackPanel>
         <Grid Margin="0,5,0,0">
             <Grid.ColumnDefinitions>
@@ -50,15 +53,11 @@
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0"
                     Content="Detect"
-                    Height="25"
                     Margin="0,0,2.5,0"
-                    Padding="5,0"
                     Click="Detect" />
             <Button Grid.Column="1"
                     Content="Copy"
-                    Height="25"
                     Margin="2.5,0,0,0"
-                    Padding="5,0"
                     Click="Copy" />
         </Grid>
     </StackPanel>
