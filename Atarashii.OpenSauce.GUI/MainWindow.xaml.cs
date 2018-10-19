@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Windows;
+using Atarashii.GUI;
 
-namespace Atarashii.GUI.OpenSauce.Installer
+namespace Atarashii.OpenSauce.GUI
 {
     /// <summary>
     ///     Interaction logic for MainWindow.xaml

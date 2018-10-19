@@ -1,4 +1,4 @@
-﻿namespace Atarashii.GUI.OpenSauce.Installer
+﻿namespace Atarashii.OpenSauce.GUI
 {
     /// <summary>
     ///     Interaction logic for App.xaml

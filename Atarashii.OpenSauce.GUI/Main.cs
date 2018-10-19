@@ -1,6 +1,6 @@
-using Atarashii.OpenSauce;
+using Atarashii.GUI;
 
-namespace Atarashii.GUI.OpenSauce.Installer
+namespace Atarashii.OpenSauce.GUI
 {
     /// <summary>
     ///     Model for installing OpenSauce
