@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Atarashii.Exceptions;
 
-namespace Atarashii.CLI.Executable
+namespace Atarashii.Loader.CLI
 {
     /// <summary>
     ///     CLI front-end for loading a HCE executable.
@@ -36,7 +35,7 @@ namespace Atarashii.CLI.Executable
 
             try
             {
-                new Atarashii.Executable(args[1]).Load();
+                new Executable(args[1]).Load();
             }
             catch (LoaderException e)
             {

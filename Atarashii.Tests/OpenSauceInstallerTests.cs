@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Atarashii.Exceptions;
+using Atarashii.Loader;
 using Atarashii.OpenSauce;
 using NUnit.Framework;
 

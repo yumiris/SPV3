@@ -1,7 +1,7 @@
 using System.IO;
-using Atarashii.Exceptions;
+using Atarashii.GUI;
 
-namespace Atarashii.GUI.Executable
+namespace Atarashii.Loader.GUI
 {
     /// <summary>
     ///     HCE Atarashii GUI main entity
@@ -52,7 +52,7 @@ namespace Atarashii.GUI.Executable
         {
             try
             {
-                new Atarashii.Executable(HcePath).Load();
+                new Executable(HcePath).Load();
                 LogWindow.Log($"Successfully loaded {HcePath}");
             }
             catch (LoaderException e)

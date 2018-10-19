@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.IO;
-using Atarashii.Exceptions;
 
 namespace Atarashii.OpenSauce
 {
@@ -43,7 +42,7 @@ namespace Atarashii.OpenSauce
             if (!Directory.Exists(_hcePath))
                 return new Verification(false, "Target directory for OpenSauce installation does not exist.");
 
-            if (!File.Exists(Path.Combine(_hcePath, Executable.Name)))
+            if (!File.Exists(Path.Combine(_hcePath, "haloce.exe")))
                 return new Verification(false, "Invalid target HCE directory path for OpenSauce installation.");
 
             foreach (var package in _packages)

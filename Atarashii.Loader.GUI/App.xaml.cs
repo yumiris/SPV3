@@ -1,4 +1,4 @@
-﻿namespace Atarashii.GUI.Executable
+﻿namespace Atarashii.Loader.GUI
 {
     /// <summary>
     ///     Interaction logic for App.xaml

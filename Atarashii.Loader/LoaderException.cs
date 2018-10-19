@@ -1,10 +1,10 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Atarashii.Exceptions
+namespace Atarashii.Loader
 {
     [Serializable]
-    public class OpenSauceException : Exception
+    public class LoaderException : Exception
     {
         //
         // For guidelines regarding the creation of new exception types, see
@@ -13,19 +13,19 @@ namespace Atarashii.Exceptions
         //    http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dncscol/html/csharp07192001.asp
         //
 
-        public OpenSauceException()
+        public LoaderException()
         {
         }
 
-        public OpenSauceException(string message) : base(message)
+        public LoaderException(string message) : base(message)
         {
         }
 
-        public OpenSauceException(string message, Exception inner) : base(message, inner)
+        public LoaderException(string message, Exception inner) : base(message, inner)
         {
         }
 
-        protected OpenSauceException(
+        protected LoaderException(
             SerializationInfo info,
             StreamingContext context) : base(info, context)
         {

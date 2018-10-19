@@ -39,13 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exceptions\LoaderException.cs" />
-      <Compile Include="Exceptions\OpenSauceException.cs"/>
       <Compile Include="Exceptions\PackageException.cs"/>
     <Compile Include="Exceptions\ParserException.cs" />
     <Compile Include="Exceptions\VerifierException.cs" />
-    <Compile Include="Executable.cs" />
-    <Compile Include="ExecutableFactory.cs" />
       <Compile Include="ILogger.cs"/>
       <Compile Include="IVerifiable.cs"/>
     <Compile Include="Lastprof.cs" />

@@ -1,15 +1,14 @@
 using System.Diagnostics;
 using System.IO;
-using Atarashii.Exceptions;
 
-namespace Atarashii
+namespace Atarashii.Loader
 {
     public class Executable : IVerifiable
     {
         /// <summary>
         ///     HCE executable name.
         /// </summary>
-        public const string Name = @"haloce.exe";
+        public const string Name = "haloce.exe";
 
         /// <summary>
         ///     Known file length of the 1.10 executable.

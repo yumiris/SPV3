@@ -4,11 +4,11 @@
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{93B4F105-D49E-499E-8058-EF8E3D81A464}</ProjectGuid>
+        <ProjectGuid>{30F59F48-2321-45EB-AC5A-D8A9DFD762D0}</ProjectGuid>
         <OutputType>Library</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>Atarashii.OpenSauce</RootNamespace>
-        <AssemblyName>Atarashii.OpenSauce</AssemblyName>
+        <RootNamespace>Atarashii.Loader</RootNamespace>
+        <AssemblyName>Atarashii.Loader</AssemblyName>
         <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
     </PropertyGroup>
@@ -17,7 +17,7 @@
         <DebugSymbols>true</DebugSymbols>
         <DebugType>full</DebugType>
         <Optimize>false</Optimize>
-        <OutputPath>..\bin\</OutputPath>
+        <OutputPath>bin\Debug\</OutputPath>
         <DefineConstants>DEBUG;TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
@@ -38,34 +38,9 @@
         <Reference Include="System.Xml"/>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Configuration.cs"/>
-        <Compile Include="ConfigurationFactory.cs"/>
-        <Compile Include="Installer.cs"/>
-        <Compile Include="InstallerFactory.cs"/>
-        <Compile Include="OpenSauceException.cs"/>
-        <Compile Include="Options\AntiAliasing.cs"/>
-        <Compile Include="Options\Bloom.cs"/>
-        <Compile Include="Options\CacheFiles.cs"/>
-        <Compile Include="Options\Camera.cs"/>
-        <Compile Include="Options\Effect.cs"/>
-        <Compile Include="Options\ExternalEffects.cs"/>
-        <Compile Include="Options\GameSpy.cs"/>
-        <Compile Include="Options\Gbuffer.cs"/>
-        <Compile Include="Options\Hud.cs"/>
-        <Compile Include="Options\HudScale.cs"/>
-        <Compile Include="Options\MapDownload.cs"/>
-        <Compile Include="Options\MapEffects.cs"/>
-        <Compile Include="Options\MotionBlur.cs"/>
-        <Compile Include="Options\Networking.cs"/>
-        <Compile Include="Options\Objects.cs"/>
-        <Compile Include="Options\PostProcessing.cs"/>
-        <Compile Include="Options\Rasterizer.cs"/>
-        <Compile Include="Options\RasterizerShaderExtensions.cs"/>
-        <Compile Include="Options\ShaderEnvironment.cs"/>
-        <Compile Include="Options\ShaderExtensions.cs"/>
-        <Compile Include="Options\ShaderObject.cs"/>
-        <Compile Include="Options\ShaderRasterizer.cs"/>
-        <Compile Include="Options\Upgrades.cs"/>
+        <Compile Include="Executable.cs"/>
+        <Compile Include="ExecutableFactory.cs"/>
+        <Compile Include="LoaderException.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
     </ItemGroup>
     <ItemGroup>
@@ -76,10 +51,10 @@
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-               Other similar extension points exist, see Microsoft.Common.targets.
-          <Target Name="BeforeBuild">
-          </Target>
-          <Target Name="AfterBuild">
-          </Target>
-          -->
+           Other similar extension points exist, see Microsoft.Common.targets.
+      <Target Name="BeforeBuild">
+      </Target>
+      <Target Name="AfterBuild">
+      </Target>
+      -->
 </Project>

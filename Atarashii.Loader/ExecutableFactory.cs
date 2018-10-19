@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using Microsoft.Win32;
 
-namespace Atarashii
+namespace Atarashii.Loader
 {
     public static class ExecutableFactory
     {

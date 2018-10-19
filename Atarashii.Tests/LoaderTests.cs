@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using Atarashii.Exceptions;
+using Atarashii.Loader;
 using NUnit.Framework;
 
 namespace Atarashii.Tests

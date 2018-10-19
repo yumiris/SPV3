@@ -6,8 +6,8 @@
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
         <ProjectGuid>{CB9B7583-F2DE-419A-9C17-2BBC8770087B}</ProjectGuid>
         <OutputType>WinExe</OutputType>
-        <RootNamespace>Atarashii.GUI.Executable</RootNamespace>
-        <AssemblyName>Atarashii.GUI.Executable</AssemblyName>
+        <RootNamespace>Atarashii.Loader.GUI</RootNamespace>
+        <AssemblyName>Atarashii.Loader.GUI</AssemblyName>
         <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
         <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -88,6 +88,10 @@
         <ProjectReference Include="..\Atarashii.GUI\Atarashii.GUI.csproj">
             <Project>{90f5884d-d0ac-451b-9796-34a8d3caef4c}</Project>
             <Name>Atarashii.GUI</Name>
+        </ProjectReference>
+        <ProjectReference Include="..\Atarashii.Loader\Atarashii.Loader.csproj">
+            <Project>{30f59f48-2321-45eb-ac5a-d8a9dfd762d0}</Project>
+            <Name>Atarashii.Loader</Name>
         </ProjectReference>
         <ProjectReference Include="..\Atarashii\Atarashii.csproj">
             <Project>{9665535f-b184-41f6-ac56-85db14fd3b79}</Project>
