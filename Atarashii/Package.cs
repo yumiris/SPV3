@@ -23,7 +23,7 @@ namespace Atarashii
 
         public Package(string archiveName, string description, string destination)
         {
-            ArchiveName = archiveName + $".{Extension}";
+            ArchiveName = archiveName;
             Description = description;
             Destination = destination;
         }
