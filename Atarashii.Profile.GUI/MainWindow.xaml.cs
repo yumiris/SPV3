@@ -15,7 +15,7 @@ namespace Atarashii.Profile.GUI
         {
             InitializeComponent();
             _main = (Main) DataContext;
-            _main.ShowLogWindow(this);
+            _main.LogWindow.InitialiseFor(this);
         }
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)

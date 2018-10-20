@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows;
 using System.Windows.Forms;
 using Atarashii.GUI.Properties;
 using Clipboard = System.Windows.Clipboard;
@@ -11,21 +10,8 @@ namespace Atarashii.GUI
 {
     public class BaseModel : INotifyPropertyChanged
     {
-        public LogWindow LogWindow { get; set; }
+        public LogWindow LogWindow { get; } = new LogWindow();
         public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        ///     Shows the log window to the right of the given window.
-        /// </summary>
-        /// <param name="window">
-        ///     Window to calculate the dimensions of.
-        /// </param>
-        public void ShowLogWindow(Window window)
-        {
-            LogWindow = new LogWindow();
-            LogWindow.Show();
-            LogWindow.Left += window.Width * 1.5;
-        }
 
         /// <summary>
         ///     Opens up a file picking dialogue window.

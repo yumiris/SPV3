@@ -8,7 +8,7 @@
         ResizeMode="CanMinimize"
         SnapsToDevicePixels="True"
         WindowStartupLocation="CenterScreen"
-        Width="240"
+        Width="320"
         Height="480"
         Icon="/icon.ico"
         Closing="MainWindow_OnClosing">
@@ -59,15 +59,38 @@
                            Content="OpenSauce XML Settings:" />
                     <Button DockPanel.Dock="Right"
                             Margin="5,0,0,0"
-                            Content="Browse"/>
+                            Content="Browse" />
                     <TextBox />
                 </DockPanel>
 
                 <!-- Options -->
                 <TabControl DockPanel.Dock="Top"
                             Margin="0,10,0,0">
-                    <TabItem Header="General" />
-                    <TabItem Header="Rasteriser" />
+                    <!-- General Settings -->
+                    <TabItem Header="General Settings">
+                        <ScrollViewer>
+                            <StackPanel>
+                                <CheckBox Content="Check Yelo Files First" />
+                                <CheckBox Content="Ignore FOV Change In Cinematics" />
+                                <CheckBox Content="Ignore FOV Change In Main Menu" />
+                                <CheckBox Content="No Update Check" />
+                                <CheckBox Content="Map Download" />
+                                <CheckBox Content="Vehicle Remapper Enabled" />
+                                <CheckBox Content="Show HUD" />
+                                <CheckBox Content="Scale HUD" />
+                            </StackPanel>
+                        </ScrollViewer>
+                    </TabItem>
+
+                    <!-- Shader Extensions -->
+                    <TabItem Header="Shader Extensions">
+                        <StackPanel />
+                    </TabItem>
+
+                    <!-- Post Processing -->
+                    <TabItem Header="Post Processing">
+                        <StackPanel />
+                    </TabItem>
                 </TabControl>
             </DockPanel>
         </GroupBox>
