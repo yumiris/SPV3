@@ -69,15 +69,47 @@
                     <!-- General Settings -->
                     <TabItem Header="General Settings">
                         <ScrollViewer>
-                            <StackPanel>
-                                <CheckBox Content="Check Yelo Files First" />
-                                <CheckBox Content="Ignore FOV Change In Cinematics" />
-                                <CheckBox Content="Ignore FOV Change In Main Menu" />
-                                <CheckBox Content="No Update Check" />
-                                <CheckBox Content="Map Download" />
-                                <CheckBox Content="Vehicle Remapper Enabled" />
-                                <CheckBox Content="Show HUD" />
-                                <CheckBox Content="Scale HUD" />
+                            <StackPanel Margin="5">
+                                <!-- Field of View & HUD -->
+                                <Grid Margin="0,0,0,5">
+                                    <Grid.Resources>
+                                        <Style TargetType="Label">
+                                            <Setter Property="Padding" Value="1,0" />
+                                        </Style>
+                                    </Grid.Resources>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0">
+                                        <Label Content="Field of View:" />
+                                        <TextBox Margin="1" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1">
+                                        <Label Content="HUD Scale X:" />
+                                        <TextBox Margin="1" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="2">
+                                        <Label Content="HUD Scale Y:" />
+                                        <TextBox Margin="1" />
+                                    </StackPanel>
+                                </Grid>
+
+                                <!-- Toggles -->
+                                <StackPanel>
+                                    <CheckBox Content="Check Yelo Files First" />
+                                    <CheckBox Content="Ignore FOV Change In Cinematics" />
+                                    <CheckBox Content="Ignore FOV Change In Main Menu" />
+                                    <CheckBox Content="No Update Check" />
+                                    <CheckBox Content="Map Download" />
+                                    <CheckBox Content="Vehicle Remapper Enabled" />
+                                    <CheckBox Content="Show HUD" />
+                                    <CheckBox Content="Scale HUD" />
+                                </StackPanel>
                             </StackPanel>
                         </ScrollViewer>
                     </TabItem>
