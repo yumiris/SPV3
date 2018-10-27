@@ -1,4 +1,5 @@
-﻿using Atarashii.CLI;
+﻿using System;
+using Atarashii.CLI;
 
 namespace Atarashii.OpenSauce.CLI
 {
@@ -8,10 +9,18 @@ namespace Atarashii.OpenSauce.CLI
         {
             ExitIfNilArgs(args);
 
-            var installer = new InstallerFactory(args[0]).Get();
-            var installerState = installer.Verify();
-
-            if (!installerState.IsValid) ExitWithError(installerState.Reason, 2);
+            try
+            {
+                new InstallerFactory(args[0]).Get().Install();
+            }
+            catch (OpenSauceException e)
+            {
+                ExitWithError(e.Message, 2);
+            }
+            catch (Exception e)
+            {
+                ExitWithError(e.Message, 3);
+            }
         }
     }
 }
