@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Atarashii.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("yumiris")]
 [assembly: AssemblyProduct("Atarashii.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]

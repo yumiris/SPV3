@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Atarashii.CLI.Lastprof")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("yumiris")]
 [assembly: AssemblyProduct("Atarashii.CLI.Lastprof")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]

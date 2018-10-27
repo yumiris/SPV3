@@ -8,7 +8,7 @@ using System.Windows;
 [assembly: AssemblyTitle("Atarashii.GUI.Lastprof")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("yumiris")]
 [assembly: AssemblyProduct("Atarashii.GUI.Lastprof")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]

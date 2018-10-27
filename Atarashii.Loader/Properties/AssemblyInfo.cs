@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Atarashii.Loader")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("yumiris")]
 [assembly: AssemblyProduct("Atarashii.Loader")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]

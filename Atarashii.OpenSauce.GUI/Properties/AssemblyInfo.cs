@@ -8,7 +8,7 @@ using System.Windows;
 [assembly: AssemblyTitle("Atarashii.GUI.OpenSauce.Installer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("yumiris")]
 [assembly: AssemblyProduct("Atarashii.GUI.OpenSauce.Installer")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
