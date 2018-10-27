@@ -3,7 +3,7 @@ using System;
 namespace Atarashii.CLI
 {
     /// <summary>
-    ///     Abstract for CLI Programs with shared methods.
+    ///     Abstract with shared methods for CLI Programs.
     /// </summary>
     public abstract class BaseProgram
     {

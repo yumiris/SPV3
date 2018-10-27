@@ -16,21 +16,6 @@ namespace Atarashii.GUI
             InitializeComponent();
         }
 
-        /// <summary>
-        ///     Shows the log window and adapts its dimensions and positions to the given window's specifications.
-        /// </summary>
-        /// <param name="window">
-        ///     Window to calculate the position and height from.
-        /// </param>
-        public void InitialiseFor(Window window)
-        {
-            Show();
-
-            Top -= (window.Height - Height) / 2;
-            Left += (Width - window.Width) / 2 + window.Width;
-            Height = window.Height;
-        }
-
         /// <inheritdoc />
         /// <summary>
         ///     Adds a given message to the log property.
@@ -47,6 +32,21 @@ namespace Atarashii.GUI
                 : $"{OutputTextBox.Text}\n\n{output}";
 
             OutputTextBox.ScrollToEnd();
+        }
+
+        /// <summary>
+        ///     Shows the log window and adapts its dimensions and positions to the given window's specifications.
+        /// </summary>
+        /// <param name="window">
+        ///     Window to calculate the position and height from.
+        /// </param>
+        public void InitialiseFor(Window window)
+        {
+            Show();
+
+            Top -= (window.Height - Height) / 2;
+            Left += (Width - window.Width) / 2 + window.Width;
+            Height = window.Height;
         }
 
         /// <summary>

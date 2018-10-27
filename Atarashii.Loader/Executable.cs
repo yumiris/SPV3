@@ -26,6 +26,11 @@ namespace Atarashii.Loader
         public string Path { get; }
 
         /// <inheritdoc />
+        /// <returns>
+        ///     False if:
+        ///     - Path does not exist.
+        ///     - Executable is invalid.
+        /// </returns>
         public Verification Verify()
         {
             if (!File.Exists(Path))
@@ -45,6 +50,8 @@ namespace Atarashii.Loader
         /// </param>
         /// <exception cref="LoaderException">
         ///     The specified executable was not found.
+        ///     - or -
+        ///     The specified executable is deemed invalid.
         /// </exception>
         public void Load(bool verify = true)
         {

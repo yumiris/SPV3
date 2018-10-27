@@ -35,8 +35,7 @@ namespace Atarashii.OpenSauce
 
         /// <inheritdoc />
         /// <returns>
-        ///     Verification type representing the verification outcome.
-        ///     False verification is returned if:
+        ///     False if:
         ///     Invalid HCE directory path.
         ///     - or -
         ///     Target directory does not exist.

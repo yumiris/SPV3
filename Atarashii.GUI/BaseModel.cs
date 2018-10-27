@@ -8,7 +8,10 @@ using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace Atarashii.GUI
 {
-    public class BaseModel : INotifyPropertyChanged
+    /// <summary>
+    ///     Abstract with shared methods for MVVM Models.
+    /// </summary>
+    public abstract class BaseModel : INotifyPropertyChanged
     {
         public LogWindow LogWindow { get; } = new LogWindow();
         public event PropertyChangedEventHandler PropertyChanged;

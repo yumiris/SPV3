@@ -50,6 +50,9 @@ namespace Atarashii
         public string Destination { get; }
 
         /// <inheritdoc />
+        /// False if:
+        /// - Package archive does not exist.
+        /// - Install destination does not exist.
         public Verification Verify()
         {
             if (!File.Exists(ArchiveName))
