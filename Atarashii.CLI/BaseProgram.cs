@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 
 namespace Atarashii.CLI
 {
@@ -7,15 +8,33 @@ namespace Atarashii.CLI
     /// </summary>
     public abstract class BaseProgram
     {
+        public enum MessageType
+        {
+            /// <summary>
+            /// Represents a successful step.
+            /// </summary>
+            Success,
+            
+            /// <summary>
+            /// Represents an informative message.
+            /// </summary>
+            Info,
+
+            /// <summary>
+            /// Represents an error message which should outputted to STDERR.
+            /// </summary>
+            Error
+        }
+
         /// <summary>
         ///     CLI-friendly ASCII art banner.
         /// </summary>
         protected static string Banner => @"
-        _                      _     _ _ 
-   __ _| |_ __ _ _ __ __ _ ___| |__ (_|_)
-  / _` | __/ _` | '__/ _` / __| '_ \| | |
- | (_| | || (_| | | | (_| \__ \ | | | | |
-  \__,_|\__\__,_|_|  \__,_|___/_| |_|_|_|
+         _                      _     _ _ 
+    __ _| |_ __ _ _ __ __ _ ___| |__ (_|_)
+   / _` | __/ _` | '__/ _` / __| '_ \| | |
+  | (_| | || (_| | | | (_| \__ \ | | | | |
+   \__,_|\__\__,_|_|  \__,_|___/_| |_|_|_|
 ";
 
         /// <summary>
@@ -25,6 +44,67 @@ namespace Atarashii.CLI
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine(Banner);
+        }
+
+        /// <summary>
+        ///     Outputs decorative messages to the CLI.
+        /// </summary>
+        /// <param name="message">
+        ///    Message to output.
+        /// </param>
+        /// <param name="messageType">
+        ///    Type of message. Affects colour and decorators.
+        ///    For available message types: <see cref="MessageType"/>
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///    Invalid message type value.
+        /// </exception>
+        protected static void ShowMessage(string message, MessageType messageType)
+        {
+            ConsoleColor codeColour;
+            string codeNaming;
+            var isErrorMsg = false;
+
+            switch (messageType)
+            {
+                case MessageType.Success:
+                    codeColour = ConsoleColor.Green;
+                    codeNaming = " OK ";
+                    break;
+                case MessageType.Info:
+                    codeColour = ConsoleColor.Cyan;
+                    codeNaming = "INFO";
+                    break;
+                case MessageType.Error:
+                    codeColour = ConsoleColor.Red;
+                    codeNaming = "HALT";
+                    isErrorMsg = true;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(messageType), messageType, null);
+            }
+
+            if (isErrorMsg)
+            {
+                Console.Error.WriteLine(message);
+                return;
+            }
+
+            Console.WriteLine(string.Empty);
+
+            // output code (HALT, INFO, etc.)
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write("  [");
+            Console.ForegroundColor = codeColour;
+            Console.Write($" {codeNaming} ");
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write("] |");
+            Console.Write($" {Assembly.GetEntryAssembly().GetName().Name} ");
+            Console.Write("|");
+
+            // output actual message 
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(" " + message);
         }
 
         /// <summary>
@@ -49,8 +129,7 @@ namespace Atarashii.CLI
         /// </param>
         protected static void ExitWithError(string error, int code)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Error.WriteLine(error);
+            ShowMessage(error, MessageType.Error);
             Environment.Exit(code);
         }
     }
