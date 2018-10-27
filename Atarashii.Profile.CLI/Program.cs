@@ -11,10 +11,8 @@ namespace Atarashii.Profile.CLI
     {
         public static void Main(string[] args)
         {
+            ShowBanner();
             ExitIfNilArgs(args);
-
-            if (!File.Exists(args[0]))
-                ExitWithError("File does not exist.", 2);
 
             try
             {

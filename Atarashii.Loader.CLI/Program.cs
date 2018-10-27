@@ -12,6 +12,7 @@ namespace Atarashii.Loader.CLI
     {
         public static void Main(string[] args)
         {
+            ShowBanner();
             ExitIfNilArgs(args);
 
             switch (args[0])

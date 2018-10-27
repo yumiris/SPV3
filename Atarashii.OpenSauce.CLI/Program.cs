@@ -7,6 +7,7 @@ namespace Atarashii.OpenSauce.CLI
     {
         public static void Main(string[] args)
         {
+            ShowBanner();
             ExitIfNilArgs(args);
 
             try
