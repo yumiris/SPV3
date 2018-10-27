@@ -18,9 +18,11 @@ namespace Atarashii.Loader.CLI
             switch (args[0])
             {
                 case "load":
+                    ShowMessage("Invoked the load command.", MessageType.Info);
                     HandleLoadCommand(args);
                     break;
                 case "detect":
+                    ShowMessage("Invoked the detect command.", MessageType.Info);
                     HandleDetectCommand();
                     break;
                 default:
@@ -32,11 +34,12 @@ namespace Atarashii.Loader.CLI
         private static void HandleLoadCommand(IReadOnlyList<string> args)
         {
             if (args.Count < 2)
-                ExitWithError("Not arguments provided for the load command.", 1);
+                ExitWithError("No arguments provided for the load command.", 1);
 
             try
             {
                 new Executable(args[1]).Load();
+                ShowMessage("The specified executable has been loaded.", MessageType.Success);
             }
             catch (LoaderException e)
             {
@@ -47,7 +50,6 @@ namespace Atarashii.Loader.CLI
                 ExitWithError(e.Message, 4);
             }
 
-            Console.WriteLine("The specified executable has been loaded.");
             Environment.Exit(0);
         }
 

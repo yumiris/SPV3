@@ -86,8 +86,8 @@ namespace Atarashii.CLI
 
             if (isErrorMsg)
             {
+                Console.Write("  ");
                 Console.Error.WriteLine(message);
-                return;
             }
 
             Console.WriteLine(string.Empty);

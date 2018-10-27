@@ -13,10 +13,12 @@ namespace Atarashii.Profile.CLI
         {
             ShowBanner();
             ExitIfNilArgs(args);
+            ShowMessage("Invoked parsing of " + args[0], MessageType.Info);
 
             try
             {
                 var result = new Lastprof(File.ReadAllText(args[0])).Parse();
+                ShowMessage("Profile name successfully parsed:", MessageType.Success);
                 Console.WriteLine(result);
             }
             catch (ProfileException e)
