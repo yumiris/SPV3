@@ -10,10 +10,18 @@ namespace Atarashii.OpenSauce.CLI
             ShowBanner();
             ExitIfNilArgs(args);
             ShowMessage("Invoked installation to " + args[0], MessageType.Info);
+            
+            var installer = new InstallerFactory(args[0]).Get();
+            var installerState = installer.Verify();
+
+            if (!installerState.IsValid)
+                ExitWithError(installerState.Reason, 4);
+
+            ShowMessage("Installer verification has passed.", MessageType.Success);
 
             try
             {
-                new InstallerFactory(args[0]).Get().Install();
+                installer.Install();
                 ShowMessage("OpenSauce has been successfully installed.", MessageType.Success);
             }
             catch (OpenSauceException e)
