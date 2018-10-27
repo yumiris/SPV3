@@ -1,20 +1,20 @@
 ﻿using System;
 using System.IO;
+using Atarashii.CLI;
 
 namespace Atarashii.Profile.CLI
 {
     /// <summary>
     ///     CLI front-end for loading a lastprof.txt file.
     /// </summary>
-    internal class Program
+    internal class Program : BaseProgram
     {
         public static void Main(string[] args)
         {
-            if (args.Length == 0)
-                ErrorExit("No arguments provided.", 1);
+            ExitIfNilArgs(args);
 
             if (!File.Exists(args[0]))
-                ErrorExit("File does not exist.", 2);
+                ExitWithError("File does not exist.", 2);
 
             try
             {
@@ -23,14 +23,8 @@ namespace Atarashii.Profile.CLI
             }
             catch (ProfileException e)
             {
-                ErrorExit(e.Message, 3);
+                ExitWithError(e.Message, 3);
             }
-        }
-
-        private static void ErrorExit(string error, int code)
-        {
-            Console.Error.WriteLine(error);
-            Environment.Exit(code);
         }
     }
 }

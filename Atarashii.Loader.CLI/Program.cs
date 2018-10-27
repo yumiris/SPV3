@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Atarashii.CLI;
 
 namespace Atarashii.Loader.CLI
 {
     /// <summary>
     ///     CLI front-end for loading a HCE executable.
     /// </summary>
-    internal class Program
+    internal class Program : BaseProgram
     {
         public static void Main(string[] args)
         {
-            if (args.Length == 0)
-                ErrorExit("No arguments provided.", 1);
+            ExitIfNilArgs(args);
 
             switch (args[0])
             {
@@ -23,7 +23,7 @@ namespace Atarashii.Loader.CLI
                     HandleDetectCommand();
                     break;
                 default:
-                    ErrorExit("Invalid arguments provided.", 2);
+                    ExitWithError("Invalid arguments provided.", 2);
                     break;
             }
         }
@@ -31,7 +31,7 @@ namespace Atarashii.Loader.CLI
         private static void HandleLoadCommand(IReadOnlyList<string> args)
         {
             if (args.Count < 2)
-                ErrorExit("Not arguments provided for the load command.", 1);
+                ExitWithError("Not arguments provided for the load command.", 1);
 
             try
             {
@@ -39,11 +39,11 @@ namespace Atarashii.Loader.CLI
             }
             catch (LoaderException e)
             {
-                ErrorExit(e.Message, 3);
+                ExitWithError(e.Message, 3);
             }
             catch (Exception e)
             {
-                ErrorExit(e.Message, 4);
+                ExitWithError(e.Message, 4);
             }
 
             Console.WriteLine("The specified executable has been loaded.");
@@ -62,12 +62,6 @@ namespace Atarashii.Loader.CLI
                 Console.Error.WriteLine(e.Message);
                 Environment.Exit(5);
             }
-        }
-
-        private static void ErrorExit(string error, int code)
-        {
-            Console.Error.WriteLine(error);
-            Environment.Exit(code);
         }
     }
 }
