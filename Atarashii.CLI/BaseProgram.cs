@@ -11,17 +11,17 @@ namespace Atarashii.CLI
         public enum MessageType
         {
             /// <summary>
-            /// Represents a successful step.
+            ///     Represents a successful step.
             /// </summary>
             Success,
-            
+
             /// <summary>
-            /// Represents an informative message.
+            ///     Represents an informative message.
             /// </summary>
             Info,
 
             /// <summary>
-            /// Represents an error message which should outputted to STDERR.
+            ///     Represents an error message which should outputted to STDERR.
             /// </summary>
             Error
         }
@@ -50,14 +50,14 @@ namespace Atarashii.CLI
         ///     Outputs decorative messages to the CLI.
         /// </summary>
         /// <param name="message">
-        ///    Message to output.
+        ///     Message to output.
         /// </param>
         /// <param name="messageType">
-        ///    Type of message. Affects colour and decorators.
-        ///    For available message types: <see cref="MessageType"/>
+        ///     Type of message. Affects colour and decorators.
+        ///     For available message types: <see cref="MessageType" />
         /// </param>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///    Invalid message type value.
+        ///     Invalid message type value.
         /// </exception>
         protected static void ShowMessage(string message, MessageType messageType)
         {

@@ -14,6 +14,7 @@ namespace Atarashii.Loader.CLI
         {
             ShowBanner();
             ExitIfNilArgs(args);
+            ShowMessage("Loader has been successfully launched with arguments.", MessageType.Success);
 
             switch (args[0])
             {
@@ -36,8 +37,19 @@ namespace Atarashii.Loader.CLI
             if (args.Count < 2)
                 ExitWithError("No arguments provided for the load command.", 1);
 
+            var executable = new Executable(args[1]);
+
+            ShowMessage("Invoking executable verification.", MessageType.Info);
+            var executableState = executable.Verify();
+
+            if (!executableState.IsValid)
+                ExitWithError(executableState.Reason, 5);
+
+            ShowMessage("Executable verification has passed.", MessageType.Success);
+
             try
             {
+                ShowMessage("Invoking executable loading.", MessageType.Info);
                 new Executable(args[1]).Load();
                 ShowMessage("The specified executable has been loaded.", MessageType.Success);
             }

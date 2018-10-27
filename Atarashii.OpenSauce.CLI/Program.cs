@@ -9,7 +9,7 @@ namespace Atarashii.OpenSauce.CLI
         {
             ShowBanner();
             ExitIfNilArgs(args);
-            ShowMessage("Invoked installation to " + args[0] , MessageType.Info);
+            ShowMessage("Invoked installation to " + args[0], MessageType.Info);
 
             try
             {
@@ -23,7 +23,7 @@ namespace Atarashii.OpenSauce.CLI
             catch (Exception e)
             {
                 ExitWithError(e.Message, 3);
-            }            
+            }
         }
     }
 }
