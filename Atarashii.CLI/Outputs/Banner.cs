@@ -44,7 +44,7 @@ namespace Atarashii.CLI.Outputs
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write("  Program    : ");
 
-            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine(Exe.ProductName);
         }
 
@@ -56,7 +56,7 @@ namespace Atarashii.CLI.Outputs
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write("  Developers : ");
 
-            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine(Exe.CompanyName);
         }
 
@@ -68,7 +68,7 @@ namespace Atarashii.CLI.Outputs
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write("  Revision   : ");
 
-            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine(Git.Revision);
         }
     }
