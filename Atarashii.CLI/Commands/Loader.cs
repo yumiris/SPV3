@@ -15,10 +15,12 @@ namespace Atarashii.CLI.Commands
         {
             Exit.IfNoArgs(args);
 
-            switch (args[0])
+            var command = args[0].ToLower();
+
+            switch (command)
             {
                 case "load":
-                    Message.Show($"Invoked the load command on {args[0]}.", Message.Type.Info);
+                    Message.Show($"Invoked the load command on '{args[1]}'.", Message.Type.Info);
                     HandleLoadCommand(RemoveComFromArgs(args));
                     break;
                 case "detect":
