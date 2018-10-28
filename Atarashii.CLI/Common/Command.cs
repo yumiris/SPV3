@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Atarashii.CLI.Outputs;
 
 namespace Atarashii.CLI.Common
@@ -18,6 +19,20 @@ namespace Atarashii.CLI.Common
             "opensauce",
             "profile"
         };
+
+        /// <summary>
+        ///     Removes the command (first argument) from an arguments array.
+        /// </summary>
+        /// <param name="args">
+        ///     Arguments array to remove the command from.
+        /// </param>
+        /// <returns>
+        ///     Arguments array without the command.
+        /// </returns>
+        protected static string[] RemoveComFromArgs(string[] args)
+        {
+            return args.Skip(1).ToArray();
+        }
 
         protected static class Exit
         {

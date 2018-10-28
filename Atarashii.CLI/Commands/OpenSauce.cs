@@ -10,7 +10,7 @@ namespace Atarashii.CLI.Commands
         public static void Initiate(string[] args)
         {
             Exit.IfNoArgs(args);
-            Message.Show("Invoked installation to " + args[0], Message.Type.Info);
+            Message.Show($"Invoked installation to '{args[0]}'", Message.Type.Info);
 
             var installer = new InstallerFactory(args[0]).Get();
             var installerState = installer.Verify();

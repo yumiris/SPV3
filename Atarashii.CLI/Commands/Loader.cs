@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using Atarashii.CLI.Common;
 using Atarashii.CLI.Outputs;
@@ -19,8 +18,8 @@ namespace Atarashii.CLI.Commands
             switch (args[0])
             {
                 case "load":
-                    Message.Show("Invoked the load command.", Message.Type.Info);
-                    HandleLoadCommand(args);
+                    Message.Show($"Invoked the load command on {args[0]}.", Message.Type.Info);
+                    HandleLoadCommand(RemoveComFromArgs(args));
                     break;
                 case "detect":
                     Message.Show("Invoked the detect command.", Message.Type.Info);
@@ -32,11 +31,11 @@ namespace Atarashii.CLI.Commands
             }
         }
 
-        private static void HandleLoadCommand(IReadOnlyList<string> args)
+        private static void HandleLoadCommand(string[] args)
         {
-            if (args.Count < 2) Exit.WithError("No arguments provided for the load command.", 1);
+            Exit.IfNoArgs(args);
 
-            var executable = new Executable(args[1]);
+            var executable = new Executable(args[0]);
             var executableState = executable.Verify();
 
             if (!executableState.IsValid) Exit.WithError(executableState.Reason, 5);
@@ -45,7 +44,7 @@ namespace Atarashii.CLI.Commands
 
             try
             {
-                new Executable(args[1]).Load();
+                executable.Load();
                 Message.Show("The specified executable has been loaded.", Message.Type.Success);
             }
             catch (LoaderException e)
