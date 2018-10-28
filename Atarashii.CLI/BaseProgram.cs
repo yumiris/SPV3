@@ -9,24 +9,6 @@ namespace Atarashii.CLI
     /// </summary>
     public abstract class BaseProgram
     {
-        protected enum MessageType
-        {
-            /// <summary>
-            ///     Represents a successful step.
-            /// </summary>
-            Success,
-
-            /// <summary>
-            ///     Represents an informative message.
-            /// </summary>
-            Info,
-
-            /// <summary>
-            ///     Represents an error message which should outputted to STDERR.
-            /// </summary>
-            Error
-        }
-
         /// <summary>
         ///     File information of the calling assembly.
         /// </summary>
@@ -106,7 +88,7 @@ namespace Atarashii.CLI
             // left decoration
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write("  [");
-            
+
             // output code (HALT, INFO, etc.)
             Console.ForegroundColor = codeColour;
             Console.Write($" {codeNaming} ");
@@ -146,6 +128,24 @@ namespace Atarashii.CLI
         {
             ShowMessage(error, MessageType.Error);
             Environment.Exit(code);
+        }
+
+        protected enum MessageType
+        {
+            /// <summary>
+            ///     Represents a successful step.
+            /// </summary>
+            Success,
+
+            /// <summary>
+            ///     Represents an informative message.
+            /// </summary>
+            Info,
+
+            /// <summary>
+            ///     Represents an error message which should outputted to STDERR.
+            /// </summary>
+            Error
         }
     }
 }
