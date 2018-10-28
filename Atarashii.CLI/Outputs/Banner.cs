@@ -6,17 +6,6 @@ namespace Atarashii.CLI.Outputs
     public class Banner : Output
     {
         /// <summary>
-        ///     CLI-friendly ASCII art banner.
-        /// </summary>
-        private static string Art => @"
-         _                      _     _ _ 
-    __ _| |_ __ _ _ __ __ _ ___| |__ (_|_)
-   / _` | __/ _` | '__/ _` / __| '_ \| | |
-  | (_| | || (_| | | | (_| \__ \ | | | | |
-   \__,_|\__\__,_|_|  \__,_|___/_| |_|_|_|
-";
-
-        /// <summary>
         ///     Outputs the banner to the CLI.
         /// </summary>
         public static void Show()
@@ -25,6 +14,7 @@ namespace Atarashii.CLI.Outputs
             ShowProductName();
             ShowCompanyName();
             ShowGitRevision();
+            ShowProgramHelp();
         }
 
         /// <summary>
@@ -33,7 +23,7 @@ namespace Atarashii.CLI.Outputs
         private static void ShowAsciiBanner()
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine(Art);
+            WriteLineMulti(ReadFromResource("Atarashii.CLI.BANNER"));
         }
 
         /// <summary>
@@ -42,10 +32,10 @@ namespace Atarashii.CLI.Outputs
         private static void ShowProductName()
         {
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write("  Program    : ");
+            Write("Program    : ");
 
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine(Exe.ProductName);
+            WriteLine(Exe.ProductName);
         }
 
         /// <summary>
@@ -54,10 +44,10 @@ namespace Atarashii.CLI.Outputs
         private static void ShowCompanyName()
         {
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write("  Developers : ");
+            Write("Developers : ");
 
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine(Exe.CompanyName);
+            WriteLine(Exe.CompanyName);
         }
 
         /// <summary>
@@ -66,10 +56,19 @@ namespace Atarashii.CLI.Outputs
         private static void ShowGitRevision()
         {
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write("  Revision   : ");
+            Write("Revision   : ");
 
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine(Git.Revision);
+            WriteLine(Git.Revision);
+        }
+
+        /// <summary>
+        ///     Shows CLI help text.
+        /// </summary>
+        private static void ShowProgramHelp()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            WriteLineMulti(ReadFromResource("Atarashii.CLI.USAGE.md"));
         }
     }
 }
