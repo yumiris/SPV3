@@ -1,13 +1,11 @@
-using System;
+﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 
 namespace Atarashii.CLI
 {
-    /// <summary>
-    ///     Abstract with shared methods for CLI Programs.
-    /// </summary>
-    public abstract class BaseProgram
+    internal class Program
     {
         /// <summary>
         ///     File information of the calling assembly.
@@ -28,6 +26,30 @@ namespace Atarashii.CLI
   Program    : {Info.ProductName}
   Developers : {Info.CompanyName}
 ";
+
+        public static void Main(string[] args)
+        {
+            ShowBanner();
+            ExitIfNilArgs(args);
+
+            var commandArgs = args.Skip(1).ToArray();
+
+            switch (args[0].ToLower())
+            {
+                case "loader":
+                    Loader.Initiate(commandArgs);
+                    break;
+                case "opensauce":
+                    OpenSauce.Initiate(commandArgs);
+                    break;
+                case "profile":
+                    Profile.Initiate(commandArgs);
+                    break;
+                default:
+                    ExitWithError("Invalid command provided.", 1);
+                    break;
+            }
+        }
 
         /// <summary>
         ///     Outputs the banner to the CLI.
@@ -130,6 +152,9 @@ namespace Atarashii.CLI
             Environment.Exit(code);
         }
 
+        /// <summary>
+        ///     Various message types that are outputted in the console.
+        /// </summary>
         protected enum MessageType
         {
             /// <summary>

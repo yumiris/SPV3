@@ -8,8 +8,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("yumiris")]
-[assembly: AssemblyProduct("Atarashii.CLI")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyProduct("The Atarashii CLI")]
+[assembly: AssemblyCopyright("Copyright © 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("65E2E7A0-A9F5-40F9-B40C-EE777DA57BE6")]
+[assembly: Guid("4F18217D-AB00-49A9-B1D6-8125CD89BC51")]
 
 // Version information for an assembly consists of the following four values:
 //

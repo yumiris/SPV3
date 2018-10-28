@@ -1,15 +1,15 @@
 ﻿using System;
 using System.IO;
-using Atarashii.CLI;
+using Atarashii.Profile;
 
-namespace Atarashii.Profile.CLI
+namespace Atarashii.CLI
 {
     /// <summary>
     ///     CLI front-end for loading a lastprof.txt file.
     /// </summary>
-    internal class Program : BaseProgram
+    internal class Profile : Program
     {
-        public static void Main(string[] args)
+        public static void Initiate(string[] args)
         {
             ShowBanner();
             ExitIfNilArgs(args);
@@ -28,7 +28,7 @@ namespace Atarashii.Profile.CLI
 
             try
             {
-                string result = new Lastprof(File.ReadAllText(args[0])).Parse();
+                var result = new Lastprof(File.ReadAllText(args[0])).Parse();
                 ShowMessage("Profile name successfully parsed:", MessageType.Success);
                 Console.WriteLine(result);
             }

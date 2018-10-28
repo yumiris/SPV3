@@ -4,8 +4,8 @@
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{65E2E7A0-A9F5-40F9-B40C-EE777DA57BE6}</ProjectGuid>
-        <OutputType>Library</OutputType>
+        <ProjectGuid>{4F18217D-AB00-49A9-B1D6-8125CD89BC51}</ProjectGuid>
+        <OutputType>Exe</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
         <RootNamespace>Atarashii.CLI</RootNamespace>
         <AssemblyName>Atarashii.CLI</AssemblyName>
@@ -31,6 +31,9 @@
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
+    <PropertyGroup>
+        <ApplicationIcon>icon.ico</ApplicationIcon>
+    </PropertyGroup>
     <ItemGroup>
         <Reference Include="System"/>
         <Reference Include="System.Core"/>
@@ -38,15 +41,27 @@
         <Reference Include="System.Xml"/>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="BaseProgram.cs"/>
+        <Compile Include="Loader.cs"/>
+        <Compile Include="OpenSauce.cs"/>
+        <Compile Include="Profile.cs"/>
+        <Compile Include="Program.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Atarashii\Atarashii.csproj">
+            <Project>{9665535f-b184-41f6-ac56-85db14fd3b79}</Project>
+            <Name>Atarashii</Name>
+        </ProjectReference>
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="icon.ico"/>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-             Other similar extension points exist, see Microsoft.Common.targets.
-        <Target Name="BeforeBuild">
-        </Target>
-        <Target Name="AfterBuild">
-        </Target>
-        -->
+           Other similar extension points exist, see Microsoft.Common.targets.
+      <Target Name="BeforeBuild">
+      </Target>
+      <Target Name="AfterBuild">
+      </Target>
+      -->
 </Project>

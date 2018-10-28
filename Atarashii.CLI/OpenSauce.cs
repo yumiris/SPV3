@@ -1,16 +1,15 @@
 ﻿using System;
-using Atarashii.CLI;
+using Atarashii.OpenSauce;
 
-namespace Atarashii.OpenSauce.CLI
+namespace Atarashii.CLI
 {
-    internal class Program : BaseProgram
+    internal class OpenSauce : Program
     {
-        public static void Main(string[] args)
+        public static void Initiate(string[] args)
         {
-            ShowBanner();
             ExitIfNilArgs(args);
             ShowMessage("Invoked installation to " + args[0], MessageType.Info);
-            
+
             var installer = new InstallerFactory(args[0]).Get();
             var installerState = installer.Verify();
 

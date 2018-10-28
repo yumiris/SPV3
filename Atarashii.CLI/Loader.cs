@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Atarashii.CLI;
+using Atarashii.Loader;
 
-namespace Atarashii.Loader.CLI
+namespace Atarashii.CLI
 {
     /// <summary>
     ///     CLI front-end for loading a HCE executable.
     /// </summary>
-    internal class Program : BaseProgram
+    internal class Loader : Program
     {
-        public static void Main(string[] args)
+        public static void Initiate(string[] args)
         {
-            ShowBanner();
             ExitIfNilArgs(args);
 
             switch (args[0])
