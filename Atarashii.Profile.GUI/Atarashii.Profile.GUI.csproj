@@ -90,10 +90,6 @@
             <Project>{90f5884d-d0ac-451b-9796-34a8d3caef4c}</Project>
             <Name>Atarashii.GUI</Name>
         </ProjectReference>
-        <ProjectReference Include="..\Atarashii.Profile\Atarashii.Profile.csproj">
-            <Project>{c3997233-10dc-4bac-b402-ab4ac3f2e50e}</Project>
-            <Name>Atarashii.Profile</Name>
-        </ProjectReference>
         <ProjectReference Include="..\Atarashii\Atarashii.csproj">
             <Project>{9665535f-b184-41f6-ac56-85db14fd3b79}</Project>
             <Name>Atarashii</Name>

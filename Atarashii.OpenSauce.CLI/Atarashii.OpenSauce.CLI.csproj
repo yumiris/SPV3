@@ -49,10 +49,6 @@
             <Project>{65e2e7a0-a9f5-40f9-b40c-ee777da57be6}</Project>
             <Name>Atarashii.CLI</Name>
         </ProjectReference>
-        <ProjectReference Include="..\Atarashii.OpenSauce\Atarashii.OpenSauce.csproj">
-            <Project>{93b4f105-d49e-499e-8058-ef8e3d81a464}</Project>
-            <Name>Atarashii.OpenSauce</Name>
-        </ProjectReference>
         <ProjectReference Include="..\Atarashii\Atarashii.csproj">
             <Project>{9665535f-b184-41f6-ac56-85db14fd3b79}</Project>
             <Name>Atarashii</Name>
@@ -63,10 +59,10 @@
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-               Other similar extension points exist, see Microsoft.Common.targets.
-          <Target Name="BeforeBuild">
-          </Target>
-          <Target Name="AfterBuild">
-          </Target>
-          -->
+                 Other similar extension points exist, see Microsoft.Common.targets.
+            <Target Name="BeforeBuild">
+            </Target>
+            <Target Name="AfterBuild">
+            </Target>
+            -->
 </Project>
