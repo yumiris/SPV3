@@ -1,17 +1,10 @@
 using System;
-using System.Diagnostics;
-using System.Reflection;
+using Atarashii.CLI.Common;
 
-namespace Atarashii.CLI
+namespace Atarashii.CLI.Outputs
 {
-    public static class Banner
+    public class Banner : Output
     {
-        /// <summary>
-        ///     File information of the calling assembly.
-        /// </summary>
-        private static readonly FileVersionInfo Info =
-            FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location);
-
         /// <summary>
         ///     CLI-friendly ASCII art banner.
         /// </summary>
@@ -29,7 +22,7 @@ namespace Atarashii.CLI
         /// <summary>
         ///     Outputs the banner to the CLI.
         /// </summary>
-        public static void ShowBanner()
+        public static void Show()
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine(Art);

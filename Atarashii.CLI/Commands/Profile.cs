@@ -1,17 +1,19 @@
 ﻿using System;
 using System.IO;
+using Atarashii.CLI.Common;
+using Atarashii.CLI.Outputs;
 using Atarashii.Profile;
 
-namespace Atarashii.CLI
+namespace Atarashii.CLI.Commands
 {
     /// <summary>
     ///     CLI front-end for loading a lastprof.txt file.
     /// </summary>
-    internal class Profile : Program
+    internal class Profile : Command
     {
         public static void Initiate(string[] args)
         {
-            Banner.ShowBanner();
+            Banner.Show();
             Exit.IfNoArgs(args);
             Message.Show("Invoked parsing of " + args[0], Message.Type.Info);
 

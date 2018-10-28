@@ -1,9 +1,11 @@
 ﻿using System;
+using Atarashii.CLI.Common;
+using Atarashii.CLI.Outputs;
 using Atarashii.OpenSauce;
 
-namespace Atarashii.CLI
+namespace Atarashii.CLI.Commands
 {
-    internal class OpenSauce : Program
+    internal class OpenSauce : Command
     {
         public static void Initiate(string[] args)
         {

@@ -1,20 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using Atarashii.CLI.Common;
+using Atarashii.CLI.Outputs;
 
 namespace Atarashii.CLI
 {
-    internal class Program
+    internal class Program : Command
     {
-        /// <summary>
-        ///     Available invokable commands.
-        /// </summary>
-        private static readonly List<string> Commands = new List<string>
-        {
-            "loader",
-            "opensauce",
-            "profile"
-        };
-
         /// <summary>
         ///     Main entry to the Atarashii CLI.
         /// </summary>
@@ -26,28 +17,28 @@ namespace Atarashii.CLI
         /// </param>
         public static void Main(string[] coms)
         {
-            Banner.ShowBanner();
+            Banner.Show();
             Exit.IfNoArgs(coms);
 
             var command = coms[0].ToLower();
 
-            if (!Commands.Contains(command)) Exit.WithError("Invalid command provided.", 1);
+            if (!Available.Contains(command)) Exit.WithError("Invalid command provided.", 1);
 
             var args = coms.Skip(1).ToArray();
 
             switch (command)
             {
                 case "loader":
-                    Loader.Initiate(args);
+                    Commands.Loader.Initiate(args);
                     break;
                 case "opensauce":
-                    OpenSauce.Initiate(args);
+                    Commands.OpenSauce.Initiate(args);
                     break;
                 case "profile":
-                    Profile.Initiate(args);
+                    Commands.Profile.Initiate(args);
                     break;
                 default:
-                    Loader.Initiate(args);
+                    Commands.Loader.Initiate(args);
                     break;
             }
         }

@@ -41,12 +41,13 @@
     <Reference Include="System.Xml"/>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Banner.cs"/>
-    <Compile Include="Exit.cs"/>
-    <Compile Include="Loader.cs"/>
-    <Compile Include="Message.cs"/>
-    <Compile Include="OpenSauce.cs"/>
-    <Compile Include="Profile.cs"/>
+    <Compile Include="Commands\Loader.cs"/>
+    <Compile Include="Commands\OpenSauce.cs"/>
+    <Compile Include="Commands\Profile.cs"/>
+    <Compile Include="Common\Command.cs"/>
+    <Compile Include="Common\Output.cs"/>
+    <Compile Include="Outputs\Banner.cs"/>
+    <Compile Include="Outputs\Message.cs"/>
     <Compile Include="Program.cs"/>
     <Compile Include="Properties\AssemblyInfo.cs"/>
   </ItemGroup>

@@ -1,9 +1,10 @@
 using System;
 using System.Reflection;
+using Atarashii.CLI.Common;
 
-namespace Atarashii.CLI
+namespace Atarashii.CLI.Outputs
 {
-    public static class Message
+    public class Message : Output
     {
         /// <summary>
         ///     Various message types that are outputted in the console.
