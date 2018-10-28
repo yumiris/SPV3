@@ -31,10 +31,10 @@ namespace Atarashii.CLI
                 case "loader":
                     Commands.Loader.Initiate(args);
                     break;
-                case "opensauce":
+                case "opensauce install":
                     Commands.OpenSauce.Initiate(args);
                     break;
-                case "profile":
+                case "profile resolve":
                     Commands.Profile.Initiate(args);
                     break;
                 default:
