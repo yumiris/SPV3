@@ -15,8 +15,9 @@ namespace Atarashii.CLI.Outputs
   | (_| | || (_| | | | (_| \__ \ | | | | |
    \__,_|\__\__,_|_|  \__,_|___/_| |_|_|_|
 
-  Program    : {Info.ProductName}
-  Developers : {Info.CompanyName}
+  Program    : {Exe.ProductName}
+  Developers : {Exe.CompanyName}
+  Revision   : {Git.Revision}
 ";
 
         /// <summary>
