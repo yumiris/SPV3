@@ -22,9 +22,11 @@ namespace Atarashii.CLI.Commands
             var lastprof = new Lastprof(File.ReadAllText(args[0]));
             var lastprofState = lastprof.Verify();
 
-            if (!lastprofState.IsValid) Exit.WithError(lastprofState.Reason, 2);
+            if (lastprofState.IsValid)
+                Message.Show("Lastrof verification has passed.", Message.Type.Success);
+            else
+                Exit.WithError(lastprofState.Reason, 2);
 
-            Message.Show("Lastrof verification has passed.", Message.Type.Success);
 
             try
             {

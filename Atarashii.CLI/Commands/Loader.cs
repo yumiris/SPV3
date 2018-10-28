@@ -40,9 +40,10 @@ namespace Atarashii.CLI.Commands
             var executable = new Executable(args[0]);
             var executableState = executable.Verify();
 
-            if (!executableState.IsValid) Exit.WithError(executableState.Reason, 5);
-
-            Message.Show("Executable verification has passed.", Message.Type.Success);
+            if (executableState.IsValid)
+                Message.Show("Executable verification has passed.", Message.Type.Success);
+            else
+                Exit.WithError(executableState.Reason, 5);
 
             try
             {

@@ -15,9 +15,11 @@ namespace Atarashii.CLI.Commands
             var installer = new InstallerFactory(args[0]).Get();
             var installerState = installer.Verify();
 
-            if (!installerState.IsValid) Exit.WithError(installerState.Reason, 4);
+            if (installerState.IsValid)
+                Message.Show("Installer verification has passed.", Message.Type.Success);
+            else
+                Exit.WithError(installerState.Reason, 4);
 
-            Message.Show("Installer verification has passed.", Message.Type.Success);
 
             try
             {
