@@ -9,7 +9,7 @@ namespace Atarashii.CLI
     /// </summary>
     public abstract class BaseProgram
     {
-        public enum MessageType
+        protected enum MessageType
         {
             /// <summary>
             ///     Represents a successful step.
@@ -36,7 +36,7 @@ namespace Atarashii.CLI
         /// <summary>
         ///     CLI-friendly ASCII art banner.
         /// </summary>
-        protected static string Banner => $@"
+        private static string Banner => $@"
          _                      _     _ _ 
     __ _| |_ __ _ _ __ __ _ ___| |__ (_|_)
    / _` | __/ _` | '__/ _` / __| '_ \| | |
@@ -96,17 +96,22 @@ namespace Atarashii.CLI
 
             if (isErrorMsg)
             {
+                // indent without altering error message
                 Console.Write("  ");
                 Console.Error.WriteLine(message);
             }
 
             Console.WriteLine(string.Empty);
 
-            // output code (HALT, INFO, etc.)
+            // left decoration
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write("  [");
+            
+            // output code (HALT, INFO, etc.)
             Console.ForegroundColor = codeColour;
             Console.Write($" {codeNaming} ");
+
+            // right decoration
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write("] |");
             Console.Write($" {Assembly.GetEntryAssembly().GetName().Name} ");
