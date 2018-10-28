@@ -7,7 +7,7 @@ namespace Atarashii.CLI
     {
         public static void Initiate(string[] args)
         {
-            ExitIfNilArgs(args);
+            ExitIfNoArgs(args);
             ShowMessage("Invoked installation to " + args[0], MessageType.Info);
 
             var installer = new InstallerFactory(args[0]).Get();

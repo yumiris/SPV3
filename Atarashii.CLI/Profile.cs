@@ -12,7 +12,7 @@ namespace Atarashii.CLI
         public static void Initiate(string[] args)
         {
             ShowBanner();
-            ExitIfNilArgs(args);
+            ExitIfNoArgs(args);
             ShowMessage("Invoked parsing of " + args[0], MessageType.Info);
 
             if (!File.Exists(args[0]))

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -7,6 +8,51 @@ namespace Atarashii.CLI
 {
     internal class Program
     {
+        private readonly static List<string> Commands = new List<string>
+        {
+            "loader",
+            "opensauce",
+            "profile"
+        };
+        
+        /// <summary>
+        ///     Main entry to the Atarashii CLI.
+        /// </summary>
+        /// <param name="coms">
+        ///    The command to invoke. Available commands:
+        ///    - loader
+        ///    - opensauce
+        ///    - profile
+        /// </param>
+        public static void Main(string[] coms)
+        {
+            ShowBanner();
+            ExitIfNoArgs(coms);
+
+            var command = coms[0].ToLower();
+            
+            if (!Commands.Contains(command))
+                ExitWithError("Invalid command provided.", 1);
+
+            var args = coms.Skip(1).ToArray();
+
+            switch (command)
+            {
+                case "loader":
+                    Loader.Initiate(args);
+                    break;
+                case "opensauce":
+                    OpenSauce.Initiate(args);
+                    break;
+                case "profile":
+                    Profile.Initiate(args);
+                    break;
+                default:
+                    Loader.Initiate(args);
+                    break;
+            }
+        }
+        
         /// <summary>
         ///     File information of the calling assembly.
         /// </summary>
@@ -26,30 +72,6 @@ namespace Atarashii.CLI
   Program    : {Info.ProductName}
   Developers : {Info.CompanyName}
 ";
-
-        public static void Main(string[] args)
-        {
-            ShowBanner();
-            ExitIfNilArgs(args);
-
-            var commandArgs = args.Skip(1).ToArray();
-
-            switch (args[0].ToLower())
-            {
-                case "loader":
-                    Loader.Initiate(commandArgs);
-                    break;
-                case "opensauce":
-                    OpenSauce.Initiate(commandArgs);
-                    break;
-                case "profile":
-                    Profile.Initiate(commandArgs);
-                    break;
-                default:
-                    ExitWithError("Invalid command provided.", 1);
-                    break;
-            }
-        }
 
         /// <summary>
         ///     Outputs the banner to the CLI.
@@ -132,7 +154,7 @@ namespace Atarashii.CLI
         /// <param name="args">
         ///     Arguments to check the length of.
         /// </param>
-        protected static void ExitIfNilArgs(string[] args)
+        protected static void ExitIfNoArgs(string[] args)
         {
             if (args.Length == 0) ExitWithError("No arguments provided.", 1);
         }

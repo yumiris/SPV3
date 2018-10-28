@@ -12,7 +12,7 @@ namespace Atarashii.CLI
     {
         public static void Initiate(string[] args)
         {
-            ExitIfNilArgs(args);
+            ExitIfNoArgs(args);
 
             switch (args[0])
             {
