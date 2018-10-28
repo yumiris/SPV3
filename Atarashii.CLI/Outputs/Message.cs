@@ -74,21 +74,33 @@ namespace Atarashii.CLI.Outputs
 
             Console.WriteLine(string.Empty);
 
-            // left decoration
+            ShowDecoration(codeColour, codeNaming);
+            ShowMessage(message);
+        }
+
+        /// <summary>
+        ///     Outputs the decorative message code & assembly name.
+        /// </summary>
+        private static void ShowDecoration(ConsoleColor codeColour, string codeNaming)
+        {
+            // message code
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write("  [");
-
-            // output code (HALT, INFO, etc.)
             Console.ForegroundColor = codeColour;
             Console.Write($" {codeNaming} ");
 
-            // right decoration
+            // assembly name
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write("] |");
             Console.Write($" {Assembly.GetEntryAssembly().GetName().Name} ");
             Console.Write("|");
+        }
 
-            // output actual message 
+        /// <summary>
+        ///     Outputs the actual message.
+        /// </summary>
+        private static void ShowMessage(string message)
+        {
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write(" " + message);
         }

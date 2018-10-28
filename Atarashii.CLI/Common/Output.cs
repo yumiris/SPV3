@@ -25,7 +25,9 @@ namespace Atarashii.CLI.Common
                 {
                     using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(RevisionFile))
                     using (var reader = new StreamReader(stream))
+                    {
                         return reader.ReadToEnd();
+                    }
                 }
             }
         }
