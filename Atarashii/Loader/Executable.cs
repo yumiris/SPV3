@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using System.IO;
 
@@ -52,12 +53,13 @@ namespace Atarashii.Loader
         ///     The specified executable was not found.
         ///     - or -
         ///     The specified executable is deemed invalid.
+        ///     - or -
+        ///     Could not infer executable name from the path.
+        ///     - or -
+        ///     Could not infer working directory from the path.
         /// </exception>
         public void Load(bool verify = true)
         {
-            if (!File.Exists(Path))
-                throw new LoaderException("The specified executable was not found.");
-
             if (verify)
             {
                 var state = Verify();
@@ -69,8 +71,10 @@ namespace Atarashii.Loader
             {
                 StartInfo =
                 {
-                    FileName = Path,
-                    WorkingDirectory = System.IO.Path.GetDirectoryName(Path) ?? string.Empty
+                    FileName = System.IO.Path.GetFileName(Path) ??
+                               throw new LoaderException("Could not infer executable name from the path."),
+                    WorkingDirectory = System.IO.Path.GetDirectoryName(Path) ??
+                                       throw new LoaderException("Could not infer working directory from the path.")
                 }
             }.Start();
         }
