@@ -12,49 +12,47 @@ namespace Atarashii.CLI
     {
         public static void Initiate(string[] args)
         {
-            ExitIfNoArgs(args);
+            Exit.IfNoArgs(args);
 
             switch (args[0])
             {
                 case "load":
-                    ShowMessage("Invoked the load command.", MessageType.Info);
+                    Message.Show("Invoked the load command.", Message.Type.Info);
                     HandleLoadCommand(args);
                     break;
                 case "detect":
-                    ShowMessage("Invoked the detect command.", MessageType.Info);
+                    Message.Show("Invoked the detect command.", Message.Type.Info);
                     HandleDetectCommand();
                     break;
                 default:
-                    ExitWithError("Invalid arguments provided.", 2);
+                    Exit.WithError("Invalid arguments provided.", 2);
                     break;
             }
         }
 
         private static void HandleLoadCommand(IReadOnlyList<string> args)
         {
-            if (args.Count < 2)
-                ExitWithError("No arguments provided for the load command.", 1);
+            if (args.Count < 2) Exit.WithError("No arguments provided for the load command.", 1);
 
             var executable = new Executable(args[1]);
             var executableState = executable.Verify();
 
-            if (!executableState.IsValid)
-                ExitWithError(executableState.Reason, 5);
+            if (!executableState.IsValid) Exit.WithError(executableState.Reason, 5);
 
-            ShowMessage("Executable verification has passed.", MessageType.Success);
+            Message.Show("Executable verification has passed.", Message.Type.Success);
 
             try
             {
                 new Executable(args[1]).Load();
-                ShowMessage("The specified executable has been loaded.", MessageType.Success);
+                Message.Show("The specified executable has been loaded.", Message.Type.Success);
             }
             catch (LoaderException e)
             {
-                ExitWithError(e.Message, 3);
+                Exit.WithError(e.Message, 3);
             }
             catch (Exception e)
             {
-                ExitWithError(e.Message, 4);
+                Exit.WithError(e.Message, 4);
             }
 
             Environment.Exit(0);

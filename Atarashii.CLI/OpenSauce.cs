@@ -7,29 +7,28 @@ namespace Atarashii.CLI
     {
         public static void Initiate(string[] args)
         {
-            ExitIfNoArgs(args);
-            ShowMessage("Invoked installation to " + args[0], MessageType.Info);
+            Exit.IfNoArgs(args);
+            Message.Show("Invoked installation to " + args[0], Message.Type.Info);
 
             var installer = new InstallerFactory(args[0]).Get();
             var installerState = installer.Verify();
 
-            if (!installerState.IsValid)
-                ExitWithError(installerState.Reason, 4);
+            if (!installerState.IsValid) Exit.WithError(installerState.Reason, 4);
 
-            ShowMessage("Installer verification has passed.", MessageType.Success);
+            Message.Show("Installer verification has passed.", Message.Type.Success);
 
             try
             {
                 installer.Install();
-                ShowMessage("OpenSauce has been successfully installed.", MessageType.Success);
+                Message.Show("OpenSauce has been successfully installed.", Message.Type.Success);
             }
             catch (OpenSauceException e)
             {
-                ExitWithError(e.Message, 2);
+                Exit.WithError(e.Message, 2);
             }
             catch (Exception e)
             {
-                ExitWithError(e.Message, 3);
+                Exit.WithError(e.Message, 3);
             }
         }
     }

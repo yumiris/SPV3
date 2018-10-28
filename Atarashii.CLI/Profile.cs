@@ -11,30 +11,28 @@ namespace Atarashii.CLI
     {
         public static void Initiate(string[] args)
         {
-            ShowBanner();
-            ExitIfNoArgs(args);
-            ShowMessage("Invoked parsing of " + args[0], MessageType.Info);
+            Banner.ShowBanner();
+            Exit.IfNoArgs(args);
+            Message.Show("Invoked parsing of " + args[0], Message.Type.Info);
 
-            if (!File.Exists(args[0]))
-                ExitWithError("Given lastprof file does not exist.", 1);
+            if (!File.Exists(args[0])) Exit.WithError("Given lastprof file does not exist.", 1);
 
             var lastprof = new Lastprof(File.ReadAllText(args[0]));
             var lastprofState = lastprof.Verify();
 
-            if (!lastprofState.IsValid)
-                ExitWithError(lastprofState.Reason, 2);
+            if (!lastprofState.IsValid) Exit.WithError(lastprofState.Reason, 2);
 
-            ShowMessage("Lastrof verification has passed.", MessageType.Success);
+            Message.Show("Lastrof verification has passed.", Message.Type.Success);
 
             try
             {
                 var result = new Lastprof(File.ReadAllText(args[0])).Parse();
-                ShowMessage("Profile name successfully parsed:", MessageType.Success);
+                Message.Show("Profile name successfully parsed:", Message.Type.Success);
                 Console.WriteLine(result);
             }
             catch (ProfileException e)
             {
-                ExitWithError(e.Message, 3);
+                Exit.WithError(e.Message, 3);
             }
         }
     }
