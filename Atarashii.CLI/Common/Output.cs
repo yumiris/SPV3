@@ -9,7 +9,7 @@ namespace Atarashii.CLI.Common
     ///     Abstract type representing console output data.
     /// </summary>
     public abstract class Output
-    {   
+    {
         /// <summary>
         ///     File information of the calling assembly.
         /// </summary>
@@ -17,21 +17,13 @@ namespace Atarashii.CLI.Common
             FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location);
 
         /// <summary>
-        ///     Git repository information.
-        /// </summary>
-        protected static class Git
-        {
-            public static string Revision => ReadFromResource("Atarashii.CLI.REVISION");
-        }
-
-        /// <summary>
         ///     Reads data from an embedded resource.
         /// </summary>
         /// <param name="resourceName">
-        ///    Fully qualified embedded resource name.
+        ///     Fully qualified embedded resource name.
         /// </param>
         /// <returns>
-        ///    Data read from the embedded resource.
+        ///     Data read from the embedded resource.
         /// </returns>
         protected static string ReadFromResource(string resourceName)
         {
@@ -46,7 +38,7 @@ namespace Atarashii.CLI.Common
         ///     Writes an indented line to the console.
         /// </summary>
         /// <param name="value">
-        ///    Value to write.
+        ///     Value to write.
         /// </param>
         protected static void Write(string value)
         {
@@ -57,7 +49,7 @@ namespace Atarashii.CLI.Common
         ///     Writes an indented line to the console w/ newline at the end.
         /// </summary>
         /// <param name="value">
-        ///    Value to write.
+        ///     Value to write.
         /// </param>
         protected static void WriteLine(string value)
         {
@@ -68,20 +60,25 @@ namespace Atarashii.CLI.Common
         ///     Indents and writes an inbound string with multiple lines.
         /// </summary>
         /// <param name="value">
-        ///    Value to write.
+        ///     Value to write.
         /// </param>
         protected static void WriteLineMulti(string value)
         {
-            using (StringReader reader = new StringReader(value))
+            using (var reader = new StringReader(value))
             {
                 string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    WriteLine(line);
-                }
+                while ((line = reader.ReadLine()) != null) WriteLine(line);
             }
-            
+
             WriteLine(string.Empty);
+        }
+
+        /// <summary>
+        ///     Git repository information.
+        /// </summary>
+        protected static class Git
+        {
+            public static string Revision => ReadFromResource("Atarashii.CLI.REVISION");
         }
     }
 }

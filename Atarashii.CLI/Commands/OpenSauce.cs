@@ -7,10 +7,30 @@ namespace Atarashii.CLI.Commands
 {
     internal class OpenSauce : Command
     {
-        public static void Initiate(string[] args)
+        private const string InstallCommand = "install";
+
+        public static void Initiate(string[] coms)
+        {
+            Exit.IfNoArgs(coms);
+
+            var command = coms[0].ToLower();
+            var args = RemoveComFromArgs(coms);
+
+            switch (command)
+            {
+                case InstallCommand:
+                    HandleInstallCommand(args);
+                    break;
+                default:
+                    Exit.WithError("Invalid arguments provided.", 2);
+                    break;
+            }
+        }
+
+        private static void HandleInstallCommand(string[] args)
         {
             Exit.IfNoArgs(args);
-            Message.Show($"Invoked installation to '{args[0]}'", Message.Type.Info);
+            Message.Show($"Invoked {InstallCommand} on '{args[0]}'.", Message.Type.Info);
 
             var installer = new InstallerFactory(args[0]).Get();
             var installerState = installer.Verify();
@@ -19,7 +39,6 @@ namespace Atarashii.CLI.Commands
                 Message.Show("Installer verification has passed.", Message.Type.Success);
             else
                 Exit.WithError(installerState.Reason, 4);
-
 
             try
             {

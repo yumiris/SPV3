@@ -1,19 +1,22 @@
-﻿using System.Linq;
-using Atarashii.CLI.Common;
+﻿using Atarashii.CLI.Common;
 using Atarashii.CLI.Outputs;
 
 namespace Atarashii.CLI
 {
     internal class Program : Command
     {
+        private const string LoaderCommand = "loader";
+        private const string OpenSauceCommand = "opensauce";
+        private const string ProfileCommand = "profile";
+
         /// <summary>
         ///     Main entry to the Atarashii CLI.
         /// </summary>
         /// <param name="coms">
         ///     The command to invoke. Available commands:
-        ///     - loader
-        ///     - opensauce
-        ///     - profile
+        ///     - loader [load/detect]
+        ///     - opensauce [install]
+        ///     - profile [resolve]
         /// </param>
         public static void Main(string[] coms)
         {
@@ -21,24 +24,21 @@ namespace Atarashii.CLI
             Exit.IfNoArgs(coms);
 
             var command = coms[0].ToLower();
-
-            if (!Available.Contains(command)) Exit.WithError("Invalid command provided.", 1);
-
-            var args = coms.Skip(1).ToArray();
+            var args = RemoveComFromArgs(coms);
 
             switch (command)
             {
-                case "loader":
+                case LoaderCommand:
                     Commands.Loader.Initiate(args);
                     break;
-                case "opensauce install":
+                case OpenSauceCommand:
                     Commands.OpenSauce.Initiate(args);
                     break;
-                case "profile resolve":
+                case ProfileCommand:
                     Commands.Profile.Initiate(args);
                     break;
                 default:
-                    Commands.Loader.Initiate(args);
+                    Exit.WithError("Invalid command provided.", 1);
                     break;
             }
         }

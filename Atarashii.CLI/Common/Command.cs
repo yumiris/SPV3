@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Atarashii.CLI.Outputs;
 
@@ -10,16 +9,6 @@ namespace Atarashii.CLI.Common
     /// </summary>
     public abstract class Command
     {
-        /// <summary>
-        ///     Available invokable commands.
-        /// </summary>
-        protected static readonly List<string> Available = new List<string>
-        {
-            "loader",
-            "opensauce",
-            "profile"
-        };
-
         /// <summary>
         ///     Removes the command (first argument) from an arguments array.
         /// </summary>

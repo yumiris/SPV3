@@ -11,20 +11,22 @@ namespace Atarashii.CLI.Commands
     /// </summary>
     internal class Loader : Command
     {
-        public static void Initiate(string[] args)
-        {
-            Exit.IfNoArgs(args);
+        private const string LoadCommand = "load";
+        private const string DetectCommand = "detect";
 
-            var command = args[0].ToLower();
+        public static void Initiate(string[] coms)
+        {
+            Exit.IfNoArgs(coms);
+
+            var command = coms[0].ToLower();
+            var args = RemoveComFromArgs(coms);
 
             switch (command)
             {
-                case "load":
-                    Message.Show($"Invoked the load command on '{args[1]}'.", Message.Type.Info);
-                    HandleLoadCommand(RemoveComFromArgs(args));
+                case LoadCommand:
+                    HandleLoadCommand(args);
                     break;
-                case "detect":
-                    Message.Show("Invoked the detect command.", Message.Type.Info);
+                case DetectCommand:
                     HandleDetectCommand();
                     break;
                 default:
@@ -36,6 +38,7 @@ namespace Atarashii.CLI.Commands
         private static void HandleLoadCommand(string[] args)
         {
             Exit.IfNoArgs(args);
+            Message.Show($"Invoked the {LoadCommand} command on '{args[0]}'.", Message.Type.Info);
 
             var executable = new Executable(args[0]);
             var executableState = executable.Verify();
@@ -64,6 +67,8 @@ namespace Atarashii.CLI.Commands
 
         private static void HandleDetectCommand()
         {
+            Message.Show($"Invoked the {DetectCommand} command.", Message.Type.Info);
+
             try
             {
                 Console.WriteLine(ExecutableFactory.Get(ExecutableFactory.Type.Detect));
