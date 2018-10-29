@@ -22,7 +22,7 @@ namespace Atarashii.CLI.Outputs
         private static void ShowAsciiBanner()
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
-            WriteLineMulti(new Resource("Atarashii.CLI.BANNER").Text);
+            WriteLineMulti(ResourceFactory.Get(ResourceFactory.Type.Banner).Text);
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Atarashii.CLI.Outputs
         private static void ShowProgramHelp()
         {
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            WriteLineMulti(new Resource("Atarashii.CLI.USAGE.md").Text);
+            WriteLineMulti(ResourceFactory.Get(ResourceFactory.Type.Usage).Text);
         }
     }
 }

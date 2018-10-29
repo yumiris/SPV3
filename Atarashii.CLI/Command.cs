@@ -9,10 +9,10 @@ namespace Atarashii.CLI
     public abstract class Command
     {
         /// <summary>
-        ///    Initialises the command logic.
+        ///     Initialises the command logic.
         /// </summary>
         /// <param name="commands">
-        ///    Additional sub-commands or arguments for the invoked command.
+        ///     Additional sub-commands or arguments for the invoked command.
         /// </param>
         public abstract void Initialise(string[] commands);
 

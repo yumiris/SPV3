@@ -5,6 +5,6 @@ namespace Atarashii.CLI
     /// </summary>
     public class Git
     {
-        public static string Revision => new Resource("Atarashii.CLI.REVISION").Text;
+        public static string Revision => ResourceFactory.Get(ResourceFactory.Type.Revision).Text;
     }
 }
