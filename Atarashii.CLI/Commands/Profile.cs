@@ -13,7 +13,7 @@ namespace Atarashii.CLI.Commands
     internal class Profile : Command
     {
         private const string ResolveCommand = "resolve";
-        
+
         private static Dictionary<string, int> Available { get; } = new Dictionary<string, int>
         {
             {ResolveCommand, 1}

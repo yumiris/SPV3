@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Schema;
 using Atarashii.CLI.Outputs;
 
 namespace Atarashii.CLI.Common
@@ -33,18 +32,18 @@ namespace Atarashii.CLI.Common
             ///     - lack the proper length defined in the correct commands
             /// </summary>
             /// <param name="commands">
-            ///    Commands to validate.
+            ///     Commands to validate.
             /// </param>
             /// <param name="correctCommands">
-            ///    Dictionary of correct commands where key = command name and value = number of required arguments.
+            ///     Dictionary of correct commands where key = command name and value = number of required arguments.
             /// </param>
             public static void IfIncorrectCommands(string[] commands, Dictionary<string, int> correctCommands)
             {
                 if (commands.Length == 0) WithError("No command provided.", 1);
-                
+
                 var validCommand = false;
                 var enoughLength = false;
-                
+
                 foreach (var correctCommand in correctCommands)
                 {
                     if (commands[0] != correctCommand.Key) continue;
@@ -53,14 +52,14 @@ namespace Atarashii.CLI.Common
                     if (commands.Length >= correctCommand.Value)
                         enoughLength = true;
                 }
-                
+
                 if (!validCommand)
                     WithError("No valid command provided.", 2);
-                
+
                 if (!enoughLength)
                     WithError("Not enough arguments provided.", 3);
             }
-            
+
             /// <summary>
             ///     Exits the program if the inbound arguments are empty.
             /// </summary>
