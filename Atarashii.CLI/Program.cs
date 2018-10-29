@@ -9,10 +9,7 @@ namespace Atarashii.CLI
         ///     Main entry to the Atarashii CLI.
         /// </summary>
         /// <param name="commands">
-        ///     The command to invoke. Available commands:
-        ///     - loader [load/detect]
-        ///     - opensauce [install]
-        ///     - profile [resolve]
+        ///     The command to invoke.
         /// </param>
         public static void Main(string[] commands)
         {

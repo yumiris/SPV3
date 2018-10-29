@@ -42,8 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\Loader.cs" />
+      <Compile Include="Commands\Loader.Detect.cs"/>
+      <Compile Include="Commands\Loader.Load.cs"/>
     <Compile Include="Commands\OpenSauce.cs" />
+      <Compile Include="Commands\OpenSauce.Install.cs"/>
     <Compile Include="Commands\Profile.cs" />
+      <Compile Include="Commands\Profile.Resolve.cs"/>
     <Compile Include="Common\Command.cs" />
       <Compile Include="Common\Exit.cs"/>
     <Compile Include="Common\Output.cs" />
