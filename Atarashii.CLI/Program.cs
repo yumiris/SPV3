@@ -1,22 +1,10 @@
-﻿using System.Collections.Generic;
-using Atarashii.CLI.Common;
+﻿using Atarashii.CLI.Common;
 using Atarashii.CLI.Outputs;
 
 namespace Atarashii.CLI
 {
     internal class Program : Command
     {
-        private const string LoaderCommand = "loader";
-        private const string OpenSauceCommand = "opensauce";
-        private const string ProfileCommand = "profile";
-
-        private static Dictionary<string, int> Available { get; } = new Dictionary<string, int>
-        {
-            {LoaderCommand, 0},
-            {OpenSauceCommand, 0},
-            {ProfileCommand, 0}
-        };
-
         /// <summary>
         ///     Main entry to the Atarashii CLI.
         /// </summary>
@@ -29,24 +17,23 @@ namespace Atarashii.CLI
         public static void Main(string[] commands)
         {
             Banner.Show();
-            Exit.IfIncorrectCommands(commands, Available);
+            Exit.IfNoArgs(commands);
 
-            var command = commands[0].ToLower();
             var args = RemoveComFromArgs(commands);
 
-            switch (command)
+            switch (commands[0])
             {
-                case LoaderCommand:
-                    Commands.Loader.Initiate(args);
+                case nameof(Commands.Loader):
+                    Commands.Loader.Initialise(args);
                     break;
-                case OpenSauceCommand:
-                    Commands.OpenSauce.Initiate(args);
+                case nameof(Commands.OpenSauce):
+                    Commands.OpenSauce.Initialise(args);
                     break;
-                case ProfileCommand:
-                    Commands.Profile.Initiate(args);
+                case nameof(Commands.Profile):
+                    Commands.Profile.Initialise(args);
                     break;
                 default:
-                    Exit.WithError("Invalid command provided.", 1);
+                    Exit.WithError($"Invalid '{nameof(Program)}' command given.", 1);
                     break;
             }
         }

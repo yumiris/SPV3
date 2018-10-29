@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using Atarashii.CLI.Common;
 using Atarashii.CLI.Outputs;
@@ -12,76 +11,82 @@ namespace Atarashii.CLI.Commands
     /// </summary>
     internal class Loader : Command
     {
-        private const string LoadCommand = "load";
-        private const string DetectCommand = "detect";
-
-        private static Dictionary<string, int> Available { get; } = new Dictionary<string, int>
+        public static void Initialise(string[] commands)
         {
-            {LoadCommand, 1},
-            {DetectCommand, 0}
-        };
+            Exit.IfNoArgs(commands);
 
-        public static void Initiate(string[] commands)
-        {
-            Exit.IfIncorrectCommands(commands, Available);
-
-            var command = commands[0].ToLower();
             var args = RemoveComFromArgs(commands);
 
-            switch (command)
+            switch (commands[0])
             {
-                case LoadCommand:
-                    HandleLoadCommand(args);
+                case nameof(Load):
+                    ShowInvokeMessage(nameof(OpenSauce), nameof(Load));
+                    Load.Initialise(args);
                     break;
-                case DetectCommand:
-                    HandleDetectCommand();
+                case nameof(Detect):
+                    ShowInvokeMessage(nameof(OpenSauce), nameof(Detect));
+                    Detect.Initialise();
+                    break;
+                default:
+                    Exit.WithError($"Invalid '{nameof(Loader)}' command given.", 1);
                     break;
             }
         }
 
-        private static void HandleLoadCommand(string[] args)
+        /// <summary>
+        ///     HCE executable loading sub-command.
+        /// </summary>
+        private static class Load
         {
-            Exit.IfNoArgs(args);
-            Message.Show($"Invoked the {LoadCommand} command on '{args[0]}'.", Message.Type.Info);
-
-            var executable = new Executable(args[0]);
-            var executableState = executable.Verify();
-
-            if (executableState.IsValid)
-                Message.Show("Executable verification has passed.", Message.Type.Success);
-            else
-                Exit.WithError(executableState.Reason, 5);
-
-            try
+            public static void Initialise(string[] args)
             {
-                executable.Load();
-                Message.Show("The specified executable has been loaded.", Message.Type.Success);
-            }
-            catch (LoaderException e)
-            {
-                Exit.WithError(e.Message, 3);
-            }
-            catch (Exception e)
-            {
-                Exit.WithError(e.Message, 4);
-            }
+                Exit.IfNoArgs(args);
 
-            Environment.Exit(0);
-        }
+                Message.Show($"Invoked {nameof(Load)} command on '{args[0]}'.", Message.Type.Info);
 
-        private static void HandleDetectCommand()
-        {
-            Message.Show($"Invoked the {DetectCommand} command.", Message.Type.Info);
+                var executable = new Executable(args[0]);
+                var executableState = executable.Verify();
 
-            try
-            {
-                Console.WriteLine(ExecutableFactory.Get(ExecutableFactory.Type.Detect));
+                if (executableState.IsValid)
+                    Message.Show("Executable verification has passed.", Message.Type.Success);
+                else
+                    Exit.WithError(executableState.Reason, 5);
+
+                try
+                {
+                    executable.Load();
+                    Message.Show("The specified executable has been loaded.", Message.Type.Success);
+                }
+                catch (LoaderException e)
+                {
+                    Exit.WithError(e.Message, 3);
+                }
+                catch (Exception e)
+                {
+                    Exit.WithError(e.Message, 4);
+                }
+
                 Environment.Exit(0);
             }
-            catch (FileNotFoundException e)
+        }
+
+        /// <summary>
+        ///     HCE executable detection sub-command.
+        /// </summary>
+        private static class Detect
+        {
+            public static void Initialise()
             {
-                Exit.WithError(e.Message, 3);
-                Environment.Exit(5);
+                try
+                {
+                    Console.WriteLine(ExecutableFactory.Get(ExecutableFactory.Type.Detect));
+                    Environment.Exit(0);
+                }
+                catch (FileNotFoundException e)
+                {
+                    Exit.WithError(e.Message, 3);
+                    Environment.Exit(5);
+                }
             }
         }
     }

@@ -45,6 +45,7 @@
     <Compile Include="Commands\OpenSauce.cs" />
     <Compile Include="Commands\Profile.cs" />
     <Compile Include="Common\Command.cs" />
+      <Compile Include="Common\Exit.cs"/>
     <Compile Include="Common\Output.cs" />
     <Compile Include="Outputs\Banner.cs" />
     <Compile Include="Outputs\Message.cs" />
