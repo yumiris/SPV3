@@ -1,9 +1,8 @@
 using System.Linq;
-using Atarashii.CLI.Common;
 
 namespace Atarashii.CLI
 {
-    public class Args
+    public static class Argument
     {
         /// <summary>
         ///     Removes the command (first argument) from an arguments array.
@@ -25,7 +24,7 @@ namespace Atarashii.CLI
         /// <param name="args">
         ///     Arguments to check the length of.
         /// </param>
-        public static void ExitWhenNone(string[] args)
+        public static void ExitIfNone(string[] args)
         {
             if (args.Length - 1 <= 0) Exit.WithError("No arguments provided.", 1);
         }

@@ -1,6 +1,5 @@
 using System;
 using System.Reflection;
-using Atarashii.CLI.Common;
 
 namespace Atarashii.CLI.Outputs
 {

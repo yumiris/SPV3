@@ -1,12 +1,14 @@
 using Atarashii.CLI.Outputs;
 
-namespace Atarashii.CLI.Common
+namespace Atarashii.CLI
 {
     /// <summary>
     ///     Abstract type representing an invokable Atarashii CLI command.
     /// </summary>
     public abstract class Command
     {
+        public abstract void Initialise(string[] commands);
+        
         /// <summary>
         ///     Informs the user which commands they've invoked.
         /// </summary>

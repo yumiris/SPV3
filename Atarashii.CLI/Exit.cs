@@ -1,7 +1,7 @@
 using System;
 using Atarashii.CLI.Outputs;
 
-namespace Atarashii.CLI.Common
+namespace Atarashii.CLI
 {
     public static class Exit
     {

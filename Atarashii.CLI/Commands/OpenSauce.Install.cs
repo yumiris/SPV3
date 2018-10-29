@@ -1,5 +1,4 @@
 ﻿using System;
-using Atarashii.CLI.Common;
 using Atarashii.CLI.Outputs;
 using Atarashii.OpenSauce;
 
@@ -7,14 +6,15 @@ namespace Atarashii.CLI.Commands
 {
     internal partial class OpenSauce
     {
+        /// <inheritdoc />
         /// <summary>
         ///     OpenSauce installation sub-command.
         /// </summary>
-        private static class Install
+        private class Install : Command
         {
-            public static void Initialise(string[] args)
+            public override void Initialise(string[] args)
             {
-                Args.ExitWhenNone(args);
+                Argument.ExitIfNone(args);
 
                 var installer = new InstallerFactory(args[0]).Get();
                 var installerState = installer.Verify();

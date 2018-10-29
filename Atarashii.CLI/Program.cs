@@ -1,5 +1,4 @@
-﻿using Atarashii.CLI.Common;
-using Atarashii.CLI.Outputs;
+﻿using Atarashii.CLI.Outputs;
 
 namespace Atarashii.CLI
 {
@@ -14,23 +13,15 @@ namespace Atarashii.CLI
         public static void Main(string[] commands)
         {
             Banner.Show();
-            Args.ExitWhenNone(commands);
-            var args = Args.FromCommand(commands);
+            Argument.ExitIfNone(commands);
 
-            switch (commands[0])
+            try
             {
-                case nameof(Commands.Loader):
-                    Commands.Loader.Initialise(args);
-                    break;
-                case nameof(Commands.OpenSauce):
-                    Commands.OpenSauce.Initialise(args);
-                    break;
-                case nameof(Commands.Profile):
-                    Commands.Profile.Initialise(args);
-                    break;
-                default:
-                    Exit.WithError($"Invalid '{nameof(Program)}' command given.", 1);
-                    break;
+                CommandFactory.Get(commands[0]).Initialise(Argument.FromCommand(commands));
+            }
+            catch (CommandFactoryException e)
+            {
+                Exit.WithError(e.Message, 1);
             }
         }
     }

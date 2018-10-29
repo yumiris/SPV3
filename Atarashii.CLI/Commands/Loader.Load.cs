@@ -1,5 +1,4 @@
 ﻿using System;
-using Atarashii.CLI.Common;
 using Atarashii.CLI.Outputs;
 using Atarashii.Loader;
 
@@ -7,16 +6,15 @@ namespace Atarashii.CLI.Commands
 {
     internal partial class Loader
     {
+        /// <inheritdoc />
         /// <summary>
         ///     HCE executable loading sub-command.
         /// </summary>
-        private static class Load
+        private class Load : Command
         {
-            public static void Initialise(string[] args)
+            public override void Initialise(string[] args)
             {
-                Args.ExitWhenNone(args);
-
-                Message.Show($"Invoked {nameof(Load)} command on '{args[0]}'.", Message.Type.Info);
+                Argument.ExitIfNone(args);
 
                 var executable = new Executable(args[0]);
                 var executableState = executable.Verify();

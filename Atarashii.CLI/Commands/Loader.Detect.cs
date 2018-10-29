@@ -1,18 +1,18 @@
 ﻿using System;
 using System.IO;
-using Atarashii.CLI.Common;
 using Atarashii.Loader;
 
 namespace Atarashii.CLI.Commands
 {
     internal partial class Loader
     {
+        /// <inheritdoc />
         /// <summary>
         ///     HCE executable detection sub-command.
         /// </summary>
-        private static class Detect
+        private class Detect : Command
         {
-            public static void Initialise()
+            public override void Initialise(string[] commands)
             {
                 try
                 {

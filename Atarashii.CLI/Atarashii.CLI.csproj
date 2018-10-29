@@ -41,7 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-      <Compile Include="Args.cs"/>
+      <Compile Include="Argument.cs"/>
+      <Compile Include="Command.cs"/>
+      <Compile Include="CommandFactory.cs"/>
+      <Compile Include="CommandFactoryException.cs"/>
     <Compile Include="Commands\Loader.cs" />
       <Compile Include="Commands\Loader.Detect.cs"/>
       <Compile Include="Commands\Loader.Load.cs"/>
@@ -49,9 +52,8 @@
       <Compile Include="Commands\OpenSauce.Install.cs"/>
     <Compile Include="Commands\Profile.cs" />
       <Compile Include="Commands\Profile.Resolve.cs"/>
-    <Compile Include="Common\Command.cs" />
-      <Compile Include="Common\Exit.cs"/>
-    <Compile Include="Common\Output.cs" />
+      <Compile Include="Exit.cs"/>
+      <Compile Include="Output.cs"/>
     <Compile Include="Outputs\Banner.cs" />
     <Compile Include="Outputs\Message.cs" />
     <Compile Include="Program.cs" />

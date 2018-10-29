@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 
-namespace Atarashii.CLI.Common
+namespace Atarashii.CLI
 {
     /// <summary>
     ///     Abstract type representing console output data.
