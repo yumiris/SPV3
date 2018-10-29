@@ -26,7 +26,7 @@ namespace Atarashii.CLI
         /// </param>
         public static void ExitIfNone(string[] args)
         {
-            if (args.Length - 1 <= 0) Exit.WithError("No arguments provided.", 1);
+            if (args.Length == 0) Exit.WithError("Not enough or commands arguments provided.", 1);
         }
     }
 }

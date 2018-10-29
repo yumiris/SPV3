@@ -11,11 +11,11 @@
             switch (commands[0])
             {
                 case nameof(Install):
-                    ShowInvokeMessage(nameof(OpenSauce), nameof(Install));
+                    HandleInvokeType(InvokeType.Success, this, nameof(Install));
                     new Install().Initialise(args);
                     break;
                 default:
-                    Exit.WithError($"Invalid '{nameof(OpenSauce)}' command given.", 1);
+                    HandleInvokeType(InvokeType.Invalid, this, commands[0]);
                     break;
             }
         }

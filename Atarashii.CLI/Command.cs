@@ -1,3 +1,4 @@
+using System;
 using Atarashii.CLI.Outputs;
 
 namespace Atarashii.CLI
@@ -7,20 +8,46 @@ namespace Atarashii.CLI
     /// </summary>
     public abstract class Command
     {
+        /// <summary>
+        ///    Initialises the command logic.
+        /// </summary>
+        /// <param name="commands">
+        ///    Additional sub-commands or arguments for the invoked command.
+        /// </param>
         public abstract void Initialise(string[] commands);
-        
+
         /// <summary>
         ///     Informs the user which commands they've invoked.
         /// </summary>
-        /// <param name="command">
-        ///     Command they've invoked.
-        /// </param>
-        /// <param name="subCommand">
-        ///     Sub-command they've invoked.
-        /// </param>
-        protected static void ShowInvokeMessage(string command, string subCommand)
+        protected static void HandleInvokeType(InvokeType type, object mainCommand, string subCommand)
         {
-            Message.Show($"Invoked the '{command}.{subCommand}' command.", Message.Type.Info);
+            switch (type)
+            {
+                case InvokeType.Success:
+                    Message.Show($"Invoked command '{mainCommand.GetType().Name}.{subCommand}'.", Message.Type.Info);
+                    break;
+                case InvokeType.Invalid:
+                    Exit.WithError($"Invoked command '{mainCommand.GetType().Name}.{subCommand}' is invalid.", 2);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
+            }
+        }
+
+        /// <summary>
+        ///     Types of command invokes.
+        /// </summary>
+        protected enum InvokeType
+        {
+            /// <summary>
+            ///     User has successfully invoked a valid command.
+            /// </summary>
+            Success,
+
+            /// <summary>
+            ///     User has invoked an invalid command.
+            /// </summary>
+            Invalid
         }
     }
 }

@@ -14,11 +14,11 @@
             switch (commands[0])
             {
                 case nameof(Resolve):
-                    ShowInvokeMessage(nameof(Profile), nameof(Resolve));
+                    HandleInvokeType(InvokeType.Success, this, nameof(Resolve));
                     new Resolve().Initialise(args);
                     break;
                 default:
-                    Exit.WithError($"Invalid '{nameof(Profile)}' command given.", 1);
+                    HandleInvokeType(InvokeType.Invalid, this, commands[0]);
                     break;
             }
         }

@@ -1,5 +1,3 @@
-using System;
-
 namespace Atarashii.CLI
 {
     public class CommandFactory
@@ -15,7 +13,7 @@ namespace Atarashii.CLI
                 case nameof(Commands.Profile):
                     return new Commands.Profile();
                 default:
-                    throw new ArgumentException("Invalid command given.");
+                    throw new CommandFactoryException("Invalid command given.");
             }
         }
     }

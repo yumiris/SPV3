@@ -14,15 +14,15 @@
             switch (commands[0])
             {
                 case nameof(Load):
-                    ShowInvokeMessage(nameof(Loader), nameof(Load));
+                    HandleInvokeType(InvokeType.Success, this, nameof(Load));
                     new Load().Initialise(args);
                     break;
                 case nameof(Detect):
-                    ShowInvokeMessage(nameof(Loader), nameof(Detect));
+                    HandleInvokeType(InvokeType.Success, this, nameof(Detect));
                     new Detect().Initialise(args);
                     break;
                 default:
-                    Exit.WithError($"Invalid '{nameof(Loader)}' command given.", 1);
+                    HandleInvokeType(InvokeType.Invalid, this, commands[0]);
                     break;
             }
         }
