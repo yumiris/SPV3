@@ -91,7 +91,7 @@ namespace Atarashii.CLI.Outputs
             // assembly name
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write("] |");
-            Console.Write($" {Assembly.GetEntryAssembly().GetName().Name} ");
+            Console.Write($" {System.Reflection.Assembly.GetEntryAssembly().GetName().Name} ");
             Console.Write("|");
         }
 

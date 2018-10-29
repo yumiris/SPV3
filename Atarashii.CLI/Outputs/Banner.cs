@@ -22,7 +22,7 @@ namespace Atarashii.CLI.Outputs
         private static void ShowAsciiBanner()
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
-            WriteLineMulti(ReadFromResource("Atarashii.CLI.BANNER"));
+            WriteLineMulti(new Resource("Atarashii.CLI.BANNER").Text);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace Atarashii.CLI.Outputs
             Write("Program    : ");
 
             Console.ForegroundColor = ConsoleColor.Cyan;
-            WriteLine(Exe.ProductName);
+            WriteLine(Assembly.ProductName);
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Atarashii.CLI.Outputs
             Write("Developers : ");
 
             Console.ForegroundColor = ConsoleColor.Cyan;
-            WriteLine(Exe.CompanyName);
+            WriteLine(Assembly.CompanyName);
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Atarashii.CLI.Outputs
         private static void ShowProgramHelp()
         {
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            WriteLineMulti(ReadFromResource("Atarashii.CLI.USAGE.md"));
+            WriteLineMulti(new Resource("Atarashii.CLI.USAGE.md").Text);
         }
     }
 }

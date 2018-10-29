@@ -11,30 +11,6 @@ namespace Atarashii.CLI
     public abstract class Output
     {
         /// <summary>
-        ///     File information of the calling assembly.
-        /// </summary>
-        protected static readonly FileVersionInfo Exe =
-            FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location);
-
-        /// <summary>
-        ///     Reads data from an embedded resource.
-        /// </summary>
-        /// <param name="resourceName">
-        ///     Fully qualified embedded resource name.
-        /// </param>
-        /// <returns>
-        ///     Data read from the embedded resource.
-        /// </returns>
-        protected static string ReadFromResource(string resourceName)
-        {
-            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
-            using (var reader = new StreamReader(stream))
-            {
-                return reader.ReadToEnd();
-            }
-        }
-
-        /// <summary>
         ///     Writes an indented line to the console.
         /// </summary>
         /// <param name="value">
@@ -71,14 +47,6 @@ namespace Atarashii.CLI
             }
 
             WriteLine(string.Empty);
-        }
-
-        /// <summary>
-        ///     Git repository information.
-        /// </summary>
-        protected static class Git
-        {
-            public static string Revision => ReadFromResource("Atarashii.CLI.REVISION");
         }
     }
 }
