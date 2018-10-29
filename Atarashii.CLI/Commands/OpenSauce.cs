@@ -6,8 +6,8 @@ namespace Atarashii.CLI.Commands
     {
         public static void Initialise(string[] commands)
         {
-            Exit.IfNoArgs(commands);
-            var args = RemoveComFromArgs(commands);
+            Args.ExitWhenNone(commands);
+            var args = Args.FromCommand(commands);
 
             switch (commands[0])
             {

@@ -15,7 +15,7 @@ namespace Atarashii.CLI.Commands
         {
             public static void Initialise(string[] args)
             {
-                Exit.IfNoArgs(args);
+                Args.ExitWhenNone(args);
 
                 if (!File.Exists(args[0])) Exit.WithError("Given lastprof file does not exist.", 1);
 

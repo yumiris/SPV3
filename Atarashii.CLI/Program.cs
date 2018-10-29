@@ -3,7 +3,7 @@ using Atarashii.CLI.Outputs;
 
 namespace Atarashii.CLI
 {
-    internal class Program : Command
+    internal class Program
     {
         /// <summary>
         ///     Main entry to the Atarashii CLI.
@@ -14,9 +14,8 @@ namespace Atarashii.CLI
         public static void Main(string[] commands)
         {
             Banner.Show();
-            Exit.IfNoArgs(commands);
-
-            var args = RemoveComFromArgs(commands);
+            Args.ExitWhenNone(commands);
+            var args = Args.FromCommand(commands);
 
             switch (commands[0])
             {

@@ -14,7 +14,7 @@ namespace Atarashii.CLI.Commands
         {
             public static void Initialise(string[] args)
             {
-                Exit.IfNoArgs(args);
+                Args.ExitWhenNone(args);
 
                 var installer = new InstallerFactory(args[0]).Get();
                 var installerState = installer.Verify();

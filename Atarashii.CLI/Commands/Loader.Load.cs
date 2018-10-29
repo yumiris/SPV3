@@ -14,7 +14,7 @@ namespace Atarashii.CLI.Commands
         {
             public static void Initialise(string[] args)
             {
-                Exit.IfNoArgs(args);
+                Args.ExitWhenNone(args);
 
                 Message.Show($"Invoked {nameof(Load)} command on '{args[0]}'.", Message.Type.Info);
 

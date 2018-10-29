@@ -6,17 +6,6 @@ namespace Atarashii.CLI.Common
     public static class Exit
     {
         /// <summary>
-        ///     Exits the program if the inbound arguments are empty.
-        /// </summary>
-        /// <param name="args">
-        ///     Arguments to check the length of.
-        /// </param>
-        public static void IfNoArgs(string[] args)
-        {
-            if (args.Length == 0) WithError("No arguments provided.", 1);
-        }
-
-        /// <summary>
         ///     Writes the inbound error message to STDERR, and ends the application process with a given exit code.
         /// </summary>
         /// <param name="error">
