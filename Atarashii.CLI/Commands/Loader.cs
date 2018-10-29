@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Atarashii.CLI.Common;
 using Atarashii.CLI.Outputs;
@@ -14,12 +15,18 @@ namespace Atarashii.CLI.Commands
         private const string LoadCommand = "load";
         private const string DetectCommand = "detect";
 
-        public static void Initiate(string[] coms)
+        private static Dictionary<string, int> Available { get; } = new Dictionary<string, int>
         {
-            Exit.IfNoArgs(coms);
+            {LoadCommand, 1},
+            {DetectCommand, 0}
+        };
 
-            var command = coms[0].ToLower();
-            var args = RemoveComFromArgs(coms);
+        public static void Initiate(string[] commands)
+        {
+            Exit.IfIncorrectCommands(commands, Available);
+
+            var command = commands[0].ToLower();
+            var args = RemoveComFromArgs(commands);
 
             switch (command)
             {
@@ -28,9 +35,6 @@ namespace Atarashii.CLI.Commands
                     break;
                 case DetectCommand:
                     HandleDetectCommand();
-                    break;
-                default:
-                    Exit.WithError("Invalid arguments provided.", 2);
                     break;
             }
         }
@@ -76,7 +80,7 @@ namespace Atarashii.CLI.Commands
             }
             catch (FileNotFoundException e)
             {
-                Console.Error.WriteLine(e.Message);
+                Exit.WithError(e.Message, 3);
                 Environment.Exit(5);
             }
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Atarashii.CLI.Common;
 using Atarashii.CLI.Outputs;
@@ -12,13 +13,18 @@ namespace Atarashii.CLI.Commands
     internal class Profile : Command
     {
         private const string ResolveCommand = "resolve";
-
-        public static void Initiate(string[] coms)
+        
+        private static Dictionary<string, int> Available { get; } = new Dictionary<string, int>
         {
-            Exit.IfNoArgs(coms);
+            {ResolveCommand, 1}
+        };
 
-            var command = coms[0].ToLower();
-            var args = RemoveComFromArgs(coms);
+        public static void Initiate(string[] commands)
+        {
+            Exit.IfIncorrectCommands(commands, Available);
+
+            var command = commands[0].ToLower();
+            var args = RemoveComFromArgs(commands);
 
             switch (command)
             {

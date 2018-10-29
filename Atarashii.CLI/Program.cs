@@ -1,4 +1,5 @@
-﻿using Atarashii.CLI.Common;
+﻿using System.Collections.Generic;
+using Atarashii.CLI.Common;
 using Atarashii.CLI.Outputs;
 
 namespace Atarashii.CLI
@@ -9,22 +10,29 @@ namespace Atarashii.CLI
         private const string OpenSauceCommand = "opensauce";
         private const string ProfileCommand = "profile";
 
+        private static Dictionary<string, int> Available { get; } = new Dictionary<string, int>
+        {
+            {LoaderCommand, 0},
+            {OpenSauceCommand, 0},
+            {ProfileCommand, 0}
+        };
+
         /// <summary>
         ///     Main entry to the Atarashii CLI.
         /// </summary>
-        /// <param name="coms">
+        /// <param name="commands">
         ///     The command to invoke. Available commands:
         ///     - loader [load/detect]
         ///     - opensauce [install]
         ///     - profile [resolve]
         /// </param>
-        public static void Main(string[] coms)
+        public static void Main(string[] commands)
         {
             Banner.Show();
-            Exit.IfNoArgs(coms);
+            Exit.IfIncorrectCommands(commands, Available);
 
-            var command = coms[0].ToLower();
-            var args = RemoveComFromArgs(coms);
+            var command = commands[0].ToLower();
+            var args = RemoveComFromArgs(commands);
 
             switch (command)
             {
