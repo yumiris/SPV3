@@ -66,7 +66,7 @@ namespace Atarashii.CLI.Outputs
         /// </summary>
         private static void ShowProgramHelp()
         {
-            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.ForegroundColor = ConsoleColor.Gray;
             WriteLineMulti(ResourceFactory.Get(ResourceFactory.Type.Usage).Text);
         }
     }
