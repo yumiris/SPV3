@@ -22,15 +22,15 @@ namespace Atarashii.CLI.Commands
             switch (commands[0])
             {
                 case nameof(Load):
-                    OutputMessage(Output.Type.Success, "Invoked the Loader.Load command.");
+                    Info("Invoked the Loader.Load command.");
                     Load(args);
                     break;
                 case nameof(Detect):
-                    OutputMessage(Output.Type.Success, "Invoked the Loader.Detect command.");
+                    Info("Invoked the Loader.Detect command.");
                     Detect();
                     break;
                 default:
-                    OutputMessage(Output.Type.Error, "Invoked an invalid Load command.");
+                    Fail("Invoked an invalid Load command.", 1);
                     break;
             }
         }
@@ -43,14 +43,14 @@ namespace Atarashii.CLI.Commands
             var executableState = executable.Verify();
 
             if (executableState.IsValid)
-                OutputMessage(Output.Type.Success, "Executable verification has passed.");
+                Pass("Executable verification has passed.");
             else
-                Exit.WithError(executableState.Reason, 5);
+                Fail(executableState.Reason, 5);
 
             try
             {
                 executable.Load();
-                OutputMessage(Output.Type.Success, "The specified executable has been loaded.");
+                Pass("The specified executable has been loaded.");
             }
             catch (LoaderException e)
             {
@@ -66,19 +66,18 @@ namespace Atarashii.CLI.Commands
 
         private void Detect()
         {
-            OutputMessage(Output.Type.Info, "Attempting to detect executable path.");
+            Info("Attempting to detect executable path.");
 
             try
             {
                 var result = ExecutableFactory.Get(ExecutableFactory.Type.Detect);
-                OutputMessage(Output.Type.Success, "Profile name successfully parsed:");
+                Pass("Profile name successfully parsed:");
                 Console.WriteLine(result);
                 Environment.Exit(0);
             }
             catch (FileNotFoundException e)
             {
-                Exit.WithError(e.Message, 3);
-                Environment.Exit(5);
+                Fail(e.Message, 3);
             }
         }
     }

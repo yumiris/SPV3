@@ -18,11 +18,11 @@ namespace Atarashii.CLI.Commands
             switch (commands[0])
             {
                 case nameof(Install):
-                    OutputMessage(Output.Type.Success, "Invoked the OpenSauce.Install command.");
+                    Info("Invoked the OpenSauce.Install command.");
                     Install(args);
                     break;
                 default:
-                    OutputMessage(Output.Type.Error, "Invoked an invalid OpenSauce command.");
+                    Fail("Invoked an invalid OpenSauce command.", 2);
                     break;
             }
         }
@@ -35,22 +35,22 @@ namespace Atarashii.CLI.Commands
             var installerState = installer.Verify();
 
             if (installerState.IsValid)
-                OutputMessage(Output.Type.Success, "Installer verification has passed.");
+                Pass("Installer verification has passed.");
             else
-                Exit.WithError(installerState.Reason, 4);
+                Fail(installerState.Reason, 4);
 
             try
             {
                 installer.Install();
-                OutputMessage(Output.Type.Success, "OpenSauce has been successfully installed.");
+                Pass("OpenSauce has been successfully installed.");
             }
             catch (OpenSauceException e)
             {
-                Exit.WithError(e.Message, 2);
+                Fail(e.Message, 2);
             }
             catch (Exception e)
             {
-                Exit.WithError(e.Message, 3);
+                Fail(e.Message, 3);
             }
         }
     }

@@ -22,9 +22,41 @@ namespace Atarashii.CLI
         /// </param>
         public abstract void Initialise(string[] commands);
 
-        protected void OutputMessage(Output.Type type, string message)
+        /// <summary>
+        ///     Outputs a Type.Success message.
+        /// </summary>
+        /// <param name="message">
+        ///     Message to write.
+        /// </param>
+        protected void Pass(string message)
         {
-            _output?.Write(type, Executable.Name, message);
+            _output?.Write(Output.Type.Success, Executable.Name, message);
+        }
+
+        /// <summary>
+        ///     Outputs a Type.Info message.
+        /// </summary>
+        /// <param name="message">
+        ///     Message to write.
+        /// </param>
+        protected void Info(string message)
+        {
+            _output?.Write(Output.Type.Info, Executable.Name, message);
+        }
+
+        /// <summary>
+        ///     Outputs the inbound error code and exits the application.
+        /// </summary>
+        /// <param name="message">
+        ///     Message to output.
+        /// </param>
+        /// <param name="code">
+        ///     Error code to use for exiting.
+        /// </param>
+        protected void Fail(string message, int code)
+        {
+            _output?.Write(Output.Type.Error, Executable.Name, message);
+            Exit.WithError(message, code);
         }
     }
 }
