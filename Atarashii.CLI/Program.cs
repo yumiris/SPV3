@@ -17,7 +17,7 @@ namespace Atarashii.CLI
 
             try
             {
-                CommandFactory.Get(commands[0]).Initialise(Argument.FromCommand(commands));
+                CommandFactory.Get(commands[0], new CliOutput()).Initialise(Argument.FromCommand(commands));
             }
             catch (CommandFactoryException e)
             {

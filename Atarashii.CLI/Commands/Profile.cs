@@ -6,6 +6,13 @@
     /// </summary>
     internal partial class Profile : Command
     {
+        private readonly Atarashii.Output _output;
+
+        public Profile(Atarashii.Output output)
+        {
+            _output = output;
+        }
+
         public override void Initialise(string[] commands)
         {
             Argument.ExitIfNone(commands);
@@ -15,7 +22,7 @@
             {
                 case nameof(Resolve):
                     HandleInvokeType(InvokeType.Success, this, nameof(Resolve));
-                    new Resolve().Initialise(args);
+                    new Resolve(_output).Initialise(args);
                     break;
                 default:
                     HandleInvokeType(InvokeType.Invalid, this, commands[0]);

@@ -1,5 +1,6 @@
 ﻿using System;
 using Atarashii.CLI.Outputs;
+using Atarashii.Loader;
 using Atarashii.OpenSauce;
 
 namespace Atarashii.CLI.Commands
@@ -12,6 +13,13 @@ namespace Atarashii.CLI.Commands
         /// </summary>
         private class Install : Command
         {
+            private readonly Atarashii.Output _output;
+
+            public Install(Atarashii.Output output)
+            {
+                _output = output;
+            }
+
             public override void Initialise(string[] args)
             {
                 Argument.ExitIfNone(args);
@@ -20,14 +28,16 @@ namespace Atarashii.CLI.Commands
                 var installerState = installer.Verify();
 
                 if (installerState.IsValid)
-                    Message.Show("Installer verification has passed.", Message.Type.Success);
+                    _output?.Write(Atarashii.Output.Type.Success, $"{nameof(OpenSauce)}::{nameof(Install)}",
+                        "Installer verification has passed.");
                 else
                     Exit.WithError(installerState.Reason, 4);
 
                 try
                 {
                     installer.Install();
-                    Message.Show("OpenSauce has been successfully installed.", Message.Type.Success);
+                    _output?.Write(Atarashii.Output.Type.Success,  $"{nameof(OpenSauce)}::{nameof(Install)}",
+                        "OpenSauce has been successfully installed.");
                 }
                 catch (OpenSauceException e)
                 {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Atarashii.CLI.Outputs;
+using Atarashii.Loader;
 using Atarashii.Profile;
 
 namespace Atarashii.CLI.Commands
@@ -13,6 +14,13 @@ namespace Atarashii.CLI.Commands
         /// </summary>
         private class Resolve : Command
         {
+            private readonly Atarashii.Output _output;
+
+            public Resolve(Atarashii.Output output)
+            {
+                _output = output;
+            }
+
             public override void Initialise(string[] args)
             {
                 Argument.ExitIfNone(args);
@@ -23,14 +31,16 @@ namespace Atarashii.CLI.Commands
                 var lastprofState = lastprof.Verify();
 
                 if (lastprofState.IsValid)
-                    Message.Show("Lastrof verification has passed.", Message.Type.Success);
+                    _output.Write(Atarashii.Output.Type.Success, $"{nameof(Profile)}::{nameof(Resolve)}",
+                        "Lastrof verification has passed.");
                 else
                     Exit.WithError(lastprofState.Reason, 2);
 
                 try
                 {
                     var result = new Lastprof(File.ReadAllText(args[0])).Parse();
-                    Message.Show("Profile name successfully parsed:", Message.Type.Success);
+                    _output.Write(Atarashii.Output.Type.Success, $"{nameof(Profile)}::{nameof(Resolve)}",
+                        "Profile name successfully parsed:");
                     Console.WriteLine(result);
                 }
                 catch (ProfileException e)

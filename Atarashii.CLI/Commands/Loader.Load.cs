@@ -12,6 +12,13 @@ namespace Atarashii.CLI.Commands
         /// </summary>
         private class Load : Command
         {
+            private readonly Atarashii.Output _output;
+
+            public Load(Atarashii.Output output)
+            {
+                _output = output;
+            }
+
             public override void Initialise(string[] args)
             {
                 Argument.ExitIfNone(args);
@@ -20,14 +27,16 @@ namespace Atarashii.CLI.Commands
                 var executableState = executable.Verify();
 
                 if (executableState.IsValid)
-                    Message.Show("Executable verification has passed.", Message.Type.Success);
+                    _output?.Write(Atarashii.Output.Type.Success, $"{nameof(Loader)}::{nameof(Load)}",
+                        "Executable verification has passed.");
                 else
                     Exit.WithError(executableState.Reason, 5);
 
                 try
                 {
                     executable.Load();
-                    Message.Show("The specified executable has been loaded.", Message.Type.Success);
+                    _output?.Write(Atarashii.Output.Type.Success, Assembly.ProductName,
+                        "The specified executable has been loaded.");
                 }
                 catch (LoaderException e)
                 {

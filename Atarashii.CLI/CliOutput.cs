@@ -25,21 +25,18 @@ namespace Atarashii.CLI
 
             // write code
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write(" [ ");
+            Console.Write("  [ ");
             Console.ForegroundColor = code.Colour;
             Console.Write(code.Value);
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write(" ] ");
 
             // write subject
-            Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write("| ");
-            Console.ForegroundColor = ConsoleColor.White;
             Console.Write(subject);
+            Console.Write("\t| ");
 
             // write message
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write(" | ");
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write(message);
         }

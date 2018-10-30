@@ -24,7 +24,8 @@ namespace Atarashii.CLI
             switch (type)
             {
                 case InvokeType.Success:
-                    Message.Show($"Invoked command '{mainCommand.GetType().Name}.{subCommand}'.", Message.Type.Info);
+                    new CliOutput().Write(Atarashii.Output.Type.Success, $"{mainCommand.GetType().Name}.{subCommand}",
+                        "Invoked command.");
                     break;
                 case InvokeType.Invalid:
                     Exit.WithError($"Invoked command '{mainCommand.GetType().Name}.{subCommand}' is invalid.", 2);

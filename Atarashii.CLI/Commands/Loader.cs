@@ -6,6 +6,13 @@
     /// </summary>
     internal partial class Loader : Command
     {
+        private readonly Atarashii.Output _output;
+
+        public Loader(Atarashii.Output output)
+        {
+            _output = output;
+        }
+
         public override void Initialise(string[] commands)
         {
             Argument.ExitIfNone(commands);
@@ -15,11 +22,11 @@
             {
                 case nameof(Load):
                     HandleInvokeType(InvokeType.Success, this, nameof(Load));
-                    new Load().Initialise(args);
+                    new Load(_output).Initialise(args);
                     break;
                 case nameof(Detect):
                     HandleInvokeType(InvokeType.Success, this, nameof(Detect));
-                    new Detect().Initialise(args);
+                    new Detect(_output).Initialise(args);
                     break;
                 default:
                     HandleInvokeType(InvokeType.Invalid, this, commands[0]);
