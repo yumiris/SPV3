@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 
 namespace Atarashii.CLI
 {
@@ -39,6 +40,69 @@ namespace Atarashii.CLI
             // write message
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write(message);
+        }
+
+        /// <summary>
+        ///     Outputs the banner to the CLI.
+        /// </summary>
+        public static void WriteBanner()
+        {
+            void WriteFromResource(Resource resource)
+            {
+                using (var reader = new StringReader(resource.Text))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null) Console.WriteLine("  " + line);
+                }
+
+                Console.WriteLine(string.Empty);
+            }
+
+            void ShowAsciiBanner()
+            {
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                WriteFromResource(ResourceFactory.Get(ResourceFactory.Type.Banner));
+                Console.WriteLine(string.Empty);
+            }
+
+            void ShowProductName()
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.Write("  Program    : ");
+
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("  " + Assembly.ProductName);
+            }
+
+            void ShowCompanyName()
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.Write("  Developers : ");
+
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("  " + Assembly.CompanyName);
+            }
+
+            void ShowGitRevision()
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.Write("  Revision   : ");
+
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("  " + Git.Revision);
+            }
+
+            void ShowProgramHelp()
+            {
+                Console.ForegroundColor = ConsoleColor.Gray;
+                WriteFromResource(ResourceFactory.Get(ResourceFactory.Type.Usage));
+            }
+
+            ShowAsciiBanner();
+            ShowProductName();
+            ShowCompanyName();
+            ShowGitRevision();
+            ShowProgramHelp();
         }
 
         /// <summary>

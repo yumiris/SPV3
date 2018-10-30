@@ -12,11 +12,11 @@ namespace Atarashii.CLI
         /// </param>
         public static void Main(string[] commands)
         {
-            Banner.Show();
+            CliOutput.WriteBanner();
 
             try
             {
-                CommandFactory.Get(commands[0], new CliOutput()).Initialise(Command.FromCommand(commands));
+                CommandFactory.Get(commands[0], new CliOutput()).Initialise(Command.GetArguments(commands));
             }
             catch (IndexOutOfRangeException)
             {

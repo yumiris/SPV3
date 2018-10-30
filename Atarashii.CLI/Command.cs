@@ -80,7 +80,7 @@ namespace Atarashii.CLI
         /// <returns>
         ///     Arguments array without the command.
         /// </returns>
-        public static string[] FromCommand(string[] command)
+        public static string[] GetArguments(string[] command)
         {
             return command.Skip(1).ToArray();
         }

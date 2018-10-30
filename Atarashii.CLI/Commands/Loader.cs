@@ -10,10 +10,14 @@ namespace Atarashii.CLI.Commands
     /// </summary>
     internal class Loader : Command
     {
+        public Loader(Output output) : base(output)
+        {
+        }
+
         public override void Initialise(string[] commands)
         {
             ExitIfNone(commands);
-            var args = FromCommand(commands);
+            var args = GetArguments(commands);
 
             switch (commands[0])
             {
@@ -75,10 +79,6 @@ namespace Atarashii.CLI.Commands
             {
                 Fail(e.Message, 3);
             }
-        }
-        
-        public Loader(Output output) : base(output)
-        {
         }
     }
 }

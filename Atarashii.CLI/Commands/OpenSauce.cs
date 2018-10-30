@@ -13,7 +13,7 @@ namespace Atarashii.CLI.Commands
         public override void Initialise(string[] commands)
         {
             ExitIfNone(commands);
-            var args = FromCommand(commands);
+            var args = GetArguments(commands);
 
             switch (commands[0])
             {

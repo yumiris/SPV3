@@ -41,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Banner.cs"/>
     <Compile Include="CliOutput.cs"/>
     <Compile Include="Command.cs"/>
     <Compile Include="CommandFactory.cs"/>
