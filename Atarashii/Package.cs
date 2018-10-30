@@ -9,8 +9,6 @@ namespace Atarashii
     /// </summary>
     public class Package : Module, IVerifiable
     {
-        protected override string Identifier { get; } = "Atarashii.Package";
-
         /// <summary>
         ///     Directory containing the expected packages.
         /// </summary>
@@ -35,6 +33,8 @@ namespace Atarashii
         {
             _output = output;
         }
+
+        protected override string Identifier { get; } = "Atarashii.Package";
 
         /// <summary>
         ///     Name of the archive file without any extensions or paths.
@@ -92,7 +92,7 @@ namespace Atarashii
             {
                 WriteInfo($"{Description} data already exists. This is fine!");
             }
-            
+
             WriteSuccess($"{Description} data has been installed successfully to the filesystem.");
         }
     }
