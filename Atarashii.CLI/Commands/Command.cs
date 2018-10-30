@@ -31,7 +31,7 @@ namespace Atarashii.CLI.Commands
         /// </param>
         protected void Pass(string message)
         {
-            _output?.Write(Output.Type.Success, Assembly.ProductName, message);
+            _output?.WriteSuccess(Assembly.ProductName, message);
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Atarashii.CLI.Commands
         /// </param>
         protected void Info(string message)
         {
-            _output?.Write(Output.Type.Info, Assembly.ProductName, message);
+            _output?.WriteInfo(Assembly.ProductName, message);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace Atarashii.CLI.Commands
         /// </param>
         protected void Fail(string message, int code)
         {
-            _output?.Write(Output.Type.Error, Assembly.ProductName, message);
+            _output?.WriteError(Assembly.ProductName, message);
             Environment.Exit(code);
         }
 

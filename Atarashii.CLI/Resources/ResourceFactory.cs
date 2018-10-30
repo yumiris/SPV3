@@ -7,11 +7,6 @@ namespace Atarashii.CLI.Resources
     /// </summary>
     public static class ResourceFactory
     {
-        /// <summary>
-        ///     The location of the resource files. Conventionally, it's the namespace of the Resource type.
-        /// </summary>
-        private static readonly string Location = typeof(Resource).Namespace;
-        
         public enum Type
         {
             /// <summary>
@@ -44,6 +39,11 @@ namespace Atarashii.CLI.Resources
         ///     Name of the text file containing the usage table.
         /// </summary>
         private const string UsageResourceName = "USAGE";
+
+        /// <summary>
+        ///     The location of the resource files. Conventionally, it's the namespace of the Resource type.
+        /// </summary>
+        private static readonly string Location = typeof(Resource).Namespace;
 
         /// <summary>
         ///     Returns a Resource instance based on the inbound type.

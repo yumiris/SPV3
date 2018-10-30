@@ -33,7 +33,7 @@ namespace Atarashii
         ///     Type of log. <see cref="Type" />
         /// </param>
         /// <param name="subject">
-        ///     Subject of the log.
+        ///     Subject of the message.
         ///     <example>
         ///         Calling assembly.
         ///     </example>
@@ -45,5 +45,47 @@ namespace Atarashii
         ///     </example>
         /// </param>
         public abstract void Write(Type type, string subject, string message);
+
+        /// <summary>
+        ///     Outputs a Type.Pass message.
+        /// </summary>
+        /// <param name="subject">
+        ///     Subject of the message.
+        /// </param>
+        /// <param name="message">
+        ///     Message to write.
+        /// </param>
+        public void WriteSuccess(string subject, string message)
+        {
+            Write(Type.Success, subject, message);
+        }
+
+        /// <summary>
+        ///     Outputs a Type.Info message.
+        /// </summary>
+        /// <param name="subject">
+        ///     Subject of the message.
+        /// </param>
+        /// <param name="message">
+        ///     Message to write.
+        /// </param>
+        public void WriteInfo(string subject, string message)
+        {
+            Write(Type.Info, subject, message);
+        }
+
+        /// <summary>
+        ///     Outputs a Type.Error message.
+        /// </summary>
+        /// <param name="subject">
+        ///     Subject of the message.
+        /// </param>
+        /// <param name="message">
+        ///     Message to write.
+        /// </param>
+        public void WriteError(string subject, string message)
+        {
+            Write(Type.Error, subject, message);
+        }
     }
 }

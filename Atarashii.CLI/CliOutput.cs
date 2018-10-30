@@ -100,7 +100,7 @@ namespace Atarashii.CLI
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("  Usage: .\\Atarashii.CLI.exe <commands> <args>");
                 Console.WriteLine("    e.g. .\\Atarashii.CLI.exe loader load 'C:\\HCE.EXE'");
-                
+
                 Console.ForegroundColor = ConsoleColor.Gray;
                 WriteFromResource(ResourceFactory.Get(ResourceFactory.Type.Usage));
             }
