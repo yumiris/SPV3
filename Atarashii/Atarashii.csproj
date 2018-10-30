@@ -46,6 +46,7 @@
       <Compile Include="Loader\Executable.cs"/>
       <Compile Include="Loader\ExecutableFactory.cs"/>
       <Compile Include="Loader\LoaderException.cs"/>
+      <Compile Include="Module.cs"/>
       <Compile Include="Output.cs"/>
       <Compile Include="OpenSauce\Configuration.cs"/>
       <Compile Include="OpenSauce\ConfigurationFactory.cs"/>
