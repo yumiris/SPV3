@@ -1,6 +1,7 @@
 using System;
 using System.IO;
-using Atarashii.Exceptions;
+using Atarashii.Common;
+using Atarashii.Common.Exceptions;
 using NUnit.Framework;
 
 namespace Atarashii.Tests

@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Atarashii.Loader;
-using Atarashii.OpenSauce;
+using Atarashii.Common;
+using Atarashii.Modules.Loader;
+using Atarashii.Modules.OpenSauce;
 using NUnit.Framework;
 
 namespace Atarashii.Tests

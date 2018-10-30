@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
-using Atarashii.Profile;
+using Atarashii.Common;
+using Atarashii.Modules.Profile;
 
 namespace Atarashii.CLI.Commands
 {

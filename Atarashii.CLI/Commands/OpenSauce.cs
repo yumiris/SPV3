@@ -1,5 +1,6 @@
 ﻿using System;
-using Atarashii.OpenSauce;
+using Atarashii.Common;
+using Atarashii.Modules.OpenSauce;
 
 namespace Atarashii.CLI.Commands
 {

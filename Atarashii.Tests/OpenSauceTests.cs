@@ -1,5 +1,5 @@
-using Atarashii.OpenSauce;
-using Atarashii.OpenSauce.Options;
+using Atarashii.Modules.OpenSauce;
+using Atarashii.Modules.OpenSauce.Options;
 using NUnit.Framework;
 
 namespace Atarashii.Tests

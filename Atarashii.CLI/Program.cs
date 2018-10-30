@@ -1,5 +1,6 @@
 ﻿using System;
 using Atarashii.CLI.Commands;
+using Atarashii.Common;
 
 namespace Atarashii.CLI
 {

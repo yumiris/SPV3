@@ -1,3 +1,5 @@
+using Atarashii.Common;
+
 namespace Atarashii.CLI.Commands
 {
     public class CommandFactory
