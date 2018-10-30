@@ -6,7 +6,7 @@ namespace Atarashii.OpenSauce
     /// <summary>
     ///     Type for installing OpenSauce to the file system.
     /// </summary>
-    public class Installer : IVerifiable
+    public class Installer : Module, IVerifiable
     {
         /// <summary>
         ///     Name of the OpenSauce core and dependencies package.
@@ -32,6 +32,14 @@ namespace Atarashii.OpenSauce
             _hcePath = hcePath;
             _packages = packages;
         }
+
+        public Installer(string hcePath, List<Package> packages, Output output) : base(output)
+        {
+            _hcePath = hcePath;
+            _packages = packages;
+        }
+
+        protected override string Identifier { get; } = "Atarashii.OpenSauce.Installer";
 
         /// <inheritdoc />
         /// <returns>
@@ -72,13 +80,19 @@ namespace Atarashii.OpenSauce
         /// </exception>
         public void Install()
         {
+            WriteInfo("Verifying the OpenSauce installer.");
             var state = Verify();
 
             if (!state.IsValid)
-                throw new OpenSauceException(state.Reason);
+                WriteAndThrow(new OpenSauceException(state.Reason));
+
+            WriteSuccess("OpenSauce installer has been successfully verified.");
+            WriteInfo("Attempting to install OpenSauce to the filesystem.");
 
             foreach (var package in _packages)
                 package.Install();
+
+            WriteSuccess("OpenSauce has been successfully installed to the filesystem.");
         }
     }
 }

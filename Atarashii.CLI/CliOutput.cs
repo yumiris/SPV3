@@ -36,11 +36,11 @@ namespace Atarashii.CLI
             // write subject
             Console.Write("| ");
             Console.Write(subject);
-            Console.Write(" | ");
+            Console.Write("\t| ");
 
             // write message
             Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(message);
+            Console.WriteLine(message);
         }
 
         /// <summary>

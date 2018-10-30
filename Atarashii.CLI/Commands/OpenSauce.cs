@@ -31,26 +31,17 @@ namespace Atarashii.CLI.Commands
             Info("Invoked the OpenSauce.Install command.");
             ExitIfNone(args);
 
-            var installer = new InstallerFactory(args[0]).Get();
-            var installerState = installer.Verify();
-
-            if (installerState.IsValid)
-                Pass("Installer verification has passed.");
-            else
-                Fail(installerState.Reason, 4);
-
             try
             {
-                installer.Install();
-                Pass("OpenSauce has been successfully installed.");
+                new InstallerFactory(args[0]).Get().Install();
             }
-            catch (OpenSauceException e)
+            catch (OpenSauceException)
             {
-                Fail(e.Message, 2);
+                Environment.Exit(1);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Fail(e.Message, 3);
+                Environment.Exit(2);
             }
         }
     }

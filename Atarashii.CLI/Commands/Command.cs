@@ -8,11 +8,11 @@ namespace Atarashii.CLI.Commands
     /// </summary>
     public abstract class Command
     {
-        private readonly Output _output;
+        protected readonly Output Output;
 
         protected Command(Output output)
         {
-            _output = output;
+            Output = output;
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace Atarashii.CLI.Commands
         /// </param>
         protected void Pass(string message)
         {
-            _output?.WriteSuccess(Assembly.ProductName, message);
+            Output?.WriteSuccess(Assembly.ProductName, message);
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Atarashii.CLI.Commands
         /// </param>
         protected void Info(string message)
         {
-            _output?.WriteInfo(Assembly.ProductName, message);
+            Output?.WriteInfo(Assembly.ProductName, message);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace Atarashii.CLI.Commands
         /// </param>
         protected void Fail(string message, int code)
         {
-            _output?.WriteError(Assembly.ProductName, message);
+            Output?.WriteError(Assembly.ProductName, message);
             Environment.Exit(code);
         }
 

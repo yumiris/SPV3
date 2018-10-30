@@ -1,6 +1,6 @@
 namespace Atarashii.Profile
 {
-    public class Lastprof : IVerifiable
+    public class Lastprof : Module, IVerifiable
     {
         /// <summary>
         ///     Official name of the lastprof text file.
@@ -29,6 +29,14 @@ namespace Atarashii.Profile
             _data = data;
         }
 
+        public Lastprof(string data, Output output) : base(output)
+        {
+            _data = data;
+        }
+
+        /// <inheritdoc />
+        protected override string Identifier { get; } = "Atarashii.Profile.Lastprof";
+
         /// <inheritdoc />
         /// <returns>
         ///     False if:
@@ -56,10 +64,14 @@ namespace Atarashii.Profile
         /// </exception>
         public string Parse()
         {
+            WriteInfo("Verifying the inbound lastprof.txt");
             var state = Verify();
 
             if (!state.IsValid)
-                throw new ProfileException(state.Reason);
+                WriteAndThrow(new ProfileException(state.Reason));
+
+            WriteSuccess("Inbound lastprof.txt has been successfully verified.");
+            WriteInfo("Attempting to resolve the profile name in the lastprof.txt.");
 
             var array = _data.Split(Delimiter);
             return array[array.Length - NameOffset];

@@ -38,26 +38,18 @@ namespace Atarashii.CLI.Commands
             Info("Invoked the Loader.Load command.");
             ExitIfNone(args);
 
-            var executable = new Executable(args[0]);
-            var executableState = executable.Verify();
-
-            if (executableState.IsValid)
-                Pass("Executable verification has passed.");
-            else
-                Fail(executableState.Reason, 5);
-
             try
             {
+                var executable = new Executable(args[0], Output);
                 executable.Load();
-                Pass("The specified executable has been loaded.");
             }
-            catch (LoaderException e)
+            catch (LoaderException)
             {
-                Fail(e.Message, 3);
+                Environment.Exit(1);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Fail(e.Message, 4);
+                Environment.Exit(2);
             }
 
             Environment.Exit(0);
@@ -70,14 +62,14 @@ namespace Atarashii.CLI.Commands
 
             try
             {
-                var result = ExecutableFactory.Get(ExecutableFactory.Type.Detect);
+                var result = ExecutableFactory.Get(ExecutableFactory.Type.Detect, Output);
                 Pass("Profile name successfully parsed:");
                 Console.WriteLine(result);
                 Environment.Exit(0);
             }
-            catch (FileNotFoundException e)
+            catch (FileNotFoundException)
             {
-                Fail(e.Message, 3);
+                Environment.Exit(1);
             }
         }
     }

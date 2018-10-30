@@ -19,6 +19,9 @@ namespace Atarashii.Profile
         /// <param name="type">
         ///     Types of Lastprof instantiation.
         /// </param>
+        /// <param name="output">
+        ///     Optional output type for writing data to.
+        /// </param>
         /// <returns>
         ///     Lastprof instance.
         /// </returns>
@@ -28,7 +31,7 @@ namespace Atarashii.Profile
         /// <exception cref="ArgumentOutOfRangeException">
         ///     Invalid enum value.
         /// </exception>
-        public static Lastprof Get(Type type)
+        public static Lastprof Get(Type type, Output output = null)
         {
             switch (type)
             {
@@ -39,7 +42,7 @@ namespace Atarashii.Profile
                     if (!File.Exists(txtFilePath))
                         throw new FileNotFoundException("Could not find lastprof.txt through the detection attempt.");
 
-                    return new Lastprof(File.ReadAllText(txtFilePath));
+                    return new Lastprof(File.ReadAllText(txtFilePath), output);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }

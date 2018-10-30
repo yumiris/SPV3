@@ -33,7 +33,7 @@ namespace Atarashii
         /// </exception>
         protected void WriteAndThrow(Exception exception)
         {
-            WriteError(exception.Message);
+            WriteError($"{nameof(Exception)} thrown: " + exception.Message);
             throw exception;
         }
 
