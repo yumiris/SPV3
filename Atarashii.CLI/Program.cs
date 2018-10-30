@@ -1,4 +1,5 @@
 ﻿using System;
+using Atarashii.CLI.Commands;
 
 namespace Atarashii.CLI
 {
@@ -12,19 +13,21 @@ namespace Atarashii.CLI
         /// </param>
         public static void Main(string[] commands)
         {
-            CliOutput.WriteBanner();
+            var output = new CliOutput();
+            output.WriteBanner();
 
             try
             {
-                CommandFactory.Get(commands[0], new CliOutput()).Initialise(Command.GetArguments(commands));
+                CommandFactory.Get(commands[0], output).Initialise(Command.GetArguments(commands));
             }
             catch (IndexOutOfRangeException)
             {
-                Exit.WithError("Not enough arguments given.", 1);
+                Environment.Exit(1);
             }
             catch (CommandFactoryException e)
             {
-                Exit.WithError(e.Message, 2);
+                output.Write(Output.Type.Error, Assembly.ProductName, e.Message);
+                Environment.Exit(2);
             }
         }
     }

@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-namespace Atarashii.CLI
+namespace Atarashii.CLI.Commands
 {
     /// <summary>
     ///     Abstract type representing an invokable Atarashii CLI command.
@@ -68,7 +68,7 @@ namespace Atarashii.CLI
         /// </param>
         public void ExitIfNone(string[] args)
         {
-            if (args.Length == 0) Exit.WithError("Not enough or commands arguments provided.", 1);
+            if (args.Length == 0) Fail("Not enough or commands arguments provided.", 1);
         }
 
         /// <summary>

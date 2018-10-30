@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Atarashii.CLI
+namespace Atarashii.CLI.Commands
 {
     [Serializable]
     public class CommandFactoryException : Exception

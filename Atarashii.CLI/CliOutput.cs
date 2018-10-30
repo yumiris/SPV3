@@ -45,7 +45,7 @@ namespace Atarashii.CLI
         /// <summary>
         ///     Outputs the banner to the CLI.
         /// </summary>
-        public static void WriteBanner()
+        public void WriteBanner()
         {
             void WriteFromResource(Resource resource)
             {
