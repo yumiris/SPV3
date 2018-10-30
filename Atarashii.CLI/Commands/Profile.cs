@@ -10,11 +10,8 @@ namespace Atarashii.CLI.Commands
     /// </summary>
     internal class Profile : Command
     {
-        private readonly Output _output;
-
-        public Profile(Output output)
+        public Profile(Output output) : base(output)
         {
-            _output = output;
         }
 
         public override void Initialise(string[] commands)
@@ -25,11 +22,11 @@ namespace Atarashii.CLI.Commands
             switch (commands[0])
             {
                 case nameof(Resolve):
-                    HandleInvokeType(InvokeType.Success, this, nameof(Resolve));
+                    OutputMessage(Output.Type.Success, "Invoked the Profile.Resolve command.");
                     Resolve(args);
                     break;
                 default:
-                    HandleInvokeType(InvokeType.Invalid, this, commands[0]);
+                    OutputMessage(Output.Type.Error, "Invoked an invalid Profile command.");
                     break;
             }
         }
@@ -44,16 +41,14 @@ namespace Atarashii.CLI.Commands
             var lastprofState = lastprof.Verify();
 
             if (lastprofState.IsValid)
-                _output.Write(Output.Type.Success, $"{nameof(Profile)}.{nameof(Resolve)}",
-                    "Lastrof verification has passed.");
+                OutputMessage(Output.Type.Success, "Lastrof verification has passed.");
             else
                 Exit.WithError(lastprofState.Reason, 2);
 
             try
             {
                 var result = new Lastprof(File.ReadAllText(args[0])).Parse();
-                _output.Write(Output.Type.Success, $"{nameof(Profile)}.{nameof(Resolve)}",
-                    "Profile name successfully parsed:");
+                OutputMessage(Output.Type.Success, "Profile name successfully parsed:");
                 Console.WriteLine(result);
             }
             catch (ProfileException e)

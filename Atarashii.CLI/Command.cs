@@ -1,4 +1,4 @@
-using System;
+using Atarashii.Loader;
 
 namespace Atarashii.CLI
 {
@@ -7,6 +7,13 @@ namespace Atarashii.CLI
     /// </summary>
     public abstract class Command
     {
+        private readonly Output _output;
+
+        protected Command(Output output)
+        {
+            _output = output;
+        }
+
         /// <summary>
         ///     Initialises the command logic.
         /// </summary>
@@ -15,39 +22,9 @@ namespace Atarashii.CLI
         /// </param>
         public abstract void Initialise(string[] commands);
 
-        /// <summary>
-        ///     Informs the user which commands they've invoked.
-        /// </summary>
-        protected static void HandleInvokeType(InvokeType type, object mainCommand, string subCommand)
+        protected void OutputMessage(Output.Type type, string message)
         {
-            switch (type)
-            {
-                case InvokeType.Success:
-                    new CliOutput().Write(Output.Type.Success, $"{mainCommand.GetType().Name}.{subCommand}",
-                        "Invoked command.");
-                    break;
-                case InvokeType.Invalid:
-                    Exit.WithError($"Invoked command '{mainCommand.GetType().Name}.{subCommand}' is invalid.", 2);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
-            }
-        }
-
-        /// <summary>
-        ///     Types of command invokes.
-        /// </summary>
-        protected enum InvokeType
-        {
-            /// <summary>
-            ///     User has successfully invoked a valid command.
-            /// </summary>
-            Success,
-
-            /// <summary>
-            ///     User has invoked an invalid command.
-            /// </summary>
-            Invalid
+            _output?.Write(type, Executable.Name, message);
         }
     }
 }
