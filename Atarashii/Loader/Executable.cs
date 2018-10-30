@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Atarashii.Loader
 {
-    public class Executable : IVerifiable
+    public class Executable : Module, IVerifiable
     {
         /// <summary>
         ///     HCE executable name.
@@ -19,6 +19,14 @@ namespace Atarashii.Loader
         {
             Path = path;
         }
+
+        public Executable(string path, Output output) : base(output)
+        {
+            Path = path;
+        }
+
+        /// <inheritdoc />
+        protected override string Identifier { get; } = "Atarashii.Loader";
 
         /// <summary>
         ///     Executable file path.
@@ -61,21 +69,34 @@ namespace Atarashii.Loader
         {
             if (verify)
             {
+                WriteInfo("Verifying inbound executable.");
+
                 var state = Verify();
-                if (!state.IsValid)
-                    throw new LoaderException(state.Reason);
+                if (!state.IsValid) WriteAndThrow(new LoaderException(state.Reason));
             }
 
-            new Process
+            WriteSuccess("Executable has been successfully verified.");
+            WriteInfo("Attempting to load the executable.");
+
+            try
             {
-                StartInfo =
+                new Process
                 {
-                    FileName = System.IO.Path.GetFileName(Path) ??
-                               throw new LoaderException("Could not infer executable name from the path."),
-                    WorkingDirectory = System.IO.Path.GetDirectoryName(Path) ??
-                                       throw new LoaderException("Could not infer working directory from the path.")
-                }
-            }.Start();
+                    StartInfo =
+                    {
+                        FileName = System.IO.Path.GetFileName(Path) ??
+                                   throw new LoaderException("Could not infer executable name from the path."),
+                        WorkingDirectory = System.IO.Path.GetDirectoryName(Path) ??
+                                           throw new LoaderException("Could not infer working directory from the path.")
+                    }
+                }.Start();
+
+                WriteSuccess("Successfully loaded inbound executable.");
+            }
+            catch (LoaderException e)
+            {
+                WriteAndThrow(e);
+            }
         }
     }
 }

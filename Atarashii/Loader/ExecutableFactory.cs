@@ -35,6 +35,9 @@ namespace Atarashii.Loader
         /// <param name="type">
         ///     Types of executable instantiation.
         /// </param>
+        /// <param name="output">
+        ///     Optional output type for writing data to.
+        /// </param>
         /// <returns>
         ///     Executable instance.
         /// </returns>
@@ -44,7 +47,7 @@ namespace Atarashii.Loader
         /// <exception cref="ArgumentOutOfRangeException">
         ///     Invalid enum value.
         /// </exception>
-        public static Executable Get(Type type)
+        public static Executable Get(Type type, Output output = null)
         {
             switch (type)
             {
@@ -57,10 +60,10 @@ namespace Atarashii.Loader
                     }
 
                     var fullDefaultPath = $@"{DefaultInstall}\{Executable.Name}";
-                    if (File.Exists(fullDefaultPath)) return new Executable(fullDefaultPath);
+                    if (File.Exists(fullDefaultPath)) return new Executable(fullDefaultPath, output);
 
                     var currentDirectoryPath = Path.Combine(Directory.GetCurrentDirectory(), Executable.Name);
-                    if (File.Exists(currentDirectoryPath)) return new Executable(currentDirectoryPath);
+                    if (File.Exists(currentDirectoryPath)) return new Executable(currentDirectoryPath, output);
 
                     throw new FileNotFoundException("Could not find a legal executable through the detection attempt.");
                 default:
