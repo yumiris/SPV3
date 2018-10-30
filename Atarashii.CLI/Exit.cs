@@ -16,6 +16,7 @@ namespace Atarashii.CLI
         public static void WithError(string error, int code)
         {
             new CliOutput().Write(Output.Type.Error, $"Exit code: {code}", error);
+            Console.WriteLine(string.Empty);
             Environment.Exit(code);
         }
     }

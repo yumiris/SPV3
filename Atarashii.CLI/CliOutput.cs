@@ -49,6 +49,8 @@ namespace Atarashii.CLI
         {
             void WriteFromResource(Resource resource)
             {
+                Console.WriteLine(string.Empty);
+
                 using (var reader = new StringReader(resource.Text))
                 {
                     string line;
@@ -70,7 +72,7 @@ namespace Atarashii.CLI
                 Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.Write("  Program    : ");
 
-                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine("  " + Assembly.ProductName);
             }
 
@@ -79,7 +81,7 @@ namespace Atarashii.CLI
                 Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.Write("  Developers : ");
 
-                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine("  " + Assembly.CompanyName);
             }
 
@@ -88,12 +90,16 @@ namespace Atarashii.CLI
                 Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.Write("  Revision   : ");
 
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("  " + Git.Revision);
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Console.WriteLine("  " + ResourceFactory.Get(ResourceFactory.Type.Revision).Text);
             }
 
             void ShowProgramHelp()
             {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("  Usage: .\\Atarashii.CLI.exe <commands> <args>");
+                Console.WriteLine("    e.g. .\\Atarashii.CLI.exe loader load 'C:\\HCE.EXE'");
+                
                 Console.ForegroundColor = ConsoleColor.Gray;
                 WriteFromResource(ResourceFactory.Get(ResourceFactory.Type.Usage));
             }
