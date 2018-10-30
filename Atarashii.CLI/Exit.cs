@@ -1,5 +1,4 @@
 using System;
-using Atarashii.CLI.Outputs;
 
 namespace Atarashii.CLI
 {
@@ -16,7 +15,7 @@ namespace Atarashii.CLI
         /// </param>
         public static void WithError(string error, int code)
         {
-            new CliOutput().Write(Atarashii.Output.Type.Error, $"Exit code: {code}", error);
+            new CliOutput().Write(Output.Type.Error, $"Exit code: {code}", error);
             Environment.Exit(code);
         }
     }

@@ -10,9 +10,9 @@ namespace Atarashii.CLI.Commands
     /// </summary>
     internal class Loader : Command
     {
-        private readonly Atarashii.Output _output;
+        private readonly Output _output;
 
-        public Loader(Atarashii.Output output)
+        public Loader(Output output)
         {
             _output = output;
         }
@@ -46,7 +46,7 @@ namespace Atarashii.CLI.Commands
             var executableState = executable.Verify();
 
             if (executableState.IsValid)
-                _output?.Write(Atarashii.Output.Type.Success, $"{nameof(Loader)}.{nameof(Load)}",
+                _output?.Write(Output.Type.Success, $"{nameof(Loader)}.{nameof(Load)}",
                     "Executable verification has passed.");
             else
                 Exit.WithError(executableState.Reason, 5);
@@ -54,7 +54,7 @@ namespace Atarashii.CLI.Commands
             try
             {
                 executable.Load();
-                _output?.Write(Atarashii.Output.Type.Success, Assembly.ProductName,
+                _output?.Write(Output.Type.Success, Assembly.ProductName,
                     "The specified executable has been loaded.");
             }
             catch (LoaderException e)
@@ -71,13 +71,13 @@ namespace Atarashii.CLI.Commands
 
         private void Detect()
         {
-            _output?.Write(Atarashii.Output.Type.Info, $"{nameof(Loader)}.{nameof(Detect)}",
+            _output?.Write(Output.Type.Info, $"{nameof(Loader)}.{nameof(Detect)}",
                 "Attempting to detect executable path.");
 
             try
             {
                 var result = ExecutableFactory.Get(ExecutableFactory.Type.Detect);
-                _output?.Write(Atarashii.Output.Type.Success, $"{nameof(Loader)}.{nameof(Detect)}",
+                _output?.Write(Output.Type.Success, $"{nameof(Loader)}.{nameof(Detect)}",
                     "Profile name successfully parsed:");
                 Console.WriteLine(result);
                 Environment.Exit(0);

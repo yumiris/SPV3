@@ -1,5 +1,4 @@
 using System;
-using Atarashii.CLI.Outputs;
 
 namespace Atarashii.CLI
 {
@@ -24,7 +23,7 @@ namespace Atarashii.CLI
             switch (type)
             {
                 case InvokeType.Success:
-                    new CliOutput().Write(Atarashii.Output.Type.Success, $"{mainCommand.GetType().Name}.{subCommand}",
+                    new CliOutput().Write(Output.Type.Success, $"{mainCommand.GetType().Name}.{subCommand}",
                         "Invoked command.");
                     break;
                 case InvokeType.Invalid:

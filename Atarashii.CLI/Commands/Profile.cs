@@ -10,9 +10,9 @@ namespace Atarashii.CLI.Commands
     /// </summary>
     internal class Profile : Command
     {
-        private readonly Atarashii.Output _output;
+        private readonly Output _output;
 
-        public Profile(Atarashii.Output output)
+        public Profile(Output output)
         {
             _output = output;
         }
@@ -33,7 +33,7 @@ namespace Atarashii.CLI.Commands
                     break;
             }
         }
-        
+
         private void Resolve(string[] args)
         {
             Argument.ExitIfNone(args);
@@ -44,7 +44,7 @@ namespace Atarashii.CLI.Commands
             var lastprofState = lastprof.Verify();
 
             if (lastprofState.IsValid)
-                _output.Write(Atarashii.Output.Type.Success, $"{nameof(Profile)}.{nameof(Resolve)}",
+                _output.Write(Output.Type.Success, $"{nameof(Profile)}.{nameof(Resolve)}",
                     "Lastrof verification has passed.");
             else
                 Exit.WithError(lastprofState.Reason, 2);
@@ -52,7 +52,7 @@ namespace Atarashii.CLI.Commands
             try
             {
                 var result = new Lastprof(File.ReadAllText(args[0])).Parse();
-                _output.Write(Atarashii.Output.Type.Success, $"{nameof(Profile)}.{nameof(Resolve)}",
+                _output.Write(Output.Type.Success, $"{nameof(Profile)}.{nameof(Resolve)}",
                     "Profile name successfully parsed:");
                 Console.WriteLine(result);
             }

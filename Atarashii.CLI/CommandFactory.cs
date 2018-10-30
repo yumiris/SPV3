@@ -2,7 +2,7 @@ namespace Atarashii.CLI
 {
     public class CommandFactory
     {
-        public static Command Get(string command, Atarashii.Output output)
+        public static Command Get(string command, Output output)
         {
             switch (command)
             {

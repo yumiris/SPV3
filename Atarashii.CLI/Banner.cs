@@ -1,8 +1,9 @@
 using System;
+using System.IO;
 
-namespace Atarashii.CLI.Outputs
+namespace Atarashii.CLI
 {
-    public class Banner : Output
+    public class Banner
     {
         /// <summary>
         ///     Outputs the banner to the CLI.
@@ -22,7 +23,14 @@ namespace Atarashii.CLI.Outputs
         private static void ShowAsciiBanner()
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
-            WriteLineMulti(ResourceFactory.Get(ResourceFactory.Type.Banner).Text);
+
+            using (var reader = new StringReader(ResourceFactory.Get(ResourceFactory.Type.Banner).Text))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null) Console.WriteLine("  " + line);
+            }
+
+            Console.WriteLine(string.Empty);
         }
 
         /// <summary>
@@ -31,10 +39,10 @@ namespace Atarashii.CLI.Outputs
         private static void ShowProductName()
         {
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Write("Program    : ");
+            Console.Write("  Program    : ");
 
             Console.ForegroundColor = ConsoleColor.Cyan;
-            WriteLine(Assembly.ProductName);
+            Console.WriteLine("  " + Assembly.ProductName);
         }
 
         /// <summary>
@@ -43,10 +51,10 @@ namespace Atarashii.CLI.Outputs
         private static void ShowCompanyName()
         {
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Write("Developers : ");
+            Console.Write("  Developers : ");
 
             Console.ForegroundColor = ConsoleColor.Cyan;
-            WriteLine(Assembly.CompanyName);
+            Console.WriteLine("  " + Assembly.CompanyName);
         }
 
         /// <summary>
@@ -55,10 +63,10 @@ namespace Atarashii.CLI.Outputs
         private static void ShowGitRevision()
         {
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Write("Revision   : ");
+            Console.Write("  Revision   : ");
 
             Console.ForegroundColor = ConsoleColor.Cyan;
-            WriteLine(Git.Revision);
+            Console.WriteLine("  " + Git.Revision);
         }
 
         /// <summary>
@@ -67,7 +75,14 @@ namespace Atarashii.CLI.Outputs
         private static void ShowProgramHelp()
         {
             Console.ForegroundColor = ConsoleColor.Gray;
-            WriteLineMulti(ResourceFactory.Get(ResourceFactory.Type.Usage).Text);
+
+            using (var reader = new StringReader(ResourceFactory.Get(ResourceFactory.Type.Usage).Text))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null) Console.WriteLine("  " + line);
+            }
+
+            Console.WriteLine(string.Empty);
         }
     }
 }

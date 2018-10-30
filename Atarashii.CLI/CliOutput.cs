@@ -6,7 +6,7 @@ namespace Atarashii.CLI
     /// <summary>
     ///     Type dealing with writing inbound messages to the console.
     /// </summary>
-    public class CliOutput : Atarashii.Output
+    public class CliOutput : Output
     {
         /// <inheritdoc />
         /// <summary>
@@ -44,7 +44,7 @@ namespace Atarashii.CLI
         /// <summary>
         ///     Factory for building Code objects.
         /// </summary>
-        private class CodeFactory
+        private static class CodeFactory
         {
             /// <summary>
             ///     Returns a Code object based on the inbound Type.

@@ -1,6 +1,4 @@
-﻿using Atarashii.CLI.Outputs;
-
-namespace Atarashii.CLI
+﻿namespace Atarashii.CLI
 {
     internal class Program
     {

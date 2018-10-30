@@ -6,9 +6,9 @@ namespace Atarashii.CLI.Commands
     /// <inheritdoc />
     internal class OpenSauce : Command
     {
-        private readonly Atarashii.Output _output;
+        private readonly Output _output;
 
-        public OpenSauce(Atarashii.Output output)
+        public OpenSauce(Output output)
         {
             _output = output;
         }
@@ -38,7 +38,7 @@ namespace Atarashii.CLI.Commands
             var installerState = installer.Verify();
 
             if (installerState.IsValid)
-                _output?.Write(Atarashii.Output.Type.Success, $"{nameof(OpenSauce)}.Install",
+                _output?.Write(Output.Type.Success, $"{nameof(OpenSauce)}.Install",
                     "Installer verification has passed.");
             else
                 Exit.WithError(installerState.Reason, 4);
@@ -46,7 +46,7 @@ namespace Atarashii.CLI.Commands
             try
             {
                 installer.Install();
-                _output?.Write(Atarashii.Output.Type.Success, $"{nameof(OpenSauce)}.Install",
+                _output?.Write(Output.Type.Success, $"{nameof(OpenSauce)}.Install",
                     "OpenSauce has been successfully installed.");
             }
             catch (OpenSauceException e)
