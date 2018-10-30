@@ -10,23 +10,17 @@ namespace Atarashii.CLI.Commands
     /// </summary>
     internal class Loader : Command
     {
-        public Loader(Output output) : base(output)
-        {
-        }
-
         public override void Initialise(string[] commands)
         {
-            Argument.ExitIfNone(commands);
-            var args = Argument.FromCommand(commands);
+            ExitIfNone(commands);
+            var args = FromCommand(commands);
 
             switch (commands[0])
             {
                 case nameof(Load):
-                    Info("Invoked the Loader.Load command.");
                     Load(args);
                     break;
                 case nameof(Detect):
-                    Info("Invoked the Loader.Detect command.");
                     Detect();
                     break;
                 default:
@@ -37,7 +31,8 @@ namespace Atarashii.CLI.Commands
 
         private void Load(string[] args)
         {
-            Argument.ExitIfNone(args);
+            Info("Invoked the Loader.Load command.");
+            ExitIfNone(args);
 
             var executable = new Executable(args[0]);
             var executableState = executable.Verify();
@@ -54,11 +49,11 @@ namespace Atarashii.CLI.Commands
             }
             catch (LoaderException e)
             {
-                Exit.WithError(e.Message, 3);
+                Fail(e.Message, 3);
             }
             catch (Exception e)
             {
-                Exit.WithError(e.Message, 4);
+                Fail(e.Message, 4);
             }
 
             Environment.Exit(0);
@@ -66,6 +61,7 @@ namespace Atarashii.CLI.Commands
 
         private void Detect()
         {
+            Info("Invoked the Loader.Detect command.");
             Info("Attempting to detect executable path.");
 
             try
@@ -79,6 +75,10 @@ namespace Atarashii.CLI.Commands
             {
                 Fail(e.Message, 3);
             }
+        }
+        
+        public Loader(Output output) : base(output)
+        {
         }
     }
 }

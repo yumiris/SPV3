@@ -1,4 +1,5 @@
-using Atarashii.Loader;
+using System;
+using System.Linq;
 
 namespace Atarashii.CLI
 {
@@ -30,7 +31,7 @@ namespace Atarashii.CLI
         /// </param>
         protected void Pass(string message)
         {
-            _output?.Write(Output.Type.Success, Executable.Name, message);
+            _output?.Write(Output.Type.Success, Assembly.ProductName, message);
         }
 
         /// <summary>
@@ -41,7 +42,7 @@ namespace Atarashii.CLI
         /// </param>
         protected void Info(string message)
         {
-            _output?.Write(Output.Type.Info, Executable.Name, message);
+            _output?.Write(Output.Type.Info, Assembly.ProductName, message);
         }
 
         /// <summary>
@@ -55,8 +56,33 @@ namespace Atarashii.CLI
         /// </param>
         protected void Fail(string message, int code)
         {
-            _output?.Write(Output.Type.Error, Executable.Name, message);
-            Exit.WithError(message, code);
+            _output?.Write(Output.Type.Error, Assembly.ProductName, message);
+            Environment.Exit(code);
+        }
+
+        /// <summary>
+        ///     Exits the program if the inbound arguments are empty.
+        /// </summary>
+        /// <param name="args">
+        ///     Arguments to check the length of.
+        /// </param>
+        public void ExitIfNone(string[] args)
+        {
+            if (args.Length == 0) Exit.WithError("Not enough or commands arguments provided.", 1);
+        }
+
+        /// <summary>
+        ///     Removes the command (first argument) from an arguments array.
+        /// </summary>
+        /// <param name="command">
+        ///     Arguments array to remove the command from.
+        /// </param>
+        /// <returns>
+        ///     Arguments array without the command.
+        /// </returns>
+        public static string[] FromCommand(string[] command)
+        {
+            return command.Skip(1).ToArray();
         }
     }
 }

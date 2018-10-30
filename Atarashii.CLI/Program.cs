@@ -1,4 +1,6 @@
-﻿namespace Atarashii.CLI
+﻿using System;
+
+namespace Atarashii.CLI
 {
     internal class Program
     {
@@ -11,15 +13,18 @@
         public static void Main(string[] commands)
         {
             Banner.Show();
-            Argument.ExitIfNone(commands);
 
             try
             {
-                CommandFactory.Get(commands[0], new CliOutput()).Initialise(Argument.FromCommand(commands));
+                CommandFactory.Get(commands[0], new CliOutput()).Initialise(Command.FromCommand(commands));
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Exit.WithError("Not enough arguments given.", 1);
             }
             catch (CommandFactoryException e)
             {
-                Exit.WithError(e.Message, 1);
+                Exit.WithError(e.Message, 2);
             }
         }
     }

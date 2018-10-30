@@ -16,13 +16,12 @@ namespace Atarashii.CLI.Commands
 
         public override void Initialise(string[] commands)
         {
-            Argument.ExitIfNone(commands);
-            var args = Argument.FromCommand(commands);
+            ExitIfNone(commands);
+            var args = FromCommand(commands);
 
             switch (commands[0])
             {
                 case nameof(Resolve):
-                    Info("Invoked the Profile.Resolve command.");
                     Resolve(args);
                     break;
                 default:
@@ -33,7 +32,8 @@ namespace Atarashii.CLI.Commands
 
         private void Resolve(string[] args)
         {
-            Argument.ExitIfNone(args);
+            Info("Invoked the Profile.Resolve command.");
+            ExitIfNone(args);
 
             if (!File.Exists(args[0])) Fail("Given lastprof file does not exist.", 1);
 

@@ -12,13 +12,12 @@ namespace Atarashii.CLI.Commands
 
         public override void Initialise(string[] commands)
         {
-            Argument.ExitIfNone(commands);
-            var args = Argument.FromCommand(commands);
+            ExitIfNone(commands);
+            var args = FromCommand(commands);
 
             switch (commands[0])
             {
                 case nameof(Install):
-                    Info("Invoked the OpenSauce.Install command.");
                     Install(args);
                     break;
                 default:
@@ -29,7 +28,8 @@ namespace Atarashii.CLI.Commands
 
         private void Install(string[] args)
         {
-            Argument.ExitIfNone(args);
+            Info("Invoked the OpenSauce.Install command.");
+            ExitIfNone(args);
 
             var installer = new InstallerFactory(args[0]).Get();
             var installerState = installer.Verify();

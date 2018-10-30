@@ -13,7 +13,7 @@ namespace Atarashii.CLI
         /// <summary>
         ///     Product name of the executable.
         /// </summary>
-        public static string ProductName => Info.FileName;
+        public static string ProductName => Info.ProductName;
 
         /// <summary>
         ///     Company name of the executable.

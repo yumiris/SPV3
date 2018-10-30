@@ -34,7 +34,7 @@ namespace Atarashii.CLI
             // write subject
             Console.Write("| ");
             Console.Write(subject);
-            Console.Write("\t| ");
+            Console.Write(" | ");
 
             // write message
             Console.ForegroundColor = ConsoleColor.White;
