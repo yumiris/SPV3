@@ -41,28 +41,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-      <Compile Include="Argument.cs"/>
-      <Compile Include="CliOutput.cs"/>
-      <Compile Include="Command.cs"/>
-      <Compile Include="CommandFactory.cs"/>
-      <Compile Include="CommandFactoryException.cs"/>
+    <Compile Include="Argument.cs"/>
+    <Compile Include="CliOutput.cs"/>
+    <Compile Include="Command.cs"/>
+    <Compile Include="CommandFactory.cs"/>
+    <Compile Include="CommandFactoryException.cs"/>
     <Compile Include="Commands\Loader.cs" />
-      <Compile Include="Commands\Loader.Detect.cs"/>
-      <Compile Include="Commands\Loader.Load.cs"/>
     <Compile Include="Commands\OpenSauce.cs" />
-      <Compile Include="Commands\OpenSauce.Install.cs"/>
     <Compile Include="Commands\Profile.cs" />
-      <Compile Include="Commands\Profile.Resolve.cs"/>
-      <Compile Include="Assembly.cs"/>
-      <Compile Include="Exit.cs"/>
-      <Compile Include="Git.cs"/>
-      <Compile Include="Output.cs"/>
+    <Compile Include="Assembly.cs"/>
+    <Compile Include="Exit.cs"/>
+    <Compile Include="Git.cs"/>
+    <Compile Include="Output.cs"/>
     <Compile Include="Outputs\Banner.cs" />
     <Compile Include="Outputs\Message.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-      <Compile Include="Resource.cs"/>
-      <Compile Include="ResourceFactory.cs"/>
+    <Compile Include="Resource.cs"/>
+    <Compile Include="ResourceFactory.cs"/>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Atarashii\Atarashii.csproj">
