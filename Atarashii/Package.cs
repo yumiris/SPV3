@@ -7,8 +7,10 @@ namespace Atarashii
     /// <summary>
     ///     Archive installer and verifier.
     /// </summary>
-    public class Package : IVerifiable
+    public class Package : Module, IVerifiable
     {
+        protected override string Identifier { get; } = "Atarashii.Package";
+
         /// <summary>
         ///     Directory containing the expected packages.
         /// </summary>
@@ -19,7 +21,7 @@ namespace Atarashii
         /// </summary>
         public const string Extension = "pkg";
 
-        private readonly ILogger _logger;
+        private readonly Output _output;
 
         public Package(string archiveName, string description, string destination)
         {
@@ -28,10 +30,10 @@ namespace Atarashii
             Destination = destination;
         }
 
-        public Package(string archiveName, string description, string destination, ILogger logger)
+        public Package(string archiveName, string description, string destination, Output output)
             : this(archiveName, description, destination)
         {
-            _logger = logger;
+            _output = output;
         }
 
         /// <summary>
@@ -74,10 +76,13 @@ namespace Atarashii
         /// </exception>
         public void Install()
         {
+            WriteInfo($"Verifying {Description} package.");
             var state = Verify();
 
             if (!state.IsValid)
-                throw new PackageException(state.Reason);
+                WriteAndThrow(new PackageException(state.Reason));
+
+            WriteSuccess($"Package {Description} has been successfully verified.");
 
             try
             {
@@ -85,13 +90,10 @@ namespace Atarashii
             }
             catch (IOException)
             {
-                if (_logger != null)
-                    _logger.Log($"{Description} data already exists. This is fine!");
-                else
-                    throw;
+                WriteInfo($"{Description} data already exists. This is fine!");
             }
-
-            _logger?.Log($"{Description} data has been installed successfully to the filesystem.");
+            
+            WriteSuccess($"{Description} data has been installed successfully to the filesystem.");
         }
     }
 }

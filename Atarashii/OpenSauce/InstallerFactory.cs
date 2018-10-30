@@ -15,7 +15,7 @@ namespace Atarashii.OpenSauce
         }
 
         private readonly string _installationPath;
-        private readonly ILogger _logger;
+        private readonly Output _output;
 
         /// <summary>
         ///     OpenSauceInstallerFactory constructor.
@@ -32,12 +32,12 @@ namespace Atarashii.OpenSauce
         /// <param name="installationPath">
         ///     The HCE directory path -- used to install the OpenSauce library data to.
         /// </param>
-        /// <param name="logger">
-        ///     Logging class for logging the packages' output.
+        /// <param name="output">
+        ///     Output class for  packages to write messages to.
         /// </param>
-        public InstallerFactory(string installationPath, ILogger logger) : this(installationPath)
+        public InstallerFactory(string installationPath, Output output) : this(installationPath)
         {
-            _logger = logger;
+            _output = output;
         }
 
         /// <summary>
@@ -81,9 +81,9 @@ namespace Atarashii.OpenSauce
 
             return new List<Package>
             {
-                new Package(libPackage, "OpenSauce core and dependencies", _installationPath, _logger),
-                new Package(guiPackage, "In-game OpenSauce UI assets", guiDirPath, _logger),
-                new Package(usrPackage, "OpenSauce XML user configuration", usrDirPath, _logger)
+                new Package(libPackage, "OpenSauce core and dependencies", _installationPath, _output),
+                new Package(guiPackage, "In-game OpenSauce UI assets", guiDirPath, _output),
+                new Package(usrPackage, "OpenSauce XML user configuration", usrDirPath, _output)
             };
         }
     }
