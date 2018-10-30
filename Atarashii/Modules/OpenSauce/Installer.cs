@@ -40,7 +40,7 @@ namespace Atarashii.Modules.OpenSauce
             _packages = packages;
         }
 
-        protected override string Identifier { get; } = "Atarashii.OpenSauce.Installer";
+        protected override string Identifier { get; } = "OpenSauce.Install";
 
         /// <inheritdoc />
         /// <returns>

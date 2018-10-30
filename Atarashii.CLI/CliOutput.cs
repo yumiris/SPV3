@@ -17,13 +17,6 @@ namespace Atarashii.CLI
         /// </summary>
         public override void Write(Type type, string subject, string message)
         {
-            if (type == Type.Error)
-            {
-                // indent without altering error message
-                Console.Write("  ");
-                Console.Error.WriteLine(message);
-            }
-
             var code = CodeFactory.Get(type);
 
             // write code
@@ -138,6 +131,8 @@ namespace Atarashii.CLI
                         return new Code(" OK ", ConsoleColor.Green);
                     case Type.Info:
                         return new Code("INFO", ConsoleColor.Cyan);
+                    case Type.Warn:
+                        return new Code("WARN", ConsoleColor.Yellow);
                     case Type.Error:
                         return new Code("HALT", ConsoleColor.Red);
                     default:

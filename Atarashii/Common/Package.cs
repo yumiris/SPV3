@@ -20,8 +20,6 @@ namespace Atarashii.Common
         /// </summary>
         public const string Extension = "pkg";
 
-        private readonly Output _output;
-
         public Package(string archiveName, string description, string destination)
         {
             ArchiveName = archiveName;
@@ -30,9 +28,11 @@ namespace Atarashii.Common
         }
 
         public Package(string archiveName, string description, string destination, Output output)
-            : this(archiveName, description, destination)
+            : base(output)
         {
-            _output = output;
+            ArchiveName = archiveName;
+            Description = description;
+            Destination = destination;
         }
 
         protected override string Identifier { get; } = "Atarashii.Package";
@@ -91,7 +91,7 @@ namespace Atarashii.Common
             }
             catch (IOException)
             {
-                WriteInfo($"{Description} data already exists. This is fine!");
+                WriteWarn($"{Description} data already exists. This is fine!");
             }
 
             WriteSuccess($"{Description} data has been installed successfully to the filesystem.");

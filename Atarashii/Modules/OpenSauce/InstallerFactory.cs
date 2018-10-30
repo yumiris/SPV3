@@ -58,7 +58,7 @@ namespace Atarashii.Modules.OpenSauce
             switch (type)
             {
                 case Type.Default:
-                    return new Installer(_installationPath, GetOpenSaucePackages());
+                    return new Installer(_installationPath, GetOpenSaucePackages(), _output);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }

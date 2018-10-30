@@ -34,7 +34,7 @@ namespace Atarashii.CLI.Commands
 
             try
             {
-                new InstallerFactory(args[0]).Get().Install();
+                new InstallerFactory(args[0], Output).Get().Install();
             }
             catch (OpenSauceException)
             {

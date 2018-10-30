@@ -19,6 +19,11 @@ namespace Atarashii.Common
             ///     Represents an informative message.
             /// </summary>
             Info,
+            
+            /// <summary>
+            ///     Represents a non-fatal warning message.
+            /// </summary>
+            Warn,
 
             /// <summary>
             ///     Represents an error message.
@@ -72,6 +77,20 @@ namespace Atarashii.Common
         public void WriteInfo(string subject, string message)
         {
             Write(Type.Info, subject, message);
+        }
+
+        /// <summary>
+        ///     Outputs a Type.Warn message.
+        /// </summary>
+        /// <param name="subject">
+        ///     Subject of the message.
+        /// </param>
+        /// <param name="message">
+        ///     Message to write.
+        /// </param>
+        public void WriteWarn(string subject, string message)
+        {
+            Write(Type.Warn, subject, message);
         }
 
         /// <summary>

@@ -61,6 +61,17 @@ namespace Atarashii.Modules
         }
 
         /// <summary>
+        ///     Writes a Type.Warn message w/ Module Name as the subject.
+        /// </summary>
+        /// <param name="message">
+        ///     Message to write to the Output instance.
+        /// </param>
+        protected void WriteWarn(string message)
+        {
+            Output?.WriteWarn(Identifier, message);
+        }
+
+        /// <summary>
         ///     Writes a Type.Error message w/ Module Name as the subject.
         /// </summary>
         /// <param name="message">
