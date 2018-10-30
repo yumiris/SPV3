@@ -41,7 +41,6 @@
   <ItemGroup>
       <Compile Include="Exceptions\PackageException.cs"/>
     <Compile Include="Exceptions\VerifierException.cs" />
-      <Compile Include="ILogger.cs"/>
       <Compile Include="IVerifiable.cs"/>
       <Compile Include="Loader\Executable.cs"/>
       <Compile Include="Loader\ExecutableFactory.cs"/>

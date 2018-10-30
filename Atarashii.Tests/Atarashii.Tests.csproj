@@ -46,7 +46,6 @@
   <ItemGroup>
     <Compile Include="LastprofTests.cs" />
     <Compile Include="LoaderTests.cs" />
-      <Compile Include="MockLogger.cs"/>
       <Compile Include="OpenSauceInstallerTests.cs"/>
     <Compile Include="OpenSauceTests.cs" />
     <Compile Include="PackageTests.cs" />
