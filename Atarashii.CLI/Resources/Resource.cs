@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace Atarashii.CLI
+namespace Atarashii.CLI.Resources
 {
     public class Resource
     {

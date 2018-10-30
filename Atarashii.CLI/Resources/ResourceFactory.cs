@@ -1,12 +1,17 @@
 using System;
 
-namespace Atarashii.CLI
+namespace Atarashii.CLI.Resources
 {
     /// <summary>
     ///     Instantiates Resource types.
     /// </summary>
     public static class ResourceFactory
     {
+        /// <summary>
+        ///     The location of the resource files. Conventionally, it's the namespace of the Resource type.
+        /// </summary>
+        private static readonly string Location = typeof(Resource).Namespace;
+        
         public enum Type
         {
             /// <summary>
@@ -28,17 +33,17 @@ namespace Atarashii.CLI
         /// <summary>
         ///     Name of the text file containing the banner ASCII art.
         /// </summary>
-        private const string BannerResourceName = "Atarashii.CLI.BANNER";
+        private const string BannerResourceName = "BANNER";
 
         /// <summary>
         ///     Name of the text file containing the Git revision.
         /// </summary>
-        private const string RevisionResourceName = "Atarashii.CLI.REVISION";
+        private const string RevisionResourceName = "REVISION";
 
         /// <summary>
         ///     Name of the text file containing the usage table.
         /// </summary>
-        private const string UsageResourceName = "Atarashii.CLI.USAGE.md";
+        private const string UsageResourceName = "USAGE";
 
         /// <summary>
         ///     Returns a Resource instance based on the inbound type.
@@ -48,11 +53,11 @@ namespace Atarashii.CLI
             switch (type)
             {
                 case Type.Banner:
-                    return new Resource(BannerResourceName);
+                    return new Resource($"{Location}.{BannerResourceName}");
                 case Type.Revision:
-                    return new Resource(RevisionResourceName);
+                    return new Resource($"{Location}.{RevisionResourceName}");
                 case Type.Usage:
-                    return new Resource(UsageResourceName);
+                    return new Resource($"{Location}.{UsageResourceName}");
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
