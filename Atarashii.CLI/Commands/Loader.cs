@@ -63,9 +63,7 @@ namespace Atarashii.CLI.Commands
 
             try
             {
-                var result = ExecutableFactory.Get(ExecutableFactory.Type.Detect, Output);
-                Pass("Profile name successfully parsed:");
-                Console.WriteLine(result);
+                Console.WriteLine(ExecutableFactory.Get(ExecutableFactory.Type.Detect, Output).Path);
                 Environment.Exit(0);
             }
             catch (FileNotFoundException)
