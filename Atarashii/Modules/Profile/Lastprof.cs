@@ -37,7 +37,7 @@ namespace Atarashii.Modules.Profile
         }
 
         /// <inheritdoc />
-        protected override string Identifier { get; } = "Atarashii.Profile.Lastprof";
+        protected override string Identifier { get; } = "Profile.Lastprof";
 
         /// <inheritdoc />
         /// <returns>

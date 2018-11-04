@@ -25,9 +25,31 @@ namespace Atarashii.CLI.Commands
                 case nameof(Resolve):
                     Resolve(args);
                     break;
+                case nameof(Detect):
+                    Detect();
+                    break;
                 default:
                     Fail("Invoked an invalid Profile command.", 2);
                     break;
+            }
+        }
+
+        private void Detect()
+        {
+            Info("Invoked the Profile.Detect command.");
+
+            try
+            {
+                var result = LastprofFactory.Get(LastprofFactory.Type.Detect, Output);
+                Console.WriteLine(result.Parse());
+            }
+            catch (FileNotFoundException e)
+            {
+                Fail(e.Message, 3);
+            }
+            catch (ProfileException e)
+            {
+                Fail(e.Message, 3);
             }
         }
 
