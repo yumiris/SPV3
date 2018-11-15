@@ -1,5 +1,7 @@
 namespace Atarashii.Modules.Profile.Options
 {
+    // TODO: Handle HW Acceleration & Environmental Sound.
+
     /// <summary>
     ///     Representation of the profile audio settings.
     /// </summary>
