@@ -42,13 +42,13 @@
       <Compile Include="Common\Exceptions\PackageException.cs"/>
       <Compile Include="Common\Exceptions\VerifierException.cs"/>
       <Compile Include="Common\IVerifiable.cs"/>
+      <Compile Include="Common\Module.cs"/>
       <Compile Include="Common\Output.cs"/>
       <Compile Include="Common\Package.cs"/>
       <Compile Include="Common\Verification.cs"/>
       <Compile Include="Modules\Loader\Executable.cs"/>
       <Compile Include="Modules\Loader\ExecutableFactory.cs"/>
       <Compile Include="Modules\Loader\LoaderException.cs"/>
-      <Compile Include="Modules\Module.cs"/>
       <Compile Include="Modules\OpenSauce\Configuration.cs"/>
       <Compile Include="Modules\OpenSauce\ConfigurationFactory.cs"/>
       <Compile Include="Modules\OpenSauce\Installer.cs"/>

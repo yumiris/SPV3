@@ -1,18 +1,12 @@
 using System;
-using Atarashii.Common;
 
-namespace Atarashii.Modules
+namespace Atarashii.Common
 {
     /// <summary>
     ///     Abstract type representing an Atarashii module.
     /// </summary>
     public abstract class Module
     {
-        protected Module(Output output = null)
-        {
-            Output = output;
-        }
-
         /// <summary>
         ///     Name of the module to be used in contexts such as output subjects.
         /// </summary>
@@ -22,6 +16,17 @@ namespace Atarashii.Modules
         ///     Optional Output type for writing messages to.
         /// </summary>
         private Output Output { get; }
+
+        /// <summary>
+        ///     Module constructor.
+        /// </summary>
+        /// <param name="output">
+        ///    Optional Output type for writing messages to.
+        /// </param>
+        protected Module(Output output = null)
+        {
+            Output = output;
+        }
 
         /// <summary>
         ///     Invokes the Output.Write with the inbound exception message, then throws the exception.
