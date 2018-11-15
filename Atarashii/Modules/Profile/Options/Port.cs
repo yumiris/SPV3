@@ -8,11 +8,11 @@ namespace Atarashii.Modules.Profile.Options
         /// <summary>
         ///     The port value the client sends data from.
         /// </summary>
-        public ushort Client = 2303;
+        public ushort Client { get; set; } = 2303;
 
         /// <summary>
         ///     The port value the server listens on.
         /// </summary>
-        public ushort Server = 2302;
+        public ushort Server { get; set; } = 2302;
     }
 }

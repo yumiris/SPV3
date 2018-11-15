@@ -6,7 +6,7 @@ namespace Atarashii.Modules.OpenSauce
     /// <summary>
     ///     Creates OpenSauce Configuration instances.
     /// </summary>
-    public class ConfigurationFactory
+    public static class ConfigurationFactory
     {
         /// <summary>
         ///     Deserialises a given XML string to an OpenSauce Configuration instance.
