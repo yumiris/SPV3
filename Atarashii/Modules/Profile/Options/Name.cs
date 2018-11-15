@@ -17,10 +17,10 @@ namespace Atarashii.Modules.Profile.Options
         ///     Player name value.
         /// </summary>
         /// <exception cref="ArgumentNullException">
-        ///    No name value has been been assigned.
+        ///     No name value has been been assigned.
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///    Assigned name value is greater than 11 characters.
+        ///     Assigned name value is greater than 11 characters.
         /// </exception>
         public string Value
         {
@@ -29,10 +29,10 @@ namespace Atarashii.Modules.Profile.Options
             {
                 if (string.IsNullOrWhiteSpace(value))
                     throw new ArgumentNullException(value);
-                
+
                 if (value.Length > 0xB)
                     throw new ArgumentOutOfRangeException($"{value} is greater than 11 characters.");
-                
+
                 _value = value;
             }
         }
