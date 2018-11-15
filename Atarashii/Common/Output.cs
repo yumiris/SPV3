@@ -19,7 +19,7 @@ namespace Atarashii.Common
             ///     Represents an informative message.
             /// </summary>
             Info,
-            
+
             /// <summary>
             ///     Represents a non-fatal warning message.
             /// </summary>

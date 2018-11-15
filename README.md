@@ -25,10 +25,10 @@ At the moment, the project provides the following features:
 - determining the currently used HCE profile, thereby allowing automatic integration with the HCE profile instead;
 - installation and configuration of the OpenSauce mod, with a balance between safety and flexibility.
 
-## Interfaces
+## CLI
 
-All of the library's major components have CLI front-ends to them. All of the CLIs are cross-platform, script-friendly
-and informative programs for developers and calling processes to use.
+All of the library's major components have a Command Line Interface (CLI) front-end. It is cross-platform,
+script-friendly and versatile program for developers and calling processes to use.
 
 Interaction is carried out using start-up arguments, with detailed instructions & logs being written to the CLI.
 Appropriate exit codes and error messages are used for communication with calling processes and developers.
