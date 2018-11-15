@@ -77,9 +77,12 @@
     <Compile Include="Modules\OpenSauce\Options\ShaderObject.cs"/>
     <Compile Include="Modules\OpenSauce\Options\ShaderRasterizer.cs"/>
     <Compile Include="Modules\OpenSauce\Options\Upgrades.cs"/>
+    <Compile Include="Modules\Profile\Configuration.cs"/>
     <Compile Include="Modules\Profile\Lastprof.cs"/>
     <Compile Include="Modules\Profile\LastprofFactory.cs"/>
+    <Compile Include="Modules\Profile\Levels.cs"/>
     <Compile Include="Modules\Profile\ProfileException.cs"/>
+    <Compile Include="Modules\Profile\Types.cs"/>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
