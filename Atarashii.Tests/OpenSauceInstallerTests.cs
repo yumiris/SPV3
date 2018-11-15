@@ -19,8 +19,8 @@ namespace Atarashii.Tests
         [Test]
         public void InstallNonExistentPackage_ThrowsException()
         {
-            var hcePath = new Guid().ToString();
-            var hceFile = Path.Combine(hcePath, Executable.Name);
+            string hcePath = new Guid().ToString();
+            string hceFile = Path.Combine(hcePath, Executable.Name);
 
             Directory.CreateDirectory(hcePath);
             File.WriteAllBytes(hceFile, new byte[256]);
@@ -38,7 +38,7 @@ namespace Atarashii.Tests
         [Test]
         public void InstallToInvalidHceDirectory_ThrowsException()
         {
-            var hcePath = new Guid().ToString();
+            string hcePath = new Guid().ToString();
             var installer = new Installer(hcePath, _packages);
 
             Directory.CreateDirectory(hcePath);
@@ -52,7 +52,7 @@ namespace Atarashii.Tests
         [Test]
         public void InstallToNonExistentDirectory_ThrowsException()
         {
-            var fakePath = new Guid().ToString();
+            string fakePath = new Guid().ToString();
             var installer = new Installer(fakePath, _packages);
 
             var ex = Assert.Throws<OpenSauceException>(() => installer.Install());
@@ -63,7 +63,7 @@ namespace Atarashii.Tests
         [Test]
         public void VerifyInvalidHceDirectory_ReturnsFalse()
         {
-            var hcePath = new Guid().ToString();
+            string hcePath = new Guid().ToString();
             var installer = new Installer(hcePath, _packages);
 
             Directory.CreateDirectory(hcePath);
@@ -74,7 +74,7 @@ namespace Atarashii.Tests
         [Test]
         public void VerifyNonExistentDirectory_ReturnsFalse()
         {
-            var fakePath = new Guid().ToString();
+            string fakePath = new Guid().ToString();
             var installer = new Installer(fakePath, _packages);
             Assert.IsFalse(installer.Verify().IsValid);
         }
@@ -82,8 +82,8 @@ namespace Atarashii.Tests
         [Test]
         public void VerifyNonExistentPackage_ReturnsFalse()
         {
-            var hcePath = new Guid().ToString();
-            var hceFile = Path.Combine(hcePath, Executable.Name);
+            string hcePath = new Guid().ToString();
+            string hceFile = Path.Combine(hcePath, Executable.Name);
 
             Directory.CreateDirectory(hcePath);
             File.WriteAllBytes(hceFile, new byte[256]);

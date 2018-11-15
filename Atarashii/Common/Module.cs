@@ -8,6 +8,17 @@ namespace Atarashii.Common
     public abstract class Module
     {
         /// <summary>
+        ///     Module constructor.
+        /// </summary>
+        /// <param name="output">
+        ///     Optional Output type for writing messages to.
+        /// </param>
+        protected Module(Output output = null)
+        {
+            Output = output;
+        }
+
+        /// <summary>
         ///     Name of the module to be used in contexts such as output subjects.
         /// </summary>
         protected abstract string Identifier { get; }
@@ -16,17 +27,6 @@ namespace Atarashii.Common
         ///     Optional Output type for writing messages to.
         /// </summary>
         private Output Output { get; }
-
-        /// <summary>
-        ///     Module constructor.
-        /// </summary>
-        /// <param name="output">
-        ///    Optional Output type for writing messages to.
-        /// </param>
-        protected Module(Output output = null)
-        {
-            Output = output;
-        }
 
         /// <summary>
         ///     Invokes the Output.Write with the inbound exception message, then throws the exception.

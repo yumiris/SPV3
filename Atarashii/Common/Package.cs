@@ -1,7 +1,6 @@
 using System.IO;
 using System.IO.Compression;
 using Atarashii.Common.Exceptions;
-using Atarashii.Modules;
 
 namespace Atarashii.Common
 {

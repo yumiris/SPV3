@@ -73,12 +73,12 @@ namespace Atarashii.Modules.OpenSauce
         /// </returns>
         private List<Package> GetOpenSaucePackages()
         {
-            var guiDirPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-            var usrDirPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            string guiDirPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            string usrDirPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 
-            var libPackage = Path.Combine(Package.Directory, $"{Installer.LibPackage}.{Package.Extension}");
-            var guiPackage = Path.Combine(Package.Directory, $"{Installer.GuiPackage}.{Package.Extension}");
-            var usrPackage = Path.Combine(Package.Directory, $"{Installer.UsrPackage}.{Package.Extension}");
+            string libPackage = Path.Combine(Package.Directory, $"{Installer.LibPackage}.{Package.Extension}");
+            string guiPackage = Path.Combine(Package.Directory, $"{Installer.GuiPackage}.{Package.Extension}");
+            string usrPackage = Path.Combine(Package.Directory, $"{Installer.UsrPackage}.{Package.Extension}");
 
             return new List<Package>
             {
