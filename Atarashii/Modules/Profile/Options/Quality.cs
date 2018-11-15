@@ -5,6 +5,9 @@ namespace Atarashii.Modules.Profile.Options
     /// </summary>
     public class Quality
     {
+        /// <summary>
+        ///     Generic quality level values.
+        /// </summary>
         public enum Type
         {
             Low,
@@ -12,6 +15,9 @@ namespace Atarashii.Modules.Profile.Options
             High
         }
 
+        /// <summary>
+        ///     Chosen quality level.
+        /// </summary>
         public Type Value { get; set; } = Type.High;
     }
 }

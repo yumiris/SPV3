@@ -83,11 +83,11 @@ namespace Atarashii.Modules.Profile.Options
         }
 
         /// <summary>
-        ///     Checks if the inbound sensitivity value falls within a valid range.
+        ///     Checks if the inbound volume value falls within a valid range.
         /// </summary>
         /// <param name="value">Inbound value to check.</param>
         /// <returns>True on valid value, otherwise false.</returns>
-        private static bool IsValid(int value)
+        private static bool IsValid(ushort value)
         {
             return value < 11;
         }
