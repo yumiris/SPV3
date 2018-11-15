@@ -12,7 +12,7 @@ namespace Atarashii.Modules.Profile.Options
         ///     This value is expected to be between 1 and 10.
         /// </summary>
         private ushort _horizontal = 3;
-        
+
         /// <summary>
         ///     Vertical sensitivity value.
         ///     This value is expected to be between 1 and 10.
@@ -21,10 +21,10 @@ namespace Atarashii.Modules.Profile.Options
 
         /// <summary>
         ///     Horizontal sensitivity value.
-        ///     <exception cref="ArgumentOutOfRangeException">
-        ///         Assigned value is less than 1 or greater than 10.
-        ///     </exception>
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     Assigned value is less than 1 or greater than 10.
+        /// </exception>
         public ushort Horizontal
         {
             get => _horizontal;
@@ -40,10 +40,10 @@ namespace Atarashii.Modules.Profile.Options
 
         /// <summary>
         ///     Vertical sensitivity value.
-        ///     <exception cref="ArgumentOutOfRangeException">
-        ///         Assigned value is less than 1 or greater than 10.
-        ///     </exception>
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     Assigned value is less than 1 or greater than 10.
+        /// </exception>
         public ushort Vertical
         {
             get => _vertical;
