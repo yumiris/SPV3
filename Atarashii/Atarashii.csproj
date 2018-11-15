@@ -78,6 +78,7 @@
       <Compile Include="Modules\OpenSauce\Options\ShaderRasterizer.cs"/>
       <Compile Include="Modules\OpenSauce\Options\Upgrades.cs"/>
       <Compile Include="Modules\Profile\Configuration.cs"/>
+      <Compile Include="Modules\Profile\ConfigurationFactory.cs"/>
       <Compile Include="Modules\Profile\Lastprof.cs"/>
       <Compile Include="Modules\Profile\LastprofFactory.cs"/>
       <Compile Include="Modules\Profile\Options\Audio.cs"/>
