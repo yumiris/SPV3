@@ -1,7 +1,13 @@
 namespace Atarashii.Modules.Profile.Options
 {
+    /// <summary>
+    ///     Representation of the profile player colour.
+    /// </summary>
     public class Colour
     {
+        /// <summary>
+        ///     Available player colours.
+        /// </summary>
         public enum Type
         {
             White,
@@ -24,6 +30,9 @@ namespace Atarashii.Modules.Profile.Options
             Salmon
         }
 
+        /// <summary>
+        ///     Player colour value.
+        /// </summary>
         public Type Value { get; set; } = Type.White;
     }
 }
