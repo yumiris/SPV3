@@ -1,6 +1,7 @@
+using Atarashii.Modules.Profile.Options;
+
 namespace Atarashii.Modules.Profile
 {
-    // TODO: Create dedicated types for values such as Colour, Texture & Sound Quality, etc.!
     // TODO: Split the types into a dedicated Profile.Options namespace!
 
     /// <summary>
@@ -8,8 +9,8 @@ namespace Atarashii.Modules.Profile
     /// </summary>
     public class Configuration
     {
-        public string Name { get; set; } = "New001";
-        public Types.Colour Colour { get; set; } = Types.Colour.White;
+        public Name Name { get; set; } = new Name();
+        public Colour Colour { get; set; } = new Colour();
         public Mouse Mouse { get; set; } = new Mouse();
         public Audio Audio { get; set; } = new Audio();
         public Video Video { get; set; } = new Video();
@@ -22,19 +23,19 @@ namespace Atarashii.Modules.Profile
     public class Network
     {
         /// <summary>
-        ///     Settings for the networking system.
+        ///     Connection type settings.
         /// </summary>
-        public Types.Connection Connection { get; set; } = Types.Connection.DslAverage;
+        public Connection Connection = new Connection();
 
         /// <summary>
         ///     Network port the server listens on.
         /// </summary>
-        public ushort ServerPort { get; set; } = 2302;
+        public Port ServerPort { get; set; } = new Port();
 
         /// <summary>
         ///     Network port the client sends on.
         /// </summary>
-        public ushort ClientPort { get; set; } = 2303;
+        public Port ClientPort { get; set; } = new Port();
     }
 
     /// <summary>
@@ -42,30 +43,30 @@ namespace Atarashii.Modules.Profile
     /// </summary>
     public class Video
     {
-        public ushort Width { get; set; } = 800;
-        public ushort Height { get; set; } = 600;
-        public uint Refreshrate { get; set; } = 60;
-        public Types.Framerate Framerate { get; set; } = Types.Framerate.Fps30;
+        public Dimension Width { get; set; } = new Dimension();
+        public Dimension Height { get; set; } = new Dimension();
+        public RefreshRate RefreshRate { get; set; } = new RefreshRate();
+        public FrameRate FrameRate { get; set; } = new FrameRate();
         public bool Specular { get; set; } = true;
         public bool Shadows { get; set; } = true;
         public bool Decals { get; set; } = true;
-        public Levels.Particles Particles { get; set; } = Levels.Particles.High;
-        public Levels.Quality Quality { get; set; } = Levels.Quality.High;
+        public Particles Particles { get; set; } = new Particles();
+        public Levels Quality { get; set; } = new Levels();
     }
 
     public class Audio
     {
-        public uint MasterVolume { get; set; } = 10;
-        public uint EffectsVolume { get; set; } = 10;
-        public uint MusicVolume { get; set; } = 10;
-        public Levels.Quality Quality { get; set; } = Levels.Quality.High;
-        public Levels.Quality Variety { get; set; } = Levels.Quality.High;
+        public Volume Master { get; set; } = new Volume();
+        public Volume Effects { get; set; } = new Volume();
+        public Volume Music { get; set; } = new Volume();
+        public Levels Quality { get; set; } = new Levels();
+        public Levels Variety { get; set; } = new Levels();
     }
 
     public class Mouse
     {
-        public uint HorizontalSensitivity { get; set; } = 3;
-        public uint VerticalSensitivity { get; set; } = 3;
+        public Sensitivity Horizontal { get; set; } = new Sensitivity();
+        public Sensitivity Vertical { get; set; } = new Sensitivity();
         public bool InvertVerticalAxis { get; set; } = false;
     }
 }

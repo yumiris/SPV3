@@ -80,9 +80,18 @@
     <Compile Include="Modules\Profile\Configuration.cs"/>
     <Compile Include="Modules\Profile\Lastprof.cs"/>
     <Compile Include="Modules\Profile\LastprofFactory.cs"/>
-    <Compile Include="Modules\Profile\Levels.cs"/>
+    <Compile Include="Modules\Profile\Options\Colour.cs"/>
+    <Compile Include="Modules\Profile\Options\Connection.cs"/>
+    <Compile Include="Modules\Profile\Options\FrameRate.cs"/>
+    <Compile Include="Modules\Profile\Options\Name.cs"/>
+    <Compile Include="Modules\Profile\Options\Particles.cs"/>
+    <Compile Include="Modules\Profile\Options\Port.cs"/>
+    <Compile Include="Modules\Profile\Options\Dimension.cs"/>
+    <Compile Include="Modules\Profile\Options\Levels.cs"/>
+    <Compile Include="Modules\Profile\Options\RefreshRate.cs"/>
+    <Compile Include="Modules\Profile\Options\Sensitivity.cs"/>
+    <Compile Include="Modules\Profile\Options\Volume.cs"/>
     <Compile Include="Modules\Profile\ProfileException.cs"/>
-    <Compile Include="Modules\Profile\Types.cs"/>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

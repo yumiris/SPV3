@@ -1,33 +1,11 @@
-namespace Atarashii.Modules.Profile
+namespace Atarashii.Modules.Profile.Options
 {
-    public class Types
+    public class Connection
     {
-        public enum Colour
-        {
-            White,
-            Black,
-            Red,
-            Blue,
-            Gray,
-            Yellow,
-            Green,
-            Pink,
-            Purple,
-            Cyan,
-            Cobalt,
-            Oragne,
-            Teal,
-            Sage,
-            Brown,
-            Tan,
-            Maroon,
-            Salmon
-        }
-
         /// <summary>
         ///     Connection types.
         /// </summary>
-        public enum Connection
+        public enum Type
         {
             /// <summary>
             ///     56kbps setting - allows a maximum of 2 people to join a hosted server.
@@ -55,11 +33,6 @@ namespace Atarashii.Modules.Profile
             Lan
         }
 
-        public enum Framerate
-        {
-            Fps30,
-            VsyncOn,
-            VsyncOff
-        }
+        public Type Value { get; set; } = Type.Modem;
     }
 }
