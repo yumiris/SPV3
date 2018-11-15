@@ -86,8 +86,8 @@
     <Compile Include="Modules\Profile\Options\Name.cs"/>
     <Compile Include="Modules\Profile\Options\Particles.cs"/>
     <Compile Include="Modules\Profile\Options\Port.cs"/>
-    <Compile Include="Modules\Profile\Options\Dimension.cs"/>
-    <Compile Include="Modules\Profile\Options\Levels.cs"/>
+    <Compile Include="Modules\Profile\Options\Resolution.cs"/>
+    <Compile Include="Modules\Profile\Options\Quality.cs"/>
     <Compile Include="Modules\Profile\Options\RefreshRate.cs"/>
     <Compile Include="Modules\Profile\Options\Sensitivity.cs"/>
     <Compile Include="Modules\Profile\Options\Volume.cs"/>

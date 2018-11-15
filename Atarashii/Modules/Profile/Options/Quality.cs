@@ -1,6 +1,6 @@
 namespace Atarashii.Modules.Profile.Options
 {
-    public class Levels
+    public class Quality
     {
         public enum Type
         {

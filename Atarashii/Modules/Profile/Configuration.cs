@@ -28,14 +28,9 @@ namespace Atarashii.Modules.Profile
         public Connection Connection = new Connection();
 
         /// <summary>
-        ///     Network port the server listens on.
+        ///     Network ports.
         /// </summary>
-        public Port ServerPort { get; set; } = new Port();
-
-        /// <summary>
-        ///     Network port the client sends on.
-        /// </summary>
-        public Port ClientPort { get; set; } = new Port();
+        public Port Port { get; set; } = new Port();
     }
 
     /// <summary>
@@ -43,30 +38,26 @@ namespace Atarashii.Modules.Profile
     /// </summary>
     public class Video
     {
-        public Dimension Width { get; set; } = new Dimension();
-        public Dimension Height { get; set; } = new Dimension();
+        public Resolution Resolution { get; set; } = new Resolution();
         public RefreshRate RefreshRate { get; set; } = new RefreshRate();
         public FrameRate FrameRate { get; set; } = new FrameRate();
         public bool Specular { get; set; } = true;
         public bool Shadows { get; set; } = true;
         public bool Decals { get; set; } = true;
         public Particles Particles { get; set; } = new Particles();
-        public Levels Quality { get; set; } = new Levels();
+        public Quality Quality { get; set; } = new Quality();
     }
 
     public class Audio
     {
-        public Volume Master { get; set; } = new Volume();
-        public Volume Effects { get; set; } = new Volume();
-        public Volume Music { get; set; } = new Volume();
-        public Levels Quality { get; set; } = new Levels();
-        public Levels Variety { get; set; } = new Levels();
+        public Volume Volume { get; set; } = new Volume();
+        public Quality Quality { get; set; } = new Quality();
+        public Quality Variety { get; set; } = new Quality();
     }
 
     public class Mouse
     {
-        public Sensitivity Horizontal { get; set; } = new Sensitivity();
-        public Sensitivity Vertical { get; set; } = new Sensitivity();
+        public Sensitivity Sensitivity { get; set; } = new Sensitivity();
         public bool InvertVerticalAxis { get; set; } = false;
     }
 }
