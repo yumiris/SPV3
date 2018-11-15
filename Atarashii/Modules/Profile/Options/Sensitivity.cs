@@ -23,7 +23,7 @@ namespace Atarashii.Modules.Profile.Options
         ///     Horizontal sensitivity value.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///     Assigned value is less than 1 or greater than 10.
+        ///     Assigned sensitivity value is less than 1 or greater than 10.
         /// </exception>
         public ushort Horizontal
         {
@@ -31,8 +31,8 @@ namespace Atarashii.Modules.Profile.Options
             set
             {
                 if (!IsValid(value))
-                    throw new ArgumentOutOfRangeException(
-                        $"Assigned horizontal value {value} is less than 1 or greater than 10.");
+                    throw new ArgumentOutOfRangeException(nameof(value),
+                        "Assigned sensitivity value is less than 1 or greater than 10.");
 
                 _horizontal = value;
             }
@@ -42,7 +42,7 @@ namespace Atarashii.Modules.Profile.Options
         ///     Vertical sensitivity value.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///     Assigned value is less than 1 or greater than 10.
+        ///     Assigned sensitivity value is less than 1 or greater than 10.
         /// </exception>
         public ushort Vertical
         {
@@ -50,8 +50,8 @@ namespace Atarashii.Modules.Profile.Options
             set
             {
                 if (!IsValid(value))
-                    throw new ArgumentOutOfRangeException(
-                        $"Assigned vertical value {value} is less than 1 or greater than 10.");
+                    throw new ArgumentOutOfRangeException(nameof(value),
+                        "Assigned sensitivity value is less than 1 or greater than 10.");
 
                 _vertical = value;
             }

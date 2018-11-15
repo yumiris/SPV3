@@ -37,8 +37,7 @@ namespace Atarashii.Modules.Profile.Options
             set
             {
                 if (!IsValid(value))
-                    throw new ArgumentOutOfRangeException(
-                        $"Assigned Master volume value {value} is greater than 10.");
+                    throw new ArgumentOutOfRangeException(nameof(value), "Assigned volume value is greater than 10.");
 
                 _master = value;
             }
@@ -56,8 +55,7 @@ namespace Atarashii.Modules.Profile.Options
             set
             {
                 if (!IsValid(value))
-                    throw new ArgumentOutOfRangeException(
-                        $"Assigned Effects volume value {value} is greater than 10.");
+                    throw new ArgumentOutOfRangeException(nameof(value), "Assigned volume value is greater than 10.");
 
                 _effects = value;
             }
@@ -75,8 +73,7 @@ namespace Atarashii.Modules.Profile.Options
             set
             {
                 if (!IsValid(value))
-                    throw new ArgumentOutOfRangeException(
-                        $"Assigned Music volume value {value} is greater than 10.");
+                    throw new ArgumentOutOfRangeException(nameof(value), "Assigned volume value is greater than 10.");
 
                 _music = value;
             }

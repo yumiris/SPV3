@@ -31,7 +31,8 @@ namespace Atarashii.Modules.Profile.Options
                     throw new ArgumentNullException(value);
 
                 if (value.Length > 0xB)
-                    throw new ArgumentOutOfRangeException($"{value} is greater than 11 characters.");
+                    throw new ArgumentOutOfRangeException(nameof(value),
+                        "Assigned name value is greater than 11 characters.");
 
                 _value = value;
             }

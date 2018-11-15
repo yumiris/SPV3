@@ -31,8 +31,8 @@ namespace Atarashii.Modules.Profile.Options
             set
             {
                 if (!IsValid(value))
-                    throw new ArgumentOutOfRangeException(
-                        $"Assigned Width dimension value {value} is either 0 or over 32767.");
+                    throw new ArgumentOutOfRangeException(nameof(value),
+                        "Assigned dimension value is either 0 or over 32767.");
 
                 _width = value;
             }
@@ -50,8 +50,8 @@ namespace Atarashii.Modules.Profile.Options
             set
             {
                 if (!IsValid(value))
-                    throw new ArgumentOutOfRangeException(
-                        $"Assigned Width dimension value {value} is either 0 or over 32767.");
+                    throw new ArgumentOutOfRangeException(nameof(value),
+                        "Assigned dimension value is either 0 or over 32767.");
 
                 _height = value;
             }
