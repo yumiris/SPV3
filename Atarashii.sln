@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{242E14EA-FB28-458C-8ABE-10D09245B350}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
+		Atarashii.Docs\blam-sav.md = Atarashii.Docs\blam-sav.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Atarashii.CLI", "Atarashii.CLI\Atarashii.CLI.csproj", "{4F18217D-AB00-49A9-B1D6-8125CD89BC51}"

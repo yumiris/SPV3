@@ -28,6 +28,9 @@ namespace Atarashii.CLI.Commands
                 case nameof(Detect):
                     Detect();
                     break;
+                case nameof(Parse):
+                    Parse(args);
+                    break;
                 default:
                     Fail("Invoked an invalid Profile command.", 2);
                     break;
@@ -62,9 +65,24 @@ namespace Atarashii.CLI.Commands
             {
                 Console.WriteLine(new Lastprof(File.ReadAllText(args[0])).Parse());
             }
-            catch (ProfileException)
+            catch (ProfileException e)
             {
-                Environment.Exit(1);
+                Fail(e.Message, 3);
+            }
+        }
+
+        private void Parse(string[] args)
+        {
+            Info("Invoked the Profile.Parse command.");
+            ExitIfNone(args);
+
+            try
+            {
+                Info(ConfigurationFactory.GetFromStream(File.Open(args[0], FileMode.Open)).Name.Value);
+            }
+            catch (Exception e)
+            {
+                Fail(e.Message, 3);
             }
         }
     }
