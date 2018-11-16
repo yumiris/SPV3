@@ -1,7 +1,7 @@
 using System;
 using System.IO;
+using System.Text;
 using Atarashii.Modules.Profile.Options;
-using static Atarashii.Modules.Profile.ConfigurationConstant;
 
 namespace Atarashii.Modules.Profile
 {
@@ -10,6 +10,26 @@ namespace Atarashii.Modules.Profile
     /// </summary>
     public static class ConfigurationFactory
     {
+        /// <summary>
+        ///     Length of the blam.sav binary.
+        /// </summary>
+        private const int BlamLength = 0x2000;
+
+        /// <summary>
+        ///     Data length of the profile name property.
+        /// </summary>
+        private const int NameOffset = 0x2;
+
+        /// <summary>
+        ///     Offset of the profile name property.
+        /// </summary>
+        private const int NameLength = 0xB;
+
+        /// <summary>
+        ///     Data length of the player colour property.
+        /// </summary>
+        private const int ColourOffset = 0x11a;
+
         /// <summary>
         ///     Deserialises a given binary stream to a Profile Configuration instance.
         /// </summary>
@@ -45,7 +65,7 @@ namespace Atarashii.Modules.Profile
                             stream.Position++; // skip null bytes
                         }
 
-                        return System.Text.Encoding.ASCII.GetString(data);
+                        return Encoding.ASCII.GetString(data);
                     })(stream)
                 },
 

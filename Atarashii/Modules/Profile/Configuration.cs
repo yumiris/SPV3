@@ -1,4 +1,3 @@
-using System;
 using Atarashii.Modules.Profile.Options;
 
 namespace Atarashii.Modules.Profile
