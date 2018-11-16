@@ -111,6 +111,21 @@ namespace Atarashii.Modules.Profile
         private const int VideoQualityOffset = 0xA74;
 
         /// <summary>
+        ///     Offset of the network connection type property.
+        /// </summary>
+        private const int NetworkConnectionTypeOffset = 0xFC0;
+
+        /// <summary>
+        ///     Offset of the network server port property.
+        /// </summary>
+        private const int NetworkPortServerOffset = 0x1002;
+
+        /// <summary>
+        ///     Offset of the network client port property.
+        /// </summary>
+        private const int NetworkPortClientOffset = 0x1004;
+
+        /// <summary>
         ///     Deserialises a given binary stream to a Profile Configuration instance.
         /// </summary>
         /// <param name="stream">
@@ -185,7 +200,7 @@ namespace Atarashii.Modules.Profile
                         Value = (Quality.Type) GetByte(reader, AudioVarietyOffset)
                     }
                 },
-                
+
                 Video =
                 {
                     Resolution =
@@ -193,27 +208,41 @@ namespace Atarashii.Modules.Profile
                         Width = GetShort(reader, VideoResolutionWidthOffset),
                         Height = GetShort(reader, VideoResolutionHeightOffset)
                     },
-                    
+
                     FrameRate =
                     {
                         Value = (FrameRate.Type) GetByte(reader, VideoFrameRateOffset)
                     },
-                    
+
                     Effects =
                     {
                         Specular = GetBool(reader, VideoEffectsSpecularOffset),
                         Shadows = GetBool(reader, VideoEffectsShadowsOffset),
                         Decals = GetBool(reader, VideoEffectsDecalsOffset)
                     },
-                    
+
                     Particles =
                     {
                         Value = (Particles.Type) GetByte(reader, VideoParticlesOffset)
                     },
-                    
+
                     Quality =
                     {
                         Value = (Quality.Type) GetByte(reader, VideoQualityOffset)
+                    }
+                },
+
+                Network =
+                {
+                    Connection =
+                    {
+                        Value = (Connection.Type) GetByte(reader, NetworkConnectionTypeOffset)
+                    },
+
+                    Port =
+                    {
+                        Server = GetShort(reader, NetworkPortServerOffset),
+                        Client = GetShort(reader, NetworkPortClientOffset)
                     }
                 }
             };
