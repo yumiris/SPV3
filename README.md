@@ -20,13 +20,15 @@ thereby allowing both SPV3 and HCE projects to rely on the functionality provide
 
 # CLI Usage
 
-> Due to its non-interactive nature, double clicking the executable will not execute anything meaningful!
-> To use the CLI, you must run run it from an **existing** console: `\path\to\Atarashii.CLI.exe`!
-> The syntax of the commands may change at any time for improved versatility & ease of use!
+Notes:
 
-The following table shows common tasks with their respective commands. The commands **are** CaSe SeNSiTiVE!
+- Due to its non-interactive nature, double clicking the executable will not execute anything meaningful!
+  For example: `.\Atarashii.CLI.exe Loader Load "C:\haloce.exe"`.
+- To use the CLI, you must run run it from an **existing** console: `\path\to\Atarashii.CLI.exe`!
+- The syntax of the commands may change at any time for improved versatility & ease of use!
+- The commands are currently CaSe SeNSiTiVE!
 
-For example: `.\Atarashii.CLI.exe Loader Load "C:\haloce.exe"`
+The following table shows common tasks with their respective commands. 
 
 | Task                              | Command                                 |
 | --------------------------------- | --------------------------------------- |
