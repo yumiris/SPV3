@@ -2,7 +2,6 @@
 using System.IO;
 using Atarashii.Common;
 using Atarashii.Modules.Profile;
-using Atarashii.Modules.Profile.Options;
 
 namespace Atarashii.CLI.Commands
 {
@@ -86,7 +85,7 @@ namespace Atarashii.CLI.Commands
                 Info($"Colour                       : {configuration.Colour.Value.ToString()}");
                 Info("----------------------------------------------------------------");
                 Info($"Mouse.Sensitivity.Horizontal : {configuration.Mouse.Sensitivity.Horizontal}");
-                Info($"Mouse.Sensitivity.Vertical   : {configuration.Mouse.Sensitivity.Horizontal}");
+                Info($"Mouse.Sensitivity.Vertical   : {configuration.Mouse.Sensitivity.Vertical}");
                 Info($"Mouse.InvertVerticalAxis     : {configuration.Mouse.InvertVerticalAxis}");
                 Info("----------------------------------------------------------------");
                 Info($"Audio.Volume.Master          : {configuration.Audio.Volume.Master}");

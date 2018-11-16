@@ -60,10 +60,10 @@ namespace Atarashii.Modules.Loader
                         if (path != null) return new Executable($@"{path}\{Executable.Name}");
                     }
 
-                    string fullDefaultPath = $@"{DefaultInstall}\{Executable.Name}";
+                    var fullDefaultPath = $@"{DefaultInstall}\{Executable.Name}";
                     if (File.Exists(fullDefaultPath)) return new Executable(fullDefaultPath, output);
 
-                    string currentDirectoryPath = Path.Combine(Directory.GetCurrentDirectory(), Executable.Name);
+                    var currentDirectoryPath = Path.Combine(Directory.GetCurrentDirectory(), Executable.Name);
                     if (File.Exists(currentDirectoryPath)) return new Executable(currentDirectoryPath, output);
 
                     throw new FileNotFoundException("Could not find a legal executable through the detection attempt.");

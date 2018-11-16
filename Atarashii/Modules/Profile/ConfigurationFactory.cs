@@ -16,19 +16,34 @@ namespace Atarashii.Modules.Profile
         private const int BlamLength = 0x2000;
 
         /// <summary>
-        ///     Data length of the profile name property.
+        ///     Offset of the profile name property.
         /// </summary>
         private const int NameOffset = 0x2;
 
         /// <summary>
-        ///     Offset of the profile name property.
+        ///     Data length of the profile name property.
         /// </summary>
         private const int NameLength = 0xB;
 
         /// <summary>
-        ///     Data length of the player colour property.
+        ///     Offset of the player colour property.
         /// </summary>
         private const int ColourOffset = 0x11a;
+
+        /// <summary>
+        ///     Offset of the horizontal mouse sensitivity property.
+        /// </summary>
+        private const int MouseSensitivityHorizontalOffset = 0x954;
+
+        /// <summary>
+        ///     Offset of the vertical mouse sensitivity property.
+        /// </summary>
+        private const int MouseSensitivityVerticalOffset = 0x955;
+
+        /// <summary>
+        ///     Offset of the mouse vertical axis inversion property.
+        /// </summary>
+        private const int MouseInvertVerticalAxisOffset = 0x12F;
 
         /// <summary>
         ///     Deserialises a given binary stream to a Profile Configuration instance.
@@ -40,13 +55,15 @@ namespace Atarashii.Modules.Profile
         ///     Profile Configuration object instance.
         /// </returns>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///    Provided stream object length does not match the blam.sav length.
+        ///     Provided stream object length does not match the blam.sav length.
         /// </exception>
         public static Configuration GetFromStream(Stream stream)
         {
             if (stream.Length != BlamLength)
                 throw new ArgumentOutOfRangeException(nameof(stream),
                     "Provided stream object length does not match the blam.sav length.");
+
+            var reader = new BinaryReader(stream);
 
             var configuration = new Configuration
             {
@@ -72,18 +89,61 @@ namespace Atarashii.Modules.Profile
                 // player colour
                 Colour =
                 {
-                    Value = new Func<Stream, Colour.Type>(x =>
+                    Value = (Colour.Type) GetByte(reader, ColourOffset)
+                },
+
+                // mouse
+                Mouse =
+                {
+                    Sensitivity =
                     {
-                        using (var reader = new BinaryReader(stream))
-                        {
-                            reader.BaseStream.Seek(ColourOffset, SeekOrigin.Begin);
-                            return (Colour.Type) reader.ReadByte();
-                        }
-                    })(stream)
+                        Horizontal = GetByte(reader, MouseSensitivityHorizontalOffset),
+                        Vertical = GetByte(reader, MouseSensitivityVerticalOffset)
+                    },
+
+                    InvertVerticalAxis = GetBool(reader, MouseInvertVerticalAxisOffset)
                 }
             };
 
+            reader.Dispose();
+
             return configuration;
+        }
+
+        /// <summary>
+        ///     Returns a boolean value from the inbound binary reader at the given offset.
+        /// </summary>
+        /// <param name="reader">
+        ///     Binary reader to retrieve boolean value from.
+        /// </param>
+        /// <param name="offset">
+        ///     Offset of the respective boolean.
+        /// </param>
+        /// <returns>
+        ///     Boolean value.
+        /// </returns>
+        private static byte GetByte(BinaryReader reader, int offset)
+        {
+            reader.BaseStream.Seek(offset, SeekOrigin.Begin);
+            return reader.ReadByte();
+        }
+
+        /// <summary>
+        ///     Returns a boolean value from the inbound binary reader at the given offset.
+        /// </summary>
+        /// <param name="reader">
+        ///     Binary reader to retrieve boolean value from.
+        /// </param>
+        /// <param name="offset">
+        ///     Offset of the respective boolean.
+        /// </param>
+        /// <returns>
+        ///     Boolean value.
+        /// </returns>
+        private static bool GetBool(BinaryReader reader, int offset)
+        {
+            reader.BaseStream.Seek(offset, SeekOrigin.Begin);
+            return reader.ReadBoolean();
         }
     }
 }
