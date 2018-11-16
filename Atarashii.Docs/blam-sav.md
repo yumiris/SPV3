@@ -3,7 +3,7 @@
 | Property                     | Type           | Offset | Length | Constraints                         |
 | ---------------------------- | -------------- | ------ | ------ | ----------------------------------- |
 | Name                         | UTF-16 string  | 0x0002 | 22     | Max. 0xB chars                      |
-| Colour                       | Unsigned byte  | 0x011A | 1      | Range 0x00 - 0x12                   |
+| Colour                       | Unsigned byte  | 0x011A | 1      | Range 0x00 - 0x12 (white is 0xFF)   |
 | Mouse.Sensitivity.Horizontal | Unsigned byte  | 0x0954 | 1      | Range 0x00 - 0x0A                   |
 | Mouse.Sensitivity.Vertical   | Unsigned byte  | 0x0955 | 1      | Range 0x00 - 0x0A                   |
 | Mouse.InvertVerticalAxis     | Boolean        | 0x0955 | 1      | 1/0                                 |

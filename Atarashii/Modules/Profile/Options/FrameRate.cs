@@ -10,9 +10,9 @@ namespace Atarashii.Modules.Profile.Options
         /// </summary>
         public enum Type
         {
-            Fps30,
+            VsyncOff,
             VsyncOn,
-            VsyncOff
+            Fps30,
         }
 
         /// <summary>
