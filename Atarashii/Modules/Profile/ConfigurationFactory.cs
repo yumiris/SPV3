@@ -9,6 +9,11 @@ namespace Atarashii.Modules.Profile
     public class ConfigurationFactory
     {
         /// <summary>
+        ///     Length of the blam.sav binary.
+        /// </summary>
+        private const int BlamLength = 0x2000;
+
+        /// <summary>
         ///     Deserialises a given binary stream to a Profile Configuration instance.
         /// </summary>
         /// <param name="stream">
@@ -17,8 +22,15 @@ namespace Atarashii.Modules.Profile
         /// <returns>
         ///     Profile Configuration object instance.
         /// </returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///    Provided stream object length does not match the blam.sav length.
+        /// </exception>
         public static Configuration GetFromStream(Stream stream)
         {
+            if (stream.Length != BlamLength)
+                throw new ArgumentOutOfRangeException(nameof(stream),
+                    "Provided stream object length does not match the blam.sav length.");
+
             throw new NotImplementedException();
         }
     }
