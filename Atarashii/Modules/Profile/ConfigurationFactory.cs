@@ -46,6 +46,21 @@ namespace Atarashii.Modules.Profile
         private const int MouseInvertVerticalAxisOffset = 0x12F;
 
         /// <summary>
+        ///     Offset of the audio master volume property.
+        /// </summary>
+        private const int AudioVolumeMasterOffset = 0xB78;
+
+        /// <summary>
+        ///     Offset of the audio master volume property.
+        /// </summary>
+        private const int AudioVolumeEffectsOffset = 0xB79;
+
+        /// <summary>
+        ///     Offset of the audio master volume property.
+        /// </summary>
+        private const int AudioVolumeMusicOffset = 0xB7A;
+
+        /// <summary>
         ///     Deserialises a given binary stream to a Profile Configuration instance.
         /// </summary>
         /// <param name="stream">
@@ -67,7 +82,6 @@ namespace Atarashii.Modules.Profile
 
             var configuration = new Configuration
             {
-                // profile name
                 Name =
                 {
                     Value = new Func<Stream, string>(x =>
@@ -86,13 +100,11 @@ namespace Atarashii.Modules.Profile
                     })(stream)
                 },
 
-                // player colour
                 Colour =
                 {
                     Value = (Colour.Type) GetByte(reader, ColourOffset)
                 },
 
-                // mouse
                 Mouse =
                 {
                     Sensitivity =
@@ -102,6 +114,16 @@ namespace Atarashii.Modules.Profile
                     },
 
                     InvertVerticalAxis = GetBool(reader, MouseInvertVerticalAxisOffset)
+                },
+
+                Audio =
+                {
+                    Volume =
+                    {
+                        Master = GetByte(reader, AudioVolumeMasterOffset),
+                        Effects = GetByte(reader, AudioVolumeEffectsOffset),
+                        Music = GetByte(reader, AudioVolumeMusicOffset)
+                    }
                 }
             };
 

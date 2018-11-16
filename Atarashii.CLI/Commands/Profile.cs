@@ -89,8 +89,8 @@ namespace Atarashii.CLI.Commands
                 Info($"Mouse.InvertVerticalAxis     : {configuration.Mouse.InvertVerticalAxis}");
                 Info("----------------------------------------------------------------");
                 Info($"Audio.Volume.Master          : {configuration.Audio.Volume.Master}");
-                Info($"Audio.Volume.Music           : {configuration.Audio.Volume.Music}");
                 Info($"Audio.Volume.Effects         : {configuration.Audio.Volume.Effects}");
+                Info($"Audio.Volume.Music           : {configuration.Audio.Volume.Music}");
                 Info($"Audio.Quality                : {configuration.Audio.Quality.Value}");
                 Info($"Audio.Variety                : {configuration.Audio.Variety.Value}");
                 Info("----------------------------------------------------------------");
