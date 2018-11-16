@@ -2,6 +2,7 @@
 using System.IO;
 using Atarashii.Common;
 using Atarashii.Modules.Profile;
+using Atarashii.Modules.Profile.Options;
 
 namespace Atarashii.CLI.Commands
 {
@@ -82,7 +83,73 @@ namespace Atarashii.CLI.Commands
                 Console.WriteLine();
                 Info("----------------------------------------------------------------");
                 Info($"Name                         : {configuration.Name.Value}");
-                Info($"Colour                       : {configuration.Colour.Value}");
+
+                {
+                    var colour = string.Empty;
+                    
+                    switch (configuration.Colour.Value)
+                    {
+                        case Colour.Type.White:
+                            colour = "White";
+                            break;
+                        case Colour.Type.Black:
+                            colour = "Black";
+                            break;
+                        case Colour.Type.Red:
+                            colour = "Red";
+                            break;
+                        case Colour.Type.Blue:
+                            colour = "Blue";
+                            break;
+                        case Colour.Type.Gray:
+                            colour = "Gray";
+                            break;
+                        case Colour.Type.Yellow:
+                            colour = "Yellow";
+                            break;
+                        case Colour.Type.Green:
+                            colour = "Green";
+                            break;
+                        case Colour.Type.Pink:
+                            colour = "Pink";
+                            break;
+                        case Colour.Type.Purple:
+                            colour = "Purple";
+                            break;
+                        case Colour.Type.Cyan:
+                            colour = "Cyan";
+                            break;
+                        case Colour.Type.Cobalt:
+                            colour = "Cobalt";
+                            break;
+                        case Colour.Type.Orange:
+                            colour = "Orange";
+                            break;
+                        case Colour.Type.Teal:
+                            colour = "Teal";
+                            break;
+                        case Colour.Type.Sage:
+                            colour = "Sage";
+                            break;
+                        case Colour.Type.Brown:
+                            colour = "Brown";
+                            break;
+                        case Colour.Type.Tan:
+                            colour = "Tan";
+                            break;
+                        case Colour.Type.Maroon:
+                            colour = "Maroon";
+                            break;
+                        case Colour.Type.Salmon:
+                            colour = "Salmon";
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                    
+                    Info($"Colour                       : {colour}");
+                }
+                
                 Info("----------------------------------------------------------------");
                 Info($"Mouse.Sensitivity.Horizontal : {configuration.Mouse.Sensitivity.Horizontal}");
                 Info($"Mouse.Sensitivity.Vertical   : {configuration.Mouse.Sensitivity.Horizontal}");

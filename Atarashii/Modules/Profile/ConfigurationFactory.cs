@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Atarashii.Modules.Profile.Options;
 using static Atarashii.Modules.Profile.ConfigurationConstant;
 
 namespace Atarashii.Modules.Profile
@@ -45,6 +46,19 @@ namespace Atarashii.Modules.Profile
                         }
 
                         return System.Text.Encoding.ASCII.GetString(data);
+                    })(stream)
+                },
+
+                // player colour
+                Colour =
+                {
+                    Value = new Func<Stream, Colour.Type>(x =>
+                    {
+                        using (var reader = new BinaryReader(stream))
+                        {
+                            reader.BaseStream.Seek(ColourOffset, SeekOrigin.Begin);
+                            return (Colour.Type) reader.ReadByte();
+                        }
                     })(stream)
                 }
             };

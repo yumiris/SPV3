@@ -21,7 +21,7 @@ namespace Atarashii.Modules.Profile.Options
             Purple,
             Cyan,
             Cobalt,
-            Oragne,
+            Orange,
             Teal,
             Sage,
             Brown,

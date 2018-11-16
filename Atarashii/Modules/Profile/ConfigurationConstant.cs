@@ -19,5 +19,10 @@ namespace Atarashii.Modules.Profile
         ///     Offset of the profile name property.
         /// </summary>
         public const int NameLength = 0xB;
+
+        /// <summary>
+        ///     Data length of the player colour property.
+        /// </summary>
+        public const int ColourOffset = 0x11a;
     }
 }
