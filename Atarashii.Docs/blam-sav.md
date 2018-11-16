@@ -1,5 +1,5 @@
 # HCE Profile Settings
 
-| Property    | Type   | Offset | Length | Notes                                    |
-| ----------- | ------ | ------ | ------ | ---------------------------------------- |
-| Player Name | String | 0x02   | 22     | Each char byte has a null byte after it. |
+| Property    | Type          | Offset | Length |
+| ----------- | ------------- | ------ | ------ |
+| Player Name | UTF-16 string | 0x02   | 22     |
