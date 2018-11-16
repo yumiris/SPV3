@@ -61,6 +61,16 @@ namespace Atarashii.Modules.Profile
         private const int AudioVolumeMusicOffset = 0xB7A;
 
         /// <summary>
+        ///     Offset of the audio quality property.
+        /// </summary>
+        private const int AudioQualityOffset = 0xB7D;
+
+        /// <summary>
+        ///     Offset of the audio variety property.
+        /// </summary>
+        private const int AudioVarietyOffset = 0xB7F;
+
+        /// <summary>
         ///     Deserialises a given binary stream to a Profile Configuration instance.
         /// </summary>
         /// <param name="stream">
@@ -123,6 +133,16 @@ namespace Atarashii.Modules.Profile
                         Master = GetByte(reader, AudioVolumeMasterOffset),
                         Effects = GetByte(reader, AudioVolumeEffectsOffset),
                         Music = GetByte(reader, AudioVolumeMusicOffset)
+                    },
+
+                    Quality =
+                    {
+                        Value = (Quality.Type) GetByte(reader, AudioQualityOffset)
+                    },
+
+                    Variety =
+                    {
+                        Value = (Quality.Type) GetByte(reader, AudioVarietyOffset)
                     }
                 }
             };

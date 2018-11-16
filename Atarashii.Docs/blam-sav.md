@@ -10,3 +10,5 @@
 | Audio.Volume.Master         | Unsigned byte | 0xB78  | 1      | Range 0 - 10       |
 | Audio.Volume.Effects        | Unsigned byte | 0xB79  | 1      | Range 0 - 10       |
 | Audio.Volume.Music          | Unsigned byte | 0xB7A  | 1      | Range 0 - 10       |
+| Audio.Quality               | Unsigned byte | 0xB7D  | 1      | Range 0 - 2        |
+| Audio.Variety               | Unsigned byte | 0xB7F  | 1      | Range 0 - 2        |

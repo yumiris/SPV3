@@ -91,8 +91,8 @@ namespace Atarashii.CLI.Commands
                 Info($"Audio.Volume.Master          : {configuration.Audio.Volume.Master}");
                 Info($"Audio.Volume.Effects         : {configuration.Audio.Volume.Effects}");
                 Info($"Audio.Volume.Music           : {configuration.Audio.Volume.Music}");
-                Info($"Audio.Quality                : {configuration.Audio.Quality.Value}");
-                Info($"Audio.Variety                : {configuration.Audio.Variety.Value}");
+                Info($"Audio.Quality                : {configuration.Audio.Quality.Value.ToString()}");
+                Info($"Audio.Variety                : {configuration.Audio.Variety.Value.ToString()}");
                 Info("----------------------------------------------------------------");
                 Info($"Video.Resolution.Width       : {configuration.Video.Resolution.Width}");
                 Info($"Video.Resolution.Height      : {configuration.Video.Resolution.Height}");
