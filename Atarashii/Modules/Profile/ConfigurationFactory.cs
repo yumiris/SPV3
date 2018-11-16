@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using static Atarashii.Modules.Profile.ConfigurationConstant;
 
 namespace Atarashii.Modules.Profile
 {
@@ -8,21 +9,6 @@ namespace Atarashii.Modules.Profile
     /// </summary>
     public static class ConfigurationFactory
     {
-        /// <summary>
-        ///     Length of the blam.sav binary.
-        /// </summary>
-        private const int BlamLength = 0x2000;
-
-        /// <summary>
-        ///     Offset of the profile name property.
-        /// </summary>
-        private const int NameLength = 0xB;
-
-        /// <summary>
-        ///     Data length of the profile name property.
-        /// </summary>
-        private const int NameOffset = 0x2;
-
         /// <summary>
         ///     Deserialises a given binary stream to a Profile Configuration instance.
         /// </summary>
