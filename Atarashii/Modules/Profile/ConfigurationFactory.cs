@@ -86,6 +86,21 @@ namespace Atarashii.Modules.Profile
         private const int VideoFrameRateOffset = 0xA6F;
 
         /// <summary>
+        ///     Offset of the video specular effects property.
+        /// </summary>
+        private const int VideoEffectsSpecularOffset = 0xA70;
+
+        /// <summary>
+        ///     Offset of the video shadows effects property.
+        /// </summary>
+        private const int VideoEffectsShadowsOffset = 0xA71;
+
+        /// <summary>
+        ///     Offset of the video decals effects property.
+        /// </summary>
+        private const int VideoEffectsDecalsOffset = 0xA72;
+
+        /// <summary>
         ///     Deserialises a given binary stream to a Profile Configuration instance.
         /// </summary>
         /// <param name="stream">
@@ -172,6 +187,13 @@ namespace Atarashii.Modules.Profile
                     FrameRate =
                     {
                         Value = (FrameRate.Type) GetByte(reader, VideoFrameRateOffset)
+                    },
+                    
+                    Effects =
+                    {
+                        Specular = GetBool(reader, VideoEffectsSpecularOffset),
+                        Shadows = GetBool(reader, VideoEffectsShadowsOffset),
+                        Decals = GetBool(reader, VideoEffectsDecalsOffset)
                     }
                 }
             };

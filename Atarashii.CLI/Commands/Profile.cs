@@ -98,8 +98,8 @@ namespace Atarashii.CLI.Commands
                 Info($"Video.Resolution.Height      : {configuration.Video.Resolution.Height}");
                 Info($"Video.RefreshRate            : {configuration.Video.RefreshRate.Value}");
                 Info($"Video.FrameRate              : {configuration.Video.FrameRate.Value}");
-                Info($"Video.Effects.Shadows        : {configuration.Video.Effects.Shadows}");
                 Info($"Video.Effects.Specular       : {configuration.Video.Effects.Specular}");
+                Info($"Video.Effects.Shadows        : {configuration.Video.Effects.Shadows}");
                 Info($"Video.Effects.Decals         : {configuration.Video.Effects.Decals}");
                 Info($"Video.Particles              : {configuration.Video.Particles.Value}");
                 Info($"Video.Quality (texture)      : {configuration.Video.Quality.Value}");
