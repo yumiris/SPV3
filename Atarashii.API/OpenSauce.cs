@@ -11,27 +11,27 @@ namespace Atarashii.API
         /// <summary>
         ///     Retrieves a Configuration-type representation of the provided OpenSauce User configuration XML file.
         /// </summary>
-        /// <param name="path">
+        /// <param name="xmlPath">
         ///     Path to the OpenSauce User configuration XML file.
         /// </param>
         /// <returns>
         ///     Deserialised Configuration object representing the OpenSauce User configuration XML file.
         /// </returns>
-        public static Configuration Parse(string path)
+        public static Configuration Parse(string xmlPath)
         {
-            return ConfigurationFactory.GetFromXml(File.ReadAllText(path));
+            return ConfigurationFactory.GetFromXml(File.ReadAllText(xmlPath));
         }
 
         /// <summary>
         ///     Installs OpenSauce to the filesystem.
         /// </summary>
-        /// <param name="path">
+        /// <param name="hcePath">
         ///     HCE installation directory.
         ///     This path is expected to contain a valid HCE executable.
         /// </param>
-        public static void Install(string path)
+        public static void Install(string hcePath)
         {
-            new InstallerFactory(path).Get().Install();
+            new InstallerFactory(hcePath).Get().Install();
         }
     }
 }

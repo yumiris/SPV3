@@ -11,15 +11,15 @@ namespace Atarashii.API
         /// <summary>
         ///     Retrieves a Configuration-type representation of the provided blam.sav binary.
         /// </summary>
-        /// <param name="path">
+        /// <param name="blamPath">
         ///     Path to a HCE profile blam.sav binary.
         /// </param>
         /// <returns>
         ///     Deserialised Configuration object representing the provided blam.sav binary.
         /// </returns>
-        public static Configuration Parse(string path)
+        public static Configuration Parse(string blamPath)
         {
-            return ConfigurationFactory.GetFromStream(File.Open(path, FileMode.Open));
+            return ConfigurationFactory.GetFromStream(File.Open(blamPath, FileMode.Open));
         }
 
         /// <summary>
