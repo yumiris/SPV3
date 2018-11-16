@@ -79,34 +79,36 @@ namespace Atarashii.CLI.Commands
             try
             {
                 var configuration = ConfigurationFactory.GetFromStream(File.Open(args[0], FileMode.Open));
-
+                Console.WriteLine();
                 Info("----------------------------------------------------------------");
-                Info($"Name   : {configuration.Name.Value}");
-                Info($"Colour : {configuration.Colour.Value}");
+                Info($"Name                         : {configuration.Name.Value}");
+                Info($"Colour                       : {configuration.Colour.Value}");
                 Info("----------------------------------------------------------------");
                 Info($"Mouse.Sensitivity.Horizontal : {configuration.Mouse.Sensitivity.Horizontal}");
                 Info($"Mouse.Sensitivity.Vertical   : {configuration.Mouse.Sensitivity.Horizontal}");
                 Info($"Mouse.InvertVerticalAxis     : {configuration.Mouse.InvertVerticalAxis}");
                 Info("----------------------------------------------------------------");
-                Info($"Audio.Volume.Master  : {configuration.Audio.Volume.Master}");
-                Info($"Audio.Volume.Music   : {configuration.Audio.Volume.Music}");
-                Info($"Audio.Volume.Effects : {configuration.Audio.Volume.Effects}");
-                Info($"Audio.Quality        : {configuration.Audio.Quality.Value}");
-                Info($"Audio.Variety        : {configuration.Audio.Variety.Value}");
+                Info($"Audio.Volume.Master          : {configuration.Audio.Volume.Master}");
+                Info($"Audio.Volume.Music           : {configuration.Audio.Volume.Music}");
+                Info($"Audio.Volume.Effects         : {configuration.Audio.Volume.Effects}");
+                Info($"Audio.Quality                : {configuration.Audio.Quality.Value}");
+                Info($"Audio.Variety                : {configuration.Audio.Variety.Value}");
                 Info("----------------------------------------------------------------");
-                Info($"Video.Resolution.Width  : {configuration.Video.Resolution.Width}");
-                Info($"Video.Resolution.Height : {configuration.Video.Resolution.Height}");
-                Info($"Video.RefreshRate       : {configuration.Video.RefreshRate.Value}");
-                Info($"Video.FrameRate         : {configuration.Video.FrameRate.Value}");
-                Info($"Video.Effects.Shadows   : {configuration.Video.Effects.Shadows}");
-                Info($"Video.Effects.Specular  : {configuration.Video.Effects.Specular}");
-                Info($"Video.Effects.Decals    : {configuration.Video.Effects.Decals}");
-                Info($"Video.Particles         : {configuration.Video.Particles.Value}");
-                Info($"Video.Quality (texture) : {configuration.Video.Quality.Value}");
+                Info($"Video.Resolution.Width       : {configuration.Video.Resolution.Width}");
+                Info($"Video.Resolution.Height      : {configuration.Video.Resolution.Height}");
+                Info($"Video.RefreshRate            : {configuration.Video.RefreshRate.Value}");
+                Info($"Video.FrameRate              : {configuration.Video.FrameRate.Value}");
+                Info($"Video.Effects.Shadows        : {configuration.Video.Effects.Shadows}");
+                Info($"Video.Effects.Specular       : {configuration.Video.Effects.Specular}");
+                Info($"Video.Effects.Decals         : {configuration.Video.Effects.Decals}");
+                Info($"Video.Particles              : {configuration.Video.Particles.Value}");
+                Info($"Video.Quality (texture)      : {configuration.Video.Quality.Value}");
                 Info("----------------------------------------------------------------");
-                Info($"Network.Connection  : {configuration.Network.Connection.Value}");
-                Info($"Network.Port.Server : {configuration.Network.Port.Server}");
-                Info($"Network.Port.Client : {configuration.Network.Port.Client}");
+                Info($"Network.Connection           : {configuration.Network.Connection.Value}");
+                Info($"Network.Port.Server          : {configuration.Network.Port.Server}");
+                Info($"Network.Port.Client          : {configuration.Network.Port.Client}");
+                Console.WriteLine();
+                Pass("Successfully parsed data from the provided blam.sav binary.");
             }
             catch (Exception e)
             {
