@@ -12,7 +12,7 @@ namespace Atarashii.API
         ///     Retrieves a Configuration-type representation of the provided blam.sav binary.
         /// </summary>
         /// <param name="blamPath">
-        ///     Path to a HCE profile blam.sav binary.
+        ///     Absolute path to a HCE profile blam.sav binary.
         /// </param>
         /// <returns>
         ///     Deserialised Configuration object representing the provided blam.sav binary.

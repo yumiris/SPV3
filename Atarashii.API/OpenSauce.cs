@@ -12,7 +12,7 @@ namespace Atarashii.API
         ///     Retrieves a Configuration-type representation of the provided OpenSauce User configuration XML file.
         /// </summary>
         /// <param name="xmlPath">
-        ///     Path to the OpenSauce User configuration XML file.
+        ///     Absolute path to the OpenSauce User configuration XML file.
         /// </param>
         /// <returns>
         ///     Deserialised Configuration object representing the OpenSauce User configuration XML file.
