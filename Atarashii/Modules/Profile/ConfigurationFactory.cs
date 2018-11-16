@@ -167,7 +167,11 @@ namespace Atarashii.Modules.Profile
 
                 Colour =
                 {
-                    Value = (Colour.Type) GetByte(reader, ColourOffset)
+                    Value = new Func<BinaryReader, Colour.Type>(x =>
+                    {
+                        var colour = GetByte(x, ColourOffset);
+                        return colour == 0xFF ? Colour.Type.White : (Colour.Type) colour;
+                    })(reader)
                 },
 
                 Mouse =
