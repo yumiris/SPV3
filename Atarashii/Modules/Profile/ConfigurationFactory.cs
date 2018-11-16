@@ -71,6 +71,16 @@ namespace Atarashii.Modules.Profile
         private const int AudioVarietyOffset = 0xB7F;
 
         /// <summary>
+        ///     Offset of the video resolution width property.
+        /// </summary>
+        private const int VideoResolutionWidthOffset = 0xA68;
+
+        /// <summary>
+        ///     Offset of the video resolution height property.
+        /// </summary>
+        private const int VideoResolutionHeightOffset = 0xA6A;
+
+        /// <summary>
         ///     Deserialises a given binary stream to a Profile Configuration instance.
         /// </summary>
         /// <param name="stream">
@@ -144,6 +154,15 @@ namespace Atarashii.Modules.Profile
                     {
                         Value = (Quality.Type) GetByte(reader, AudioVarietyOffset)
                     }
+                },
+                
+                Video =
+                {
+                    Resolution =
+                    {
+                        Width = GetShort(reader, VideoResolutionWidthOffset),
+                        Height = GetShort(reader, VideoResolutionHeightOffset)
+                    }
                 }
             };
 
@@ -153,16 +172,16 @@ namespace Atarashii.Modules.Profile
         }
 
         /// <summary>
-        ///     Returns a boolean value from the inbound binary reader at the given offset.
+        ///     Returns a byte value from the inbound binary reader at the given offset.
         /// </summary>
         /// <param name="reader">
-        ///     Binary reader to retrieve boolean value from.
+        ///     Binary reader to retrieve byte value from.
         /// </param>
         /// <param name="offset">
-        ///     Offset of the respective boolean.
+        ///     Offset of the respective byte.
         /// </param>
         /// <returns>
-        ///     Boolean value.
+        ///     byte value.
         /// </returns>
         private static byte GetByte(BinaryReader reader, int offset)
         {
@@ -186,6 +205,24 @@ namespace Atarashii.Modules.Profile
         {
             reader.BaseStream.Seek(offset, SeekOrigin.Begin);
             return reader.ReadBoolean();
+        }
+
+        /// <summary>
+        ///     Returns a unsigned short value from the inbound binary reader at the given offset.
+        /// </summary>
+        /// <param name="reader">
+        ///     Binary reader to retrieve unsigned short value from.
+        /// </param>
+        /// <param name="offset">
+        ///     Offset of the respective unsigned short.
+        /// </param>
+        /// <returns>
+        ///     Unsigned short value.
+        /// </returns>
+        private static ushort GetShort(BinaryReader reader, int offset)
+        {
+            reader.BaseStream.Seek(offset, SeekOrigin.Begin);
+            return reader.ReadUInt16();
         }
     }
 }
