@@ -18,3 +18,5 @@
 | Video.Effects.Specular      | Boolean        | 0xA70  | 1      | 1/0                                |
 | Video.Effects.Shadows       | Boolean        | 0xA71  | 1      | 1/0                                |
 | Video.Effects.Decals        | Boolean        | 0xA72  | 1      | 1/0                                |
+| Video.Particles             | Unsigned byte  | 0xA73  | 1      | Range 0x00 - 0x02                  |
+| Video.Quality               | Unsigned byte  | 0xA74  | 1      | Range 0x00 - 0x02                  |

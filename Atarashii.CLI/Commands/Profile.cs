@@ -101,8 +101,8 @@ namespace Atarashii.CLI.Commands
                 Info($"Video.Effects.Specular       : {configuration.Video.Effects.Specular}");
                 Info($"Video.Effects.Shadows        : {configuration.Video.Effects.Shadows}");
                 Info($"Video.Effects.Decals         : {configuration.Video.Effects.Decals}");
-                Info($"Video.Particles              : {configuration.Video.Particles.Value}");
-                Info($"Video.Quality (texture)      : {configuration.Video.Quality.Value}");
+                Info($"Video.Particles              : {configuration.Video.Particles.Value.ToString()}");
+                Info($"Video.Quality                : {configuration.Video.Quality.Value.ToString()}");
                 Info("----------------------------------------------------------------");
                 Info($"Network.Connection           : {configuration.Network.Connection.Value}");
                 Info($"Network.Port.Server          : {configuration.Network.Port.Server}");
