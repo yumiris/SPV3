@@ -63,7 +63,7 @@ namespace Atarashii.CLI.Commands
                     string line;
                     while ((line = reader.ReadLine()) != null)
                     {
-                        Info(line);
+                        Dump(line);
                     }
                 }
                 Console.WriteLine();

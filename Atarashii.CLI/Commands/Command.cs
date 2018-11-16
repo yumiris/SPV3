@@ -62,6 +62,17 @@ namespace Atarashii.CLI.Commands
         }
 
         /// <summary>
+        ///     Outputs a Type.Dump message.
+        /// </summary>
+        /// <param name="message">
+        ///     Message to write.
+        /// </param>
+        protected void Dump(string message)
+        {
+            Output?.WriteDump(Assembly.ProductName, message);
+        }
+
+        /// <summary>
         ///     Exits the program if the inbound arguments are empty.
         /// </summary>
         /// <param name="args">

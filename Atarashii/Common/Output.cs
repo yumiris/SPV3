@@ -28,7 +28,12 @@ namespace Atarashii.Common
             /// <summary>
             ///     Represents an error message.
             /// </summary>
-            Error
+            Error,
+            
+            /// <summary>
+            ///     Represents a data dump.
+            /// </summary>
+            Dump
         }
 
         /// <summary>
@@ -105,6 +110,20 @@ namespace Atarashii.Common
         public void WriteError(string subject, string message)
         {
             Write(Type.Error, subject, message);
+        }
+
+        /// <summary>
+        ///     Outputs a Type.Dump message.
+        /// </summary>
+        /// <param name="subject">
+        ///     Subject of the message.
+        /// </param>
+        /// <param name="message">
+        ///     Message to write.
+        /// </param>
+        public void WriteDump(string subject, string message)
+        {
+            Write(Type.Dump, subject, message);
         }
     }
 }

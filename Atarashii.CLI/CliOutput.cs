@@ -135,6 +135,8 @@ namespace Atarashii.CLI
                         return new Code("WARN", ConsoleColor.Yellow);
                     case Type.Error:
                         return new Code("HALT", ConsoleColor.Red);
+                    case Type.Dump:
+                        return new Code("DUMP", ConsoleColor.Magenta);
                     default:
                         throw new ArgumentOutOfRangeException(nameof(type), type, null);
                 }
