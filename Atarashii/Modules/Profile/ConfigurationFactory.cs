@@ -81,6 +81,11 @@ namespace Atarashii.Modules.Profile
         private const int VideoResolutionHeightOffset = 0xA6A;
 
         /// <summary>
+        ///     Offset of the video frame rate property.
+        /// </summary>
+        private const int VideoFrameRateOffset = 0xA6F;
+
+        /// <summary>
         ///     Deserialises a given binary stream to a Profile Configuration instance.
         /// </summary>
         /// <param name="stream">
@@ -162,6 +167,11 @@ namespace Atarashii.Modules.Profile
                     {
                         Width = GetShort(reader, VideoResolutionWidthOffset),
                         Height = GetShort(reader, VideoResolutionHeightOffset)
+                    },
+                    
+                    FrameRate =
+                    {
+                        Value = (FrameRate.Type) GetByte(reader, VideoFrameRateOffset)
                     }
                 }
             };
