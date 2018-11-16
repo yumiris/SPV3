@@ -161,7 +161,7 @@ namespace Atarashii.Modules.Profile
                             stream.Position++; // skip null bytes
                         }
 
-                        return Encoding.ASCII.GetString(data);
+                        return Encoding.ASCII.GetString(data).TrimEnd('\0');
                     })(stream)
                 },
 
