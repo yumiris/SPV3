@@ -8,7 +8,7 @@ namespace Atarashii.Modules.Profile.Options
         /// <summary>
         ///     Connection type settings.
         /// </summary>
-        public Connection Connection = new Connection();
+        public Connection Connection { get; set; } = new Connection();
 
         /// <summary>
         ///     Network ports.
