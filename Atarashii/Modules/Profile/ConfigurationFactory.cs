@@ -139,7 +139,7 @@ namespace Atarashii.Modules.Profile
 
             return configuration;
         }
-        
+
         /// <summary>
         ///     Returns a byte value from the inbound binary reader at the given offset.
         /// </summary>

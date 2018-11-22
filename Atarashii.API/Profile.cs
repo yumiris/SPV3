@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using Atarashii.Modules.Profile;
 
@@ -19,7 +20,10 @@ namespace Atarashii.API
         /// </returns>
         public static Configuration Parse(string blamPath)
         {
-            return ConfigurationFactory.GetFromStream(File.Open(blamPath, FileMode.Open));
+            using (var fs = File.Open(blamPath, FileMode.Open))
+            {
+                return ConfigurationFactory.GetFromStream(fs);
+            }
         }
 
         /// <summary>
@@ -33,7 +37,18 @@ namespace Atarashii.API
         /// </param>
         public static void Patch(Configuration configuration, string blamPath)
         {
-            new ConfigurationPatcher(configuration).PatchTo(File.Open(blamPath, FileMode.Open));
+            using (var ms = new MemoryStream())
+            using (var fs = File.Open(blamPath, FileMode.Open))
+            {
+                fs.CopyTo(ms);
+                new ConfigurationPatcher(configuration).PatchTo(ms);
+                new ConfigurationForger().Forge(ms);
+
+                ms.Position = 0;
+                fs.Position = 0;
+                
+                ms.CopyTo(fs);
+            }
         }
 
         /// <summary>

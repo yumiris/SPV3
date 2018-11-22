@@ -11,36 +11,6 @@ namespace Atarashii.Modules.Profile
     public class Configuration
     {
         /// <summary>
-        ///     Player name.
-        /// </summary>
-        public Name Name { get; set; } = new Name();
-
-        /// <summary>
-        ///     Player colour.
-        /// </summary>
-        public Colour Colour { get; set; } = new Colour();
-
-        /// <summary>
-        ///     Mouse settings.
-        /// </summary>
-        public Mouse Mouse { get; set; } = new Mouse();
-
-        /// <summary>
-        ///     Audio settings.
-        /// </summary>
-        public Audio Audio { get; set; } = new Audio();
-
-        /// <summary>
-        ///     Video settings.
-        /// </summary>
-        public Video Video { get; set; } = new Video();
-
-        /// <summary>
-        ///     Network settings.
-        /// </summary>
-        public Network Network { get; set; } = new Network();
-
-        /// <summary>
         ///     Length of the blam.sav binary.
         /// </summary>
         public const int BlamLength = 0x2000;
@@ -154,5 +124,46 @@ namespace Atarashii.Modules.Profile
         ///     Offset of the network client port property.
         /// </summary>
         public const int NetworkPortClientOffset = 0x1004;
+
+        /// <summary>
+        ///     Offset of the blam.sav integrity hash.
+        /// </summary>
+        public const int BlamHashOffset = 0x1FFC;
+
+        /// <summary>
+        ///     Length of the blam.sav integrity hash.
+        ///     The value is that of a CRC32 length.
+        /// </summary>
+        public const int BlamHashLength = 0x4;
+
+        /// <summary>
+        ///     Player name.
+        /// </summary>
+        public Name Name { get; set; } = new Name();
+
+        /// <summary>
+        ///     Player colour.
+        /// </summary>
+        public Colour Colour { get; set; } = new Colour();
+
+        /// <summary>
+        ///     Mouse settings.
+        /// </summary>
+        public Mouse Mouse { get; set; } = new Mouse();
+
+        /// <summary>
+        ///     Audio settings.
+        /// </summary>
+        public Audio Audio { get; set; } = new Audio();
+
+        /// <summary>
+        ///     Video settings.
+        /// </summary>
+        public Video Video { get; set; } = new Video();
+
+        /// <summary>
+        ///     Network settings.
+        /// </summary>
+        public Network Network { get; set; } = new Network();
     }
 }
