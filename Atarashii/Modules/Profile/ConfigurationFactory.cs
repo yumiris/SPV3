@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Text;
 using Atarashii.Modules.Profile.Options;
+using static Atarashii.Modules.Profile.Configuration;
 
 namespace Atarashii.Modules.Profile
 {
@@ -24,7 +25,7 @@ namespace Atarashii.Modules.Profile
         /// </exception>
         public static Configuration GetFromStream(Stream stream)
         {
-            if (stream.Length != Configuration.BlamLength)
+            if (stream.Length != BlamLength)
                 throw new ArgumentOutOfRangeException(nameof(stream),
                     "Provided stream object length does not match the blam.sav length.");
 
@@ -36,9 +37,9 @@ namespace Atarashii.Modules.Profile
                 {
                     Value = new Func<Stream, string>(x =>
                     {
-                        var data = new byte[Configuration.NameLength];
+                        var data = new byte[NameLength];
 
-                        stream.Position = Configuration.NameOffset;
+                        stream.Position = NameOffset;
 
                         for (var i = 0; i < data.Length; i++)
                         {
@@ -54,7 +55,7 @@ namespace Atarashii.Modules.Profile
                 {
                     Value = new Func<BinaryReader, Colour.Type>(x =>
                     {
-                        var colour = GetByte(x, Configuration.ColourOffset);
+                        var colour = GetByte(x, ColourOffset);
                         return colour == 0xFF ? Colour.Type.White : (Colour.Type) colour;
                     })(reader)
                 },
@@ -63,30 +64,30 @@ namespace Atarashii.Modules.Profile
                 {
                     Sensitivity =
                     {
-                        Horizontal = GetByte(reader, Configuration.MouseSensitivityHorizontalOffset),
-                        Vertical = GetByte(reader, Configuration.MouseSensitivityVerticalOffset)
+                        Horizontal = GetByte(reader, MouseSensitivityHorizontalOffset),
+                        Vertical = GetByte(reader, MouseSensitivityVerticalOffset)
                     },
 
-                    InvertVerticalAxis = GetBool(reader, Configuration.MouseInvertVerticalAxisOffset)
+                    InvertVerticalAxis = GetBool(reader, MouseInvertVerticalAxisOffset)
                 },
 
                 Audio =
                 {
                     Volume =
                     {
-                        Master = GetByte(reader, Configuration.AudioVolumeMasterOffset),
-                        Effects = GetByte(reader, Configuration.AudioVolumeEffectsOffset),
-                        Music = GetByte(reader, Configuration.AudioVolumeMusicOffset)
+                        Master = GetByte(reader, AudioVolumeMasterOffset),
+                        Effects = GetByte(reader, AudioVolumeEffectsOffset),
+                        Music = GetByte(reader, AudioVolumeMusicOffset)
                     },
 
                     Quality =
                     {
-                        Value = (Quality.Type) GetByte(reader, Configuration.AudioQualityOffset)
+                        Value = (Quality.Type) GetByte(reader, AudioQualityOffset)
                     },
 
                     Variety =
                     {
-                        Value = (Quality.Type) GetByte(reader, Configuration.AudioVarietyOffset)
+                        Value = (Quality.Type) GetByte(reader, AudioVarietyOffset)
                     }
                 },
 
@@ -94,30 +95,30 @@ namespace Atarashii.Modules.Profile
                 {
                     Resolution =
                     {
-                        Width = GetShort(reader, Configuration.VideoResolutionWidthOffset),
-                        Height = GetShort(reader, Configuration.VideoResolutionHeightOffset)
+                        Width = GetShort(reader, VideoResolutionWidthOffset),
+                        Height = GetShort(reader, VideoResolutionHeightOffset)
                     },
 
                     FrameRate =
                     {
-                        Value = (FrameRate.Type) GetByte(reader, Configuration.VideoFrameRateOffset)
+                        Value = (FrameRate.Type) GetByte(reader, VideoFrameRateOffset)
                     },
 
                     Effects =
                     {
-                        Specular = GetBool(reader, Configuration.VideoEffectsSpecularOffset),
-                        Shadows = GetBool(reader, Configuration.VideoEffectsShadowsOffset),
-                        Decals = GetBool(reader, Configuration.VideoEffectsDecalsOffset)
+                        Specular = GetBool(reader, VideoEffectsSpecularOffset),
+                        Shadows = GetBool(reader, VideoEffectsShadowsOffset),
+                        Decals = GetBool(reader, VideoEffectsDecalsOffset)
                     },
 
                     Particles =
                     {
-                        Value = (Particles.Type) GetByte(reader, Configuration.VideoParticlesOffset)
+                        Value = (Particles.Type) GetByte(reader, VideoParticlesOffset)
                     },
 
                     Quality =
                     {
-                        Value = (Quality.Type) GetByte(reader, Configuration.VideoQualityOffset)
+                        Value = (Quality.Type) GetByte(reader, VideoQualityOffset)
                     }
                 },
 
@@ -125,24 +126,20 @@ namespace Atarashii.Modules.Profile
                 {
                     Connection =
                     {
-                        Value = (Connection.Type) GetByte(reader, Configuration.NetworkConnectionTypeOffset)
+                        Value = (Connection.Type) GetByte(reader, NetworkConnectionTypeOffset)
                     },
 
                     Port =
                     {
-                        Server = GetShort(reader, Configuration.NetworkPortServerOffset),
-                        Client = GetShort(reader, Configuration.NetworkPortClientOffset)
+                        Server = GetShort(reader, NetworkPortServerOffset),
+                        Client = GetShort(reader, NetworkPortClientOffset)
                     }
                 }
             };
 
-            reader.Dispose();
-
             return configuration;
         }
         
-        // TODO: Use generic method
-
         /// <summary>
         ///     Returns a byte value from the inbound binary reader at the given offset.
         /// </summary>
