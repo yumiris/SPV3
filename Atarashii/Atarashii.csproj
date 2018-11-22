@@ -79,6 +79,7 @@
     <Compile Include="Modules\OpenSauce\Options\Upgrades.cs" />
     <Compile Include="Modules\Profile\Configuration.cs" />
     <Compile Include="Modules\Profile\ConfigurationFactory.cs" />
+    <Compile Include="Modules\Profile\ConfigurationForger.cs" />
     <Compile Include="Modules\Profile\ConfigurationPatcher.cs" />
     <Compile Include="Modules\Profile\Lastprof.cs" />
     <Compile Include="Modules\Profile\LastprofFactory.cs" />
