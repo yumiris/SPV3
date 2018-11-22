@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Text;
+using static Atarashii.Modules.Profile.Configuration;
 
 namespace Atarashii.Modules.Profile
 {
@@ -18,9 +19,9 @@ namespace Atarashii.Modules.Profile
             var writer = new BinaryWriter(stream);
 
             // name
-            SetBytes(writer, Configuration.NameOffset, new Func<string, byte[]>(x =>
+            SetBytes(writer, NameOffset, new Func<string, byte[]>(x =>
             {
-                var result = new byte[Configuration.NameLength * 2];
+                var result = new byte[NameLength * 2];
                 var encode = Encoding.ASCII.GetBytes(x);
 
                 var j = 0;
@@ -34,21 +35,21 @@ namespace Atarashii.Modules.Profile
             })(_configuration.Name.Value));
 
             // colour
-            SetByte(writer, Configuration.ColourOffset, (byte) _configuration.Colour.Value);
+            SetByte(writer, ColourOffset, (byte) _configuration.Colour.Value);
 
             // mouse
             {
                 // sensitivity
                 {
-                    SetByte(writer, Configuration.MouseSensitivityHorizontalOffset,
+                    SetByte(writer, MouseSensitivityHorizontalOffset,
                         _configuration.Mouse.Sensitivity.Horizontal);
 
-                    SetByte(writer, Configuration.MouseSensitivityVerticalOffset,
+                    SetByte(writer, MouseSensitivityVerticalOffset,
                         _configuration.Mouse.Sensitivity.Vertical);
                 }
 
                 // axis
-                SetBool(writer, Configuration.MouseSensitivityHorizontalOffset,
+                SetBool(writer, MouseInvertVerticalAxisOffset,
                     _configuration.Mouse.InvertVerticalAxis);
             }
 
@@ -56,22 +57,22 @@ namespace Atarashii.Modules.Profile
             {
                 // volume
                 {
-                    SetByte(writer, Configuration.AudioVolumeMasterOffset,
+                    SetByte(writer, AudioVolumeMasterOffset,
                         _configuration.Audio.Volume.Master);
 
-                    SetByte(writer, Configuration.AudioVolumeEffectsOffset,
+                    SetByte(writer, AudioVolumeEffectsOffset,
                         _configuration.Audio.Volume.Effects);
 
-                    SetByte(writer, Configuration.AudioVolumeMusicOffset,
+                    SetByte(writer, AudioVolumeMusicOffset,
                         _configuration.Audio.Volume.Music);
                 }
 
                 // quality
-                SetByte(writer, Configuration.AudioQualityOffset,
+                SetByte(writer, AudioQualityOffset,
                     (byte) _configuration.Audio.Quality.Value);
 
                 // variety
-                SetByte(writer, Configuration.AudioVarietyOffset,
+                SetByte(writer, AudioVarietyOffset,
                     (byte) _configuration.Audio.Variety.Value);
             }
 
@@ -79,58 +80,54 @@ namespace Atarashii.Modules.Profile
             {
                 // resolution
                 {
-                    SetShort(writer, Configuration.VideoResolutionWidthOffset,
+                    SetShort(writer, VideoResolutionWidthOffset,
                         _configuration.Video.Resolution.Width);
 
-                    SetShort(writer, Configuration.VideoResolutionHeightOffset,
+                    SetShort(writer, VideoResolutionHeightOffset,
                         _configuration.Video.Resolution.Height);
                 }
 
                 // frame rate
-                SetByte(writer, Configuration.VideoFrameRateOffset,
+                SetByte(writer, VideoFrameRateOffset,
                     (byte) _configuration.Video.FrameRate.Value);
 
                 // effects
                 {
-                    SetBool(writer, Configuration.VideoEffectsSpecularOffset,
+                    SetBool(writer, VideoEffectsSpecularOffset,
                         _configuration.Video.Effects.Specular);
 
-                    SetBool(writer, Configuration.VideoEffectsShadowsOffset,
+                    SetBool(writer, VideoEffectsShadowsOffset,
                         _configuration.Video.Effects.Shadows);
 
-                    SetBool(writer, Configuration.VideoEffectsDecalsOffset,
+                    SetBool(writer, VideoEffectsDecalsOffset,
                         _configuration.Video.Effects.Decals);
                 }
 
                 // particles
-                SetByte(writer, Configuration.VideoParticlesOffset,
+                SetByte(writer, VideoParticlesOffset,
                     (byte) _configuration.Video.Particles.Value);
 
                 // quality
-                SetByte(writer, Configuration.VideoQualityOffset,
+                SetByte(writer, VideoQualityOffset,
                     (byte) _configuration.Video.Quality.Value);
             }
 
             // network
             {
                 // connection
-                SetByte(writer, Configuration.NetworkConnectionTypeOffset,
+                SetByte(writer, NetworkConnectionTypeOffset,
                     (byte) _configuration.Network.Connection.Value);
 
                 // ports
                 {
-                    SetShort(writer, Configuration.NetworkPortServerOffset,
+                    SetShort(writer, NetworkPortServerOffset,
                         _configuration.Network.Port.Server);
 
-                    SetShort(writer, Configuration.NetworkPortClientOffset,
+                    SetShort(writer, NetworkPortClientOffset,
                         _configuration.Network.Port.Client);
                 }
             }
-
-            writer.Dispose();
         }
-
-        // TODO: Use generic method
 
         private static void SetBytes(BinaryWriter writer, int offset, byte[] data)
         {
