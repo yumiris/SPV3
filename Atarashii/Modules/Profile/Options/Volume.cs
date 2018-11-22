@@ -11,19 +11,19 @@ namespace Atarashii.Modules.Profile.Options
         ///     Effects volume value.
         ///     This value is expected to be between 0 and 10.
         /// </summary>
-        private ushort _effects = 10;
+        private byte _effects = 10;
 
         /// <summary>
         ///     Master volume value.
         ///     This value is expected to be between 0 and 10.
         /// </summary>
-        private ushort _master = 10;
+        private byte _master = 10;
 
         /// <summary>
         ///     Music volume value.
         ///     This value is expected to be between 0 and 10.
         /// </summary>
-        private ushort _music = 10;
+        private byte _music = 10;
 
         /// <summary>
         ///     Master volume value.
@@ -31,7 +31,7 @@ namespace Atarashii.Modules.Profile.Options
         ///         Assigned volume value is greater than 10.
         ///     </exception>
         /// </summary>
-        public ushort Master
+        public byte Master
         {
             get => _master;
             set
@@ -49,7 +49,7 @@ namespace Atarashii.Modules.Profile.Options
         /// <exception cref="ArgumentOutOfRangeException">
         ///     Assigned volume value is greater than 10.
         /// </exception>
-        public ushort Effects
+        public byte Effects
         {
             get => _effects;
             set
@@ -67,7 +67,7 @@ namespace Atarashii.Modules.Profile.Options
         /// <exception cref="ArgumentOutOfRangeException">
         ///     Assigned volume value is greater than 10.
         /// </exception>
-        public ushort Music
+        public byte Music
         {
             get => _music;
             set
@@ -84,7 +84,7 @@ namespace Atarashii.Modules.Profile.Options
         /// </summary>
         /// <param name="value">Inbound value to check.</param>
         /// <returns>True on valid value, otherwise false.</returns>
-        private static bool IsValid(ushort value)
+        private static bool IsValid(byte value)
         {
             return value < 11;
         }

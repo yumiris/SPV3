@@ -11,121 +11,6 @@ namespace Atarashii.Modules.Profile
     public static class ConfigurationFactory
     {
         /// <summary>
-        ///     Length of the blam.sav binary.
-        /// </summary>
-        private const int BlamLength = 0x2000;
-
-        /// <summary>
-        ///     Offset of the profile name property.
-        /// </summary>
-        private const int NameOffset = 0x2;
-
-        /// <summary>
-        ///     Data length of the profile name property.
-        /// </summary>
-        private const int NameLength = 0xB;
-
-        /// <summary>
-        ///     Offset of the player colour property.
-        /// </summary>
-        private const int ColourOffset = 0x11a;
-
-        /// <summary>
-        ///     Offset of the horizontal mouse sensitivity property.
-        /// </summary>
-        private const int MouseSensitivityHorizontalOffset = 0x954;
-
-        /// <summary>
-        ///     Offset of the vertical mouse sensitivity property.
-        /// </summary>
-        private const int MouseSensitivityVerticalOffset = 0x955;
-
-        /// <summary>
-        ///     Offset of the mouse vertical axis inversion property.
-        /// </summary>
-        private const int MouseInvertVerticalAxisOffset = 0x12F;
-
-        /// <summary>
-        ///     Offset of the audio master volume property.
-        /// </summary>
-        private const int AudioVolumeMasterOffset = 0xB78;
-
-        /// <summary>
-        ///     Offset of the audio master volume property.
-        /// </summary>
-        private const int AudioVolumeEffectsOffset = 0xB79;
-
-        /// <summary>
-        ///     Offset of the audio master volume property.
-        /// </summary>
-        private const int AudioVolumeMusicOffset = 0xB7A;
-
-        /// <summary>
-        ///     Offset of the audio quality property.
-        /// </summary>
-        private const int AudioQualityOffset = 0xB7D;
-
-        /// <summary>
-        ///     Offset of the audio variety property.
-        /// </summary>
-        private const int AudioVarietyOffset = 0xB7F;
-
-        /// <summary>
-        ///     Offset of the video resolution width property.
-        /// </summary>
-        private const int VideoResolutionWidthOffset = 0xA68;
-
-        /// <summary>
-        ///     Offset of the video resolution height property.
-        /// </summary>
-        private const int VideoResolutionHeightOffset = 0xA6A;
-
-        /// <summary>
-        ///     Offset of the video frame rate property.
-        /// </summary>
-        private const int VideoFrameRateOffset = 0xA6F;
-
-        /// <summary>
-        ///     Offset of the video specular effects property.
-        /// </summary>
-        private const int VideoEffectsSpecularOffset = 0xA70;
-
-        /// <summary>
-        ///     Offset of the video shadows effects property.
-        /// </summary>
-        private const int VideoEffectsShadowsOffset = 0xA71;
-
-        /// <summary>
-        ///     Offset of the video decals effects property.
-        /// </summary>
-        private const int VideoEffectsDecalsOffset = 0xA72;
-
-        /// <summary>
-        ///     Offset of the video particles property.
-        /// </summary>
-        private const int VideoParticlesOffset = 0xA73;
-
-        /// <summary>
-        ///     Offset of the video quality property.
-        /// </summary>
-        private const int VideoQualityOffset = 0xA74;
-
-        /// <summary>
-        ///     Offset of the network connection type property.
-        /// </summary>
-        private const int NetworkConnectionTypeOffset = 0xFC0;
-
-        /// <summary>
-        ///     Offset of the network server port property.
-        /// </summary>
-        private const int NetworkPortServerOffset = 0x1002;
-
-        /// <summary>
-        ///     Offset of the network client port property.
-        /// </summary>
-        private const int NetworkPortClientOffset = 0x1004;
-
-        /// <summary>
         ///     Deserialises a given binary stream to a Profile Configuration instance.
         /// </summary>
         /// <param name="stream">
@@ -139,7 +24,7 @@ namespace Atarashii.Modules.Profile
         /// </exception>
         public static Configuration GetFromStream(Stream stream)
         {
-            if (stream.Length != BlamLength)
+            if (stream.Length != Configuration.BlamLength)
                 throw new ArgumentOutOfRangeException(nameof(stream),
                     "Provided stream object length does not match the blam.sav length.");
 
@@ -151,9 +36,9 @@ namespace Atarashii.Modules.Profile
                 {
                     Value = new Func<Stream, string>(x =>
                     {
-                        var data = new byte[NameLength];
+                        var data = new byte[Configuration.NameLength];
 
-                        stream.Position = NameOffset;
+                        stream.Position = Configuration.NameOffset;
 
                         for (var i = 0; i < data.Length; i++)
                         {
@@ -169,7 +54,7 @@ namespace Atarashii.Modules.Profile
                 {
                     Value = new Func<BinaryReader, Colour.Type>(x =>
                     {
-                        var colour = GetByte(x, ColourOffset);
+                        var colour = GetByte(x, Configuration.ColourOffset);
                         return colour == 0xFF ? Colour.Type.White : (Colour.Type) colour;
                     })(reader)
                 },
@@ -178,30 +63,30 @@ namespace Atarashii.Modules.Profile
                 {
                     Sensitivity =
                     {
-                        Horizontal = GetByte(reader, MouseSensitivityHorizontalOffset),
-                        Vertical = GetByte(reader, MouseSensitivityVerticalOffset)
+                        Horizontal = GetByte(reader, Configuration.MouseSensitivityHorizontalOffset),
+                        Vertical = GetByte(reader, Configuration.MouseSensitivityVerticalOffset)
                     },
 
-                    InvertVerticalAxis = GetBool(reader, MouseInvertVerticalAxisOffset)
+                    InvertVerticalAxis = GetBool(reader, Configuration.MouseInvertVerticalAxisOffset)
                 },
 
                 Audio =
                 {
                     Volume =
                     {
-                        Master = GetByte(reader, AudioVolumeMasterOffset),
-                        Effects = GetByte(reader, AudioVolumeEffectsOffset),
-                        Music = GetByte(reader, AudioVolumeMusicOffset)
+                        Master = GetByte(reader, Configuration.AudioVolumeMasterOffset),
+                        Effects = GetByte(reader, Configuration.AudioVolumeEffectsOffset),
+                        Music = GetByte(reader, Configuration.AudioVolumeMusicOffset)
                     },
 
                     Quality =
                     {
-                        Value = (Quality.Type) GetByte(reader, AudioQualityOffset)
+                        Value = (Quality.Type) GetByte(reader, Configuration.AudioQualityOffset)
                     },
 
                     Variety =
                     {
-                        Value = (Quality.Type) GetByte(reader, AudioVarietyOffset)
+                        Value = (Quality.Type) GetByte(reader, Configuration.AudioVarietyOffset)
                     }
                 },
 
@@ -209,30 +94,30 @@ namespace Atarashii.Modules.Profile
                 {
                     Resolution =
                     {
-                        Width = GetShort(reader, VideoResolutionWidthOffset),
-                        Height = GetShort(reader, VideoResolutionHeightOffset)
+                        Width = GetShort(reader, Configuration.VideoResolutionWidthOffset),
+                        Height = GetShort(reader, Configuration.VideoResolutionHeightOffset)
                     },
 
                     FrameRate =
                     {
-                        Value = (FrameRate.Type) GetByte(reader, VideoFrameRateOffset)
+                        Value = (FrameRate.Type) GetByte(reader, Configuration.VideoFrameRateOffset)
                     },
 
                     Effects =
                     {
-                        Specular = GetBool(reader, VideoEffectsSpecularOffset),
-                        Shadows = GetBool(reader, VideoEffectsShadowsOffset),
-                        Decals = GetBool(reader, VideoEffectsDecalsOffset)
+                        Specular = GetBool(reader, Configuration.VideoEffectsSpecularOffset),
+                        Shadows = GetBool(reader, Configuration.VideoEffectsShadowsOffset),
+                        Decals = GetBool(reader, Configuration.VideoEffectsDecalsOffset)
                     },
 
                     Particles =
                     {
-                        Value = (Particles.Type) GetByte(reader, VideoParticlesOffset)
+                        Value = (Particles.Type) GetByte(reader, Configuration.VideoParticlesOffset)
                     },
 
                     Quality =
                     {
-                        Value = (Quality.Type) GetByte(reader, VideoQualityOffset)
+                        Value = (Quality.Type) GetByte(reader, Configuration.VideoQualityOffset)
                     }
                 },
 
@@ -240,13 +125,13 @@ namespace Atarashii.Modules.Profile
                 {
                     Connection =
                     {
-                        Value = (Connection.Type) GetByte(reader, NetworkConnectionTypeOffset)
+                        Value = (Connection.Type) GetByte(reader, Configuration.NetworkConnectionTypeOffset)
                     },
 
                     Port =
                     {
-                        Server = GetShort(reader, NetworkPortServerOffset),
-                        Client = GetShort(reader, NetworkPortClientOffset)
+                        Server = GetShort(reader, Configuration.NetworkPortServerOffset),
+                        Client = GetShort(reader, Configuration.NetworkPortClientOffset)
                     }
                 }
             };
@@ -255,6 +140,8 @@ namespace Atarashii.Modules.Profile
 
             return configuration;
         }
+        
+        // TODO: Use generic method
 
         /// <summary>
         ///     Returns a byte value from the inbound binary reader at the given offset.
@@ -266,7 +153,7 @@ namespace Atarashii.Modules.Profile
         ///     Offset of the respective byte.
         /// </param>
         /// <returns>
-        ///     byte value.
+        ///     Sbyte value.
         /// </returns>
         private static byte GetByte(BinaryReader reader, int offset)
         {

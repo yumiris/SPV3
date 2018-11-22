@@ -11,13 +11,13 @@ namespace Atarashii.Modules.Profile.Options
         ///     Horizontal sensitivity value.
         ///     This value is expected to be between 1 and 10.
         /// </summary>
-        private ushort _horizontal = 3;
+        private byte _horizontal = 3;
 
         /// <summary>
         ///     Vertical sensitivity value.
         ///     This value is expected to be between 1 and 10.
         /// </summary>
-        private ushort _vertical = 3;
+        private byte _vertical = 3;
 
         /// <summary>
         ///     Horizontal sensitivity value.
@@ -25,7 +25,7 @@ namespace Atarashii.Modules.Profile.Options
         /// <exception cref="ArgumentOutOfRangeException">
         ///     Assigned sensitivity value is less than 1 or greater than 10.
         /// </exception>
-        public ushort Horizontal
+        public byte Horizontal
         {
             get => _horizontal;
             set
@@ -44,7 +44,7 @@ namespace Atarashii.Modules.Profile.Options
         /// <exception cref="ArgumentOutOfRangeException">
         ///     Assigned sensitivity value is less than 1 or greater than 10.
         /// </exception>
-        public ushort Vertical
+        public byte Vertical
         {
             get => _vertical;
             set
@@ -66,7 +66,7 @@ namespace Atarashii.Modules.Profile.Options
         /// <returns>
         ///     True on valid value, otherwise false.
         /// </returns>
-        private static bool IsValid(ushort value)
+        private static bool IsValid(byte value)
         {
             return value > 1 && value < 11;
         }
