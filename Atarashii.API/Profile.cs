@@ -23,6 +23,20 @@ namespace Atarashii.API
         }
 
         /// <summary>
+        ///     Serialises an inbound Configuration-type to the provided blam.sav binary path. 
+        /// </summary>
+        /// <param name="configuration">
+        ///     Absolute path to a HCE profile blam.sav binary.
+        /// </param>
+        /// <param name="blamPath">
+        ///     Deserialised Configuration object representing a blam.sav binary.
+        /// </param>
+        public static void Patch(Configuration configuration, string blamPath)
+        {
+            new ConfigurationPatcher(configuration).PatchTo(File.Open(blamPath, FileMode.Open));
+        }
+
+        /// <summary>
         ///     Attempts to detect the currently used HCE profile on the filesystem.
         /// </summary>
         /// <returns>
