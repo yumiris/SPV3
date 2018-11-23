@@ -17,7 +17,7 @@ namespace Atarashii.Tests
         {
             var configuration = new Configuration();
 
-            var ex = Assert.Throws<ArgumentOutOfRangeException>(() => configuration.Name.Value = "Hello from Gensokyo");
+            var ex = Assert.Throws<ArgumentOutOfRangeException>(() => configuration.Name = "Hello from Gensokyo");
             StringAssert.Contains("Assigned name value is greater than 11 characters.", ex.Message);
         }
 
@@ -51,13 +51,13 @@ namespace Atarashii.Tests
         [Test]
         public void ProfileParsing_AudioQualityCorrect_True()
         {
-            Assert.That(_configuration.Audio.Quality.Value, Is.EqualTo(Quality.Type.Medium));
+            Assert.That(_configuration.Audio.Quality, Is.EqualTo(Quality.Medium));
         }
 
         [Test]
         public void ProfileParsing_AudioVarietyIsCorrect_True()
         {
-            Assert.That(_configuration.Audio.Variety.Value, Is.EqualTo(Quality.Type.High));
+            Assert.That(_configuration.Audio.Variety, Is.EqualTo(Quality.High));
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace Atarashii.Tests
         [Test]
         public void ProfileParsing_ColourIsCorrect_True()
         {
-            Assert.That(_configuration.Colour.Value, Is.EqualTo(Colour.Type.White));
+            Assert.That(_configuration.Colour, Is.EqualTo(Colour.White));
         }
 
         [Test]
@@ -90,7 +90,7 @@ namespace Atarashii.Tests
         [Test]
         public void ProfileParsing_NameIsCorrect_True()
         {
-            Assert.That(_configuration.Name.Value, Is.EqualTo("New001"));
+            Assert.That(_configuration.Name, Is.EqualTo("New001"));
         }
 
         [Test]
@@ -103,7 +103,7 @@ namespace Atarashii.Tests
         [Test]
         public void ProfileParsing_NetworkTypeIsCorrect_True()
         {
-            Assert.That(_configuration.Network.Connection.Value, Is.EqualTo(Connection.Type.DslLow));
+            Assert.That(_configuration.Network.Connection, Is.EqualTo(Connection.DslLow));
         }
 
         [Test]
@@ -117,19 +117,19 @@ namespace Atarashii.Tests
         [Test]
         public void ProfileParsing_VideoFrameRateIsCorrect_True()
         {
-            Assert.That(_configuration.Video.FrameRate.Value, Is.EqualTo(FrameRate.Type.Fps30));
+            Assert.That(_configuration.Video.FrameRate, Is.EqualTo(FrameRate.Fps30));
         }
 
         [Test]
         public void ProfileParsing_VideoParticlesIsCorrect_True()
         {
-            Assert.That(_configuration.Video.Particles.Value, Is.EqualTo(Particles.Type.High));
+            Assert.That(_configuration.Video.Particles, Is.EqualTo(Particles.High));
         }
 
         [Test]
         public void ProfileParsing_VideoQualityIsCorrect_True()
         {
-            Assert.That(_configuration.Video.Particles.Value, Is.EqualTo(Particles.Type.High));
+            Assert.That(_configuration.Video.Particles, Is.EqualTo(Particles.High));
         }
 
         [Test]

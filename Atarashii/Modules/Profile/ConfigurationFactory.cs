@@ -33,32 +33,26 @@ namespace Atarashii.Modules.Profile
 
             var configuration = new Configuration
             {
-                Name =
+                Name = new Func<Stream, string>(x =>
                 {
-                    Value = new Func<Stream, string>(x =>
+                    var data = new byte[NameLength];
+
+                    stream.Position = NameOffset;
+
+                    for (var i = 0; i < data.Length; i++)
                     {
-                        var data = new byte[NameLength];
+                        stream.Read(data, i, 1);
+                        stream.Position++; // skip null bytes
+                    }
 
-                        stream.Position = NameOffset;
+                    return Encoding.ASCII.GetString(data).TrimEnd('\0');
+                })(stream),
 
-                        for (var i = 0; i < data.Length; i++)
-                        {
-                            stream.Read(data, i, 1);
-                            stream.Position++; // skip null bytes
-                        }
-
-                        return Encoding.ASCII.GetString(data).TrimEnd('\0');
-                    })(stream)
-                },
-
-                Colour =
+                Colour = new Func<BinaryReader, Colour>(x =>
                 {
-                    Value = new Func<BinaryReader, Colour.Type>(x =>
-                    {
-                        var colour = GetByte(x, ColourOffset);
-                        return colour == 0xFF ? Colour.Type.White : (Colour.Type) colour;
-                    })(reader)
-                },
+                    var colour = GetByte(x, ColourOffset);
+                    return colour == 0xFF ? Colour.White : (Colour) colour;
+                })(reader),
 
                 Mouse =
                 {
@@ -80,15 +74,8 @@ namespace Atarashii.Modules.Profile
                         Music = GetByte(reader, AudioVolumeMusicOffset)
                     },
 
-                    Quality =
-                    {
-                        Value = (Quality.Type) GetByte(reader, AudioQualityOffset)
-                    },
-
-                    Variety =
-                    {
-                        Value = (Quality.Type) GetByte(reader, AudioVarietyOffset)
-                    }
+                    Quality = (Quality) GetByte(reader, AudioQualityOffset),
+                    Variety = (Quality) GetByte(reader, AudioVarietyOffset)
                 },
 
                 Video =
@@ -99,10 +86,7 @@ namespace Atarashii.Modules.Profile
                         Height = GetShort(reader, VideoResolutionHeightOffset)
                     },
 
-                    FrameRate =
-                    {
-                        Value = (FrameRate.Type) GetByte(reader, VideoFrameRateOffset)
-                    },
+                    FrameRate = (FrameRate) GetByte(reader, VideoFrameRateOffset),
 
                     Effects =
                     {
@@ -111,23 +95,13 @@ namespace Atarashii.Modules.Profile
                         Decals = GetBool(reader, VideoEffectsDecalsOffset)
                     },
 
-                    Particles =
-                    {
-                        Value = (Particles.Type) GetByte(reader, VideoParticlesOffset)
-                    },
-
-                    Quality =
-                    {
-                        Value = (Quality.Type) GetByte(reader, VideoQualityOffset)
-                    }
+                    Particles = (Particles) GetByte(reader, VideoParticlesOffset),
+                    Quality = (Quality) GetByte(reader, VideoQualityOffset)
                 },
 
                 Network =
                 {
-                    Connection =
-                    {
-                        Value = (Connection.Type) GetByte(reader, NetworkConnectionTypeOffset)
-                    },
+                    Connection = (Connection) GetByte(reader, NetworkConnectionTypeOffset),
 
                     Port =
                     {

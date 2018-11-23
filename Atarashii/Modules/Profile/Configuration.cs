@@ -1,3 +1,4 @@
+using System;
 using Atarashii.Modules.Profile.Options;
 
 namespace Atarashii.Modules.Profile
@@ -138,13 +139,39 @@ namespace Atarashii.Modules.Profile
 
         /// <summary>
         ///     Player name.
+        ///     This value is expected to be between 1 and 11 characters.
         /// </summary>
-        public Name Name { get; set; } = new Name();
+        private string _name = "New001";
+
+        /// <summary>
+        ///     Player name value.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">
+        ///     No name value has been been assigned.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     Assigned name value is greater than 11 characters.
+        /// </exception>
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentNullException(value);
+
+                if (value.Length > 0xB)
+                    throw new ArgumentOutOfRangeException(nameof(value),
+                        "Assigned name value is greater than 11 characters.");
+
+                _name = value;
+            }
+        }
 
         /// <summary>
         ///     Player colour.
         /// </summary>
-        public Colour Colour { get; set; } = new Colour();
+        public Colour Colour { get; set; } = Colour.White;
 
         /// <summary>
         ///     Mouse settings.

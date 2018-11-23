@@ -1,38 +1,27 @@
 namespace Atarashii.Modules.Profile.Options
 {
     /// <summary>
-    ///     Representation of the profile player colour.
+    ///     Available player colours.
     /// </summary>
-    public class Colour
+    public enum Colour
     {
-        /// <summary>
-        ///     Available player colours.
-        /// </summary>
-        public enum Type
-        {
-            White,
-            Black,
-            Red,
-            Blue,
-            Gray,
-            Yellow,
-            Green,
-            Pink,
-            Purple,
-            Cyan,
-            Cobalt,
-            Orange,
-            Teal,
-            Sage,
-            Brown,
-            Tan,
-            Maroon,
-            Salmon
-        }
-
-        /// <summary>
-        ///     Player colour value.
-        /// </summary>
-        public Type Value { get; set; } = Type.White;
+        White,
+        Black,
+        Red,
+        Blue,
+        Gray,
+        Yellow,
+        Green,
+        Pink,
+        Purple,
+        Cyan,
+        Cobalt,
+        Orange,
+        Teal,
+        Sage,
+        Brown,
+        Tan,
+        Maroon,
+        Salmon
     }
 }

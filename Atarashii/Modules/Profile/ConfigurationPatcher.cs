@@ -32,10 +32,10 @@ namespace Atarashii.Modules.Profile
                 }
 
                 return result;
-            })(_configuration.Name.Value));
+            })(_configuration.Name));
 
             // colour
-            SetByte(writer, ColourOffset, (byte) _configuration.Colour.Value);
+            SetByte(writer, ColourOffset, (byte) _configuration.Colour);
 
             // mouse
             {
@@ -69,11 +69,11 @@ namespace Atarashii.Modules.Profile
 
                 // quality
                 SetByte(writer, AudioQualityOffset,
-                    (byte) _configuration.Audio.Quality.Value);
+                    (byte) _configuration.Audio.Quality);
 
                 // variety
                 SetByte(writer, AudioVarietyOffset,
-                    (byte) _configuration.Audio.Variety.Value);
+                    (byte) _configuration.Audio.Variety);
             }
 
             // video
@@ -89,7 +89,7 @@ namespace Atarashii.Modules.Profile
 
                 // frame rate
                 SetByte(writer, VideoFrameRateOffset,
-                    (byte) _configuration.Video.FrameRate.Value);
+                    (byte) _configuration.Video.FrameRate);
 
                 // effects
                 {
@@ -105,18 +105,18 @@ namespace Atarashii.Modules.Profile
 
                 // particles
                 SetByte(writer, VideoParticlesOffset,
-                    (byte) _configuration.Video.Particles.Value);
+                    (byte) _configuration.Video.Particles);
 
                 // quality
                 SetByte(writer, VideoQualityOffset,
-                    (byte) _configuration.Video.Quality.Value);
+                    (byte) _configuration.Video.Quality);
             }
 
             // network
             {
                 // connection
                 SetByte(writer, NetworkConnectionTypeOffset,
-                    (byte) _configuration.Network.Connection.Value);
+                    (byte) _configuration.Network.Connection);
 
                 // ports
                 {

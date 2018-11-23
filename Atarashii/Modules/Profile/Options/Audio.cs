@@ -15,11 +15,11 @@ namespace Atarashii.Modules.Profile.Options
         /// <summary>
         ///     Audio quality.
         /// </summary>
-        public Quality Quality { get; set; } = new Quality();
+        public Quality Quality { get; set; } = Quality.High;
 
         /// <summary>
         ///     Audio variety.
         /// </summary>
-        public Quality Variety { get; set; } = new Quality();
+        public Quality Variety { get; set; } = Quality.High;
     }
 }

@@ -18,7 +18,7 @@ namespace Atarashii.Modules.Profile.Options
         /// <summary>
         ///     Video frame rate settings.
         /// </summary>
-        public FrameRate FrameRate { get; set; } = new FrameRate();
+        public FrameRate FrameRate { get; set; } = FrameRate.Fps30;
 
         /// <summary>
         ///     Video effects settings.
@@ -28,11 +28,11 @@ namespace Atarashii.Modules.Profile.Options
         /// <summary>
         ///     Video particles settings.
         /// </summary>
-        public Particles Particles { get; set; } = new Particles();
+        public Particles Particles { get; set; } = Particles.High;
 
         /// <summary>
         ///     Video texture quality settings.
         /// </summary>
-        public Quality Quality { get; set; } = new Quality();
+        public Quality Quality { get; set; } = Quality.High;
     }
 }
