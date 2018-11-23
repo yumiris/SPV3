@@ -1,6 +1,6 @@
 <html>
     <p align="center">
-        <img src="./Screenshots/GUI.png">
+        <img src="https://user-images.githubusercontent.com/10241434/48938717-ff06f880-ef4c-11e8-927c-ba9dce6b69fb.png">
     </p>
     <h1 align="center">bbkpify</h1>
     <p align="center">
@@ -27,7 +27,7 @@ The original bitmaps are backed up, thus making the process completely safe and 
 
 ## CLI
 
-![GUI Screenshot](Screenshots/CLI.png)
+![GUI Screenshot](https://user-images.githubusercontent.com/10241434/48938572-928bf980-ef4c-11e8-813b-4b424a5dc954.png)
 
 The program is powered by two CLI programs:
 
