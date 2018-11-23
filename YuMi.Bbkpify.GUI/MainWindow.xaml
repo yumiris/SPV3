@@ -11,7 +11,8 @@
         WindowStartupLocation="CenterScreen"
         Width="480"
         SnapsToDevicePixels="True"
-        Icon="/bbkpify.ico">
+        Icon="/bbkpify.ico"
+        Background="#F0F0F0">
     <Window.DataContext>
         <gui:Main/>
     </Window.DataContext>
@@ -20,11 +21,18 @@
             <Setter Property="Height" Value="25" />
             <Setter Property="Margin" Value="1" />
             <Setter Property="Padding" Value="5,0" />
+            <Setter Property="BorderBrush" Value="#ADB2B5"/>
+            <Setter Property="Background" Value="WhiteSmoke"/>
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="Margin" Value="1" />
             <Setter Property="Padding" Value="1,0" />
-            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Background" Value="WhiteSmoke"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="BorderBrush" Value="#ADB2B5"/>
+            <Setter Property="Background" Value="White"/>
         </Style>
         <Style TargetType="Label">
             <Setter Property="Padding" Value="1,5" />
