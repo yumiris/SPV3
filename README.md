@@ -44,6 +44,8 @@ The following modules in the `Modules` namespace are currently available:
 | `OpenSauce` | Installation of OpenSauce to the filesystem, and object representation of the OpenSauce configuration. |
 | `Profile`   | Detection of the HCE profile using `lastprof.txt`, and object representation of the `blam.sav` binary. |
 
+# Usage
+
 ## CLI
 
 All of the library's major components have a Command Line Interface (CLI) front-end. It is cross-platform,
@@ -51,10 +53,6 @@ script-friendly and versatile program for developers and calling processes to us
 
 Interaction is carried out using start-up arguments, with detailed instructions & logs being written to the CLI.
 Appropriate exit codes and error messages are used for communication with calling processes and developers.
-
-# Usage
-
-## CLI Usage
 
 The following table shows common tasks with their respective commands. 
 
@@ -83,7 +81,7 @@ The following table shows common tasks with their respective commands.
 - The syntax of the commands may change at any time for improved versatility & ease of use!
 - The commands are currently CaSe SeNSiTiVE!
 
-## API Usage
+## API
 
 An API assembly is provided for convenience, to allow external assemblies to make use of the library's functionality.
 
