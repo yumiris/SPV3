@@ -1,0 +1,132 @@
+﻿<Window x:Class="HCE.Patch.GUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HCE.Patch.GUI"
+        mc:Ignorable="d"
+        Title="HCE.Patch | Unofficial Installer for the HCE 1.0.10 Patch"
+        Width="640"
+        WindowStartupLocation="CenterScreen"
+        Background="#F0F0F0"
+        ResizeMode="CanMinimize"
+        SizeToContent="Height"
+        SnapsToDevicePixels="True">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <Menu.Resources>
+                <Style TargetType="{x:Type MenuItem}">
+                    <Setter Property="Height" Value="25" />
+                </Style>
+            </Menu.Resources>
+            <MenuItem Header="About" />
+            <MenuItem Header="Releases" />
+        </Menu>
+
+        <DockPanel DockPanel.Dock="Top"
+                   Margin="10,0">
+            <Image DockPanel.Dock="Left"
+                   Source="/icon.ico"
+                   Stretch="None"
+                   Margin="2,10,10,2"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top" />
+
+            <GroupBox DockPanel.Dock="Right"
+                      Header="Information"
+                      Height="175">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               TextWrapping="Wrap"
+                               Padding="5,0">
+                        <Bold>
+                            Attributions:
+                        </Bold>
+                        <LineBreak />
+                        • Roger Wolfson
+                        <LineBreak />
+                        • btcc22
+                        <LineBreak />
+                        • Technut
+                        <LineBreak />
+                        • kornman00
+                        <LineBreak />
+                        <LineBreak />
+                        <Bold>
+                            Links:
+                        </Bold>
+                        <LineBreak />
+                        <Hyperlink RequestNavigate="Link" NavigateUri="https://www.bungie.net/en/Forums/Post/64943622">
+                            Official Bungie Thread
+                        </Hyperlink>
+                        <LineBreak />
+                        <Hyperlink RequestNavigate="Link" NavigateUri="http://hce.halomaps.org/index.cfm?fid=6798">
+                            Halo Maps Release
+                        </Hyperlink>
+                    </TextBlock>
+                    <ScrollViewer Grid.Column="1">
+                        <TextBlock TextWrapping="Wrap"
+                                   Padding="5,0">
+                            <Bold>
+                                Changelog:
+                            </Bold>
+                            <LineBreak />
+                            • Bumped version to 1.0.10.0621
+                            <LineBreak />
+                            • Moved Gamespy services to use new non-Gamespy server
+                            <LineBreak />
+                            • Fixed a family of index-out-of-bounds bugs which had been exploited to crash clients
+                            <LineBreak />
+                            • Made banlist parsing not case-sensitive
+                            <LineBreak />
+                            • Removed halt on cache file verify error
+                            <LineBreak />
+                            • Removed some verbose debug logging of gamespy connections
+                            <LineBreak />
+                            • Fixed handling of video cards with >= 2GB of memory
+                            <LineBreak />
+                            • Enabled refractive Active Camo on Nvidia cards, which had previously used an alpha fade. (AMD cards already have this)
+                            <LineBreak />
+                            • Updated 2003-era upper bound on the video resolution picker. Use at your own risk; the game is untested at 4800x3600.
+                            <LineBreak />
+                            • Updated chatbox settings to work with newer resolutions
+                            <LineBreak />
+                            • Models node limit updated to 63
+                            <LineBreak />
+                            • Fixed reading sv_ban_penalty from init.txt
+                            <LineBreak />
+                            • Disabled executable_is_valid checksum from strings.dll
+                            <LineBreak />
+                            • Allowed network access in devmode
+                            <LineBreak />
+                            • Fixed parsing of custom map names containing a "."
+                        </TextBlock>
+                    </ScrollViewer>
+                </Grid>
+            </GroupBox>
+        </DockPanel>
+        <GroupBox DockPanel.Dock="Top"
+                  Header="Install"
+                  Height="50"
+                  Margin="10,0,10,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25*" />
+                    <ColumnDefinition Width="25*" />
+                    <ColumnDefinition Width="50*" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0"
+                        Content="Browse" />
+                <TextBox Grid.Column="1"
+                         Margin="1,0"
+                         VerticalContentAlignment="Center" />
+                <Button Grid.Column="2"
+                        Content="Patch HCE to 1.0.10" />
+            </Grid>
+        </GroupBox>
+    </DockPanel>
+</Window>
