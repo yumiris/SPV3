@@ -12,6 +12,19 @@
         ResizeMode="CanMinimize"
         SizeToContent="Height"
         SnapsToDevicePixels="True">
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Background" Value="WhiteSmoke"/>
+            <Setter Property="BorderBrush" Value="#ABADB3"/>
+        </Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Background" Value="WhiteSmoke"/>
+            <Setter Property="BorderBrush" Value="#ABADB3"/>
+        </Style>
+    </Window.Resources>
+    
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <Menu.Resources>
@@ -28,7 +41,7 @@
             <Image DockPanel.Dock="Left"
                    Source="/icon.ico"
                    Stretch="None"
-                   Margin="2,10,10,2"
+                   Margin="2,24,10,2"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Top" />
 
@@ -111,7 +124,6 @@
         </DockPanel>
         <GroupBox DockPanel.Dock="Top"
                   Header="Install"
-                  Height="50"
                   Margin="10,0,10,10">
             <Grid>
                 <Grid.ColumnDefinitions>
