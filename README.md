@@ -42,13 +42,17 @@ To mitigate this, SPV3.2 will be distributed using two methods:
 
 - The primary method will still be a typical download, but rather than rely only on MediaFire, we'll also use MEGA
   Google Drive, Dropbox and other hosts for redundancy and mirroring.
+  
+  The advantage of this is familiarity for most people, at the expense of the launcher not being able to download from
+  such hosts because the download links are not permanent.
 
 - BitTorrent as a fallback. Only the torrent file will be released on MediaFire, and a magnet link will be provided as
   well. This effectively mitigates the problems with slow & corrupted downloads, due to the protocol's resilient and
   decentralised nature.
   
   With BitTorrent, the launcher can also be used for automatically initiating and downloading the installation files,
-  without the need for a dedicated BitTorrent client and any manual setup.
+  without the need for a dedicated BitTorrent client and any manual setup. This also allows future-proofing by remotely
+  informing the launcher of new magnet/torrent files to download, without the need to update the launcher itself.
 
 ## Installation
 
