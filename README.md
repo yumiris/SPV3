@@ -1,4 +1,14 @@
-# SPV3 Release
+# Table of Contents
+
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+- [Procedure](#procedure)
+    - [Distribution](#distribution)
+    - [Installation](#installation)
+    - [Statistics](#statistics)
+- [Contribution](#contribution)
+
+# Introduction
 
 This document covers the release procedure for SPV3.2. The purpose of this document is to plan out a release that caters
 to both the community's and developers' needs.
@@ -10,12 +20,12 @@ requirements:
 - installation should be straightforward, robust and professional;
 - statistics should be possible, without the need for personal information;
 
-## Procedure
+# Procedure
 
 This section covers our planned approach to fulfilling the requirements specified above. This section will be updated
 regularly based on community input. It will also refer to the old release procedure for clarification purposes.
 
-### Distribution
+## Distribution
 
 The old approach was to use MediaFire for distributing the SPV3 installation package. This caused problems for a lot of
 people, with bandwidth throttling and corrupted downloads being the main culprits. The primary reason for using MF was
@@ -26,7 +36,7 @@ To mitigate this, SPV3.2 will be distributed using BitTorrent. Only the torrent 
 a magnet link will be provided as well. This effectively mitigates the problems with slow & corrupted downloads, due to
 the protocol's resilient and decentralised nature.
 
-### Installation
+## Installation
 
 SPV3.2's installation data will be stored in an ISO file. The ISO file will contain the packages and the installer
 itself. The advantage is that an ISO file not require to be extracted like a 7-Zip/ZIP/RAR file would; hence, the space
@@ -37,7 +47,7 @@ The installation procedure won't change much. A legal copy of HCE will still be 
 separate from HCE. We will, however, warn the user when they try to install SPV3 to a restricted location such as the
 Program Files folder.
 
-### Statistics
+## Statistics
 
 We relied on MediaFire to determine the number of SPV3 downloads. As discussed in the Distribution section, this isn't
 a viable option. To ensure more accurate statistics without compromising the user experience and privacy, the installer
