@@ -57,10 +57,21 @@ To mitigate this, SPV3.2 will be distributed using two methods:
 ## Installation
 
 SPV3.2's installation data will be stored in an ISO file. The ISO file will contain the packages and the installer
-itself. The advantage is that an ISO file not require to be extracted like a 7-Zip/ZIP/RAR/SFX file would; hence, the
-space requirements will be much lower. To access the contents of the ISO file, one would simply double click on it.
+itself. The advantages of this would include:
 
-Of course, extraction is also an option.
+- on modern operating systems, an ISO file not require to be extracted like a 7-Zip/ZIP/RAR/SFX file would;
+- space requirements will be much lower, because extraction is not required to access the installer's data;
+- no AVs complain about ISO files, AVs can't delete files in ISO files due to their read-only nature.
+
+The only disadvantage of ISO files is that pre-Windows 8 systems will require 7-Zip/WinRAR to extract the said ISO file.
+
+This is where archives/self-extracting installers (SFX) are advantageous: universal compatibility. However, there are
+significant disadvantages, such as:
+
+- potential AV false positive alerts because it's an executable;
+- extraction of installation data is required pre-installation, thus more space is wasted;
+- no space savings because the installer packages are already compressed;
+- warnings from Windows SmartScreen regarding lack of publisher.
 
 The installation procedure won't change much. A legal copy of HCE will still be required, and SPV3 will still be kept
 separate from HCE. We will, however, warn the user when they try to install SPV3 to a restricted location such as the
