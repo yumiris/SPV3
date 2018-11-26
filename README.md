@@ -1,7 +1,11 @@
 # Introduction
 
-SPV3.Settings serves as the prettier and simpler version of HCE.BalsamV, with its design and functionality catering to
-the scope of SPV3.
+SPV3.Settings is the configuration program used for tweaking SPV3. The program serves as a front-end to configuring:
 
-The options unrelated to SPV3 (e.g. Network Settings & Player Information) have been taken out of the GUI, in favour of
-buttons used to launch external configuration applications such as the OpenSauce & shader settings.
+- SPV3's video/audio/input settings;
+- various post-processing shader effects;
+- environmental sound & hardware acceleration;
+- OpenSauce post-processing options/effects.
+
+This program is designed to deal with options within the scope of SPV3. It abstracts the generalised routines of the
+various libraries away from the end-user, and exposes only the necessary options that are relevant to SPV3.
