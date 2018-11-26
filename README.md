@@ -1,12 +1,18 @@
 # Table of Contents
 
 - [Table of Contents](#table-of-contents)
+- [Disclaimer](#disclaimer)
 - [Introduction](#introduction)
 - [Procedure](#procedure)
     - [Distribution](#distribution)
     - [Installation](#installation)
     - [Statistics](#statistics)
 - [Contribution](#contribution)
+
+# Disclaimer
+
+This is a proposal document, with nothing being carved in stone! This document keeps a summary of what we're currently
+considering. Any of the proposed changes may be subject to change. 
 
 # Introduction
 
