@@ -38,9 +38,17 @@ people, with bandwidth throttling and corrupted downloads being the main culprit
 to track the number of downloads. Because we had to resort to recommending the use of different browsers or download
 managers, there's a high chance the statistics have been skewed quite significantly.
 
-To mitigate this, SPV3.2 will be distributed using BitTorrent. Only the torrent file will be released on MediaFire, and
-a magnet link will be provided as well. This effectively mitigates the problems with slow & corrupted downloads, due to
-the protocol's resilient and decentralised nature.
+To mitigate this, SPV3.2 will be distributed using two methods:
+
+- The primary method will still be a typical download, but rather than rely only on MediaFire, we'll also use MEGA
+  Google Drive, Dropbox and other hosts for redundancy and mirroring.
+
+- BitTorrent as a fallback. Only the torrent file will be released on MediaFire, and a magnet link will be provided as
+  well. This effectively mitigates the problems with slow & corrupted downloads, due to the protocol's resilient and
+  decentralised nature.
+  
+  With BitTorrent, the launcher can also be used for automatically initiating and downloading the installation files,
+  without the need for a dedicated BitTorrent client and any manual setup.
 
 ## Installation
 
