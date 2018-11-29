@@ -36,7 +36,7 @@ effect, the adaptation is instant.
 Technique used to smooth otherwise jagged lines or textures by blending the color of an edge with the color of pixels
 around it. The result should be a more pleasing and realistic appearance, depending on the intensity of the effect.
 
-##Debanding
+## Debanding
 
 **Technique used - Debanding**
 Effect which eliminated banding artifacts (sort of band like anomalies that appear in otherwise smooth gradients of
