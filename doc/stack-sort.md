@@ -8,10 +8,12 @@ or not. As such, any shader effects which are NOT (✗) configurable should NOT 
 | 1     | MXAO           | ✓            |
 | 2     | DOF            | ✓            |
 | 3     | Dynamic Flare  | ✓            |
-| 4     | Lensdirt       | ✓            |
+| 4     | Lens Dirt      | ✓            |
 | 5     | Vignette       | ✗            |
 | 6     | Eye Adaptation | ✓            |
 | 7     | ACES HDR       | ✗            |
 | 8     | LUT            | ✗            |
 | 9     | SMAA           | ✓            |
 | 10    | Debanding      | ✓            |
+
+For levels of configurability for each shader, please refer to [Estimated Quality Levels](quality-levels.md).
