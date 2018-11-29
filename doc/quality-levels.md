@@ -19,3 +19,5 @@ Specification of which shader effects are configurable by the end-user can be fo
 | Debanding      | Level                             | Off, Low, High   | Medium               |
 
 [1] - Currently ultra, will be made much faster, expected to be high.
+
+For definitions on each shader, please refer to the [Shader Definitions](shader-definitions.md) documentation.

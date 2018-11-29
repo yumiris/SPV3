@@ -17,3 +17,5 @@ or not. As such, any shader effects which are NOT (✗) configurable should NOT 
 | 10    | Debanding      | ✓            |
 
 For levels of configurability for each shader, please refer to [Estimated Quality Levels](quality-levels.md).
+
+For definitions on each shader, please refer to the [Shader Definitions](shader-definitions.md) documentation.
