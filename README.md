@@ -5,7 +5,7 @@ It serves as a sub-component of SPV3.Settings, though it is complex enough in sp
 in its own dedicated repository. As such, any potential references to SPV3.Settings implicitly refer to SPV3.Shaders!
 
 This repository serves both the purpose of storing source code revisions but also documentation on the configuration
-program and all of the external shader effects that SPV3.2 uses.
+program and all of the post-processing effects that SPV3.2 uses.
 
 ## Shaders
 

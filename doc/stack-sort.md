@@ -1,6 +1,6 @@
 # Render Stack Sorting
 
-The table below outlines the external shader effects' orders on the stack and whether they are configurable by the user
+The table below outlines the post-processing effects' orders on the stack and whether they are configurable by the user
 or not. As such, any shader effects which are NOT (✗) configurable should NOT be handled by SPV3.Shaders at all!
 
 | Order | Shader Effect  | Configurable |
