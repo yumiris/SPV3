@@ -17,7 +17,7 @@ this range appear out of focus or blurred out. Just like any camera or your eye,
 ## Dynamic Flares
 
 **Technique used - Dynamic Pseudo Lens Flares**
-Effect that shows lens flares automatically based bright spots in the scene.
+Effect that shows lens flares automatically based on bright spots in the scene.
 
 ## Lens Dirt
 
