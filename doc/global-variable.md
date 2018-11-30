@@ -10,6 +10,8 @@ The global variable value's is an integer that must represent the following user
 It is quite challenging to rely on a single integer value for representing an entire user configuration scheme; however,
 in this circumstance it's quite doable.
 
+## Encoding
+
 # Method
 
 1. Create a list of the shader effects with the order specified in the [Render Stack Sorting](stack-sort.md) document.
@@ -76,3 +78,33 @@ For example, consider the following configuration:
 
 It can be represented in the global variable with the value of `39508`, which is the sum of the integers in the
 `Integer Representation` column.
+
+## Decoding
+
+To get the variables back, we would rely on the value and an array/list to store the numbers we will get back.
+
+First, let's prepare by:
+
+- declaring `x` as the value stored in the global variable;
+- defining the variable `i` to a value of 1.
+
+Now, while `i` is lower or equal to `x`, we:
+  1. Compute the logical bitwise AND of operands `x` & `i`, and assert that the result equates to TRUE in Boolean form.
+  2. If the value is TRUE, the current value of `i` is considered as one of the numbers in the sum that totals to `x`.
+  3. Regardless of the result, `i` should be left-shifted (or multiplied by 2) to prepare it for the next iteration.
+
+The snippet below shows how this is accomplished in C#. Note that the example writes to the standard output, rather than
+adding to an array or list.
+
+```csharp
+int x = 39508;
+var i = 1;
+
+while (i <= x)
+{
+    if (Convert.ToBoolean(i & x))
+        Console.WriteLine($"{i}");
+
+    i <<= 1;
+}
+```
