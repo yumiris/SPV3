@@ -3,19 +3,15 @@
 - [Global Variable Value](#global-variable-value)
     - [Introduction](#introduction)
     - [Shader States Values](#shader-states-values)
-    - [Encoding Global Variable](#encoding-global-variable)
-    - [Decoding Global Variable](#decoding-global-variable)
+    - [Global Variable Specification](#global-variable-specification)
+        - [Encoding Method](#encoding-method)
+        - [Decoding Method](#decoding-method)
 
 ## Introduction
 
 This document serves as the specification for the global variable that SPV3.2 will use to deduce shader configurations.
 Additionally, it also outlines the official values for the various shader configuration states, which means the option
 an end-user has chosen for a particular post-processing effect.
-
-The global variable value's is an integer that must represent the following user choices:
-
-- the enabled & disabled post-processing effects;
-- the quality levels for PPEs that require them (e.g. off/low/high for MXAO).
 
 ---
 
@@ -45,7 +41,17 @@ The table below outlines the integer representations for each shader state:
 
 ---
 
-## Encoding Global Variable
+## Global Variable Specification
+
+The global variable value is an integer that must represent the following user choices:
+
+- the enabled & disabled post-processing effects;
+- the quality levels for PPEs that require them (e.g. off/low/high for MXAO).
+
+In essence, it serves as an encoded configuration. The sections below outline the methods used for encoding and decoding
+an end-user's post-processing configuration.
+
+### Encoding Method
 
 1. Create a list of the shader effects with the order specified in the [Render Stack Sorting](stack-sort.md) document.
 2. Replace each shader effect with its possible states as specified in the [Quality Levels](quality-levels.md) document.
@@ -89,7 +95,7 @@ It can be represented in the global variable with the value of `39508`, which is
 
 ---
 
-## Decoding Global Variable
+### Decoding Method
 
 To get the variables back, we would rely on the value and an array/list to store the numbers we will get back.
 
