@@ -3,20 +3,19 @@
 - [Global Variable Value](#global-variable-value)
     - [Introduction](#introduction)
     - [Shader States Values](#shader-states-values)
-        - [Encoding Global Variable](#encoding-global-variable)
-        - [Decoding Global Variable](#decoding-global-variable)
+    - [Encoding Global Variable](#encoding-global-variable)
+    - [Decoding Global Variable](#decoding-global-variable)
 
 ## Introduction
 
 This document serves as the specification for the global variable that SPV3.2 will use to deduce shader configurations.
+Additionally, it also outlines the official values for the various shader configuration states, which means the option
+an end-user has chosen for a particular post-processing effect.
 
 The global variable value's is an integer that must represent the following user choices:
 
 - the enabled & disabled post-processing effects;
 - the quality levels for PPEs that require them (e.g. off/low/high for MXAO).
-
-It is quite challenging to rely on a single integer value for representing an entire user configuration scheme; however,
-in this circumstance it's quite doable.
 
 ---
 
