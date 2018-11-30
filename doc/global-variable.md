@@ -21,6 +21,22 @@ in this circumstance it's quite doable.
    - the first element is represented by 1; 
 4. The global variable's value represents the sum of the integer representation for each chosen shader state.
 
+The following ASCII should hopefully make the method specified above a tad clearer:
+
+```
+MXAO, DOF, Dynamic Flare
+ |     |         |
+ |     |         +-------------------+
+ |     |                             |
+ |     +----------------+            |
+ |                      |            |
+ +-----+-----+    +-----+----+     +-+-+
+ |     |     |    |     |    |     |   |
+Off, Low, High ~ Off, Low, High ~ Off, On
+ |     |     |    |     |    |     |   |
+ 1     2     4    8    16   32    64  128
+```
+
 # Values
 
 The table below outlines the integer representations for each shader state:
