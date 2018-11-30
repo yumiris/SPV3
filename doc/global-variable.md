@@ -5,7 +5,7 @@ This document serves as the specification for the global variable that SPV3.2 wi
 The global variable value's is an integer that must represent the following user choices:
 
 - the enabled & disabled post-processing effects;
-- the quality levels for PPEs that require them (e.g. low/med/high for MXAO).
+- the quality levels for PPEs that require them (e.g. off/low/high for MXAO).
 
 It is quite challenging to rely on a single integer value for representing an entire user configuration scheme; however,
 in this circumstance it's quite doable.
