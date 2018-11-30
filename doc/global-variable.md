@@ -1,5 +1,13 @@
 # Global Variable Value
 
+- [Global Variable Value](#global-variable-value)
+    - [Introduction](#introduction)
+    - [Shader States Values](#shader-states-values)
+        - [Encoding Global Variable](#encoding-global-variable)
+        - [Decoding Global Variable](#decoding-global-variable)
+
+## Introduction
+
 This document serves as the specification for the global variable that SPV3.2 will use to deduce shader configurations.
 
 The global variable value's is an integer that must represent the following user choices:
@@ -10,7 +18,9 @@ The global variable value's is an integer that must represent the following user
 It is quite challenging to rely on a single integer value for representing an entire user configuration scheme; however,
 in this circumstance it's quite doable.
 
-# Values
+---
+
+## Shader States Values
 
 The table below outlines the integer representations for each shader state:
 
@@ -34,7 +44,9 @@ The table below outlines the integer representations for each shader state:
 | `Debanding - Low`      | `32768`                | `0x8000`           |
 | `Debanding - High`     | `65536`                | `0x10000`          |
 
-# Encoding
+---
+
+## Encoding Global Variable
 
 1. Create a list of the shader effects with the order specified in the [Render Stack Sorting](stack-sort.md) document.
 2. Replace each shader effect with its possible states as specified in the [Quality Levels](quality-levels.md) document.
@@ -76,7 +88,9 @@ As a practical example, consider the following configuration:
 It can be represented in the global variable with the value of `39508`, which is the sum of the integers in the
 `Integer Representation` column.
 
-# Decoding
+---
+
+## Decoding Global Variable
 
 To get the variables back, we would rely on the value and an array/list to store the numbers we will get back.
 
