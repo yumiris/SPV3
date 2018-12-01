@@ -53,7 +53,8 @@ an end-user's post-processing configuration.
 
 ### Encoding Method
 
-> **Method**: Sum up the numbers that correspond to the chosen shader states, which are numbers to the power of two.
+> **Method**: Sum up the numbers that correspond to the chosen shader states, which are numbers to the power of two, and
+> store the total in the global variable.
 
 1. Create a list of the shader effects with the order specified in the [Render Stack Sorting](stack-sort.md) document.
 2. Replace each shader effect with its possible states as specified in the [Quality Levels](quality-levels.md) document.
@@ -99,7 +100,8 @@ It can be represented in the global variable with the value of `39508`, which is
 
 ### Decoding Method
 
-> **Method**: Break down the global variable value into a sum that corresponds of numbers which are powers of two.
+> **Method**: Break down the global variable value into a sum that corresponds of numbers which are powers of two, then
+> determine what shader state each number in the sum corresponds to.
 
 To get the variables back, we would rely on the value and an array/list to store the numbers we will get back.
 
