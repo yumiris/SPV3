@@ -76,17 +76,17 @@ an end-user's post-processing configuration.
 The following ASCII should hopefully make the method specified above a tad clearer:
 
 ```
-      MXAO        DOF        Dynamic Flare
-       |           |               |
-       |           |               +--------+
-       |           |                        |
-       |           +--------+               |
-       |                    |               |
- +-----+-----+        +-----+----+        +-+-+
- |     |     |        |     |    |        |   |
-Off, Low, High        Off, Low, High     Off, On
- |     |     |        |     |    |        |   |
- 1     2     4        8    16   32       64  128
+        MXAO         DOF        Dynamic Flare
+          |           |               |
+          |           |               +------------------------+
+          |           |                                        |
+          |           +----------------+                       |
+          |                            |                       |
+ +--------+-------+           +--------+-------+           +---+----+
+ |        |       |           |        |       |           |        |
+Off,     Low,    High        Off,     Low,   High        Off,      On
+ |        |       |           |        |       |           |        |
+0x001   0x002   0x004       0x008    0x010   0x020       0x040    0x080
 ```
 
 As a practical example, consider the following configuration:
