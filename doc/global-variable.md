@@ -19,25 +19,25 @@ an end-user has chosen for a particular post-processing effect.
 
 The table below outlines the integer representations for each shader state:
 
-| #  | Shader w/ State        | Integer Representation | Base-16 Equivalent |
-| -- | ---------------------- | ---------------------- | ------------------ |
-| 1  | `MXAO - Off`           | `1`                    | `0x1`              |
-| 2  | `MXAO - Low`           | `2`                    | `0x2`              |
-| 3  | `MXAO - High`          | `4`                    | `0x4`              |
-| 4  | `DOF - Off`            | `8`                    | `0x8`              |
-| 5  | `DOF - Low`            | `16`                   | `0x10`             |
-| 6  | `DOF - High`           | `32`                   | `0x20`             |
-| 7  | `Dynamic Flare - Off`  | `64`                   | `0x40`             |
-| 8  | `Dynamic Flare - On`   | `128`                  | `0x80`             |
-| 9  | `Lens Dirt - Off`      | `256`                  | `0x100`            |
-| 10 | `Lens Dirt - On`       | `512`                  | `0x200`            |
-| 11 | `Eye Adaptation - Off` | `1024`                 | `0x400`            |
-| 12 | `Eye Adaptation - On`  | `2048`                 | `0x800`            |
-| 13 | `SMAA - Off`           | `4096`                 | `0x1000`           |
-| 14 | `SMAA - On`            | `8192`                 | `0x2000`           |
-| 15 | `Debanding - Off`      | `16384`                | `0x4000`           |
-| 16 | `Debanding - Low`      | `32768`                | `0x8000`           |
-| 17 | `Debanding - High`     | `65536`                | `0x10000`          |
+| Sequence | Shader w/ State        | Integer Representation | Base-16 Equivalent |
+| -------- | ---------------------- | ---------------------- | ------------------ |
+| 1        | `MXAO - Off`           | `1`                    | `0x1`              |
+| 2        | `MXAO - Low`           | `2`                    | `0x2`              |
+| 3        | `MXAO - High`          | `4`                    | `0x4`              |
+| 4        | `DOF - Off`            | `8`                    | `0x8`              |
+| 5        | `DOF - Low`            | `16`                   | `0x10`             |
+| 6        | `DOF - High`           | `32`                   | `0x20`             |
+| 7        | `Dynamic Flare - Off`  | `64`                   | `0x40`             |
+| 8        | `Dynamic Flare - On`   | `128`                  | `0x80`             |
+| 9        | `Lens Dirt - Off`      | `256`                  | `0x100`            |
+| 10       | `Lens Dirt - On`       | `512`                  | `0x200`            |
+| 11       | `Eye Adaptation - Off` | `1024`                 | `0x400`            |
+| 12       | `Eye Adaptation - On`  | `2048`                 | `0x800`            |
+| 13       | `SMAA - Off`           | `4096`                 | `0x1000`           |
+| 14       | `SMAA - On`            | `8192`                 | `0x2000`           |
+| 15       | `Debanding - Off`      | `16384`                | `0x4000`           |
+| 16       | `Debanding - Low`      | `32768`                | `0x8000`           |
+| 17       | `Debanding - High`     | `65536`                | `0x10000`          |
 
 ---
 
