@@ -1,4 +1,6 @@
-namespace SPV3.Shaders
+using SPV3.Shaders.Options;
+
+namespace SPV3.Shaders.PPEs
 {
     /// <summary>
     ///     Effect which eliminated banding artifacts (sort of band like anomalies that appear in otherwise smooth

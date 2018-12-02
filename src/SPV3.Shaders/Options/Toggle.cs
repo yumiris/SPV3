@@ -1,4 +1,4 @@
-namespace SPV3.Shaders
+namespace SPV3.Shaders.Options
 {
     /// <summary>
     ///     Enumerator for Toggle-type shader options, as specified in doc/quality-levels.md.

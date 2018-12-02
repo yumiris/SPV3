@@ -1,4 +1,6 @@
-namespace SPV3.Shaders
+using SPV3.Shaders.Options;
+
+namespace SPV3.Shaders.PPEs
 {
     /// <summary>
     ///     Effect in which objects within some range of distances in a scene appear in focus, and objects nearer or

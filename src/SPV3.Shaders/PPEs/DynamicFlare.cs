@@ -1,4 +1,6 @@
-namespace SPV3.Shaders
+using SPV3.Shaders.Options;
+
+namespace SPV3.Shaders.PPEs
 {
     /// <summary>
     ///     Effect that shows lens flares automatically based on bright spots in the scene.

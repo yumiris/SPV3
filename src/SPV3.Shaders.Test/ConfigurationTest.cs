@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using SPV3.Shaders.Options;
 
 namespace SPV3.Shaders.Test
 {

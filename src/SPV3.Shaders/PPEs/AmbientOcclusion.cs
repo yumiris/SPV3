@@ -1,4 +1,6 @@
-namespace SPV3.Shaders
+using SPV3.Shaders.Options;
+
+namespace SPV3.Shaders.PPEs
 {
     /// <summary>
     ///     Shading/rendering technique used to calculate how each point in the scene is exposed to ambient light.

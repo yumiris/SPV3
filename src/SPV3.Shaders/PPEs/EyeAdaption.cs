@@ -1,4 +1,6 @@
-namespace SPV3.Shaders
+using SPV3.Shaders.Options;
+
+namespace SPV3.Shaders.PPEs
 {
     /// <summary>
     ///     This effect automatically adjust the scene exposure based on ambient light. Unlike commonly used
