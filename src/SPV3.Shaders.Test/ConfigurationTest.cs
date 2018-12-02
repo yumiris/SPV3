@@ -12,13 +12,14 @@ namespace SPV3.Shaders.Test
         ///     property values.
         /// </summary>
         [Test]
-        public void Configuration_IsDecodedCorrectly_True()
+        public void AssertProperties_AreDecodedCorrectly_True()
         {
-            var config = ConfigurationFactory.Decode(new GlobalVariable(42132));
+            var config = ConfigurationFactory.Decode(new GlobalVariable(42644));
 
             Assert.AreEqual(Level.High, config.AmbientOcclusion.Level);
             Assert.AreEqual(Level.Low, config.DepthOfField.Level);
             Assert.AreEqual(Toggle.On, config.DynamicFlare.Toggle);
+            Assert.AreEqual(Toggle.On, config.LensDirt.Toggle);
             Assert.AreEqual(Toggle.Off, config.EyeAdaption.Toggle);
             Assert.AreEqual(Toggle.On, config.AntiAliasing.Toggle);
             Assert.AreEqual(Level.Low, config.Debanding.Level);

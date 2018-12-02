@@ -78,7 +78,7 @@ namespace SPV3.Shaders
                     configuration.DepthOfField.Level = Level.High;
                     return configuration;
 
-                // depth of field states
+                // dynamic flare states
                 case DynamicFlare.StateOff:
                     configuration.DynamicFlare.Toggle = Toggle.Off;
                     return configuration;
