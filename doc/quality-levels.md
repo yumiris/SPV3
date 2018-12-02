@@ -10,14 +10,15 @@ Specification of which shader effects are configurable by the end-user can be fo
 
 | Shader         | Configuration Type (Level/Toggle) | Available Levels | Resource Requirement |
 | -------------- | --------------------------------- | ---------------- | -------------------- |
-| MXAO           | Level                             | Off, Low, High   | Medium               |
+| MXAO           | Level                             | Off, Low, High   | High                 |
 | DOF            | Level                             | Off, Low, High   | Ultra                |
 | Dynamic Flare  | Toggle                            | Off, On          | Low                  |
 | Lens Dirt      | Toggle                            | Off, On          | Ultra[1]             |
 | Eye Adaptation | Toggle                            | Off, On          | Low                  |
-| SMAA           | Toggle                            | Off, On          | High                 |
-| Debanding      | Level                             | Off, Low, High   | Medium               |
+| SMAA           | Toggle                            | Off, On          | Medium               |
+| Debanding      | Level                             | Off, Low, High   | High                 |
 
-[1] - Currently ultra, will be made much faster, expected to be high.
+The resource requirements are in the order `Low < Medium < High < Ultra`.
+[1] - Currently ultra, will be made much faster, expected to be `Medium`.
 
 For definitions on each shader, please refer to the [Shader Definitions](shader-definitions.md) documentation.
