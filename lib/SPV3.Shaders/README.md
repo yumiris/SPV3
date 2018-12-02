@@ -1,3 +1,15 @@
+<html>
+    <h1 align="center">
+        SPV3.Shaders
+    </h1>
+    <h3 align="center">
+        Shaders settings specification & program for SPV3
+    </h3>
+    <p align="center">
+        <img src="https://user-images.githubusercontent.com/10241434/49329147-ceab0400-f5b5-11e8-8fb1-62c6b24c672b.png">
+    <p>
+</html>
+
 # Introduction
 
 SPV3.Shaders is a program for SPV3.2 that handles the configuration of various post-processing graphical shader effects.
@@ -23,13 +35,15 @@ For documentation on the shader effects, please refer to the following documents
 - [Shader Definitions](doc/shader-definitions.md)
 - [Render Stack Sorting](doc/stack-sort.md)
 - [Estimated Quality Levels](doc/quality-levels.md)
+- [Global Variable Value](doc/global-variable.md)
+- [Implementation](doc/implementation.md)
 
 ## Attributions
 
 Although this project does not directly interact with the respective shader effects, we believe it is fair to include
 the licenses for the shader effects that are distributed with the official copy of SPV3.2.
 
-The [`docs/SHADER_LICENSES.md`](doc/shader_licenses.md) document handles the shader effects' attributions and licences.
+The [Shader Licences](doc/shader-licenses.md) document handles the shader effects' attributions and licences.
 
 Note that the licence used for SPV3.Shaders (or its main implementor - SPV3.Settings) does not extend to any shader
 effect that is utilised by the official copy of SPV3.2. As such, the source code and/or binaries for the shader effects

@@ -42,7 +42,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigurationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="GlobalVariableTest.cs" />
+    <Compile Include="ShaderStateTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SPV3.Shaders\SPV3.Shaders.csproj">
+      <Project>{f26e9f38-eaba-423b-99c6-d26056b79708}</Project>
+      <Name>SPV3.Shaders</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
