@@ -36,6 +36,7 @@ For documentation on the shader effects, please refer to the following documents
 - [Render Stack Sorting](doc/stack-sort.md)
 - [Estimated Quality Levels](doc/quality-levels.md)
 - [Global Variable Value](doc/global-variable.md)
+- [Implementation](doc/implementation.md)
 
 ## Attributions
 
