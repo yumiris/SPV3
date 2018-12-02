@@ -38,7 +38,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration.cs" />
+    <Compile Include="ConfigurationFactory.cs" />
+    <Compile Include="GlobalVariableFactory.cs" />
+    <Compile Include="Options\Level.cs" />
+    <Compile Include="Options\Toggle.cs" />
+    <Compile Include="PPEs\AmbientOcclusion.cs" />
+    <Compile Include="PPEs\AntiAliasing.cs" />
+    <Compile Include="PPEs\Debanding.cs" />
+    <Compile Include="PPEs\DepthOfField.cs" />
+    <Compile Include="PPEs\DynamicFlare.cs" />
+    <Compile Include="PPEs\EyeAdaption.cs" />
+    <Compile Include="PPEs\LensDirt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="GlobalVariable.cs" />
+    <Compile Include="ShaderState.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

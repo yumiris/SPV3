@@ -4,9 +4,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 ProjectSection(SolutionItems) = preProject
 	..\doc\quality-levels.md = ..\doc\quality-levels.md
 	..\doc\shader-definitions.md = ..\doc\shader-definitions.md
-	..\doc\shader_licenses.md = ..\doc\shader_licenses.md
 	..\doc\stack-sort.md = ..\doc\stack-sort.md
 	..\README.md = ..\README.md
+	..\doc\global-variable.md = ..\doc\global-variable.md
+	..\doc\shader-licenses.md = ..\doc\shader-licenses.md
+	..\doc\implementation.md = ..\doc\implementation.md
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Shaders", "SPV3.Shaders\SPV3.Shaders.csproj", "{F26E9F38-EABA-423B-99C6-D26056B79708}"
