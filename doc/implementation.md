@@ -1,5 +1,12 @@
 # Implementation
 
+- [Implementation](#implementation)
+    - [Logic](#logic)
+        - [Diagram](#diagram)
+    - [Entities](#entities)
+        - [Data Entities](#data-entities)
+        - [Logic Entities](#logic-entities)
+
 This document formally specifies how SPV3.Shaders and SPV3 will communicate together to accomplish the following
 objective: **rely on the user's preferences for the post-processing decisions**.
 
