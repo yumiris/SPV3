@@ -9,6 +9,23 @@ namespace SPV3.Shaders
     public class GlobalVariable
     {
         /// <summary>
+        ///     Lowest valid bound, which is the sum of all of the shader effects' lowest valued states.
+        ///     Please refer to the doc/global-variable.md documentation for further information.
+        /// </summary>
+        private const int LowerBound = 21833;
+
+        /// <summary>
+        ///     Lowest valid bound, which is the sum of all of the shader effects' highest valued states.
+        ///     Please refer to the doc/global-variable.md documentation for further information.
+        /// </summary>
+        private const int UpperBound = 76452;
+
+        /// <summary>
+        ///     Encoded Configuration value. Please refer to the doc/global-variable.md documentation for information.
+        /// </summary>
+        public int Value { get; }
+
+        /// <summary>
         ///     Representation constructor.
         /// </summary>
         /// <param name="value">
@@ -19,19 +36,10 @@ namespace SPV3.Shaders
         /// </exception>
         public GlobalVariable(int value)
         {
-            if
-            (
-                value < 0x1 // below lower bound
-                || value > 0x10000 // above upper bound
-            )
+            if (value < LowerBound || value > UpperBound)
                 throw new ArgumentException("Given value is out of bounds for the global variable.");
 
             Value = value;
         }
-
-        /// <summary>
-        ///     Encoded Configuration value. Please refer to the doc/global-variable.md documentation for information.
-        /// </summary>
-        public int Value { get; }
     }
 }
