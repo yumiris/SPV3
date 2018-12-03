@@ -102,14 +102,6 @@ namespace SPV3.Shaders
                     configuration.EyeAdaption.Toggle = Toggle.On;
                     return configuration;
 
-                // anti aliasing states
-                case AntiAliasing.StateOff:
-                    configuration.AntiAliasing.Toggle = Toggle.Off;
-                    return configuration;
-                case AntiAliasing.StateOn:
-                    configuration.AntiAliasing.Toggle = Toggle.On;
-                    return configuration;
-
                 // debanding states
                 case Debanding.StateOff:
                     configuration.Debanding.Level = Level.Off;

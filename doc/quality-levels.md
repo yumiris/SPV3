@@ -15,7 +15,6 @@ Specification of which shader effects are configurable by the end-user can be fo
 | Dynamic Flare  | Toggle                            | Off, On          | Low                  |
 | Lens Dirt      | Toggle                            | Off, On          | Ultra[1]             |
 | Eye Adaptation | Toggle                            | Off, On          | Low                  |
-| SMAA           | Toggle                            | Off, On          | Medium               |
 | Debanding      | Level                             | Off, Low, High   | High                 |
 
 The resource requirements are in the order `Low < Medium < High < Ultra`.

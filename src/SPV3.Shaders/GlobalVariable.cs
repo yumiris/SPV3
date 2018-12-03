@@ -12,13 +12,13 @@ namespace SPV3.Shaders
         ///     Lowest valid bound, which is the sum of all of the shader effects' lowest valued states.
         ///     Please refer to the doc/global-variable.md documentation for further information.
         /// </summary>
-        private const int LowerBound = 21833;
+        private const int LowerBound = 0x1549;
 
         /// <summary>
         ///     Lowest valid bound, which is the sum of all of the shader effects' highest valued states.
         ///     Please refer to the doc/global-variable.md documentation for further information.
         /// </summary>
-        private const int UpperBound = 76452;
+        private const int UpperBound = 0x4AA4;
 
         /// <summary>
         ///     Encoded Configuration value. Please refer to the doc/global-variable.md documentation for information.

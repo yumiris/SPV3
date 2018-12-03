@@ -13,8 +13,7 @@ or not. As such, any shader effects which are NOT (✗) configurable should NOT 
 | 6     | Eye Adaptation | ✓            |
 | 7     | ACES HDR       | ✗            |
 | 8     | LUT            | ✗            |
-| 9     | SMAA           | ✓            |
-| 10    | Debanding      | ✓            |
+| 9     | Debanding      | ✓            |
 
 For levels of configurability for each shader, please refer to [Estimated Quality Levels](quality-levels.md).
 

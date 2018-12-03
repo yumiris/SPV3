@@ -29,11 +29,10 @@ namespace SPV3.Shaders.Test
                 DynamicFlare = {Toggle = Toggle.On},
                 LensDirt = {Toggle = Toggle.On},
                 EyeAdaption = {Toggle = Toggle.Off},
-                AntiAliasing = {Toggle = Toggle.On},
                 Debanding = {Level = Level.Low}
             };
             
-            Assert.AreEqual(42644, GlobalVariableFactory.Encode(configuration).Value);
+            Assert.AreEqual(34452, GlobalVariableFactory.Encode(configuration).Value);
         }
     }
 }

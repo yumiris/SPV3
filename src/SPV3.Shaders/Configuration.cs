@@ -33,11 +33,6 @@ namespace SPV3.Shaders
         public EyeAdaption EyeAdaption { get; set; } = new EyeAdaption();
 
         /// <summary>
-        ///     <see cref="AntiAliasing" />
-        /// </summary>
-        public AntiAliasing AntiAliasing { get; set; } = new AntiAliasing();
-
-        /// <summary>
         ///     <see cref="Debanding" />
         /// </summary>
         public Debanding Debanding { get; set; } = new Debanding();

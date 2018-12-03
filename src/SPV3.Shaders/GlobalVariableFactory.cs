@@ -97,19 +97,6 @@ namespace SPV3.Shaders
                     throw new ArgumentOutOfRangeException();
             }
 
-            // anti aliasing states
-            switch (configuration.AntiAliasing.Toggle)
-            {
-                case Toggle.Off:
-                    value += AntiAliasing.StateOff;
-                    break;
-                case Toggle.On:
-                    value += AntiAliasing.StateOn;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
             // debanding states
             switch (configuration.Debanding.Level)
             {
