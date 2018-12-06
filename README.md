@@ -5,3 +5,4 @@ This repository contains the documentation & source code for SPV3.Loader - a wra
 ## Documentation
 
 - [Startup Parameters](doc/parameters.md)
+- [HCE Executable Detection](doc/detection.md)
