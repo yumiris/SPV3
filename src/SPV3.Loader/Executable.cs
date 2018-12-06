@@ -1,4 +1,4 @@
-using System;
+using System.IO;
 
 namespace SPV3.Loader
 {
@@ -13,7 +13,7 @@ namespace SPV3.Loader
         /// <param name="path">
         ///     <see cref="Path" />
         /// </param>
-        public Executable(string path, ExecutableParameters parameters)
+        public Executable(string path)
         {
             Path = path;
         }
@@ -24,11 +24,6 @@ namespace SPV3.Loader
         public string Path { get; }
 
         /// <summary>
-        ///     Parameters used for initialising the HCE executable process.
-        /// </summary>
-        public ExecutableParameters Parameters { get; set; }
-
-        /// <summary>
         ///     Compares the executable on the filesystem against the specifications of a valid HCE executable.
         /// </summary>
         /// <returns>
@@ -36,7 +31,10 @@ namespace SPV3.Loader
         /// </returns>
         public bool Verify()
         {
-            throw new NotImplementedException();
+            if (!File.Exists(Path))
+                throw new FileNotFoundException("Cannot verify non-existent HCE executable file.");
+
+            return new FileInfo(Path).Length == 0x24B000;
         }
     }
 }

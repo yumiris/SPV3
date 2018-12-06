@@ -14,38 +14,35 @@ namespace SPV3.Loader
         private readonly LoaderConfiguration _configuration;
 
         /// <summary>
-        ///     Executable-type instance representing the HCE executable to load.
-        /// </summary>
-        private readonly Executable _executable;
-
-        /// <summary>
         ///     Loader constructor.
         /// </summary>
-        /// <param name="executable">
-        ///     <see cref="_executable" />
-        /// </param>
         /// <param name="configuration">
         ///     <see cref="_configuration" />
         /// </param>
-        public Loader(Executable executable, LoaderConfiguration configuration)
+        public Loader(LoaderConfiguration configuration)
         {
-            _executable = executable;
             _configuration = configuration;
         }
 
         /// <summary>
         ///     Starts up the inbound executable with the loader configuration specified in the constructor.
         /// </summary>
+        /// <param name="executable">
+        ///     Executable-type instance representing the HCE executable to load.
+        /// </param>
+        /// <param name="parameters">
+        ///     Parameters used for initialising the HCE executable process.
+        /// </param>
         /// <exception cref="ArgumentException">
         ///     Provided executable failed to pass the verification routine.
         /// </exception>
-        public void Start()
+        public void Start(Executable executable, ExecutableParameters parameters)
         {
             if (!_configuration.SkipVerification)
-                if (!_executable.Verify())
+                if (!executable.Verify())
                     throw new ArgumentException("Provided executable failed to pass the verification routine.");
 
-            Process.Start(_executable.Path, _executable.Parameters.Serialise());
+            Process.Start(executable.Path, parameters.Serialise());
         }
     }
 }
