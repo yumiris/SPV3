@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.IO;
 
 namespace SPV3.Loader
 {
@@ -52,9 +53,9 @@ namespace SPV3.Loader
             {
                 StartInfo =
                 {
-                    FileName = System.IO.Path.GetFileName(executable.Path) ??
+                    FileName = Path.GetFileName(executable.Path) ??
                                throw new FormatException("Could not infer executable name from the path."),
-                    WorkingDirectory = System.IO.Path.GetDirectoryName(executable.Path) ??
+                    WorkingDirectory = Path.GetDirectoryName(executable.Path) ??
                                        throw new FormatException("Could not infer working directory from the path."),
                     Arguments = new ParametersSerialiser().Serialise(parameters)
                 }

@@ -6,28 +6,15 @@ namespace SPV3.Loader.Test
     public class ParameterTest
     {
         [Test]
-        public void SerialiseType_CorrectVideoMode_True()
+        public void ParseType_TogglesAreParsed_True()
         {
-            Assert.AreEqual("-vidmode 1280,720,60", new ParametersSerialiser().Serialise(
-                new Parameters
-                {
-                    VideoWidth = 1280,
-                    VideoHeight = 720,
-                    VideoRefreshRate = 60
-                })
-            );
-        }
+            var parsed = new ParametersParser().Parse("-nosound -novideo -safemode -window");
 
-        [Test]
-        public void SerialiseType_TogglesAreCorrect_True()
-        {
-            Assert.AreEqual("-nosound -safemode -console", new ParametersSerialiser().Serialise(
-                new Parameters
-                {
-                    DisableSound = true,
-                    EnableSafeMode = true,
-                    EnableConsole = true
-                })
+            Assert.IsTrue(
+                parsed.DisableSound
+                && parsed.DisableVideo
+                && parsed.EnableSafeMode
+                && parsed.EnableWindowMode
             );
         }
 
@@ -38,6 +25,19 @@ namespace SPV3.Loader.Test
                 new Parameters
                 {
                     CardType = CardType.Shaders14Card
+                })
+            );
+        }
+
+        [Test]
+        public void SerialiseType_CorrectVideoMode_True()
+        {
+            Assert.AreEqual("-vidmode 1280,720,60", new ParametersSerialiser().Serialise(
+                new Parameters
+                {
+                    VideoWidth = 1280,
+                    VideoHeight = 720,
+                    VideoRefreshRate = 60
                 })
             );
         }
@@ -55,15 +55,15 @@ namespace SPV3.Loader.Test
         }
 
         [Test]
-        public void ParseType_TogglesAreParsed_True()
+        public void SerialiseType_TogglesAreCorrect_True()
         {
-            var parsed = new ParametersParser().Parse("-nosound -novideo -safemode -window");
-
-            Assert.IsTrue(
-                parsed.DisableSound
-                && parsed.DisableVideo
-                && parsed.EnableSafeMode
-                && parsed.EnableWindowMode
+            Assert.AreEqual("-nosound -safemode -console", new ParametersSerialiser().Serialise(
+                new Parameters
+                {
+                    DisableSound = true,
+                    EnableSafeMode = true,
+                    EnableConsole = true
+                })
             );
         }
     }

@@ -6,10 +6,10 @@ namespace SPV3.Loader
     public enum CardType
     {
         /// <summary>
-        ///     Forces the game run in its default mode. 
+        ///     Forces the game run in its default mode.
         /// </summary>
         Default,
-        
+
         /// <summary>
         ///     Forces the game to run as a fixed function card.
         /// </summary>

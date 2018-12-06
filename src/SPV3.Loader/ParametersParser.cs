@@ -9,10 +9,10 @@ namespace SPV3.Loader
         ///     Initialise ExecutableParameter based on the inbound string value.
         /// </summary>
         /// <param name="parameters">
-        ///    String value representing representing HCE-compliant startup parameters.
+        ///     String value representing representing HCE-compliant startup parameters.
         /// </param>
         /// <returns>
-        ///    Parameters instance based on the inbound string value.
+        ///     Parameters instance based on the inbound string value.
         /// </returns>
         public Parameters Parse(string parameters)
         {
@@ -20,7 +20,7 @@ namespace SPV3.Loader
 
             if (parameters.Contains("-nosound"))
                 result.DisableSound = true;
-            
+
             if (parameters.Contains("-novideo"))
                 result.DisableVideo = true;
 
@@ -58,7 +58,7 @@ namespace SPV3.Loader
                 result.CardType = CardType.Shaders20Card;
 
             // TODO: Parse argument-type parameters!
-            
+
             return result;
         }
     }
