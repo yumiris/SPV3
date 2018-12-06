@@ -141,6 +141,9 @@ namespace SPV3.Loader
                 case CardType.Shaders20Card:
                     builder.Append("-use20, ");
                     break;
+                case CardType.Default:
+                    builder.Append(string.Empty);
+                    break;
                 default:
                     builder.Append(string.Empty);
                     break;
