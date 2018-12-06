@@ -28,3 +28,25 @@ This document outlines the startup parameters that the HCE executable supports. 
 | `-screenshot`    | toggle   | ~                                       | Enables the Print screen key to generate screenshots.                        |
 | `-console`       | toggle   | ~                                       | Enables the debugging console.                                               |
 | `-devmode`       | toggle   | ~                                       | Enables the Halo Developer Mode.                                             |
+
+## Implementation
+
+The above parameters are implemented as a concrete type (`ExecutableParameters`), whose public properties represent the
+above parameters, with the following notes to consider:
+
+- toggle-type parameters are represented as booleans;
+  - however, `useff`, `use11`, `use14` and `use20` are represented by an enumerator;
+- argument-type parameters are represented as strings or nullable integer.
+
+The type exposes a `string Serialise()` method. It retrieves the instance's property values as a concatenated string,
+which is accepted by the HCE process as a startup argument. For example:
+
+```cs
+var parameters = new ExecutableParameters
+{
+    EnableConsole = true,
+    VideoWidth = 2560,
+    VideoHeight = 1440,
+    VideoRefreshRate = 144
+}.Serialise(); // -console, -vidmode 2560,1440,144
+```
