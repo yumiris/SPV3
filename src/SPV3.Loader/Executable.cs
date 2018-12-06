@@ -8,6 +8,11 @@ namespace SPV3.Loader
     public class Executable
     {
         /// <summary>
+        ///     Official name of the HCE executable.
+        /// </summary>
+        public const string Name = "haloce.exe";
+
+        /// <summary>
         ///     Executable constructor.
         /// </summary>
         /// <param name="path">
