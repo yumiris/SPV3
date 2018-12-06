@@ -31,6 +31,17 @@ This document outlines the startup parameters that the HCE executable supports. 
 
 ## Implementation
 
+### CLI
+
+The SPV3.Loader CLI allows the end-user or a calling process to invoke the above parameters as startup arguments:
+
+```batch
+.\SPV3.Loader.CLI.exe -window -screenshot
+.\SPV3.Loader.CLI.exe C:\haloce.exe -nosound -console
+```
+
+### Library
+
 The above parameters are implemented as a concrete type (`ExecutableParameters`), whose public properties represent the
 above parameters, with the following notes to consider:
 
