@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,7 +7,7 @@ namespace SPV3.Loader
     ///     Type that encompasses all HCE executable startup parameters, as specified in the doc/parameters.md
     ///     documentation.
     /// </summary>
-    public class ExecutableParameters
+    public class Parameters
     {
         /// <summary>
         ///     Disable all sound.
@@ -97,80 +96,5 @@ namespace SPV3.Loader
         ///     Server IP address used when you have multiple IP addresses.
         /// </summary>
         public string IpAddress { get; set; }
-
-        /// <summary>
-        ///     Serialises the instance to a string that complies with the HCE startup arguments.
-        /// </summary>
-        /// <returns>
-        ///     HCE-compliant startup string representation of this instance.
-        /// </returns>
-        public string Serialise()
-        {
-            var builder = new StringBuilder();
-
-            // append the string values for toggles if they're enabled
-            foreach (var toggle in new Dictionary<string, bool>
-            {
-                // disable overrides
-                {"-nosound", DisableSound},
-                {"-novideo", DisableVideo},
-                {"-nojoystick", DisableJoystick},
-                {"-nogamma", DisableGamma},
-
-                // enable overrides
-                {"-safemode", EnableSafeMode},
-                {"-window", EnableWindowMode},
-                {"-screenshot", EnableScreenshot},
-                {"-console", EnableConsole},
-                {"-devmode", EnableDeveloperMode}
-            })
-                if (toggle.Value)
-                    builder.Append($"{toggle.Key} ");
-
-            // shader overrides
-            switch (CardType)
-            {
-                case CardType.FixedFunction:
-                    builder.Append("-useff ");
-                    break;
-                case CardType.Shaders11Card:
-                    builder.Append("-use11 ");
-                    break;
-                case CardType.Shaders14Card:
-                    builder.Append("-use14 ");
-                    break;
-                case CardType.Shaders20Card:
-                    builder.Append("-use20 ");
-                    break;
-                case CardType.Default:
-                    builder.Append(string.Empty);
-                    break;
-                default:
-                    builder.Append(string.Empty);
-                    break;
-            }
-
-            // -vidmode
-            if (VideoWidth != null && VideoHeight != null && VideoRefreshRate != null)
-                builder.Append($"-vidmode {VideoWidth},{VideoHeight},{VideoRefreshRate} ");
-
-            // -adapter
-            if (VideoAdapterIndex != null)
-                builder.Append($"-adapter {VideoAdapterIndex} ");
-
-            // -port
-            if (ServerPort != null)
-                builder.Append($"-port {ServerPort} ");
-
-            // -cport
-            if (ClientPort != null)
-                builder.Append($"-cport {ClientPort} ");
-
-            // -ip
-            if (!string.IsNullOrWhiteSpace(IpAddress))
-                builder.Append($"-ip {IpAddress} ");
-
-            return builder.ToString().TrimEnd();
-        }
     }
 }

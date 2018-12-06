@@ -40,8 +40,9 @@
   <ItemGroup>
     <Compile Include="CardType.cs" />
     <Compile Include="ExecutableFactory.cs" />
-    <Compile Include="ExecutableParameters.cs" />
+    <Compile Include="Parameters.cs" />
     <Compile Include="Executable.cs" />
+    <Compile Include="ParameterSerialiser.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="LoaderConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

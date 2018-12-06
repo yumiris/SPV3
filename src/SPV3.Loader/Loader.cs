@@ -42,7 +42,7 @@ namespace SPV3.Loader
         /// <exception cref="FormatException">
         ///     Could not infer working directory from the path.
         /// </exception>
-        public void Start(Executable executable, ExecutableParameters parameters)
+        public void Start(Executable executable, Parameters parameters)
         {
             if (!_configuration.SkipVerification)
                 if (!executable.Verify())
@@ -56,7 +56,7 @@ namespace SPV3.Loader
                                throw new FormatException("Could not infer executable name from the path."),
                     WorkingDirectory = System.IO.Path.GetDirectoryName(executable.Path) ??
                                        throw new FormatException("Could not infer working directory from the path."),
-                    Arguments = parameters.Serialise()
+                    Arguments = new ParameterSerialiser().Serialise(parameters)
                 }
             }.Start();
         }
