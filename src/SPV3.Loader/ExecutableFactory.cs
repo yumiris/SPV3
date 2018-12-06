@@ -10,9 +10,14 @@ namespace SPV3.Loader
     public static class ExecutableFactory
     {
         /// <summary>
-        ///     Default location set by the HCE installer.
+        ///     Default location set by the HCE installer on 64-bit systems.
         /// </summary>
-        private const string DefaultInstall = @"C:\Program Files (x86)\Microsoft Games\Halo Custom Edition";
+        private const string DefaultInstall64 = @"C:\Program Files (x86)\Microsoft Games\Halo Custom Edition";
+
+        /// <summary>
+        ///     Default location set by the HCE installer on 32-bit systems.
+        /// </summary>
+        private const string DefaultInstall32 = @"C:\Program Files\Microsoft Games\Halo Custom Edition";
 
         /// <summary>
         ///     HCE registry keys location.
@@ -52,8 +57,11 @@ namespace SPV3.Loader
                 if (path != null) return new Executable($@"{path}\{Executable.Name}");
             }
 
-            var fullDefaultPath = $@"{DefaultInstall}\{Executable.Name}";
-            if (File.Exists(fullDefaultPath)) return new Executable(fullDefaultPath);
+            var fullDefaultPath64 = $@"{DefaultInstall64}\{Executable.Name}";
+            if (File.Exists(fullDefaultPath64)) return new Executable(fullDefaultPath64);
+
+            var fullDefaultPath32 = $@"{DefaultInstall32}\{Executable.Name}";
+            if (File.Exists(fullDefaultPath32)) return new Executable(fullDefaultPath32);
 
             var currentDirectoryPath = Path.Combine(Directory.GetCurrentDirectory(), Executable.Name);
             if (File.Exists(currentDirectoryPath)) return new Executable(currentDirectoryPath);
