@@ -108,23 +108,23 @@ namespace SPV3.Loader
             var builder = new StringBuilder();
 
             // append the string values for toggles if they're enabled
-            foreach (var toggle in new Dictionary<bool, string>
+            foreach (var toggle in new Dictionary<string, bool>
             {
                 // disable overrides
-                {DisableSound, "-nosound"},
-                {DisableVideo, "-novideo"},
-                {DisableJoystick, "-nojoystick"},
-                {DisableGamma, "-nogamma"},
+                {"-nosound", DisableSound},
+                {"-novideo", DisableVideo},
+                {"-nojoystick", DisableJoystick},
+                {"-nogamma", DisableGamma},
 
                 // enable overrides
-                {EnableSafeMode, "-safemode"},
-                {EnableWindowMode, "-window"},
-                {EnableScreenshot, "-screenshot"},
-                {EnableConsole, "-console"},
-                {EnableDeveloperMode, "-devmode"}
+                {"-safemode", EnableSafeMode},
+                {"-window", EnableWindowMode},
+                {"-screenshot", EnableScreenshot},
+                {"-console", EnableConsole},
+                {"-devmode", EnableDeveloperMode}
             })
-                if (toggle.Key)
-                    builder.Append($"{toggle.Value}, ");
+                if (toggle.Value)
+                    builder.Append($"{toggle.Key}, ");
 
             // shader overrides
             switch (CardType)
