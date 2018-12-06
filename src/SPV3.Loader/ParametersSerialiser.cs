@@ -3,7 +3,7 @@ using System.Text;
 
 namespace SPV3.Loader
 {
-    public class ParameterSerialiser
+    public class ParametersSerialiser
     {
         /// <summary>
         ///     Serialises the instance to a string that complies with the HCE startup arguments.

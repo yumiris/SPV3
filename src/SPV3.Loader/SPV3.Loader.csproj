@@ -42,9 +42,10 @@
     <Compile Include="ExecutableFactory.cs" />
     <Compile Include="Parameters.cs" />
     <Compile Include="Executable.cs" />
-    <Compile Include="ParameterSerialiser.cs" />
+    <Compile Include="ParametersSerialiser.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="LoaderConfiguration.cs" />
+    <Compile Include="ParametersParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
