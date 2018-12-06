@@ -36,7 +36,8 @@ above parameters, with the following notes to consider:
 
 - toggle-type parameters are represented as booleans;
   - however, `useff`, `use11`, `use14` and `use20` are represented by an enumerator;
-- argument-type parameters are represented as strings or nullable integer.
+- argument-type parameters are represented as strings or nullable integer;
+- `-width` has been merged into `-vidmode` to remove redundancy.
 
 The type exposes a `string Serialise()` method. It retrieves the instance's property values as a concatenated string,
 which is accepted by the HCE process as a startup argument. For example:

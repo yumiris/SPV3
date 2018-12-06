@@ -42,7 +42,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ParameterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SPV3.Loader\SPV3.Loader.csproj">
+      <Project>{ddc47180-2a6f-4692-92b4-072b4eff2438}</Project>
+      <Name>SPV3.Loader</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

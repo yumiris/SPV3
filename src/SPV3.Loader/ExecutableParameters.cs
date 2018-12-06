@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -124,22 +125,22 @@ namespace SPV3.Loader
                 {"-devmode", EnableDeveloperMode}
             })
                 if (toggle.Value)
-                    builder.Append($"{toggle.Key}, ");
+                    builder.Append($"{toggle.Key} ");
 
             // shader overrides
             switch (CardType)
             {
                 case CardType.FixedFunction:
-                    builder.Append("-useff, ");
+                    builder.Append("-useff ");
                     break;
                 case CardType.Shaders11Card:
-                    builder.Append("-use11, ");
+                    builder.Append("-use11 ");
                     break;
                 case CardType.Shaders14Card:
-                    builder.Append("-use14, ");
+                    builder.Append("-use14 ");
                     break;
                 case CardType.Shaders20Card:
-                    builder.Append("-use20, ");
+                    builder.Append("-use20 ");
                     break;
                 case CardType.Default:
                     builder.Append(string.Empty);
@@ -149,31 +150,27 @@ namespace SPV3.Loader
                     break;
             }
 
-            // -width
-            if (VideoWidth != null)
-                builder.Append($"-width {VideoWidth}, ");
-
             // -vidmode
             if (VideoWidth != null && VideoHeight != null && VideoRefreshRate != null)
-                builder.Append($"-vidmode {VideoWidth},{VideoHeight},{VideoRefreshRate}, ");
+                builder.Append($"-vidmode {VideoWidth},{VideoHeight},{VideoRefreshRate} ");
 
             // -adapter
             if (VideoAdapterIndex != null)
-                builder.Append($"-adapter {VideoAdapterIndex}, ");
+                builder.Append($"-adapter {VideoAdapterIndex} ");
 
             // -port
             if (ServerPort != null)
-                builder.Append($"-port {ServerPort}, ");
+                builder.Append($"-port {ServerPort} ");
 
             // -cport
             if (ClientPort != null)
-                builder.Append($"-cport {ClientPort}, ");
+                builder.Append($"-cport {ClientPort} ");
 
             // -ip
             if (!string.IsNullOrWhiteSpace(IpAddress))
-                builder.Append($"-ip {IpAddress}");
+                builder.Append($"-ip {IpAddress} ");
 
-            return builder.ToString();
+            return builder.ToString().TrimEnd();
         }
     }
 }
