@@ -55,7 +55,8 @@ namespace SPV3.Loader
                     FileName = System.IO.Path.GetFileName(executable.Path) ??
                                throw new FormatException("Could not infer executable name from the path."),
                     WorkingDirectory = System.IO.Path.GetDirectoryName(executable.Path) ??
-                                       throw new FormatException("Could not infer working directory from the path.")
+                                       throw new FormatException("Could not infer working directory from the path."),
+                    Arguments = parameters.Serialise()
                 }
             }.Start();
         }
