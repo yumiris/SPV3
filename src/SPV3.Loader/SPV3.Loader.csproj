@@ -38,6 +38,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CardType.cs" />
     <Compile Include="ExecutableParameters.cs" />
     <Compile Include="Executable.cs" />
     <Compile Include="Loader.cs" />

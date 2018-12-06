@@ -30,24 +30,9 @@ namespace SPV3.Loader
         public bool DisableGamma { get; set; }
 
         /// <summary>
-        ///     Forces the game to run as a fixed function card.
+        ///     The type of card HCE should be forced to run as.
         /// </summary>
-        public bool ForceFixedFunction { get; set; }
-
-        /// <summary>
-        ///     Forces the game to run as a shader 1.1 card.
-        /// </summary>
-        public bool Force11ShadersCard { get; set; }
-
-        /// <summary>
-        ///     Forces the game to run as a shader 1.4 card.
-        /// </summary>
-        public bool Force14ShadersCard { get; set; }
-
-        /// <summary>
-        ///     Forces the game to run as a shader 2.0 card.
-        /// </summary>
-        public bool Force20ShadersCard { get; set; }
+        public CardType CardType { get; set; }
 
         /// <summary>
         ///     Disables as much as possible when running the game.
@@ -116,7 +101,7 @@ namespace SPV3.Loader
         ///     Serialises the instance to a string that complies with the HCE startup arguments.
         /// </summary>
         /// <returns>
-        ///    HCE-compliant startup string representation of this instance.
+        ///     HCE-compliant startup string representation of this instance.
         /// </returns>
         public string Serialise()
         {
@@ -131,12 +116,6 @@ namespace SPV3.Loader
                 {DisableJoystick, "-nojoystick"},
                 {DisableGamma, "-nogamma"},
 
-                // shader overrides
-                {ForceFixedFunction, "-useff"},
-                {Force11ShadersCard, "-use11"},
-                {Force14ShadersCard, "-use14"},
-                {Force20ShadersCard, "-use20"},
-
                 // enable overrides
                 {EnableSafeMode, "-safemode"},
                 {EnableWindowMode, "-window"},
@@ -146,6 +125,26 @@ namespace SPV3.Loader
             })
                 if (toggle.Key)
                     builder.Append($"{toggle.Value} ");
+
+            // shader overrides
+            switch (CardType)
+            {
+                case CardType.FixedFunction:
+                    builder.Append("-useff ");
+                    break;
+                case CardType.Shaders11Card:
+                    builder.Append("-use11 ");
+                    break;
+                case CardType.Shaders14Card:
+                    builder.Append("-use14 ");
+                    break;
+                case CardType.Shaders20Card:
+                    builder.Append("-use20 ");
+                    break;
+                default:
+                    builder.Append(string.Empty);
+                    break;
+            }
 
             // -width
             if (VideoWidth != null)
@@ -158,23 +157,23 @@ namespace SPV3.Loader
             // -adapter
             if (VideoAdapterIndex != null)
                 builder.Append($"-adapter {VideoAdapterIndex} ");
-            
+
             // -port
             if (ServerPort != null)
                 builder.Append($"-port {ServerPort} ");
-            
+
             // -port
             if (ServerPort != null)
                 builder.Append($"-port {ServerPort} ");
-            
+
             // -cport
             if (ClientPort != null)
                 builder.Append($"-cport {ClientPort} ");
-            
+
             // -cport
             if (ClientPort != null)
                 builder.Append($"-cport {ClientPort} ");
-            
+
             // -ip
             if (!string.IsNullOrWhiteSpace(IpAddress))
                 builder.Append($"-ip {IpAddress}");
