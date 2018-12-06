@@ -35,8 +35,11 @@ This document outlines the startup parameters that the HCE executable supports. 
 
 The SPV3.Loader CLI allows the end-user or a calling process to invoke the above parameters as startup arguments:
 
-```batch
+```powershell
+# Implicit detection of HCE executable
 .\SPV3.Loader.CLI.exe -window -screenshot
+
+# Explicit HCE path & parameters declarations
 .\SPV3.Loader.CLI.exe C:\haloce.exe -nosound -console
 ```
 
@@ -60,5 +63,5 @@ var parameters = new ExecutableParameters
     VideoWidth = 2560,
     VideoHeight = 1440,
     VideoRefreshRate = 144
-}.Serialise(); // -console, -vidmode 2560,1440,144
+}.Serialise(); // -console -vidmode 2560,1440,144
 ```

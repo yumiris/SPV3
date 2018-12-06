@@ -1,4 +1,4 @@
-# HCE Executable Detection
+# Executable Detection
 
 This document outlines the routine which attempts to detect the HCE executable on the filesystem. The attempts are
 carried out in the following order. Subsequent methods are carried out if the HCE path cannot be inferred from the
