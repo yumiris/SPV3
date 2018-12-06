@@ -32,7 +32,7 @@ namespace SPV3.Loader
         ///     Executable-type instance representing the HCE executable to load.
         /// </param>
         /// <param name="parameters">
-        ///     Parameters used for initialising the HCE executable process.
+        ///     Optional parameters used for initialising the HCE executable process.
         /// </param>
         /// <exception cref="ArgumentException">
         ///     Provided executable failed to pass the verification routine.
@@ -43,7 +43,7 @@ namespace SPV3.Loader
         /// <exception cref="FormatException">
         ///     Could not infer working directory from the path.
         /// </exception>
-        public void Start(Executable executable, Parameters parameters)
+        public void Start(Executable executable, Parameters parameters = null)
         {
             if (!_configuration.SkipVerification)
                 if (!executable.Verify())
@@ -57,7 +57,11 @@ namespace SPV3.Loader
                                throw new FormatException("Could not infer executable name from the path."),
                     WorkingDirectory = Path.GetDirectoryName(executable.Path) ??
                                        throw new FormatException("Could not infer working directory from the path."),
-                    Arguments = new ParametersSerialiser().Serialise(parameters)
+
+                    // optional startup args
+                    Arguments = parameters == null
+                        ? string.Empty
+                        : new ParametersSerialiser().Serialise(parameters)
                 }
             }.Start();
         }
