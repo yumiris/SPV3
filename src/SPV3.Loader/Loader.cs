@@ -45,7 +45,7 @@ namespace SPV3.Loader
                 if (!_executable.Verify())
                     throw new ArgumentException("Provided executable failed to pass the verification routine.");
 
-            Process.Start(_executable.Path);
+            Process.Start(_executable.Path, _executable.Parameters.Serialise());
         }
     }
 }
