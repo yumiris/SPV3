@@ -43,6 +43,15 @@ namespace SPV3.Loader
         /// </exception>
         public static Executable Detect()
         {
+            var currentDirectoryPath = Path.Combine(Directory.GetCurrentDirectory(), Executable.Name);
+            if (File.Exists(currentDirectoryPath)) return new Executable(currentDirectoryPath);
+
+            var fullDefaultPath64 = $@"{DefaultInstall64}\{Executable.Name}";
+            if (File.Exists(fullDefaultPath64)) return new Executable(fullDefaultPath64);
+
+            var fullDefaultPath32 = $@"{DefaultInstall32}\{Executable.Name}";
+            if (File.Exists(fullDefaultPath32)) return new Executable(fullDefaultPath32);
+
             using (var view = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
             using (var key = view.OpenSubKey(RegKeyLocation))
             {
@@ -56,15 +65,6 @@ namespace SPV3.Loader
                 var path = key?.GetValue(RegKeyIdentity);
                 if (path != null) return new Executable($@"{path}\{Executable.Name}");
             }
-
-            var fullDefaultPath64 = $@"{DefaultInstall64}\{Executable.Name}";
-            if (File.Exists(fullDefaultPath64)) return new Executable(fullDefaultPath64);
-
-            var fullDefaultPath32 = $@"{DefaultInstall32}\{Executable.Name}";
-            if (File.Exists(fullDefaultPath32)) return new Executable(fullDefaultPath32);
-
-            var currentDirectoryPath = Path.Combine(Directory.GetCurrentDirectory(), Executable.Name);
-            if (File.Exists(currentDirectoryPath)) return new Executable(currentDirectoryPath);
 
             throw new FileNotFoundException("Could not find a legal executable through the detection attempt.");
         }
