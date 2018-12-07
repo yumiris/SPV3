@@ -1,4 +1,4 @@
-﻿namespace SVP3.Shaders.GUI
+﻿namespace SPV3.Shaders.GUI
 {
     /// <summary>
     ///     Interaction logic for App.xaml

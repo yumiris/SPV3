@@ -1,7 +1,6 @@
 using System.IO;
-using SPV3.Shaders;
 
-namespace SVP3.Shaders.GUI
+namespace SPV3.Shaders.GUI
 {
     public class Main
     {

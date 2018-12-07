@@ -4,9 +4,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using SPV3.Shaders.Options;
-using SPV3.Shaders.PPEs;
 
-namespace SVP3.Shaders.GUI
+namespace SPV3.Shaders.GUI
 {
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
