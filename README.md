@@ -1,3 +1,15 @@
+<html>
+    <h1 align="center">
+        SPV3.Settings
+    </h1>
+    <p align="center">
+        <img src="https://user-images.githubusercontent.com/10241434/49627227-a3db0880-fa18-11e8-8836-9af3c0a96a5b.png">
+    <p>
+    <p align="center">
+        Configuration program for SPV3
+    </p>
+</html>
+
 # Introduction
 
 SPV3.Settings is the configuration program used for tweaking SPV3. The program serves as a front-end to configuring:
