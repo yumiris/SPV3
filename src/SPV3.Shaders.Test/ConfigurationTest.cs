@@ -14,7 +14,7 @@ namespace SPV3.Shaders.Test
         [Test]
         public void AssertProperties_AreDecodedCorrectly_True()
         {
-            var config = ConfigurationFactory.Decode(new GlobalVariable(34452));
+            var config = ConfigurationFactory.Decode(new GlobalVariable(9876));
 
             Assert.AreEqual(Level.High, config.AmbientOcclusion.Level);
             Assert.AreEqual(Level.Low, config.DepthOfField.Level);

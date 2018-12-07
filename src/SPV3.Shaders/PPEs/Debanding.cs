@@ -8,9 +8,9 @@ namespace SPV3.Shaders.PPEs
     /// </summary>
     public class Debanding
     {
-        public const int StateOff = 0x4000;
-        public const int StateLow = 0x8000;
-        public const int StateHigh = 0x10000;
+        public const int StateOff = 0x1000;
+        public const int StateLow = 0x2000;
+        public const int StateHigh = 0x4000;
 
         /// <summary>
         ///     <see cref="Level" />
