@@ -39,12 +39,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration.cs" />
-    <Compile Include="ConfigurationFactory.cs" />
-    <Compile Include="GlobalVariableFactory.cs" />
+    <Compile Include="ConfigurationDecoder.cs" />
+    <Compile Include="ConfigurationEncoder.cs" />
     <Compile Include="Options\Level.cs" />
     <Compile Include="Options\Toggle.cs" />
     <Compile Include="PPEs\AmbientOcclusion.cs" />
-    <Compile Include="PPEs\AntiAliasing.cs" />
     <Compile Include="PPEs\Debanding.cs" />
     <Compile Include="PPEs\DepthOfField.cs" />
     <Compile Include="PPEs\DynamicFlare.cs" />

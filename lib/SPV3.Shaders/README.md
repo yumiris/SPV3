@@ -27,16 +27,15 @@ program and all of the post-processing effects that SPV3.2 uses.
 - **Lens Dirt**, for dirt/scratch effects;
 - **Vignette**, for darkening edge ports;
 - **Eye Adaptation**, for adjusting scene exposure;
-- **SMAA**, for spatial anti-aliasing;
 - **Debanding**, for fixing banding at low bit depths;
 
 For documentation on the shader effects, please refer to the following documents:
 
-- [Shader Definitions](doc/shader-definitions.md)
-- [Render Stack Sorting](doc/stack-sort.md)
 - [Estimated Quality Levels](doc/quality-levels.md)
 - [Global Variable Value](doc/global-variable.md)
 - [Implementation](doc/implementation.md)
+- [Render Stack Sorting](doc/stack-sort.md)
+- [Shader Definitions](doc/shader-definitions.md)
 
 ## Attributions
 

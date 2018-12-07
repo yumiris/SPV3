@@ -1,6 +1,4 @@
-using SPV3.Shaders.Options;
-
-namespace SPV3.Shaders.PPEs
+namespace SPV3.Shaders
 {
     /// <summary>
     ///     Shading/rendering technique used to calculate how each point in the scene is exposed to ambient light.
@@ -15,6 +13,6 @@ namespace SPV3.Shaders.PPEs
         /// <summary>
         ///     <see cref="Level" />
         /// </summary>
-        public Level Level { get; set; } = Level.Off;
+        public Level Level { get; set; }
     }
 }

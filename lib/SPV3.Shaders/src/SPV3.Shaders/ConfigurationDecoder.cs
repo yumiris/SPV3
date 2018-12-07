@@ -7,7 +7,7 @@ namespace SPV3.Shaders
     /// <summary>
     ///     Returns Configuration instance based on the given identifier.
     /// </summary>
-    public class ConfigurationFactory
+    public static class ConfigurationDecoder
     {
         /// <summary>
         ///     Returns Configuration instance based on the given identifier.
@@ -100,14 +100,6 @@ namespace SPV3.Shaders
                     return configuration;
                 case EyeAdaption.StateOn:
                     configuration.EyeAdaption.Toggle = Toggle.On;
-                    return configuration;
-
-                // anti aliasing states
-                case AntiAliasing.StateOff:
-                    configuration.AntiAliasing.Toggle = Toggle.Off;
-                    return configuration;
-                case AntiAliasing.StateOn:
-                    configuration.AntiAliasing.Toggle = Toggle.On;
                     return configuration;
 
                 // debanding states

@@ -41,11 +41,9 @@ The table below outlines the integer representations for each shader state:
 | 10       | `Lens Dirt - On`       | `512`                  | `0x200`            |
 | 11       | `Eye Adaptation - Off` | `1024`                 | `0x400`            |
 | 12       | `Eye Adaptation - On`  | `2048`                 | `0x800`            |
-| 13       | `SMAA - Off`           | `4096`                 | `0x1000`           |
-| 14       | `SMAA - On`            | `8192`                 | `0x2000`           |
-| 15       | `Debanding - Off`      | `16384`                | `0x4000`           |
-| 16       | `Debanding - Low`      | `32768`                | `0x8000`           |
-| 17       | `Debanding - High`     | `65536`                | `0x10000`          |
+| 15       | `Debanding - Off`      | `4096`                 | `0x4000`           |
+| 16       | `Debanding - Low`      | `8192`                 | `0x8000`           |
+| 17       | `Debanding - High`     | `16384`                | `0x10000`          |
 
 ---
 

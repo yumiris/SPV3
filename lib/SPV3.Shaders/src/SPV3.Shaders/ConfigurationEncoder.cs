@@ -7,7 +7,7 @@ namespace SPV3.Shaders
     /// <summary>
     ///     Returns GlobalVariable instance based on the given Configuration.
     /// </summary>
-    public class GlobalVariableFactory
+    public static class ConfigurationEncoder
     {
         /// <summary>
         ///     Encodes an inbound Configuration to a Global Variable value.
@@ -92,19 +92,6 @@ namespace SPV3.Shaders
                     break;
                 case Toggle.On:
                     value += EyeAdaption.StateOn;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            // anti aliasing states
-            switch (configuration.AntiAliasing.Toggle)
-            {
-                case Toggle.Off:
-                    value += AntiAliasing.StateOff;
-                    break;
-                case Toggle.On:
-                    value += AntiAliasing.StateOn;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

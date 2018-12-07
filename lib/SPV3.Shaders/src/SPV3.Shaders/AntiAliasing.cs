@@ -1,6 +1,4 @@
-using SPV3.Shaders.Options;
-
-namespace SPV3.Shaders.PPEs
+namespace SPV3.Shaders
 {
     /// <summary>
     ///     Technique used to smooth otherwise jagged lines or textures by blending the color of an edge with the

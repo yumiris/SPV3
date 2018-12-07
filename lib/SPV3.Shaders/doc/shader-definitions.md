@@ -30,12 +30,6 @@ Effect that shows subtle dirt/scratch effects on the screen.
 This effect automatically adjust the scene exposure based on ambient light. Unlike commonly used implementations of this
 effect, the adaptation is instant.
 
-## Anti-Aliasing
-
-**Technique used - Subpixel Morphological Anti-Aliasing**
-Technique used to smooth otherwise jagged lines or textures by blending the color of an edge with the color of pixels
-around it. The result should be a more pleasing and realistic appearance, depending on the intensity of the effect.
-
 ## Debanding
 
 **Technique used - Debanding**

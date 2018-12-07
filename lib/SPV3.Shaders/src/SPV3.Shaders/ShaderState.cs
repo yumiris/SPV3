@@ -14,7 +14,7 @@ namespace SPV3.Shaders
         ///     Highest valid bound, which is the highest shader state integer representation as specified in the
         ///     doc/global-variable.md documentation.
         /// </summary>
-        private const int UpperBound = 0x10000;
+        private const int UpperBound = 0x4000;
 
         /// <summary>
         ///     Integer representation for a shader state.

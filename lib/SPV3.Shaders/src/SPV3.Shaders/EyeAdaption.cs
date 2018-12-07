@@ -1,6 +1,4 @@
-using SPV3.Shaders.Options;
-
-namespace SPV3.Shaders.PPEs
+namespace SPV3.Shaders
 {
     /// <summary>
     ///     This effect automatically adjust the scene exposure based on ambient light. Unlike commonly used
@@ -14,6 +12,6 @@ namespace SPV3.Shaders.PPEs
         /// <summary>
         ///     <see cref="Toggle" />
         /// </summary>
-        public Toggle Toggle { get; set; } = Toggle.Off;
+        public Toggle Toggle { get; set; }
     }
 }

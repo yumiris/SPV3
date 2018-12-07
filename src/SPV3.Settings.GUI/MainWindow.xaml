@@ -1,0 +1,25 @@
+﻿<Window x:Class="SPV3.Settings.GUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SPV3.Settings.GUI"
+        mc:Ignorable="d"
+        Title="SPV3.2 Settings"
+        FontFamily="Consolas"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize"
+        SnapsToDevicePixels="True"
+        SizeToContent="WidthAndHeight">
+    <StackPanel HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+        <Button Margin="5"
+                Padding="5"
+                Content="Configure HCE Settings"
+                Click="HceSettings"/>
+        <Button Margin="5"
+                Padding="5"
+                Content="Configure SPV3 Shaders"
+                Click="Spv3Shaders"/>
+    </StackPanel>
+</Window>

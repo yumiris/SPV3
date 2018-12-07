@@ -1,6 +1,4 @@
-using SPV3.Shaders.Options;
-
-namespace SPV3.Shaders.PPEs
+namespace SPV3.Shaders
 {
     /// <summary>
     ///     Effect that shows lens flares automatically based on bright spots in the scene.
@@ -13,6 +11,6 @@ namespace SPV3.Shaders.PPEs
         /// <summary>
         ///     <see cref="Toggle" />
         /// </summary>
-        public Toggle Toggle { get; set; } = Toggle.Off;
+        public Toggle Toggle { get; set; }
     }
 }

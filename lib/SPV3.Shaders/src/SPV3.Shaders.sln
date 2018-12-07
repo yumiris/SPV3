@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Shaders", "SPV3.Shader
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Shaders.Test", "SPV3.Shaders.Test\SPV3.Shaders.Test.csproj", "{0837DE8B-67FB-479F-BE99-6D1DA491758C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Shaders.GUI", "SPV3.Shaders.GUI\SPV3.Shaders.GUI.csproj", "{20B17E40-88F0-4727-8436-5EF35A2A6368}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,5 +31,9 @@ Global
 		{0837DE8B-67FB-479F-BE99-6D1DA491758C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0837DE8B-67FB-479F-BE99-6D1DA491758C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0837DE8B-67FB-479F-BE99-6D1DA491758C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20B17E40-88F0-4727-8436-5EF35A2A6368}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20B17E40-88F0-4727-8436-5EF35A2A6368}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20B17E40-88F0-4727-8436-5EF35A2A6368}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20B17E40-88F0-4727-8436-5EF35A2A6368}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
