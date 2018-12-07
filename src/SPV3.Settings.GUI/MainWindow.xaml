@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:gui="clr-namespace:SPV3.Settings.GUI"
         mc:Ignorable="d"
-        Title="HCE.BalsamV | Profile Binary Editor"
+        Title="SPV3.Settings"
         Width="640"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize"
@@ -286,21 +286,13 @@
                                 <RowDefinition />
                             </Grid.RowDefinitions>
 
-                            <!-- Load -->
+                            <!-- Save -->
                             <Button Grid.Column="0"
                                     Grid.Row="0"
-                                    Content="Load"
-                                    VerticalAlignment="Stretch"
-                                    Margin="0,0,0.5,0"
-                                    Click="Load" />
-
-                            <!-- Save -->
-                            <Button Grid.Column="1"
-                                    Grid.Row="0"
-                                    Content="Save"
+                                    Grid.ColumnSpan="2"
+                                    Content="Save Settings"
                                     VerticalAlignment="Stretch"
                                     IsEnabled="{Binding CanEdit}"
-                                    Margin="0.5,0,0,0"
                                     Click="Save" />
 
                             <!-- Shaders -->
@@ -308,14 +300,16 @@
                                     Grid.Row="1"
                                     Content="SPV3 Shaders Settings"
                                     VerticalAlignment="Stretch"
-                                    Margin="0,1,0.5,0" />
+                                    Margin="0,1,0.5,0"
+                                    Click="Spv3Shaders" />
 
-                            <!-- Shaders -->
+                            <!-- OpenSauce -->
                             <Button Grid.Column="1"
                                     Grid.Row="1"
                                     Content="OpenSauce Settings"
                                     VerticalAlignment="Stretch"
-                                    Margin="0.5,1,0,0"/>
+                                    Margin="0.5,1,0,0"
+                                    IsEnabled="False"/>
                         </Grid>
                     </DockPanel>
                 </GroupBox>

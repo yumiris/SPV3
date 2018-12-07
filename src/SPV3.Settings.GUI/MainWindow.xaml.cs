@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using BalsamV.Profile;
@@ -36,38 +37,14 @@ namespace SPV3.Settings.GUI
             VarietyComboBox.ItemsSource = Enum.GetValues(typeof(Quality)).Cast<Quality>();
         }
 
-        /// <summary>
-        ///     Invokes the blam.sav file picker.
-        /// </summary>
-        private void Load(object sender, RoutedEventArgs routedEventArgs)
-        {
-            var dialog = new OpenFileDialog
-            {
-                Filter = "Profile Binary|blam.sav"
-            };
-
-            if (dialog.ShowDialog() == true)
-                _main.Path = dialog.FileName;
-        }
-
         private void Save(object sender, RoutedEventArgs e)
         {
             _main.Save();
         }
 
-        private void About(object sender, RoutedEventArgs e)
+        private void Spv3Shaders(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://github.com/yumiris/HCE.BalsamV");
-        }
-
-        private void Releases(object sender, RoutedEventArgs e)
-        {
-            Process.Start("https://github.com/yumiris/HCE.BalsamV/releases");
-        }
-
-        private void Version(object sender, RoutedEventArgs e)
-        {
-            Process.Start($"https://github.com/yumiris/HCE.BalsamV/releases/{_main.Version}");
+            _main.Shaders();
         }
     }
 }

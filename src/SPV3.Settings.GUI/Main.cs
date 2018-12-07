@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -72,17 +73,6 @@ namespace SPV3.Settings.GUI
             }
         }
 
-        public string Version
-        {
-            get
-            {
-                using (var stream = Assembly.GetExecutingAssembly()
-                    .GetManifestResourceStream("BalsamV.GUI.Resources.Version.txt"))
-                using (var reader = new StreamReader(stream))
-                    return reader.ReadToEnd().Trim();
-            }
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
@@ -121,6 +111,17 @@ namespace SPV3.Settings.GUI
             {
                 MessageBox.Show(e.Message);
             }
+        }
+
+        /// <summary>
+        ///     Invokes the SPV3 shaders GUI.
+        /// </summary>
+        public void Shaders()
+        {
+            const string executable = "SPV3.Shaders.GUI.exe";
+
+            if (File.Exists(executable))
+                Process.Start(executable);
         }
 
         /// <summary>
