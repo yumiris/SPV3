@@ -13,6 +13,6 @@ namespace SPV3.Shaders.PPEs
         /// <summary>
         ///     <see cref="Toggle" />
         /// </summary>
-        public Toggle Toggle { get; set; }
+        public Toggle Toggle { get; set; } = Toggle.Off;
     }
 }

@@ -15,6 +15,6 @@ namespace SPV3.Shaders.PPEs
         /// <summary>
         ///     <see cref="Level" />
         /// </summary>
-        public Level Level { get; set; }
+        public Level Level { get; set; } = Level.Off;
     }
 }
