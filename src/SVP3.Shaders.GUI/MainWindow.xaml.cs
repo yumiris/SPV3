@@ -24,6 +24,7 @@ namespace SVP3.Shaders.GUI
         private void AmbientOcclusionOff(object sender, RoutedEventArgs e)
         {
             _main.Configuration.AmbientOcclusion.Level = Level.Off;
+            _main.Save();
 
             SetBackground((Button) sender, new List<Button>
             {
@@ -35,6 +36,7 @@ namespace SVP3.Shaders.GUI
         private void AmbientOcclusionLow(object sender, RoutedEventArgs e)
         {
             _main.Configuration.AmbientOcclusion.Level = Level.Low;
+            _main.Save();
 
             SetBackground((Button) sender, new List<Button>
             {
@@ -46,6 +48,7 @@ namespace SVP3.Shaders.GUI
         private void AmbientOcclusionHigh(object sender, RoutedEventArgs e)
         {
             _main.Configuration.AmbientOcclusion.Level = Level.High;
+            _main.Save();
 
             SetBackground((Button) sender, new List<Button>
             {
@@ -57,6 +60,7 @@ namespace SVP3.Shaders.GUI
         private void DepthOfFieldOff(object sender, RoutedEventArgs e)
         {
             _main.Configuration.DepthOfField.Level = Level.Off;
+            _main.Save();
 
             SetBackground((Button) sender, new List<Button>
             {
@@ -68,6 +72,7 @@ namespace SVP3.Shaders.GUI
         private void DepthOfFieldLow(object sender, RoutedEventArgs e)
         {
             _main.Configuration.DepthOfField.Level = Level.Low;
+            _main.Save();
 
             SetBackground((Button) sender, new List<Button>
             {
@@ -79,6 +84,7 @@ namespace SVP3.Shaders.GUI
         private void DepthOfFieldHigh(object sender, RoutedEventArgs e)
         {
             _main.Configuration.DepthOfField.Level = Level.High;
+            _main.Save();
 
             SetBackground((Button) sender, new List<Button>
             {
@@ -90,6 +96,7 @@ namespace SVP3.Shaders.GUI
         private void DynamicFlareOff(object sender, RoutedEventArgs e)
         {
             _main.Configuration.DynamicFlare.Toggle = Toggle.Off;
+            _main.Save();
 
             SetBackground((Button) sender, new List<Button>
             {
@@ -100,6 +107,7 @@ namespace SVP3.Shaders.GUI
         private void DynamicFlareHigh(object sender, RoutedEventArgs e)
         {
             _main.Configuration.DynamicFlare.Toggle = Toggle.On;
+            _main.Save();
 
             SetBackground((Button) sender, new List<Button>
             {
@@ -110,6 +118,7 @@ namespace SVP3.Shaders.GUI
         private void LensDirtOff(object sender, RoutedEventArgs e)
         {
             _main.Configuration.LensDirt.Toggle = Toggle.Off;
+            _main.Save();
 
             SetBackground((Button) sender, new List<Button>
             {
@@ -120,6 +129,7 @@ namespace SVP3.Shaders.GUI
         private void LensDirtHigh(object sender, RoutedEventArgs e)
         {
             _main.Configuration.LensDirt.Toggle = Toggle.On;
+            _main.Save();
 
             SetBackground((Button) sender, new List<Button>
             {
@@ -130,6 +140,7 @@ namespace SVP3.Shaders.GUI
         private void EyeAdaptionOff(object sender, RoutedEventArgs e)
         {
             _main.Configuration.EyeAdaption.Toggle = Toggle.Off;
+            _main.Save();
 
             SetBackground((Button) sender, new List<Button>
             {
@@ -140,6 +151,7 @@ namespace SVP3.Shaders.GUI
         private void EyeAdaptionHigh(object sender, RoutedEventArgs e)
         {
             _main.Configuration.EyeAdaption.Toggle = Toggle.On;
+            _main.Save();
 
             SetBackground((Button) sender, new List<Button>
             {
@@ -150,6 +162,7 @@ namespace SVP3.Shaders.GUI
         private void DebandingOff(object sender, RoutedEventArgs e)
         {
             _main.Configuration.Debanding.Level = Level.Off;
+            _main.Save();
 
             SetBackground((Button) sender, new List<Button>
             {
@@ -161,6 +174,7 @@ namespace SVP3.Shaders.GUI
         private void DebandingLow(object sender, RoutedEventArgs e)
         {
             _main.Configuration.Debanding.Level = Level.Low;
+            _main.Save();
 
             SetBackground((Button) sender, new List<Button>
             {
@@ -172,6 +186,7 @@ namespace SVP3.Shaders.GUI
         private void DebandingHigh(object sender, RoutedEventArgs e)
         {
             _main.Configuration.Debanding.Level = Level.High;
+            _main.Save();
 
             SetBackground((Button) sender, new List<Button>
             {
