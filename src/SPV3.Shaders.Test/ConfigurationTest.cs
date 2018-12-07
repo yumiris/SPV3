@@ -7,14 +7,14 @@ namespace SPV3.Shaders.Test
     public class ConfigurationTest
     {
         /// <summary>
-        ///     Asserts that when <see cref="ConfigurationFactory" /> is provided with a number that equates to an
+        ///     Asserts that when <see cref="ConfigurationDecoder" /> is provided with a number that equates to an
         ///     encoded user configuration, the factory returns a Configuration-type instance with the correct
         ///     property values.
         /// </summary>
         [Test]
         public void AssertProperties_AreDecodedCorrectly_True()
         {
-            var config = ConfigurationFactory.Decode(new GlobalVariable(9876));
+            var config = ConfigurationDecoder.Decode(new GlobalVariable(9876));
 
             Assert.AreEqual(Level.High, config.AmbientOcclusion.Level);
             Assert.AreEqual(Level.Low, config.DepthOfField.Level);

@@ -7,7 +7,7 @@ namespace SPV3.Shaders
     /// <summary>
     ///     Returns GlobalVariable instance based on the given Configuration.
     /// </summary>
-    public class GlobalVariableFactory
+    public static class ConfigurationEncoder
     {
         /// <summary>
         ///     Encodes an inbound Configuration to a Global Variable value.

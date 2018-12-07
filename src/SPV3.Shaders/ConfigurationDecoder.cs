@@ -7,7 +7,7 @@ namespace SPV3.Shaders
     /// <summary>
     ///     Returns Configuration instance based on the given identifier.
     /// </summary>
-    public class ConfigurationFactory
+    public static class ConfigurationDecoder
     {
         /// <summary>
         ///     Returns Configuration instance based on the given identifier.

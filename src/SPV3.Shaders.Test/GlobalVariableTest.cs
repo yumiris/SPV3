@@ -32,7 +32,7 @@ namespace SPV3.Shaders.Test
                 Debanding = {Level = Level.Low}
             };
             
-            Assert.AreEqual(9876, GlobalVariableFactory.Encode(configuration).Value);
+            Assert.AreEqual(9876, ConfigurationEncoder.Encode(configuration).Value);
         }
     }
 }
