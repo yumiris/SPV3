@@ -15,6 +15,9 @@
         BorderBrush="Black"
         BorderThickness="1"
         SnapsToDevicePixels="True">
+    <Window.DataContext>
+        <local:Main />
+    </Window.DataContext>
     <Grid>
         <Grid.Resources>
             <Style TargetType="{x:Type Button}">
@@ -80,7 +83,8 @@
 
             <Button DockPanel.Dock="Right"
                     Content="✕"
-                    HorizontalAlignment="Right">
+                    HorizontalAlignment="Right"
+                    Click="Close">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Width" Value="50" />
@@ -256,10 +260,16 @@
                             <Label Content="Ambient Occlusion" />
 
                             <StackPanel>
-                                <Button Content="OFF" />
+                                <Button Content="OFF"
+                                        Click="AmbientOcclusionOff"
+                                        x:Name="AmbientOcclusionOffButton" />
                                 <Button Content="LOW"
-                                        BorderThickness="0,1" />
-                                <Button Content="HIGH" />
+                                        BorderThickness="0,1"
+                                        Click="AmbientOcclusionLow"
+                                        x:Name="AmbientOcclusionLowButton" />
+                                <Button Content="HIGH"
+                                        Click="AmbientOcclusionHigh"
+                                        x:Name="AmbientOcclusionHighButton" />
                             </StackPanel>
                         </DockPanel>
 
@@ -268,10 +278,16 @@
                             <Label Content="Depth of Field" />
 
                             <StackPanel>
-                                <Button Content="OFF" />
+                                <Button Content="OFF"
+                                        Click="DepthOfFieldOff"
+                                        x:Name="DepthOfFieldOffButton" />
                                 <Button Content="LOW"
-                                        BorderThickness="0,1" />
-                                <Button Content="HIGH" />
+                                        BorderThickness="0,1"
+                                        Click="DepthOfFieldLow"
+                                        x:Name="DepthOfFieldLowButton" />
+                                <Button Content="HIGH"
+                                        Click="DepthOfFieldHigh"
+                                        x:Name="DepthOfFieldHighButton" />
                             </StackPanel>
                         </DockPanel>
 
@@ -280,9 +296,13 @@
                             <Label Content="Pseudo Lens Flares" />
 
                             <StackPanel>
-                                <Button Content="OFF" />
+                                <Button Content="OFF"
+                                        Click="DynamicFlareOff"
+                                        x:Name="DynamicFlareOffButton" />
                                 <Button Content="ON"
-                                        BorderThickness="0,1,1,1" />
+                                        BorderThickness="0,1,1,1"
+                                        Click="DynamicFlareHigh"
+                                        x:Name="DynamicFlareHighButton" />
                             </StackPanel>
                         </DockPanel>
 
@@ -291,9 +311,13 @@
                             <Label Content="Lens Dirt" />
 
                             <StackPanel>
-                                <Button Content="OFF" />
+                                <Button Content="OFF"
+                                        Click="LensDirtOff"
+                                        x:Name="LensDirtOffButton" />
                                 <Button Content="ON"
-                                        BorderThickness="0,1,1,1" />
+                                        BorderThickness="0,1,1,1"
+                                        Click="LensDirtHigh"
+                                        x:Name="LensDirtHighButton" />
                             </StackPanel>
                         </DockPanel>
 
@@ -302,9 +326,13 @@
                             <Label Content="Eye Adaption" />
 
                             <StackPanel>
-                                <Button Content="OFF" />
+                                <Button Content="OFF"
+                                        Click="EyeAdaptionOff"
+                                        x:Name="EyeAdaptionOffButton" />
                                 <Button Content="ON"
-                                        BorderThickness="0,1,1,1" />
+                                        BorderThickness="0,1,1,1"
+                                        Click="EyeAdaptionHigh"
+                                        x:Name="EyeAdaptionHighButton" />
                             </StackPanel>
                         </DockPanel>
 
@@ -313,10 +341,16 @@
                             <Label Content="Debanding" />
 
                             <StackPanel>
-                                <Button Content="OFF" />
+                                <Button Content="OFF"
+                                        Click="DebandingOff"
+                                        x:Name="DebandingOffButton" />
                                 <Button Content="LOW"
-                                        BorderThickness="0,1" />
-                                <Button Content="HIGH" />
+                                        BorderThickness="0,1"
+                                        Click="DebandingLow"
+                                        x:Name="DebandingLowButton" />
+                                <Button Content="HIGH"
+                                        Click="DebandingHigh"
+                                        x:Name="DebandingHighButton" />
                             </StackPanel>
                         </DockPanel>
                     </StackPanel>

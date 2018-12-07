@@ -61,6 +61,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Main.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -91,6 +92,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\title.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SPV3.Shaders\SPV3.Shaders.csproj">
+      <Project>{f26e9f38-eaba-423b-99c6-d26056b79708}</Project>
+      <Name>SPV3.Shaders</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
