@@ -12,11 +12,10 @@
 
 # Introduction
 
-SPV3.Settings is the configuration program used for tweaking SPV3. The program serves as a front-end to configuring:
+SPV3.Settings is the configuration program used for tweaking SPV3.2. The program serves as a front-end to configuring:
 
-- SPV3's video/audio/input settings;
-- environmental sound & hardware acceleration;
-- OpenSauce post-processing options/effects.
+- SPV3/HCE's video/audio/input settings;
+- SPV3.2 post-processing effects using SPV3.Shaders.
 
 ## Development
 
