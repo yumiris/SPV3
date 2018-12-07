@@ -10,6 +10,7 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize"
         SizeToContent="Height"
+        Icon="/icon.ico"
         Background="#F0F0F0">
     <Window.DataContext>
         <gui:Main />
