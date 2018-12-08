@@ -9,6 +9,9 @@ namespace SPV3.Installer
     {
         private string _value;
 
+        /// <summary>
+        ///     The absolute path of a directory or file.
+        /// </summary>
         /// <example>
         ///     C:\SPV3.2\maps
         /// </example>

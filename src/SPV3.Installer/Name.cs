@@ -3,12 +3,15 @@ using System;
 namespace SPV3.Installer
 {
     /// <summary>
-    ///     Identifier for a package, file or directory.
+    ///     Represents the identifier/filename for a package, file or directory.
     /// </summary>
     public class Name
     {
         private string _value;
 
+        /// <summary>
+        ///     The identifier/filename for a package, file or directory.
+        /// </summary>
         /// <example>
         ///     0x01.pkg
         /// </example>

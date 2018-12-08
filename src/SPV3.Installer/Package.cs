@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO.Compression;
 
 namespace SPV3.Installer
 {
@@ -8,10 +9,15 @@ namespace SPV3.Installer
     public class Package
     {
         /// <summary>
-        ///     Package name, i.e. the package filename.
+        ///     Extension used for the package file on the filesystem.
+        /// </summary>
+        public const string Extension = ".pkg";
+
+        /// <summary>
+        ///     Package name, i.e. the package filename, without the exception.
         /// </summary>
         /// <example>
-        ///     0x01.pkg
+        ///     0x01
         /// </example>
         public Name Name { get; set; }
 
@@ -32,7 +38,7 @@ namespace SPV3.Installer
         public Description Description { get; set; }
 
         /// <summary>
-        ///     Installation target directory.
+        ///     Extraction target directory.
         /// </summary>
         /// <example>
         ///     C:\SPV3.2
@@ -50,5 +56,15 @@ namespace SPV3.Installer
         ///     }
         /// </example>
         public List<File> Files { get; set; }
+
+        /// <summary>
+        ///     Extracts the package data to the target directory.
+        ///     A backup routine should be conducted prior to invoking this method, for the purpose of preventing
+        ///     collisions with files that may already exist at the target destination.
+        /// </summary>
+        public void Extract()
+        {
+            ZipFile.ExtractToDirectory(Path.Value, Target.Path.Value);
+        }
     }
 }
