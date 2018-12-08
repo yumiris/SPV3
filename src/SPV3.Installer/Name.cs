@@ -1,3 +1,5 @@
+using System;
+
 namespace SPV3.Installer
 {
     /// <summary>
@@ -5,12 +7,27 @@ namespace SPV3.Installer
     /// </summary>
     public class Name
     {
+        private string _value;
+
         /// <example>
         ///     0x01.pkg
         /// </example>
         /// <example>
         ///     maps
         /// </example>
-        public string Value { get; set; }
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     Name value exceeds 32 characters.
+        /// </exception>
+        public string Value
+        {
+            get => _value;
+            set
+            {
+                if (value.Length > 0x20)
+                    throw new ArgumentOutOfRangeException(nameof(value), "Name value exceeds 32 characters.");
+
+                _value = value;
+            }
+        }
     }
 }

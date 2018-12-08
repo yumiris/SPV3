@@ -9,7 +9,7 @@ namespace SPV3.Installer
         ///     maps
         /// </example>
         public Name Name { get; set; }
-        
+
         /// <example>
         ///     C:\SPV3.2\maps
         /// </example>
