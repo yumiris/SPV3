@@ -6,7 +6,7 @@ namespace SPV3.Installer
     /// <summary>
     ///     Allows an Installer instance state to be serialised to/serialised from an XML string.
     /// </summary>
-    public class Persistence
+    public static class Persistence
     {
         /// <summary>
         ///     Serialises the inbound Installer instance to an XML string.

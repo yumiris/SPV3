@@ -37,7 +37,6 @@ namespace SPV3.Installer
             return System.IO.File.Exists(Name.Value);
         }
 
-
         /// <summary>
         ///     Moves the file on the filesystem to the new path, and updates the Path value.
         /// </summary>
