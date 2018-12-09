@@ -7,7 +7,7 @@ namespace SPV3.Installer.Test
     [TestFixture]
     public class PersistenceTests
     {
-        private static readonly string XmlData = Persistence.ToXml(new Installer
+        private static readonly Installer Installer = new Installer
         {
             Backup = new Backup
             {
@@ -86,9 +86,18 @@ namespace SPV3.Installer.Test
                     }
                 }
             }
-        });
+        };
 
-        private static readonly Installer Installer = Persistence.FromXml(XmlData);
+        private static readonly string XmlData = Persistence.ToXml(Installer);
+
+        [Test]
+        public void AssertBin_EncodingAndDecoding_WorksCorrectly()
+        {
+            var data = Persistence.ToBin(Installer);
+            var install = Persistence.FromBin(data);
+
+            Assert.AreEqual(Installer.Backup.Directory.Name.Value, install.Backup.Directory.Name.Value);
+        }
 
         [Test]
         public void AssertXml_ContainsString_HceExecutable_True()
@@ -112,24 +121,6 @@ namespace SPV3.Installer.Test
         public void AssertXml_ContainsString_XmlHeader_True()
         {
             StringAssert.Contains("xml", XmlData);
-        }
-
-        [Test]
-        public void AssertInstance_ContainsValue_HceExecutable_True()
-        {
-            Assert.AreEqual("haloce.exe", Installer.Packages[0].Files[1].Name.Value);
-        }
-
-        [Test]
-        public void AssertInstance_ContainsValue_Localisation_True()
-        {
-            Assert.AreEqual("loc.map", Installer.Packages[1].Files[0].Name.Value);
-        }
-
-        [Test]
-        public void AssertInstance_ContainsValue_Sounds_True()
-        {
-            Assert.AreEqual("sounds.map", Installer.Packages[1].Files[1].Name.Value);
         }
     }
 }
