@@ -88,6 +88,8 @@ namespace SPV3.Installer.Test
             }
         });
 
+        private static readonly Installer Installer = Persistence.FromXml(XmlData);
+
         [Test]
         public void AssertXml_ContainsString_HceExecutable_True()
         {
@@ -110,6 +112,24 @@ namespace SPV3.Installer.Test
         public void AssertXml_ContainsString_XmlHeader_True()
         {
             StringAssert.Contains("xml", XmlData);
+        }
+
+        [Test]
+        public void AssertInstance_ContainsValue_HceExecutable_True()
+        {
+            Assert.AreEqual("haloce.exe", Installer.Packages[0].Files[1].Name.Value);
+        }
+
+        [Test]
+        public void AssertInstance_ContainsValue_Localisation_True()
+        {
+            Assert.AreEqual("loc.map", Installer.Packages[1].Files[0].Name.Value);
+        }
+
+        [Test]
+        public void AssertInstance_ContainsValue_Sounds_True()
+        {
+            Assert.AreEqual("sounds.map", Installer.Packages[1].Files[1].Name.Value);
         }
     }
 }
