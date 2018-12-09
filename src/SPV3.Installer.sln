@@ -9,6 +9,7 @@ ProjectSection(SolutionItems) = preProject
 	..\README.md = ..\README.md
 	..\doc\compilation.md = ..\doc\compilation.md
 	..\doc\installation.md = ..\doc\installation.md
+	..\doc\implementation.md = ..\doc\implementation.md
 EndProjectSection
 EndProject
 Global
