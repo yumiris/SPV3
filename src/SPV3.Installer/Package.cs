@@ -43,13 +43,39 @@ namespace SPV3.Installer
         public List<File> Files { get; set; }
 
         /// <summary>
-        ///     Extracts the package data to the target directory.
+        ///     Checks if the package exists on the filesystem using the Path value.
+        /// </summary>
+        /// <returns>
+        ///     True if package exists, otherwise false.
+        /// </returns>
+        public bool Exists()
+        {
+            return System.IO.File.Exists(Name.Value);
+        }
+
+        /// <summary>
+        ///     Extracts the package data to the inbound directory.
+        /// </summary>
+        /// <remarks>
         ///     A backup routine should be conducted prior to invoking this method, for the purpose of preventing
         ///     collisions with files that may already exist at the target destination.
-        /// </summary>
-        public void Extract()
+        /// </remarks>
+        /// <param name="directory"></param>
+        /// <exception cref="FileNotFoundException">
+        ///     Package does not exist on the filesystem.
+        /// </exception>
+        /// <exception cref="DirectoryNotFoundException">
+        ///     Target directory does not exist on the filesystem.
+        /// </exception>
+        public void ExtractTo(Directory directory)
         {
-            ZipFile.ExtractToDirectory(Path.Value, Target.Path.Value);
+            if (!Exists())
+                throw new FileNotFoundException("Package does not exist on the filesystem.");
+
+            if (!directory.Exists())
+                throw new DirectoryNotFoundException("Target directory does not exist on the filesystem.");
+
+            ZipFile.ExtractToDirectory(Name.Value, Path.Combine(directory.Name.Value, Name.Value));
         }
     }
 }
