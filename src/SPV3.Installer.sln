@@ -4,6 +4,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Installer", "SPV3.Inst
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Installer.Test", "SPV3.Installer.Test\SPV3.Installer.Test.csproj", "{0B8793B9-3D8A-4811-A599-5A019AC15E16}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{D6CBD702-873C-4BDA-810F-A92E0B46A924}"
+ProjectSection(SolutionItems) = preProject
+	..\README.md = ..\README.md
+	..\doc\compilation.md = ..\doc\compilation.md
+	..\doc\installation.md = ..\doc\installation.md
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
