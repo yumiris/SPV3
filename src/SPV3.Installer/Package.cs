@@ -31,14 +31,6 @@ namespace SPV3.Installer
         public Description Description { get; set; }
 
         /// <summary>
-        ///     Extraction target directory.
-        /// </summary>
-        /// <example>
-        ///     C:\SPV3.2
-        /// </example>
-        public Directory Target { get; set; }
-
-        /// <summary>
         ///     Files contained within the package.
         /// </summary>
         /// <example>
