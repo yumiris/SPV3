@@ -85,17 +85,30 @@ namespace SPV3.Installer
                 throw new DirectoryNotFoundException("Target directory does not exist on the filesystem.");
 
             /**
-             * If this package instance has the Directory property defined, then the inbound directory will be mutated
-             * into <inbound directory> + <package directory> for the purpose of extracting the package files into a
+             * Declaring new variable to avoid mutation of the inbound directory should the upcoming conditional be
+             * fulfilled.
+             */
+            var targetDirectory = directory;
+
+            /**
+             * If this package instance has the Directory property defined, then a new directory will be created as
+             * <inbound directory> + <package directory>, for the purpose of extracting the package files into a
              * subdirectory.
              */
             if (Directory != null)
             {
-                directory.Name.Value = Path.Combine(directory.Name.Value, Directory.Name.Value);
-                directory.Create();
+                targetDirectory = new Directory
+                {
+                    Name = new Name
+                    {
+                        Value = Path.Combine(directory.Name.Value, Directory.Name.Value)
+                    }
+                };
+
+                targetDirectory.Create();
             }
 
-            ZipFile.ExtractToDirectory(Name.Value, directory.Name.Value);
+            ZipFile.ExtractToDirectory(Name.Value, targetDirectory.Name.Value);
         }
     }
 }
