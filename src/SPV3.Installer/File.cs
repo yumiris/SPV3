@@ -8,20 +8,15 @@ namespace SPV3.Installer
     public class File
     {
         /// <summary>
-        ///     Name of the file.
+        ///     Name of the file on the filesystem.
         /// </summary>
         /// <example>
         ///     0x01.pkg
         /// </example>
-        public Name Name { get; set; }
-
-        /// <summary>
-        ///     Absolute path of the file.
-        /// </summary>
         /// <example>
         ///     C:\0x01.pkg
         /// </example>
-        public Path Path { get; set; }
+        public Name Name { get; set; }
 
         /// <summary>
         ///     Description of the file.
@@ -39,7 +34,7 @@ namespace SPV3.Installer
         /// </returns>
         public bool Exists()
         {
-            return System.IO.File.Exists(Path.Value);
+            return System.IO.File.Exists(Name.Value);
         }
 
 
@@ -57,13 +52,12 @@ namespace SPV3.Installer
         /// </exception>
         public void MoveTo(Directory directory)
         {
-            string oldPath = Path.Value;
+            string oldPath = Name.Value;
             var newFile = new File
             {
-                Name = Name,
-                Path = new Path
+                Name = new Name
                 {
-                    Value = System.IO.Path.Combine(directory.Path.Value, Name.Value)
+                    Value = Path.Combine(directory.Name.Value, Name.Value)
                 }
             };
 
@@ -73,9 +67,9 @@ namespace SPV3.Installer
             if (newFile.Exists())
                 throw new IOException("File already exists in the target directory.");
 
-            System.IO.File.Move(oldPath, newFile.Path.Value);
+            System.IO.File.Move(oldPath, newFile.Name.Value);
 
-            Path = newFile.Path;
+            Name = newFile.Name;
         }
     }
 }

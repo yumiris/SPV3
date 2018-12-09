@@ -19,15 +19,15 @@ namespace SPV3.Installer
         ///     maps
         /// </example>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///     Name value exceeds 32 characters.
+        ///     Name value exceeds 255 characters.
         /// </exception>
         public string Value
         {
             get => _value;
             set
             {
-                if (value.Length > 0x20)
-                    throw new ArgumentOutOfRangeException(nameof(value), "Name value exceeds 32 characters.");
+                if (value.Length > 0xFF)
+                    throw new ArgumentOutOfRangeException(nameof(value), "Name value exceeds 255 characters.");
 
                 _value = value;
             }

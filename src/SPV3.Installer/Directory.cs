@@ -6,20 +6,12 @@ namespace SPV3.Installer
     public class Directory
     {
         /// <summary>
-        ///     Name of the directory.
+        ///     Name of the directory on the filesystem.
         /// </summary>
         /// <example>
         ///     maps
         /// </example>
         public Name Name { get; set; }
-
-        /// <summary>
-        ///     Absolute path of the directory.
-        /// </summary>
-        /// <example>
-        ///     C:\SPV3.2\maps
-        /// </example>
-        public Path Path { get; set; }
 
         /// <summary>
         ///     Checks if the directory exists on the filesystem using the Path value.
@@ -29,7 +21,7 @@ namespace SPV3.Installer
         /// </returns>
         public bool Exists()
         {
-            return System.IO.Directory.Exists(Path.Value);
+            return System.IO.Directory.Exists(Name.Value);
         }
 
         /// <summary>
@@ -38,7 +30,7 @@ namespace SPV3.Installer
         public void Create()
         {
             if (!Exists())
-                System.IO.Directory.CreateDirectory(Path.Value);
+                System.IO.Directory.CreateDirectory(Name.Value);
         }
     }
 }

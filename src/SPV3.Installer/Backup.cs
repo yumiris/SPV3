@@ -9,17 +9,19 @@ namespace SPV3.Installer
     {
         /// <summary>
         ///     Directory used for backing up package files to.
-        ///     <example>
-        ///         C:\SPV3.2\data-E36E7FB3
-        ///     </example>
         /// </summary>
+        /// <example>
+        ///     C:\SPV3.2\data-E36E7FB3
+        /// </example>
         public Directory Directory { get; set; }
 
         /// <summary>
         ///     Backs up the package's files on the filesystem to the specified directory, if the files exist.
+        /// </summary>
+        /// <remarks>
         ///     This should be used in pre-installation contexts to avoid overwrites or conflicts when extracting the
         ///     package.
-        /// </summary>
+        /// </remarks>
         /// <param name="package">
         ///     Instance representing the package whose files should be backed up.
         /// </param>
@@ -41,9 +43,9 @@ namespace SPV3.Installer
              */
             var packageDirectory = new Directory
             {
-                Path = new Path
+                Name = new Name
                 {
-                    Value = System.IO.Path.Combine(Directory.Path.Value, package.Target.Name.Value)
+                    Value = Path.Combine(Directory.Name.Value, package.Name.Value)
                 }
             };
 
@@ -63,7 +65,7 @@ namespace SPV3.Installer
                 if (!file.Exists())
                     continue;
 
-                string potentialPath = System.IO.Path.Combine(packageDirectory.Path.Value, file.Name.Value);
+                string potentialPath = Path.Combine(packageDirectory.Name.Value, file.Name.Value);
 
                 if (System.IO.File.Exists(potentialPath))
                     throw new IOException("Backed up copy of of the file already exists in the backup directory.");

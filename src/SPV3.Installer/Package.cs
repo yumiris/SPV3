@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using System.IO.Compression;
 
 namespace SPV3.Installer
@@ -14,20 +15,12 @@ namespace SPV3.Installer
         public const string Extension = ".pkg";
 
         /// <summary>
-        ///     Package name, i.e. the package filename, without the exception.
+        ///     Package filename on the system.
         /// </summary>
         /// <example>
-        ///     0x01
+        ///     0x01.pkg
         /// </example>
         public Name Name { get; set; }
-
-        /// <summary>
-        ///     Package absolute path on the filesystem.
-        /// </summary>
-        /// <example>
-        ///     C:\0x01.pkg
-        /// </example>
-        public Path Path { get; set; }
 
         /// <summary>
         ///     Package description for the end-user.
