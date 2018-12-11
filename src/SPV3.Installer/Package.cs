@@ -62,10 +62,6 @@ namespace SPV3.Installer
         ///     Extracts the package data to the inbound directory.
         /// </summary>
         /// <remarks>
-        ///     If the Directory property is defined, then the package files will be dedicated to a subdirectory in the
-        ///     inbound directory.
-        /// </remarks>
-        /// <remarks>
         ///     A backup routine should be conducted prior to invoking this method, for the purpose of preventing
         ///     collisions with files that may already exist at the target destination.
         /// </remarks>
@@ -84,31 +80,7 @@ namespace SPV3.Installer
             if (!directory.Exists())
                 throw new DirectoryNotFoundException("Target directory does not exist on the filesystem.");
 
-            /**
-             * Declaring new variable to avoid mutation of the inbound directory should the upcoming conditional be
-             * fulfilled.
-             */
-            var targetDirectory = directory;
-
-            /**
-             * If this package instance has the Directory property defined, then a new directory will be created as
-             * <inbound directory> + <package directory>, for the purpose of extracting the package files into a
-             * subdirectory.
-             */
-            if (Directory != null)
-            {
-                targetDirectory = new Directory
-                {
-                    Name = new Name
-                    {
-                        Value = Path.Combine(directory.Name.Value, Directory.Name.Value)
-                    }
-                };
-
-                targetDirectory.Create();
-            }
-
-            ZipFile.ExtractToDirectory(this, targetDirectory);
+            ZipFile.ExtractToDirectory(this, directory);
         }
 
         /// <summary>
