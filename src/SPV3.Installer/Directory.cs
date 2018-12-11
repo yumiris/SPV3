@@ -13,6 +13,27 @@ namespace SPV3.Installer
         /// </example>
         public Name Name { get; set; }
 
+        public override string ToString()
+        {
+            return Name.ToString();
+        }
+
+        public static implicit operator string(Directory directory)
+        {
+            return directory.Name.ToString();
+        }
+
+        public static explicit operator Directory(string value)
+        {
+            return new Directory
+            {
+                Name = new Name
+                {
+                    Value = value
+                }
+            };
+        }
+
         /// <summary>
         ///     Checks if the directory exists on the filesystem using the Path value.
         /// </summary>

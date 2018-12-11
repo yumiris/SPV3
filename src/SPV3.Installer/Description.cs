@@ -26,5 +26,23 @@ namespace SPV3.Installer
                 _value = value;
             }
         }
+
+        public static implicit operator string(Description description)
+        {
+            return description.Value;
+        }
+
+        public static explicit operator Description(string value)
+        {
+            return new Description
+            {
+                Value = value
+            };
+        }
+
+        public override string ToString()
+        {
+            return _value;
+        }
     }
 }

@@ -32,5 +32,23 @@ namespace SPV3.Installer
                 _value = value;
             }
         }
+
+        public override string ToString()
+        {
+            return _value;
+        }
+
+        public static implicit operator string(Name name)
+        {
+            return name.Value;
+        }
+
+        public static explicit operator Name(string value)
+        {
+            return new Name
+            {
+                Value = value
+            };
+        }
     }
 }

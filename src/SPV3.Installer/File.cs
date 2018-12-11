@@ -26,6 +26,27 @@ namespace SPV3.Installer
         /// </example>
         public Description Description { get; set; }
 
+        public override string ToString()
+        {
+            return Name.ToString();
+        }
+
+        public static implicit operator string(File file)
+        {
+            return file.Name.ToString();
+        }
+
+        public static explicit operator File(string value)
+        {
+            return new File
+            {
+                Name = new Name
+                {
+                    Value = value
+                }
+            };
+        }
+
         /// <summary>
         ///     Checks if the file exists on the filesystem using the Path value.
         /// </summary>
