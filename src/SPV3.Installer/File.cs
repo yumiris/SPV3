@@ -34,7 +34,7 @@ namespace SPV3.Installer
         /// </returns>
         public bool Exists()
         {
-            return System.IO.File.Exists(Name.Value);
+            return System.IO.File.Exists(this);
         }
 
         /// <summary>
@@ -51,14 +51,7 @@ namespace SPV3.Installer
         /// </exception>
         public void MoveTo(Directory directory)
         {
-            var oldPath = Name.Value;
-            var newFile = new File
-            {
-                Name = new Name
-                {
-                    Value = Path.Combine(directory.Name.Value, Name.Value)
-                }
-            };
+            var newFile = (File) Path.Combine(directory, this);
 
             if (!Exists())
                 throw new FileNotFoundException("Source file does not exist on the filesystem.");
@@ -66,7 +59,7 @@ namespace SPV3.Installer
             if (newFile.Exists())
                 throw new IOException("File already exists in the target directory.");
 
-            System.IO.File.Move(oldPath, newFile.Name.Value);
+            System.IO.File.Move(this, newFile);
 
             Name = newFile.Name;
         }

@@ -21,7 +21,7 @@ namespace SPV3.Installer
         /// </returns>
         public bool Exists()
         {
-            return System.IO.Directory.Exists(Name.Value);
+            return System.IO.Directory.Exists(this);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace SPV3.Installer
         public void Create()
         {
             if (!Exists())
-                System.IO.Directory.CreateDirectory(Name.Value);
+                System.IO.Directory.CreateDirectory(this);
         }
 
         /// <summary>

@@ -55,7 +55,7 @@ namespace SPV3.Installer
         /// </returns>
         public bool Exists()
         {
-            return System.IO.File.Exists(Name.Value);
+            return System.IO.File.Exists(this);
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace SPV3.Installer
                 targetDirectory.Create();
             }
 
-            ZipFile.ExtractToDirectory(Name.Value, targetDirectory.Name.Value);
+            ZipFile.ExtractToDirectory(this, targetDirectory);
         }
 
         /// <summary>
