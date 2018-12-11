@@ -13,27 +13,6 @@ namespace SPV3.Installer
         /// </example>
         public Name Name { get; set; }
 
-        public override string ToString()
-        {
-            return Name.ToString();
-        }
-
-        public static implicit operator string(Directory directory)
-        {
-            return directory.Name.ToString();
-        }
-
-        public static explicit operator Directory(string value)
-        {
-            return new Directory
-            {
-                Name = new Name
-                {
-                    Value = value
-                }
-            };
-        }
-
         /// <summary>
         ///     Checks if the directory exists on the filesystem using the Path value.
         /// </summary>
@@ -52,6 +31,40 @@ namespace SPV3.Installer
         {
             if (!Exists())
                 System.IO.Directory.CreateDirectory(Name.Value);
+        }
+
+        /// <summary>
+        ///     Implicitly represents object as string.
+        /// </summary>
+        /// <param name="directory">
+        ///     Object instance.
+        /// </param>
+        /// <returns>
+        ///     Directory.Name
+        /// </returns>
+        public static implicit operator string(Directory directory)
+        {
+            return directory.Name;
+        }
+
+        /// <summary>
+        ///     Explicitly represents string as object.
+        /// </summary>
+        /// <param name="value">
+        ///     Name.Value
+        /// </param>
+        /// <returns>
+        ///     Object instance.
+        /// </returns>
+        public static explicit operator Directory(string value)
+        {
+            return new Directory
+            {
+                Name = new Name
+                {
+                    Value = value
+                }
+            };
         }
     }
 }

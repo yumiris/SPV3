@@ -1,0 +1,192 @@
+﻿<Window x:Class="SPV3.Compiler.GUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SPV3.Compiler.GUI"
+        mc:Ignorable="d"
+        Title="SPV3 Installer Compiler"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize"
+        SizeToContent="WidthAndHeight"
+        Background="#F0F0F0"
+        SnapsToDevicePixels="True">
+    <Window.DataContext>
+        <local:Main />
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <!-- File -->
+        <GroupBox Grid.Column="0"
+                  Header="File"
+                  Width="240">
+            <DockPanel>
+                <!-- Icon -->
+                <Image DockPanel.Dock="Top"
+                       Source="/icon.ico"
+                       Stretch="None"
+                       Margin="0,0,0,10"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Top" />
+
+                <!-- Name -->
+                <DockPanel DockPanel.Dock="Top">
+                    <Label Content="File Name:"
+                           Width="75" />
+                    <StackPanel>
+                        <TextBox Text="{Binding SelectedPackage.SelectedFile.Name}" />
+                        <TextBlock Text="e.g. ui.map"
+                                   Foreground="#ABADB3" />
+                    </StackPanel>
+                </DockPanel>
+
+                <!-- Description -->
+                <DockPanel DockPanel.Dock="Top"
+                           Margin="0,5,0,0">
+                    <Label Content="Description:"
+                           Width="75" />
+                    <StackPanel>
+                        <TextBox Text="{Binding SelectedPackage.SelectedFile.Description}" />
+                        <TextBlock Text="e.g. SPV3 Main Menu UI"
+                                   Foreground="#ABADB3" />
+                    </StackPanel>
+                </DockPanel>
+
+                <!-- Operations -->
+                <Separator DockPanel.Dock="Top"
+                           Margin="0,10" />
+                <Button DockPanel.Dock="Top"
+                        Content="Save File"
+                        Click="SaveFile" />
+                <Button DockPanel.Dock="Top"
+                        Margin="0,2,0,0"
+                        Content="Delete File"
+                        Click="DeleteFile" />
+                <Separator DockPanel.Dock="Top"/>
+                <Button Content="Batch Add Files"
+                        Height="Auto"
+                        Click="BatchFiles"/>
+            </DockPanel>
+        </GroupBox>
+
+        <!-- Package -->
+        <GroupBox Grid.Column="1"
+                  Header="Package"
+                  Width="320">
+            <StackPanel>
+                <!-- Name -->
+                <DockPanel>
+                    <Label Content="Package Name:"
+                           Width="95" />
+                    <StackPanel>
+                        <TextBox Text="{Binding SelectedPackage.Name}" />
+                        <TextBlock Text="e.g. maps.pkg"
+                                   Foreground="#ABADB3" />
+                    </StackPanel>
+                </DockPanel>
+
+                <!-- Description -->
+                <DockPanel Margin="0,5">
+                    <Label Content="Description:"
+                           Width="95" />
+                    <StackPanel>
+                        <TextBox Text="{Binding SelectedPackage.Description}" />
+                        <TextBlock Text="e.g. SPV3 Campaign Maps"
+                                   Foreground="#ABADB3" />
+                    </StackPanel>
+                </DockPanel>
+
+                <!-- Directory -->
+                <DockPanel>
+                    <Label Content="Subdirectory:"
+                           Width="95" />
+                    <StackPanel>
+                        <TextBox Text="{Binding SelectedPackage.Directory}" />
+                        <TextBlock Text="e.g. maps"
+                                   Foreground="#ABADB3" />
+                    </StackPanel>
+                </DockPanel>
+
+                <!-- Files -->
+                <Separator Margin="0,10,0,0" />
+                <Label Content="Package Installation Files:" />
+                <DataGrid IsReadOnly="True"
+                          AutoGenerateColumns="False"
+                          Height="130"
+                          ItemsSource="{Binding SelectedPackage.Files}"
+                          SelectedItem="{Binding SelectedPackage.SelectedFile, Mode=TwoWay}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name"
+                                            Width="50*"
+                                            Binding="{Binding Name}" />
+                        <DataGridTextColumn Header="Description"
+                                            Width="50*"
+                                            Binding="{Binding Description}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <!-- Operations-->
+                <Separator />
+                <Button Content="Save Package"
+                        Click="SavePackage" />
+                <Button Margin="0,2,0,0"
+                        Content="Delete Package"
+                        Click="DeletePackage"/>
+            </StackPanel>
+        </GroupBox>
+
+        <!-- Installation -->
+        <GroupBox Grid.Column="2"
+                  Header="Installation"
+                  Width="240">
+            <DockPanel>
+                <!-- Packages -->
+                <Separator />
+                <DataGrid DockPanel.Dock="Top"
+                          IsReadOnly="True"
+                          AutoGenerateColumns="False"
+                          Height="320"
+                          ItemsSource="{Binding Packages}"
+                          SelectedItem="{Binding SelectedPackage, Mode=TwoWay}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name"
+                                            Width="50*"
+                                            Binding="{Binding Name}" />
+                        <DataGridTextColumn Header="Description"
+                                            Width="50*"
+                                            Binding="{Binding Description}" />
+                        <DataGridTextColumn Header="Directory"
+                                            Width="50*"
+                                            Binding="{Binding Directory}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <!-- Operations -->
+                <Separator DockPanel.Dock="Top" />
+                <Button DockPanel.Dock="Top"
+                        Content="Create Installer Metadata"
+                        Height="Auto"
+                        Click="CreateInstaller"/>
+            </DockPanel>
+        </GroupBox>
+
+        <!-- Installation -->
+        <GroupBox Grid.Column="3"
+                  Header="Output"
+                  Width="240">
+            <TextBox Text="{Binding Output}"
+                     Height="355"
+                     VerticalScrollBarVisibility="Visible"
+                     HorizontalScrollBarVisibility="Visible"
+                     IsReadOnly="True"
+                     VerticalContentAlignment="Top"
+                     FontFamily="Consolas"/>
+        </GroupBox>
+    </Grid>
+</Window>

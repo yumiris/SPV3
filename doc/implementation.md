@@ -10,8 +10,25 @@ expected that the properties would be populated through the deserialisation of a
 
 ## Entities
 
-This section covers the major entities: [Package](#package) and [File](#file). Smaller types - such as `Description` and
-`Name`, are not covered here.
+This section covers the major entities: [Metadata](#metadata), [Package](#package) and [File](#file).
+Smaller types - such as `Description` and `Name`, are not covered here.
+
+The following diagram visualises the hierarchy of the entities in SPV3.Installer:
+
+![hierarchy](https://user-images.githubusercontent.com/10241434/49706761-cc564300-fc62-11e8-8ab5-9585ca932c79.png)
+
+### Metadata
+
+A metadata is the top-level specification of an SPV3 installer. It outlines which packages should be installed and what
+files belong to each package. The metadata also specifies the backup directory, which is used by the installer for
+backing up files on the system that may belong to any of the installation packages.
+
+Technically, the metadata is an instance of the `Installer` type, which may then be serialised to a persistent format.
+Please refer to the [Persistence](#persistence) section for further details on how persistence is conducted.
+
+The SPV3.Compiler.GUI serves as a graphical front-end to the `Installer` type, and allows the end-user/developer to
+create and persist a metadata binary that is subsequently used by the SPV3 installer for installing SPV3.2 to the
+filesystem.
 
 ### Package
 
@@ -32,7 +49,7 @@ subdirectory for the package.
 
 A file, in this context, is a member of the [Package](#package) entity. On the filesystem, it can be imagined as an
 entry in an archive file. The `File` type is used by the library to determine which files are contained within a package
-for the purpose of conducting a pre-installation [Backup](#backup) routine.
+for the purpose of conducting a pre-installation backup routine.
 
 ## Logic
 
@@ -55,7 +72,7 @@ The installation concept has been sectioned into two documents:
 ### Persistence
 
 Persistence of the installation metadata - such as the list of packages to install and their target destinations - are
-stored in a binary file, named `installer.bin` on the filesystem. The Persistence static class exposes methods for
+stored in a binary file, named `metadata.bin` on the filesystem. The Persistence static class exposes methods for
 encoding & decoding an Installer object into the binary representation.
 
 The binary is the result of:
@@ -64,6 +81,6 @@ The binary is the result of:
 2. Computing the UTF8 bytes representation of the XML string.
 3. Compressing said UTF8 bytes using the DEFLATE algorithm.
 
-The `installr.bin` does not (at the moment) have any error correction or header information, for the sake of keeping it
+The `metadata.bin` does not (at the moment) have any error correction or header information, for the sake of keeping it
 small and purposed for its sole task of persisting the Installer state. It is expected that either the container file
 (ZIP or ISO ) for the transfer protocol (BitTorrent) will handle any potential corruption during transmission.

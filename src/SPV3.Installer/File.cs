@@ -26,27 +26,6 @@ namespace SPV3.Installer
         /// </example>
         public Description Description { get; set; }
 
-        public override string ToString()
-        {
-            return Name.ToString();
-        }
-
-        public static implicit operator string(File file)
-        {
-            return file.Name.ToString();
-        }
-
-        public static explicit operator File(string value)
-        {
-            return new File
-            {
-                Name = new Name
-                {
-                    Value = value
-                }
-            };
-        }
-
         /// <summary>
         ///     Checks if the file exists on the filesystem using the Path value.
         /// </summary>
@@ -72,7 +51,7 @@ namespace SPV3.Installer
         /// </exception>
         public void MoveTo(Directory directory)
         {
-            string oldPath = Name.Value;
+            var oldPath = Name.Value;
             var newFile = new File
             {
                 Name = new Name
@@ -90,6 +69,40 @@ namespace SPV3.Installer
             System.IO.File.Move(oldPath, newFile.Name.Value);
 
             Name = newFile.Name;
+        }
+
+        /// <summary>
+        ///     Implicitly represents object as string.
+        /// </summary>
+        /// <param name="file">
+        ///     Object instance.
+        /// </param>
+        /// <returns>
+        ///     File.Name
+        /// </returns>
+        public static implicit operator string(File file)
+        {
+            return file.Name;
+        }
+
+        /// <summary>
+        ///     Explicitly represents string as object.
+        /// </summary>
+        /// <param name="value">
+        ///     File.Name
+        /// </param>
+        /// <returns>
+        ///     Object instance.
+        /// </returns>
+        public static explicit operator File(string value)
+        {
+            return new File
+            {
+                Name = new Name
+                {
+                    Value = value
+                }
+            };
         }
     }
 }

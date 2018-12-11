@@ -19,30 +19,43 @@ namespace SPV3.Installer
         ///     maps
         /// </example>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///     Name value exceeds 255 characters.
+        ///     Name value exceeds 64 characters.
         /// </exception>
         public string Value
         {
             get => _value;
             set
             {
-                if (value.Length > 0xFF)
-                    throw new ArgumentOutOfRangeException(nameof(value), "Name value exceeds 255 characters.");
+                if (value.Length > 0x40)
+                    throw new ArgumentOutOfRangeException(nameof(value), $"Name '{value}' exceeds 64 characters.");
 
                 _value = value;
             }
         }
 
-        public override string ToString()
-        {
-            return _value;
-        }
-
+        /// <summary>
+        ///     Implicitly represents object as string.
+        /// </summary>
+        /// <param name="name">
+        ///     Object instance.
+        /// </param>
+        /// <returns>
+        ///     Name.Value
+        /// </returns>
         public static implicit operator string(Name name)
         {
             return name.Value;
         }
 
+        /// <summary>
+        ///     Explicitly represents string as object.
+        /// </summary>
+        /// <param name="value">
+        ///     Name.Value
+        /// </param>
+        /// <returns>
+        ///     Object instance.
+        /// </returns>
         public static explicit operator Name(string value)
         {
             return new Name

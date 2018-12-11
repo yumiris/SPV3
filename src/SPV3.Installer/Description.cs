@@ -21,28 +21,42 @@ namespace SPV3.Installer
             set
             {
                 if (value.Length > 0x80)
-                    throw new ArgumentOutOfRangeException(nameof(value), "Description value exceeds 128 characters.");
+                    throw new ArgumentOutOfRangeException(nameof(value),
+                        $"Description '{value}' exceeds 128 characters.");
 
                 _value = value;
             }
         }
 
+        /// <summary>
+        ///     Implicitly represents object as string.
+        /// </summary>
+        /// <param name="description">
+        ///     Object instance.
+        /// </param>
+        /// <returns>
+        ///     Description.Value
+        /// </returns>
         public static implicit operator string(Description description)
         {
             return description.Value;
         }
 
+        /// <summary>
+        ///     Explicitly represents string as object.
+        /// </summary>
+        /// <param name="value">
+        ///     Description.Value
+        /// </param>
+        /// <returns>
+        ///     Object instance.
+        /// </returns>
         public static explicit operator Description(string value)
         {
             return new Description
             {
                 Value = value
             };
-        }
-
-        public override string ToString()
-        {
-            return _value;
         }
     }
 }

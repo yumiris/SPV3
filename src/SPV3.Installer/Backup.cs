@@ -65,13 +65,50 @@ namespace SPV3.Installer
                 if (!file.Exists())
                     continue;
 
-                string potentialPath = Path.Combine(packageDirectory.Name.Value, file.Name.Value);
+                var potentialPath = Path.Combine(packageDirectory.Name.Value, file.Name.Value);
 
                 if (System.IO.File.Exists(potentialPath))
                     throw new IOException("Backed up copy of of the file already exists in the backup directory.");
 
                 file.MoveTo(Directory);
             }
+        }
+
+        /// <summary>
+        ///     Implicitly represents object as string.
+        /// </summary>
+        /// <param name="backup">
+        ///     Object instance.
+        /// </param>
+        /// <returns>
+        ///     Backup.Directory
+        /// </returns>
+        public static implicit operator string(Backup backup)
+        {
+            return backup.Directory;
+        }
+
+        /// <summary>
+        ///     Explicitly represents string as object.
+        /// </summary>
+        /// <param name="value">
+        ///     Directory.Name
+        /// </param>
+        /// <returns>
+        ///     Object instance.
+        /// </returns>
+        public static explicit operator Backup(string value)
+        {
+            return new Backup
+            {
+                Directory = new Directory
+                {
+                    Name = new Name
+                    {
+                        Value = value
+                    }
+                }
+            };
         }
     }
 }

@@ -110,5 +110,33 @@ namespace SPV3.Installer
 
             ZipFile.ExtractToDirectory(Name.Value, targetDirectory.Name.Value);
         }
+
+        /// <summary>
+        ///     Implicitly represents object as string.
+        /// </summary>
+        /// <param name="package">
+        ///     Object instance.
+        /// </param>
+        /// <returns>
+        ///     Package.Name
+        /// </returns>
+        public static implicit operator string(Package package)
+        {
+            return package.Name;
+        }
+
+        /// <summary>
+        ///     Implicitly represents object as a File list.
+        /// </summary>
+        /// <param name="package">
+        ///     Object instance.
+        /// </param>
+        /// <returns>
+        ///     Package.Files
+        /// </returns>
+        public static implicit operator List<File>(Package package)
+        {
+            return package.Files;
+        }
     }
 }

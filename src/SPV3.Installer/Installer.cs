@@ -31,5 +31,19 @@ namespace SPV3.Installer
                 package.ExtractTo(directory);
             }
         }
+
+        /// <summary>
+        ///     Implicitly represents object as a Package list.
+        /// </summary>
+        /// <param name="installer">
+        ///     Object instance.
+        /// </param>
+        /// <returns>
+        ///     Installer.Packages
+        /// </returns>
+        public static implicit operator List<Package>(Installer installer)
+        {
+            return installer.Packages;
+        }
     }
 }
