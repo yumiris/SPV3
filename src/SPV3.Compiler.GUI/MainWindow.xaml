@@ -118,6 +118,8 @@
                 <DataGrid IsReadOnly="True"
                           AutoGenerateColumns="False"
                           Height="130"
+                          AllowDrop="True"
+                          Drop="DropFiles"
                           ItemsSource="{Binding SelectedPackage.Files}"
                           SelectedItem="{Binding SelectedPackage.SelectedFile, Mode=TwoWay}">
                     <DataGrid.Columns>

@@ -66,8 +66,25 @@ namespace SPV3.Compiler.GUI
                 Filter = "Installer Metadata|metadata.bin"
             };
 
-            if(dialog.ShowDialog() == true)
+            if (dialog.ShowDialog() == true)
                 _main.SaveTo(dialog.FileName);
+        }
+
+        private void DropFiles(object sender, DragEventArgs e)
+        {
+            var files = (string[]) e.Data.GetData(DataFormats.FileDrop);
+
+            if (files == null) return;
+            if (files.Length == 0) return;
+
+            foreach (var file in files)
+            {
+                _main.SelectedPackage.Files.Add(new Main.File
+                {
+                    Name = Path.GetFileName(file),
+                    Description = $"Data for {Path.GetFileName(file)}"
+                });
+            }
         }
     }
 }
