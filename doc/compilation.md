@@ -34,8 +34,3 @@ an optional subdirectory for the package's files when they are installed.
 The installer column serves as an outline of the installer metadata. A list of packages belonging to the installer is
 visible, with buttons that allow invocation of either saving the metadata to an `installer.bin` binary in the working
 directory, or creating/editing/deleting packages belonging to the installer.
-
-### Output Column
-
-The output column displays the XML representation of the installation state (installer metadata). The XML contents
-appear when the metadata is created to the disc, for debugging and integrity confirmation purposes.

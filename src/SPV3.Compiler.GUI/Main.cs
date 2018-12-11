@@ -14,7 +14,6 @@ namespace SPV3.Compiler.GUI
     {
         private ObservableCollection<Package> _packages = new ObservableCollection<Package>();
         private Package _selectedPackage = new Package();
-        private string _output = string.Empty;
 
         public ObservableCollection<Package> Packages
         {
@@ -34,17 +33,6 @@ namespace SPV3.Compiler.GUI
             {
                 if (Equals(value, _selectedPackage)) return;
                 _selectedPackage = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string Output
-        {
-            get => _output;
-            set
-            {
-                if (value == _output) return;
-                _output = value;
                 OnPropertyChanged();
             }
         }
@@ -139,7 +127,7 @@ namespace SPV3.Compiler.GUI
                 };
 
                 System.IO.File.WriteAllBytes(path, Persistence.ToBin(installer));
-                Output = Persistence.ToXml(installer);
+                System.IO.File.WriteAllText(path + ".xml", Persistence.ToXml(installer));
             }
             catch (Exception e)
             {

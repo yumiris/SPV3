@@ -19,7 +19,6 @@
             <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition />
-            <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
         <!-- File -->
@@ -174,19 +173,6 @@
                         Height="Auto"
                         Click="CreateInstaller"/>
             </DockPanel>
-        </GroupBox>
-
-        <!-- Installation -->
-        <GroupBox Grid.Column="3"
-                  Header="Output"
-                  Width="240">
-            <TextBox Text="{Binding Output}"
-                     Height="355"
-                     VerticalScrollBarVisibility="Visible"
-                     HorizontalScrollBarVisibility="Visible"
-                     IsReadOnly="True"
-                     VerticalContentAlignment="Top"
-                     FontFamily="Consolas"/>
         </GroupBox>
     </Grid>
 </Window>
