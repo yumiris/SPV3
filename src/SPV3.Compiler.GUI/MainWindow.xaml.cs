@@ -18,12 +18,12 @@ namespace SPV3.Compiler.GUI
             _main = (Main) DataContext;
         }
 
-        private void SavePackage(object sender, RoutedEventArgs e)
+        private void CreatePackage(object sender, RoutedEventArgs e)
         {
             _main.SavePackage();
         }
 
-        private void SaveFile(object sender, RoutedEventArgs e)
+        private void CreateFile(object sender, RoutedEventArgs e)
         {
             _main.SaveFile();
         }
