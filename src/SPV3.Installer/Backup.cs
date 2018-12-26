@@ -68,7 +68,7 @@ namespace SPV3.Installer
                 var potentialPath = Path.Combine(packageDirectory, file);
 
                 if (System.IO.File.Exists(potentialPath))
-                    throw new IOException("Backed up copy of of the file already exists in the backup directory.");
+                    throw new IOException("Backup of the file already exists in the backup directory.");
 
                 file.MoveTo(Directory);
             }
