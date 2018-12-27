@@ -35,33 +35,33 @@ namespace SPV3.Compiler.GUI
             }
         }
 
-        private async void Create(object sender, RoutedEventArgs e)
+        private async void Compile(object sender, RoutedEventArgs e)
         {
             try
             {
                 AppendOutput("Invoked installation creation...");
                 AppendOutput("Please wait!");
 
-                CreateButton.Content = "Creating...";
-                CreateButton.IsEnabled = false;
+                CompileButton.Content = "Creating...";
+                CompileButton.IsEnabled = false;
                 
                 using (var timer = new System.Windows.Forms.Timer())
                 {
                     timer.Tick += (s, e2) =>
                     {
-                        switch (CreateButton.Content)
+                        switch (CompileButton.Content)
                         {
                             case "":
-                                CreateButton.Content = ".";
+                                CompileButton.Content = ".";
                                 break;
                             case ".":
-                                CreateButton.Content = "..";
+                                CompileButton.Content = "..";
                                 break;
                             case "..":
-                                CreateButton.Content = "";
+                                CompileButton.Content = "";
                                 break;
                             default:
-                                CreateButton.Content = "";
+                                CompileButton.Content = "";
                                 break;
                         }
                     };
@@ -71,12 +71,12 @@ namespace SPV3.Compiler.GUI
 
                     await Task.Run(() =>
                     {
-                        _main.Create();
+                        _main.Compile();
                     });
                 }
                 
-                CreateButton.Content = "Create Installer";
-                CreateButton.IsEnabled = true;
+                CompileButton.Content = "Compile Installer";
+                CompileButton.IsEnabled = true;
 
                 AppendOutput("Successfully compiled source data!");
             }

@@ -10,7 +10,7 @@ namespace SPV3.Compiler.GUI
         private string _source;
         private string _target;
 
-        private bool _canCreate;
+        private bool _canCompile;
 
         public string Source
         {
@@ -34,23 +34,23 @@ namespace SPV3.Compiler.GUI
             }
         }
 
-        public bool CanCreate
+        public bool CanCompile
         {
-            get => _canCreate;
+            get => _canCompile;
             set
             {
-                if (value == _canCreate) return;
-                _canCreate = value;
+                if (value == _canCompile) return;
+                _canCompile = value;
                 OnPropertyChanged();
             }
         }
 
-        public void NotifyCanCreate()
+        public void NotifyCanCompile()
         {
-            CanCreate = Directory.Exists(Source) && Directory.Exists(Target);
+            CanCompile = Directory.Exists(Source) && Directory.Exists(Target);
         }
 
-        public void Create()
+        public void Compile()
         {
             new Compression().Pack(Source, Target);
         }
@@ -61,7 +61,7 @@ namespace SPV3.Compiler.GUI
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            NotifyCanCreate();
+            NotifyCanCompile();
         }
     }
 }

@@ -70,10 +70,10 @@
 
             <!-- Actions -->
             <GroupBox Header="Actions">
-                <Button x:Name="CreateButton"
-                        Content="Create Installer"
-                        IsEnabled="{Binding CanCreate}"
-                        Click="Create" />
+                <Button x:Name="CompileButton"
+                        Content="Compile Installer"
+                        IsEnabled="{Binding CanCompile}"
+                        Click="Compile" />
             </GroupBox>
         </StackPanel>
 
