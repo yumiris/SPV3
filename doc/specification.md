@@ -1,4 +1,4 @@
-# Implementation
+# Specification
 
 The SPV3.Installer project is designed to be flexible in terms of what files are installed and where. The library has
 no prior knowledge of which files are installed. The `Installer` class is the top-level type that encompasses the
@@ -32,14 +32,14 @@ filesystem.
 
 ### Package
 
-A package is a container of files. On the filesystem, it is a DEFLATE archive with the `.pkg` extension.
+A package is a container of files. On the filesystem, it is a DEFLATE archive with the `.bin` extension.
 All packages contain SPV3.2 installation data, which SPV3.Installer takes care of installing to the directory specified
 by the end-user.
 
 Conventionally, each package represents a top-level directory, relative to the installation directory. To handle both
 scenarios where a package may ...
 
-a) install files directly within the installation directory (e.g. `spv3.exe`, `dinput.dll`)
+a) install files directly within the installation directory (e.g. `spv3.exe`, `dinput.dll`); or
 b) install files within a subdirectory in the installation directory (e.g. `maps\loc.map`, `maps\sounds.map`)
 
 ... the Package object exposes a Directory property. It can be optionally assigned with the value that represents the
@@ -56,7 +56,7 @@ for the purpose of conducting a pre-installation backup routine.
 This section covers the installation, backup and persistence implementations.
 
 - [**Installation**](#installation): the routine of extracting the SPV3.2 files from the packages to the filesystem.
-- [**Backup**](./implementation.md): pre-installation backup of SPV3.2 files which may already exist on the filesystem.
+- [**Backup**](./specification.md): pre-installation backup of SPV3.2 files which may already exist on the filesystem.
 - [**Persistence**](#persistence): storing the installation metadata, including what files to install & where.
 
 ### Installation
@@ -66,7 +66,7 @@ routine is comprised of the backup routine and the installation routine.
 
 The installation concept has been sectioned into two documents:
 
-- [**Installation Procedure**](./implementation.md): The backup & installation procedures the installer will carry out.
+- [**Installation Procedure**](./specification.md): The backup & installation procedures the installer will carry out.
 - [**Compilation Procedure**](./compilation.md): The procedure used to compile the packages and installation metadata.
 
 ### Persistence

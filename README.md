@@ -22,6 +22,6 @@ This section serves as an index for the major documentation:
 
 | Documentation                                 | Description                                                      |
 | --------------------------------------------- | ---------------------------------------------------------------- |
-| [Implementation](doc/implementation.md)       | High-level overview of the library's logic and entities.         |
+| [Specification](doc/specification.md)         | High-level overview of the library's logic and entities.         |
 | [Installation Procedure](doc/installation.md) | Detailed overview of the backup & installation procedure.        |
 | [Compilation Procedure](doc/compilation.md)   | Detailed overview of creating the installer packages & metadata. |
