@@ -27,7 +27,7 @@ namespace SPV3.Compiler
         /// <summary>
         ///     MD5 hash of the 7-Zip 18.05 (2018-04-30) executable.
         /// </summary>
-        private const string SevenZipHash = "e93c0c45d84f328afba850e87ac7398c";
+        private const string SevenZipHash = "fde874e8d442e3f0469b3d2f86a45739";
 
         /// <summary>
         ///     Compressor constructor.
