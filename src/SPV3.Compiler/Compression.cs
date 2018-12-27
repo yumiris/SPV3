@@ -159,7 +159,8 @@ namespace SPV3.Compiler
             foreach (var file in files)
             {
                 var pack = System.IO.Path.Combine(target, package);
-                var args = $"a -tzip {pack} {file.Name}";
+                var args = $"a -tzip \"{pack}\" \"{file.FullName}\"";
+
                 InvokeProcess(args);
             }
         }
@@ -186,7 +187,8 @@ namespace SPV3.Compiler
             foreach (var directory in directories)
             {
                 var pack = System.IO.Path.Combine(target, $"{directory.Name}.pkg");
-                var args = $"a -tzip {pack} {directory.Name}";
+                var args = $"a -tzip \"{pack}\" \"{directory.FullName}\"";
+
                 InvokeProcess(args);
             }
         }
@@ -202,7 +204,7 @@ namespace SPV3.Compiler
         {
             var workingDirectory = System.IO.Path.GetDirectoryName(Path) ??
                                    throw new FormatException("Could not infer working directory.");
-            
+
             var executableBinary = System.IO.Path.GetFileName(Path) ??
                                    throw new FormatException("Could not infer executable binary.");
 
