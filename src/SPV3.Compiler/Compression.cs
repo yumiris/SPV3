@@ -57,34 +57,6 @@ namespace SPV3.Compiler
         private string Hash { get; }
 
         /// <summary>
-        ///     Verifies the hash of the compression executable on the filesystem against the hash provided in the
-        ///     constructor.
-        /// </summary>
-        /// <returns>
-        ///     True if the computed hashes match, otherwise false.
-        /// </returns>
-        /// <exception cref="FileNotFoundException">
-        ///     Compression executable does not exist.
-        /// </exception>
-        public bool Verify()
-        {
-            if (!File.Exists(Path))
-                throw new FileNotFoundException("Compression executable does not exist.");
-
-            using (var md5 = MD5.Create())
-            {
-                using (var stream = File.OpenRead(Path))
-                {
-                    return BitConverter
-                        .ToString(md5.ComputeHash(stream))
-                        .Replace("-", "")
-                        .ToLowerInvariant()
-                        .Equals(Hash);
-                }
-            }
-        }
-
-        /// <summary>
         ///     Packs the directories and files in the provided source to the provided target.
         /// </summary>
         /// <param name="source">
@@ -120,16 +92,42 @@ namespace SPV3.Compiler
              * The root files in the source folder will all be packed into a single core package.
              * Root files include the HCE executable, OpenSauce & core libraries, configurations, etc.
              */
-            var sourceFiles = sourceDirectory.GetFiles("*.*");
-            CompressFiles("core.pkg", sourceFiles, target);
+            CompressFiles("core.pkg", sourceDirectory.GetFiles("*.*"), target);
 
             /**
              * Each directory in the provided source will be packed into an individual package.
              * It is expected that each discovered directory represents a group of SPV3/HCE-related files.
              * Example folders include maps, redist, shaders, watson, etc.
              */
-            var sourceFolders = new DirectoryInfo(source).GetDirectories();
-            CompressDirectories(sourceFolders, target);
+            CompressDirectories(sourceDirectory.GetDirectories(), target);
+        }
+
+        /// <summary>
+        ///     Verifies the hash of the compression executable on the filesystem against the hash provided in the
+        ///     constructor.
+        /// </summary>
+        /// <returns>
+        ///     True if the computed hashes match, otherwise false.
+        /// </returns>
+        /// <exception cref="FileNotFoundException">
+        ///     Compression executable does not exist.
+        /// </exception>
+        private bool Verify()
+        {
+            if (!File.Exists(Path))
+                throw new FileNotFoundException("Compression executable does not exist.");
+
+            using (var md5 = MD5.Create())
+            {
+                using (var stream = File.OpenRead(Path))
+                {
+                    return BitConverter
+                        .ToString(md5.ComputeHash(stream))
+                        .Replace("-", "")
+                        .ToLowerInvariant()
+                        .Equals(Hash);
+                }
+            }
         }
 
         /// <summary>
