@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace SPV3.Compiler.GUI
 {
@@ -35,7 +36,14 @@ namespace SPV3.Compiler.GUI
 
         private void Create(object sender, RoutedEventArgs e)
         {
-            _main.Create();
+            try
+            {
+                _main.Create();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
         }
     }
 }
