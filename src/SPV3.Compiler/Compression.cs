@@ -30,6 +30,11 @@ namespace SPV3.Compiler
         private const string SevenZipHash = "fde874e8d442e3f0469b3d2f86a45739";
 
         /// <summary>
+        ///     Extension used for the package files.
+        /// </summary>
+        private const string Extension = "bin";
+
+        /// <summary>
         ///     Compressor constructor.
         /// </summary>
         /// <param name="path">
@@ -92,7 +97,7 @@ namespace SPV3.Compiler
              * The root files in the source folder will all be packed into a single core package.
              * Root files include the HCE executable, OpenSauce & core libraries, configurations, etc.
              */
-            CompressFiles("core.pkg", sourceDirectory.GetFiles("*.*"), target);
+            CompressFiles("0x00." + Extension, sourceDirectory.GetFiles("*.*"), target);
 
             /**
              * Each directory in the provided source will be packed into an individual package.
@@ -184,12 +189,14 @@ namespace SPV3.Compiler
         /// </param>
         private void CompressDirectories(IEnumerable<DirectoryInfo> directories, string target)
         {
+            var index = 01;
+            
             foreach (var directory in directories)
             {
-                var pack = System.IO.Path.Combine(target, $"{directory.Name}.pkg");
+                var pack = System.IO.Path.Combine(target, $"0x{index:D2}.{Extension}");
                 var args = $"a -tzip \"{pack}\" \"{directory.FullName}\"";
-
                 InvokeProcess(args);
+                index++;
             }
         }
 
