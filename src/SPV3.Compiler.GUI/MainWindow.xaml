@@ -8,71 +8,85 @@
         Title="SPV3 Compiler"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize"
-        SizeToContent="Height"
-        Width="300"
+        SizeToContent="WidthAndHeight"
         Background="#F0F0F0"
         SnapsToDevicePixels="True">
     <Window.DataContext>
         <local:Main />
     </Window.DataContext>
-    <StackPanel Margin="10">
-        <Image Source="/icon.ico"
-               Stretch="None" />
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="275" />
+            <ColumnDefinition Width="275" />
+        </Grid.ColumnDefinitions>
 
-        <Label Content="SPV3.2 Compiler"
-               Width="Auto"
-               Margin="0,10,0,0"
-               FontWeight="Bold"
-               HorizontalAlignment="Center" />
+        <!-- Main -->
+        <StackPanel Grid.Column="0"
+                    Margin="10,10,5,10">
+            <Image Source="/icon.ico"
+                   Stretch="None" />
 
-        <!-- Source -->
-        <GroupBox Header="Source">
-            <StackPanel>
-                <TextBlock Foreground="Gray">
-                    Directory with SPV3 files and folders to install.
-                    <LineBreak />
-                    It should have stuff like haloce.exe, maps, etc.
-                </TextBlock>
-                <DockPanel Margin="0,5,0,0">
-                    <Button DockPanel.Dock="Right"
-                            Content="Browse"
-                            Margin="1,0,0,0"
-                            Click="BrowseSource" />
-                    <TextBox Text="{Binding Source}" />
-                </DockPanel>
-            </StackPanel>
-        </GroupBox>
+            <Label Content="SPV3.2 Compiler"
+                   Width="Auto"
+                   Margin="0,10,0,0"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center" />
 
-        <!-- Target -->
-        <GroupBox Header="Target">
-            <StackPanel>
-                <TextBlock Foreground="Gray">
-                    Separate directory to pack the source data to.
-                    <LineBreak />
-                    An ISO/ZIP of this directory should be made.
-                </TextBlock>
-                <DockPanel Margin="0,5,0,0">
-                    <Button DockPanel.Dock="Right"
-                            Content="Browse"
-                            Margin="1,0,0,0"
-                            Click="BrowseTarget" />
-                    <TextBox Text="{Binding Target}" />
-                </DockPanel>
-            </StackPanel>
-        </GroupBox>
+            <!-- Source -->
+            <GroupBox Header="Source">
+                <StackPanel>
+                    <TextBlock Foreground="Gray">
+                        Directory with SPV3 files and folders to install.
+                        <LineBreak />
+                        It should have stuff like haloce.exe, maps, etc.
+                    </TextBlock>
+                    <DockPanel Margin="0,5,0,0">
+                        <Button DockPanel.Dock="Right"
+                                Content="Browse"
+                                Margin="1,0,0,0"
+                                Click="BrowseSource" />
+                        <TextBox Text="{Binding Source}" />
+                    </DockPanel>
+                </StackPanel>
+            </GroupBox>
 
-        <!-- Actions -->
-        <GroupBox Header="Actions">
-            <Button Content="Create Installer"
-                    IsEnabled="{Binding CanCreate}"
-                    Click="Create" />
-        </GroupBox>
+            <!-- Target -->
+            <GroupBox Header="Target">
+                <StackPanel>
+                    <TextBlock Foreground="Gray">
+                        Separate directory to pack the source data to.
+                        <LineBreak />
+                        An ISO/ZIP of this directory should be made.
+                    </TextBlock>
+                    <DockPanel Margin="0,5,0,0">
+                        <Button DockPanel.Dock="Right"
+                                Content="Browse"
+                                Margin="1,0,0,0"
+                                Click="BrowseTarget" />
+                        <TextBox Text="{Binding Target}" />
+                    </DockPanel>
+                </StackPanel>
+            </GroupBox>
 
-        <!-- Footer -->
-        <TextBlock HorizontalAlignment="Center"
-                   Margin="0,5,0,0"
-                   Foreground="Silver">
-            ⸻ Yu:Miris ⸻
-        </TextBlock>
-    </StackPanel>
+            <!-- Actions -->
+            <GroupBox Header="Actions">
+                <Button x:Name="CreateButton"
+                        Content="Create Installer"
+                        IsEnabled="{Binding CanCreate}"
+                        Click="Create" />
+            </GroupBox>
+        </StackPanel>
+
+        <!-- Output -->
+        <DockPanel Grid.Column="1"
+                   Margin="5,10,10,10">
+            <GroupBox Header="Output">
+                <TextBox x:Name="OutputText"
+                         Height="Auto"
+                         FontFamily="Consolas"
+                         VerticalContentAlignment="Top"
+                         IsReadOnly="True" />
+            </GroupBox>
+        </DockPanel>
+    </Grid>
 </Window>

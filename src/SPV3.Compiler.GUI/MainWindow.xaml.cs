@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace SPV3.Compiler.GUI
@@ -34,16 +35,62 @@ namespace SPV3.Compiler.GUI
             }
         }
 
-        private void Create(object sender, RoutedEventArgs e)
+        private async void Create(object sender, RoutedEventArgs e)
         {
             try
             {
-                _main.Create();
+                AppendOutput("Invoked installation creation...");
+                AppendOutput("Please wait!");
+
+                CreateButton.Content = "Creating...";
+                CreateButton.IsEnabled = false;
+                
+                using (var timer = new System.Windows.Forms.Timer())
+                {
+                    timer.Tick += (s, e2) =>
+                    {
+                        switch (CreateButton.Content)
+                        {
+                            case "":
+                                CreateButton.Content = ".";
+                                break;
+                            case ".":
+                                CreateButton.Content = "..";
+                                break;
+                            case "..":
+                                CreateButton.Content = "";
+                                break;
+                            default:
+                                CreateButton.Content = "";
+                                break;
+                        }
+                    };
+
+                    timer.Interval = 100;
+                    timer.Enabled = true;
+
+                    await Task.Run(() =>
+                    {
+                        _main.Create();
+                    });
+                }
+                
+                CreateButton.Content = "Create Installer";
+                CreateButton.IsEnabled = true;
+
+                AppendOutput("Successfully compiled source data!");
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.Message);
+                AppendOutput(exception.Message);
+                AppendOutput(exception.StackTrace);
             }
+        }
+
+        private void AppendOutput(string text)
+        {
+            OutputText.Text += $"{text}\n";
+            OutputText.ScrollToEnd();
         }
     }
 }
