@@ -8,7 +8,8 @@
         Title="SPV3 Compiler"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize"
-        SizeToContent="WidthAndHeight"
+        SizeToContent="Height"
+        Width="300"
         Background="#F0F0F0"
         SnapsToDevicePixels="True">
     <Window.DataContext>
