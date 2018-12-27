@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using SPV3.Compiler.GUI.Annotations;
 
@@ -8,6 +9,8 @@ namespace SPV3.Compiler.GUI
     {
         private string _source;
         private string _target;
+
+        private bool _canCreate;
 
         public string Source
         {
@@ -31,6 +34,22 @@ namespace SPV3.Compiler.GUI
             }
         }
 
+        public bool CanCreate
+        {
+            get => _canCreate;
+            set
+            {
+                if (value == _canCreate) return;
+                _canCreate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public void NotifyCanCreate()
+        {
+            CanCreate = Directory.Exists(Source) && Directory.Exists(Target);
+        }
+
         public void Create()
         {
             new Compression().Pack(Source, Target);
@@ -42,6 +61,7 @@ namespace SPV3.Compiler.GUI
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            NotifyCanCreate();
         }
     }
 }

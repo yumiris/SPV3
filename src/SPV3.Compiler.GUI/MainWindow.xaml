@@ -64,6 +64,7 @@
         <!-- Actions -->
         <GroupBox Header="Actions">
             <Button Content="Create Installer"
+                    IsEnabled="{Binding CanCreate}"
                     Click="Create" />
         </GroupBox>
 
