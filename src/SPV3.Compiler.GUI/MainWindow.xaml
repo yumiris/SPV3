@@ -14,79 +14,87 @@
     <Window.DataContext>
         <local:Main />
     </Window.DataContext>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="275" />
-            <ColumnDefinition Width="275" />
-        </Grid.ColumnDefinitions>
+    <StackPanel>
+        <Menu>
+            <MenuItem Header="About"
+                      Click="About"/>
+            <MenuItem Header="Releases"
+                      Click="Releases"/>
+        </Menu>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="280" />
+                <ColumnDefinition Width="280" />
+            </Grid.ColumnDefinitions>
 
-        <!-- Main -->
-        <StackPanel Grid.Column="0"
-                    Margin="10,10,5,10">
-            <Image Source="/icon.ico"
-                   Stretch="None" />
+            <!-- Main -->
+            <StackPanel Grid.Column="0"
+                        Margin="10,10,5,10">
+                <Image Source="/icon.ico"
+                       Stretch="None" />
 
-            <Label Content="SPV3.2 Compiler"
-                   Width="Auto"
-                   Margin="0,10,0,0"
-                   FontWeight="Bold"
-                   HorizontalAlignment="Center" />
+                <Label Content="SPV3.2 Compiler"
+                       Width="Auto"
+                       Margin="0,10,0,0"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center" />
 
-            <!-- Source -->
-            <GroupBox Header="Source">
-                <StackPanel>
-                    <TextBlock Foreground="Gray">
-                        Directory with SPV3 files and folders to install.
-                        <LineBreak />
-                        It should have stuff like haloce.exe, maps, etc.
-                    </TextBlock>
-                    <DockPanel Margin="0,5,0,0">
-                        <Button DockPanel.Dock="Right"
-                                Content="Browse"
-                                Margin="1,0,0,0"
-                                Click="BrowseSource" />
-                        <TextBox Text="{Binding Source}" />
-                    </DockPanel>
-                </StackPanel>
-            </GroupBox>
+                <!-- Source -->
+                <GroupBox Header="Source">
+                    <StackPanel>
+                        <TextBlock Foreground="Gray">
+                            Directory with SPV3 files and folders to install.
+                            <LineBreak />
+                            It should have stuff like haloce.exe, maps, etc.
+                        </TextBlock>
+                        <DockPanel Margin="0,5,0,0">
+                            <Button DockPanel.Dock="Right"
+                                    Content="Browse"
+                                    Margin="1,0,0,0"
+                                    Click="BrowseSource" />
+                            <TextBox Text="{Binding Source}" />
+                        </DockPanel>
+                    </StackPanel>
+                </GroupBox>
 
-            <!-- Target -->
-            <GroupBox Header="Target">
-                <StackPanel>
-                    <TextBlock Foreground="Gray">
-                        Separate directory to pack the source data to.
-                        <LineBreak />
-                        An ISO/ZIP of this directory should be made.
-                    </TextBlock>
-                    <DockPanel Margin="0,5,0,0">
-                        <Button DockPanel.Dock="Right"
-                                Content="Browse"
-                                Margin="1,0,0,0"
-                                Click="BrowseTarget" />
-                        <TextBox Text="{Binding Target}" />
-                    </DockPanel>
-                </StackPanel>
-            </GroupBox>
+                <!-- Target -->
+                <GroupBox Header="Target">
+                    <StackPanel>
+                        <TextBlock Foreground="Gray">
+                            Separate directory to pack the source data to.
+                            <LineBreak />
+                            An ISO/ZIP of this directory should be made.
+                        </TextBlock>
+                        <DockPanel Margin="0,5,0,0">
+                            <Button DockPanel.Dock="Right"
+                                    Content="Browse"
+                                    Margin="1,0,0,0"
+                                    Click="BrowseTarget" />
+                            <TextBox Text="{Binding Target}" />
+                        </DockPanel>
+                    </StackPanel>
+                </GroupBox>
 
-            <!-- Actions -->
-            <GroupBox Header="Actions">
-                <Button x:Name="CompileButton"
-                        Content="Compile Installer"
-                        IsEnabled="{Binding CanCompile}"
-                        Click="Compile" />
-            </GroupBox>
-        </StackPanel>
+                <!-- Actions -->
+                <GroupBox Header="Actions">
+                    <Button x:Name="CompileButton"
+                            Content="Compile Installer"
+                            IsEnabled="{Binding CanCompile}"
+                            Click="Compile" />
+                </GroupBox>
+            </StackPanel>
 
-        <!-- Output -->
-        <DockPanel Grid.Column="1"
-                   Margin="5,10,10,10">
-            <GroupBox Header="Output">
-                <TextBox x:Name="OutputText"
-                         Height="Auto"
-                         FontFamily="Consolas"
-                         VerticalContentAlignment="Top"
-                         IsReadOnly="True" />
-            </GroupBox>
-        </DockPanel>
-    </Grid>
+            <!-- Output -->
+            <DockPanel Grid.Column="1"
+                       Margin="5,10,10,10">
+                <GroupBox Header="Output">
+                    <TextBox x:Name="OutputText"
+                             Height="Auto"
+                             FontFamily="Consolas"
+                             VerticalContentAlignment="Top"
+                             IsReadOnly="True" />
+                </GroupBox>
+            </DockPanel>
+        </Grid>
+    </StackPanel>
 </Window>

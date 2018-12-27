@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -91,6 +92,16 @@ namespace SPV3.Compiler.GUI
         {
             OutputText.Text += $"{text}\n";
             OutputText.ScrollToEnd();
+        }
+
+        private void About(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://github.com/yumiris/SPV3.Installer");
+        }
+
+        private void Releases(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://github.com/yumiris/SPV3.Installer/releases");
         }
     }
 }
