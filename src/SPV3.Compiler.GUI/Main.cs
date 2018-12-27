@@ -33,7 +33,7 @@ namespace SPV3.Compiler.GUI
 
         public void Create()
         {
-            
+            new Compression().Pack(Source, Target);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

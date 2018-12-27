@@ -103,6 +103,10 @@
     <Resource Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SPV3.Compiler\SPV3.Compiler.csproj">
+      <Project>{0ab09f2f-fdd8-40a8-829d-efa4be48ac5b}</Project>
+      <Name>SPV3.Compiler</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SPV3.Installer\SPV3.Installer.csproj">
       <Project>{f18bf1fd-1058-4c86-a980-850375216e7d}</Project>
       <Name>SPV3.Installer</Name>
