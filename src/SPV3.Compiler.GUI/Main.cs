@@ -6,6 +6,36 @@ namespace SPV3.Compiler.GUI
 {
     public class Main : INotifyPropertyChanged
     {
+        private string _source;
+        private string _target;
+
+        public string Source
+        {
+            get => _source;
+            set
+            {
+                if (value == _source) return;
+                _source = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Target
+        {
+            get => _target;
+            set
+            {
+                if (value == _target) return;
+                _target = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public void Create()
+        {
+            
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

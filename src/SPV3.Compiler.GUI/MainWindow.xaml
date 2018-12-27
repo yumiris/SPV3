@@ -35,8 +35,9 @@
                 <DockPanel Margin="0,5,0,0">
                     <Button DockPanel.Dock="Right"
                             Content="Browse"
-                            Margin="1,0,0,0" />
-                    <TextBox />
+                            Margin="1,0,0,0"
+                            Click="BrowseSource" />
+                    <TextBox Text="{Binding Source}" />
                 </DockPanel>
             </StackPanel>
         </GroupBox>
@@ -52,15 +53,17 @@
                 <DockPanel Margin="0,5,0,0">
                     <Button DockPanel.Dock="Right"
                             Content="Browse"
-                            Margin="1,0,0,0" />
-                    <TextBox />
+                            Margin="1,0,0,0"
+                            Click="BrowseTarget" />
+                    <TextBox Text="{Binding Target}" />
                 </DockPanel>
             </StackPanel>
         </GroupBox>
 
         <!-- Actions -->
         <GroupBox Header="Actions">
-            <Button Content="Create Installer" />
+            <Button Content="Create Installer"
+                    Click="Create" />
         </GroupBox>
 
         <!-- Footer -->
