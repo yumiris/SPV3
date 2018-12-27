@@ -202,12 +202,15 @@ namespace SPV3.Compiler
         {
             var workingDirectory = System.IO.Path.GetDirectoryName(Path) ??
                                    throw new FormatException("Could not infer working directory.");
+            
+            var executableBinary = System.IO.Path.GetFileName(Path) ??
+                                   throw new FormatException("Could not infer executable binary.");
 
             var process = new Process
             {
                 StartInfo =
                 {
-                    FileName = Path,
+                    FileName = executableBinary,
                     WorkingDirectory = workingDirectory,
                     Arguments = args
                 }
