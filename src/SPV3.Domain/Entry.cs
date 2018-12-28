@@ -27,17 +27,17 @@ namespace SPV3.Domain
         /// <summary>
         ///     Represent string as object.
         /// </summary>
-        /// <param name="value">
+        /// <param name="name">
         ///     String to represent as object.
         /// </param>
         /// <returns>
         ///     Object representation of the string.
         /// </returns>
-        public static explicit operator Entry(string value)
+        public static explicit operator Entry(string name)
         {
             return new Entry
             {
-                Name = (Name) value
+                Name = (Name) name
             };
         }
     }

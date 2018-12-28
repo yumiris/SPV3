@@ -61,17 +61,17 @@ namespace SPV3.Domain
         /// <summary>
         ///     Represent string as object.
         /// </summary>
-        /// <param name="value">
+        /// <param name="name">
         ///     String to represent as object.
         /// </param>
         /// <returns>
         ///     Object representation of the string.
         /// </returns>
-        public static explicit operator Package(string value)
+        public static explicit operator Package(string name)
         {
             return new Package
             {
-                Name = (Name) value
+                Name = (Name) name
             };
         }
 
@@ -92,17 +92,17 @@ namespace SPV3.Domain
         /// <summary>
         ///     Represent Entry list as object.
         /// </summary>
-        /// <param name="value">
+        /// <param name="entries">
         ///     Entry list to represent as object.
         /// </param>
         /// <returns>
         ///     Object representation of the Entry list.
         /// </returns>
-        public static explicit operator Package(List<Entry> value)
+        public static explicit operator Package(List<Entry> entries)
         {
             return new Package
             {
-                Entries = value
+                Entries = entries
             };
         }
     }
