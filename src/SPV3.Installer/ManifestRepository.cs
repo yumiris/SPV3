@@ -7,7 +7,7 @@ using File = SPV3.Domain.File;
 
 namespace SPV3.Installer
 {
-    public class MetadataRepository
+    public class ManifestRepository
     {
         /// <summary>
         ///     Default binary File name.
@@ -17,39 +17,39 @@ namespace SPV3.Installer
         private readonly File _file;
 
         /// <summary>
-        ///     MetadataRepository constructor.
+        ///     ManifestRepository constructor.
         /// </summary>
         /// <param name="file">
-        ///     Source file for saving & loading metadata state.
+        ///     Source file for saving & loading manifest state.
         /// </param>
-        public MetadataRepository(File file)
+        public ManifestRepository(File file)
         {
             _file = file ?? (File) Binary;
         }
 
         /// <summary>
-        ///     Saves the inbound Metadata state to the provided File.
+        ///     Saves the inbound Manifest state to the provided File.
         /// </summary>
         /// <remarks>
         ///     The data is saved as a DEFLATE-compressed XML binary.
         /// </remarks>
-        /// <param name="metadata">
-        ///     Instance of a Metadata type.
+        /// <param name="manifest">
+        ///     Instance of a Manifest type.
         /// </param>
-        public void Save(Metadata metadata)
+        public void Save(Manifest manifest)
         {
             /**
              * The instance is serialised to an XML string. This allows us to accurately persist the object's state.
              */
-            var xml = new Func<Metadata, string>(x =>
+            var xml = new Func<Manifest, string>(x =>
             {
                 using (var stringWriter = new StringWriter())
                 {
-                    var serialiser = new XmlSerializer(typeof(Metadata));
-                    serialiser.Serialize(stringWriter, metadata);
+                    var serialiser = new XmlSerializer(typeof(Manifest));
+                    serialiser.Serialize(stringWriter, manifest);
                     return stringWriter.ToString();
                 }
-            })(metadata);
+            })(manifest);
 
             /**
              * The XMl is DEFLATE-compressed into a byte array that can be saved to the File.
@@ -70,12 +70,12 @@ namespace SPV3.Installer
         }
 
         /// <summary>
-        ///     Loads the Metadata state from the provided File.
+        ///     Loads the Manifest state from the provided File.
         /// </summary>
         /// <returns>
-        ///     Instance of a Metadata type.
+        ///     Instance of a Manifest type.
         /// </returns>
-        public Metadata Load()
+        public Manifest Load()
         {
             /**
              * We read the bytes back from the File.
@@ -97,10 +97,10 @@ namespace SPV3.Installer
                 }
             })(bin);
 
-            var serializer = new XmlSerializer(typeof(Metadata));
+            var serializer = new XmlSerializer(typeof(Manifest));
             using (TextReader reader = new StringReader(xml))
             {
-                return (Metadata) serializer.Deserialize(reader);
+                return (Manifest) serializer.Deserialize(reader);
             }
         }
     }

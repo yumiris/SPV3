@@ -42,7 +42,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MetadataRepositoryTest.cs" />
+    <Compile Include="ManifestRepositoryTest.cs" />
     <Compile Include="PackageRepositoryTests.cs" />
     <Compile Include="PackageTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

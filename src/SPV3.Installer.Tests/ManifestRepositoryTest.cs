@@ -7,9 +7,9 @@ using Version = SPV3.Domain.Version;
 namespace SPV3.Installer.Tests
 {
     [TestFixture]
-    public class MetadataRepositoryTest
+    public class ManifestRepositoryTest
     {
-        private static readonly Metadata Metadata = new Metadata
+        private static readonly Manifest Manifest = new Manifest
         {
             Version = (Version) "2.4.8",
             Packages = new List<Package>
@@ -49,12 +49,12 @@ namespace SPV3.Installer.Tests
         public void Repository_MetadataVersionIsSaved()
         {
             var file = Guid.NewGuid().ToString();
-            var repository = new MetadataRepository((File) file);
+            var repository = new ManifestRepository((File) file);
 
-            repository.Save(Metadata);
+            repository.Save(Manifest);
             var loadedMetadata = repository.Load();
 
-            Assert.AreEqual((string) Metadata.Version, (string) loadedMetadata.Version);
+            Assert.AreEqual((string) Manifest.Version, (string) loadedMetadata.Version);
 
             System.IO.File.Delete(file);
         }
@@ -63,13 +63,13 @@ namespace SPV3.Installer.Tests
         public void Repository_MetadataPackageIsSaved()
         {
             var file = Guid.NewGuid().ToString();
-            var repository = new MetadataRepository((File) file);
+            var repository = new ManifestRepository((File) file);
 
-            repository.Save(Metadata);
+            repository.Save(Manifest);
             var loadedMetadata = repository.Load();
 
-            for (var i = 0; i < Metadata.Packages.Count; i++)
-                Assert.AreEqual(Metadata.Packages[i].Name.Value, loadedMetadata.Packages[i].Name.Value);
+            for (var i = 0; i < Manifest.Packages.Count; i++)
+                Assert.AreEqual(Manifest.Packages[i].Name.Value, loadedMetadata.Packages[i].Name.Value);
 
             System.IO.File.Delete(file);
         }

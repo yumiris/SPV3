@@ -80,13 +80,13 @@ namespace SPV3.Compiler
         {
             var metaPath = (File) Path.Combine(_target, ManifestBin);
 
-            var metadata = new Metadata
+            var metadata = new Manifest
             {
                 Version = Version,
                 Packages = _packages
             };
 
-            new MetadataRepository(metaPath).Save(metadata);
+            new ManifestRepository(metaPath).Save(metadata);
         }
 
         /// <summary>

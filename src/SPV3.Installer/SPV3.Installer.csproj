@@ -39,8 +39,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entry.cs" />
-    <Compile Include="Metadata.cs" />
-    <Compile Include="MetadataRepository.cs" />
+    <Compile Include="Manifest.cs" />
+    <Compile Include="ManifestRepository.cs" />
     <Compile Include="Package.cs" />
     <Compile Include="PackageRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

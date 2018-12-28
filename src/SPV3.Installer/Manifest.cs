@@ -4,12 +4,12 @@ using SPV3.Domain;
 namespace SPV3.Installer
 {
     /// <summary>
-    ///     Type representing the metadata for an SPV3 installation.
+    ///     Type representing the manifest for an SPV3 installation.
     /// </summary>
-    public class Metadata
+    public class Manifest
     {
         /// <summary>
-        ///     Metadata file version.
+        ///     Manifest file version.
         ///     <see cref="Version" />
         /// </summary>
         public Version Version { get; set; }
@@ -23,15 +23,15 @@ namespace SPV3.Installer
         /// <summary>
         ///     Represent object as Package list.
         /// </summary>
-        /// <param name="metadata">
+        /// <param name="manifest">
         ///     Object to represent as Package list.
         /// </param>
         /// <returns>
         ///     Package list representation of the object.
         /// </returns>
-        public static implicit operator List<Package>(Metadata metadata)
+        public static implicit operator List<Package>(Manifest manifest)
         {
-            return metadata.Packages;
+            return manifest.Packages;
         }
 
         /// <summary>
@@ -43,9 +43,9 @@ namespace SPV3.Installer
         /// <returns>
         ///     Object representation of the Package list.
         /// </returns>
-        public static explicit operator Metadata(List<Package> value)
+        public static explicit operator Manifest(List<Package> value)
         {
-            return new Metadata
+            return new Manifest
             {
                 Packages = value
             };
