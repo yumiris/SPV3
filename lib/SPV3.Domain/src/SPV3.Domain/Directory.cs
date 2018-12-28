@@ -1,9 +1,9 @@
 namespace SPV3.Domain
 {
     /// <summary>
-    ///     Represents an entry within a Package. <see cref="Package" />
+    ///     Represents a directory on the filesystem.
     /// </summary>
-    public class Entry
+    public class Directory
     {
         /// <summary>
         ///     <see cref="Name" />
@@ -13,15 +13,15 @@ namespace SPV3.Domain
         /// <summary>
         ///     Represent object as string.
         /// </summary>
-        /// <param name="entry">
+        /// <param name="directory">
         ///     Object to represent as string.
         /// </param>
         /// <returns>
         ///     String representation of the object.
         /// </returns>
-        public static implicit operator string(Entry entry)
+        public static implicit operator string(Directory directory)
         {
-            return entry.Name;
+            return directory.Name;
         }
 
         /// <summary>
@@ -33,9 +33,9 @@ namespace SPV3.Domain
         /// <returns>
         ///     Object representation of the string.
         /// </returns>
-        public static explicit operator Entry(string name)
+        public static explicit operator Directory(string name)
         {
-            return new Entry
+            return new Directory
             {
                 Name = (Name) name
             };

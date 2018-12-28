@@ -38,6 +38,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entry.cs" />
     <Compile Include="Metadata.cs" />
     <Compile Include="MetadataRepository.cs" />
     <Compile Include="Package.cs" />
