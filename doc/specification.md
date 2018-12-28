@@ -9,7 +9,7 @@ The following diagram visualises the hierarchy of the entities in this domain:
 ![hierarchy](diagrams/hierarchy.png)
 
 - [Installation](#installation)
-- [Metadata](#metadata)
+- [Manifest](#manifest)
 - [Package](#package)
 - [File](#file)
 
@@ -27,20 +27,22 @@ the installation directory.
 Once the backup routine is finished, each package will then be extracted to the
 installation directory.
 
-For actually creating the installation packages & metadata, please refer to the
+For actually creating the installation packages & manifest, please refer to the
 [Compilation](compilation.md)] document.
 
-## Metadata
+## Manifest
 
-A metadata file is a persistent representation of all the packages that the SPV3
+A manifest file is a persistent representation of all the packages that the SPV3
 Installer should handle. It documents the files belonging to each package, and
 the backup directory.
 
-The metadata file is created by:
+The manifest file is created by:
 
 1. Serialising an Installer instance into an XML equivalent.
 2. Computing the UTF8 bytes representation of the XML string.
 3. Compressing said UTF8 bytes using the DEFLATE algorithm.
+
+The manifest is expected to be called `0x00.bin` on the filesystem.
 
 ## Package
 
@@ -49,6 +51,9 @@ are identified by the `0x` prefix, and the `.bin` extension.
 
 Conventionally, each package represents either a subdirectory, or the core files
 belonging to HCE or SPV3.
+
+The core package is named `0x01.bin`, and the subdirectory packages have their
+own numbers. 
 
 ## File
 
@@ -62,5 +67,5 @@ This section covers the installation, backup and persistence implementations.
   from the packages to the filesystem.
 - [**Backup**](./specification.md): pre-installation backup of SPV3.2 files
   which may already exist on the filesystem.
-- [**Persistence**](#persistence): storing the installation metadata, including
+- [**Persistence**](#persistence): storing the installation manifest, including
   what files to install & where.

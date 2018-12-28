@@ -12,13 +12,18 @@ SPV3 files to the end-user's computer.
 
 ## Implementation
 
+Fundamentally, the Compiler handles two tasks:
+
+- creating DEFLATE packages of the source directory's files & subdirectories.
+- creating a Manifest (`0x00.bin`) which represents the source directory.
+
 ### Packages
 
 To comply with the [Specification](specification.md) document, the compiler
 produces DEFLATE binary packages with the following convention:
 
-- for all of the root files, a single package is created: `0x00.bin`;
-- for each subdirectory, a package is created; starting at `0x01.bin`.
+- for all of the root files, a single "core" package is created: `0x01.bin`;
+- for each subdirectory, a package is created; starting at `0x02.bin`.
 
 ![packages](diagrams/packages.png)
 
@@ -26,11 +31,7 @@ produces DEFLATE binary packages with the following convention:
 
 For the sake of simplicity, the compiler invokes the 7-Zip executable to
 compress the packages. The library verifies the checksum of the 7-Zip executable
-prior to executing it, to avoid the execution of unsafe executables.
-
-By default, the library expects the 64-bit Windows version of 7-Zip 18.05. This
-can be overridden by instantiating the `SPV3.Compiler.Compression` type with a
-new compression executable path & hash.
+prior to executing it, to avoid the execution of unsafe/corrupted executables.
 
 ## Usage
 
