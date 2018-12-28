@@ -13,13 +13,31 @@ namespace SPV3.Domain
     {
         private File _file;
 
+        /// <summary>
+        ///     PackageRepository constructor.
+        /// </summary>
+        /// <param name="file">
+        ///    Source file for saving & loading package state.
+        /// </param>
         public PackageRepository(File file)
         {
             _file = file;
         }
 
+        /// <summary>
+        ///     Saves the inbound Package state to the provided File.
+        /// </summary>
+        /// <remarks>
+        ///    The data is saved as a DEFLATE-compressed XML binary.
+        /// </remarks>
+        /// <param name="package">
+        ///    Instance of a Package type.
+        /// </param>
         public void Save(Package package)
         {
+            /**
+             * The instance is serialised to an XML string. This allows us to accurately persist the object's state.
+             */
             var xml = new Func<Package, string>(x =>
             {
                 using (var stringWriter = new StringWriter())
@@ -30,6 +48,9 @@ namespace SPV3.Domain
                 }
             })(package);
 
+            /**
+             * The XMl is DEFLATE-compressed into a byte array that can be saved to the File.
+             */
             var bin = new Func<string, byte[]>(x =>
             {
                 using (var outputStream = new MemoryStream())
@@ -45,10 +66,22 @@ namespace SPV3.Domain
             System.IO.File.WriteAllBytes(_file, bin);
         }
 
+        /// <summary>
+        ///     Loads the Package state from the provided File.
+        /// </summary>
+        /// <returns>
+        ///    Instance of a Package type.
+        /// </returns>
         public Package Load()
         {
+            /**
+             * We read the bytes back from the File.
+             */
             var bin = System.IO.File.ReadAllBytes(_file);
 
+            /**
+             * The bytes are decompressed back from DEFLATE to the XML string.
+             */
             var xml = new Func<byte[], string>(x =>
             {
                 using (var outputStream = new MemoryStream())
