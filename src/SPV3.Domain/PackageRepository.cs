@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
@@ -5,61 +6,61 @@ using System.Xml.Serialization;
 
 namespace SPV3.Domain
 {
+    /// <summary>
+    ///     Saves and loads Package-type states from the given file.
+    /// </summary>
     public class PackageRepository
     {
-        private string _source;
+        private File _file;
 
-        public PackageRepository(string source)
+        public PackageRepository(File file)
         {
-            _source = source;
+            _file = file;
         }
 
         public void Save(Package package)
         {
-            File.WriteAllBytes(_source, ToBin(package));
+            var xml = new Func<Package, string>(x =>
+            {
+                using (var stringWriter = new StringWriter())
+                {
+                    var serialiser = new XmlSerializer(typeof(Package));
+                    serialiser.Serialize(stringWriter, package);
+                    return stringWriter.ToString();
+                }
+            })(package);
+
+            var bin = new Func<string, byte[]>(x =>
+            {
+                using (var outputStream = new MemoryStream())
+                using (var bufferStream = new MemoryStream(Encoding.UTF8.GetBytes(x)))
+                using (var zippedStream = new DeflateStream(outputStream, CompressionMode.Compress, false))
+                {
+                    bufferStream.CopyTo(zippedStream);
+                    zippedStream.Close();
+                    return outputStream.ToArray();
+                }
+            })(xml);
+
+            System.IO.File.WriteAllBytes(_file, bin);
         }
 
         public Package Load()
         {
-            return FromBin(File.ReadAllBytes(_source));
-        }
+            var bin = System.IO.File.ReadAllBytes(_file);
 
-        private byte[] ToBin(Package package)
-        {
-            using (var outputStream = new MemoryStream())
-            using (var bufferStream = new MemoryStream(Encoding.UTF8.GetBytes(ToXml(package))))
-            using (var zippedStream = new DeflateStream(outputStream, CompressionMode.Compress, false))
+            var xml = new Func<byte[], string>(x =>
             {
-                bufferStream.CopyTo(zippedStream);
-                zippedStream.Close();
-                return outputStream.ToArray();
-            }
-        }
+                using (var outputStream = new MemoryStream())
+                using (var bufferStream = new MemoryStream(x))
+                using (var zippedStream = new DeflateStream(bufferStream, CompressionMode.Decompress))
+                {
+                    zippedStream.CopyTo(outputStream);
+                    zippedStream.Close();
+                    return Encoding.ASCII.GetString(outputStream.ToArray());
+                }
+            })(bin);
 
-        private Package FromBin(byte[] data)
-        {
-            using (var outputStream = new MemoryStream())
-            using (var bufferStream = new MemoryStream(data))
-            using (var zippedStream = new DeflateStream(bufferStream, CompressionMode.Decompress))
-            {
-                zippedStream.CopyTo(outputStream);
-                zippedStream.Close();
-                return FromXml(Encoding.ASCII.GetString(outputStream.ToArray()));
-            }
-        }
-
-        private string ToXml(Package package)
-        {
-            var serializer = new XmlSerializer(typeof(Package));
-            using (var writer = new StringWriter())
-            {
-                serializer.Serialize(writer, package);
-                return writer.ToString();
-            }
-        }
-
-        private Package FromXml(string xml)
-        {
             var serializer = new XmlSerializer(typeof(Package));
             using (TextReader reader = new StringReader(xml))
             {

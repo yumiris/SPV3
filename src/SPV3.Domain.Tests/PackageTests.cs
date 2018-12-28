@@ -23,32 +23,5 @@ namespace SPV3.Domain.Tests
                 };
             });
         }
-
-        [Test]
-        public void Repository_DataIsSaved_True()
-        {
-            var sourcePackage = new Package
-            {
-                Name = (Name) "Main",
-                Entries = new List<Entry>
-                {
-                    (Entry) "Flandre Scarlet",
-                    (Entry) "Reimu Hakurei",
-                    (Entry) "Yuuka Kazami",
-                    (Entry) "Marisa Kirisame",
-                    (Entry) "Yukari Yakumo",
-                    (Entry) "Utsuho Reiuji",
-                    (Entry) "Remilia Scarlet"
-                }
-            };
-            
-            var packageRepository = new PackageRepository("data.bin");
-            packageRepository.Save(sourcePackage);
-
-            var loadedPackage = packageRepository.Load();
-            Assert.AreEqual(sourcePackage.Name.Value, loadedPackage.Name.Value);
-            
-            File.Delete("data.bin");
-        }
     }
 }
