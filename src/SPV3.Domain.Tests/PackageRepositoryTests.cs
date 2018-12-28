@@ -1,4 +1,4 @@
-using System.IO;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace SPV3.Domain.Tests
@@ -6,14 +6,26 @@ namespace SPV3.Domain.Tests
     [TestFixture]
     public class PackageRepositoryTests
     {
+        [SetUp]
+        public void SetUp()
+        {
+            Repository.Save(Package);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            System.IO.File.Delete(TestFile);
+        }
+
         private const string TestFile = "data.bin";
 
-        private static readonly PackageRepository _repository = new PackageRepository((File) TestFile);
+        private static readonly PackageRepository Repository = new PackageRepository((File) TestFile);
 
-        private static readonly Package _package = new Package
+        private static readonly Package Package = new Package
         {
             Name = (Name) "Main",
-            Entries = new System.Collections.Generic.List<Entry>
+            Entries = new List<Entry>
             {
                 (Entry) "Flandre Scarlet",
                 (Entry) "Reimu Hakurei",
@@ -25,32 +37,20 @@ namespace SPV3.Domain.Tests
             }
         };
 
-        [SetUp]
-        public void SetUp()
+        [Test]
+        public void Repository_PackageEntryIsSaved_True()
         {
-            _repository.Save(_package);
+            var loadedPackage = Repository.Load();
+
+            for (var i = 0; i < Package.Entries.Count; i++)
+                Assert.AreEqual(Package.Entries[i].Name.Value, loadedPackage.Entries[i].Name.Value);
         }
 
         [Test]
         public void Repository_PackageNameIsSaved_True()
         {
-            var loadedPackage = _repository.Load();
-            Assert.AreEqual(_package.Name.Value, loadedPackage.Name.Value);
-        }
-
-        [Test]
-        public void Repository_PackageEntryIsSaved_True()
-        {
-            var loadedPackage = _repository.Load();
-
-            for (var i = 0; i < _package.Entries.Count; i++)
-                Assert.AreEqual(_package.Entries[i].Name.Value, loadedPackage.Entries[i].Name.Value);
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            System.IO.File.Delete(TestFile);
+            var loadedPackage = Repository.Load();
+            Assert.AreEqual(Package.Name.Value, loadedPackage.Name.Value);
         }
     }
 }

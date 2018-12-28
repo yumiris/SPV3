@@ -6,17 +6,17 @@ namespace SPV3.Domain
     public class Version
     {
         /// <summary>
-        /// <see cref="Major"/>
+        ///     <see cref="Major" />
         /// </summary>
         private int _major;
-        
+
         /// <summary>
-        /// <see cref="Minor"/>
+        ///     <see cref="Minor" />
         /// </summary>
         private int _minor;
 
         /// <summary>
-        /// <see cref="Patch"/>
+        ///     <see cref="Patch" />
         /// </summary>
         private int _patch;
 

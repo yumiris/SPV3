@@ -11,13 +11,13 @@ namespace SPV3.Domain
     /// </summary>
     public class PackageRepository
     {
-        private File _file;
+        private readonly File _file;
 
         /// <summary>
         ///     PackageRepository constructor.
         /// </summary>
         /// <param name="file">
-        ///    Source file for saving & loading package state.
+        ///     Source file for saving & loading package state.
         /// </param>
         public PackageRepository(File file)
         {
@@ -28,10 +28,10 @@ namespace SPV3.Domain
         ///     Saves the inbound Package state to the provided File.
         /// </summary>
         /// <remarks>
-        ///    The data is saved as a DEFLATE-compressed XML binary.
+        ///     The data is saved as a DEFLATE-compressed XML binary.
         /// </remarks>
         /// <param name="package">
-        ///    Instance of a Package type.
+        ///     Instance of a Package type.
         /// </param>
         public void Save(Package package)
         {
@@ -70,7 +70,7 @@ namespace SPV3.Domain
         ///     Loads the Package state from the provided File.
         /// </summary>
         /// <returns>
-        ///    Instance of a Package type.
+        ///     Instance of a Package type.
         /// </returns>
         public Package Load()
         {

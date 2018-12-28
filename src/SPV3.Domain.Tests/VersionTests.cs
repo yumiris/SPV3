@@ -6,6 +6,14 @@ namespace SPV3.Domain.Tests
     public class VersionTests
     {
         [Test]
+        public void ExplicitCreation_VersionIsCorrect()
+        {
+            var version = (Version) "2.4.8";
+
+            Assert.AreEqual("2.4.8", (string) version);
+        }
+
+        [Test]
         public void ImplicitCreation_VersionIsCorrect()
         {
             var version = new Version
@@ -14,14 +22,6 @@ namespace SPV3.Domain.Tests
                 Minor = 4,
                 Patch = 8
             };
-
-            Assert.AreEqual("2.4.8", (string) version);
-        }
-
-        [Test]
-        public void ExplicitCreation_VersionIsCorrect()
-        {
-            var version = (Version) "2.4.8";
 
             Assert.AreEqual("2.4.8", (string) version);
         }

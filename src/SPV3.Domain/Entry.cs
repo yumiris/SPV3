@@ -1,7 +1,7 @@
 namespace SPV3.Domain
 {
     /// <summary>
-    ///     Represents an entry within a Package. <see cref="Package"/>
+    ///     Represents an entry within a Package. <see cref="Package" />
     /// </summary>
     public class Entry
     {

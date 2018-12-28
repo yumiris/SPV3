@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace SPV3.Domain
 {
     /// <summary>
-    ///     Represents a Package with Entries. <see cref="Entry"/>
+    ///     Represents a Package with Entries. <see cref="Entry" />
     /// </summary>
     public class Package
     {
