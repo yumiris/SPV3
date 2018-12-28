@@ -1,6 +1,22 @@
 namespace SPV3.Domain
 {
     /// <summary>
+    ///     Type of Entry on the filesystem.
+    /// </summary>
+    public enum EntryType
+    {
+        /// <summary>
+        ///     Entry is a binary or text file.
+        /// </summary>
+        File,
+        
+        /// <summary>
+        ///     Entry is a directory.
+        /// </summary>
+        Directory
+    }
+
+    /// <summary>
     ///     Represents an entry within a Package. <see cref="Package" />
     /// </summary>
     public class Entry
@@ -9,6 +25,11 @@ namespace SPV3.Domain
         ///     <see cref="Name" />
         /// </summary>
         public Name Name { get; set; }
+
+        /// <summary>
+        ///     <see cref="EntryType"/>
+        /// </summary>
+        public EntryType Type { get; set; } = EntryType.File;
 
         /// <summary>
         ///     Represent object as string.
