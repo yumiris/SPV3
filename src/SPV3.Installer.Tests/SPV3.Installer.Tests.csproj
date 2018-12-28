@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0B8793B9-3D8A-4811-A599-5A019AC15E16}</ProjectGuid>
+    <ProjectGuid>{DB482CB2-A68F-434B-B4CE-7CF8D3A3B3CA}</ProjectGuid>
     <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SPV3.Installer.Test</RootNamespace>
-    <AssemblyName>SPV3.Installer.Test</AssemblyName>
+    <RootNamespace>SPV3.Installer.Tests</RootNamespace>
+    <AssemblyName>SPV3.Installer.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -42,12 +42,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PersistenceTests.cs" />
+    <Compile Include="MetadataRepositoryTest.cs" />
+    <Compile Include="PackageRepositoryTests.cs" />
+    <Compile Include="PackageTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\lib\SPV3.Domain\src\SPV3.Domain\SPV3.Domain.csproj">
+      <Project>{df140d8d-f741-424e-b5f7-54efa3ccd796}</Project>
+      <Name>SPV3.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SPV3.Installer\SPV3.Installer.csproj">
-      <Project>{f18bf1fd-1058-4c86-a980-850375216e7d}</Project>
+      <Project>{88b02dc6-ea11-4329-844a-8885b253a3f3}</Project>
       <Name>SPV3.Installer</Name>
     </ProjectReference>
   </ItemGroup>

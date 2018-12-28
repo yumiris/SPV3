@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SPV3.Installer")]
+[assembly: AssemblyTitle("SPV3.Installer.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SPV3.Installer")]
+[assembly: AssemblyProduct("SPV3.Installer.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("88B02DC6-EA11-4329-844A-8885B253A3F3")]
+[assembly: Guid("DB482CB2-A68F-434B-B4CE-7CF8D3A3B3CA")]
 
 // Version information for an assembly consists of the following four values:
 //

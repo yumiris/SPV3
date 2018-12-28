@@ -1,96 +1,58 @@
+using System;
 using System.Collections.Generic;
-using System.IO;
-using System.IO.Compression;
+using SPV3.Domain;
 
 namespace SPV3.Installer
 {
     /// <summary>
-    ///     Represents an archive of files which are all installed to a specific location.
+    ///     Represents a Package with Entries. <see cref="Entry" />
     /// </summary>
     public class Package
     {
         /// <summary>
-        ///     Extension used for the package file on the filesystem.
+        ///     Maximum count allowed for the Entries list.
         /// </summary>
-        public const string Extension = ".pkg";
+        private const int MaxCount = 0xFF;
 
         /// <summary>
-        ///     Package filename on the system.
+        ///     <see cref="Entries" />
         /// </summary>
-        /// <example>
-        ///     0x01.pkg
-        /// </example>
+        private List<Entry> _entries;
+
+        /// <summary>
+        ///     <see cref="Name" />
+        /// </summary>
         public Name Name { get; set; }
 
         /// <summary>
-        ///     Package description for the end-user.
+        ///     List of entries in the package.
         /// </summary>
-        /// <example>
-        ///     SPV3.2 Core Installation Data
-        /// </example>
-        public Description Description { get; set; }
-
-        /// <summary>
-        ///     Optional subdirectory for package files.
-        /// </summary>
-        public Directory Directory { get; set; }
-
-        /// <summary>
-        ///     Files contained within the package.
-        /// </summary>
-        /// <example>
-        ///     {
-        ///     haloce.exe,
-        ///     spv3.exe
-        ///     dinput8.dll
-        ///     }
-        /// </example>
-        public List<File> Files { get; set; }
-
-        /// <summary>
-        ///     Checks if the package exists on the filesystem using the Path value.
-        /// </summary>
-        /// <returns>
-        ///     True if package exists, otherwise false.
-        /// </returns>
-        public bool Exists()
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     Entries count exceeds upper bound. <see cref="MaxCount" />
+        /// </exception>
+        public List<Entry> Entries
         {
-            return System.IO.File.Exists(this);
+            get => _entries;
+            set
+            {
+                if (value.Count > MaxCount)
+                {
+                    var message = $"Entries count exceeds upper bound of {MaxCount}.";
+                    throw new ArgumentOutOfRangeException(nameof(value), message);
+                }
+
+                _entries = value;
+            }
         }
 
         /// <summary>
-        ///     Extracts the package data to the inbound directory.
-        /// </summary>
-        /// <remarks>
-        ///     A backup routine should be conducted prior to invoking this method, for the purpose of preventing
-        ///     collisions with files that may already exist at the target destination.
-        /// </remarks>
-        /// <param name="directory"></param>
-        /// <exception cref="FileNotFoundException">
-        ///     Package does not exist on the filesystem.
-        /// </exception>
-        /// <exception cref="DirectoryNotFoundException">
-        ///     Target directory does not exist on the filesystem.
-        /// </exception>
-        public void ExtractTo(Directory directory)
-        {
-            if (!Exists())
-                throw new FileNotFoundException("Package does not exist on the filesystem.");
-
-            if (!directory.Exists())
-                throw new DirectoryNotFoundException("Target directory does not exist on the filesystem.");
-
-            ZipFile.ExtractToDirectory(this, directory);
-        }
-
-        /// <summary>
-        ///     Implicitly represents object as string.
+        ///     Represent object as string.
         /// </summary>
         /// <param name="package">
-        ///     Object instance.
+        ///     Object to represent as string.
         /// </param>
         /// <returns>
-        ///     Package.Name
+        ///     String representation of the object.
         /// </returns>
         public static implicit operator string(Package package)
         {
@@ -98,17 +60,51 @@ namespace SPV3.Installer
         }
 
         /// <summary>
-        ///     Implicitly represents object as a File list.
+        ///     Represent string as object.
         /// </summary>
-        /// <param name="package">
-        ///     Object instance.
+        /// <param name="value">
+        ///     String to represent as object.
         /// </param>
         /// <returns>
-        ///     Package.Files
+        ///     Object representation of the string.
         /// </returns>
-        public static implicit operator List<File>(Package package)
+        public static explicit operator Package(string value)
         {
-            return package.Files;
+            return new Package
+            {
+                Name = (Name) value
+            };
+        }
+
+        /// <summary>
+        ///     Represent object as Entry list.
+        /// </summary>
+        /// <param name="package">
+        ///     Object to represent as Entry list.
+        /// </param>
+        /// <returns>
+        ///     Entry list representation of the object.
+        /// </returns>
+        public static implicit operator List<Entry>(Package package)
+        {
+            return package.Entries;
+        }
+
+        /// <summary>
+        ///     Represent Entry list as object.
+        /// </summary>
+        /// <param name="value">
+        ///     Entry list to represent as object.
+        /// </param>
+        /// <returns>
+        ///     Object representation of the Entry list.
+        /// </returns>
+        public static explicit operator Package(List<Entry> value)
+        {
+            return new Package
+            {
+                Entries = value
+            };
         }
     }
 }

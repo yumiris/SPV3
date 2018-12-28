@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{88B02DC6-EA11-4329-844A-8885B253A3F3}</ProjectGuid>
+    <ProjectGuid>{DF140D8D-F741-424E-B5F7-54EFA3CCD796}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SPV3.Installer</RootNamespace>
-    <AssemblyName>SPV3.Installer</AssemblyName>
+    <RootNamespace>SPV3.Domain</RootNamespace>
+    <AssemblyName>SPV3.Domain</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -38,17 +38,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Metadata.cs" />
-    <Compile Include="MetadataRepository.cs" />
-    <Compile Include="Package.cs" />
-    <Compile Include="PackageRepository.cs" />
+    <Compile Include="File.cs" />
+    <Compile Include="Name.cs" />
+    <Compile Include="Entry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\lib\SPV3.Domain\src\SPV3.Domain\SPV3.Domain.csproj">
-      <Project>{df140d8d-f741-424e-b5f7-54efa3ccd796}</Project>
-      <Name>SPV3.Domain</Name>
-    </ProjectReference>
+    <Compile Include="Version.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

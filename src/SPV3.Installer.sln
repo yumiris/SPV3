@@ -3,10 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Blend for Visual Studio 15
 VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Installer", "SPV3.Installer\SPV3.Installer.csproj", "{F18BF1FD-1058-4C86-A980-850375216E7D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Installer.Test", "SPV3.Installer.Test\SPV3.Installer.Test.csproj", "{0B8793B9-3D8A-4811-A599-5A019AC15E16}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{D6CBD702-873C-4BDA-810F-A92E0B46A924}"
 	ProjectSection(SolutionItems) = preProject
 		..\doc\compilation.md = ..\doc\compilation.md
@@ -19,20 +15,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Compiler.GUI", "SPV3.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Compiler", "SPV3.Compiler\SPV3.Compiler.csproj", "{0AB09F2F-FDD8-40A8-829D-EFA4BE48AC5B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Installer", "SPV3.Installer\SPV3.Installer.csproj", "{88B02DC6-EA11-4329-844A-8885B253A3F3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{3D87907C-657C-4056-BFD0-1230D6850304}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Domain", "..\lib\SPV3.Domain\src\SPV3.Domain\SPV3.Domain.csproj", "{DF140D8D-F741-424E-B5F7-54EFA3CCD796}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Installer.Tests", "SPV3.Installer.Tests\SPV3.Installer.Tests.csproj", "{DB482CB2-A68F-434B-B4CE-7CF8D3A3B3CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F18BF1FD-1058-4C86-A980-850375216E7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F18BF1FD-1058-4C86-A980-850375216E7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F18BF1FD-1058-4C86-A980-850375216E7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F18BF1FD-1058-4C86-A980-850375216E7D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0B8793B9-3D8A-4811-A599-5A019AC15E16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0B8793B9-3D8A-4811-A599-5A019AC15E16}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0B8793B9-3D8A-4811-A599-5A019AC15E16}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0B8793B9-3D8A-4811-A599-5A019AC15E16}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A111649B-6501-492E-B2F6-C6AD768FA353}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A111649B-6501-492E-B2F6-C6AD768FA353}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A111649B-6501-492E-B2F6-C6AD768FA353}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -41,11 +37,26 @@ Global
 		{0AB09F2F-FDD8-40A8-829D-EFA4BE48AC5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AB09F2F-FDD8-40A8-829D-EFA4BE48AC5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AB09F2F-FDD8-40A8-829D-EFA4BE48AC5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88B02DC6-EA11-4329-844A-8885B253A3F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88B02DC6-EA11-4329-844A-8885B253A3F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88B02DC6-EA11-4329-844A-8885B253A3F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88B02DC6-EA11-4329-844A-8885B253A3F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF140D8D-F741-424E-B5F7-54EFA3CCD796}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF140D8D-F741-424E-B5F7-54EFA3CCD796}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF140D8D-F741-424E-B5F7-54EFA3CCD796}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF140D8D-F741-424E-B5F7-54EFA3CCD796}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB482CB2-A68F-434B-B4CE-7CF8D3A3B3CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB482CB2-A68F-434B-B4CE-7CF8D3A3B3CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB482CB2-A68F-434B-B4CE-7CF8D3A3B3CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB482CB2-A68F-434B-B4CE-7CF8D3A3B3CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CF13DF44-4C6A-4171-9586-AE38CDF5F8B3}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DF140D8D-F741-424E-B5F7-54EFA3CCD796} = {3D87907C-657C-4056-BFD0-1230D6850304}
 	EndGlobalSection
 EndGlobal
