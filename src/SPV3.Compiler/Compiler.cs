@@ -13,12 +13,19 @@ namespace SPV3.Compiler
     /// </summary>
     public class Compiler
     {
+        /// <summary>
+        ///     Name for the manifest file.
+        /// </summary>
         private const string ManifestBin = "0x00.bin";
+
+        /// <summary>
+        ///     Name for the core package.
+        /// </summary>
         private const string CorePackage = "0x01.bin";
 
-        private static readonly string SevenZipPath = Path.Combine("7z", "7za.exe");
-        private static readonly string SevenZipHash = "e93c0c45d84f328afba850e87ac7398c";
-
+        /// <summary>
+        ///     Current manifest/compiler version.
+        /// </summary>
         private static readonly Version Version = new Version
         {
             Major = 1,
@@ -26,17 +33,39 @@ namespace SPV3.Compiler
             Patch = 0
         };
 
+        /// <summary>
+        ///     Created & compiled packages.
+        /// </summary>
         private readonly List<Package> _packages = new List<Package>();
 
+        /// <summary>
+        ///     SPV3 source data directory.
+        /// </summary>
         private readonly Directory _source;
+
+        /// <summary>
+        ///     Target directory for manifest & packages.
+        /// </summary>
         private readonly Directory _target;
 
+        /// <summary>
+        ///     Compiler constructor.
+        /// </summary>
+        /// <param name="source">
+        ///     SPV3 source data directory.
+        /// </param>
+        /// <param name="target">
+        ///     Target directory for manifest & packages.
+        /// </param>
         public Compiler(Directory source, Directory target)
         {
             _source = source;
             _target = target;
         }
 
+        /// <summary>
+        ///     Compiles the provided source directory into DEFLATE packages & manifest in the target directory.
+        /// </summary>
         public void Compile()
         {
             CreateCorePackage();
@@ -44,6 +73,9 @@ namespace SPV3.Compiler
             CreateMetadataBin();
         }
 
+        /// <summary>
+        ///     Creates the metadata binary in the target directory.
+        /// </summary>
         private void CreateMetadataBin()
         {
             var metaPath = (File) Path.Combine(_target, ManifestBin);
@@ -57,11 +89,19 @@ namespace SPV3.Compiler
             new MetadataRepository(metaPath).Save(metadata);
         }
 
+        /// <summary>
+        ///     Creates the core DEFLATE package and adds it as a Package in the Packages list.
+        ///     The package files & Entries are all of the root files in the source directory.
+        /// </summary>
         private void CreateCorePackage()
         {
             var core = new DirectoryInfo(_source)
                 .GetFiles("*.*");
 
+            /**
+             * Invokes the Compressor class with the intent of creating a single DEFLATE package, which would contain
+             * all of the root files in the source directory.
+             */
             void Invoke()
             {
                 var target = (File) Path.Combine(_target, CorePackage);
@@ -73,6 +113,10 @@ namespace SPV3.Compiler
                 new Compressor().Compress(target, _source, files);
             }
 
+            /**
+             * Adds an Entry for each root file in the source directory in the Package, which is then added to the main
+             * Packages List.
+             */
             void Append()
             {
                 var files = core
@@ -92,8 +136,16 @@ namespace SPV3.Compiler
             Append();
         }
 
+        /// <summary>
+        ///     Creates the DEFLATE packages for subdirectories in the source folder, and adds each subdirectory as a
+        ///     Package in the Packages list. Each created Package's Entries represent the files in the respective
+        ///     subdirectory.
+        /// </summary>
         private void CreateDirPackages()
         {
+            /**
+             * 
+             */
             void Invoke(string name, FileSystemInfo directory)
             {
                 var target = (File) Path.Combine(_target, $"{name}");
@@ -102,6 +154,10 @@ namespace SPV3.Compiler
                 new Compressor().Compress(target, source);
             }
 
+            /**
+             * Adds an Entry for each file in the subdirectory in a new Package, which is then added to the main
+             * Packages List.
+             */
             void Append(string name, FileSystemInfo directory)
             {
                 var files = System.IO.Directory
@@ -116,8 +172,11 @@ namespace SPV3.Compiler
                 });
             }
 
+            /**
+             * This loop ensures that a single package per subdirectory in the source folder is created.
+             * The index starts at two, considering that 0 & 1 represent the manifest and core package, respectively.
+             */
             var index = 2;
-
             foreach (var directory in new DirectoryInfo(_source).GetDirectories())
             {
                 var name = $"{index:D2}.bin";
