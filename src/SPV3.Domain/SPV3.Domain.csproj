@@ -38,6 +38,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="File.cs" />
     <Compile Include="Name.cs" />
     <Compile Include="Package.cs" />
     <Compile Include="Entry.cs" />
