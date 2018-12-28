@@ -41,6 +41,7 @@
     <Compile Include="Name.cs" />
     <Compile Include="Package.cs" />
     <Compile Include="Entry.cs" />
+    <Compile Include="PackageRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
