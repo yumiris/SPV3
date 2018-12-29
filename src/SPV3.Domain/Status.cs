@@ -2,6 +2,8 @@ namespace SPV3.Domain
 {
     /// <summary>
     ///     Abstract representing a progress status.
+    ///     This status can be injected into library routines to assign their progress in a human-readable format.
+    ///     The assigned data can be displayed to, for example, the CLI, or be bound to a View.
     /// </summary>
     public abstract class Status
     {
@@ -11,14 +13,6 @@ namespace SPV3.Domain
         /// <param name="data">
         ///     Data to append the status.
         /// </param>
-        public abstract void Append(string data);
-
-        /// <summary>
-        ///     Resets the status to the given progress.
-        /// </summary>
-        /// <param name="data">
-        ///     Data to update the status to.
-        /// </param>
-        public abstract void Update(string data);
+        public abstract void Commit(string data);
     }
 }
