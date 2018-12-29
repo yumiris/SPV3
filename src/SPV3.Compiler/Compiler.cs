@@ -168,20 +168,24 @@ namespace SPV3.Compiler
                 var entries = new List<Entry>();
 
                 foreach (var file in files)
+                {
+                    var type = EntryType.Unknown;
+
+                    if (System.IO.File.Exists(file))
+                        type = EntryType.File;
+
+                    if (System.IO.Directory.Exists(file))
+                        type = EntryType.Directory;
+
+                    if (type == EntryType.Unknown)
+                        throw new FormatException("Cannot infer Entry Type. Does filesystem record exist?");
+
                     entries.Add(new Entry
                     {
                         Name = (Name) Path.GetFileName(file),
-                        Type = new Func<string, EntryType>(x =>
-                        {
-                            if (System.IO.File.Exists(file))
-                                return EntryType.File;
-
-                            if (System.IO.Directory.Exists(file))
-                                return EntryType.Directory;
-                            
-                            throw new FormatException("Cannot infer entry type. Does filesystem record exist?");
-                        })(file)
+                        Type = type
                     });
+                }
 
                 _packages.Add(new Package
                 {
