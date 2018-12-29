@@ -51,6 +51,10 @@
       <Project>{df140d8d-f741-424e-b5f7-54efa3ccd796}</Project>
       <Name>SPV3.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SPV3.Installer.Data\SPV3.Installer.Data.csproj">
+      <Project>{88b02dc6-ea11-4329-844a-8885b253a3f3}</Project>
+      <Name>SPV3.Installer.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SPV3.Installer\SPV3.Installer.csproj">
       <Project>{88b02dc6-ea11-4329-844a-8885b253a3f3}</Project>
       <Name>SPV3.Installer</Name>

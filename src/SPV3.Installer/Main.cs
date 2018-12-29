@@ -38,14 +38,6 @@ namespace SPV3.Installer
         {
             await Task.Run(() =>
             {
-                var manifest = new ManifestRepository((Domain.File) "0x00.bin").Load();
-                var target = (Directory) Target;
-
-                foreach (var package in manifest.Packages)
-                {
-                    Status = $"Installing {(string) package.Name} to {(string) target}...";
-                    ZipFile.ExtractToDirectory(package.Name, target);
-                }
             });
         }
 
