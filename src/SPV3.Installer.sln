@@ -10,10 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		..\doc\specification.md = ..\doc\specification.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Compiler.GUI", "SPV3.Compiler.GUI\SPV3.Compiler.GUI.csproj", "{A111649B-6501-492E-B2F6-C6AD768FA353}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Compiler", "SPV3.Compiler\SPV3.Compiler.csproj", "{0AB09F2F-FDD8-40A8-829D-EFA4BE48AC5B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{3D87907C-657C-4056-BFD0-1230D6850304}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Domain", "..\lib\SPV3.Domain\src\SPV3.Domain\SPV3.Domain.csproj", "{DF140D8D-F741-424E-B5F7-54EFA3CCD796}"
@@ -24,20 +20,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Installer.Data", "SPV3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Installer", "SPV3.Installer\SPV3.Installer.csproj", "{9FCFE1A6-8D7F-41C9-B938-E66B757F33C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Compiler", "SPV3.Compiler\SPV3.Compiler.csproj", "{A111649B-6501-492E-B2F6-C6AD768FA353}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A111649B-6501-492E-B2F6-C6AD768FA353}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A111649B-6501-492E-B2F6-C6AD768FA353}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A111649B-6501-492E-B2F6-C6AD768FA353}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A111649B-6501-492E-B2F6-C6AD768FA353}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0AB09F2F-FDD8-40A8-829D-EFA4BE48AC5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0AB09F2F-FDD8-40A8-829D-EFA4BE48AC5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0AB09F2F-FDD8-40A8-829D-EFA4BE48AC5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0AB09F2F-FDD8-40A8-829D-EFA4BE48AC5B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DF140D8D-F741-424E-B5F7-54EFA3CCD796}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DF140D8D-F741-424E-B5F7-54EFA3CCD796}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF140D8D-F741-424E-B5F7-54EFA3CCD796}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -54,6 +44,10 @@ Global
 		{9FCFE1A6-8D7F-41C9-B938-E66B757F33C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FCFE1A6-8D7F-41C9-B938-E66B757F33C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FCFE1A6-8D7F-41C9-B938-E66B757F33C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A111649B-6501-492E-B2F6-C6AD768FA353}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A111649B-6501-492E-B2F6-C6AD768FA353}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A111649B-6501-492E-B2F6-C6AD768FA353}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A111649B-6501-492E-B2F6-C6AD768FA353}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

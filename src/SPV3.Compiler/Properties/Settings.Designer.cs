@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SPV3.Compiler.GUI.Properties
+namespace SPV3.Compiler.Properties
 {
 
 

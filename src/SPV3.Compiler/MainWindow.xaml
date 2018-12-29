@@ -1,9 +1,9 @@
-﻿<Window x:Class="SPV3.Compiler.GUI.MainWindow"
+﻿<Window x:Class="SPV3.Compiler.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SPV3.Compiler.GUI"
+        xmlns:compiler="clr-namespace:SPV3.Compiler"
         mc:Ignorable="d"
         Title="SPV3 Compiler"
         WindowStartupLocation="CenterScreen"
@@ -12,7 +12,7 @@
         Background="#F0F0F0"
         SnapsToDevicePixels="True">
     <Window.DataContext>
-        <local:Main />
+        <compiler:Main />
     </Window.DataContext>
     <StackPanel>
         <Menu>

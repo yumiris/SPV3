@@ -1,9 +1,9 @@
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
-using SPV3.Compiler.GUI.Properties;
+using SPV3.Compiler.Properties;
 
-namespace SPV3.Compiler.GUI
+namespace SPV3.Compiler
 {
     /// <summary>
     ///     Main model used for the UI bindings.

@@ -30,7 +30,7 @@ using System;
 // ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable InconsistentNaming
 
-namespace SPV3.Compiler.GUI.Properties
+namespace SPV3.Compiler.Properties
 {
     /// <summary>
     ///     Indicates that the value of the marked element could be <c>null</c> sometimes,

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace SPV3.Compiler.GUI
+namespace SPV3.Compiler
 {
     /// <summary>
     ///     Interaction logic for App.xaml

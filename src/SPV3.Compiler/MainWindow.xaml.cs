@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace SPV3.Compiler.GUI
+namespace SPV3.Compiler
 {
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
