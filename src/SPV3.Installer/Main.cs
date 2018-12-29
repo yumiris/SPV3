@@ -3,10 +3,10 @@ using System.IO.Compression;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using SPV3.Installer.Data;
-using SPV3.Installer.GUI.Properties;
+using SPV3.Installer.Properties;
 using Directory = SPV3.Domain.Directory;
 
-namespace SPV3.Installer.GUI
+namespace SPV3.Installer
 {
     public class Main : INotifyPropertyChanged
     {

@@ -1,4 +1,4 @@
-﻿namespace SPV3.Installer.GUI
+﻿namespace SPV3.Installer
 {
     /// <summary>
     /// Interaction logic for App.xaml

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace SPV3.Installer.GUI
+namespace SPV3.Installer
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

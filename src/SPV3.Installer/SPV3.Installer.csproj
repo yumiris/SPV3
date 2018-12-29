@@ -6,8 +6,8 @@
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
         <ProjectGuid>{9FCFE1A6-8D7F-41C9-B938-E66B757F33C8}</ProjectGuid>
         <OutputType>WinExe</OutputType>
-        <RootNamespace>SPV3.Installer.GUI</RootNamespace>
-        <AssemblyName>SPV3.Installer.GUI</AssemblyName>
+        <RootNamespace>SPV3.Installer</RootNamespace>
+        <AssemblyName>SPV3.Installer</AssemblyName>
         <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
         <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -87,6 +87,10 @@
       <ProjectReference Include="..\..\lib\SPV3.Domain\src\SPV3.Domain\SPV3.Domain.csproj">
         <Project>{df140d8d-f741-424e-b5f7-54efa3ccd796}</Project>
         <Name>SPV3.Domain</Name>
+      </ProjectReference>
+      <ProjectReference Include="..\SPV3.Installer.Data\SPV3.Installer.Data.csproj">
+        <Project>{88b02dc6-ea11-4329-844a-8885b253a3f3}</Project>
+        <Name>SPV3.Installer.Data</Name>
       </ProjectReference>
       <ProjectReference Include="..\SPV3.Installer\SPV3.Installer.csproj">
         <Project>{88b02dc6-ea11-4329-844a-8885b253a3f3}</Project>
