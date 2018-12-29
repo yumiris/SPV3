@@ -13,6 +13,6 @@ namespace SPV3.Domain
         /// <param name="data">
         ///     Data to append the status.
         /// </param>
-        void Commit(string data);
+        void CommitStatus(string data);
     }
 }
