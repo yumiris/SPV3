@@ -2,7 +2,8 @@ using System.ComponentModel;
 using System.IO.Compression;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using SPV3.Installer.GUI.Annotations;
+using SPV3.Installer.Data;
+using SPV3.Installer.GUI.Properties;
 using Directory = SPV3.Domain.Directory;
 
 namespace SPV3.Installer.GUI
@@ -38,7 +39,7 @@ namespace SPV3.Installer.GUI
             await Task.Run(() =>
             {
                 var manifest = new ManifestRepository((Domain.File) "0x00.bin").Load();
-                var target = (Directory) @"D:\Miris\Desktop\SPV3\target";
+                var target = (Directory) Target;
 
                 foreach (var package in manifest.Packages)
                 {

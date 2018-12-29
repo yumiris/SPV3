@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
-using SPV3.Compiler.GUI.Annotations;
+using SPV3.Compiler.GUI.Properties;
 
 namespace SPV3.Compiler.GUI
 {

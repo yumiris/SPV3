@@ -1,6 +1,6 @@
 using System;
 
-namespace SPV3.Installer
+namespace SPV3.Installer.Data
 {
     /// <summary>
     ///     Human-readable description for a complex type.

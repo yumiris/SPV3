@@ -7,8 +7,8 @@
     <ProjectGuid>{88B02DC6-EA11-4329-844A-8885B253A3F3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SPV3.Installer</RootNamespace>
-    <AssemblyName>SPV3.Installer</AssemblyName>
+    <RootNamespace>SPV3.Installer.Data</RootNamespace>
+    <AssemblyName>SPV3.Installer.Data</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

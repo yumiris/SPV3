@@ -1,6 +1,6 @@
 using SPV3.Domain;
 
-namespace SPV3.Installer
+namespace SPV3.Installer.Data
 {
     /// <summary>
     ///     Type of Entry on the filesystem.

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using SPV3.Domain;
 using SPV3.Installer;
+using SPV3.Installer.Data;
 using Directory = SPV3.Domain.Directory;
 using File = SPV3.Domain.File;
 using Version = SPV3.Domain.Version;

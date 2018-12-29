@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using SPV3.Domain;
 
-namespace SPV3.Installer
+namespace SPV3.Installer.Data
 {
     /// <summary>
     ///     Type representing the manifest for an SPV3 installation.

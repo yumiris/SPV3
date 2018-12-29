@@ -4,7 +4,7 @@ using System.Text;
 using System.Xml.Serialization;
 using File = SPV3.Domain.File;
 
-namespace SPV3.Installer
+namespace SPV3.Installer.Data
 {
     public class ManifestRepository
     {
