@@ -161,14 +161,17 @@ namespace SPV3.Compiler
             void Append(string name, FileSystemInfo directory)
             {
                 var files = System.IO.Directory
-                    .GetFileSystemEntries(directory.FullName, "*")
-                    .Cast<Entry>()
-                    .ToList();
+                    .GetFileSystemEntries(directory.FullName, "*");
+
+                var entries = new List<Entry>();
+
+                foreach (var file in files)
+                    entries.Add((Entry) Path.GetFileName(file));
 
                 _packages.Add(new Package
                 {
                     Name = (Name) name,
-                    Entries = files
+                    Entries = entries
                 });
             }
 
@@ -179,7 +182,7 @@ namespace SPV3.Compiler
             var index = 2;
             foreach (var directory in new DirectoryInfo(_source).GetDirectories())
             {
-                var name = $"{index:D2}.bin";
+                var name = $"0x{index:D2}.bin";
 
                 Invoke(name, directory);
                 Append(name, directory);
