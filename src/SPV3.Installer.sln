@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Domain", "..\lib\SPV3.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Installer.Tests", "SPV3.Installer.Tests\SPV3.Installer.Tests.csproj", "{DB482CB2-A68F-434B-B4CE-7CF8D3A3B3CA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Installer.GUI", "SPV3.Installer.GUI\SPV3.Installer.GUI.csproj", "{9FCFE1A6-8D7F-41C9-B938-E66B757F33C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,10 @@ Global
 		{DB482CB2-A68F-434B-B4CE-7CF8D3A3B3CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB482CB2-A68F-434B-B4CE-7CF8D3A3B3CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB482CB2-A68F-434B-B4CE-7CF8D3A3B3CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FCFE1A6-8D7F-41C9-B938-E66B757F33C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FCFE1A6-8D7F-41C9-B938-E66B757F33C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FCFE1A6-8D7F-41C9-B938-E66B757F33C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FCFE1A6-8D7F-41C9-B938-E66B757F33C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

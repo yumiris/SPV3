@@ -1,0 +1,21 @@
+﻿<Window x:Class="SPV3.Installer.GUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SPV3.Installer.GUI"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize">
+    <Window.DataContext>
+        <local:Main/>
+    </Window.DataContext>
+    <StackPanel>
+        <Label Content="Target:"/>
+        <TextBox Text="{Binding Target}"/>
+        <Label Content="{Binding Status}"/>
+        <Button Content="Install"
+                Click="Install"/>
+    </StackPanel>
+</Window>
