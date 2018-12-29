@@ -42,7 +42,6 @@
     <Compile Include="Manifest.cs" />
     <Compile Include="ManifestRepository.cs" />
     <Compile Include="Package.cs" />
-    <Compile Include="PackageRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

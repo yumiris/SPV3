@@ -43,7 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ManifestRepositoryTest.cs" />
-    <Compile Include="PackageRepositoryTests.cs" />
     <Compile Include="PackageTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
