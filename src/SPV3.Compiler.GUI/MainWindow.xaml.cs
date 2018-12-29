@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms.VisualStyles;
 
 namespace SPV3.Compiler.GUI
 {
@@ -105,7 +106,7 @@ namespace SPV3.Compiler.GUI
         /// </param>
         private void AppendOutput(string text)
         {
-            OutputText.Text += $"{text}\n";
+            _main.CommitStatus(text);
             OutputText.ScrollToEnd();
         }
 

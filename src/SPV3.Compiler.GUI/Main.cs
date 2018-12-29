@@ -1,17 +1,32 @@
+using System;
 using System.ComponentModel;
-using System.IO;
 using System.Runtime.CompilerServices;
 using SPV3.Compiler.GUI.Annotations;
+using SPV3.Domain;
+using Directory = System.IO.Directory;
 
 namespace SPV3.Compiler.GUI
 {
     /// <summary>
     ///     Main model used for the UI bindings.
     /// </summary>
-    public class Main : INotifyPropertyChanged
+    public class Main : INotifyPropertyChanged, IStatus
     {
         private string _source;
         private string _target;
+
+        private string _status;
+
+        public string Status
+        {
+            get => _status;
+            set
+            {
+                if (value == _status) return;
+                _status = value;
+                OnPropertyChanged();
+            }
+        }
 
         private bool _canCompile;
 
@@ -55,6 +70,11 @@ namespace SPV3.Compiler.GUI
                 _canCompile = value;
                 OnPropertyChanged();
             }
+        }
+        
+        public void CommitStatus(string data)
+        {
+            Status += $"\n{DateTime.Now:u} - {data}";
         }
 
         /// <summary>

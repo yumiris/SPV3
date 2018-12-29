@@ -84,12 +84,13 @@
                 </GroupBox>
             </StackPanel>
 
-            <!-- Output -->
+            <!-- Status -->
             <DockPanel Grid.Column="1"
                        Margin="5,10,10,10">
                 <GroupBox Header="Output">
                     <TextBox x:Name="OutputText"
                              Height="Auto"
+                             Text="{Binding Status}"
                              FontFamily="Consolas"
                              VerticalContentAlignment="Top"
                              IsReadOnly="True" />
