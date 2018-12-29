@@ -23,17 +23,17 @@ namespace SPV3.Compiler
         /// <summary>
         ///     Suffix (or extension) used for the package/manifest files.
         /// </summary>
-        private const string Suffix = "bin";
+        private const string Suffix = ".bin";
 
         /// <summary>
         ///     Name for the manifest file.
         /// </summary>
-        private const string ManifestBin = Suffix + "00" + Prefix;
+        private const string ManifestBin = Prefix + "00" + Suffix;
 
         /// <summary>
         ///     Name for the core package.
         /// </summary>
-        private const string CorePackage = Suffix + "01" + Prefix;
+        private const string CorePackage = Prefix + "01" + Suffix;
 
         /// <summary>
         ///     Current manifest/compiler version.
@@ -142,7 +142,7 @@ namespace SPV3.Compiler
                 var package = new Package
                 {
                     Name = (Name) CorePackage,
-                    Description = (Description) "Core SPV3/HCE files",
+                    Description = (Description) "Core SPV3/HCE data",
                     Directory = new Directory(),
                     Entries = files
                 };
@@ -219,7 +219,7 @@ namespace SPV3.Compiler
             var index = 2;
             foreach (var directory in new DirectoryInfo(_source).GetDirectories())
             {
-                var name = $"{Prefix}{index:D2}.{Suffix}";
+                var name = $"{Prefix}{index:D2}{Suffix}";
 
                 Invoke(name, directory);
                 Append(name, directory);
