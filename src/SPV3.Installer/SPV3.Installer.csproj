@@ -38,6 +38,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Description.cs" />
     <Compile Include="Entry.cs" />
     <Compile Include="Manifest.cs" />
     <Compile Include="ManifestRepository.cs" />

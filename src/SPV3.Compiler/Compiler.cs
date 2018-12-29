@@ -142,6 +142,7 @@ namespace SPV3.Compiler
                 var package = new Package
                 {
                     Name = (Name) CorePackage,
+                    Description = (Description) "Core SPV3/HCE files",
                     Directory = new Directory(),
                     Entries = files
                 };
@@ -205,6 +206,7 @@ namespace SPV3.Compiler
                 _packages.Add(new Package
                 {
                     Name = (Name) name,
+                    Description = (Description) $"{directory.Name} files",
                     Directory = (Directory) directory.Name,
                     Entries = entries
                 });
