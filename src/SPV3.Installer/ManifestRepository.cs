@@ -63,7 +63,7 @@ namespace SPV3.Installer
             var stringAsUtf8 = Encoding.UTF8.GetBytes(xml);
             var deflatedData = Deflate(stringAsUtf8);
 
-            System.IO.File.WriteAllBytes(_file, deflatedData);
+            System.IO.File.WriteAllText(_file, xml);
         }
 
         /// <summary>

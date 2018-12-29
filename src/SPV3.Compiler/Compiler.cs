@@ -16,14 +16,24 @@ namespace SPV3.Compiler
     public class Compiler
     {
         /// <summary>
+        ///     Prefix used for the package/manifest files.
+        /// </summary>
+        private const string Prefix = "0x";
+
+        /// <summary>
+        ///     Suffix (or extension) used for the package/manifest files.
+        /// </summary>
+        private const string Suffix = "bin";
+
+        /// <summary>
         ///     Name for the manifest file.
         /// </summary>
-        private const string ManifestBin = "0x00.bin";
+        private const string ManifestBin = Suffix + "00" + Prefix;
 
         /// <summary>
         ///     Name for the core package.
         /// </summary>
-        private const string CorePackage = "0x01.bin";
+        private const string CorePackage = Suffix + "01" + Prefix;
 
         /// <summary>
         ///     Current manifest/compiler version.
@@ -207,7 +217,7 @@ namespace SPV3.Compiler
             var index = 2;
             foreach (var directory in new DirectoryInfo(_source).GetDirectories())
             {
-                var name = $"0x{index:D2}.bin";
+                var name = $"{Prefix}{index:D2}.{Suffix}";
 
                 Invoke(name, directory);
                 Append(name, directory);
