@@ -39,7 +39,7 @@ namespace SPV3.Compiler
         /// </param>
         public void Compress(File target, Directory source)
         {
-            var args = new StringBuilder($"7z a -tzip \"{target}\" \"{source}\"");
+            var args = new StringBuilder($"a -tzip \"{(string) target}\" \"{(string) source}\"");
 
             InvokeProcess(args.ToString());
         }
@@ -58,7 +58,7 @@ namespace SPV3.Compiler
         /// </param>
         public void Compress(File target, Directory source, IEnumerable<File> files)
         {
-            var args = new StringBuilder($"7z a -tzip \"{target}\" ");
+            var args = new StringBuilder($"a -tzip \"{(string) target}\" ");
 
             foreach (var file in files)
             {
