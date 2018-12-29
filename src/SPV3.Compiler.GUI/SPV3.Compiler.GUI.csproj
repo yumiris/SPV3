@@ -103,6 +103,10 @@
     <Resource Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\lib\SPV3.Domain\src\SPV3.Domain\SPV3.Domain.csproj">
+      <Project>{df140d8d-f741-424e-b5f7-54efa3ccd796}</Project>
+      <Name>SPV3.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SPV3.Compiler\SPV3.Compiler.csproj">
       <Project>{0ab09f2f-fdd8-40a8-829d-efa4be48ac5b}</Project>
       <Name>SPV3.Compiler</Name>

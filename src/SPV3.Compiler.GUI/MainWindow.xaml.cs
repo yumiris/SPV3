@@ -18,6 +18,9 @@ namespace SPV3.Compiler.GUI
             _main = (Main) DataContext;
         }
 
+        /// <summary>
+        ///     Invokes directory picker.
+        /// </summary>
         private void BrowseSource(object sender, RoutedEventArgs e)
         {
             using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
@@ -27,6 +30,9 @@ namespace SPV3.Compiler.GUI
             }
         }
 
+        /// <summary>
+        ///     Invokes directory picker.
+        /// </summary>
         private void BrowseTarget(object sender, RoutedEventArgs e)
         {
             using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
@@ -36,6 +42,9 @@ namespace SPV3.Compiler.GUI
             }
         }
 
+        /// <summary>
+        ///     Invokes the Main Compile method.
+        /// </summary>
         private async void Compile(object sender, RoutedEventArgs e)
         {
             try
@@ -88,17 +97,29 @@ namespace SPV3.Compiler.GUI
             }
         }
 
+        /// <summary>
+        ///     Appends text to the output window.
+        /// </summary>
+        /// <param name="text">
+        ///    Text to append to the output window.
+        /// </param>
         private void AppendOutput(string text)
         {
             OutputText.Text += $"{text}\n";
             OutputText.ScrollToEnd();
         }
 
+        /// <summary>
+        ///     Invokes the GitHub repository page.
+        /// </summary>
         private void About(object sender, RoutedEventArgs e)
         {
             Process.Start("https://github.com/yumiris/SPV3.Installer");
         }
 
+        /// <summary>
+        ///     Invokes the GitHub releases page.
+        /// </summary>
         private void Releases(object sender, RoutedEventArgs e)
         {
             Process.Start("https://github.com/yumiris/SPV3.Installer/releases");

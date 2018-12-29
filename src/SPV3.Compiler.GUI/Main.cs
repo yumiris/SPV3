@@ -5,6 +5,9 @@ using SPV3.Compiler.GUI.Annotations;
 
 namespace SPV3.Compiler.GUI
 {
+    /// <summary>
+    ///     Main model used for the UI bindings.
+    /// </summary>
     public class Main : INotifyPropertyChanged
     {
         private string _source;
@@ -12,6 +15,9 @@ namespace SPV3.Compiler.GUI
 
         private bool _canCompile;
 
+        /// <summary>
+        ///     Source directory path.
+        /// </summary>
         public string Source
         {
             get => _source;
@@ -23,6 +29,9 @@ namespace SPV3.Compiler.GUI
             }
         }
 
+        /// <summary>
+        ///     Target directory path.
+        /// </summary>
         public string Target
         {
             get => _target;
@@ -34,6 +43,9 @@ namespace SPV3.Compiler.GUI
             }
         }
 
+        /// <summary>
+        ///     Allow compilation.
+        /// </summary>
         public bool CanCompile
         {
             get => _canCompile;
@@ -45,14 +57,21 @@ namespace SPV3.Compiler.GUI
             }
         }
 
+        /// <summary>
+        ///     Updates CanCompile. If Source & Target directories exist on the filesystem, CanCompile becomes true.
+        /// </summary>
         public void NotifyCanCompile()
         {
             CanCompile = Directory.Exists(Source) && Directory.Exists(Target);
         }
 
+        /// <summary>
+        ///     Instantiates the SPV3.Compiler's Compiler class with the given Source & Target directory, and invokes
+        ///     the Compile method.
+        /// </summary>
         public void Compile()
         {
-            new Compression().Pack(Source, Target);
+            new Compiler((SPV3.Domain.Directory) Source, (SPV3.Domain.Directory) Target).Compile();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
