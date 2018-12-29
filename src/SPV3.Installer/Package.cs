@@ -23,6 +23,12 @@ namespace SPV3.Installer
         ///     <see cref="Name" />
         /// </summary>
         public Name Name { get; set; }
+        
+        /// <summary>
+        ///     Optional directory which the Package represents.
+        ///     <see cref="Directory"/>
+        /// </summary>
+        public Directory Directory { get; set; }
 
         /// <summary>
         ///     List of entries in the package.

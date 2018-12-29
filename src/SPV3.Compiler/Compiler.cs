@@ -122,12 +122,17 @@ namespace SPV3.Compiler
             void Append()
             {
                 var files = core
-                    .Select(file => (Entry) file.Name)
+                    .Select(file => new Entry
+                    {
+                        Name = (Name) file.Name,
+                        Type = EntryType.File
+                    })
                     .ToList();
 
                 var package = new Package
                 {
-                    Name = (Name) "0x01.bin",
+                    Name = (Name) CorePackage,
+                    Directory = new Directory(),
                     Entries = files
                 };
 
@@ -190,6 +195,7 @@ namespace SPV3.Compiler
                 _packages.Add(new Package
                 {
                     Name = (Name) name,
+                    Directory = (Directory) directory.Name,
                     Entries = entries
                 });
             }
