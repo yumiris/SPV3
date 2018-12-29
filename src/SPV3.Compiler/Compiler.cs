@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -5,6 +6,7 @@ using SPV3.Domain;
 using SPV3.Installer;
 using Directory = SPV3.Domain.Directory;
 using File = SPV3.Domain.File;
+using Version = SPV3.Domain.Version;
 
 namespace SPV3.Compiler
 {
@@ -166,7 +168,20 @@ namespace SPV3.Compiler
                 var entries = new List<Entry>();
 
                 foreach (var file in files)
-                    entries.Add((Entry) Path.GetFileName(file));
+                    entries.Add(new Entry
+                    {
+                        Name = (Name) Path.GetFileName(file),
+                        Type = new Func<string, EntryType>(x =>
+                        {
+                            if (System.IO.File.Exists(file))
+                                return EntryType.File;
+
+                            if (System.IO.Directory.Exists(file))
+                                return EntryType.Directory;
+                            
+                            throw new FormatException("Cannot infer entry type. Does filesystem record exist?");
+                        })(file)
+                    });
 
                 _packages.Add(new Package
                 {
