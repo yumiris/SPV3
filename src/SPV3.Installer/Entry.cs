@@ -8,6 +8,11 @@ namespace SPV3.Installer
     public enum EntryType
     {
         /// <summary>
+        ///     Entry is unknown. Does filesystem record exist?
+        /// </summary>
+        Unknown,
+        
+        /// <summary>
         ///     Entry is a binary or text file.
         /// </summary>
         File,
@@ -31,7 +36,7 @@ namespace SPV3.Installer
         /// <summary>
         ///     <see cref="EntryType" />
         /// </summary>
-        public EntryType Type { get; set; } = EntryType.File;
+        public EntryType Type { get; set; } = EntryType.Unknown;
 
         /// <summary>
         ///     Represent object as string.
