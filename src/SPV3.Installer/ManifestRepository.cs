@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
@@ -14,6 +13,9 @@ namespace SPV3.Installer
         /// </summary>
         public const string Binary = "0x00.bin";
 
+        /// <summary>
+        ///     Source file for saving & loading manifest state.
+        /// </summary>
         private readonly File _file;
 
         /// <summary>
@@ -38,67 +40,61 @@ namespace SPV3.Installer
         /// </param>
         public void Save(Manifest manifest)
         {
-            /**
-             * The instance is serialised to an XML string. This allows us to accurately persist the object's state.
-             */
-            var xml = new Func<Manifest, string>(x =>
+            byte[] Deflate(byte[] inflatedBytes)
             {
-                using (var stringWriter = new StringWriter())
+                using (var deflatedStream = new MemoryStream())
+                using (var inflatedStream = new MemoryStream(inflatedBytes))
+                using (var compressStream = new DeflateStream(deflatedStream, CompressionMode.Compress))
                 {
-                    var serialiser = new XmlSerializer(typeof(Manifest));
-                    serialiser.Serialize(stringWriter, manifest);
-                    return stringWriter.ToString();
+                    inflatedStream.CopyTo(compressStream);
+                    compressStream.Close();
+                    return deflatedStream.ToArray();
                 }
-            })(manifest);
+            }
 
-            /**
-             * The XMl is DEFLATE-compressed into a byte array that can be saved to the File.
-             */
-            var bin = new Func<string, byte[]>(x =>
+            string xml;
+            using (var stringWriter = new StringWriter())
             {
-                using (var outputStream = new MemoryStream())
-                using (var bufferStream = new MemoryStream(Encoding.UTF8.GetBytes(x)))
-                using (var zippedStream = new DeflateStream(outputStream, CompressionMode.Compress, false))
-                {
-                    bufferStream.CopyTo(zippedStream);
-                    zippedStream.Close();
-                    return outputStream.ToArray();
-                }
-            })(xml);
+                var serialiser = new XmlSerializer(typeof(Manifest));
+                serialiser.Serialize(stringWriter, manifest);
+                xml = stringWriter.ToString();
+            }
 
-            System.IO.File.WriteAllBytes(_file, bin);
+            var stringAsUtf8 = Encoding.UTF8.GetBytes(xml);
+            var deflatedData = Deflate(stringAsUtf8);
+
+            System.IO.File.WriteAllBytes(_file, deflatedData);
         }
 
         /// <summary>
         ///     Loads the Manifest state from the provided File.
         /// </summary>
+        /// <remarks>
+        ///     This method expects a DEFLATE-compressed XML binary.
+        /// </remarks>
         /// <returns>
         ///     Instance of a Manifest type.
         /// </returns>
         public Manifest Load()
         {
-            /**
-             * We read the bytes back from the File.
-             */
-            var bin = System.IO.File.ReadAllBytes(_file);
-
-            /**
-             * The bytes are decompressed back from DEFLATE to the XML string.
-             */
-            var xml = new Func<byte[], string>(x =>
+            byte[] Inflate(byte[] deflatedBytes)
             {
-                using (var outputStream = new MemoryStream())
-                using (var bufferStream = new MemoryStream(x))
-                using (var zippedStream = new DeflateStream(bufferStream, CompressionMode.Decompress))
+                using (var inflatedStream = new MemoryStream())
+                using (var deflatedStream = new MemoryStream(deflatedBytes))
+                using (var compressStream = new DeflateStream(deflatedStream, CompressionMode.Decompress))
                 {
-                    zippedStream.CopyTo(outputStream);
-                    zippedStream.Close();
-                    return Encoding.ASCII.GetString(outputStream.ToArray());
+                    compressStream.CopyTo(inflatedStream);
+                    compressStream.Close();
+                    return inflatedStream.ToArray();
                 }
-            })(bin);
+            }
+
+            var deflatedData = System.IO.File.ReadAllBytes(_file);
+            var inflatedData = Inflate(deflatedData);
+            var utf8AsString = Encoding.UTF8.GetString(inflatedData);
 
             var serializer = new XmlSerializer(typeof(Manifest));
-            using (TextReader reader = new StringReader(xml))
+            using (var reader = new StringReader(utf8AsString))
             {
                 return (Manifest) serializer.Deserialize(reader);
             }

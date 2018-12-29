@@ -11,7 +11,7 @@ namespace SPV3.Installer
         ///     Entry is a binary or text file.
         /// </summary>
         File,
-        
+
         /// <summary>
         ///     Entry is a directory.
         /// </summary>
@@ -29,7 +29,7 @@ namespace SPV3.Installer
         public Name Name { get; set; }
 
         /// <summary>
-        ///     <see cref="EntryType"/>
+        ///     <see cref="EntryType" />
         /// </summary>
         public EntryType Type { get; set; } = EntryType.File;
 
