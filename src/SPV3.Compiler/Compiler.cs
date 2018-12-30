@@ -271,6 +271,12 @@ namespace SPV3.Compiler
             }
         }
 
+        /// <summary>
+        ///     Wrapper for IStatus .CommitStatus().
+        /// </summary>
+        /// <param name="text">
+        ///    Text to commit to the IStatus instance.
+        /// </param>
         private void Notify(string text)
         {
             _status?.CommitStatus(text);
