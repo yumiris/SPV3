@@ -25,7 +25,7 @@ namespace SPV3.Compiler.GUI
         /// <summary>
         ///     <see cref="Status" />
         /// </summary>
-        private string _status;
+        private string _status = "Awaiting end-user invocation...";
 
         /// <summary>
         ///     <see cref="Target" />

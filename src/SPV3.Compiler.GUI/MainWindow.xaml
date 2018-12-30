@@ -33,7 +33,7 @@
                 <Image Source="/icon.ico"
                        Stretch="None" />
 
-                <Label Content="SPV3.2 Compiler"
+                <Label Content="SPV3 Compiler"
                        Width="Auto"
                        Margin="0,10,0,0"
                        FontWeight="Bold"
