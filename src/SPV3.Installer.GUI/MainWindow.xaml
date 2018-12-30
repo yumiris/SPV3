@@ -6,36 +6,55 @@
         xmlns:local="clr-namespace:SPV3.Installer.GUI"
         mc:Ignorable="d"
         Title="SPV3 Installer"
-        SizeToContent="Height"
-        Width="240"
+        SizeToContent="WidthAndHeight"
+        Background="#F0F0F0"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize">
     <Window.DataContext>
         <local:Main />
     </Window.DataContext>
-    <StackPanel Margin="10">
-        <Image Source="/icon.ico"
-               Stretch="None"/>
+    <StackPanel Margin="10"
+                Width="360">
+        <!-- Main -->
+        <DockPanel>
+            <!-- Header -->
+            <Image Source="/icon.ico"
+                   Stretch="None" />
 
-        <GroupBox Header="Target"
+            <!-- Install -->
+            <StackPanel
+                VerticalAlignment="Center"
+                Margin="10,0,0,0">
+                <GroupBox Header="Target">
+                    <StackPanel>
+                        <DockPanel>
+                            <Button DockPanel.Dock="Right"
+                                    Content="Browse"
+                                    Margin="1,0,0,0"
+                                    Click="Browse" />
+                            <TextBox Text="{Binding Target}" />
+                        </DockPanel>
+
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Install">
+                    <Button Content="Install"
+                            Click="Install" />
+                </GroupBox>
+            </StackPanel>
+        </DockPanel>
+
+        <!-- Status -->
+        <GroupBox Header="Status"
                   Margin="0,10,0,0">
-            <DockPanel>
-                <Button DockPanel.Dock="Right"
-                        Content="Browse"
-                        Margin="1,0,0,0"
-                        Click="Browse"/>
-                <TextBox Text="{Binding Target}" />
-            </DockPanel>
-        </GroupBox>
-
-        <GroupBox Header="Install">
-            <Button Content="Install"
-                    Click="Install" />
-        </GroupBox>
-
-        <GroupBox Header="Status">
-            <Label Content="{Binding Status}"
-                   HorizontalAlignment="Center" />
+            <TextBox
+                Text="{Binding Status}"
+                Height="240"
+                HorizontalScrollBarVisibility="Visible"
+                VerticalScrollBarVisibility="Visible"
+                FontFamily="Consolas"
+                VerticalContentAlignment="Top"
+                IsReadOnly="True" />
         </GroupBox>
     </StackPanel>
 </Window>
