@@ -13,7 +13,7 @@ namespace SPV3.Installer
         public const int MaxLength = 0xFF;
 
         /// <summary>
-        ///     <see cref="Value"/>
+        ///     <see cref="Value" />
         /// </summary>
         private string _value;
 
@@ -33,7 +33,7 @@ namespace SPV3.Installer
                     var message = $"Value '{value}' length exceeds upper bound of {MaxLength}.";
                     throw new ArgumentOutOfRangeException(nameof(value), message);
                 }
-                
+
                 _value = value;
             }
         }

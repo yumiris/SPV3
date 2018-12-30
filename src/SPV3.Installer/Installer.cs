@@ -14,14 +14,14 @@ namespace SPV3.Installer
     public class Installer
     {
         /// <summary>
+        ///     Directory used for backing up any existing Package Entries.
+        /// </summary>
+        private readonly Directory _backup;
+
+        /// <summary>
         ///     Manifest used by the installer to decide what Packages should be installed.
         /// </summary>
         private readonly Manifest _manifest;
-
-        /// <summary>
-        ///     Target directory used for installing the Packages' data.
-        /// </summary>
-        private readonly Directory _target;
 
         /// <summary>
         ///     Status implementer used for appending installation progress.
@@ -29,9 +29,9 @@ namespace SPV3.Installer
         private readonly IStatus _status;
 
         /// <summary>
-        ///     Directory used for backing up any existing Package Entries.
+        ///     Target directory used for installing the Packages' data.
         /// </summary>
-        private readonly Directory _backup;
+        private readonly Directory _target;
 
         /// <summary>
         ///     Installer constructor.
@@ -50,8 +50,8 @@ namespace SPV3.Installer
         }
 
         /// <summary>
-        /// Installs the Packages' data (defined in the Manifest) to the Target directory.
-        /// Any existing Package Entries on the filesystem will be backed up in in a Target directory subdirectory.
+        ///     Installs the Packages' data (defined in the Manifest) to the Target directory.
+        ///     Any existing Package Entries on the filesystem will be backed up in in a Target directory subdirectory.
         /// </summary>
         public void Install()
         {
@@ -96,31 +96,22 @@ namespace SPV3.Installer
                     Notify($"Installed: {(string) package.Name} :: {(string) entry.Name}");
             }
 
-            try
-            {
-                Initiate();
+            Initiate();
 
-                foreach (var package in _manifest.Packages)
-                {
-                    Migrate(package);
-                    Extract(package);
-                }
-
-                Complete();
-            }
-            catch (Exception exception)
+            foreach (var package in _manifest.Packages)
             {
-                Notify("****************************************************************");
-                Notify(exception.Message);
-                Notify("****************************************************************");
+                Migrate(package);
+                Extract(package);
             }
+
+            Complete();
         }
 
         /// <summary>
         ///     Backs up the Entries for the provided Package, if they exist on the filesystem.
         /// </summary>
         /// <param name="package">
-        ///    Package to backup the entries for.
+        ///     Package to backup the entries for.
         /// </param>
         private void Migrate(Package package)
         {
@@ -196,7 +187,7 @@ namespace SPV3.Installer
         ///     Wrapper for IStatus .CommitStatus().
         /// </summary>
         /// <param name="text">
-        ///    Text to commit to the IStatus instance.
+        ///     Text to commit to the IStatus instance.
         /// </param>
         private void Notify(string text)
         {

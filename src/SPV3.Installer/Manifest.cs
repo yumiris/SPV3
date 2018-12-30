@@ -10,7 +10,7 @@ namespace SPV3.Installer
     {
         /// <summary>
         ///     Manifest file name.
-        ///     <see cref="Name"/>
+        ///     <see cref="Name" />
         /// </summary>
         public static readonly Name Name = (Name) "0x00.bin";
 

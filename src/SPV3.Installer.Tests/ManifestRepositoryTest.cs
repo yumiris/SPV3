@@ -46,20 +46,6 @@ namespace SPV3.Installer.Tests
         };
 
         [Test]
-        public void Repository_MetadataVersionIsSaved()
-        {
-            var file = Guid.NewGuid().ToString();
-            var repository = new ManifestRepository((File) file);
-
-            repository.Save(Manifest);
-            var loadedMetadata = repository.Load();
-
-            Assert.AreEqual((string) Manifest.Version, (string) loadedMetadata.Version);
-
-            System.IO.File.Delete(file);
-        }
-
-        [Test]
         public void Repository_MetadataPackageIsSaved()
         {
             var file = Guid.NewGuid().ToString();
@@ -70,6 +56,20 @@ namespace SPV3.Installer.Tests
 
             for (var i = 0; i < Manifest.Packages.Count; i++)
                 Assert.AreEqual(Manifest.Packages[i].Name.Value, loadedMetadata.Packages[i].Name.Value);
+
+            System.IO.File.Delete(file);
+        }
+
+        [Test]
+        public void Repository_MetadataVersionIsSaved()
+        {
+            var file = Guid.NewGuid().ToString();
+            var repository = new ManifestRepository((File) file);
+
+            repository.Save(Manifest);
+            var loadedMetadata = repository.Load();
+
+            Assert.AreEqual((string) Manifest.Version, (string) loadedMetadata.Version);
 
             System.IO.File.Delete(file);
         }

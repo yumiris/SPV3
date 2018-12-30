@@ -1,8 +1,7 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms.VisualStyles;
+using System.Windows.Forms;
 
 namespace SPV3.Compiler.GUI
 {
@@ -24,7 +23,7 @@ namespace SPV3.Compiler.GUI
         /// </summary>
         private void BrowseSource(object sender, RoutedEventArgs e)
         {
-            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            using (var dialog = new FolderBrowserDialog())
             {
                 dialog.ShowDialog();
                 _main.Source = dialog.SelectedPath;
@@ -36,7 +35,7 @@ namespace SPV3.Compiler.GUI
         /// </summary>
         private void BrowseTarget(object sender, RoutedEventArgs e)
         {
-            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            using (var dialog = new FolderBrowserDialog())
             {
                 dialog.ShowDialog();
                 _main.Target = dialog.SelectedPath;
@@ -51,7 +50,7 @@ namespace SPV3.Compiler.GUI
             CompileButton.Content = "Creating...";
             CompileButton.IsEnabled = false;
 
-            using (var timer = new System.Windows.Forms.Timer())
+            using (var timer = new Timer())
             {
                 timer.Tick += (s, e2) =>
                 {

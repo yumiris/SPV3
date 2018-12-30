@@ -1,32 +1,31 @@
 using System;
 using System.ComponentModel;
-using System.IO;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using SPV3.Domain;
 using SPV3.Installer.GUI.Annotations;
-using Directory = SPV3.Domain.Directory;
-using File = System.IO.File;
 
 namespace SPV3.Installer.GUI
 {
     public class Main : INotifyPropertyChanged, IStatus
     {
-        private const string LogFile = "SPV3.Installer.log";
+        /// <summary>
+        ///     <see cref="CanInstall" />
+        /// </summary>
+        private bool _canInstall;
 
-        private string _target;
+        /// <summary>
+        ///     <see cref="Status" />
+        /// </summary>
         private string _status = "Awaiting end-user invocation...";
 
-        public string Status
-        {
-            get => _status;
-            set
-            {
-                _status = value;
-                OnPropertyChanged();
-            }
-        }
+        /// <summary>
+        ///     <see cref="Target" />
+        /// </summary>
+        private string _target;
 
+        /// <summary>
+        ///     Target directory path.
+        /// </summary>
         public string Target
         {
             get => _target;
@@ -39,39 +38,68 @@ namespace SPV3.Installer.GUI
         }
 
         /// <summary>
-        ///     Asynchronously resolves the default manifest, and invokes the Installer's Install method.
-        ///     Any caught exceptions will be logged to %APPDATA%\SPV3.Installer.log
+        ///     Status output.
         /// </summary>
-        public async void Install()
+        public string Status
         {
-            await Task.Run(() =>
+            get => _status;
+            set
             {
-                try
-                {
-                    var manifest = ManifestRepository.LoadDefault();
-                    new Installer(manifest, (Directory) Target, this).Install();
-                }
-                catch (Exception exception)
-                {
-                    var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                    var logPath = Path.Combine(appData, LogFile);
+                _status = value;
+                OnPropertyChanged();
+            }
+        }
 
-                    File.WriteAllText(logPath, exception.ToString());
-                }
-            });
+        /// <summary>
+        ///     Allow installation.
+        /// </summary>
+        public bool CanInstall
+        {
+            get => _canInstall;
+            set
+            {
+                if (value == _canInstall) return;
+                _canInstall = value;
+                OnPropertyChanged();
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public void CommitStatus(string data)
+        {
+            Status = $"{data}\n{Status}";
+        }
+
+        /// <summary>
+        ///     Asynchronously resolves the default manifest, and invokes the Installer's Install method.
+        /// </summary>
+        public void Install()
+        {
+            try
+            {
+                var manifest = ManifestRepository.LoadDefault();
+                new Installer(manifest, (Directory) Target, this).Install();
+            }
+            catch (Exception exception)
+            {
+                CommitStatus(exception.ToString());
+            }
+        }
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            NotifyCanInstall();
         }
 
-        public void CommitStatus(string data)
+        /// <summary>
+        ///     Updates CanInstall. If Target directory exist on the filesystem, CanInstall becomes true.
+        /// </summary>
+        public void NotifyCanInstall()
         {
-            Status = $"{data}\n{Status}";
+            CanInstall = System.IO.Directory.Exists(Target);
         }
     }
 }

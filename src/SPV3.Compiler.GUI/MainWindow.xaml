@@ -17,9 +17,9 @@
     <StackPanel>
         <Menu>
             <MenuItem Header="About"
-                      Click="About"/>
+                      Click="About" />
             <MenuItem Header="Releases"
-                      Click="Releases"/>
+                      Click="Releases" />
         </Menu>
         <Grid>
             <Grid.ColumnDefinitions>

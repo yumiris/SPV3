@@ -22,9 +22,8 @@
                    Stretch="None" />
 
             <!-- Install -->
-            <StackPanel
-                VerticalAlignment="Center"
-                Margin="10,0,0,0">
+            <StackPanel VerticalAlignment="Center"
+                        Margin="10,0,0,0">
                 <GroupBox Header="Target">
                     <StackPanel>
                         <DockPanel>
@@ -38,8 +37,10 @@
                     </StackPanel>
                 </GroupBox>
                 <GroupBox Header="Install">
-                    <Button Content="Install"
-                            Click="Install" />
+                    <Button x:Name="InstallButton"
+                            Content="Install SPV3"
+                            Click="Install"
+                            IsEnabled="{Binding CanInstall}" />
                 </GroupBox>
             </StackPanel>
         </DockPanel>
@@ -47,14 +48,13 @@
         <!-- Status -->
         <GroupBox Header="Status"
                   Margin="0,10,0,0">
-            <TextBox
-                Text="{Binding Status}"
-                Height="240"
-                HorizontalScrollBarVisibility="Visible"
-                VerticalScrollBarVisibility="Visible"
-                FontFamily="Consolas"
-                VerticalContentAlignment="Top"
-                IsReadOnly="True" />
+            <TextBox Text="{Binding Status}"
+                     Height="240"
+                     HorizontalScrollBarVisibility="Visible"
+                     VerticalScrollBarVisibility="Visible"
+                     FontFamily="Consolas"
+                     VerticalContentAlignment="Top"
+                     IsReadOnly="True" />
         </GroupBox>
     </StackPanel>
 </Window>

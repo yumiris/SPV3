@@ -26,14 +26,14 @@ namespace SPV3.Compiler
         private const string Suffix = ".bin";
 
         /// <summary>
-        ///     Name for the manifest file.
-        /// </summary>
-        private static readonly string ManifestBin = Manifest.Name;
-
-        /// <summary>
         ///     Name for the core package.
         /// </summary>
         private const string CorePackage = Prefix + "01" + Suffix;
+
+        /// <summary>
+        ///     Name for the manifest file.
+        /// </summary>
+        private static readonly string ManifestBin = Manifest.Name;
 
         /// <summary>
         ///     Current manifest/compiler version.
@@ -56,14 +56,14 @@ namespace SPV3.Compiler
         private readonly Directory _source;
 
         /// <summary>
-        ///     Target directory for manifest & packages.
-        /// </summary>
-        private readonly Directory _target;
-
-        /// <summary>
         ///     Status implementer used for appending compilation progress.
         /// </summary>
         private readonly IStatus _status;
+
+        /// <summary>
+        ///     Target directory for manifest & packages.
+        /// </summary>
+        private readonly Directory _target;
 
         /// <summary>
         ///     Compiler constructor.
@@ -75,7 +75,7 @@ namespace SPV3.Compiler
         ///     Target directory for manifest & packages.
         /// </param>
         /// <param name="status">
-        ///    Status implementer used for appending compilation progress.
+        ///     Status implementer used for appending compilation progress.
         /// </param>
         public Compiler(Directory source, Directory target, IStatus status = null)
         {
@@ -89,24 +89,17 @@ namespace SPV3.Compiler
         /// </summary>
         public void Compile()
         {
-            try
-            {
-                Notify("============================");
-                Notify("Initiated compile routine...");
-                Notify("============================");
+            Notify("============================");
+            Notify("Initiated compile routine...");
+            Notify("============================");
 
-                CreateCorePackage();
-                CreateDirPackages();
-                CreateMetadataBin();
+            CreateCorePackage();
+            CreateDirPackages();
+            CreateMetadataBin();
 
-                Notify("============================");
-                Notify("Completed compile routine...");
-                Notify("============================");
-            }
-            catch (Exception exception)
-            {
-                _status?.CommitStatus(exception.Message);
-            }
+            Notify("============================");
+            Notify("Completed compile routine...");
+            Notify("============================");
         }
 
         /// <summary>
@@ -275,7 +268,7 @@ namespace SPV3.Compiler
         ///     Wrapper for IStatus .CommitStatus().
         /// </summary>
         /// <param name="text">
-        ///    Text to commit to the IStatus instance.
+        ///     Text to commit to the IStatus instance.
         /// </param>
         private void Notify(string text)
         {

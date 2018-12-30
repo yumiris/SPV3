@@ -1,23 +1,56 @@
-﻿using System.Windows;
+﻿using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Forms;
 
 namespace SPV3.Installer.GUI
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    ///     Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow
     {
-        private Main _main;
-        
+        private readonly Main _main;
+
         public MainWindow()
         {
             InitializeComponent();
             _main = (Main) DataContext;
         }
 
-        private void Install(object sender, RoutedEventArgs e)
+        private async void Install(object sender, RoutedEventArgs e)
         {
-            _main.Install();
+            InstallButton.Content = "Installing...";
+            InstallButton.IsEnabled = false;
+
+            using (var timer = new Timer())
+            {
+                timer.Tick += (s, e2) =>
+                {
+                    switch (InstallButton.Content)
+                    {
+                        case "":
+                            InstallButton.Content = ".";
+                            break;
+                        case ".":
+                            InstallButton.Content = "..";
+                            break;
+                        case "..":
+                            InstallButton.Content = "";
+                            break;
+                        default:
+                            InstallButton.Content = "";
+                            break;
+                    }
+                };
+
+                timer.Interval = 100;
+                timer.Enabled = true;
+
+                await Task.Run(() => { _main.Install(); });
+            }
+
+            InstallButton.Content = "Install SPV3";
+            InstallButton.IsEnabled = true;
         }
 
         /// <summary>
@@ -25,7 +58,7 @@ namespace SPV3.Installer.GUI
         /// </summary>
         private void Browse(object sender, RoutedEventArgs e)
         {
-            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            using (var dialog = new FolderBrowserDialog())
             {
                 dialog.ShowDialog();
                 _main.Target = dialog.SelectedPath;

@@ -103,6 +103,9 @@ namespace SPV3.Installer
         /// <summary>
         ///     Returns the default manifest.
         /// </summary>
-        public static Manifest LoadDefault() => new ManifestRepository((File) Manifest.Name.Value).Load();
+        public static Manifest LoadDefault()
+        {
+            return new ManifestRepository((File) Manifest.Name.Value).Load();
+        }
     }
 }

@@ -12,11 +12,29 @@ namespace SPV3.Compiler.GUI
     /// </summary>
     public class Main : INotifyPropertyChanged, IStatus
     {
-        private string _source;
-        private string _target;
+        /// <summary>
+        ///     <see cref="CanCompile" />
+        /// </summary>
+        private bool _canCompile;
 
+        /// <summary>
+        ///     <see cref="Source" />
+        /// </summary>
+        private string _source;
+
+        /// <summary>
+        ///     <see cref="Status" />
+        /// </summary>
         private string _status;
 
+        /// <summary>
+        ///     <see cref="Target" />
+        /// </summary>
+        private string _target;
+
+        /// <summary>
+        ///     Status output.
+        /// </summary>
         public string Status
         {
             get => _status;
@@ -27,8 +45,6 @@ namespace SPV3.Compiler.GUI
                 OnPropertyChanged();
             }
         }
-
-        private bool _canCompile;
 
         /// <summary>
         ///     Source directory path.
@@ -71,7 +87,9 @@ namespace SPV3.Compiler.GUI
                 OnPropertyChanged();
             }
         }
-        
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public void CommitStatus(string data)
         {
             Status = $"{DateTime.Now:u} - {data}\n{Status}";
@@ -91,10 +109,19 @@ namespace SPV3.Compiler.GUI
         /// </summary>
         public void Compile()
         {
-            new Compiler((SPV3.Domain.Directory) Source, (SPV3.Domain.Directory) Target, this).Compile();
-        }
+            try
+            {
+                var source = (Domain.Directory) Source;
+                var target = (Domain.Directory) Target;
+                var status = this;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+                new Compiler(source, target, status).Compile();
+            }
+            catch (Exception exception)
+            {
+                CommitStatus(exception.ToString());
+            }
+        }
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

@@ -11,7 +11,7 @@ namespace SPV3.Installer
         ///     Entry is unknown. Does filesystem record exist?
         /// </summary>
         Unknown,
-        
+
         /// <summary>
         ///     Entry is a binary or text file.
         /// </summary>
