@@ -55,17 +55,15 @@ belonging to HCE or SPV3.
 The core package is named `0x01.bin`, and the subdirectory packages have their
 own numbers. 
 
-## File
+## Entry
 
-A file, in this context, is a member of the [Package](#package) entity. It can
-be imagined as an entry in an archive file. The `File` type is used by the
-library to determine which files should be backed up prior to installing SPV3.
+An Entry is a member of the [Package](#package) entity. It is effectively a file
+in the archive on the filesystem. Entries are comprised of:
 
-This section covers the installation, backup and persistence implementations.
+- Name: The identifier of the entry, which matches the file/directory it
+  represents.
+- Type: The kind of filesystem record (i.e. file or directory) the entry
+  represents.
 
-- [**Installation**](#installation): the routine of extracting the SPV3.2 files
-  from the packages to the filesystem.
-- [**Backup**](./specification.md): pre-installation backup of SPV3.2 files
-  which may already exist on the filesystem.
-- [**Persistence**](#persistence): storing the installation manifest, including
-  what files to install & where.
+Entries are used by the  library to determine which files should be backed up
+prior to installing SPV3.
