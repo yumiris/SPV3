@@ -9,9 +9,6 @@ namespace SPV3.Compiler
     /// <summary>
     ///     Creates DEFLATE archives for files/directories on the filesystem.
     /// </summary>
-    /// <remarks>
-    ///     7-Zip 18.05 (2018-04-30) is used for creating the archive.
-    /// </remarks>
     public class Compressor
     {
         /// <summary>
