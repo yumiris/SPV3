@@ -249,7 +249,7 @@ namespace SPV3.Compiler
                 _packages.Add(new Package
                 {
                     Name = (Name) name,
-                    Description = (Description) $"{directory.Name} files",
+                    Description = (Description) $"{directory.Name} data",
                     Directory = (Directory) directory.Name,
                     Entries = entries
                 });
