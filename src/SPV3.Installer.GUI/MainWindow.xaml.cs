@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 
@@ -63,6 +64,22 @@ namespace SPV3.Installer.GUI
                 dialog.ShowDialog();
                 _main.Target = dialog.SelectedPath;
             }
+        }
+
+        /// <summary>
+        ///     Invokes the GitHub repository page.
+        /// </summary>
+        private void About(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://github.com/yumiris/SPV3.Installer");
+        }
+
+        /// <summary>
+        ///     Invokes the GitHub releases page.
+        /// </summary>
+        private void Releases(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://github.com/yumiris/SPV3.Installer/releases");
         }
     }
 }
