@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security;
 using SPV3.Domain;
 using SPV3.Installer;
 using Directory = SPV3.Domain.Directory;
@@ -29,6 +30,11 @@ namespace SPV3.Compiler
         ///     Name for the core package.
         /// </summary>
         private const string CorePackage = Prefix + "01" + Suffix;
+
+        /// <summary>
+        ///     Name for the initial data package. (Meta) + (Core) = 2.
+        /// </summary>
+        private const int InitialDataPackage = 2;
 
         /// <summary>
         ///     Name for the manifest file.
@@ -141,55 +147,17 @@ namespace SPV3.Compiler
             Notify("Invoking core compilation...");
             Notify("----------------------------");
 
-            var core = new DirectoryInfo(_source)
-                .GetFiles("*.*");
-
-            /**
-             * Invokes the Compressor class with the intent of creating a single DEFLATE package, which would contain
-             * all of the root files in the source directory.
-             */
-            void Compress()
+            var package = new Package
             {
-                Notify($"Compressing filesystem data: {CorePackage} <= SPV3/HCE Core Data");
+                Name = (Name) CorePackage,
+                Description = (Description) "Core SPV3/HCE data"
+            };
 
-                var target = (File) Path.Combine(_target, CorePackage);
+            CompressPackage(_source, (File) Path.Combine(_target, package.Name),
+                new DirectoryInfo(_source)
+                    .GetFiles("*.*"));
 
-                var files = core
-                    .Select(info => (File) info.Name)
-                    .ToList();
-
-                _compressor.Compress(target, _source, files);
-            }
-
-            /**
-             * Adds an Entry for each root file in the source directory in the Package, which is then added to the main
-             * Packages List.
-             */
-            void AddEntry()
-            {
-                Notify($"Generating package metadata: {CorePackage} <= SPV3/HCE Core Data");
-
-                var files = core
-                    .Select(file => new Entry
-                    {
-                        Name = (Name) file.Name,
-                        Type = EntryType.File
-                    })
-                    .ToList();
-
-                var package = new Package
-                {
-                    Name = (Name) CorePackage,
-                    Description = (Description) "Core SPV3/HCE data",
-                    Directory = new Directory(),
-                    Entries = files
-                };
-
-                _packages.Add(package);
-            }
-
-            Compress();
-            AddEntry();
+            AddPackageFiles(package, _source);
         }
 
         /// <summary>
@@ -203,74 +171,81 @@ namespace SPV3.Compiler
             Notify("Invoking data compilation...");
             Notify("----------------------------");
 
-            /**
-             * Compresses the directory to a dedicated package.
-             */
-            void Compress(string name, FileSystemInfo directory)
-            {
-                Notify($"Compressing filesystem data: {name} <= {directory.Name}");
-
-                var target = (File) Path.Combine(_target, $"{name}");
-                var source = (Directory) Path.Combine(_source, directory.Name);
-
-                _compressor.Compress(target, source);
-            }
-
-            /**
-             * Adds an Entry for each file in the subdirectory in a new Package, which is then added to the main
-             * Packages List.
-             */
-            void AddEntry(string name, FileSystemInfo directory)
-            {
-                Notify($"Generating package metadata: {name} <= {directory.Name}");
-
-                var files = System.IO.Directory
-                    .GetFileSystemEntries(directory.FullName, "*");
-
-                var entries = new List<Entry>();
-
-                foreach (var file in files)
-                {
-                    var type = EntryType.Unknown;
-
-                    if (System.IO.File.Exists(file))
-                        type = EntryType.File;
-
-                    if (System.IO.Directory.Exists(file))
-                        type = EntryType.Directory;
-
-                    if (type == EntryType.Unknown)
-                        throw new FormatException("Cannot infer Entry Type. Does filesystem record exist?");
-
-                    entries.Add(new Entry
-                    {
-                        Name = (Name) Path.GetFileName(file),
-                        Type = type
-                    });
-                }
-
-                _packages.Add(new Package
-                {
-                    Name = (Name) name,
-                    Description = (Description) $"{directory.Name} data",
-                    Directory = (Directory) directory.Name,
-                    Entries = entries
-                });
-            }
-
-            /**
-             * This loop ensures that a single package per subdirectory in the source folder is created.
-             * The index starts at two, considering that 0 & 1 represent the manifest and core package, respectively.
-             */
-            var index = 2;
+            var index = InitialDataPackage;
             foreach (var directory in new DirectoryInfo(_source).GetDirectories())
             {
                 var name = $"{Prefix}{index:D2}{Suffix}";
 
-                Compress(name, directory);
-                AddEntry(name, directory);
+                var package = new Package
+                {
+                    Name = (Name) name,
+                    Description = (Description) $"{directory.Name} data"
+                };
+
+                CompressPackage((Directory) directory.FullName, (File) Path.Combine(_target, name));
+                AddPackageFiles(package, (Directory) directory.FullName);
 
                 index++;
+            }
+        }
+
+        private void AddPackageFiles(Package package, Directory source)
+        {
+            Notify($"Generating package metadata: {package} <= {Path.GetDirectoryName(source)}");
+
+            var filesList = System.IO.Directory.GetFileSystemEntries(source, "*");
+            var entryList = new List<Entry>();
+
+            foreach (var file in filesList)
+            {
+                var type = EntryType.Unknown;
+
+                if (System.IO.File.Exists(file))
+                    type = EntryType.File;
+
+                if (System.IO.Directory.Exists(file))
+                    type = EntryType.Directory;
+
+                if (type == EntryType.Unknown)
+                    throw new FormatException("Cannot infer Entry Type. Does filesystem record exist?");
+
+                entryList.Add(new Entry
+                {
+                    Name = (Name) Path.GetFileName(file),
+                    Type = type
+                });
+            }
+
+            package.Entries = entryList;
+        }
+
+        private void CompressPackage(Directory source, File target, FileInfo[] files = null)
+        {
+            Notify($"Compressing filesystem data: {Path.GetFileName(target)} <= {Path.GetFileName(source)}");
+
+            try
+            {
+                if (files == null)
+                {
+                    _compressor.Compress(target, source);
+                }
+                else
+                {
+                    _compressor.Compress(target, source, files.Select(file => new File
+                    {
+                        Name = (Name) file.Name
+                    }).ToList());
+                }
+            }
+            catch (SecurityException)
+            {
+                Notify("*****************************************");
+                Notify("External compressor binary hash mismatch.");
+                Notify("*****************************************");
+            }
+            catch (FileNotFoundException exception)
+            {
+                Notify(exception.Message);
             }
         }
 
