@@ -114,7 +114,7 @@ namespace SPV3.Compiler
              * Invokes the Compressor class with the intent of creating a single DEFLATE package, which would contain
              * all of the root files in the source directory.
              */
-            void Invoke()
+            void Compress()
             {
                 var target = (File) Path.Combine(_target, CorePackage);
 
@@ -129,7 +129,7 @@ namespace SPV3.Compiler
              * Adds an Entry for each root file in the source directory in the Package, which is then added to the main
              * Packages List.
              */
-            void Append()
+            void AddEntry()
             {
                 var files = core
                     .Select(file => new Entry
@@ -150,8 +150,8 @@ namespace SPV3.Compiler
                 _packages.Add(package);
             }
 
-            Invoke();
-            Append();
+            Compress();
+            AddEntry();
         }
 
         /// <summary>
@@ -164,7 +164,7 @@ namespace SPV3.Compiler
             /**
              * 
              */
-            void Invoke(string name, FileSystemInfo directory)
+            void Compress(string name, FileSystemInfo directory)
             {
                 var target = (File) Path.Combine(_target, $"{name}");
                 var source = (Directory) Path.Combine(_source, directory.Name);
@@ -176,7 +176,7 @@ namespace SPV3.Compiler
              * Adds an Entry for each file in the subdirectory in a new Package, which is then added to the main
              * Packages List.
              */
-            void Append(string name, FileSystemInfo directory)
+            void AddEntry(string name, FileSystemInfo directory)
             {
                 var files = System.IO.Directory
                     .GetFileSystemEntries(directory.FullName, "*");
@@ -221,8 +221,8 @@ namespace SPV3.Compiler
             {
                 var name = $"{Prefix}{index:D2}{Suffix}";
 
-                Invoke(name, directory);
-                Append(name, directory);
+                Compress(name, directory);
+                AddEntry(name, directory);
 
                 index++;
             }
