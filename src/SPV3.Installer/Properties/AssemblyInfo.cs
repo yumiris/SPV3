@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("SPV3.Installer")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("SPV3 Installer Library")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Miris")]
 [assembly: AssemblyProduct("SPV3.Installer")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCopyright("Copyright © 2018 Emilian Roman")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
