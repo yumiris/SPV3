@@ -35,7 +35,7 @@ namespace SPV3.Compiler.GUI
         /// <summary>
         ///     <see cref="Compressor"/>
         /// </summary>
-        private readonly Compressor _compressor = new InternalCompressor();
+        private Compressor _compressor;
 
         /// <summary>
         ///     Status output.
@@ -93,14 +93,15 @@ namespace SPV3.Compiler.GUI
             }
         }
 
-        public Main()
+        public Compressor Compressor
         {
-            //
-        }
-
-        public Main(Compressor compressor) : this()
-        {
-            _compressor = compressor;
+            get => _compressor;
+            set
+            {
+                if (Equals(value, _compressor)) return;
+                _compressor = value;
+                OnPropertyChanged();
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -126,6 +127,9 @@ namespace SPV3.Compiler.GUI
         {
             try
             {
+                if (_compressor == null)
+                    throw new NullReferenceException("Cannot compile without Compressor instance.");
+
                 var source = (Domain.Directory) Source;
                 var target = (Domain.Directory) Target;
                 var status = this;
