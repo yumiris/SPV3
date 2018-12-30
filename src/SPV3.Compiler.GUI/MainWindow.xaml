@@ -88,9 +88,11 @@
             <DockPanel Grid.Column="1"
                        Margin="5,10,10,10">
                 <GroupBox Header="Output">
-                    <TextBox x:Name="OutputText"
-                             Height="Auto"
+                    <TextBox Height="Auto"
                              Text="{Binding Status}"
+                             MaxHeight="400"
+                             HorizontalScrollBarVisibility="Visible"
+                             VerticalScrollBarVisibility="Visible"
                              FontFamily="Consolas"
                              VerticalContentAlignment="Top"
                              IsReadOnly="True" />

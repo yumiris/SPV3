@@ -12,7 +12,7 @@ namespace SPV3.Compiler.GUI
     public partial class MainWindow : Window
     {
         private readonly Main _main;
-        
+
         public MainWindow()
         {
             InitializeComponent();
@@ -48,66 +48,38 @@ namespace SPV3.Compiler.GUI
         /// </summary>
         private async void Compile(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                AppendOutput("Invoked installation creation...");
-                AppendOutput("Please wait!");
+            CompileButton.Content = "Creating...";
+            CompileButton.IsEnabled = false;
 
-                CompileButton.Content = "Creating...";
-                CompileButton.IsEnabled = false;
-                
-                using (var timer = new System.Windows.Forms.Timer())
+            using (var timer = new System.Windows.Forms.Timer())
+            {
+                timer.Tick += (s, e2) =>
                 {
-                    timer.Tick += (s, e2) =>
+                    switch (CompileButton.Content)
                     {
-                        switch (CompileButton.Content)
-                        {
-                            case "":
-                                CompileButton.Content = ".";
-                                break;
-                            case ".":
-                                CompileButton.Content = "..";
-                                break;
-                            case "..":
-                                CompileButton.Content = "";
-                                break;
-                            default:
-                                CompileButton.Content = "";
-                                break;
-                        }
-                    };
+                        case "":
+                            CompileButton.Content = ".";
+                            break;
+                        case ".":
+                            CompileButton.Content = "..";
+                            break;
+                        case "..":
+                            CompileButton.Content = "";
+                            break;
+                        default:
+                            CompileButton.Content = "";
+                            break;
+                    }
+                };
 
-                    timer.Interval = 100;
-                    timer.Enabled = true;
+                timer.Interval = 100;
+                timer.Enabled = true;
 
-                    await Task.Run(() =>
-                    {
-                        _main.Compile();
-                    });
-                }
-                
-                CompileButton.Content = "Compile Installer";
-                CompileButton.IsEnabled = true;
-
-                AppendOutput("Successfully compiled source data!");
+                await Task.Run(() => { _main.Compile(); });
             }
-            catch (Exception exception)
-            {
-                AppendOutput(exception.Message);
-                AppendOutput(exception.StackTrace);
-            }
-        }
 
-        /// <summary>
-        ///     Appends text to the output window.
-        /// </summary>
-        /// <param name="text">
-        ///    Text to append to the output window.
-        /// </param>
-        private void AppendOutput(string text)
-        {
-            _main.CommitStatus(text);
-            OutputText.ScrollToEnd();
+            CompileButton.Content = "Compile Installer";
+            CompileButton.IsEnabled = true;
         }
 
         /// <summary>

@@ -74,7 +74,7 @@ namespace SPV3.Compiler.GUI
         
         public void CommitStatus(string data)
         {
-            Status += $"\n{DateTime.Now:u} - {data}";
+            Status = $"{DateTime.Now:u} - {data}\n{Status}";
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace SPV3.Compiler.GUI
         /// </summary>
         public void Compile()
         {
-            new Compiler((SPV3.Domain.Directory) Source, (SPV3.Domain.Directory) Target).Compile();
+            new Compiler((SPV3.Domain.Directory) Source, (SPV3.Domain.Directory) Target, this).Compile();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
