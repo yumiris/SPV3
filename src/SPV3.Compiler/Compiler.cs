@@ -28,7 +28,7 @@ namespace SPV3.Compiler
         /// <summary>
         ///     Name for the manifest file.
         /// </summary>
-        private const string ManifestBin = Prefix + "00" + Suffix;
+        private static readonly string ManifestBin = Manifest.Name;
 
         /// <summary>
         ///     Name for the core package.

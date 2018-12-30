@@ -9,6 +9,12 @@ namespace SPV3.Installer
     public class Manifest
     {
         /// <summary>
+        ///     Manifest file name.
+        ///     <see cref="Name"/>
+        /// </summary>
+        public static readonly Name Name = (Name) "0x00.bin";
+
+        /// <summary>
         ///     Manifest file version.
         ///     <see cref="Version" />
         /// </summary>
