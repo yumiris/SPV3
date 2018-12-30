@@ -90,27 +90,7 @@ namespace SPV3.Installer
                 Notify($"Installing: {(string) package.Name} :: {(string) package.Description}");
                 Notify("----------------------------------------------------------------------");
 
-                /**
-                 * If the package represents a subdirectory, then the target should be a subdirectory created within the
-                 * installation target directory.
-                 */
-                string target;
-                if (package.Directory.Name == null)
-                {
-                    target = _target;
-                }
-                else
-                {
-                    target = Path.Combine(_target, package.Directory.Name);
-
-                    if (!System.IO.Directory.Exists(target))
-                        System.IO.Directory.CreateDirectory(target);
-                }
-                
-                /**
-                 * Install the data to the final target.
-                 */
-                ZipFile.ExtractToDirectory(package.Name, target);
+                ZipFile.ExtractToDirectory(package.Name, _target);
 
                 foreach (var entry in package.Entries)
                     Notify($"Installed: {(string) package.Name} :: {(string) entry.Name}");

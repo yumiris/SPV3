@@ -11,6 +11,8 @@ namespace SPV3.Compiler
     /// </summary>
     public class Compressor
     {
+        private const CompressionLevel Level = CompressionLevel.Optimal;
+
         /// <summary>
         ///     Creates a DEFLATE archive for the provided source Directory at the given target.
         /// </summary>
@@ -22,7 +24,7 @@ namespace SPV3.Compiler
         /// </param>
         public void Compress(File target, Directory source)
         {
-            ZipFile.CreateFromDirectory(source, target);
+            ZipFile.CreateFromDirectory(source, target, Level, true);
         }
 
         /// <summary>
@@ -41,10 +43,8 @@ namespace SPV3.Compiler
         {
             using (var zip = ZipFile.Open(target, ZipArchiveMode.Create))
             {
-                const CompressionLevel level = CompressionLevel.Optimal;
-
                 foreach (var file in files)
-                    zip.CreateEntryFromFile(Path.Combine(source, file), file, level);
+                    zip.CreateEntryFromFile(Path.Combine(source, file), file, Level);
             }
         }
     }
