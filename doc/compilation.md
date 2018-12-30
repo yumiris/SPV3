@@ -5,10 +5,8 @@ into packages. These packages are used by the SPV3 Installer to install the
 SPV3 files to the end-user's computer.
 
 - [Usage](#usage)
-  - [Directories](#directories)
-- [Implementation](#implementation)
-  - [Packages](#packages)
-  - [Compression](#compression)
+- [Directories](#directories)
+- [Packages](#packages)
 
 ## Usage
 
@@ -19,7 +17,7 @@ wait for the compilation to finish. During this time, you might see brief
 command lines popping up. Rest assured that this is expected, and nothing tragic
 should happen!
 
-### Directories
+## Directories
 
 The GUI expects you to specify two directories:
 
@@ -36,14 +34,12 @@ Ideally, it should be a directory that will be distributed as an ISO/ZIP. With
 this in mind, it should only contain SPV3-related installation files (the
 installer & packages), and documents such as a changelog and readme.
 
-## Implementation
-
 Fundamentally, the Compiler handles two tasks:
 
 - creating DEFLATE packages of the source directory's files & subdirectories.
 - creating a Manifest (`0x00.bin`) which represents the source directory.
 
-### Packages
+## Packages
 
 To comply with the [Specification](specification.md) document, the compiler
 produces DEFLATE binary packages with the following convention:
@@ -52,9 +48,3 @@ produces DEFLATE binary packages with the following convention:
 - for each subdirectory, a package is created; starting at `0x02.bin`.
 
 ![packages](diagrams/packages.png)
-
-### Compression
-
-For the sake of simplicity, the compiler invokes the 7-Zip executable to
-compress the packages. The library verifies the checksum of the 7-Zip executable
-prior to executing it, to avoid the execution of unsafe/corrupted executables.
