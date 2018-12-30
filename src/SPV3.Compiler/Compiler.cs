@@ -61,6 +61,11 @@ namespace SPV3.Compiler
         private readonly Directory _target;
 
         /// <summary>
+        ///     Status implementer used for appending compilation progress.
+        /// </summary>
+        private readonly IStatus _status;
+
+        /// <summary>
         ///     Compiler constructor.
         /// </summary>
         /// <param name="source">
@@ -69,10 +74,14 @@ namespace SPV3.Compiler
         /// <param name="target">
         ///     Target directory for manifest & packages.
         /// </param>
-        public Compiler(Directory source, Directory target)
+        /// <param name="status">
+        ///    Status implementer used for appending compilation progress.
+        /// </param>
+        public Compiler(Directory source, Directory target, IStatus status = null)
         {
             _source = source;
             _target = target;
+            _status = status;
         }
 
         /// <summary>
@@ -80,9 +89,24 @@ namespace SPV3.Compiler
         /// </summary>
         public void Compile()
         {
-            CreateCorePackage();
-            CreateDirPackages();
-            CreateMetadataBin();
+            try
+            {
+                Notify("============================");
+                Notify("Initiated compile routine...");
+                Notify("============================");
+
+                CreateCorePackage();
+                CreateDirPackages();
+                CreateMetadataBin();
+
+                Notify("============================");
+                Notify("Completed compile routine...");
+                Notify("============================");
+            }
+            catch (Exception exception)
+            {
+                _status?.CommitStatus(exception.Message);
+            }
         }
 
         /// <summary>
@@ -98,6 +122,9 @@ namespace SPV3.Compiler
                 Packages = _packages
             };
 
+            Notify("----------------------------");
+            Notify("Resolving metadata binary...");
+            Notify("----------------------------");
             new ManifestRepository(metaPath).Save(metadata);
         }
 
@@ -107,6 +134,10 @@ namespace SPV3.Compiler
         /// </summary>
         private void CreateCorePackage()
         {
+            Notify("----------------------------");
+            Notify("Invoking core compilation...");
+            Notify("----------------------------");
+
             var core = new DirectoryInfo(_source)
                 .GetFiles("*.*");
 
@@ -116,6 +147,8 @@ namespace SPV3.Compiler
              */
             void Compress()
             {
+                Notify($"Compressing filesystem data: {CorePackage} <= SPV3/HCE Core Data");
+
                 var target = (File) Path.Combine(_target, CorePackage);
 
                 var files = core
@@ -131,6 +164,8 @@ namespace SPV3.Compiler
              */
             void AddEntry()
             {
+                Notify($"Generating package metadata: {CorePackage} <= SPV3/HCE Core Data");
+
                 var files = core
                     .Select(file => new Entry
                     {
@@ -161,11 +196,17 @@ namespace SPV3.Compiler
         /// </summary>
         private void CreateDirPackages()
         {
+            Notify("----------------------------");
+            Notify("Invoking data compilation...");
+            Notify("----------------------------");
+
             /**
-             * 
+             * Compresses the directory to a dedicated package.
              */
             void Compress(string name, FileSystemInfo directory)
             {
+                Notify($"Compressing filesystem data: {name} <= {directory.Name}");
+
                 var target = (File) Path.Combine(_target, $"{name}");
                 var source = (Directory) Path.Combine(_source, directory.Name);
 
@@ -178,6 +219,8 @@ namespace SPV3.Compiler
              */
             void AddEntry(string name, FileSystemInfo directory)
             {
+                Notify($"Generating package metadata: {name} <= {directory.Name}");
+
                 var files = System.IO.Directory
                     .GetFileSystemEntries(directory.FullName, "*");
 
@@ -226,6 +269,11 @@ namespace SPV3.Compiler
 
                 index++;
             }
+        }
+
+        private void Notify(string text)
+        {
+            _status?.CommitStatus(text);
         }
     }
 }
