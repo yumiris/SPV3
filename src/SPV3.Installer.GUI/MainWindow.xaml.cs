@@ -19,5 +19,17 @@ namespace SPV3.Installer.GUI
         {
             _main.Install();
         }
+
+        /// <summary>
+        ///     Invokes directory picker.
+        /// </summary>
+        private void Browse(object sender, RoutedEventArgs e)
+        {
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                dialog.ShowDialog();
+                _main.Target = dialog.SelectedPath;
+            }
+        }
     }
 }

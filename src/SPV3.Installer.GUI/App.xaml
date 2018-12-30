@@ -4,6 +4,21 @@
              xmlns:local="clr-namespace:SPV3.Installer.GUI"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="Button">
+            <Setter Property="Height" Value="25" />
+            <Setter Property="Padding" Value="5,0" />
+            <Setter Property="Background" Value="WhiteSmoke" />
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="25" />
+            <Setter Property="Width" Value="Auto" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Background" Value="WhiteSmoke" />
+        </Style>
+
+        <Style TargetType="GroupBox">
+            <Setter Property="Padding" Value="5" />
+        </Style>
     </Application.Resources>
 </Application>

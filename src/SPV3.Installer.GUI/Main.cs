@@ -1,16 +1,18 @@
+using System;
 using System.ComponentModel;
-using System.IO.Compression;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using SPV3.Domain;
 using SPV3.Installer.GUI.Annotations;
 using Directory = SPV3.Domain.Directory;
+using File = System.IO.File;
 
 namespace SPV3.Installer.GUI
 {
-    public class Main : INotifyPropertyChanged
+    public class Main : INotifyPropertyChanged, IStatus
     {
-        private string _target; 
-        private string _status;
+        private string _target;
+        private string _status = "Awaiting end-user invocation...";
 
         public string Status
         {
@@ -37,13 +39,17 @@ namespace SPV3.Installer.GUI
         {
             await Task.Run(() =>
             {
-                var manifest = new ManifestRepository((Domain.File) "0x00.bin").Load();
-                var target = (Directory) @"D:\Miris\Desktop\SPV3\target";
+                CommitStatus("Resolving default manifest...");
+                var manifest = ManifestRepository.LoadDefault();
+                var installer = new Installer(manifest, (Directory) Target, this);
 
-                foreach (var package in manifest.Packages)
+                try
                 {
-                    Status = $"Installing {(string) package.Name} to {(string) target}...";
-                    ZipFile.ExtractToDirectory(package.Name, target);
+                    installer.Install();
+                }
+                catch (Exception exception)
+                {
+                    File.WriteAllText("SPV3.Installer.log", exception.ToString());
                 }
             });
         }
@@ -54,6 +60,11 @@ namespace SPV3.Installer.GUI
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void CommitStatus(string data)
+        {
+            Status = data;
         }
     }
 }

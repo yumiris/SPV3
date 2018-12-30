@@ -5,17 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SPV3.Installer.GUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525"
+        Title="SPV3 Installer"
+        SizeToContent="Height"
+        Width="240"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize">
     <Window.DataContext>
-        <local:Main/>
+        <local:Main />
     </Window.DataContext>
-    <StackPanel>
-        <Label Content="Target:"/>
-        <TextBox Text="{Binding Target}"/>
-        <Label Content="{Binding Status}"/>
-        <Button Content="Install"
-                Click="Install"/>
+    <StackPanel Margin="10">
+        <Image Source="/icon.ico"
+               Stretch="None"/>
+
+        <GroupBox Header="Target"
+                  Margin="0,10,0,0">
+            <DockPanel>
+                <Button DockPanel.Dock="Right"
+                        Content="Browse"
+                        Margin="1,0,0,0"
+                        Click="Browse"/>
+                <TextBox Text="{Binding Target}" />
+            </DockPanel>
+        </GroupBox>
+
+        <GroupBox Header="Install">
+            <Button Content="Install"
+                    Click="Install" />
+        </GroupBox>
+
+        <GroupBox Header="Status">
+            <Label Content="{Binding Status}"
+                   HorizontalAlignment="Center" />
+        </GroupBox>
     </StackPanel>
 </Window>

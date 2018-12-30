@@ -99,5 +99,10 @@ namespace SPV3.Installer
                 return (Manifest) serializer.Deserialize(reader);
             }
         }
+
+        /// <summary>
+        ///     Returns the default manifest.
+        /// </summary>
+        public static Manifest LoadDefault() => new ManifestRepository((File) Manifest.Name.Value).Load();
     }
 }
