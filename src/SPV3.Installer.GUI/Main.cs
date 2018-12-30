@@ -78,6 +78,8 @@ namespace SPV3.Installer.GUI
         {
             try
             {
+                Status = string.Empty;
+                
                 var manifest = ManifestRepository.LoadDefault();
                 new Installer(manifest, (Directory) Target, this).Install();
             }
