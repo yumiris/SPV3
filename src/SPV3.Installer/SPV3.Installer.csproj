@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Description.cs" />
     <Compile Include="Entry.cs" />
+    <Compile Include="Installer.cs" />
     <Compile Include="Manifest.cs" />
     <Compile Include="ManifestRepository.cs" />
     <Compile Include="Package.cs" />
