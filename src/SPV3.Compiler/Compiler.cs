@@ -46,6 +46,11 @@ namespace SPV3.Compiler
         };
 
         /// <summary>
+        ///     Compressor used for the package deflation.
+        /// </summary>
+        private readonly Compressor _compressor;
+
+        /// <summary>
         ///     Created & compiled packages.
         /// </summary>
         private readonly List<Package> _packages = new List<Package>();
@@ -74,13 +79,17 @@ namespace SPV3.Compiler
         /// <param name="target">
         ///     Target directory for manifest & packages.
         /// </param>
+        /// <param name="compressor">
+        ///     Compressor used for the package deflation.
+        /// </param>
         /// <param name="status">
         ///     Status implementer used for appending compilation progress.
         /// </param>
-        public Compiler(Directory source, Directory target, IStatus status = null)
+        public Compiler(Directory source, Directory target, Compressor compressor, IStatus status = null)
         {
             _source = source;
             _target = target;
+            _compressor = compressor;
             _status = status;
         }
 
@@ -148,7 +157,7 @@ namespace SPV3.Compiler
                     .Select(info => (File) info.Name)
                     .ToList();
 
-                new Compressor().Compress(target, _source, files);
+                _compressor.Compress(target, _source, files);
             }
 
             /**
@@ -203,7 +212,7 @@ namespace SPV3.Compiler
                 var target = (File) Path.Combine(_target, $"{name}");
                 var source = (Directory) Path.Combine(_source, directory.Name);
 
-                new Compressor().Compress(target, source);
+                _compressor.Compress(target, source);
             }
 
             /**

@@ -1,12 +1,13 @@
 using System.Collections.Generic;
-using SPV3.Domain;
+using System.IO;
+using System.IO.Compression;
+using Directory = SPV3.Domain.Directory;
+using File = SPV3.Domain.File;
 
 namespace SPV3.Compiler
 {
-    /// <summary>
-    ///     Creates DEFLATE archives for files/directories on the filesystem.
-    /// </summary>
-    public abstract class Compressor
+    /// <inheritdoc />
+    public class InternalCompressor : Compressor
     {
         /// <summary>
         ///     Creates a DEFLATE archive for the provided source Directory at the given target.
@@ -17,7 +18,10 @@ namespace SPV3.Compiler
         /// <param name="source">
         ///     Source Directory on the filesystem to compress to the target archive.
         /// </param>
-        public abstract void Compress(File target, Directory source);
+        public override void Compress(File target, Directory source)
+        {
+            ZipFile.CreateFromDirectory(source, target);
+        }
 
         /// <summary>
         ///     Creates a DEFLATE archive for the provided files in source Directory at the given target.
@@ -31,6 +35,15 @@ namespace SPV3.Compiler
         /// <param name="files">
         ///     Files in the source Directory to compress to the target archive.
         /// </param>
-        public abstract void Compress(File target, Directory source, IEnumerable<File> files);
+        public override void Compress(File target, Directory source, IEnumerable<File> files)
+        {
+            using (var zip = ZipFile.Open(target, ZipArchiveMode.Create))
+            {
+                const CompressionLevel level = CompressionLevel.Optimal;
+
+                foreach (var file in files)
+                    zip.CreateEntryFromFile(Path.Combine(source, file), file, level);
+            }
+        }
     }
 }

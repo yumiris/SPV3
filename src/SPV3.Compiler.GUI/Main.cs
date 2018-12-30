@@ -33,6 +33,11 @@ namespace SPV3.Compiler.GUI
         private string _target;
 
         /// <summary>
+        ///     <see cref="Compressor"/>
+        /// </summary>
+        private readonly Compressor _compressor = new InternalCompressor();
+
+        /// <summary>
         ///     Status output.
         /// </summary>
         public string Status
@@ -88,6 +93,16 @@ namespace SPV3.Compiler.GUI
             }
         }
 
+        public Main()
+        {
+            //
+        }
+
+        public Main(Compressor compressor) : this()
+        {
+            _compressor = compressor;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void CommitStatus(string data)
@@ -115,7 +130,7 @@ namespace SPV3.Compiler.GUI
                 var target = (Domain.Directory) Target;
                 var status = this;
 
-                new Compiler(source, target, status).Compile();
+                new Compiler(source, target, _compressor, status).Compile();
             }
             catch (Exception exception)
             {
