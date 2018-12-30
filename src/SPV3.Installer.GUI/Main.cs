@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using SPV3.Domain;
@@ -11,6 +12,8 @@ namespace SPV3.Installer.GUI
 {
     public class Main : INotifyPropertyChanged, IStatus
     {
+        private const string LogFile = "SPV3.Installer.log";
+
         private string _target;
         private string _status = "Awaiting end-user invocation...";
 
@@ -35,21 +38,25 @@ namespace SPV3.Installer.GUI
             }
         }
 
+        /// <summary>
+        ///     Asynchronously resolves the default manifest, and invokes the Installer's Install method.
+        ///     Any caught exceptions will be logged to %APPDATA%\SPV3.Installer.log
+        /// </summary>
         public async void Install()
         {
             await Task.Run(() =>
             {
-                CommitStatus("Resolving default manifest...");
-                var manifest = ManifestRepository.LoadDefault();
-                var installer = new Installer(manifest, (Directory) Target, this);
-
                 try
                 {
-                    installer.Install();
+                    var manifest = ManifestRepository.LoadDefault();
+                    new Installer(manifest, (Directory) Target, this).Install();
                 }
                 catch (Exception exception)
                 {
-                    File.WriteAllText("SPV3.Installer.log", exception.ToString());
+                    var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    var logPath = Path.Combine(appData, LogFile);
+
+                    File.WriteAllText(logPath, exception.ToString());
                 }
             });
         }
@@ -64,7 +71,7 @@ namespace SPV3.Installer.GUI
 
         public void CommitStatus(string data)
         {
-            Status = data;
+            Status = $"{data}\n{Status}";
         }
     }
 }
