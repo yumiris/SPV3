@@ -13,6 +13,11 @@ namespace SPV3.Compiler.GUI
     public class Main : INotifyPropertyChanged, IStatus
     {
         /// <summary>
+        ///     <see cref="UseExternal"/>
+        /// </summary>
+        private bool _useExternal;
+
+        /// <summary>
         ///     <see cref="CanCompile" />
         /// </summary>
         private bool _canCompile;
@@ -31,11 +36,6 @@ namespace SPV3.Compiler.GUI
         ///     <see cref="Target" />
         /// </summary>
         private string _target;
-
-        /// <summary>
-        ///     <see cref="Compressor"/>
-        /// </summary>
-        private Compressor _compressor;
 
         /// <summary>
         ///     Status output.
@@ -80,6 +80,20 @@ namespace SPV3.Compiler.GUI
         }
 
         /// <summary>
+        ///     Use external compressor instead of the native one.
+        /// </summary>
+        public bool UseExternal
+        {
+            get => _useExternal;
+            set
+            {
+                if (value == _useExternal) return;
+                _useExternal = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
         ///     Allow compilation.
         /// </summary>
         public bool CanCompile
@@ -89,17 +103,6 @@ namespace SPV3.Compiler.GUI
             {
                 if (value == _canCompile) return;
                 _canCompile = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public Compressor Compressor
-        {
-            get => _compressor;
-            set
-            {
-                if (Equals(value, _compressor)) return;
-                _compressor = value;
                 OnPropertyChanged();
             }
         }
@@ -127,14 +130,20 @@ namespace SPV3.Compiler.GUI
         {
             try
             {
-                if (_compressor == null)
-                    throw new NullReferenceException("Cannot compile without Compressor instance.");
+                Status = string.Empty;
+
+                Compressor compressor;
+
+                if (UseExternal)
+                    compressor = new ExternalCompressor();
+                else
+                    compressor = new InternalCompressor();
 
                 var source = (Domain.Directory) Source;
                 var target = (Domain.Directory) Target;
                 var status = this;
 
-                new Compiler(source, target, _compressor, status).Compile();
+                new Compiler(source, target, compressor, status).Compile();
             }
             catch (Exception exception)
             {

@@ -82,6 +82,12 @@
                             IsEnabled="{Binding CanCompile}"
                             Click="Compile" />
                 </GroupBox>
+
+                <!-- Advanced -->
+                <GroupBox Header="Advanced">
+                    <CheckBox Content="Invoke external compression for packages"
+                              IsChecked="{Binding UseExternal}"/>
+                </GroupBox>
             </StackPanel>
 
             <!-- Status -->
@@ -90,7 +96,7 @@
                 <GroupBox Header="Output">
                     <TextBox Height="Auto"
                              Text="{Binding Status}"
-                             MaxHeight="400"
+                             MaxHeight="450"
                              HorizontalScrollBarVisibility="Visible"
                              VerticalScrollBarVisibility="Visible"
                              FontFamily="Consolas"
