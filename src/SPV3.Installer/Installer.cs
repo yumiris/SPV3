@@ -55,39 +55,64 @@ namespace SPV3.Installer
         /// </summary>
         public void Install()
         {
-            try
+            /**
+             * Creates the backup Directory on the filesystem.
+             */
+            void Initiate()
             {
+                Notify("============================");
+                Notify("Initiated install routine...");
+                Notify("============================");
+
                 if (!System.IO.Directory.Exists(_backup))
                     System.IO.Directory.CreateDirectory(_backup);
+            }
 
-                /**
-                 * Each Package from the Manifest is extracted to the Target directory. To handle circumstances where
-                 * the end-user attempts to install to a directory that already contains SPV3 (grr...), we check for any
-                 * Entries (Package/archive files) that exist on the filesystem, and back them up before extracting the
-                 * Package to the filesystem.
-                 *
-                 * The alternative would be to delete any existing files, though it's preferable to avoid destructive
-                 * approaches like these. This is also an entire workaround for the ZipFile.ExtractToDirectory method's
-                 * inability to overwrite files.
-                 *
-                 * Reliance on Package Entries is an alternative to parsing the archive for a list of files, which can
-                 * get murky if the archive type (currently DEFLATE) is to be changed to another one.
-                 */
-                foreach (var package in _manifest.Packages)
-                {
-                    BackupEntries(package);
-                    Notify($"Installing {(string) package.Description}...");
-                    ZipFile.ExtractToDirectory(package.Name, _target);
-                }
-
+            /**
+             * Deletes the backup Directory on the filesystem if it's empty.
+             */
+            void Complete()
+            {
                 if (!System.IO.Directory.EnumerateFileSystemEntries(_backup).Any())
                     System.IO.Directory.Delete(_backup);
 
-                Notify("Installation is complete!");
+                Notify("============================");
+                Notify("Completed install routine...");
+                Notify("============================");
+            }
+
+            /**
+             * Extracts the data for each Package on the filesystem to the target Directory.
+             */
+            void Extract(Package package)
+            {
+                Notify("----------------------------------------------------------------------");
+                Notify($"Installing: {(string) package.Name} :: {(string) package.Description}");
+                Notify("----------------------------------------------------------------------");
+
+                ZipFile.ExtractToDirectory(package.Name, _target);
+
+                foreach (var entry in package.Entries)
+                    Notify($"Installed: {(string) package.Name} :: {(string) entry.Name}");
+            }
+
+            try
+            {
+                Initiate();
+
+                foreach (var package in _manifest.Packages)
+                {
+                    Migrate(package);
+                    Extract(package);
+                }
+
+                Complete();
             }
             catch (Exception exception)
             {
+                Notify("****************************************************************");
                 Notify(exception.Message);
+                Notify("****************************************************************");
             }
         }
 
@@ -97,8 +122,26 @@ namespace SPV3.Installer
         /// <param name="package">
         ///    Package to backup the entries for.
         /// </param>
-        private void BackupEntries(Package package)
+        private void Migrate(Package package)
         {
+            /**
+             * Each Package from the Manifest is extracted to the Target directory. To handle circumstances where
+             * the end-user attempts to install to a directory that already contains SPV3 (grr...), we check for any
+             * Entries (Package/archive files) that exist on the filesystem, and back them up before extracting the
+             * Package to the filesystem.
+             *
+             * The alternative would be to delete any existing files, though it's preferable to avoid destructive
+             * approaches like these. This is also an entire workaround for the ZipFile.ExtractToDirectory method's
+             * inability to overwrite files.
+             *
+             * Reliance on Package Entries is an alternative to parsing the archive for a list of files, which can
+             * get murky if the archive type (currently DEFLATE) is to be changed to another one.
+             */
+
+            Notify("----------------------------------------------------------------------");
+            Notify($"Backing up: {(string) package.Name} :: {(string) package.Description}");
+            Notify("----------------------------------------------------------------------");
+
             /**
              * Packages may represent a subdirectory or contain files directly. We infer the subdirectory and append it
              * to the target installation's path, if the package indeed represents a subdirectory.
@@ -126,6 +169,9 @@ namespace SPV3.Installer
                 var sourceEntry = Path.Combine(parentSubDirectory, entry);
                 var targetEntry = Path.Combine(backupSubDirectory, entry);
 
+                if (!File.Exists(sourceEntry) && !System.IO.Directory.Exists(sourceEntry))
+                    continue;
+
                 if (!System.IO.Directory.Exists(backupSubDirectory))
                     System.IO.Directory.CreateDirectory(backupSubDirectory);
 
@@ -134,25 +180,15 @@ namespace SPV3.Installer
                  * to move the file from the source to the target location.
                  */
                 if (entry.Type == EntryType.File)
-                {
-                    if (File.Exists(sourceEntry))
-                    {
-                        Notify($"Backing up {entry.Name}...");
-                        File.Move(sourceEntry, targetEntry);
-                    }
-                }
+                    File.Move(sourceEntry, targetEntry);
 
                 /**
                  * Same principle as above; however, for directories.
                  */
                 if (entry.Type == EntryType.Directory)
-                {
-                    if (System.IO.Directory.Exists(sourceEntry))
-                    {
-                        Notify($"Backing up {entry.Name}...");
-                        System.IO.Directory.Move(sourceEntry, targetEntry);
-                    }
-                }
+                    System.IO.Directory.Move(sourceEntry, targetEntry);
+
+                Notify($"Migrating: {(string) package.Name} :: {(string) entry.Name}");
             }
         }
 
