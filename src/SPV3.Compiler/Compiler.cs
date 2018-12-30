@@ -127,6 +127,7 @@ namespace SPV3.Compiler
             Notify("----------------------------");
             Notify("Resolving metadata binary...");
             Notify("----------------------------");
+
             new ManifestRepository(metaPath).Save(metadata);
         }
 

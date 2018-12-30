@@ -55,6 +55,16 @@ namespace SPV3.Installer
         /// </summary>
         public void Install()
         {
+            Initiate();
+
+            foreach (var package in _manifest.Packages)
+            {
+                Migrate(package);
+                Extract(package);
+            }
+
+            Complete();
+
             /**
              * Creates the backup Directory on the filesystem.
              */
@@ -106,7 +116,7 @@ namespace SPV3.Installer
                     if (!System.IO.Directory.Exists(target))
                         System.IO.Directory.CreateDirectory(target);
                 }
-                
+
                 /**
                  * Install the data to the final target.
                  */
@@ -115,20 +125,11 @@ namespace SPV3.Installer
                 foreach (var entry in package.Entries)
                     Notify($"Installed: {(string) package.Name} :: {(string) entry.Name}");
             }
-
-            Initiate();
-
-            foreach (var package in _manifest.Packages)
-            {
-                Migrate(package);
-                Extract(package);
-            }
-
-            Complete();
         }
 
         /// <summary>
-        ///     Backs up the Entries for the provided Package, if they exist on the filesystem.
+        ///     Backs up the Entries for the provided Package, if they exist on the filesystem. Backing up is done by
+        ///     moving (migrating) the data to the specified backup directory.
         /// </summary>
         /// <param name="package">
         ///     Package to backup the entries for.
@@ -187,19 +188,15 @@ namespace SPV3.Installer
                     System.IO.Directory.CreateDirectory(backupSubDirectory);
 
                 /**
-                 * If the Entry (within the potential subdirectory) is a file, then we must invoke the File.Move method
-                 * to move the file from the source to the target location.
+                 * Depending on the Entry Type, we treat it as either a file or a directory when moving it. 
                  */
+                Notify($"Migrating: {(string) package.Name} :: {(string) entry.Name}");
+
                 if (entry.Type == EntryType.File)
                     File.Move(sourceEntry, targetEntry);
 
-                /**
-                 * Same principle as above; however, for directories.
-                 */
                 if (entry.Type == EntryType.Directory)
                     System.IO.Directory.Move(sourceEntry, targetEntry);
-
-                Notify($"Migrating: {(string) package.Name} :: {(string) entry.Name}");
             }
         }
 
