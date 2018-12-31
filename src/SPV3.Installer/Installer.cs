@@ -105,7 +105,7 @@ namespace SPV3.Installer
                  * installation target directory.
                  */
                 string target;
-                if (package.Directory.Name == null)
+                if (package.Directory == null)
                 {
                     target = _target;
                 }
@@ -160,7 +160,7 @@ namespace SPV3.Installer
              */
             string parentSubDirectory, backupSubDirectory;
 
-            if (package.Directory.Name == null)
+            if (package.Directory == null)
             {
                 parentSubDirectory = _target;
                 backupSubDirectory = _backup;

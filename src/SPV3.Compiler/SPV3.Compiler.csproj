@@ -42,8 +42,11 @@
   <ItemGroup>
     <Compile Include="Compiler.cs" />
     <Compile Include="Compressor.cs" />
+    <Compile Include="CoreCompiler.cs" />
+    <Compile Include="DataCompiler.cs" />
     <Compile Include="ExternalCompressor.cs" />
     <Compile Include="InternalCompressor.cs" />
+    <Compile Include="MetaCompiler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

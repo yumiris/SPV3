@@ -123,8 +123,8 @@ namespace SPV3.Compiler.GUI
         }
 
         /// <summary>
-        ///     Instantiates the SPV3.Compiler's Compiler class with the given Source & Target directory, and invokes
-        ///     the Compile method.
+        ///     Instantiates the SPV3.Compiler's Meta Compiler class with the given Compressor & IStatus instances, and
+        ///     invokes the Compile method with the Source and Target Directories.
         /// </summary>
         public void Compile()
         {
@@ -143,7 +143,7 @@ namespace SPV3.Compiler.GUI
                 var target = (Domain.Directory) Target;
                 var status = this;
 
-                new Compiler(source, target, compressor, status).Compile();
+                new MetaCompiler(compressor, status).Compile(source, target);
             }
             catch (Exception exception)
             {
