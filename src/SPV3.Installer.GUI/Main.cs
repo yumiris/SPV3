@@ -29,6 +29,9 @@ using Directory = SPV3.Domain.Directory;
 
 namespace SPV3.Installer.GUI
 {
+    /// <summary>
+    ///     Main model used for the UI bindings.
+    /// </summary>
     public class Main : INotifyPropertyChanged, IStatus
     {
         /// <summary>
@@ -95,7 +98,7 @@ namespace SPV3.Installer.GUI
         }
 
         /// <summary>
-        ///     Asynchronously resolves the default manifest, and invokes the Installer's Install method.
+        ///     Resolves the default manifest, and invokes the Installer's Install method.
         /// </summary>
         public void Install()
         {
