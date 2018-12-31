@@ -53,14 +53,14 @@ namespace SPV3.Compiler
         /// <param name="source">
         ///     Source Directory on the filesystem containing the files.
         /// </param>
-        /// <param name="files">
+        /// <param name="whitelist">
         ///     Files in the source Directory to compress to the target archive.
         /// </param>
-        public override void Compress(File target, Directory source, IEnumerable<File> files)
+        public override void Compress(File target, Directory source, IEnumerable<File> whitelist)
         {
             var args = new StringBuilder($"a -tzip \"{(string) target}\" ");
 
-            foreach (var file in files)
+            foreach (var file in whitelist)
             {
                 var path = Path.Combine(source, file);
                 args.Append($"\"{path}\" ");

@@ -16,13 +16,13 @@ namespace SPV3.Compiler
         }
 
         /// <inheritdoc />
-        public override void Compress(File target, Directory source, IEnumerable<File> files)
+        public override void Compress(File target, Directory source, IEnumerable<File> whitelist)
         {
             using (var zip = ZipFile.Open(target, ZipArchiveMode.Create))
             {
                 const CompressionLevel level = CompressionLevel.Optimal;
 
-                foreach (var file in files)
+                foreach (var file in whitelist)
                     zip.CreateEntryFromFile(Path.Combine(source, file), file, level);
             }
         }

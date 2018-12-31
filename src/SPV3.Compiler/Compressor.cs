@@ -28,9 +28,9 @@ namespace SPV3.Compiler
         /// <param name="source">
         ///     Source Directory on the filesystem containing the files.
         /// </param>
-        /// <param name="files">
+        /// <param name="whitelist">
         ///     Files in the source Directory to compress to the target archive.
         /// </param>
-        public abstract void Compress(File target, Directory source, IEnumerable<File> files);
+        public abstract void Compress(File target, Directory source, IEnumerable<File> whitelist);
     }
 }
