@@ -2,6 +2,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using SPV3.Domain;
+using SPV3.Installer.Domain;
 using Directory = SPV3.Domain.Directory;
 
 namespace SPV3.Installer.Installers

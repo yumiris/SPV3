@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using SPV3.Domain;
+using SPV3.Installer.Domain;
 using Version = SPV3.Domain.Version;
 
 namespace SPV3.Installer.Tests

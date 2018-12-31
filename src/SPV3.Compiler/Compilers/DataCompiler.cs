@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using SPV3.Compiler.Common;
 using SPV3.Domain;
-using SPV3.Installer;
+using SPV3.Installer.Domain;
 using Directory = SPV3.Domain.Directory;
 using File = SPV3.Domain.File;
 
