@@ -1,6 +1,8 @@
+using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using SPV3.Domain;
+using Directory = SPV3.Domain.Directory;
 
 namespace SPV3.Installer.Installers
 {
@@ -31,7 +33,8 @@ namespace SPV3.Installer.Installers
                 Migrate(package);
 
                 Notify("Installing data from package:" + $"{package.Name} => {package.Directory}");
-                ZipFile.ExtractToDirectory(package.Name, Target);
+                var target = Path.Combine(Target, package.Directory);
+                ZipFile.ExtractToDirectory(package.Name, target);
             }
 
             Notify("----------------------------");
