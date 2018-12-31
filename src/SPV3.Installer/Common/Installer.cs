@@ -65,6 +65,13 @@ namespace SPV3.Installer.Common
             Status = status;
         }
 
+        /// <summary>
+        ///     Installs the Packages' data (defined in the Manifest) to the Target directory.
+        ///     Any existing Package Entries on the filesystem will be backed up in in a Target directory subdirectory.
+        /// </summary>
+        /// <param name="manifest">
+        ///     Manifest containing information for the Packages to install.
+        /// </param>
         public abstract void Install(Manifest manifest);
 
         /// <summary>
