@@ -8,13 +8,9 @@ using File = SPV3.Domain.File;
 
 namespace SPV3.Compiler.Compilers
 {
+    /// <inheritdoc />
     public class MetaCompiler : Common.Compiler
     {
-        /// <summary>
-        ///     Name for the manifest file.
-        /// </summary>
-        private static readonly string ManifestBin = Manifest.Name;
-
         /// <summary>
         ///     Current manifest/compiler version.
         /// </summary>
@@ -25,24 +21,13 @@ namespace SPV3.Compiler.Compilers
             Patch = 0
         };
 
+        /// <inheritdoc />
         public MetaCompiler(Compressor compressor, IStatus status = null) : base(compressor, status)
         {
             //
         }
 
-        /// <summary>
-        ///     Invokes the Core & Data compilers with the provided Directory & Target, and generates a Manifest in the
-        ///     Target directory.
-        /// </summary>
-        /// <param name="source">
-        ///     Directory containing SPV3/HCE data.
-        /// </param>
-        /// <param name="target">
-        ///     Directory for the compiled data packages.
-        /// </param>
-        /// <returns>
-        ///     Combined manifest from the Core & Data compilers.
-        /// </returns>
+        /// <inheritdoc />
         public override Manifest Compile(Directory source, Directory target)
         {
             Notify("============================");
@@ -55,8 +40,8 @@ namespace SPV3.Compiler.Compilers
                 Packages = new List<Package>()
             };
 
-            var coreManifest = new CoreCompiler(_compressor, _status).Compile(source, target);
-            var dataManifest = new DataCompiler(_compressor, _status).Compile(source, target);
+            var coreManifest = new CoreCompiler(Compressor, Status).Compile(source, target);
+            var dataManifest = new DataCompiler(Compressor, Status).Compile(source, target);
 
             foreach (var package in coreManifest.Packages)
                 mainManifest.Packages.Add(package);
@@ -68,7 +53,7 @@ namespace SPV3.Compiler.Compilers
             Notify("Resolving metadata binary...");
             Notify("----------------------------");
 
-            var metaPath = (File) Path.Combine(target, ManifestBin);
+            var metaPath = (File) Path.Combine(target, Manifest.Name);
             new ManifestRepository(metaPath).Save(mainManifest);
 
             Notify("============================");

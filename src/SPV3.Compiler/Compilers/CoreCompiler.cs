@@ -15,11 +15,13 @@ namespace SPV3.Compiler.Compilers
         /// </summary>
         private const string CorePackage = Prefix + "01" + Suffix;
 
+        /// <inheritdoc />
         public CoreCompiler(Compressor compressor, IStatus status = null) : base(compressor, status)
         {
             //
         }
 
+        /// <inheritdoc />
         public override Manifest Compile(Directory source, Directory target)
         {
             Notify("----------------------------");
@@ -62,7 +64,7 @@ namespace SPV3.Compiler.Compilers
             }
 
             Notify($"Compressing package data: {corePack.Name.Value} <> {corePack.Description.Value}");
-            _compressor.Compress(coreFile, source, fileList);
+            Compressor.Compress(coreFile, source, fileList);
 
             Notify($"Adding entry to manifest: {corePack.Name.Value} <> {corePack.Description.Value}");
             manifest.Packages.Add(corePack);

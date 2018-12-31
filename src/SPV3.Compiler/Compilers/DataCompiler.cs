@@ -16,16 +16,18 @@ namespace SPV3.Compiler.Compilers
         /// </summary>
         private const int InitialDataPackage = 2;
 
+        /// <inheritdoc />
         public DataCompiler(Compressor compressor, IStatus status = null) : base(compressor, status)
         {
             //
         }
 
+        /// <inheritdoc />
         public override Manifest Compile(Directory source, Directory target)
         {
-            _status.CommitStatus("----------------------------");
-            _status.CommitStatus("Invoking data compilation...");
-            _status.CommitStatus("----------------------------");
+            Notify("----------------------------");
+            Notify("Invoking data compilation...");
+            Notify("----------------------------");
 
             var manifest = new Manifest
             {
@@ -33,7 +35,7 @@ namespace SPV3.Compiler.Compilers
             };
 
             var infos = new DirectoryInfo(source).GetDirectories();
-            var index = 2;
+            var index = InitialDataPackage;
 
             foreach (var dir in infos)
             {
@@ -65,7 +67,7 @@ namespace SPV3.Compiler.Compilers
 
                     var name = (Name) Path.GetFileName(data);
 
-                    _status.CommitStatus($"Adding new package entry: {dataPack.Name.Value} <= {name.Value}");
+                    Notify($"Adding new package entry: {dataPack.Name.Value} <= {name.Value}");
                     dataPack.Entries.Add(new Entry
                     {
                         Name = name,
@@ -73,25 +75,21 @@ namespace SPV3.Compiler.Compilers
                     });
                 }
 
-                _status.CommitStatus($"Define compression entry: {dataPack.Name.Value} <= {source.Name.Value}");
+                Notify($"Define compression entry: {dataPack.Name.Value} <= {source.Name.Value}");
                 var subDir = (Directory) Path.Combine(source, dataPack.Directory);
 
-                _status.CommitStatus(
-                    $"Compressing package data: {dataPack.Name.Value} <> {dataPack.Description.Value}");
+                Notify($"Compressing package data: {dataPack.Name.Value} <> {dataPack.Description.Value}");
+                Compressor.Compress(dataFile, subDir);
 
-                _compressor.Compress(dataFile, subDir);
-
-                _status.CommitStatus(
-                    $"Adding entry to manifest: {dataPack.Name.Value} <> {dataPack.Description.Value}");
-
+                Notify($"Adding entry to manifest: {dataPack.Name.Value} <> {dataPack.Description.Value}");
                 manifest.Packages.Add(dataPack);
 
                 index++;
             }
 
-            _status.CommitStatus("----------------------------");
-            _status.CommitStatus("Complete data compilation...");
-            _status.CommitStatus("----------------------------");
+            Notify("----------------------------");
+            Notify("Complete data compilation...");
+            Notify("----------------------------");
 
             return manifest;
         }

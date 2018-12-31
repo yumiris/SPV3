@@ -29,15 +29,7 @@ namespace SPV3.Compiler.Compressors
         /// </summary>
         private static readonly string SevenZipHash = "e93c0c45d84f328afba850e87ac7398c";
 
-        /// <summary>
-        ///     Creates a DEFLATE archive for the provided source Directory at the given target.
-        /// </summary>
-        /// <param name="target">
-        ///     Target archive which will contain the compressed source Directory.
-        /// </param>
-        /// <param name="source">
-        ///     Source Directory on the filesystem to compress to the target archive.
-        /// </param>
+        /// <inheritdoc />
         public override void Compress(File target, Directory source)
         {
             var args = new StringBuilder($"a -tzip \"{(string) target}\" \"{(string) source}\"");
@@ -45,18 +37,7 @@ namespace SPV3.Compiler.Compressors
             InvokeProcess(args.ToString());
         }
 
-        /// <summary>
-        ///     Creates a DEFLATE archive for the provided files in source Directory at the given target.
-        /// </summary>
-        /// <param name="target">
-        ///     Target archive which will contain the compressed source Directory.
-        /// </param>
-        /// <param name="source">
-        ///     Source Directory on the filesystem containing the files.
-        /// </param>
-        /// <param name="whitelist">
-        ///     Files in the source Directory to compress to the target archive.
-        /// </param>
+        /// <inheritdoc />
         public override void Compress(File target, Directory source, IEnumerable<File> whitelist)
         {
             var args = new StringBuilder($"a -tzip \"{(string) target}\" ");
