@@ -1,8 +1,11 @@
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using SPV3.Domain;
 using SPV3.Installer.GUI.Annotations;
+using SPV3.Installer.Installers;
+using Directory = SPV3.Domain.Directory;
 
 namespace SPV3.Installer.GUI
 {
@@ -80,8 +83,12 @@ namespace SPV3.Installer.GUI
             {
                 Status = string.Empty;
 
+                var target = (Directory) Target;
+                var backup = (Directory) Path.Combine(Target, "SPV3-" + Guid.NewGuid());
+
                 var manifest = ManifestRepository.LoadDefault();
-                new Installer(manifest, (Directory) Target, this).Install();
+
+                new MetaInstaller(target, backup, this).Install(manifest);
             }
             catch (Exception exception)
             {
@@ -99,7 +106,7 @@ namespace SPV3.Installer.GUI
         /// <summary>
         ///     Updates CanInstall. If Target directory exist on the filesystem, CanInstall becomes true.
         /// </summary>
-        public void NotifyCanInstall()
+        private void NotifyCanInstall()
         {
             CanInstall = System.IO.Directory.Exists(Target);
         }
