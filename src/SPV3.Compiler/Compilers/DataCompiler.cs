@@ -39,7 +39,7 @@ namespace SPV3.Compiler.Compilers
 
             foreach (var dir in infos)
             {
-                var packName = (Name) $"0x{index:D2}.bin";
+                var packName = (Name) $"0x{index:X2}.bin";
                 var dataFile = (File) Path.Combine(target, packName);
 
                 var infoList = System.IO.Directory.GetFileSystemEntries(dir.FullName, "*");
