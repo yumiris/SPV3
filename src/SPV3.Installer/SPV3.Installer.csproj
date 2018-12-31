@@ -39,9 +39,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Installer.cs" />
     <Compile Include="Description.cs" />
     <Compile Include="Entry.cs" />
-    <Compile Include="Installer.cs" />
+    <Compile Include="Installers\CoreInstaller.cs" />
+    <Compile Include="Installers\DataInstaller.cs" />
+    <Compile Include="Installers\MetaInstaller.cs" />
     <Compile Include="Manifest.cs" />
     <Compile Include="ManifestRepository.cs" />
     <Compile Include="Package.cs" />
