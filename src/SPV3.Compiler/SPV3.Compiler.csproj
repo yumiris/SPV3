@@ -40,13 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Compiler.cs" />
-    <Compile Include="Compressor.cs" />
-    <Compile Include="CoreCompiler.cs" />
-    <Compile Include="DataCompiler.cs" />
-    <Compile Include="ExternalCompressor.cs" />
-    <Compile Include="InternalCompressor.cs" />
-    <Compile Include="MetaCompiler.cs" />
+    <Compile Include="Common\Compiler.cs" />
+    <Compile Include="Common\Compressor.cs" />
+    <Compile Include="Compilers\CoreCompiler.cs" />
+    <Compile Include="Compilers\DataCompiler.cs" />
+    <Compile Include="Compilers\MetaCompiler.cs" />
+    <Compile Include="Compressors\ExternalCompressor.cs" />
+    <Compile Include="Compressors\InternalCompressor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

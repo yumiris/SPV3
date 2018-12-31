@@ -1,6 +1,9 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SPV3.Compiler.Common;
+using SPV3.Compiler.Compilers;
+using SPV3.Compiler.Compressors;
 using SPV3.Compiler.GUI.Annotations;
 using SPV3.Domain;
 using Directory = System.IO.Directory;
@@ -12,11 +15,6 @@ namespace SPV3.Compiler.GUI
     /// </summary>
     public class Main : INotifyPropertyChanged, IStatus
     {
-        /// <summary>
-        ///     <see cref="UseExternal"/>
-        /// </summary>
-        private bool _useExternal;
-
         /// <summary>
         ///     <see cref="CanCompile" />
         /// </summary>
@@ -36,6 +34,11 @@ namespace SPV3.Compiler.GUI
         ///     <see cref="Target" />
         /// </summary>
         private string _target;
+
+        /// <summary>
+        ///     <see cref="UseExternal" />
+        /// </summary>
+        private bool _useExternal;
 
         /// <summary>
         ///     Status output.

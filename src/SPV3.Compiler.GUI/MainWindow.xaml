@@ -86,7 +86,7 @@
                 <!-- Advanced -->
                 <GroupBox Header="Advanced">
                     <CheckBox Content="Invoke external compression for packages"
-                              IsChecked="{Binding UseExternal}"/>
+                              IsChecked="{Binding UseExternal}" />
                 </GroupBox>
             </StackPanel>
 

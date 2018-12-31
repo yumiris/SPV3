@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using SPV3.Compiler.Common;
 using Directory = SPV3.Domain.Directory;
 using File = SPV3.Domain.File;
 
-namespace SPV3.Compiler
+namespace SPV3.Compiler.Compressors
 {
     /// <inheritdoc />
     public class InternalCompressor : Compressor

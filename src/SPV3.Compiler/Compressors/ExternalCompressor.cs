@@ -5,10 +5,11 @@ using System.IO;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
+using SPV3.Compiler.Common;
 using Directory = SPV3.Domain.Directory;
 using File = SPV3.Domain.File;
 
-namespace SPV3.Compiler
+namespace SPV3.Compiler.Compressors
 {
     /// <summary>
     ///     Creates DEFLATE archives for files/directories on the filesystem.

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using SPV3.Domain;
 
-namespace SPV3.Compiler
+namespace SPV3.Compiler.Common
 {
     /// <summary>
     ///     Creates DEFLATE archives for files/directories on the filesystem.

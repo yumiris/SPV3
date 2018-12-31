@@ -1,7 +1,7 @@
 using SPV3.Domain;
 using SPV3.Installer;
 
-namespace SPV3.Compiler
+namespace SPV3.Compiler.Common
 {
     public abstract class Compiler
     {
