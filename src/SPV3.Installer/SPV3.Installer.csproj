@@ -40,14 +40,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Installer.cs" />
-    <Compile Include="Description.cs" />
-    <Compile Include="Entry.cs" />
+    <Compile Include="Domain\Description.cs" />
+    <Compile Include="Domain\Entry.cs" />
+    <Compile Include="Domain\Manifest.cs" />
+    <Compile Include="Domain\ManifestRepository.cs" />
+    <Compile Include="Domain\Package.cs" />
     <Compile Include="Installers\CoreInstaller.cs" />
     <Compile Include="Installers\DataInstaller.cs" />
     <Compile Include="Installers\MetaInstaller.cs" />
-    <Compile Include="Manifest.cs" />
-    <Compile Include="ManifestRepository.cs" />
-    <Compile Include="Package.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -55,9 +55,6 @@
       <Project>{df140d8d-f741-424e-b5f7-54efa3ccd796}</Project>
       <Name>SPV3.Domain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Domain" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
