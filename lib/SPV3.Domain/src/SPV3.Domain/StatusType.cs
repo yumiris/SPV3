@@ -20,44 +20,28 @@
 namespace SPV3.Domain
 {
     /// <summary>
-    ///     Represents a file on the filesystem.
+    ///     Status types handled by an <see cref="IStatus"/> implementer.
     /// </summary>
-    public class File
+    public enum StatusType
     {
         /// <summary>
-        ///     <see cref="Name" />
+        ///     Successful step or execution.
         /// </summary>
-        public Name Name { get; set; }
-
+        Success,
+        
         /// <summary>
-        ///     Represent object as string.
+        ///     Non-fatal warning during execution.
         /// </summary>
-        /// <param name="file">
-        ///     Object to represent as string.
-        /// </param>
-        /// <returns>
-        ///     String representation of the object.
-        /// </returns>
-        public static implicit operator string(File file)
-        {
-            return file.Name;
-        }
-
+        Warning,
+        
         /// <summary>
-        ///     Represent string as object.
+        ///     Execution failure.
         /// </summary>
-        /// <param name="name">
-        ///     String to represent as object.
-        /// </param>
-        /// <returns>
-        ///     Object representation of the string.
-        /// </returns>
-        public static explicit operator File(string name)
-        {
-            return new File
-            {
-                Name = (Name) name
-            };
-        }
+        Failure,
+        
+        /// <summary>
+        ///     Require user inut.
+        /// </summary>
+        Require
     }
 }

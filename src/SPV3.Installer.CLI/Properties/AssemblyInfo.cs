@@ -1,34 +1,15 @@
-/**
- * Copyright (C) 2019 Emilian Roman
- * 
- * This file is part of SPV3.Domain.
- * 
- * SPV3.Domain is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * SPV3.Domain is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with SPV3.Domain.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SPV3.Domain")]
+[assembly: AssemblyTitle("SPV3.Installer.CLI")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SPV3.Domain")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyProduct("SPV3.Installer.CLI")]
+[assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -38,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("DF140D8D-F741-424E-B5F7-54EFA3CCD796")]
+[assembly: Guid("59457F39-C705-4331-A9BC-125309F03B7B")]
 
 // Version information for an assembly consists of the following four values:
 //
