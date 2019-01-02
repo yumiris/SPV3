@@ -41,9 +41,9 @@ namespace SPV3.Installer.CLI
         ///     ASCII banner for the console.
         /// </summary>
         private static string Banner => @"
----------------------------------------------------------------------------------
-~ SPV3 Installer - v0.2 - (C) 2019 Emilian Roman - GNU General Public License 3 ~
----------------------------------------------------------------------------------
+--------------------------------------------------------------------------
+~ SPV3 Installer - (C) 2019 Emilian Roman - GNU General Public License 3 ~
+--------------------------------------------------------------------------
 ";
 
         /// <summary>

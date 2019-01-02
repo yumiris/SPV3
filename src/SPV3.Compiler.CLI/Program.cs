@@ -39,9 +39,9 @@ namespace SPV3.Compiler.CLI
         ///     ASCII banner for the console.
         /// </summary>
         private static string Banner => @"
---------------------------------------------------------------------------------
-~ SPV3 Compiler - v0.2 - (C) 2019 Emilian Roman - GNU General Public License 3 ~
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------
+~ SPV3 Compiler - (C) 2019 Emilian Roman - GNU General Public License 3 ~
+-------------------------------------------------------------------------
 ";
 
         /// <summary>
