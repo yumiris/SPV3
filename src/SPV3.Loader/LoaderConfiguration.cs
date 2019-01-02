@@ -25,7 +25,7 @@ namespace SPV3.Loader
     public class LoaderConfiguration
     {
         /// <summary>
-        ///     Skips verification of the provided HCE executable
+        ///     Skips verification of the provided HCE executable.
         /// </summary>
         public bool SkipVerification { get; set; }
     }

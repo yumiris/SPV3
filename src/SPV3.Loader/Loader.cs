@@ -66,21 +66,25 @@ namespace SPV3.Loader
         {
             if (!_configuration.SkipVerification)
                 if (!executable.Verify())
-                    throw new ArgumentException("Provided executable failed to pass the verification routine.");
+                    throw new ArgumentException("Executable failed to pass the verification routine.");
+
+            var exeName = Path.GetFileName(executable.Path) ??
+                          throw new FormatException("Could not infer executable name from the path.");
+
+            var workDir = Path.GetDirectoryName(executable.Path) ??
+                          throw new FormatException("Could not infer working directory from the path.");
+
+            var exeArgs = parameters == null
+                ? string.Empty
+                : new ParametersSerialiser().Serialise(parameters);
 
             new Process
             {
                 StartInfo =
                 {
-                    FileName = Path.GetFileName(executable.Path) ??
-                               throw new FormatException("Could not infer executable name from the path."),
-                    WorkingDirectory = Path.GetDirectoryName(executable.Path) ??
-                                       throw new FormatException("Could not infer working directory from the path."),
-
-                    // optional startup args
-                    Arguments = parameters == null
-                        ? string.Empty
-                        : new ParametersSerialiser().Serialise(parameters)
+                    FileName = exeName,
+                    WorkingDirectory = workDir,
+                    Arguments = exeArgs
                 }
             }.Start();
         }

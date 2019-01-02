@@ -32,6 +32,11 @@ namespace SPV3.Loader
         public const string Name = "haloce.exe";
 
         /// <summary>
+        ///     Byte length of the HCE executable. 
+        /// </summary>
+        private const int Length = 0x24B000;
+
+        /// <summary>
         ///     Executable constructor.
         /// </summary>
         /// <param name="path">
@@ -58,7 +63,7 @@ namespace SPV3.Loader
             if (!File.Exists(Path))
                 throw new FileNotFoundException("Cannot verify non-existent HCE executable file.");
 
-            return new FileInfo(Path).Length == 0x24B000;
+            return new FileInfo(Path).Length == Length;
         }
     }
 }

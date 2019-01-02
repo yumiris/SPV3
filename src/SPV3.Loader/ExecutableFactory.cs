@@ -62,15 +62,27 @@ namespace SPV3.Loader
         /// </exception>
         public static Executable Detect()
         {
+            /**
+             * Check for the executable presence in the current directory.
+             */
             var currentDirectoryPath = Path.Combine(Directory.GetCurrentDirectory(), Executable.Name);
             if (File.Exists(currentDirectoryPath)) return new Executable(currentDirectoryPath);
 
+            /**
+             * Check for the executable presence in the official paths (64-bit).
+             */
             var fullDefaultPath64 = $@"{DefaultInstall64}\{Executable.Name}";
             if (File.Exists(fullDefaultPath64)) return new Executable(fullDefaultPath64);
 
+            /**
+             * Check for the executable presence in the official paths (32-bit).
+             */
             var fullDefaultPath32 = $@"{DefaultInstall32}\{Executable.Name}";
             if (File.Exists(fullDefaultPath32)) return new Executable(fullDefaultPath32);
 
+            /**
+             * Check for the executable presence in the registry keys (32-bit).
+             */
             using (var view = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
             using (var key = view.OpenSubKey(RegKeyLocation))
             {
@@ -78,6 +90,9 @@ namespace SPV3.Loader
                 if (path != null) return new Executable($@"{path}\{Executable.Name}");
             }
 
+            /**
+             * Check for the executable presence in the registry keys (64-bit).
+             */
             using (var view = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
             using (var key = view.OpenSubKey(RegKeyLocation))
             {

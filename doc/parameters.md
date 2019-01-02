@@ -1,9 +1,12 @@
 # Startup Arguments
 
-This document outlines the startup parameters that the HCE executable supports. This document classifies the parameters by two types:
+This document outlines the startup parameters that the HCE executable supports.
+This document classifies the parameters by two types:
 
-- **toggle**: parameters whose mere presence enable a certain functionality (e.g. `-screenshot`, `-window`);
-- **argument**: parameters that require arguments for modifying an existing functionality (e.g. `width x`).
+- **toggle**: parameters whose mere presence enable a certain functionality
+  (e.g. `-screenshot`, `-window`);
+- **argument**: parameters that require arguments for modifying an existing
+  functionality (e.g. `width x`).
 
 ## Overview
 
@@ -33,7 +36,8 @@ This document outlines the startup parameters that the HCE executable supports. 
 
 ### CLI
 
-The SPV3.Loader CLI allows the end-user or a calling process to invoke the above parameters as startup arguments:
+The SPV3.Loader CLI allows the end-user or a calling process to invoke the above
+parameters as startup arguments:
 
 ```powershell
 # Implicit detection of HCE executable
@@ -45,16 +49,18 @@ The SPV3.Loader CLI allows the end-user or a calling process to invoke the above
 
 ### Library
 
-The above parameters are implemented as a concrete type (`ExecutableParameters`), whose public properties represent the
-above parameters, with the following notes to consider:
-
+The above parameters are implemented as a concrete type
+(`ExecutableParameters`), whose public properties represent the above
+parameters, with the following notes to consider: 
 - toggle-type parameters are represented as booleans;
-  - however, `useff`, `use11`, `use14` and `use20` are represented by an enumerator;
+  - however, `useff`, `use11`, `use14` and `use20` are represented by an
+    enumerator;
 - argument-type parameters are represented as strings or nullable integer;
 - `-width` has been merged into `-vidmode` to remove redundancy.
 
-The type exposes a `string Serialise()` method. It retrieves the instance's property values as a concatenated string,
-which is accepted by the HCE process as a startup argument. For example:
+The type exposes a `string Serialise()` method. It retrieves the instance's
+property values as a concatenated string, which is accepted by the HCE process
+as a startup argument. For example:
 
 ```cs
 var parameters = new ExecutableParameters
