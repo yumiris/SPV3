@@ -15,6 +15,8 @@
 - [Introduction](#introduction)
 - [Compiler](#compiler)
   - [Usage](#usage)
+  - [GUI](#gui)
+  - [CLI](#cli)
   - [Directories](#directories)
 - [Entities](#entities)
   - [Manifest](#manifest)
@@ -49,12 +51,26 @@ end-user's computer.
 
 ## Usage
 
+The Compiler can be interacted with using a GUI or a CLI.
+
+## GUI
+
 ![compiler-gui](doc/screenshots/compiler-gui.png)
 
 In the GUI, specify your source & target directory, then click the button and
 wait for the compilation to finish. During this time, you might see brief
 command lines popping up. Rest assured that this is expected, and nothing tragic
 should happen!
+
+## CLI
+
+Invoke the SPV3.Compiler.CLI.exe from PowerShell/Command Line like so:
+
+```
+.\SPV3.Compiler.CLI.exe "path\to\source" "path\to\target"
+```
+
+In Linux shells like Bash, Zsh, etc., swap the backslashes with forward slashes.
 
 ## Directories
 
