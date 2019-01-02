@@ -19,6 +19,8 @@
                       Click="About" />
             <MenuItem Header="Releases"
                       Click="Releases" />
+            <MenuItem Header="GPL-3.0"
+                      IsEnabled="False" />
         </Menu>
         <StackPanel Margin="10"
                     Width="360">
