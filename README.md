@@ -15,8 +15,8 @@
 - [Introduction](#introduction)
 - [Compiler](#compiler)
   - [Usage](#usage)
-  - [GUI](#gui)
-  - [CLI](#cli)
+    - [GUI](#gui)
+    - [CLI](#cli)
   - [Directories](#directories)
 - [Entities](#entities)
   - [Manifest](#manifest)
@@ -53,7 +53,7 @@ end-user's computer.
 
 The Compiler can be interacted with using a GUI or a CLI.
 
-## GUI
+### GUI
 
 ![compiler-gui](doc/screenshots/compiler-gui.png)
 
@@ -62,7 +62,7 @@ wait for the compilation to finish. During this time, you might see brief
 command lines popping up. Rest assured that this is expected, and nothing tragic
 should happen!
 
-## CLI
+### CLI
 
 Invoke the SPV3.Compiler.CLI.exe from PowerShell/Command Line like so:
 
