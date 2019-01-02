@@ -20,28 +20,28 @@
 namespace SPV3.Domain
 {
     /// <summary>
-    ///     Interface dealing with a progress status. This should be implemented by a type that binds or outputs data
-    ///     to the user. For example, a ViewModel can implement this interface by assigning the data to a property that
-    ///     is bound to a view control.
+    ///     Status types handled by an <see cref="IStatus"/> implementer.
     /// </summary>
-    public interface IStatus
+    public enum StatusType
     {
         /// <summary>
-        ///     Appends given progress to the current status.
+        ///     Successful step or execution.
         /// </summary>
-        /// <param name="data">
-        ///     Data to append the status.
-        /// </param>
-        void CommitStatus(string data);
-
+        Success,
+        
         /// <summary>
-        ///     Appends given progress to the current status, and handles the given status type.
+        ///     Non-fatal warning during execution.
         /// </summary>
-        /// <param name="data">
-        ///     Data to append the status.
-        /// </param>
-        /// <param name="type"></param>
-        void CommitStatus(string data, StatusType type);
+        Warning,
+        
+        /// <summary>
+        ///     Execution failure.
+        /// </summary>
+        Failure,
+        
+        /// <summary>
+        ///     Require user inut.
+        /// </summary>
+        Require
     }
 }
-
