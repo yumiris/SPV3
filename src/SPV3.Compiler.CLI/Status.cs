@@ -29,6 +29,34 @@ namespace SPV3.Compiler.CLI
             CommitStatus(data, ConsoleColor.Cyan);
         }
 
+        public void CommitStatus(string data, StatusType type)
+        {
+            var symbol = string.Empty;
+            var colour = ConsoleColor.White;
+
+            switch (type)
+            {
+                case StatusType.Success:
+                    symbol = "✔";
+                    colour = ConsoleColor.Green;
+                    break;
+                case StatusType.Warning:
+                    symbol = "⚠";
+                    colour = ConsoleColor.Yellow;
+                    break;
+                case StatusType.Failure:
+                    symbol = "⯃";
+                    colour = ConsoleColor.Red;
+                    break;
+                case StatusType.Require:
+                    symbol = "⌘";
+                    colour = ConsoleColor.Cyan;
+                    break;
+            }
+
+            CommitStatus($"{symbol} | {data}", colour);
+        }
+
         public void CommitStatus(string data, ConsoleColor color)
         {
             Console.ForegroundColor = color;

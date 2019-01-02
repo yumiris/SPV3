@@ -37,8 +37,6 @@ namespace SPV3.Compiler.CLI
 
         public static void Main(string[] args)
         {
-            Status.CommitStatus(Banner);
-
             if (args.Length < 2) Exit("Not enough arguments!", 1);
 
             var source = (Directory) args[0];
@@ -61,7 +59,7 @@ namespace SPV3.Compiler.CLI
                     })
                     .GetAwaiter().GetResult();
 
-                Console.ReadLine();
+                Exit(Banner, 0);
             }
             catch (Exception exception)
             {
@@ -71,7 +69,7 @@ namespace SPV3.Compiler.CLI
 
         private static void Exit(string message, int code)
         {
-            Status.CommitStatus(message, code == 0 ? ConsoleColor.Green : ConsoleColor.Red);
+            Status.CommitStatus(message, code == 0 ? StatusType.Success : StatusType.Failure);
             Environment.Exit(code);
         }
     }

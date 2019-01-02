@@ -97,6 +97,29 @@ namespace SPV3.Installer.GUI
             Status = $"{data}\n{Status}";
         }
 
+        public void CommitStatus(string data, StatusType type)
+        {
+            var symbol = string.Empty;
+            
+            switch (type)
+            {
+                case StatusType.Success:
+                    symbol = "✔";
+                    break;
+                case StatusType.Warning:
+                    symbol = "⚠";
+                    break;
+                case StatusType.Failure:
+                    symbol = "⯃";
+                    break;
+                case StatusType.Require:
+                    symbol = "⌘";
+                    break;
+            }
+
+            CommitStatus($"{symbol} | {data}");
+        }
+
         /// <summary>
         ///     Resolves the default manifest, and invokes the Installer's Install method.
         /// </summary>

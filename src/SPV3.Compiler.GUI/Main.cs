@@ -136,6 +136,29 @@ namespace SPV3.Compiler.GUI
             Status = $"{DateTime.Now:u} - {data}\n{Status}";
         }
 
+        public void CommitStatus(string data, StatusType type)
+        {
+            var symbol = string.Empty;
+            
+            switch (type)
+            {
+                case StatusType.Success:
+                    symbol = "✔";
+                    break;
+                case StatusType.Warning:
+                    symbol = "⚠";
+                    break;
+                case StatusType.Failure:
+                    symbol = "⯃";
+                    break;
+                case StatusType.Require:
+                    symbol = "⌘";
+                    break;
+            }
+
+            CommitStatus($"{symbol} | {data}");
+        }
+
         /// <summary>
         ///     Updates CanCompile. If Source & Target directories exist on the filesystem, CanCompile becomes true.
         /// </summary>
