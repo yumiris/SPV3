@@ -39,11 +39,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Difficulty.cs" />
-    <Compile Include="InitcRepository.cs" />
+    <Compile Include="Initc.cs" />
     <Compile Include="Mission.cs" />
     <Compile Include="Progress.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SavegameRepository.cs" />
+    <Compile Include="Savegame.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\lib\SPV3.Domain\src\SPV3.Domain\SPV3.Domain.csproj">

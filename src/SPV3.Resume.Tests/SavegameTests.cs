@@ -1,8 +1,28 @@
+﻿using NUnit.Framework;
+using SPV3.Domain;
+
 namespace SPV3.Resume.Tests
 {
-    public static class Savegame
+    [TestFixture]
+    public class SavegameTests
     {
-        public static readonly byte[] RawData =
+        [SetUp]
+        public void SetUp()
+        {
+            System.IO.File.WriteAllBytes(Binary, RawData);
+            _progress = new Resume.Savegame(Binary).Load();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            System.IO.File.Delete(Binary);
+        }
+
+        private static readonly File Binary = (File) "savegame.bin";
+        private static Progress _progress;
+
+        private static readonly byte[] RawData =
         {
             0x69, 0x05, 0x37, 0xD2, 0x63, 0x6D, 0x74, 0x5C, 0x73, 0x63, 0x65, 0x6E,
             0x61, 0x72, 0x69, 0x6F, 0x73, 0x5C, 0x73, 0x69, 0x6E, 0x67, 0x6C, 0x65,
@@ -55,5 +75,17 @@ namespace SPV3.Resume.Tests
             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
         };
+
+        [Test]
+        public void LoadSavegame_DifficultyIsCorrect_True()
+        {
+            Assert.AreEqual(Difficulty.Legendary, _progress.Difficulty);
+        }
+
+        [Test]
+        public void LoadSavegame_MissionIsCorrect_True()
+        {
+            Assert.AreEqual(Mission.Spv3a30, _progress.Mission);
+        }
     }
 }

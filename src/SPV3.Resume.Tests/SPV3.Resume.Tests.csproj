@@ -42,8 +42,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Savegame.cs" />
-    <Compile Include="SavegameRepositoryTests.cs" />
+    <Compile Include="SavegameTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

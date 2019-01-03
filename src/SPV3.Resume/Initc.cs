@@ -25,14 +25,20 @@ namespace SPV3.Resume
     /// <summary>
     ///     Saves data to the provided initc text file.
     /// </summary>
-    public class InitcRepository
+    public class Initc
     {
         /// <summary>
         ///     Initc text file.
         /// </summary>
         private File _file;
 
-        public InitcRepository(File file)
+        /// <summary>
+        ///     Initc constructor.
+        /// </summary>
+        /// <param name="file">
+        ///    Initc text file.
+        /// </param>
+        public Initc(File file)
         {
             _file = file;
         }

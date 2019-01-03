@@ -26,7 +26,7 @@ namespace SPV3.Resume
     /// <summary>
     ///     Loads data from the provided savegame binary.
     /// </summary>
-    public class SavegameRepository
+    public class Savegame
     {
         /// <summary>
         ///     Offset of the difficulty value in the savegame binary.
@@ -49,12 +49,12 @@ namespace SPV3.Resume
         private readonly File _file;
 
         /// <summary>
-        ///     SavegameRepository constructor.
+        ///     Savegame constructor.
         /// </summary>
         /// <param name="file">
         ///    Savegame binary file.
         /// </param>
-        public SavegameRepository(File file)
+        public Savegame(File file)
         {
             _file = file;
         }
