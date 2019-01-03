@@ -1,6 +1,6 @@
 # Mission
 
-The table below lists all of the map names supported by the 
+The table below lists all of the SPV3 map names.
 
 | File Name         | Enum Name        |
 | ----------------- | ---------------- |
