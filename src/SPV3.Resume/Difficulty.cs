@@ -21,5 +21,9 @@ namespace SPV3.Resume
 {
     public enum Difficulty
     {
+        Noble,
+        Normal,
+        Heroic,
+        Legendary
     }
 }

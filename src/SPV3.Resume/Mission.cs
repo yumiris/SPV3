@@ -21,5 +21,17 @@ namespace SPV3.Resume
 {
     public enum Mission
     {
+        Spv3a10,
+        Spv3a30,
+        Spv3a50,
+        Spv3b30,
+        Spv3b40,
+        Spv3c10,
+        Spv3c20,
+        Spv3c40,
+        Spv3d20,
+        Spv3d30,
+        Spv3d40,
+        Spv3d30Evolved
     }
 }
