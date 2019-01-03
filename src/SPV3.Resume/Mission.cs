@@ -19,6 +19,9 @@
 
 namespace SPV3.Resume
 {
+    /// <summary>
+    ///     Representation of the available SPV3 missions.
+    /// </summary>
     public enum Mission
     {
         Spv3a10,

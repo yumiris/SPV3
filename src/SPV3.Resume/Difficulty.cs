@@ -19,6 +19,9 @@
 
 namespace SPV3.Resume
 {
+    /// <summary>
+    ///     Representation of the available SPV3 difficulties.
+    /// </summary>
     public enum Difficulty
     {
         Noble,
