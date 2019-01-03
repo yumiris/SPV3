@@ -10,7 +10,7 @@ namespace SPV3.Resume.Tests
         public void SetUp()
         {
             System.IO.File.WriteAllBytes(Binary, Savegame.RawData);
-            _savegame = new SavegameRepository(Binary).Load();
+            _progress = new SavegameRepository(Binary).Load();
         }
 
         [TearDown]
@@ -20,18 +20,18 @@ namespace SPV3.Resume.Tests
         }
 
         private static readonly File Binary = (File) "savegame.bin";
-        private static Resume.Savegame _savegame;
+        private static Progress _progress;
 
         [Test]
         public void LoadSavegame_DifficultyIsCorrect_True()
         {
-            Assert.AreEqual(Difficulty.Legendary, _savegame.Difficulty);
+            Assert.AreEqual(Difficulty.Legendary, _progress.Difficulty);
         }
 
         [Test]
         public void LoadSavegame_MissionIsCorrect_True()
         {
-            Assert.AreEqual(Mission.Spv3a30, _savegame.Mission);
+            Assert.AreEqual(Mission.Spv3a30, _progress.Mission);
         }
     }
 }

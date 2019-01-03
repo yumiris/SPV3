@@ -40,10 +40,10 @@ namespace SPV3.Resume
         /// <summary>
         ///     Serialises Initc instance to the provided text file.
         /// </summary>
-        /// <param name="initc">
+        /// <param name="progress">
         ///     Instance to serialise to the text file.
         /// </param>
-        public void Save(Initc initc)
+        public void Save(Progress progress)
         {
             throw new NotImplementedException();
         }

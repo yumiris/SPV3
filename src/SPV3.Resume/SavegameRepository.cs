@@ -60,17 +60,17 @@ namespace SPV3.Resume
         }
 
         /// <summary>
-        ///     Deserialises Savegame instance from the provided binary.
+        ///     Deserialises Progress instance from the provided binary.
         /// </summary>
         /// <returns>
-        ///     Savegame instance representing the provided binary.
+        ///     Progress instance representing the provided binary.
         /// </returns>
         /// <exception cref="ArgumentException">
         ///     Invalid difficulty numeric value.
         ///     - or -
         ///     Invalid SPV3 mission value.
         /// </exception>
-        public Savegame Load()
+        public Progress Load()
         {
             /**
              * Infers the Difficulty enum member from the inbound integer.
@@ -140,7 +140,7 @@ namespace SPV3.Resume
                 var mission = new string(reader.ReadChars(MissionLength))
                     .TrimEnd('\0');
 
-                return new Savegame
+                return new Progress
                 {
                     Difficulty = GetDifficulty(difficulty),
                     Mission = GetMission(mission)
