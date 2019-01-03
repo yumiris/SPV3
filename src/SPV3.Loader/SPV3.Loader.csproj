@@ -39,7 +39,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CardType.cs" />
+    <Compile Include="Difficulty.cs" />
     <Compile Include="ExecutableFactory.cs" />
+    <Compile Include="Initc.cs" />
+    <Compile Include="Mission.cs" />
     <Compile Include="Parameters.cs" />
     <Compile Include="Executable.cs" />
     <Compile Include="ParametersSerialiser.cs" />
@@ -47,6 +50,9 @@
     <Compile Include="LoaderConfiguration.cs" />
     <Compile Include="ParametersParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Initc" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
