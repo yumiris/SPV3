@@ -134,15 +134,16 @@ namespace SPV3.Resume
             using (var reader = new BinaryReader(System.IO.File.Open(_file, FileMode.Open)))
             {
                 reader.BaseStream.Seek(DifficultyOffset, SeekOrigin.Begin);
-                var difficulty = GetDifficulty(reader.ReadInt16());
+                var difficulty = reader.ReadInt16();
 
                 reader.BaseStream.Seek(MissionOffset, SeekOrigin.Begin);
-                var mission = GetMission(new string(reader.ReadChars(MissionLength)));
+                var mission = new string(reader.ReadChars(MissionLength))
+                    .TrimEnd('\0');
 
                 return new Savegame
                 {
-                    Difficulty = difficulty,
-                    Mission = mission
+                    Difficulty = GetDifficulty(difficulty),
+                    Mission = GetMission(mission)
                 };
             }
         }
