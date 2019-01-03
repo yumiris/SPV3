@@ -21,6 +21,5 @@ namespace SPV3.Resume
 {
     public enum Mission
     {
-        
     }
 }

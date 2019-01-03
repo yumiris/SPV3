@@ -18,16 +18,17 @@
  */
 
 using System;
+using SPV3.Domain;
 
 namespace SPV3.Resume
 {
     public class SavegameRepository
     {
-        private string _path;
+        private File _file;
 
-        public SavegameRepository(string path)
+        public SavegameRepository(File file)
         {
-            _path = path;
+            _file = file;
         }
 
         public void Save(Savegame savegame)

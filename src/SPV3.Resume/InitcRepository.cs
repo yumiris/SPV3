@@ -18,16 +18,17 @@
  */
 
 using System;
+using SPV3.Domain;
 
 namespace SPV3.Resume
 {
     public class InitcRepository
     {
-        private string _path;
+        private File _file;
 
-        public InitcRepository(string path)
+        public InitcRepository(File file)
         {
-            _path = path;
+            _file = file;
         }
 
         public void Save(Initc initc)
