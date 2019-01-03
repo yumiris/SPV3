@@ -19,10 +19,19 @@
 
 namespace SPV3.Resume
 {
+    /// <summary>
+    ///   Type representing Initc campaign-related values.
+    /// </summary>
     public class Initc
     {
-        public string Path { get; set; }
+        /// <summary>
+        ///     Campaign mission.
+        /// </summary>
         public Mission Mission { get; set; }
+
+        /// <summary>
+        ///     Campaign difficulty.
+        /// </summary>
         public Difficulty Difficulty { get; set; }
     }
 }

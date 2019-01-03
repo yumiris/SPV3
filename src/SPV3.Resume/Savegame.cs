@@ -19,10 +19,19 @@
 
 namespace SPV3.Resume
 {
+    /// <summary>
+    ///   Type representing Savegame campaign-related values.
+    /// </summary>
     public class Savegame
     {
-        public string Path { get; set; }
+        /// <summary>
+        ///     Campaign mission.
+        /// </summary>
         public Mission Mission { get; set; }
+
+        /// <summary>
+        ///     Campaign difficulty.
+        /// </summary>
         public Difficulty Difficulty { get; set; }
     }
 }
