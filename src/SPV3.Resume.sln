@@ -12,6 +12,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Domain", "..\lib\SPV3.Domain\src\SPV3.Domain\SPV3.Domain.csproj", "{DF140D8D-F741-424E-B5F7-54EFA3CCD796}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Campaign", "Campaign", "{59D9B583-CE0F-4430-9D2F-99730E6A22B6}"
+ProjectSection(SolutionItems) = preProject
+	..\doc\difficulty.md = ..\doc\difficulty.md
+	..\doc\mission.md = ..\doc\mission.md
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Files", "Files", "{F33C6308-ED58-47E4-AC1F-88A00B3F3E00}"
+ProjectSection(SolutionItems) = preProject
+	..\doc\initc.md = ..\doc\initc.md
+	..\doc\savegame.md = ..\doc\savegame.md
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,5 +41,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DF140D8D-F741-424E-B5F7-54EFA3CCD796} = {56FE2A82-C8B3-4A46-B395-BE3D8A41B240}
+		{59D9B583-CE0F-4430-9D2F-99730E6A22B6} = {CC3BE434-7D1A-4423-9B29-62BB3DB9E2A1}
+		{F33C6308-ED58-47E4-AC1F-88A00B3F3E00} = {CC3BE434-7D1A-4423-9B29-62BB3DB9E2A1}
 	EndGlobalSection
 EndGlobal
