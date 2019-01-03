@@ -7,11 +7,18 @@ difficulty, which is inferred by the loader from the
 
 ## Difficulty
 
-Refer to the [difficulty](difficulty.md) document for the values, as both the
-`initc` and [savegame binary](savegame.md) store the difficulties with the same
-numeric values.
+The command used is `game_difficulty_set`.
+
+| Difficulty | Value        |
+| ---------- | ------------ |
+| Noble      | `easy`       |
+| Normal     | `normal`     |
+| Heroic     | `hard`       |
+| Legendary  | `impossible` |
 
 ## Campaigns
+
+The global variable used is `f3`.
 
 The table below declares the global variable value (ID) in the `initc` for each
 SPV3 map name.

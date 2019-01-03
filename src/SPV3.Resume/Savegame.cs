@@ -52,7 +52,7 @@ namespace SPV3.Resume
         ///     Savegame constructor.
         /// </summary>
         /// <param name="file">
-        ///    Savegame binary file.
+        ///     Savegame binary file.
         /// </param>
         public Savegame(File file)
         {
@@ -117,12 +117,10 @@ namespace SPV3.Resume
                         return Mission.Spv3c40;
                     case "spv3d20":
                         return Mission.Spv3d20;
-                    case "spv3d30":
-                        return Mission.Spv3d30;
-                    case "spv3d40":
-                        return Mission.Spv3d40;
                     case "spv3d30_evolved":
                         return Mission.Spv3d30Evolved;
+                    case "spv3d40":
+                        return Mission.Spv3d40;
                     default:
                         throw new ArgumentException("Invalid SPV3 mission value.");
                 }

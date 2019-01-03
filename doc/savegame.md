@@ -9,9 +9,12 @@ to the `initc` text file.
 
 The difficulty value is stored at offset `0x1E2`.
 
-Refer to the [difficulty](difficulty.md) document for the values, as both the
-[initc document](initc.md) and savegame binary store the difficulties with the
-same numeric values.
+| Difficulty | Integer |
+| ---------- | ------- |
+| Noble      | `0x0`   |
+| Normal     | `0x1`   |
+| Heroic     | `0x2`   |
+| Legendary  | `0x3`   |
 
 ## Missions
 

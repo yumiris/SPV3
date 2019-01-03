@@ -33,8 +33,7 @@ namespace SPV3.Resume
         Spv3c20,
         Spv3c40,
         Spv3d20,
-        Spv3d30,
-        Spv3d40,
-        Spv3d30Evolved
+        Spv3d30Evolved,
+        Spv3d40
     }
 }

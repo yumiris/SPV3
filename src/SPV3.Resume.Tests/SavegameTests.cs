@@ -10,7 +10,7 @@ namespace SPV3.Resume.Tests
         public void SetUp()
         {
             System.IO.File.WriteAllBytes(Binary, RawData);
-            _progress = new Resume.Savegame(Binary).Load();
+            _progress = new Savegame(Binary).Load();
         }
 
         [TearDown]
