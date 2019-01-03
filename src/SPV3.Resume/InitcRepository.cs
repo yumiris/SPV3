@@ -22,8 +22,14 @@ using SPV3.Domain;
 
 namespace SPV3.Resume
 {
+    /// <summary>
+    ///     Saves data to the provided initc text file.
+    /// </summary>
     public class InitcRepository
     {
+        /// <summary>
+        ///     Initc text file.
+        /// </summary>
         private File _file;
 
         public InitcRepository(File file)
@@ -31,12 +37,13 @@ namespace SPV3.Resume
             _file = file;
         }
 
+        /// <summary>
+        ///     Serialises Initc instance to the provided text file.
+        /// </summary>
+        /// <param name="initc">
+        ///     Instance to serialise to the text file.
+        /// </param>
         public void Save(Initc initc)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Initc Load()
         {
             throw new NotImplementedException();
         }
