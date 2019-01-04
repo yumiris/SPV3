@@ -49,6 +49,11 @@ namespace SPV3.Domain
         ///     <see cref="Name" />
         /// </summary>
         public Name Name { get; set; }
+        
+        /// <summary>
+        ///     <see cref="Size"/>
+        /// </summary>
+        public Size Size { get; set; }
 
         /// <summary>
         ///     <see cref="EntryType" />
