@@ -22,7 +22,6 @@ using System.Collections.Generic;
 using System.IO;
 using SPV3.Compiler.Common;
 using SPV3.Domain;
-using SPV3.Installer.Domain;
 using Directory = SPV3.Domain.Directory;
 using File = SPV3.Domain.File;
 
@@ -90,7 +89,8 @@ namespace SPV3.Compiler.Compilers
                     dataPack.Entries.Add(new Entry
                     {
                         Name = name,
-                        Type = type
+                        Type = type,
+                        Size = type == EntryType.File ? (Size) new FileInfo(Path.Combine(source, data)).Length : null
                     });
                 }
 

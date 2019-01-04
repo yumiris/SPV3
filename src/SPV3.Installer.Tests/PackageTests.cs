@@ -20,7 +20,7 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using SPV3.Installer.Domain;
+using SPV3.Domain;
 
 namespace SPV3.Installer.Tests
 {

@@ -22,7 +22,6 @@ using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
 using SPV3.Domain;
-using SPV3.Installer.Domain;
 using SPV3.Installer.GUI.Annotations;
 using SPV3.Installer.Installers;
 using Directory = SPV3.Domain.Directory;

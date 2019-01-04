@@ -54,10 +54,6 @@
       <Project>{0ab09f2f-fdd8-40a8-829d-efa4be48ac5b}</Project>
       <Name>SPV3.Compiler</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SPV3.Installer\SPV3.Installer.csproj">
-      <Project>{88b02dc6-ea11-4329-844a-8885b253a3f3}</Project>
-      <Name>SPV3.Installer</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />

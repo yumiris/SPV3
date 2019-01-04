@@ -19,7 +19,6 @@
 
 using System.IO;
 using SPV3.Domain;
-using SPV3.Installer.Domain;
 using Directory = SPV3.Domain.Directory;
 using File = System.IO.File;
 

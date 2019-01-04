@@ -40,11 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Installer.cs" />
-    <Compile Include="Domain\Description.cs" />
-    <Compile Include="Domain\Entry.cs" />
-    <Compile Include="Domain\Manifest.cs" />
-    <Compile Include="Domain\ManifestRepository.cs" />
-    <Compile Include="Domain\Package.cs" />
     <Compile Include="Installers\CoreInstaller.cs" />
     <Compile Include="Installers\DataInstaller.cs" />
     <Compile Include="Installers\MetaInstaller.cs" />

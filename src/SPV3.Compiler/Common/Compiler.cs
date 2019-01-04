@@ -18,7 +18,6 @@
  */
 
 using SPV3.Domain;
-using SPV3.Installer.Domain;
 
 namespace SPV3.Compiler.Common
 {

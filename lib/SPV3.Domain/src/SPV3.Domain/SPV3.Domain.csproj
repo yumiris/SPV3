@@ -38,11 +38,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Description.cs" />
     <Compile Include="Directory.cs" />
+    <Compile Include="Entry.cs" />
     <Compile Include="File.cs" />
+    <Compile Include="Manifest.cs" />
+    <Compile Include="ManifestRepository.cs" />
     <Compile Include="Name.cs" />
+    <Compile Include="Package.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IStatus.cs" />
+    <Compile Include="Size.cs" />
     <Compile Include="StatusType.cs" />
     <Compile Include="Version.cs" />
   </ItemGroup>

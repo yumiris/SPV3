@@ -21,7 +21,6 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using SPV3.Domain;
-using SPV3.Installer.Domain;
 using SPV3.Installer.Installers;
 using Directory = SPV3.Domain.Directory;
 
