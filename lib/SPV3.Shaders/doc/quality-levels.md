@@ -1,12 +1,7 @@
 # Estimated Quality Levels
 
-The table below outlines the shader effects that are configurable by the user with the following characteristics:
-
-- their configuration being a toggle (e.g. on/off), or a level (e.g. off, medium, high);
-- their resource requirements at the time of this document's latest revision.
-
-Specification of which shader effects are configurable by the end-user can be found in the
-[Render Stack Sorting](stack-sort.md) documentation.
+The table below outlines the configuration type and resource requirement for each shader. The configuration type can be
+either a toggle (e.g. off/on), or a level (e.g. off/low/high).
 
 | Shader         | Configuration Type (Level/Toggle) | Available Levels | Resource Requirement |
 | -------------- | --------------------------------- | ---------------- | -------------------- |

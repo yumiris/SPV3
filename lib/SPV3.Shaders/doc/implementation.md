@@ -7,36 +7,24 @@
         - [Data Entities](#data-entities)
         - [Logic Entities](#logic-entities)
 
-This document formally specifies how SPV3.Shaders and SPV3 will communicate together to accomplish the following
-objective: **rely on the user's preferences for the post-processing decisions**.
-
-The implementation is an entire chain of entities that conduct memory and filesystem I/O, with encoding & decoding
-routines for the purpose of translating the end-user's choices into values that SPV3/HCE scripts can parse and utilise.
+This document formally specifies how SPV3.Shaders and SPV3 will work together to fulfil the user's shader preferences.
 
 ## Logic
 
 Before reading this section, please familiarise yourself with the [Entities](#entities) section, as this document will
 identify each entity throughout the routine.
 
-1. SPV3.Settings encodes its object representation of the user's preferences into a number that can be assigned to a
-   single variable, as specified in the [Global Variable](global-variable.md) documentation.
-   
-   This allows the value to be written to the `initc.txt` file, which SPV3.Settings handles when the post-processing
-   preferences are saved.
+1. SPV3.Settings encodes the user's preferences into a single number, as specified in the
+   [Global Variable](global-variable.md) documentation. This allows the value to be stored in the `initc.txt` file.
 
 2. When SPV3 is loaded, OpenSauce will load the variables specified in the `initc.txt` file and load them into memory.
-   The [Global Variable](global-variable.md) will be among the other unrelated global variables that will be declared in
-   memory.
+   The [Global Variable](global-variable.md) is one of the said variables.
    
    Its value will be accessible by the SPV3 scripts for decoding the user's preferences and set up the post-processing
    effects, accordingly.
 
 3. The SPV3 script -- either in Lua or Lisp -- will decode the global variable back into the individual values that
    represent the user's preferences for each post-processing effect.
-   
-   This script will also assign the decoded values into dedicated variables that will be used in the SPV3 levels. With
-   the variables being declared, the SPV3 code can handle setting the post-processing effects to match the preferences
-   specified by the user in SPV3.Settings.
 
 ### Diagram
 
@@ -44,7 +32,8 @@ identify each entity throughout the routine.
 
 ## Entities
 
-The entities in this implementation are categorised into **data** and **logic**.
+The entities in this implementation are categorised into [Data Entities](#data-entities) and
+[Logic Entities](#logic-entities).
 
 ### Data Entities
 
@@ -58,9 +47,7 @@ Data entities focus on storing the user's configuration in a particular format. 
 
 ### Logic Entities
 
-Logic entities focus on encoding/decoding the user's preferences to eventually reach the objective specified in the
-introduction of this document. They conduct I/O operations on the [Data Entities](#data-entities) for settings & getting
-the value(s) used to represent the user's preferences.
+Logic entities marshal and parse the user's preferences. They rely on the values in the [Data Entities](#data-entities).
 
 | Entity          | Description                                                                                      |
 | --------------- | ------------------------------------------------------------------------------------------------ |

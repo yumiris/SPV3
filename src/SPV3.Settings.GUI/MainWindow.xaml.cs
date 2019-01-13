@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Windows;
-using BalsamV.Profile;
-using BalsamV.Settings;
-using Microsoft.Win32;
+using HCE.BalsamV.Settings;
 
 namespace SPV3.Settings.GUI
 {

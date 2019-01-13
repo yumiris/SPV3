@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1D0AF380-73A1-4585-A04A-4387D277E3FE}</ProjectGuid>
+    <ProjectGuid>{04E18997-5D28-42AD-A503-6AC2CF9AC342}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>SPV3.Settings.GUI</RootNamespace>
-    <AssemblyName>SPV3.Settings.GUI</AssemblyName>
+    <RootNamespace>HCE.BalsamV.GUI</RootNamespace>
+    <AssemblyName>HCE.BalsamV.GUI</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -53,17 +53,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -82,39 +86,21 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\lib\HCE.BalsamV\BalsamV.GUI\BalsamV.GUI.csproj">
-      <Project>{04e18997-5d28-42ad-a503-6ac2cf9ac342}</Project>
-      <Name>BalsamV.GUI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\lib\HCE.BalsamV\BalsamV.Profile\BalsamV.Profile.csproj">
-      <Project>{22050973-8d68-4ebe-9372-69e902d70058}</Project>
-      <Name>BalsamV.Profile</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\lib\HCE.BalsamV\BalsamV.Settings\BalsamV.Settings.csproj">
-      <Project>{9abf9928-6db7-487a-97e3-c068cc058361}</Project>
-      <Name>BalsamV.Settings</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\lib\HCE.BalsamV\BalsamV\BalsamV.csproj">
-      <Project>{02665f11-3cdb-472a-8bf8-951b94f544a5}</Project>
-      <Name>BalsamV</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\lib\SPV3.Shaders\src\SPV3.Shaders.GUI\SPV3.Shaders.GUI.csproj">
-      <Project>{20b17e40-88f0-4727-8436-5ef35a2a6368}</Project>
-      <Name>SPV3.Shaders.GUI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\lib\SPV3.Shaders\src\SPV3.Shaders\SPV3.Shaders.csproj">
-      <Project>{f26e9f38-eaba-423b-99c6-d26056b79708}</Project>
-      <Name>SPV3.Shaders</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="icon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Version.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HCE.BalsamV\HCE.BalsamV.csproj">
+      <Project>{02665f11-3cdb-472a-8bf8-951b94f544a5}</Project>
+      <Name>HCE.BalsamV</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>git describe --tags &gt; "$(ProjectDir)\Resources\Version.txt"</PreBuildEvent>
+  </PropertyGroup>
 </Project>

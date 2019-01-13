@@ -11,12 +11,11 @@
 ## Introduction
 
 This document serves as the specification for the global variable that SPV3.2 will use to deduce shader configurations.
-Additionally, it also outlines the official values for the various shader configuration states, which means the option
-an end-user has chosen for a particular post-processing effect.
+Additionally, it also outlines the official values for the various shader configuration states.
 
 ## Glossary
 
-- **Global Variable**: An int variable defined in `initc.txt` and loaded by OpenSauce for HCE/SPV3 to access its value. 
+- **Global Variable**: A variable defined in `initc.txt` and loaded by OpenSauce for HCE/SPV3 to access its value. 
   In this context, the global variable's value stores the user's configuration for each post-processing effect.
 - **Shader State**: The respective option chosen for a particular shader. For example, MXAO on low settings is a shader
   state. In this specification, each state is represented by a number that is a power of two to combine shader states.

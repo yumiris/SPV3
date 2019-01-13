@@ -77,7 +77,7 @@
 
             <Image DockPanel.Dock="Left"
                    Margin="15,0,0,0"
-                   Source="/SPV3.Shaders.GUI;component/Resources/title.png"
+                   Source="pack://application:,,,/Resources/title.png"
                    Stretch="Uniform"
                    Height="10" />
 
@@ -139,7 +139,7 @@
                             </Style>
                         </StackPanel.Resources>
                         <StackPanel.Background>
-                            <ImageBrush ImageSource="/SPV3.Shaders.GUI;component/Resources/background.png" />
+                            <ImageBrush ImageSource="pack://application:,,,/Resources/background.png" />
                         </StackPanel.Background>
 
                         <Button Content="⟨" />

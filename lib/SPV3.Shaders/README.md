@@ -12,12 +12,8 @@
 
 # Introduction
 
-SPV3.Shaders is a program for SPV3.2 that handles the configuration of various post-processing graphical shader effects.
-It serves as a sub-component of SPV3.Settings, though it is complex enough in specification and development to be stored
-in its own dedicated repository. As such, any potential references to SPV3.Settings implicitly refer to SPV3.Shaders!
-
-This repository serves both the purpose of storing source code revisions but also documentation on the configuration
-program and all of the post-processing effects that SPV3.2 uses.
+SPV3.Shaders allows the configuration of various post-processing effects in SVP3.2. This repository contains the source
+code revisions and documentation on the program and the shaders it handles.
 
 ## Shaders
 

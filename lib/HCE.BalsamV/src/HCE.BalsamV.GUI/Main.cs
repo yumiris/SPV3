@@ -1,16 +1,34 @@
+/**
+ * Copyright (C) 2018-2019 Emilian Roman
+ * 
+ * This file is part of HCE.HCE.BalsamV.
+ * 
+ * HCE.HCE.BalsamV is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * HCE.HCE.BalsamV is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with HCE.HCE.BalsamV.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using HCE.BalsamV;
-using SPV3.Settings.GUI.Annotations;
+using HCE.BalsamV.GUI.Properties;
 
-namespace SPV3.Settings.GUI
+namespace HCE.BalsamV.GUI
 {
     /// <summary>
-    ///     Main model for the HCE.BalsamV program.
+    ///     Main model for the HCE.HCE.BalsamV program.
     /// </summary>
     public sealed class Main : INotifyPropertyChanged
     {
@@ -72,6 +90,19 @@ namespace SPV3.Settings.GUI
             }
         }
 
+        public string Version
+        {
+            get
+            {
+                using (var stream = Assembly.GetExecutingAssembly()
+                    .GetManifestResourceStream("HCE.HCE.BalsamV.GUI.Resources.Version.txt"))
+                using (var reader = new StreamReader(stream))
+                    return reader.ReadToEnd().Trim();
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         /// <summary>
         ///     Attempts to auto-detect & load a blam.sav on the file system.
         ///     Initialisation is done with code directly taken from <see cref="BlamFactory.GetFromSystem" />,
@@ -111,17 +142,6 @@ namespace SPV3.Settings.GUI
         }
 
         /// <summary>
-        ///     Invokes the SPV3 shaders GUI.
-        /// </summary>
-        public void Shaders()
-        {
-            const string executable = "SPV3.Shaders.GUI.exe";
-
-            if (File.Exists(executable))
-                Process.Start(executable);
-        }
-
-        /// <summary>
         ///     Invoke parsing of the selected blam.sav upon path change.
         /// </summary>
         private void OnPathChanged()
@@ -137,8 +157,6 @@ namespace SPV3.Settings.GUI
                 CanEdit = false;
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
