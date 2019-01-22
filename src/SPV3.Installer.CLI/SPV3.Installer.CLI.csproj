@@ -35,6 +35,9 @@
     <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SPV3.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\ext\SPV3.Domain.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -46,10 +49,6 @@
     <Compile Include="Status.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\lib\SPV3.Domain\src\SPV3.Domain\SPV3.Domain.csproj">
-      <Project>{df140d8d-f741-424e-b5f7-54efa3ccd796}</Project>
-      <Name>SPV3.Domain</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SPV3.Installer\SPV3.Installer.csproj">
       <Project>{88b02dc6-ea11-4329-844a-8885b253a3f3}</Project>
       <Name>SPV3.Installer</Name>
