@@ -43,6 +43,7 @@
     <Compile Include="Entry.cs" />
     <Compile Include="File.cs" />
     <Compile Include="Manifest.cs" />
+    <Compile Include="ManifestException.cs" />
     <Compile Include="ManifestRepository.cs" />
     <Compile Include="Name.cs" />
     <Compile Include="Package.cs" />

@@ -17,6 +17,7 @@
  * along with SPV3.Domain.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
@@ -93,6 +94,9 @@ namespace SPV3.Domain
         /// <returns>
         ///     Instance of a Manifest type.
         /// </returns>
+        /// <exception cref="FileNotFoundException">
+        ///     Specified manifest binary does not exist on the filesystem.
+        /// </exception>
         public Manifest Load()
         {
             byte[] Inflate(byte[] deflatedBytes)
@@ -107,6 +111,9 @@ namespace SPV3.Domain
                 }
             }
 
+            if (!System.IO.File.Exists(_file))
+                throw new FileNotFoundException("Specified manifest binary does not exist on the filesystem.");
+
             var deflatedData = System.IO.File.ReadAllBytes(_file);
             var inflatedData = Inflate(deflatedData);
             var utf8AsString = Encoding.UTF8.GetString(inflatedData);
@@ -114,7 +121,14 @@ namespace SPV3.Domain
             var serializer = new XmlSerializer(typeof(Manifest));
             using (var reader = new StringReader(utf8AsString))
             {
-                return (Manifest) serializer.Deserialize(reader);
+                try
+                {
+                    return (Manifest) serializer.Deserialize(reader);
+                }
+                catch (InvalidOperationException)
+                {
+                    throw new ManifestException("Failed to deserialise decompressed metadata binary.");
+                }
             }
         }
 
