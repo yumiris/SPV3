@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Blend for Visual Studio 15
+VisualStudioVersion = 15.0.27428.2005
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Bbkpify.CLI", "SPV3.Bbkpify.CLI\SPV3.Bbkpify.CLI.csproj", "{F67E6D12-A135-4B89-8944-A9D685595333}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Unbbkpify.CLI", "SPV3.Unbbkpify.CLI\SPV3.Unbbkpify.CLI.csproj", "{5A06B064-5232-4250-A3D8-DD769FAF998F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Bbkpify", "SPV3.Bbkpify\SPV3.Bbkpify.csproj", "{86D173C7-D59D-4736-9C32-54B78478E73D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YuMi.Output", "YuMi.Output\YuMi.Output\YuMi.Output.csproj", "{A01B3EC3-0EE7-4626-B126-41D1436250AD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{E6AAEF61-1E4E-4EDF-B565-BA56B5A478D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Bbkpify.GUI", "SPV3.Bbkpify.GUI\SPV3.Bbkpify.GUI.csproj", "{83E5B392-564E-49AA-825A-C7ECDE74AA91}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{F53381E4-8634-488B-AB7B-875901A52B6E}"
+ProjectSection(SolutionItems) = preProject
+	..\LICENSE = ..\LICENSE
+	..\README.md = ..\README.md
+EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F67E6D12-A135-4B89-8944-A9D685595333}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F67E6D12-A135-4B89-8944-A9D685595333}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F67E6D12-A135-4B89-8944-A9D685595333}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F67E6D12-A135-4B89-8944-A9D685595333}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A06B064-5232-4250-A3D8-DD769FAF998F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A06B064-5232-4250-A3D8-DD769FAF998F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A06B064-5232-4250-A3D8-DD769FAF998F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A06B064-5232-4250-A3D8-DD769FAF998F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86D173C7-D59D-4736-9C32-54B78478E73D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86D173C7-D59D-4736-9C32-54B78478E73D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86D173C7-D59D-4736-9C32-54B78478E73D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86D173C7-D59D-4736-9C32-54B78478E73D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A01B3EC3-0EE7-4626-B126-41D1436250AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A01B3EC3-0EE7-4626-B126-41D1436250AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A01B3EC3-0EE7-4626-B126-41D1436250AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A01B3EC3-0EE7-4626-B126-41D1436250AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83E5B392-564E-49AA-825A-C7ECDE74AA91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83E5B392-564E-49AA-825A-C7ECDE74AA91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83E5B392-564E-49AA-825A-C7ECDE74AA91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83E5B392-564E-49AA-825A-C7ECDE74AA91}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A01B3EC3-0EE7-4626-B126-41D1436250AD} = {E6AAEF61-1E4E-4EDF-B565-BA56B5A478D2}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3674F5A7-9945-4DDF-82B1-1C5A23767583}
+	EndGlobalSection
+EndGlobal
