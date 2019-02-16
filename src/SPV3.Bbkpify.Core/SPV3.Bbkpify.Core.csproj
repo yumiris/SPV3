@@ -46,7 +46,8 @@
         <Compile Include="Entities\Sapien.cs" />
         <Compile Include="Entities\Session.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <Compile Include="Repositories\HistorySession.cs" />
+        <Compile Include="Repositories\ConfigurationRepository.cs" />
+        <Compile Include="Repositories\HistoryRepository.cs" />
         <Compile Include="Repositories\SessionRepository.cs" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
