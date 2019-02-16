@@ -31,26 +31,38 @@ Bbkpify declares the maximum size of the placeholder as 8KiB (8192 bytes), to
 ensure that bitmaps which are chosen as placeholders fulfil their purpose of
 being lightweight on resources for Sapien.
 
-### Configuration
+### Session
 
-The configuration file is used by Bbkpify to store a snapshot of the latest
-session. On the filesystem, it is a deflated XML string that's stored in the
-Application Data directory.
+The session file is used by Bbkpify to store a snapshot of the latest session.
+On the filesystem, it is a deflated XML string that's stored in the Application
+Data directory.
 
-Values which are stored in the configuration file include...
+Values which are stored in the session file include...
 
 | Value       | Description                                   |
 | ----------- | --------------------------------------------- |
 | Placeholder | Absolute path to the placeholder bitmap.      |
 | Directory   | Absolute path to the bitmaps directory.       |
-| Sapien      | Absolute path to the Sapien executable.       |
 | Bitmap Type | Chosen bitmap type (`nrml`, `multi`, `diff`). |
+
+### Configuration
+
+The configuration file stores information which is agnostic to specific
+sessions. It is assumed that configurations are much more permanent and used
+across sessions. Like the session file, it is also a DEFLATE-compressed XML
+string that's stored in the Application Data directory.
+
+Values which are stored in the configuration file include...
+
+| Value       | Description                                   |
+| ----------- | --------------------------------------------- |
+| Sapien      | Absolute path to the Sapien executable.       |
 
 ### History
 
 The history file stores a record of all the bitmaps that have been replaced with
-placeholders. Like the configuration file, it is also a DEFLATE-compressed XML
-string that's stored in the Application Data directory.
+placeholders. Like the session file, it is also a DEFLATE-compressed XML string
+that's stored in the Application Data directory.
 
 ## Logic
 

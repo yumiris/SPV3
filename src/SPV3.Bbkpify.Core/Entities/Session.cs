@@ -35,6 +35,11 @@ namespace SPV3.Bbkpify.Core.Entities
     private Bitmap placeholder;
 
     /// <summary>
+    ///   <see cref="Type" />
+    /// </summary>
+    private BitmapType type;
+
+    /// <summary>
     ///   Target directory with bitmaps to replace with placeholder.
     /// </summary>
     public Directory Directory
@@ -50,6 +55,15 @@ namespace SPV3.Bbkpify.Core.Entities
     {
       get => placeholder;
       set => placeholder = value;
+    }
+
+    /// <summary>
+    ///   Bitmap type.
+    /// </summary>
+    public BitmapType Type
+    {
+      get => type;
+      set => type = value;
     }
   }
 }

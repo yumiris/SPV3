@@ -25,28 +25,9 @@ namespace SPV3.Bbkpify.Core.Entities
   public class Configuration
   {
     /// <summary>
-    ///   <see cref="Directory" />
-    /// </summary>
-    private Directory directory;
-
-    /// <summary>
     ///   <see cref="Sapien" />
     /// </summary>
     private Sapien sapien;
-
-    /// <summary>
-    ///   <see cref="Type" />
-    /// </summary>
-    private BitmapType type;
-
-    /// <summary>
-    ///   Target directory.
-    /// </summary>
-    public Directory Directory
-    {
-      get => directory;
-      set => directory = value;
-    }
 
     /// <summary>
     ///   Sapien executable.
@@ -55,15 +36,6 @@ namespace SPV3.Bbkpify.Core.Entities
     {
       get => sapien;
       set => sapien = value;
-    }
-
-    /// <summary>
-    ///   Bitmap type.
-    /// </summary>
-    public BitmapType Type
-    {
-      get => type;
-      set => type = value;
     }
   }
 }
