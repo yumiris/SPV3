@@ -19,7 +19,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 ProjectSection(SolutionItems) = preProject
 	..\LICENSE = ..\LICENSE
 	..\README.md = ..\README.md
+	..\doc\domain.md = ..\doc\domain.md
 EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Bbkpify.Core", "SPV3.Bbkpify.Core\SPV3.Bbkpify.Core.csproj", "{48657DE4-CE1C-477B-B728-A6E83C04E7D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +50,10 @@ Global
 		{83E5B392-564E-49AA-825A-C7ECDE74AA91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83E5B392-564E-49AA-825A-C7ECDE74AA91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83E5B392-564E-49AA-825A-C7ECDE74AA91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48657DE4-CE1C-477B-B728-A6E83C04E7D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48657DE4-CE1C-477B-B728-A6E83C04E7D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48657DE4-CE1C-477B-B728-A6E83C04E7D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48657DE4-CE1C-477B-B728-A6E83C04E7D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
