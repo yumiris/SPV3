@@ -22,30 +22,30 @@ using System.IO;
 using SPV3.Bbkpify.Core.Common;
 using SPV3.Bbkpify.Core.Entities;
 
-namespace SPV3.Bbkpify.Core.Repositories
+namespace SPV3.Bbkpify.Infrastructure.Data
 {
   /// <summary>
-  ///   Repository which persists a History object to a binary on the filesystem.
+  ///   Repository which persists a Session object to a binary on the filesystem.
   /// </summary>
-  public class HistoryRepository : Repository
+  public class SessionRepository : Repository
   {
     /// <summary>
-    ///   Default binary used for History persistence.
+    ///   Default binary used for session persistence.
     /// </summary>
-    private const string Binary = "SPV3.Bbkpify.History.bin";
+    private const string Binary = "SPV3.Bbkpify.Session.bin";
 
     /// <summary>
-    ///   Path for History object data I/O.
+    ///   Path for session object data I/O.
     /// </summary>
     private readonly string path;
 
     /// <summary>
-    ///   HistoryRepository constructor.
+    ///   SessionRepository constructor.
     /// </summary>
     /// <param name="path">
-    ///   Path for History object data I/O.
+    ///   Path for session object data I/O.
     /// </param>
-    public HistoryRepository(string path = null)
+    public SessionRepository(string path = null)
     {
       if (path != null)
       {
@@ -60,22 +60,22 @@ namespace SPV3.Bbkpify.Core.Repositories
     }
 
     /// <summary>
-    ///   Saves inbound History object to the filesystem.
+    ///   Saves inbound Session object to the filesystem.
     /// </summary>
-    /// <param name="history">
-    ///   History instance to save to the specified path.
+    /// <param name="session">
+    ///   Session instance to save to the specified path.
     /// </param>
-    public void Save(History history)
+    public void Save(Session session)
     {
-      Save(history, path);
+      Save(session, path);
     }
 
     /// <summary>
-    ///   Loads the History object from the specified path.
+    ///   Loads the summary object from the specified path.
     /// </summary>
-    public History Load()
+    public Session Load()
     {
-      return Load<History>(path);
+      return Load<Session>(path);
     }
   }
 }

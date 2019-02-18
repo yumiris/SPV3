@@ -22,30 +22,30 @@ using System.IO;
 using SPV3.Bbkpify.Core.Common;
 using SPV3.Bbkpify.Core.Entities;
 
-namespace SPV3.Bbkpify.Core.Repositories
+namespace SPV3.Bbkpify.Infrastructure.Data
 {
   /// <summary>
-  ///   Repository which persists a Configuration object to a binary on the filesystem.
+  ///   Repository which persists a History object to a binary on the filesystem.
   /// </summary>
-  public class ConfigurationRepository : Repository
+  public class HistoryRepository : Repository
   {
     /// <summary>
-    ///   Default binary used for Configuration persistence.
+    ///   Default binary used for History persistence.
     /// </summary>
-    private const string Binary = "SPV3.Bbkpify.Configuration.bin";
+    private const string Binary = "SPV3.Bbkpify.History.bin";
 
     /// <summary>
-    ///   Path for Configuration object data I/O.
+    ///   Path for History object data I/O.
     /// </summary>
     private readonly string path;
 
     /// <summary>
-    ///   ConfigurationRepository constructor.
+    ///   HistoryRepository constructor.
     /// </summary>
     /// <param name="path">
-    ///   Path for Configuration object data I/O.
+    ///   Path for History object data I/O.
     /// </param>
-    public ConfigurationRepository(string path = null)
+    public HistoryRepository(string path = null)
     {
       if (path != null)
       {
@@ -60,22 +60,22 @@ namespace SPV3.Bbkpify.Core.Repositories
     }
 
     /// <summary>
-    ///   Saves inbound Configuration object to the filesystem.
+    ///   Saves inbound History object to the filesystem.
     /// </summary>
-    /// <param name="configuration">
-    ///   Configuration instance to save to the specified path.
+    /// <param name="history">
+    ///   History instance to save to the specified path.
     /// </param>
-    public void Save(Configuration configuration)
+    public void Save(History history)
     {
-      Save(configuration, path);
+      Save(history, path);
     }
 
     /// <summary>
-    ///   Loads the Configuration object from the specified path.
+    ///   Loads the History object from the specified path.
     /// </summary>
-    public Configuration Load()
+    public History Load()
     {
-      return Load<Configuration>(path);
+      return Load<History>(path);
     }
   }
 }

@@ -39,6 +39,15 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="Data\ConfigurationRepository.cs" />
+        <Compile Include="Data\HistoryRepository.cs" />
+        <Compile Include="Data\SessionRepository.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\SPV3.Bbkpify.Core\SPV3.Bbkpify.Core.csproj">
+        <Project>{48657de4-ce1c-477b-b728-a6e83c04e7d5}</Project>
+        <Name>SPV3.Bbkpify.Core</Name>
+      </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

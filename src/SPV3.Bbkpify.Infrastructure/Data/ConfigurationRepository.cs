@@ -22,30 +22,30 @@ using System.IO;
 using SPV3.Bbkpify.Core.Common;
 using SPV3.Bbkpify.Core.Entities;
 
-namespace SPV3.Bbkpify.Core.Repositories
+namespace SPV3.Bbkpify.Infrastructure.Data
 {
   /// <summary>
-  ///   Repository which persists a Session object to a binary on the filesystem.
+  ///   Repository which persists a Configuration object to a binary on the filesystem.
   /// </summary>
-  public class SessionRepository : Repository
+  public class ConfigurationRepository : Repository
   {
     /// <summary>
-    ///   Default binary used for session persistence.
+    ///   Default binary used for Configuration persistence.
     /// </summary>
-    private const string Binary = "SPV3.Bbkpify.Session.bin";
+    private const string Binary = "SPV3.Bbkpify.Configuration.bin";
 
     /// <summary>
-    ///   Path for session object data I/O.
+    ///   Path for Configuration object data I/O.
     /// </summary>
     private readonly string path;
 
     /// <summary>
-    ///   SessionRepository constructor.
+    ///   ConfigurationRepository constructor.
     /// </summary>
     /// <param name="path">
-    ///   Path for session object data I/O.
+    ///   Path for Configuration object data I/O.
     /// </param>
-    public SessionRepository(string path = null)
+    public ConfigurationRepository(string path = null)
     {
       if (path != null)
       {
@@ -60,22 +60,22 @@ namespace SPV3.Bbkpify.Core.Repositories
     }
 
     /// <summary>
-    ///   Saves inbound Session object to the filesystem.
+    ///   Saves inbound Configuration object to the filesystem.
     /// </summary>
-    /// <param name="session">
-    ///   Session instance to save to the specified path.
+    /// <param name="configuration">
+    ///   Configuration instance to save to the specified path.
     /// </param>
-    public void Save(Session session)
+    public void Save(Configuration configuration)
     {
-      Save(session, path);
+      Save(configuration, path);
     }
 
     /// <summary>
-    ///   Loads the summary object from the specified path.
+    ///   Loads the Configuration object from the specified path.
     /// </summary>
-    public Session Load()
+    public Configuration Load()
     {
-      return Load<Session>(path);
+      return Load<Configuration>(path);
     }
   }
 }
