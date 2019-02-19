@@ -1,14 +1,34 @@
+/**
+ * Copyright (C) 2018-2019 Emilian Roman
+ * 
+ * This file is part of SPV3.Bbkpify.
+ * 
+ * SPV3.Bbkpify is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * SPV3.Bbkpify is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with SPV3.Bbkpify.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 using System.IO;
 using System.IO.Compression;
 using System.Text;
 using System.Xml.Serialization;
+using SPV3.Bbkpify.Core.Interfaces;
 
-namespace SPV3.Bbkpify.Core.Common
+namespace SPV3.Bbkpify.Infrastructure.Common
 {
   /// <summary>
   ///   Type offering common generic code to repository types.
   /// </summary>
-  public abstract class Repository
+  public abstract class Repository : IRepository
   {
     /// <summary>
     ///   Serialises the inbound object to a deflated binary.
@@ -19,7 +39,7 @@ namespace SPV3.Bbkpify.Core.Common
     /// <param name="path">
     ///   Path of the binary on the filesystem which should persistently store the serialised data.
     /// </param>
-    protected static void Save<T>(T instance, string path)
+    public void Save<T>(T instance, string path)
     {
       using (var deflatedStream = new MemoryStream())
       using (var inflatedStream = new MemoryStream(Encoding.UTF8.GetBytes(ToXml(instance))))
@@ -43,7 +63,7 @@ namespace SPV3.Bbkpify.Core.Common
     /// <returns>
     ///   Object representation of the file specified in the inbound path.
     /// </returns>
-    protected static T Load<T>(string path)
+    public T Load<T>(string path)
     {
       using (var inflatedStream = new MemoryStream())
       using (var deflatedStream = new MemoryStream(File.ReadAllBytes(path)))

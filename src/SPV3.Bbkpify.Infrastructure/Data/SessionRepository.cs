@@ -19,8 +19,8 @@
 
 using System;
 using System.IO;
-using SPV3.Bbkpify.Core.Common;
 using SPV3.Bbkpify.Core.Entities;
+using SPV3.Bbkpify.Infrastructure.Common;
 
 namespace SPV3.Bbkpify.Infrastructure.Data
 {
