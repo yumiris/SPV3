@@ -27,17 +27,31 @@ namespace SPV3.Bbkpify.Core.Entities
   public class Directory
   {
     /// <summary>
+    ///   <see cref="Path"/>
+    /// </summary>
+    private Path _path;
+
+    /// <summary>
     ///   <see cref="Bitmaps" />
     /// </summary>
-    private List<Bitmap> bitmaps;
+    private List<Bitmap> _bitmaps;
 
     /// <summary>
     ///   List of bitmaps in the directory.
     /// </summary>
     public List<Bitmap> Bitmaps
     {
-      get => bitmaps;
-      set => bitmaps = value;
+      get => _bitmaps;
+      set => _bitmaps = value;
+    }
+
+    /// <summary>
+    ///   Directory path on the filesystem.
+    /// </summary>
+    public Path Path
+    {
+      get => _path;
+      set => _path = value;
     }
   }
 }

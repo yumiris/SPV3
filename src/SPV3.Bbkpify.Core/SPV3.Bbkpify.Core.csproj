@@ -42,6 +42,7 @@
         <Compile Include="Entities\Configuration.cs" />
         <Compile Include="Entities\Directory.cs" />
         <Compile Include="Entities\History.cs" />
+        <Compile Include="Entities\Path.cs" />
         <Compile Include="Entities\Sapien.cs" />
         <Compile Include="Entities\Session.cs" />
         <Compile Include="Interfaces\IRepository.cs" />

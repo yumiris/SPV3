@@ -29,20 +29,20 @@ namespace SPV3.Bbkpify.Core.Entities
     /// <summary>
     ///   <see cref="Session" />
     /// </summary>
-    private Session session;
+    private Session _session;
 
     /// <summary>
     ///   <see cref="Time" />
     /// </summary>
-    private DateTime time;
+    private DateTime _time;
 
     /// <summary>
     ///   Historical session object.
     /// </summary>
     public Session Session
     {
-      get => session;
-      set => session = value;
+      get => _session;
+      set => _session = value;
     }
 
     /// <summary>
@@ -50,8 +50,8 @@ namespace SPV3.Bbkpify.Core.Entities
     /// </summary>
     public DateTime Time
     {
-      get => time;
-      set => time = value;
+      get => _time;
+      set => _time = value;
     }
   }
 }

@@ -21,6 +21,7 @@ using System;
 using System.IO;
 using SPV3.Bbkpify.Core.Entities;
 using SPV3.Bbkpify.Infrastructure.Common;
+using Path = System.IO.Path;
 
 namespace SPV3.Bbkpify.Infrastructure.Data
 {
@@ -37,7 +38,7 @@ namespace SPV3.Bbkpify.Infrastructure.Data
     /// <summary>
     ///   Path for History object data I/O.
     /// </summary>
-    private readonly string path;
+    private readonly string _path;
 
     /// <summary>
     ///   HistoryRepository constructor.
@@ -49,14 +50,14 @@ namespace SPV3.Bbkpify.Infrastructure.Data
     {
       if (path != null)
       {
-        this.path = path;
+        _path = path;
         return;
       }
 
       var appData  = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
       var fullPath = Path.Combine(appData, Binary);
 
-      this.path = fullPath;
+      _path = fullPath;
     }
 
     /// <summary>
@@ -67,7 +68,7 @@ namespace SPV3.Bbkpify.Infrastructure.Data
     /// </param>
     public void Save(History history)
     {
-      Save(history, path);
+      Save(history, _path);
     }
 
     /// <summary>
@@ -75,7 +76,7 @@ namespace SPV3.Bbkpify.Infrastructure.Data
     /// </summary>
     public History Load()
     {
-      return Load<History>(path);
+      return Load<History>(_path);
     }
   }
 }

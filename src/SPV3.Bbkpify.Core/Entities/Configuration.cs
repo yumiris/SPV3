@@ -27,15 +27,15 @@ namespace SPV3.Bbkpify.Core.Entities
     /// <summary>
     ///   <see cref="Sapien" />
     /// </summary>
-    private Sapien sapien;
+    private Sapien _sapien;
 
     /// <summary>
     ///   Sapien executable.
     /// </summary>
     public Sapien Sapien
     {
-      get => sapien;
-      set => sapien = value;
+      get => _sapien;
+      set => _sapien = value;
     }
   }
 }

@@ -44,22 +44,22 @@ namespace SPV3.Bbkpify.Core.Entities
     /// <summary>
     ///   <see cref="IsPlaceholder" />
     /// </summary>
-    private bool isPlaceholder;
+    private bool _isPlaceholder;
 
     /// <summary>
     ///   <see cref="Path" />
     /// </summary>
-    private string path;
+    private string _path;
 
     /// <summary>
     ///   <see cref="Size" />
     /// </summary>
-    private int size;
+    private int _size;
 
     /// <summary>
     ///   <see cref="BitmapType" />
     /// </summary>
-    private BitmapType type;
+    private BitmapType _type;
 
     /// <summary>
     ///   Path of the bitmap on the filesystem.
@@ -69,13 +69,13 @@ namespace SPV3.Bbkpify.Core.Entities
     /// </exception>
     public string Path
     {
-      get => path;
+      get => _path;
       set
       {
         if (value.Length > 255)
           throw new ArgumentOutOfRangeException(nameof(value), "Path length exceeds 255 characters.");
 
-        path = value;
+        _path = value;
       }
     }
 
@@ -87,13 +87,13 @@ namespace SPV3.Bbkpify.Core.Entities
     /// </exception>
     public int Size
     {
-      get => size;
+      get => _size;
       set
       {
         if (value > (2 ^ 24))
           throw new ArgumentOutOfRangeException(nameof(value), "Size length exceeds 16MiB.");
 
-        size = value;
+        _size = value;
       }
     }
 
@@ -102,8 +102,8 @@ namespace SPV3.Bbkpify.Core.Entities
     /// </summary>
     public bool IsPlaceholder
     {
-      get => isPlaceholder;
-      set => isPlaceholder = value;
+      get => _isPlaceholder;
+      set => _isPlaceholder = value;
     }
 
     /// <summary>
@@ -111,8 +111,8 @@ namespace SPV3.Bbkpify.Core.Entities
     /// </summary>
     public BitmapType Type
     {
-      get => type;
-      set => type = value;
+      get => _type;
+      set => _type = value;
     }
   }
 }

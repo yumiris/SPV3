@@ -17,12 +17,15 @@
  * along with SPV3.Bbkpify.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using SPV3.Bbkpify.Core.Entities;
+
 namespace SPV3.Bbkpify.CLI
 {
   internal class Program
   {
     public static void Main(string[] args)
     {
+      var directory = new Directory();
     }
   }
 }

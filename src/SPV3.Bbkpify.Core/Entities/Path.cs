@@ -17,25 +17,36 @@
  * along with SPV3.Bbkpify.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+
 namespace SPV3.Bbkpify.Core.Entities
 {
   /// <summary>
-  ///   Type representing the Sapien executable.
+  /// 
   /// </summary>
-  public class Sapien
+  public class Path
   {
     /// <summary>
-    ///   <see cref="Path" />
+    ///   <see cref="Value" />
     /// </summary>
-    private string _path;
+    private string _value;
 
     /// <summary>
-    ///   Path to the Sapien executable.
+    ///   Path of the bitmap on the filesystem.
     /// </summary>
-    public string Path
+    /// <exception cref="ArgumentOutOfRangeException">
+    ///   Path length exceeds 255 characters.
+    /// </exception>
+    public string Value
     {
-      get => _path;
-      set => _path = value;
+      get => _value;
+      set
+      {
+        if (value.Length > 255)
+          throw new ArgumentOutOfRangeException(nameof(value), "Path length exceeds 255 characters.");
+
+        _value = value;
+      }
     }
   }
 }
