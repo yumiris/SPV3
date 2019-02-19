@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:SPV3.Bbkpify.GUI"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+
     </Application.Resources>
 </Application>
