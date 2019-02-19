@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Bbkpify.Core", "SPV3.B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Bbkpify.Infrastructure", "SPV3.Bbkpify.Infrastructure\SPV3.Bbkpify.Infrastructure.csproj", "{7F75FFA9-B7FC-4642-AFFF-8C0BB591C6B0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3.Bbkpify.CLI", "SPV3.Bbkpify.CLI\SPV3.Bbkpify.CLI.csproj", "{973CD360-D483-4967-97B9-6C2F532C1CA9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +30,10 @@ Global
 		{7F75FFA9-B7FC-4642-AFFF-8C0BB591C6B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F75FFA9-B7FC-4642-AFFF-8C0BB591C6B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F75FFA9-B7FC-4642-AFFF-8C0BB591C6B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{973CD360-D483-4967-97B9-6C2F532C1CA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{973CD360-D483-4967-97B9-6C2F532C1CA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{973CD360-D483-4967-97B9-6C2F532C1CA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{973CD360-D483-4967-97B9-6C2F532C1CA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
