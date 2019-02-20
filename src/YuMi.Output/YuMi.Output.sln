@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YuMi.Output", "YuMi.Output\YuMi.Output.csproj", "{A01B3EC3-0EE7-4626-B126-41D1436250AD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A01B3EC3-0EE7-4626-B126-41D1436250AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A01B3EC3-0EE7-4626-B126-41D1436250AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A01B3EC3-0EE7-4626-B126-41D1436250AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A01B3EC3-0EE7-4626-B126-41D1436250AD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
