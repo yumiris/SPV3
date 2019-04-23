@@ -1,0 +1,132 @@
+<!--
+ Copyright (c) 2019 Emilian Roman
+ 
+ This software is provided 'as-is', without any express or implied
+ warranty. In no event will the authors be held liable for any damages
+ arising from the use of this software.
+ 
+ Permission is granted to anyone to use this software for any purpose,
+ including commercial applications, and to alter it and redistribute it
+ freely, subject to the following restrictions:
+ 
+ 1. The origin of this software must not be misrepresented; you must not
+    claim that you wrote the original software. If you use this software
+    in a product, an acknowledgment in the product documentation would be
+    appreciated but is not required.
+ 2. Altered source versions must be plainly marked as such, and must not be
+    misrepresented as being the original software.
+ 3. This notice may not be removed or altered from any source distribution.
+-->
+
+OPENSAUCE
+=========
+
+OpenSauce stores its user configuration in `OS_Settings.User.xml`.
+
+The following output is what a typical OpenSauce configuration would
+look like:
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <OpenSauce>
+        <CacheFiles>
+            <CheckYeloFilesFirst>true</CheckYeloFilesFirst>
+            <MainMenuScenario/>
+        </CacheFiles>
+        <Rasterizer>
+            <GBuffer>
+                <Enabled>true</Enabled>
+            </GBuffer>
+            <Upgrades>
+                <MaximumRenderedTriangles>true</MaximumRenderedTriangles>
+            </Upgrades>
+            <ShaderExtensions>
+                <Enabled>true</Enabled>
+                <Object>
+                    <NormalMaps>true</NormalMaps>
+                    <DetailNormalMaps>true</DetailNormalMaps>
+                    <SpecularMaps>true</SpecularMaps>
+                    <SpecularLighting>true</SpecularLighting>
+                </Object>
+                <Environment>
+                    <DiffuseDirectionalLightmaps>true</DiffuseDirectionalLightmaps>
+                    <SpecularDirectionalLightmaps>true</SpecularDirectionalLightmaps>
+                </Environment>
+                <Effect>
+                    <DepthFade>true</DepthFade>
+                </Effect>
+            </ShaderExtensions>
+            <PostProcessing>
+                <MotionBlur>
+                    <Enabled>false</Enabled>
+                    <BlurAmount>1</BlurAmount>
+                </MotionBlur>
+                <Bloom>
+                    <Enabled>true</Enabled>
+                </Bloom>
+                <AntiAliasing>
+                    <Enabled>false</Enabled>
+                </AntiAliasing>
+                <ExternalEffects>
+                    <Enabled>true</Enabled>
+                </ExternalEffects>
+                <MapEffects>
+                    <Enabled>true</Enabled>
+                </MapEffects>
+            </PostProcessing>
+        </Rasterizer>
+        <Camera>
+            <FieldOfView>80</FieldOfView>
+            <IgnoreFOVChangeInCinematics>true</IgnoreFOVChangeInCinematics>
+            <IgnoreFOVChangeInMainMenu>true</IgnoreFOVChangeInMainMenu>
+        </Camera>
+        <Networking>
+            <GameSpy>
+                <NoUpdateCheck>true</NoUpdateCheck>
+            </GameSpy>
+            <MapDownload>
+                <Enabled>true</Enabled>
+            </MapDownload>
+            <VersionCheck>
+                <Date>
+                    <Day>23</Day>
+                    <Month>3</Month>
+                    <Year>2019</Year>
+                </Date>
+                <ServerList>
+                    <Version>1</Version>
+                    <Server>http://os.halomods.com/Halo1/CE/Halo1_CE_Version.xml</Server>
+                </ServerList>
+            </VersionCheck>
+        </Networking>
+        <Objects>
+            <VehicleRemapperEnabled>true</VehicleRemapperEnabled>
+            <Weapon>
+                <Positions>
+                    <Weapon>
+                        <Name>Picked up a rocket launcher</Name>
+                        <Position>
+                            <I>0.2307693</I>
+                            <J>-0.1384615</J>
+                            <K>-0.05641025</K>
+                        </Position>
+                    </Weapon>
+                    <Weapon>
+                        <Name>Picked up a sniper rifle</Name>
+                        <Position>
+                            <I>-0.05641025</I>
+                            <J>0.02564108</J>
+                            <K>-0.1282051</K>
+                        </Position>
+                    </Weapon>
+                </Positions>
+            </Weapon>
+        </Objects>
+        <HUD>
+            <ShowHUD>true</ShowHUD>
+            <ScaleHUD>true</ScaleHUD>
+            <HUDScale>
+                <X>0.7931035</X>
+                <Y>0.8110236</Y>
+            </HUDScale>
+        </HUD>
+    </OpenSauce>

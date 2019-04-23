@@ -1,0 +1,125 @@
+<!--
+ Copyright (c) 2019 Emilian Roman
+ 
+ This software is provided 'as-is', without any express or implied
+ warranty. In no event will the authors be held liable for any damages
+ arising from the use of this software.
+ 
+ Permission is granted to anyone to use this software for any purpose,
+ including commercial applications, and to alter it and redistribute it
+ freely, subject to the following restrictions:
+ 
+ 1. The origin of this software must not be misrepresented; you must not
+    claim that you wrote the original software. If you use this software
+    in a product, an acknowledgment in the product documentation would be
+    appreciated but is not required.
+ 2. Altered source versions must be plainly marked as such, and must not be
+    misrepresented as being the original software.
+ 3. This notice may not be removed or altered from any source distribution.
+-->
+
+INITC.TXT FILE
+==============
+
+The initc.txt file is used by SPV3 - through OpenSauce - to load
+persistently stored global variables. The loader stores additional
+configurations and miscellaneous values here for SPV3 to load, as these
+values cannot be stored in other locations.
+
+This document outlines the anatomy of the initc.txt file, along with
+information on the global variables and commands.
+
+VARIABLES
+---------
+
+The table below showcases the currently used global variables and their
+purpose:
+
+  ---------------------------------------------------------------------
+  Variable   Description
+  ---------- ----------------------------------------------------------
+  f1         Post-processing settings for SPV3. Refer to shaders.txt
+             for the relevant values
+
+  f3         Stores the integer identifier of the last played mission
+             (see MISSIONS)
+
+  f5         Declares the enabling of cinematic bars
+  ---------------------------------------------------------------------
+
+The syntax used for declaring the global variables is the following:
+
+    set f3 = 16
+
+MISSIONS
+
+The table below outlines the values that can be assigned to f3,
+depending on the corresponding mission that should be loaded upon
+campaign resuming:
+
+  Mission            Value
+  ------------------ -------
+  SPV3 A10           1
+  SPV3 A30           2
+  SPV3 A50           3
+  SPV3 B30           4
+  SPV3 B30 Evolved   5
+  SPV3 B40           6
+  SPV3 C10           7
+  SPV3 C20           8
+  SPV3 C40           9
+  SPV3 D20           10
+  SPV3 D25           11
+  SPV3 D30           12
+  SPV3 D30 Evolved   13
+  SPV3 D40           14
+  Lumoria A          15
+  Lumoria B          16
+  Lumoria C & D      17
+
+COMMANDS
+--------
+
+Commands are used to toggle or set the value of a particular property or
+condition. A prominent example is setting the difficulty, which the
+loader does when resuming the campaign.
+
+The table below showcases the currently used commands and their purpose:
+
+  ---------------------------------------------------------------------
+  Command                 Description
+  ----------------------- ---------------------------------------------
+  game\_difficulty\_set   Declares the difficulty chosen for the last
+                          game session (see DIFFICULTIES)
+
+  player\_autoaim         Auto-aim toggle for users playing SPV3 using
+                          a controller
+
+  player\_magnetism       Magnetism toggle for users playing SPV3 using
+                          a controller
+  ---------------------------------------------------------------------
+
+DIFFICULTIES
+
+The table below outlines the values that can be assigned to
+game\_difficulty\_set, depending on the corresponding difficulty that
+the campaign should resume at:
+
+  Difficulty   Value
+  ------------ ------------
+  Noble        easy
+  Normal       normal
+  Heroic       hard
+  Legendary    impossible
+
+PERMISSIONS
+-----------
+
+If SPV3 is installed to a restricted locations (most prominent example
+is the Program Files directory), the loader will need administrative
+permissions to modify the initc.txt file. This is the only file in the
+SPV3 installation directory that is modified by the loader.
+
+In light of the above, writing permissions are necessary to update the
+variables, accordingly. Otherwise, people will either get permissions
+errors or simply not have the campaign resuming & patches work at all.

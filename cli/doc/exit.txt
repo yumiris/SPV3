@@ -1,0 +1,40 @@
+<!--
+ Copyright (c) 2019 Emilian Roman
+ 
+ This software is provided 'as-is', without any express or implied
+ warranty. In no event will the authors be held liable for any damages
+ arising from the use of this software.
+ 
+ Permission is granted to anyone to use this software for any purpose,
+ including commercial applications, and to alter it and redistribute it
+ freely, subject to the following restrictions:
+ 
+ 1. The origin of this software must not be misrepresented; you must not
+    claim that you wrote the original software. If you use this software
+    in a product, an acknowledgment in the product documentation would be
+    appreciated but is not required.
+ 2. Altered source versions must be plainly marked as such, and must not be
+    misrepresented as being the original software.
+ 3. This notice may not be removed or altered from any source distribution.
+-->
+
+EXIT CODES
+==========
+
+The CLI process returns various exit codes depending on what causes it
+to exit. The following table outlines the available exit codes, and what
+they represent:
+
+  Integer   Description
+  --------- ---------------------------
+  0         Successful execution
+  1         Invalid command provided
+  3         Invalid argument provided
+  7         Exception has been thrown
+
+These codes can be used by calling applications to infer whether an
+operation has succeeded or not, and respond accordingly.
+
+For example, if the CLI exits with a code representing an exception
+being thrown, then the calling application should display the relevant
+logs to the end-user.

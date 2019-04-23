@@ -1,0 +1,83 @@
+<!--
+ Copyright (c) 2019 Emilian Roman
+ 
+ This software is provided 'as-is', without any express or implied
+ warranty. In no event will the authors be held liable for any damages
+ arising from the use of this software.
+ 
+ Permission is granted to anyone to use this software for any purpose,
+ including commercial applications, and to alter it and redistribute it
+ freely, subject to the following restrictions:
+ 
+ 1. The origin of this software must not be misrepresented; you must not
+    claim that you wrote the original software. If you use this software
+    in a product, an acknowledgment in the product documentation would be
+    appreciated but is not required.
+ 2. Altered source versions must be plainly marked as such, and must not be
+    misrepresented as being the original software.
+ 3. This notice may not be removed or altered from any source distribution.
+-->
+
+SAVEGAME.BIN FILE
+=================
+
+In HCE, resuming of a single-player mission is done by explicitly
+choosing the mission and difficulty that matches the ones saved in the
+latest checkpoint.
+
+For an improved user experience, SPV3 automatically handles the resuming
+of the campaign behind the scenes, through the use of this file and the
+lastprof.txt one.
+
+This document outlines the only two offsets that SPV3 deals with in the
+savegame.bin file:
+
+  ---------------------------------------------------------------------
+  Offset   Description          Value
+  -------- -------------------- ---------------------------------------
+  0x1E2    Represents the last  Difficulty ID int (see the DIFFICULTIES
+           difficulty           section on values)
+
+  0x1E8    Represents the last  Map filename string (library defines it
+           played map           as max. 32 chars)
+  ---------------------------------------------------------------------
+
+MISSIONS
+--------
+
+The missions are stored as their filenames in the savegame.bin file,
+without the MAP extension:
+
+  Mission            Value
+  ------------------ ------------------
+  SPV3 A10           spv3a10
+  SPV3 A30           spv3a30
+  SPV3 A50           spv3a50
+  SPV3 B30           spv3b30
+  SPV3 B30 Evolved   spv3b30\_evolved
+  SPV3 B40           spv3b40
+  SPV3 C10           spv3c10
+  SPV3 C20           spv3c20
+  SPV3 C40           spv3c40
+  SPV3 D20           spv3d20
+  SPV3 D25           spv3d25
+  SPV3 D30           spv3d30
+  SPV3 D30 Evolved   spv3d30\_evolved
+  SPV3 D40           spv3d40
+  Lumoria A          lumoria\_a
+  Lumoria B          lumoria\_b
+  Lumoria C & D      lumoria\_cd
+
+DIFFICULTIES
+------------
+
+Difficulties are stored as integers in the savegame.bin file. The
+following table lists the integers and the difficulty they represent (in
+both HCE and SPV3 contexts):
+
+  Savegame   HCE         SPV3
+  ---------- ----------- -----------
+  0x0        Easy        Noble
+  0x1        Normal      Normal
+  0x2        Heroic      Heroic
+  0x3        Legendary   Legendary

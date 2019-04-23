@@ -1,0 +1,159 @@
+<!--
+ Copyright (c) 2019 Emilian Roman
+ 
+ This software is provided 'as-is', without any express or implied
+ warranty. In no event will the authors be held liable for any damages
+ arising from the use of this software.
+ 
+ Permission is granted to anyone to use this software for any purpose,
+ including commercial applications, and to alter it and redistribute it
+ freely, subject to the following restrictions:
+ 
+ 1. The origin of this software must not be misrepresented; you must not
+    claim that you wrote the original software. If you use this software
+    in a product, an acknowledgment in the product documentation would be
+    appreciated but is not required.
+ 2. Altered source versions must be plainly marked as such, and must not be
+    misrepresented as being the original software.
+ 3. This notice may not be removed or altered from any source distribution.
+-->
+
+POST-PROCESSING
+===============
+
+QUALITY LEVELS
+--------------
+
+The table below outlines the shader effects that are configurable by the
+user with the following characteristics:
+
+  Shader                Options
+  --------------------- -------------------------------------------
+  MXAO                  off, low, high
+  DOF                   off, low, high
+  Motion Blur           off, in-built, low, high
+  Dynamic Lens Flares   off, on
+  Volumetric Lighting   off, on
+  Lens Dirt             off, on
+  HUDv5 Visor           off, on
+  3D                    off, anaglyph, interleaving, side-by-side
+  Color Blind Mode      off, protanopia, deuteranopes, tritanopes
+
+CONFIGURATION
+-------------
+
+The post-processing system is one of the more complicated aspects of the
+entire project. For the loader to persist the post-processing settings,
+it relies on its own binary file. For SPV3 to load the settings, it must
+infer the configuration from a global variable that's declared by the
+loader. This section covers both scenarios.
+
+INITC
+
+The post-processing configuration is stored as an integer in initc.txt,
+using the f1 variable. Due to SPV3's current quirks and limits, the
+loader currently saves various permutations of the post-processing
+settings. The following table formally specifies the supported
+permutations:
+
+  INDEX   MXAO   DOF    MOTION\_BLUR   LENS\_FLARES   VOLUMETRICS   LENSDIRT
+  ------- ------ ------ -------------- -------------- ------------- ----------
+  0       OFF    OFF    OFF            OFF            OFF           ON
+  1       OFF    OFF    OFF            OFF            ON            ON
+  2       OFF    LOW    BUILT-IN       OFF            ON            ON
+  3       LOW    LOW    BUILT-IN       OFF            ON            ON
+  4       LOW    LOW    LOW            ON             ON            ON
+  5       LOW    HIGH   LOW            ON             ON            ON
+  6       HIGH   HIGH   LOW            ON             ON            ON
+  7       HIGH   HIGH   HIGH           ON             ON            ON
+
+BINARY
+
+Refer to doc/configuration.txt for information on how the
+post-processing settings are stored.
+
+DEFINITIONS
+-----------
+
+This document outlines the definitions for each shader effect, including
+what it does and what technique is used.
+
+AMBIENT OCCLUSION
+
+> Technique used - MXAO 2.0 (Marty McFly's Ambient Obscurance)
+
+Shading/rendering technique used to calculate how each point in the
+scene is exposed to ambient light. Depending on the geometry, the
+algorithm is used to apply dynamic shadows on occluded surfaces.
+
+DEPTH OF FIELD
+
+> Technique used - ADOF (Advanced Depth of Field)
+
+Effect in which objects within some range of distances in a scene appear
+in focus, and objects nearer or farther than this range appear out of
+focus or blurred out. Just like any camera or your eye, ADOF enables
+auto-focusing.
+
+MOTION BLUR
+
+> Technique used - Per Object Motion Blur
+
+This effect cause the scene to blur in the direction of camera movement
+and/or object movement. This effect emulates image retention of a
+camera, thereby adding to the realism and perceived smoothness of
+movements.
+
+DYNAMIC FLARES
+
+> Technique used - Dynamic Pseudo Lens Flares
+
+Effect that shows lens flares automatically based on bright spots in the
+scene.
+
+LENS DIRT
+
+> Technique used - Fast Blur Based Lens Dirt
+
+Effect that shows subtle dirt/scratch effects on the screen.
+
+Volumetric Lighting
+
+> Technique used - Depth Mask Based Screen Space Volumetrics
+
+This effect emulates tindal effect due to light scattering through foggy
+atmosphere.
+
+HUDv5 VISOR
+
+> Technique used - Sprite Visualisation, Chromatic Abberation
+
+This effect shows a sprite based holographic visor to compliment the
+SPV3's native HUD. It has a Chromatic Abberation effect for a
+holographic look and also sways according to player movement.
+
+3D <EXPERIMENTAL>
+
+> Technique used - Anaglyph / interleaving / side-by-side
+
+Emulates depth perception of human eyes. Provides an illusion that the
+game world has 3D depth which greatly adds to the relistic experience of
+the game. \[NOTE: Requires special hardware to utilise this effect
+properly\]
+
+COLORBLIND MODE <EXPERIMENTAL>
+
+> Technique used - Color Look Up Table
+
+This is an accessibility effect which is designed to help users with
+color blindness. The effect mainly focuses on key Halo gameplay
+conditions. ie. \* The enemy should be distinctly identifiable \*
+Factions should be distinguishable visually
+
+DEBANDING <STUB>
+
+> Technique used - Debanding
+
+Effect which eliminated banding artifacts (sort of band like anomalies
+that appear in otherwise smooth gradients of colors, due to small color
+space/bit depth)

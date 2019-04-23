@@ -1,0 +1,83 @@
+<!--
+ Copyright (c) 2019 Emilian Roman
+ 
+ This software is provided 'as-is', without any express or implied
+ warranty. In no event will the authors be held liable for any damages
+ arising from the use of this software.
+ 
+ Permission is granted to anyone to use this software for any purpose,
+ including commercial applications, and to alter it and redistribute it
+ freely, subject to the following restrictions:
+ 
+ 1. The origin of this software must not be misrepresented; you must not
+    claim that you wrote the original software. If you use this software
+    in a product, an acknowledgment in the product documentation would be
+    appreciated but is not required.
+ 2. Altered source versions must be plainly marked as such, and must not be
+    misrepresented as being the original software.
+ 3. This notice may not be removed or altered from any source distribution.
+-->
+
+SPV3 DISTRIBUTION
+=================
+
+This document aims to formally specify how to prepare SPV3.2 for
+distribution. SPV3.CLI allows compiling of the SPV3 data into packages,
+and installing these packages.
+
+In essence, you *compile* the SPV3 data to packages, and the users will
+*install* the data from these packages to run SPV3.
+
+SUMMARY
+-------
+
+1.  Compile the SPV3.2 data into packages using the compile command.
+2.  Make an ISO file of these packages, and then distribute it online.
+3.  Download the distributed ISO file, which contains the compiled
+    packages.
+4.  Install the SPV3.2 data by using the install command on the
+    packages.
+
+INSTRUCTIONS
+------------
+
+COMPILING
+
+Run SPV3.CLI with the compile command:
+
+    .\SPV3.exe compile "C:\Target"
+
+The TARGET should be an empty folder, as the compiler will create the
+packages in this folder. These packages will be then shared with other
+people through the ISO image. Other files (e.g. READMEs) can be added at
+your own discretion!
+
+It is assumed that the folder which SPV3.exe is ran from contains
+the relevant SPV3.2 data. If that's not the case, either:
+
+-   move the executable to the SPV3.2 folder; or
+-   add the path to the SPV3.folder after the target argument.
+
+DISTRIBUTING
+
+Create an ISO of the aforementioned target folder. The software of
+choice is completely up to you. ImgBurn is very good. For pedantry's
+sake, use the UDF filesystem when creating the ISO. It keeps things nice
+and sweet. The release.txt document outlines why ISO should be used.
+
+Once you're done preparing the ISO image, upload them to your preferred
+host. Additionally, a torrent file should be created for those whom have
+connection problems or simply prefer downloading large files over
+BitTorrent.
+
+INSTALLING
+
+Run SPV3.CLI with the install command, and target arguments:
+
+    .\SPV3.exe install "C:\Target"
+
+This assumes that the packages are located in the same folder as the
+SPV3.CLI executable. Should that not be the case, you can provide the
+path to the packages folder after "C:\Target":
+
+    .\SPV3.exe install "C:\Target" "C:\Packages"

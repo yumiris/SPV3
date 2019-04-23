@@ -1,0 +1,112 @@
+<!--
+ Copyright (c) 2019 Emilian Roman
+ 
+ This software is provided 'as-is', without any express or implied
+ warranty. In no event will the authors be held liable for any damages
+ arising from the use of this software.
+ 
+ Permission is granted to anyone to use this software for any purpose,
+ including commercial applications, and to alter it and redistribute it
+ freely, subject to the following restrictions:
+ 
+ 1. The origin of this software must not be misrepresented; you must not
+    claim that you wrote the original software. If you use this software
+    in a product, an acknowledgment in the product documentation would be
+    appreciated but is not required.
+ 2. Altered source versions must be plainly marked as such, and must not be
+    misrepresented as being the original software.
+ 3. This notice may not be removed or altered from any source distribution.
+-->
+
+LOADER KERNEL
+=============
+
+The kernel is the core component of the SPV3 CLI, which is responsible
+for:
+
+1.  verifying the main assets, e.g. maps & executables; and
+2.  determining the player's campaign progress for resuming; and
+3.  inferring the post-processing settings and encoding them; and
+4.  patching the HCE executable with Large Address Aware; and
+5.  loading SPV3 with user start-up parameters for HCE.
+
+The sections below elaborate upon the aforementioned steps.
+
+RESUMING
+--------
+
+Resuming in SPV3.2 is accomplished by determining the last played
+mission & difficulty, whose values are located in the savegame.bin
+binary in the respective player profile. The values inferred from the
+binary are converted and saved to the initc.txt file.
+
+Further documentation on the aforementioned files can be found in the
+initc.txt and savegame.txt documentations.
+
+With the above in mind, the loader must conduct the following steps to
+implement the resuming capability:
+
+1.  find the savegame.bin on the filesystem, by heuristically inferring
+    the player's profile location; and
+2.  read the mission & difficulty data from the savemgame.bin, and
+    convert the values to their initc.txt equivalents; and
+3.  save the converted data to the initc.txt file, which is officially
+    located in the SPV3 installation directory.
+
+MISSIONS
+--------
+
+The following maps are dealt with by the loader for campaign resuming:
+
+-   SPV3 A10
+-   SPV3 A30
+-   SPV3 A50
+-   SPV3 B30
+-   SPV3 B30 Evolved
+-   SPV3 B40
+-   SPV3 C10
+-   SPV3 C20
+-   SPV3 C40
+-   SPV3 D20
+-   SPV3 D25
+-   SPV3 D30
+-   SPV3 D30 Evolved
+-   SPV3 D40
+-   Lumoria A
+-   Lumoria B
+-   Lumoria C & D
+
+To see how missions are stored in the savegame.bin and initc.txt, please
+refer to the savegame.txt and initc.txt documentation, respectively.
+
+DIFFICULTIES
+------------
+
+The difficulties are stored represented by different values in each
+relevant location. We must keep in mind that SPV3 makes a slight
+semantic alteration to the difficulty system: the HCE EASY difficulty is
+used for the SPV3 NOBLE difficulty.
+
+On a fundamentally technical level, nothing is changed; however, it is
+important to keep that distinction in mind in the SPV3 domain's context:
+
+  SPV3        HCE
+  ----------- -----------
+  Noble       Easy
+  Normal      Normal
+  Heroic      Heroic
+  Legendary   Legendary
+
+To see how difficulties are stored in the savegame.bin and initc.txt,
+please refer to the savegame.txt and initc.txt documentation,
+respectively.
+
+PATCHING
+--------
+
+On kernel invocation, the HCE executable will be patched with Large
+Address Aware:
+
+  Offset   Value
+  -------- -------
+  0x136    0x2F
