@@ -1,5 +1,5 @@
-﻿/**
- * Copyright (c) 2018-2019 Emilian Roman
+/**
+ * Copyright (c) 2019 Emilian Roman
  * 
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -18,14 +18,35 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-using System.Windows;
+using static System.Environment;
 
-namespace Eaxir
+namespace HXE
 {
   /// <summary>
-  ///   Interaction logic for App.xaml
+  ///   Object for permitting enum-identified process existing.
   /// </summary>
-  public partial class App : Application
+  public static class Exit
   {
+    /// <summary>
+    ///   Available exit codes for HXE.
+    /// </summary>
+    public enum Code
+    {
+      Success         = 0,
+      InvalidCommand  = Success         + 1,
+      InvalidArgument = InvalidCommand  + 2,
+      Exception       = InvalidArgument + 4
+    }
+
+    /// <summary>
+    ///   Wrapper for Environment.Exit with enum support.
+    /// </summary>
+    /// <param name="code">
+    ///   Exit code represented by <see cref="Code" />.
+    /// </param>
+    public static void WithCode(Code code)
+    {
+      Exit((int) code);
+    }
   }
 }

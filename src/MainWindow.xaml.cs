@@ -21,10 +21,10 @@
 using System;
 using System.IO;
 using System.Windows;
+using HXE;
 using Microsoft.Win32;
-using SPV3.CLI;
 
-namespace HCE.Eaxir
+namespace Eaxir
 {
   /// <summary>
   ///   Interaction logic for MainWindow.xaml

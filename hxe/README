@@ -1,0 +1,90 @@
+HALO XE (HXE)
+=============
+
+What is it? In a nutshell, it's...
+
+-   a fully compatible wrapper around HCE that automatically enhances
+    its video and audio properties;
+
+-   a loader for SPV3 that allows installation/updates, post-processing
+    configuration, and campaign resuming;
+
+-   a library for developers to programmatically manipulate HCE files
+    such as the player's profile or load HCE.
+
+How do you use it? You can...
+
+-   double click on it to automatically run HCE with the video and audio
+    enhancements;
+
+-   seamlessly pass HCE parameters such as -window, -vidmode, -adapter
+    and -console;
+
+-   import it into your .NET project and use it to detect and edit
+    player profiles, or load HCE programmatically;
+
+-   compile your mod into redistributable packages that people can
+    install to their system.
+
+------------------------------------------------------------------------
+
+This repository contains the source for HXE, which seeks to unify the
+compiling, installing, configuring, and loading procedures for SPV3. The
+code and documentation here should be considered as the official sources
+for the binaries that will be distributed with SPV3.2.
+
+FEATURES
+--------
+
+Current features include:
+
+-   LOADING
+
+    -   compatible wrapper around the HCE executable
+    -   automatic resuming of the SPV3 campaign progress
+    -   automatic HCE/SPV3 player profile detection
+    -   automatic detection & launching the HCE executable
+    -   verification of the SPV3 assets/maps/executables
+    -   patching of post-processing user configurations
+
+-   UPDATING
+
+    -   automatic self-update of the loader executable
+
+-   COMPILING
+
+    -   compressing SPV3 data to re-distributable packages
+    -   generating a manifest for the installer & loader
+
+-   INSTALLING
+
+    -   (re)installing compressed packages to the filesystem
+    -   storing the chosen installation path in a standard file
+
+USAGE
+-----
+
+The USAGE document goes into detail on how to use HXE. In a nutshell:
+
+    # automatically loads SPV3 in 720p window
+    .\haloxe.exe -window -vidmode 1280,720,60
+
+    # installs SPV3 to C:\SPV3
+    .\haloxe.exe /install "C:\SPV3"
+
+SOURCES
+-------
+
+Source code and binaries are officially provided at the following
+sources:
+
+-   https://cgit.n2.network/hxe - upstream source code
+-   https://dist.n2.network/hxe - compiled executables
+-   https://github.com/yumiris/hxe - mirror repository
+
+LICENCE
+-------
+
+Please refer to the COPYING file located in this repository. Also note
+that the respective licence applies only to this repository, and not to
+the rest of the SPV3 source code or assets.

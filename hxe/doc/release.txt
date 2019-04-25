@@ -1,0 +1,84 @@
+<!--
+ Copyright (c) 2019 Emilian Roman
+ 
+ This software is provided 'as-is', without any express or implied
+ warranty. In no event will the authors be held liable for any damages
+ arising from the use of this software.
+ 
+ Permission is granted to anyone to use this software for any purpose,
+ including commercial applications, and to alter it and redistribute it
+ freely, subject to the following restrictions:
+ 
+ 1. The origin of this software must not be misrepresented; you must not
+    claim that you wrote the original software. If you use this software
+    in a product, an acknowledgment in the product documentation would be
+    appreciated but is not required.
+ 2. Altered source versions must be plainly marked as such, and must not be
+    misrepresented as being the original software.
+ 3. This notice may not be removed or altered from any source distribution.
+-->
+
+SPV3 RELEASE
+============
+
+This document covers the release procedure for SPV3.2. The purpose of
+this document is to plan out a release that caters to both the
+community's and developers' needs. To keep things simple, the release
+needs to fulfil the following requirements:
+
+-   distribution and downloading should fast, easy and resilient;
+-   installation should be straightforward, robust and professional;
+-   a level of cross-platform compatibility can be accomplished.
+
+The decisions outlined here are based on community feedback, internal
+discussions, and lessons learnt from the release and support of SPV3.1.
+
+DISTRIBUTION
+------------
+
+SPV3.2 will be distributed using two methods:
+
+-   The primary method will still be a typical download, but rather than
+    rely only on MediaFire, we'll also use MEGA Google Drive, Dropbox
+    and other hosts for redundancy and mirroring. The advantage of this
+    is familiarity for most people.
+
+-   BitTorrent as a fall-back. Only the torrent file will be released on
+    MediaFire, and a magnet link will be provided as well. This
+    effectively mitigates the problems with slow & corrupted downloads,
+    due to the protocol's resilient and decentralised nature.
+
+INSTALLATION
+------------
+
+SPV3.2's installation data will be stored in an ISO file. The ISO file
+will contain the packages and the installer itself. Advantages include:
+
+-   on modern operating systems, an ISO file does not require to be
+    extracted like a 7-Zip/ZIP/RAR/SFX file would;
+-   space requirements will be much lower, because extraction is not
+    required to access the installer's data;
+-   no AVs complain about ISO files, AVs can't delete files in ISO files
+    due to their read-only nature.
+
+A legal copy of HCE will still be required, and SPV3 will still be kept
+separate from HCE. We will warn the user when they try to install SPV3
+to a restricted location such as the Program Files folder.
+
+COMPATIBILITY
+-------------
+
+SPV3.2 itself won't be officially cross-platform compatible; however,
+its installer, launcher and settings programs will strive to be more
+compatible on Linux distributions.
+
+The programs will attempt to achieve compatibility by:
+
+-   having much simpler user interfaces that WINE should handle without
+    too many graphical quirks; and
+-   having CLI (command line/terminal) fall-backs that Mono should
+    handle with barely any problems.
+
+All of the programs target the 4.5.\* versions of the .NET Frameworks,
+thereby letting both WINE and Mono run at least HXE versions of the
+programs.

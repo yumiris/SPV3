@@ -1,0 +1,193 @@
+<!--
+ Copyright (c) 2019 Emilian Roman
+ 
+ This software is provided 'as-is', without any express or implied
+ warranty. In no event will the authors be held liable for any damages
+ arising from the use of this software.
+ 
+ Permission is granted to anyone to use this software for any purpose,
+ including commercial applications, and to alter it and redistribute it
+ freely, subject to the following restrictions:
+ 
+ 1. The origin of this software must not be misrepresented; you must not
+    claim that you wrote the original software. If you use this software
+    in a product, an acknowledgment in the product documentation would be
+    appreciated but is not required.
+ 2. Altered source versions must be plainly marked as such, and must not be
+    misrepresented as being the original software.
+ 3. This notice may not be removed or altered from any source distribution.
+-->
+
+BLAM.SAV FILE
+=============
+
+The blam.sav file contains the information & configuration for a HCE
+profile. Information includes player details, and configuration includes
+video/audio/network settings and input configurations (mouse, keyboard,
+and controller).
+
+This documentation seeks to specify the properties that are stored in
+the binary, their data types & lengths, offsets in the binary, and
+checksum information.
+
+INFERENCE
+---------
+
+The location of the blam.sav for the relevant profile is implicitly
+inferred by detecting the player profile, since the blam.sav itself is
+always located in the player's profile directory.
+
+The loader.txt and lastprof.txt documentations go into further detail
+about the detection mechanism itself. By detecting the profile name, we
+can build the absolute path to the blam.sav we want to (de)serialise.
+
+    Documents\My Games\Halo CE\savegames\<detected profile name>\blam.sav
+
+ANALYSIS
+--------
+
+This section analyses the data stored in the blam.sav binary. The
+information here permits the loader to load & save player's settings
+without the need for storing them separately.
+
+-   size: 8192 bytes (padding)
+-   hash: crc-32 (bitwise NOT)
+
+HASH
+
+The blam.sav has a CRC-32 hash appended at the end of it. The value is
+actually stored in its complement equivalent (i.e. bitwise NOT). This is
+done to confirm the integrity of the blam.sav binary; however, it's
+possibly a security check to minimise tampering.
+
+  Type     Offset   Length
+  -------- -------- --------
+  uint32   0x1FFC   4
+
+The hash represents the data between 0x000 and 0x1FFC - the hash itself
+is not hashed! Given that the length of the entire binary is 8192, we
+can infer the offset of the hash by subtracting 4 from 8192:
+
+      var offset = 8192 - 4 // blam.sav length - hash length
+
+DATA
+
+The table below outlines the list of options in the blam.sav, their
+offsets, and data types. The order of the items is determined by their
+ascending presence in the blam.sav binary:
+
+  Section   Option                     Offset Type        Value       Stored E quivalent
+  --------- -------------------------- --------------- ----------- ----------- -------------------
+  PROFILE   name                       0x0002 utf16       "XYZ"      "X", ".", "Y", ".", "Z"
+            colour                     0x011B uint8       white          0x000 
+                                                          black          0x001 
+                                                           red           0x002 
+                                                          blue           0x003 
+                                                          gray           0x004 
+                                                         yellow          0x005 
+                                                          green          0x006 
+                                                          pink           0x007 
+                                                         purple          0x00A 
+                                                          cyan           0x00B 
+                                                         cobalt          0x00C 
+                                                         orange          0x00D 
+                                                          teal           0x00E 
+                                                          sage           0x00F 
+                                                          brown          0x010 
+                                                           tan           0x011 
+                                                         maroon          0x014 
+                                                         salmon          0x015 
+  MOUSE     invert vertical axis       0x0130 bool        false          0x000 
+                                                          true           0x001 
+            sensitivity - horizontal   0x0955 uint8         1            0x001 
+                                                            2            0x002 
+                                                            3            0x003 
+                                                            4            0x004 
+                                                            5            0x005 
+                                                            6            0x006 
+                                                            7            0x007 
+                                                            8            0x008 
+                                                            9            0x009 
+                                                           10            0x00A 
+            sensitivity - vertical     0x0956 uint8         1            0x001 
+                                                            2            0x002 
+                                                            3            0x003 
+                                                            4            0x004 
+                                                            5            0x005 
+                                                            6            0x006 
+                                                            7            0x007 
+                                                            8            0x008 
+                                                            9            0x009 
+                                                           10            0x00A 
+  VIDEO     resolution                 0x0A69 uint16    1280x960     0x000, 0x 005, 0x12C, 0x003
+            refresh rate               0x0A6D uint8        59            0x049 
+                                                           60            0x04A 
+            frame rate                 0x0A70 uint8     vsync off        0x000 
+                                                        vsync on         0x001 
+                                                         30 fps          0x002 
+            effects - specular         0x0A71 bool        false          0x000 
+                                                          true           0x001 
+            effects - shadows          0x0A72 bool        false          0x000 
+                                                          true           0x001 
+            effects - decals           0x0A73 bool        false          0x000 
+                                                          true           0x001 
+            quality - particles        0x0A74 uint8        off           0x000 
+                                                           low           0x001 
+                                                          high           0x002 
+            quality - textures         0x0A75 uint8        low           0x000 
+                                                         medium          0x001 
+                                                          high           0x002 
+            miscellaneous - gamma      0x0A77 uint8        +1            0x0D8 
+                                                           +2            0x0DF 
+                                                           +3            0x0E6 
+  AUDIO     volume - master            0x0B79 uint8         0            0x000 
+                                                            1            0x001 
+                                                            2            0x002 
+                                                            3            0x003 
+                                                            4            0x004 
+                                                            5            0x005 
+                                                            6            0x006 
+                                                            7            0x007 
+                                                            8            0x008 
+                                                            9            0x009 
+                                                           10            0x00A 
+            volume - effects           0x0B7A uint8         0            0x000 
+                                                            1            0x001 
+                                                            2            0x002 
+                                                            3            0x003 
+                                                            4            0x004 
+                                                            5            0x005 
+                                                            6            0x006 
+                                                            7            0x007 
+                                                            8            0x008 
+                                                            9            0x009 
+                                                           10            0x00A 
+            volume - music             0x0B7B uint8         0            0x000 
+                                                            1            0x001 
+                                                            2            0x002 
+                                                            3            0x003 
+                                                            4            0x004 
+                                                            5            0x005 
+                                                            6            0x006 
+                                                            7            0x007 
+                                                            8            0x008 
+                                                            9            0x009 
+                                                           10            0x00A 
+            quality - quality          0x0B7E uint8        low           0x000 
+                                                         normal          0x001 
+                                                          high           0x002 
+            quality - variety          0x0B80 uint8        low           0x000 
+                                                         medium          0x001 
+                                                          high           0x002 
+            enhance - eax              0x0B7C bool         off           0x000 
+                                                           on            0x001 
+            enhance - hwa              0x0B7D bool         off           0x000 
+                                                           on            0x001 
+  NETWORK   connection type            0x0FC1 uint8      dial-up         0x000 
+                                                         dsl-low         0x001 
+                                                         dsl-avg         0x002 
+                                                        dsl-high         0x003 
+                                                         t1/lan          0x004 
+            port - server              0x1003 uint16      2304       0x000, 0x 00B
+            port - client              0x1005 uint16      2304       0x000, 0x 00B
+  BINARY    crc32 hash                 0x1FFC uint32                           

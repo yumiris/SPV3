@@ -24,11 +24,11 @@ using System.ComponentModel;
 using System.IO;
 using System.IO.Compression;
 using System.Runtime.CompilerServices;
-using HCE.Eaxir.Annotations;
-using SPV3.CLI;
+using Eaxir.Properties;
+using HXE;
 using File = System.IO.File;
 
-namespace HCE.Eaxir
+namespace Eaxir
 {
   public class Main : INotifyPropertyChanged
   {

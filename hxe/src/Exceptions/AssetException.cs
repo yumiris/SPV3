@@ -1,5 +1,5 @@
-﻿/**
- * Copyright (c) 2018-2019 Emilian Roman
+/**
+ * Copyright (c) 2019 Emilian Roman
  * 
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -18,14 +18,37 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-using System.Windows;
+using System;
+using System.Runtime.Serialization;
 
-namespace Eaxir
+namespace HXE.Exceptions
 {
-  /// <summary>
-  ///   Interaction logic for App.xaml
-  /// </summary>
-  public partial class App : Application
+  [Serializable]
+  public class AssetException : Exception
   {
+    //
+    // For guidelines regarding the creation of new exception types, see
+    //    http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpgenref/html/cpconerrorraisinghandlingguidelines.asp
+    // and
+    //    http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dncscol/html/csharp07192001.asp
+    //
+
+    public AssetException()
+    {
+    }
+
+    public AssetException(string message) : base(message)
+    {
+    }
+
+    public AssetException(string message, Exception inner) : base(message, inner)
+    {
+    }
+
+    protected AssetException(
+      SerializationInfo info,
+      StreamingContext  context) : base(info, context)
+    {
+    }
   }
 }
