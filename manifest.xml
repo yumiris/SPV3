@@ -7,12 +7,14 @@
     <Entry>
       <URL>https://github.com/yumiris/SPV3/releases/download/2019-05-04.01/file_01.bin</URL>
       <Name>file_01.bin</Name>
+      <Path>maps</Path>
       <Size>8192</Size>
       <Hash>60cfb566702b825a63810bbdc2cd1bab</Hash>
     </Entry>
     <Entry>
       <URL>https://github.com/yumiris/SPV3/releases/download/2019-05-04.01/file_02.bin</URL>
       <Name>file_02.bin</Name>
+      <Path>maps</Path>
       <Size>8192</Size>
       <Hash>2669e6eaa3aad2c904617e071360cf6a</Hash>
     </Entry>
