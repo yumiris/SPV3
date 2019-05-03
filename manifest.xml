@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>Update Name</Name>
+  <Description>Update description ...</Description>
+  <Time>1234567890</Time>
+  <Entries>
+    <Entry>
+      <URL>https://domain.com/file_01.bin</URL>
+      <Name>file_01.bin</Name>
+      <Size>8192</Size>
+      <Hash>409616384</Hash>
+    </Entry>
+    <Entry>
+      <URL>https://domain.com/file_02.bin</URL>
+      <Name>file_02.bin</Name>
+      <Size>8192</Size>
+      <Hash>409616384</Hash>
+    </Entry>
+  </Entries>
+</Update>
