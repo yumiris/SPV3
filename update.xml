@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<AssetsUpdate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Name>SPV3.1 Pre-Upgrade UI Update</Name>
   <Description>This update brings the pre-upgrade UI to 3.1 users.</Description>
   <Time>1234567890</Time>
@@ -12,4 +12,4 @@
       <Hash>0819ef94f4326c6fa84d48de479ad2ea</Hash>
     </Entry>
   </Entries>
-</Update>
+</AssetsUpdate>
