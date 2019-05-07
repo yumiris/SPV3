@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AssetsUpdate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Name>SPV3.1 Pre-Upgrade UI Update</Name>
-  <Description>This update brings the pre-upgrade UI to 3.1 users.</Description>
+  <Name>Compatible Chimera</Name>
+  <Description>This update brings a compatible version of Chimera to users.</Description>
   <Time>1234567890</Time>
   <Entries>
     <Entry>
-      <URL>https://github.com/yumiris/SPV3/releases/download/2019-05-04.01/ui.zip</URL>
-      <Name>ui.map</Name>
-      <Path>maps</Path>
-      <Size>212085734</Size>
-      <Hash>0819ef94f4326c6fa84d48de479ad2ea</Hash>
+      <URL>https://github.com/yumiris/SPV3/releases/download/2019-05-08.01/chimera.zip</URL>
+      <Name>chimera.dll</Name>
+      <Path>controls</Path>
+      <Size>197121</Size>
+      <Hash>3956cbd14a5a0c79da91c6927ab56f0b</Hash>
     </Entry>
   </Entries>
 </AssetsUpdate>
