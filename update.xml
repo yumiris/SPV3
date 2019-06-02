@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<AssetsUpdate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Name>Compatible Chimera</Name>
-  <Description>This update brings a compatible version of Chimera to users.</Description>
-  <Time>1234567890</Time>
-  <Entries>
-    <Entry>
+<Update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Assets>
+    <Asset>
       <URL>https://github.com/yumiris/SPV3/releases/download/2019-05-08.02/chimera.zip</URL>
       <Name>chimera.dll</Name>
       <Path>controls</Path>
       <Size>0</Size>
-      <Hash>5da04223ca7d5d39427cc33cb80d351</Hash>
-    </Entry>
-  </Entries>
-</AssetsUpdate>
+    </Asset>
+  </Assets>
+</Update>
