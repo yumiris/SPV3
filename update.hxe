@@ -2,9 +2,9 @@
 <Update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Assets>
     <Asset>
-      <URL>https://github.com/yumiris/SPV3/releases/download/2019-05-08.02/chimera.zip</URL>
-      <Name>chimera.dll</Name>
-      <Path>controls</Path>
+      <URL>https://github.com/yumiris/SPV3/releases/download/2019-06-03.01/hxe.zip</URL>
+      <Name>hxe.exe</Name>
+      <Path>data</Path>
       <Size>0</Size>
     </Asset>
   </Assets>
