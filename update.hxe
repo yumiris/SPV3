@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Assets>
-    <Asset>
-      <URL>https://github.com/yumiris/SPV3/releases/download/2019-06-16.01/spv3d30_evolved.zip</URL>
-      <Name>spv3d30_evolved.yelo</Name>
-      <Path>maps</Path>
-      <Size>424956647</Size>
-    </Asset>
-  </Assets>
+  <Assets/>
 </Update>
