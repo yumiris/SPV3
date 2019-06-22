@@ -25,5 +25,11 @@
       <Path>maps</Path>
       <Size>366204413</Size>
     </Asset>
+    <Asset>
+      <URL>https://github.com/yumiris/SPV3/releases/download/2019-06-22.01/spv3_lumoria_cd.zip</URL>
+      <Name>spv3_lumoria_cd.yelo</Name>
+      <Path>maps</Path>
+      <Size>556283853</Size>
+    </Asset>
   </Assets>
 </Update>
