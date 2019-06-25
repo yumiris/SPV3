@@ -7,11 +7,11 @@ assets and offering announcements:
   ---------------------------------------------------------------------
   Manifest       Description
   -------------- ------------------------------------------------------
-  manifest.xml   the original xml used by old (before build-0076), kept
-                 for backwards compatibility
-
-  manifext.hxe   the current xml used by hxe's update module after
+  update.hxe     the current xml used by hxe's update module after
                  migrating to it (build-0076 and up)
+
+  debugs.hxe     xml used for delivering staging maps to private
+                 testers
 
   latest.xml     xml used for storing the latest announcements
   ---------------------------------------------------------------------
