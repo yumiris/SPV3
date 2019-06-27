@@ -1,35 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Assets>
-    <Asset>
-      <URL>https://github.com/yumiris/SPV3/releases/download/2019-06-21.01/spv3_lumoria_a.zip</URL>
-      <Name>spv3_lumoria_a.yelo</Name>
-      <Path>maps</Path>
-      <Size>534183230</Size>
-    </Asset>
-    <Asset>
-      <URL>https://github.com/yumiris/SPV3/releases/download/2019-06-21.01/spv3_lumoria_b.zip</URL>
-      <Name>spv3_lumoria_b.yelo</Name>
-      <Path>maps</Path>
-      <Size>558354292</Size>
-    </Asset>
-    <Asset>
-      <URL>https://github.com/yumiris/SPV3/releases/download/2019-06-21.01/spv3d30.zip</URL>
-      <Name>spv3d30.yelo</Name>
-      <Path>maps</Path>
-      <Size>254389735</Size>
-    </Asset>
-    <Asset>
-      <URL>https://github.com/yumiris/SPV3/releases/download/2019-06-21.01/spv3d30_evolved.zip</URL>
-      <Name>spv3d30_evolved.yelo</Name>
-      <Path>maps</Path>
-      <Size>366204413</Size>
-    </Asset>
-    <Asset>
-      <URL>https://github.com/yumiris/SPV3/releases/download/2019-06-22.01/spv3_lumoria_cd.zip</URL>
-      <Name>spv3_lumoria_cd.yelo</Name>
-      <Path>maps</Path>
-      <Size>556283853</Size>
-    </Asset>
-  </Assets>
+  <Assets/>
 </Update>
