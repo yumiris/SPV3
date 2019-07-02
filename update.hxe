@@ -13,5 +13,20 @@
       <Path>maps</Path>
       <Size>258814749</Size>
     </Asset>
+    <Asset>
+      <URL>https://github.com/yumiris/SPV3/releases/download/2019-07-03.01/alsoft.zip</URL>
+      <Name>alsoft.ini</Name>
+      <Size>288</Size>
+    </Asset>
+    <Asset>
+      <URL>https://github.com/yumiris/SPV3/releases/download/2019-07-03.01/dsoal-aldrv.zip</URL>
+      <Name>dsoal-aldrv.dll</Name>
+      <Size>1025550</Size>
+    </Asset>
+    <Asset>
+      <URL>https://github.com/yumiris/SPV3/releases/download/2019-07-03.01/dsound.zip</URL>
+      <Name>dsound.dll</Name>
+      <Size>247808</Size>
+    </Asset>
   </Assets>
 </Update>
