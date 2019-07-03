@@ -26,16 +26,19 @@
     <Asset>
       <URL>https://github.com/yumiris/SPV3/releases/download/updates/spv3_lumoria_a.zip</URL>
       <Name>spv3_lumoria_a.yelo</Name>
+      <Path>maps</Path>
       <Size>389221407</Size>
     </Asset>
     <Asset>
       <URL>https://github.com/yumiris/SPV3/releases/download/updates/spv3_lumoria_b.zip</URL>
       <Name>spv3_lumoria_b.yelo</Name>
       <Size>428257911</Size>
+      <Path>maps</Path>
     </Asset>
     <Asset>
       <URL>https://github.com/yumiris/SPV3/releases/download/updates/spv3_lumoria_cd.zip</URL>
       <Name>spv3_lumoria_cd.yelo</Name>
+      <Path>maps</Path>
       <Size>425724010</Size>
     </Asset>
   </Assets>
