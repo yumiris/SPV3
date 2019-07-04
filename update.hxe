@@ -22,5 +22,11 @@
       <Path>maps</Path>
       <Size>381574000</Size>
     </Asset>
+    <Asset>
+      <URL>https://github.com/yumiris/SPV3/releases/download/updates/spv3b30_evolved.zip</URL>
+      <Name>test.map</Name>
+      <Path>maps</Path>
+      <Size>381574000</Size>
+    </Asset>
   </Assets>
 </Update>
