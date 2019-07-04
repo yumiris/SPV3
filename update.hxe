@@ -2,18 +2,6 @@
 <Update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Assets>
     <Asset>
-      <URL>https://github.com/yumiris/SPV3/releases/download/updates/spv3d25.zip</URL>
-      <Name>spv3d25.yelo</Name>
-      <Path>maps</Path>
-      <Size>376920909</Size>
-    </Asset>
-    <Asset>
-      <URL>https://github.com/yumiris/SPV3/releases/download/updates/spv3d30.zip</URL>
-      <Name>spv3d30.yelo</Name>
-      <Path>maps</Path>
-      <Size>258814749</Size>
-    </Asset>
-    <Asset>
       <URL>https://github.com/yumiris/SPV3/releases/download/updates/alsoft.zip</URL>
       <Name>alsoft.ini</Name>
       <Size>288</Size>
@@ -27,24 +15,6 @@
       <URL>https://github.com/yumiris/SPV3/releases/download/updates/dsoal-aldrv.zip</URL>
       <Name>dsoal-aldrv.dll</Name>
       <Size>1025550</Size>
-    </Asset>
-    <Asset>
-      <URL>https://github.com/yumiris/SPV3/releases/download/updates/spv3_lumoria_a.zip</URL>
-      <Name>spv3_lumoria_a.yelo</Name>
-      <Path>maps</Path>
-      <Size>389221407</Size>
-    </Asset>
-    <Asset>
-      <URL>https://github.com/yumiris/SPV3/releases/download/updates/spv3_lumoria_b.zip</URL>
-      <Name>spv3_lumoria_b.yelo</Name>
-      <Size>428257911</Size>
-      <Path>maps</Path>
-    </Asset>
-    <Asset>
-      <URL>https://github.com/yumiris/SPV3/releases/download/updates/spv3_lumoria_cd.zip</URL>
-      <Name>spv3_lumoria_cd.yelo</Name>
-      <Path>maps</Path>
-      <Size>425724010</Size>
     </Asset>
   </Assets>
 </Update>
