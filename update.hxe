@@ -16,5 +16,11 @@
       <Name>dsoal-aldrv.dll</Name>
       <Size>1025550</Size>
     </Asset>
+    <Asset>
+      <URL>https://github.com/yumiris/SPV3/releases/download/updates/spv3b30_evolved.zip</URL>
+      <Name>spv3b30_evolved.map</Name>
+      <Path>maps</Path>
+      <Size>381574000</Size>
+    </Asset>
   </Assets>
 </Update>
