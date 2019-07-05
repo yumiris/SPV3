@@ -16,5 +16,31 @@
       <Name>dsoal-aldrv.dll</Name>
       <Size>1025550</Size>
     </Asset>
+    
+        <Asset>
+      <URL>https://github.com/yumiris/SPV3/releases/download/updates/spv3_lumoria_a.zip</URL>
+      <Name>spv3_lumoria_a.yelo</Name>
+          <Path>maps</Path>
+      <Size>388488788</Size>
+    </Asset>
+    
+        <Asset>
+      <URL>https://github.com/yumiris/SPV3/releases/download/updates/dspv3_lumoria_b.zip</URL>
+      <Name>spv3_lumoria_b.yelo</Name>
+          <Path>maps</Path>
+      <Size>426095718</Size>
+    </Asset>
+    
+        <Asset>
+      <URL>https://github.com/yumiris/SPV3/releases/download/updates/spv3_lumoria_cd.zip</URL>
+      <Name>spv3_lumoria_cd.yelo</Name>
+          <Path>maps</Path>
+      <Size>423526715</Size>
+    </Asset>
+    
+    
+    
+    
+    
   </Assets>
 </Update>
