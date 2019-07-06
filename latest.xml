@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <News xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Content>
-    Thank you for downloading SPV3.2! Review the links in the top right, and give us feedback on our Discord/Reddit!
-  </Content>
+  <Content>Thank you for downloading SPV3.2! Review the links in the top right, and give us feedback on our Discord/Reddit!</Content>
   <Link>http://reddit.com/r/halospv3/</Link>
 </News>
