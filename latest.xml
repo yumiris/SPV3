@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <News xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Content>Please ensure you use the latest loader before updating RC1. Click here to download!</Content>
-  <Link>https://file.n2.network/f/c1c36919f366499793fc/?dl=1</Link>
+  <Content>
+    Thank you for downloading SPV3.2! Review the links in the top right, and give us feedback on our Discord/Reddit!
+  </Content>
+  <Link>http://reddit.com/r/halospv3/</Link>
 </News>
