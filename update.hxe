@@ -1,1 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<Update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Assets>
+    <Asset>
+      <URL>https://github.com/yumiris/SPV3/releases/download/updates/credits.zip</URL>
+      <Name>credits.pdf</Name>
+      <Size>186061</Size>
+    </Asset>
+  </Assets>
+</Update>
