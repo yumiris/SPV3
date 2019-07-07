@@ -7,4 +7,11 @@
       <Size>186061</Size>
     </Asset>
   </Assets>
+  <Assets>
+    <Asset>
+      <URL>https://github.com/yumiris/SPV3/releases/download/updates/alsoft.zip</URL>
+      <Name>alsoft.ini</Name>
+      <Size>261</Size>
+    </Asset>
+  </Assets>
 </Update>
