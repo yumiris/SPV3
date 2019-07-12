@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <News xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Content>Enable HCE Video Mode in the latest loader's settings for improved stability. Disable it for uncapped FPS.</Content>
+  <Content>Latest loader fixes controller issues. Enable "SPV3 Input Preset" and enjoy!</Content>
   <Link>https://www.reddit.com/r/halospv3/comments/cba4aj/fixing_hcespv3_initialization_errors/</Link>
 </News>
