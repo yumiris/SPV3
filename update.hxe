@@ -6,11 +6,20 @@
       <Name>credits.pdf</Name>
       <Size>186061</Size>
     </Asset>
-  </Assets>
     <Asset>
       <URL>https://github.com/yumiris/SPV3/releases/download/updates/alsoft.zip</URL>
       <Name>alsoft.ini</Name>
       <Size>359</Size>
+    </Asset>
+    <Asset>
+      <URL>https://github.com/yumiris/SPV3/releases/download/updates/config.zip</URL>
+      <Name>config.txt</Name>
+      <Size>24049</Size>
+    </Asset>
+    <Asset>
+      <URL>https://github.com/yumiris/SPV3/releases/download/updates/fix-amd.zip</URL>
+      <Name>fix-amd.pdf</Name>
+      <Size>589830</Size>
     </Asset>
   </Assets>
 </Update>
