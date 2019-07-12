@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <News xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Content>Main update server is temporarily down for self-maintenance. Click here to get the latest updates.</Content>
-  <Link>https://dist.n2.network/spv3/</Link>
+  <Content>AMD users who can't run SPV3: please update and review the fix-amd.pdf document!</Content>
+  <Link>https://github.com/yumiris/SPV3/releases/download/updates/fix-amd.zip</Link>
 </News>
