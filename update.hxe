@@ -17,19 +17,19 @@
       <Size>589830</Size>
     </Asset>
     <Asset>
-      <URL>https://github.com/yumiris/SPV3/releases/download/updates/dsound.zip</URL>
+      <URL>https://github.com/yumiris/SPV3/releases/download/updates/null.zip</URL>
       <Name>dsound.dll</Name>
-      <Size>247808</Size>
+      <Size>69722</Size>
     </Asset>
     <Asset>
-      <URL>https://github.com/yumiris/SPV3/releases/download/updates/alsoft.zip</URL>
+      <URL>https://github.com/yumiris/SPV3/releases/download/updates/null.zip</URL>
       <Name>alsoft.ini</Name>
-      <Size>287</Size>
+      <Size>69722</Size>
     </Asset>
     <Asset>
-      <URL>https://github.com/yumiris/SPV3/releases/download/updates/dsoal-aldrv.zip</URL>
+      <URL>https://github.com/yumiris/SPV3/releases/download/updates/null.zip</URL>
       <Name>dsoal-aldrv.dll</Name>
-      <Size>1025550</Size>
+      <Size>69722</Size>
     </Asset>
   </Assets>
 </Update>
