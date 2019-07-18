@@ -14,22 +14,6 @@
     <Asset>
       <URL>https://github.com/yumiris/SPV3/releases/download/updates/fix-amd.zip</URL>
       <Name>fix-amd.pdf</Name>
-      <Size>589830</Size>
-    </Asset>
-    <Asset>
-      <URL>https://github.com/yumiris/SPV3/releases/download/updates/null.zip</URL>
-      <Name>dsound.dll</Name>
-      <Size>69722</Size>
-    </Asset>
-    <Asset>
-      <URL>https://github.com/yumiris/SPV3/releases/download/updates/null.zip</URL>
-      <Name>alsoft.ini</Name>
-      <Size>69722</Size>
-    </Asset>
-    <Asset>
-      <URL>https://github.com/yumiris/SPV3/releases/download/updates/null.zip</URL>
-      <Name>dsoal-aldrv.dll</Name>
-      <Size>69722</Size>
-    </Asset>
+      <Size>589830</Siz
   </Assets>
 </Update>
