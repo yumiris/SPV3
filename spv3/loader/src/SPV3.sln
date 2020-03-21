@@ -1,11 +1,68 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Blend for Visual Studio 15
-VisualStudioVersion = 15.0.28307.572
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3", "SPV3.csproj", "{C6922C15-C0C1-46D0-B2BC-2B0FF2BAD82B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HXE", "..\hxe\src\HXE.csproj", "{ACAA5D9F-B23D-43E1-B2DF-8C03230975A1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DRP", "..\drp\DRP.vcxproj", "{3B2049BE-F1C8-4BE4-A7AA-075B3FC1021F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XCF", "XCF", "{1E9415CD-8301-463A-A282-FC269E404330}"
+	ProjectSection(SolutionItems) = preProject
+		..\xcf\LoaderScreens ( )_00003.xcf = ..\xcf\LoaderScreens ( )_00003.xcf
+		..\xcf\LoaderScreens ( )_00004.xcf = ..\xcf\LoaderScreens ( )_00004.xcf
+		..\xcf\LoaderScreens ( )_00005.xcf = ..\xcf\LoaderScreens ( )_00005.xcf
+		..\xcf\LoaderScreens ( )_00006.xcf = ..\xcf\LoaderScreens ( )_00006.xcf
+		..\xcf\LoaderScreens ( )_00017.xcf = ..\xcf\LoaderScreens ( )_00017.xcf
+		..\xcf\LoaderScreens ( )_00021.xcf = ..\xcf\LoaderScreens ( )_00021.xcf
+		..\xcf\LoaderScreens ( )_00028.xcf = ..\xcf\LoaderScreens ( )_00028.xcf
+		..\xcf\LoaderScreens ( )_00029.xcf = ..\xcf\LoaderScreens ( )_00029.xcf
+		..\xcf\LoaderScreens ( )_00032.xcf = ..\xcf\LoaderScreens ( )_00032.xcf
+		..\xcf\LoaderScreens ( )_00033.xcf = ..\xcf\LoaderScreens ( )_00033.xcf
+		..\xcf\LoaderScreens ( )_00041.xcf = ..\xcf\LoaderScreens ( )_00041.xcf
+		..\xcf\README = ..\xcf\README
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{F6DC40EB-7785-48DA-A4FE-50A7C4F6C1F2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SPV3", "SPV3", "{42E0638E-7B9F-4E9B-83D6-E62BBD937355}"
+	ProjectSection(SolutionItems) = preProject
+		..\doc\compilation.txt = ..\doc\compilation.txt
+		..\doc\configuration.txt = ..\doc\configuration.txt
+		..\doc\loading.txt = ..\doc\loading.txt
+		..\doc\updating.txt = ..\doc\updating.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HXE", "HXE", "{DF02E212-2A5D-4B63-9F42-45614CEC0365}"
+	ProjectSection(SolutionItems) = preProject
+		..\hxe\doc\audio.txt = ..\hxe\doc\audio.txt
+		..\hxe\doc\blamsav.txt = ..\hxe\doc\blamsav.txt
+		..\hxe\doc\bless.txt = ..\hxe\doc\bless.txt
+		..\hxe\doc\chimera.txt = ..\hxe\doc\chimera.txt
+		..\hxe\doc\developer.txt = ..\hxe\doc\developer.txt
+		..\hxe\doc\exceptions.txt = ..\hxe\doc\exceptions.txt
+		..\hxe\doc\exit.txt = ..\hxe\doc\exit.txt
+		..\hxe\doc\haloce.txt = ..\hxe\doc\haloce.txt
+		..\hxe\doc\initc.txt = ..\hxe\doc\initc.txt
+		..\hxe\doc\initiation.txt = ..\hxe\doc\initiation.txt
+		..\hxe\doc\input.txt = ..\hxe\doc\input.txt
+		..\hxe\doc\kernel.txt = ..\hxe\doc\kernel.txt
+		..\hxe\doc\lastprof.txt = ..\hxe\doc\lastprof.txt
+		..\hxe\doc\opensauce.txt = ..\hxe\doc\opensauce.txt
+		..\hxe\doc\patching.txt = ..\hxe\doc\patching.txt
+		..\hxe\doc\readme.txt = ..\hxe\doc\readme.txt
+		..\hxe\doc\release.txt = ..\hxe\doc\release.txt
+		..\hxe\doc\reset.txt = ..\hxe\doc\reset.txt
+		..\hxe\doc\resume.txt = ..\hxe\doc\resume.txt
+		..\hxe\doc\savegame.txt = ..\hxe\doc\savegame.txt
+		..\hxe\doc\shaders.txt = ..\hxe\doc\shaders.txt
+		..\hxe\doc\tweaks.txt = ..\hxe\doc\tweaks.txt
+		..\hxe\doc\unlock.txt = ..\hxe\doc\unlock.txt
+		..\hxe\doc\update.txt = ..\hxe\doc\update.txt
+		..\hxe\doc\video.txt = ..\hxe\doc\video.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +78,17 @@ Global
 		{ACAA5D9F-B23D-43E1-B2DF-8C03230975A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACAA5D9F-B23D-43E1-B2DF-8C03230975A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACAA5D9F-B23D-43E1-B2DF-8C03230975A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B2049BE-F1C8-4BE4-A7AA-075B3FC1021F}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{3B2049BE-F1C8-4BE4-A7AA-075B3FC1021F}.Debug|Any CPU.Build.0 = Debug|Win32
+		{3B2049BE-F1C8-4BE4-A7AA-075B3FC1021F}.Release|Any CPU.ActiveCfg = Release|Win32
+		{3B2049BE-F1C8-4BE4-A7AA-075B3FC1021F}.Release|Any CPU.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{42E0638E-7B9F-4E9B-83D6-E62BBD937355} = {F6DC40EB-7785-48DA-A4FE-50A7C4F6C1F2}
+		{DF02E212-2A5D-4B63-9F42-45614CEC0365} = {F6DC40EB-7785-48DA-A4FE-50A7C4F6C1F2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {238701D1-9E48-4C9E-AC37-380A967E0E79}
