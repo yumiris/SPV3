@@ -15,6 +15,9 @@ the SPV3 loader's capabilities:
 
   jzimmm                        Implemented the ability to configure
                                 the SSR post-processing effect.
+
+  AWilliams17                   Development of Halo CE Mouse Tool and
+                                granting permissive licence for SPV3.
   ---------------------------------------------------------------------
 
 And of course, a thank you to all of the testers who have reported bugs
