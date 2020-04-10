@@ -103,7 +103,9 @@ namespace SPV3
         else
           openSauce.Camera.CalculateFOV();
 
-        openSauce.HUD.ShowHUD = true;
+        openSauce.HUD.ShowHUD                                       = true;
+        openSauce.Rasterizer.PostProcessing.MapEffects.Enabled      = false; /* for opensauce to interpret as true  */
+        openSauce.Rasterizer.PostProcessing.ExternalEffects.Enabled = true;  /* for opensauce to interpret as false */
 
         if (spv3.DOOM && !spv3.Photo)
           if (File.Exists(Paths.DOOM))
