@@ -58,23 +58,23 @@ campaign resuming:
 
   Mission            Value
   ------------------ -------
-  SPV3 A10           1
-  SPV3 A30           2
-  SPV3 A50           3
-  SPV3 B30           4
-  SPV3 B30 Evolved   5
-  SPV3 B40           6
-  SPV3 C10           7
-  SPV3 C20           8
-  SPV3 C40           9
-  SPV3 D20           10
-  SPV3 D25           11
-  SPV3 D30           12
-  SPV3 D30 Evolved   13
-  SPV3 D40           14
-  Lumoria A          15
-  Lumoria B          16
-  Lumoria C & D      17
+  SPV3 A10           2
+  SPV3 A30           3
+  SPV3 A50           4
+  SPV3 B30           5
+  SPV3 B30 Evolved   6
+  SPV3 B40           7
+  SPV3 C10           8
+  SPV3 C20           9
+  SPV3 C40           10
+  SPV3 D20           11
+  SPV3 D25           12
+  SPV3 D30           13
+  SPV3 D30 Evolved   14
+  SPV3 D40           15
+  Lumoria A          16
+  Lumoria B          17
+  Lumoria C & D      18
 
 COMMANDS
 --------

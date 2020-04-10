@@ -41,7 +41,7 @@ namespace HXE.SPV3
     /// </summary>
     public enum Mission
     {
-      Spv3A10        = 0x1 /* base value */, /* must match data\levels\ui\scripts\script.hsc */
+      Spv3A10        = 0x2 /* base value */, /* must match data\levels\ui\scripts\script.hsc */
       Spv3A30        = Spv3A10        + 0x1, /* must match data\levels\ui\scripts\script.hsc */
       Spv3A50        = Spv3A30        + 0x1, /* must match data\levels\ui\scripts\script.hsc */
       Spv3B30        = Spv3A50        + 0x1, /* must match data\levels\ui\scripts\script.hsc */
