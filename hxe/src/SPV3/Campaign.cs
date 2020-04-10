@@ -21,12 +21,12 @@
 namespace HXE.SPV3
 {
   /// <summary>
-  ///   Object representation of the SPV3.2 campaign attributes.
+  ///   Object representation of the SPV3.3 campaign attributes.
   /// </summary>
   public static class Campaign
   {
     /// <summary>
-    ///   Available SPV3.2 difficulties.
+    ///   Available SPV3.3 difficulties.
     /// </summary>
     public enum Difficulty
     {
@@ -37,27 +37,28 @@ namespace HXE.SPV3
     }
 
     /// <summary>
-    ///   Available SPV3.2 missions.
+    ///   Available SPV3.3 missions.
     /// </summary>
     public enum Mission
     {
-      Spv3A10        = 1,  /* must match data\levels\ui\scripts\script.hsc */
-      Spv3A30        = 2,  /* must match data\levels\ui\scripts\script.hsc */
-      Spv3A50        = 3,  /* must match data\levels\ui\scripts\script.hsc */
-      Spv3B30        = 4,  /* must match data\levels\ui\scripts\script.hsc */
-      Spv3B30Evolved = 5,  /* must match data\levels\ui\scripts\script.hsc */
-      Spv3B40        = 6,  /* must match data\levels\ui\scripts\script.hsc */
-      Spv3C10        = 7,  /* must match data\levels\ui\scripts\script.hsc */
-      Spv3C20        = 8,  /* must match data\levels\ui\scripts\script.hsc */
-      Spv3C40        = 9,  /* must match data\levels\ui\scripts\script.hsc */
-      Spv3D20        = 10, /* must match data\levels\ui\scripts\script.hsc */
-      Spv3D25        = 11, /* must match data\levels\ui\scripts\script.hsc */
-      Spv3D30        = 12, /* must match data\levels\ui\scripts\script.hsc */
-      Spv3D30Evolved = 13, /* must match data\levels\ui\scripts\script.hsc */
-      Spv3D40        = 14, /* must match data\levels\ui\scripts\script.hsc */
-      LumoriaA       = 15, /* must match data\levels\ui\scripts\script.hsc */
-      LumoriaB       = 16, /* must match data\levels\ui\scripts\script.hsc */
-      LumoriaCd      = 17  /* must match data\levels\ui\scripts\script.hsc */
+      Spv3A10        = 0x2 /* base value */, /* must match data\levels\ui\scripts\script.hsc */
+      Spv3A30        = Spv3A10        + 0x1, /* must match data\levels\ui\scripts\script.hsc */
+      Spv3A50        = Spv3A30        + 0x1, /* must match data\levels\ui\scripts\script.hsc */
+      Spv3B30        = Spv3A50        + 0x1, /* must match data\levels\ui\scripts\script.hsc */
+      Spv3B30Evolved = Spv3B30        + 0x1, /* must match data\levels\ui\scripts\script.hsc */
+      Spv3B40        = Spv3B30Evolved + 0x1, /* must match data\levels\ui\scripts\script.hsc */
+      Spv3C10        = Spv3B40        + 0x1, /* must match data\levels\ui\scripts\script.hsc */
+      Spv3C20        = Spv3C10        + 0x1, /* must match data\levels\ui\scripts\script.hsc */
+      Spv3C40        = Spv3C20        + 0x1, /* must match data\levels\ui\scripts\script.hsc */
+      Spv3D20        = Spv3C40        + 0x1, /* must match data\levels\ui\scripts\script.hsc */
+      Spv3D25        = Spv3D20        + 0x1, /* must match data\levels\ui\scripts\script.hsc */
+      Spv3D30        = Spv3D25        + 0x1, /* must match data\levels\ui\scripts\script.hsc */
+      Spv3D30Evolved = Spv3D30        + 0x1, /* must match data\levels\ui\scripts\script.hsc */
+      Spv3D40        = Spv3D30Evolved + 0x1, /* must match data\levels\ui\scripts\script.hsc */
+      LumoriaA       = Spv3D40        + 0x1, /* must match data\levels\ui\scripts\script.hsc */
+      LumoriaB       = LumoriaA       + 0x1, /* must match data\levels\ui\scripts\script.hsc */
+      LumoriaCd      = LumoriaB       + 0x1, /* must match data\levels\ui\scripts\script.hsc */
+      Spv3A05        = LumoriaCd      + 0x1  /* must match data\levels\ui\scripts\script.hsc */
     }
   }
 }
