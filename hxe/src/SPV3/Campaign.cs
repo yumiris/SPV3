@@ -21,12 +21,12 @@
 namespace HXE.SPV3
 {
   /// <summary>
-  ///   Object representation of the SPV3.2 campaign attributes.
+  ///   Object representation of the SPV3.3 campaign attributes.
   /// </summary>
   public static class Campaign
   {
     /// <summary>
-    ///   Available SPV3.2 difficulties.
+    ///   Available SPV3.3 difficulties.
     /// </summary>
     public enum Difficulty
     {
@@ -37,7 +37,7 @@ namespace HXE.SPV3
     }
 
     /// <summary>
-    ///   Available SPV3.2 missions.
+    ///   Available SPV3.3 missions.
     /// </summary>
     public enum Mission
     {
@@ -57,7 +57,8 @@ namespace HXE.SPV3
       Spv3D40        = Spv3D30Evolved + 0x1, /* must match data\levels\ui\scripts\script.hsc */
       LumoriaA       = Spv3D40        + 0x1, /* must match data\levels\ui\scripts\script.hsc */
       LumoriaB       = LumoriaA       + 0x1, /* must match data\levels\ui\scripts\script.hsc */
-      LumoriaCd      = LumoriaB       + 0x1  /* must match data\levels\ui\scripts\script.hsc */
+      LumoriaCd      = LumoriaB       + 0x1, /* must match data\levels\ui\scripts\script.hsc */
+      Spv3A05        = LumoriaCd      + 0x1  /* must match data\levels\ui\scripts\script.hsc */
     }
   }
 }

@@ -67,6 +67,7 @@ without the MAP extension:
   Lumoria A          spv3\_lumoria\_a
   Lumoria B          spv3\_lumoria\_b
   Lumoria C & D      spv3\_lumoria\_cd
+  SPV3 A05           spv3a05
 
 DIFFICULTIES
 ------------

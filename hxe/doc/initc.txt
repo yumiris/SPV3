@@ -75,6 +75,7 @@ campaign resuming:
   Lumoria A          16
   Lumoria B          17
   Lumoria C & D      18
+  SPV3 A05           19
 
 COMMANDS
 --------
