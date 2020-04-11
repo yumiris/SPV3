@@ -90,6 +90,7 @@ namespace SPV3
       _configuration.Shaders.MotionBlur         = 0;
       _configuration.Shaders.DOF                = 0;
       _configuration.Shaders.MXAO               = 0;
+      _configuration.Shaders.SSR                = false;
     }
 
     private void PresetLow(object sender, RoutedEventArgs e)
@@ -102,6 +103,7 @@ namespace SPV3
       _configuration.Shaders.MotionBlur         = 0;
       _configuration.Shaders.DOF                = 0;
       _configuration.Shaders.MXAO               = 0;
+      _configuration.Shaders.SSR                = false;
     }
 
     private void PresetMedium(object sender, RoutedEventArgs e)
@@ -114,6 +116,7 @@ namespace SPV3
       _configuration.Shaders.MotionBlur         = 1;
       _configuration.Shaders.DOF                = 1;
       _configuration.Shaders.MXAO               = 0;
+      _configuration.Shaders.SSR                = false;
     }
 
     private void PresetHigh(object sender, RoutedEventArgs e)
@@ -126,6 +129,7 @@ namespace SPV3
       _configuration.Shaders.MotionBlur         = 2;
       _configuration.Shaders.DOF                = 1;
       _configuration.Shaders.MXAO               = 1;
+      _configuration.Shaders.SSR                = false;
     }
 
     private void PresetVeryHigh(object sender, RoutedEventArgs e)
@@ -138,6 +142,7 @@ namespace SPV3
       _configuration.Shaders.MotionBlur         = 3;
       _configuration.Shaders.DOF                = 2;
       _configuration.Shaders.MXAO               = 2;
+      _configuration.Shaders.SSR                = false;
     }
 
     private void PresetUltra(object sender, RoutedEventArgs e)
@@ -150,6 +155,7 @@ namespace SPV3
       _configuration.Shaders.MotionBlur         = 3;
       _configuration.Shaders.DOF                = 2;
       _configuration.Shaders.MXAO               = 2;
+      _configuration.Shaders.SSR                = true;
     }
   }
 }
