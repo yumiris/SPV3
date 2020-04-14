@@ -176,10 +176,10 @@ namespace HXE.HCE
         {
           return key.GetValue(registryIdentity);         
         }
-      // if null, try 32-bit key-path
-          using (var view = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, registryView))
-          using (var key = view.OpenSubKey(registryLocation32))
-          return key.GetValue(registryIdentity);
+        /// if null, try 32-bit key-path
+        using (var view = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, registryView))
+        using (var key = view.OpenSubKey(registryLocation32))
+        return key?.GetValue(registryIdentity);
       }
 
       return GetValue(RegistryView.Registry32) ?? GetValue(RegistryView.Registry64);
