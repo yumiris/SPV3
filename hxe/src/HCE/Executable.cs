@@ -157,29 +157,22 @@ namespace HXE.HCE
 
     /// <summary>
     ///   Gets installation path declared in the registry.
-    ///   Use 64-bit Windows32-on-Windows64 registry path. If it does not exist, try the 32-bit path.
     /// </summary>
     /// <returns>
-    ///   Installation path declared in the registry. If it does not exist, null will be returned and HXE will fallback to th HXE-installer-path file.
+    ///   Installation path declared in the registry. If it does not exist, null will be returned.
     /// </returns>
     public static object GetRegistry()
     {
       object GetValue(RegistryView registryView)
       {
-        const string registryLocation64 = @"SOFTWARE\WOW6432Node\Microsoft\Microsoft Games\Halo CE";
-        const string registryLocation32 = @"SOFTWARE\Microsoft\Microsoft Games\Halo CE";
+        const string registryLocation = @"SOFTWARE\Microsoft\Microsoft Games\Halo CE";
         const string registryIdentity = @"EXE Path";
 
         using (var view = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, registryView))
-        using (var key = view.OpenSubKey(registryLocation64))
-        if (registryLocation64 != null)
+        using (var key = view.OpenSubKey(registryLocation))
         {
-          return key.GetValue(registryIdentity);         
+          return key?.GetValue(registryIdentity);
         }
-        /// if null, try 32-bit key-path
-        using (var view = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, registryView))
-        using (var key = view.OpenSubKey(registryLocation32))
-        return key?.GetValue(registryIdentity);
       }
 
       return GetValue(RegistryView.Registry32) ?? GetValue(RegistryView.Registry64);
