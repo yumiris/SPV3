@@ -15,6 +15,9 @@ the SPV3 loader's capabilities:
 
   jzimmm                        Implemented the ability to configure
                                 the SSR post-processing effect.
+
+  VoidsShadow                   Improved HCE executable detection and
+                                bug reports, suggestions, feedback.
   ---------------------------------------------------------------------
 
 And of course, a thank you to all of the testers who have reported bugs
