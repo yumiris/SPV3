@@ -164,7 +164,7 @@
                     <Label Content="DOOM Mode:" />
                     <CheckBox IsChecked="{Binding Loader.DOOM}"
                               Unchecked="ResetWeaponPositions"
-                              ToolTip="Speeds up the game and centers your weapons a la DOOM." />
+                              ToolTip="Centers your weapons a la DOOM." />
                 </DockPanel>
                 <DockPanel>
                     <Label Content="Photo Mode:" />
