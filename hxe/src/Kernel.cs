@@ -144,6 +144,9 @@ namespace HXE
 
         void Resume()
         {
+          if (configuration.Mode == Configuration.ConfigurationMode.HCE)
+            return;
+
           try
           {
             var prof = (LastProfile) Custom.LastProfile(executable.Profile.Path);
