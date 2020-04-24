@@ -20,6 +20,7 @@
 
 using static System.Environment;
 using static System.Environment.SpecialFolder;
+using static System.IO.File;
 using static System.IO.Path;
 
 namespace HXE
@@ -43,13 +44,23 @@ namespace HXE
     public class HCE
     {
       public const           string Executable = "haloce.exe";
-      public const           string Initiation = "initc.txt";
       public static readonly string Directory  = Combine(GetFolderPath(Personal), "My Games", "Halo CE");
 
       public static readonly string Profiles    = Combine(Directory, "savegames");
       public static readonly string LastProfile = Combine(Directory, "lastprof.txt");
       public static readonly string Chimera     = Combine(Directory, "chimera.bin");
       public static readonly string OpenSauce   = Combine(Directory, "OpenSauce", "OS_Settings.User.xml");
+
+      /*
+       * The initiation filename is declared based on the presence of the OpenSauce DLL in the current directory.
+       * 
+       * -   initc is interpreted by OpenSauce (InitC = Initiation Client file)
+       * -   init is primarily used by dedicated HCE servers for startup commands
+       *
+       * See #20 on github:SPV3
+       */
+      public static readonly string Initiation
+        = Combine(CurrentDirectory, Exists("dinput8.dll") ? "initc.txt" : "init.txt");
 
       public static string Profile(string profile)
       {
