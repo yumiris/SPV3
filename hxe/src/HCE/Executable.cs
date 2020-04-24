@@ -60,7 +60,6 @@ namespace HXE.HCE
       return GetInCurrentDir() ??
              GetProgramFiles() ??
              GetRegistryKeys() ??
-             GetInHxeInstall() ??
              throw new FileNotFoundException("Could not detect executable on the filesystem.");
 
       /**
@@ -128,27 +127,6 @@ namespace HXE.HCE
             Debug(path);
             return (Executable) path;
           }
-        }
-
-        return null;
-      }
-
-      /**
-       * Detect based on installation path of a HXE packaged mod.
-       */
-
-      Executable GetInHxeInstall()
-      {
-        if (!System.IO.File.Exists(Installation))
-          throw new FileNotFoundException("Could not detect executable on the filesystem.");
-
-        var spv3exe = Combine(System.IO.File.ReadAllText(Installation).TrimEnd('\n'), hce);
-
-        if (System.IO.File.Exists(spv3exe))
-        {
-          Info("Detected executable in HXE installation");
-          Debug(spv3exe);
-          return (Executable) spv3exe;
         }
 
         return null;

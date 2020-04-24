@@ -158,13 +158,6 @@ namespace HXE
       manifest.CopyTo(target);
 
       Info("Copied manifest to the target directory - " + target);
-
-      new File
-      {
-        Path = Paths.Installation
-      }.WriteAllText(target);
-
-      Info("Wrote the target path to the installation file");
       Done("Installation routine has been successfully completed");
     }
   }

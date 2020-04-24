@@ -160,8 +160,6 @@ namespace SPV3
             NoVideo = true
           }
         }, hxe);
-
-        File.WriteAllText(Paths.Installation, Environment.CurrentDirectory);
       }
 
       [NotifyPropertyChangedInvocator]
