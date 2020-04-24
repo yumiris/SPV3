@@ -464,6 +464,9 @@
                     Click="Cancel"
                     Width="100"
                     Margin="1,0,0,0" />
+
+            <!-- Versions -->
+            <local:Version_UserControl />
         </StackPanel>
     </Grid>
 </UserControl>
