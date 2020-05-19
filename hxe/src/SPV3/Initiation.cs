@@ -20,6 +20,7 @@
 
 using System;
 using System.Text;
+using static System.IO.File;
 using static HXE.Console;
 using static HXE.SPV3.PostProcessing;
 
@@ -72,8 +73,26 @@ namespace HXE.SPV3
         }
       }
 
+      /**
+       * The SPV3 campaign maps each have an ID assigned to them. SPV3.3 breaks the compatibility by incrementing all of
+       * the IDs.
+       *
+       * To handle permit backwards compatibility with 3.2 and below, we conditionally decrement the mission ID that
+       * will be written to the initiation file.
+       *
+       * The decrementation is determined by the presence of the Paths.SPV33 file in the working directory. If the file
+       * is not found, then it's possible that this loader is being used on SPV3.2 and below, and thus we should use the
+       * old (decremented) mission IDs.
+       */
+      int GetMission()
+      {
+        return System.IO.File.Exists(Paths.Version)
+          ? (int) Mission      /* compatibility with >=SPV3.3 */
+          : (int) Mission - 1; /* compatibility with <=SPV3.2 */
+      }
+
+      var mission      = GetMission();
       var difficulty   = GetDifficulty();
-      var mission      = (int) Mission;
       var autoaim      = PlayerAutoaim ? 1 : 0;
       var magnetism    = PlayerMagnetism ? 1 : 0;
       var cinematic    = CinematicBars ? 0 : 1;

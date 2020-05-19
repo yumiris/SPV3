@@ -62,7 +62,7 @@ namespace HXE.SPV3
       }
 
       /**
-       * Infers the difficulty and returns the Campaign.Difficulty mission.
+       * Infers the mission and returns the Campaign.Mission representation.
        */
 
       Mission GetMission(BinaryReader reader)

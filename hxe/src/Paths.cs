@@ -40,6 +40,7 @@ namespace HXE
     public static readonly string DSOAL         = Combine(CurrentDirectory,               "dsoal-aldrv.dll");
     public static readonly string DSOUND        = Combine(CurrentDirectory,               "dsound.dll");
     public static readonly string ALSoft        = Combine(CurrentDirectory,               "alsoft.ini");
+    public static readonly string Version       = Combine(CurrentDirectory,               "version.txt");
 
     public class HCE
     {
