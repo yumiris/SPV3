@@ -57,6 +57,7 @@
     <Compile Include="Exceptions\AssetException.cs" />
     <Compile Include="Exit.cs" />
     <Compile Include="File.cs" />
+    <Compile Include="HCE\Detection.cs" />
     <Compile Include="HCE\Executable.cs" />
     <Compile Include="HCE\LastProfile.cs" />
     <Compile Include="HCE\Profile.cs" />
