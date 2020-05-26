@@ -55,82 +55,12 @@ namespace HXE.HCE
     /// </exception>
     public static Executable Detect()
     {
-      const string hce = Paths.HCE.Executable;
+      var hce = Detection.Infer();
 
-      return GetInCurrentDir() ??
-             GetProgramFiles() ??
-             GetRegistryKeys() ??
-             throw new FileNotFoundException("Could not detect executable on the filesystem.");
+      if (System.IO.File.Exists(hce.FullName))
+        return (Executable) hce.FullName;
 
-      /**
-       * Detect based on the current directory.
-       */
-
-      Executable GetInCurrentDir()
-      {
-        var currentPath = Combine(CurrentDirectory, hce);
-
-        if (System.IO.File.Exists(currentPath))
-        {
-          Info("Detected executable in current directory");
-          Debug(currentPath);
-          return (Executable) currentPath;
-        }
-
-        return null;
-      }
-
-      /**
-       * Detect based on the default installation path.
-       */
-
-      Executable GetProgramFiles()
-      {
-        const string directory64   = @"C:\Program Files (x86)\Microsoft Games\Halo Custom Edition";
-        var          defaultPath64 = Combine(directory64, hce);
-
-        if (System.IO.File.Exists(defaultPath64))
-        {
-          Info("Detected executable in Program Files (64-bit)");
-          Debug(defaultPath64);
-          return (Executable) defaultPath64;
-        }
-
-        const string directory32   = @"C:\Program Files\Microsoft Games\Halo Custom Edition";
-        var          defaultPath32 = Combine(directory32, hce);
-
-        if (System.IO.File.Exists(defaultPath32))
-        {
-          Info("Detected executable in Program Files (32-bit)");
-          Debug(defaultPath32);
-          return (Executable) defaultPath32;
-        }
-
-        return null;
-      }
-
-      /**
-       * Detect based on registry key values.
-       */
-
-      Executable GetRegistryKeys()
-      {
-        var registry = GetRegistry();
-
-        if (registry != null)
-        {
-          var path = $@"{registry}\{hce}";
-
-          if (System.IO.File.Exists(path))
-          {
-            Info("Detected executable in the registry");
-            Debug(path);
-            return (Executable) path;
-          }
-        }
-
-        return null;
-      }
+      throw new FileNotFoundException("Could not detect executable on the filesystem.");
     }
 
     /// <summary>
