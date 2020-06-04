@@ -48,10 +48,13 @@ sources:
 -   https://source.n2.network/spv3 - upstream source code
 -   https://builds.n2.network/spv3 - compiled executables
 
-HXE Kernel
-----------
+Cloning
+-------
 
-The hxe tree contains the official source code for the HXE kernel.
+Clone the repository using the following command:
+
+    git clone --recurse-submodules -j8 https://source.n2.network/spv3
+    # can replace source.n2.network/spv3 with github.com/yumiris/spv3
 
 Licence
 -------
