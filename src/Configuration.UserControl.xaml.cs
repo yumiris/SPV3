@@ -91,6 +91,8 @@ namespace SPV3
       _configuration.Shaders.DOF                = 0;
       _configuration.Shaders.MXAO               = 0;
       _configuration.Shaders.SSR                = false;
+      _configuration.Chimera.Interpolation      = 8;
+      _configuration.Chimera.BlockLOD           = false;
     }
 
     private void PresetLow(object sender, RoutedEventArgs e)
@@ -104,6 +106,8 @@ namespace SPV3
       _configuration.Shaders.DOF                = 0;
       _configuration.Shaders.MXAO               = 0;
       _configuration.Shaders.SSR                = false;
+      _configuration.Chimera.Interpolation      = 8;
+      _configuration.Chimera.BlockLOD           = false;
     }
 
     private void PresetMedium(object sender, RoutedEventArgs e)
@@ -117,6 +121,8 @@ namespace SPV3
       _configuration.Shaders.DOF                = 1;
       _configuration.Shaders.MXAO               = 0;
       _configuration.Shaders.SSR                = false;
+      _configuration.Chimera.Interpolation      = 8;
+      _configuration.Chimera.BlockLOD           = false;
     }
 
     private void PresetHigh(object sender, RoutedEventArgs e)
@@ -130,6 +136,8 @@ namespace SPV3
       _configuration.Shaders.DOF                = 1;
       _configuration.Shaders.MXAO               = 1;
       _configuration.Shaders.SSR                = false;
+      _configuration.Chimera.Interpolation      = 8;
+      _configuration.Chimera.BlockLOD           = false;
     }
 
     private void PresetVeryHigh(object sender, RoutedEventArgs e)
@@ -143,6 +151,8 @@ namespace SPV3
       _configuration.Shaders.DOF                = 2;
       _configuration.Shaders.MXAO               = 2;
       _configuration.Shaders.SSR                = false;
+      _configuration.Chimera.Interpolation      = 8;
+      _configuration.Chimera.BlockLOD           = false;
     }
 
     private void PresetUltra(object sender, RoutedEventArgs e)
@@ -156,6 +166,8 @@ namespace SPV3
       _configuration.Shaders.DOF                = 2;
       _configuration.Shaders.MXAO               = 2;
       _configuration.Shaders.SSR                = true;
+      _configuration.Chimera.Interpolation      = 8;
+      _configuration.Chimera.BlockLOD           = true;
     }
   }
 }
