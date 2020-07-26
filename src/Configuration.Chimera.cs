@@ -29,7 +29,7 @@ namespace SPV3
   public class ConfigurationChimera : INotifyPropertyChanged
   {
     private bool _anisotropicFiltering = true;
-    private bool _blockLOD             = true;
+    private bool _blockLOD             = false;
     private int  _interpolation        = 8;
     private bool _uncapCinematic       = true;
 
