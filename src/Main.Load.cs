@@ -70,7 +70,6 @@ namespace SPV3
         hxe.Load();
         hxe.Mode               = Kernel.Configuration.ConfigurationMode.SPV32;
         hxe.Tweaks.Sensor      = true;          /* forcefully enable motion sensor   */
-        hxe.Tweaks.Speed       = 1;             /* apply native game execution speed */
         hxe.Main.Reset         = true;          /* improve loading stability         */
         hxe.Main.Patch         = true;          /* improve loading stability         */
         hxe.Main.Resume        = true;          /* improve loading stability         */
@@ -112,7 +111,6 @@ namespace SPV3
           {
             openSauce.Objects.Weapon.Load(Paths.DOOM);
             openSauce.HUD.ShowHUD = true;
-            hxe.Tweaks.Speed      = 1.5;
           }
 
         if (spv3.Photo && !spv3.DOOM)
