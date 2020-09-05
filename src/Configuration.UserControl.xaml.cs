@@ -167,7 +167,7 @@ namespace SPV3
       _configuration.Shaders.MXAO               = 2;
       _configuration.Shaders.SSR                = true;
       _configuration.Chimera.Interpolation      = 8;
-      _configuration.Chimera.BlockLOD           = true;
+      _configuration.Chimera.BlockLOD           = false;
     }
   }
 }
