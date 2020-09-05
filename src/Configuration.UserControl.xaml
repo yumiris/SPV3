@@ -218,13 +218,14 @@
                 <DockPanel>
                     <Label Content="Post-Processing:" />
                     <CheckBox IsChecked="{Binding Loader.Shaders}"
-                              ToolTip="Enables SPV3.2's post-processing system." />
+                              ToolTip="Enables SPV3.2's or SPV3.3's post-processing system." />
                 </DockPanel>
                 <DockPanel>
                     <Label Content="Visor Overlay:"
                            IsEnabled="{Binding Loader.Shaders}" />
                     <CheckBox IsChecked="{Binding Shaders.HudVisor}"
-                              IsEnabled="{Binding Loader.Shaders}" />
+                              IsEnabled="{Binding Loader.Shaders}"
+                              ToolTip="Enables HUD extras like visor holograms and helmet bits"/>
                 </DockPanel>
                 <DockPanel>
                     <Label Content="Film Grain:"
@@ -238,20 +239,21 @@
                            IsEnabled="{Binding Loader.Shaders}" />
                     <CheckBox IsChecked="{Binding Shaders.VolumetricLighting}"
                               IsEnabled="{Binding Loader.Shaders}"
-                              ToolTip="Enhances lighting and bright objects." />
+                              ToolTip="Enables simulation of light scattering through fog" />
                 </DockPanel>
                 <DockPanel>
                     <Label Content="Lens Dirt:"
                            IsEnabled="{Binding Loader.Shaders}" />
                     <CheckBox IsChecked="{Binding Shaders.LensDirt}"
-                              IsEnabled="{Binding Loader.Shaders}" />
+                              IsEnabled="{Binding Loader.Shaders}"
+                              ToolTip="Enables dirt and scratches on visor" />
                 </DockPanel>
                 <DockPanel>
                     <Label Content="Motion Blur:"
                            IsEnabled="{Binding Loader.Shaders}" />
                     <ComboBox SelectedIndex="{Binding Shaders.MotionBlur}"
                               IsEnabled="{Binding Loader.Shaders}"
-                              ToolTip="Sets the Motion Blur level.">
+                              ToolTip="Sets the Motion Blur level. POMB is high quality motion blur.&#x0a;Fall back to 'Built-in' when the game runs at sub 25 FPS">
                         <ComboBoxItem Content="Off" />
                         <ComboBoxItem Content="Built-in" />
                         <ComboBoxItem Content="POMB Low" />
@@ -280,18 +282,26 @@
                         <ComboBoxItem Content="High" />
                     </ComboBox>
                 </DockPanel>
-                <DockPanel>
+                <DockPanel Visibility="{Binding Shaders.DynamicFlaresAvailable, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Label Content="Dynamic Lens Flares:"
                            IsEnabled="{Binding Loader.Shaders}" />
                     <CheckBox IsChecked="{Binding Shaders.DynamicLensFlares}"
                               IsEnabled="{Binding Loader.Shaders}"
                               ToolTip="Enables Dynamic Lens Flares effects." />
                 </DockPanel>
+                <DockPanel Visibility="{Binding Shaders.DebandAvailable, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Label Content="Debanding:"
+                           IsEnabled="{Binding Loader.Shaders}" />
+                    <CheckBox IsChecked="{Binding Shaders.DynamicLensFlares}"
+                              IsEnabled="{Binding Loader.Shaders}"
+                              ToolTip="Removes banding artifacts/anomalies" />
+                </DockPanel>
                 <DockPanel>
                     <Label Content="SSR:"
                            IsEnabled="{Binding Loader.Shaders}" />
                     <CheckBox IsChecked="{Binding Shaders.SSR}"
-                              IsEnabled="{Binding Loader.Shaders}" />
+                              IsEnabled="{Binding Loader.Shaders}"
+                              ToolTip="Enables Screen Space Ray Traced Reflections" />
                 </DockPanel>
 
                 <Label Content="Quality Presets"

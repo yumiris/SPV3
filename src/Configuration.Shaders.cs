@@ -42,6 +42,14 @@ namespace SPV3
       private bool _volumetricLighting = true;
       private bool _ssr                = true;
 
+      public bool DebandAvailable
+      {
+        get => _configuration.Mode.Equals(HXE.Kernel.Configuration.ConfigurationMode.SPV33);
+      }
+      public bool DynamicFlaresAvailable
+      {
+        get => !_configuration.Mode.Equals(HXE.Kernel.Configuration.ConfigurationMode.SPV33);
+      }
       public bool DynamicLensFlares
       {
         get => _dynamicLensFlares;
