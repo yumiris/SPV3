@@ -94,7 +94,7 @@ namespace SPV3
           chimera.Interpolation        = 8;
           chimera.AnisotropicFiltering = true;
           chimera.UncapCinematic       = true;
-          chimera.BlockLOD             = true;
+          chimera.BlockLOD             = false;
         }
 
         if (openSauce.Exists())
