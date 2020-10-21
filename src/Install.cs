@@ -205,7 +205,7 @@ namespace SPV3
         return;
       }
 
-      if (Executable.GetRegistry() != null) return;
+      if (Detection.InferFromRegistryKeyEntry() != null) return;
 
       Status     = "Please install a legal copy of HCE before installing SPV3.";
       CanInstall = false;
