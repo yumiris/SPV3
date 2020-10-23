@@ -85,6 +85,10 @@ namespace SPV3
         hxe.Tweaks.Cinematic   = spv3.Cinematic;
         hxe.Tweaks.Unload      = !spv3.Shaders;
 
+        if (File.Exists(HXE.Paths.Version))
+        {
+          hxe.Mode = Kernel.Configuration.ConfigurationMode.SPV33;
+        }
         if (chimera.Exists())
         {
           chimera.Load();

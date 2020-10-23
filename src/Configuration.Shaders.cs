@@ -41,21 +41,37 @@ namespace SPV3
       private int  _mxao               = 2;
       private bool _volumetricLighting = true;
       private bool _ssr                = true;
+      private bool _deband             = true;
+
+      public bool ModeIsSPV33()
+      {
+        if (System.IO.File.Exists(HXE.Paths.Version))
+        {
+          _configuration.Mode = Kernel.Configuration.ConfigurationMode.SPV33;
+          return true;
+        }
+        else
+          return false;
+      }
+
+      public bool DynamicFlaresAvailable
+      {
+        get => !ModeIsSPV33();
+      }
 
       public bool DebandAvailable
       {
-        get => _configuration.Mode.Equals(HXE.Kernel.Configuration.ConfigurationMode.SPV33);
+        get => ModeIsSPV33();
       }
-      public bool DynamicFlaresAvailable
-      {
-        get => !_configuration.Mode.Equals(HXE.Kernel.Configuration.ConfigurationMode.SPV33);
-      }
+
       public bool DynamicLensFlares
       {
         get => _dynamicLensFlares;
         set
         {
           if (value == _dynamicLensFlares) return;
+          if (value == true && _configuration.Mode != Kernel.Configuration.ConfigurationMode.SPV33)
+            _deband = false;
           _dynamicLensFlares = value;
           OnPropertyChanged();
         }
@@ -149,6 +165,19 @@ namespace SPV3
         }
       }
 
+      public bool Deband
+      {
+        get => _deband;
+        set
+        {
+          if (value == _deband) return;
+          if (value == true && _configuration.Mode == Kernel.Configuration.ConfigurationMode.SPV33)
+            _dynamicLensFlares = false;
+          _deband = value;
+          OnPropertyChanged();
+        }
+      }
+
       public event PropertyChangedEventHandler PropertyChanged;
 
       public void Save()
@@ -162,6 +191,7 @@ namespace SPV3
         _configuration.Shaders.MotionBlur         = (PostProcessing.MotionBlurOptions) MotionBlur;
         _configuration.Shaders.MXAO               = (PostProcessing.MxaoOptions) MXAO;
         _configuration.Shaders.SSR                = SSR;
+        _configuration.Shaders.Deband             = Deband;
 
         _configuration.Save();
       }
@@ -179,6 +209,7 @@ namespace SPV3
         MotionBlur         = (byte) _configuration.Shaders.MotionBlur;
         MXAO               = (byte) _configuration.Shaders.MXAO;
         SSR                = _configuration.Shaders.SSR;
+        Deband             = _configuration.Shaders.Deband;
       }
 
       [NotifyPropertyChangedInvocator]

@@ -91,6 +91,7 @@ namespace SPV3
       _configuration.Shaders.DOF                = 0;
       _configuration.Shaders.MXAO               = 0;
       _configuration.Shaders.SSR                = false;
+      _configuration.Shaders.Deband             = false;
       _configuration.Chimera.Interpolation      = 8;
       _configuration.Chimera.BlockLOD           = false;
     }
@@ -106,6 +107,7 @@ namespace SPV3
       _configuration.Shaders.DOF                = 0;
       _configuration.Shaders.MXAO               = 0;
       _configuration.Shaders.SSR                = false;
+      _configuration.Shaders.Deband             = false;
       _configuration.Chimera.Interpolation      = 8;
       _configuration.Chimera.BlockLOD           = false;
     }
@@ -121,6 +123,7 @@ namespace SPV3
       _configuration.Shaders.DOF                = 1;
       _configuration.Shaders.MXAO               = 0;
       _configuration.Shaders.SSR                = false;
+      _configuration.Shaders.Deband             = true;
       _configuration.Chimera.Interpolation      = 8;
       _configuration.Chimera.BlockLOD           = false;
     }
@@ -136,6 +139,7 @@ namespace SPV3
       _configuration.Shaders.DOF                = 1;
       _configuration.Shaders.MXAO               = 1;
       _configuration.Shaders.SSR                = false;
+      _configuration.Shaders.Deband             = true;
       _configuration.Chimera.Interpolation      = 8;
       _configuration.Chimera.BlockLOD           = false;
     }
@@ -150,6 +154,7 @@ namespace SPV3
       _configuration.Shaders.MotionBlur         = 3;
       _configuration.Shaders.DOF                = 2;
       _configuration.Shaders.MXAO               = 2;
+      _configuration.Shaders.Deband             = true;
       _configuration.Shaders.SSR                = false;
       _configuration.Chimera.Interpolation      = 8;
       _configuration.Chimera.BlockLOD           = false;
@@ -166,6 +171,7 @@ namespace SPV3
       _configuration.Shaders.DOF                = 2;
       _configuration.Shaders.MXAO               = 2;
       _configuration.Shaders.SSR                = true;
+      _configuration.Shaders.Deband             = true;
       _configuration.Chimera.Interpolation      = 8;
       _configuration.Chimera.BlockLOD           = false;
     }

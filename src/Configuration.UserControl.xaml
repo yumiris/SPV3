@@ -289,13 +289,6 @@
                               IsEnabled="{Binding Loader.Shaders}"
                               ToolTip="Enables Dynamic Lens Flares effects." />
                 </DockPanel>
-                <DockPanel Visibility="{Binding Shaders.DebandAvailable, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <Label Content="Debanding:"
-                           IsEnabled="{Binding Loader.Shaders}" />
-                    <CheckBox IsChecked="{Binding Shaders.DynamicLensFlares}"
-                              IsEnabled="{Binding Loader.Shaders}"
-                              ToolTip="Removes banding artifacts/anomalies" />
-                </DockPanel>
                 <DockPanel>
                     <Label Content="SSR:"
                            IsEnabled="{Binding Loader.Shaders}" />
@@ -303,8 +296,15 @@
                               IsEnabled="{Binding Loader.Shaders}"
                               ToolTip="Enables Screen Space Ray Traced Reflections" />
                 </DockPanel>
+                <DockPanel Visibility="{Binding Shaders.DebandAvailable, Converter={StaticResource BooleanToVisibilityConverter}}">
+                  <Label Content="Debanding:"
+                                   IsEnabled="{Binding Loader.Shaders}" />
+                  <CheckBox IsChecked="{Binding Shaders.DynamicLensFlares}"
+                                      IsEnabled="{Binding Loader.Shaders}"
+                                      ToolTip="Removes banding artifacts/anomalies" />
+                </DockPanel>
 
-                <Label Content="Quality Presets"
+        <Label Content="Quality Presets"
                        HorizontalAlignment="Center"
                        Width="Auto"
                        FontSize="16"
