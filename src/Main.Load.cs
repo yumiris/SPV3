@@ -96,7 +96,7 @@ namespace SPV3
         else
         {
           chimera.Interpolation        = 8;
-          chimera.AnisotropicFiltering = true;
+          chimera.AnisotropicFiltering = false;
           chimera.UncapCinematic       = true;
           chimera.BlockLOD             = false;
         }

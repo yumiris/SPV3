@@ -32,16 +32,16 @@ namespace SPV3
     {
       private readonly Kernel.Configuration _configuration = new Kernel.Configuration(Paths.Kernel);
 
-      private int  _dof                = 2;
-      private bool _dynamicLensFlares  = true;
-      private bool _filmGrain          = true;
+      private int  _dof                = 0;
+      private bool _dynamicLensFlares  = false;
+      private bool _filmGrain          = false;
       private bool _hudVisor           = true;
-      private bool _lensDirt           = true;
-      private int  _motionBlur         = 3;
-      private int  _mxao               = 2;
-      private bool _volumetricLighting = true;
-      private bool _ssr                = true;
-      private bool _deband             = true;
+      private bool _lensDirt           = false;
+      private int  _motionBlur         = 0;
+      private int  _mxao               = 0;
+      private bool _volumetricLighting = false;
+      private bool _ssr                = false;
+      private bool _deband             = false;
 
       public bool ModeIsSPV33()
       {
