@@ -68,7 +68,7 @@ namespace SPV3
         }
 
         hxe.Load();
-        hxe.Mode               = Kernel.Configuration.ConfigurationMode.SPV32;
+        hxe.Mode               = Kernel.Configuration.ConfigurationMode.SPV33;
         hxe.Tweaks.Sensor      = true;          /* forcefully enable motion sensor   */
         hxe.Main.Reset         = true;          /* improve loading stability         */
         hxe.Main.Patch         = true;          /* improve loading stability         */
@@ -85,6 +85,10 @@ namespace SPV3
         hxe.Tweaks.Cinematic   = spv3.Cinematic;
         hxe.Tweaks.Unload      = !spv3.Shaders;
 
+        if (File.Exists(HXE.Paths.Version))
+        {
+          hxe.Mode = Kernel.Configuration.ConfigurationMode.SPV33;
+        }
         if (chimera.Exists())
         {
           chimera.Load();
