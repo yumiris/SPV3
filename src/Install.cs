@@ -279,8 +279,8 @@ namespace SPV3
         }
         finally
         {
-          Status = "Installation of SPV3.2 has successfully finished! " +
-                   "Enjoy SPV3.2, and join our Discord and Reddit communities!";
+          Status = "Installation of SPV3 has successfully finished! " +
+                   "Enjoy SPV3, and join our Discord and Reddit communities!";
 
           CanInstall = true;
 

@@ -141,11 +141,11 @@
                     <ComboBox SelectedIndex="{Binding Loader.Mode}"
                               Width="110">
                         <ComboBoxItem Content="Fullscreen"
-                                      ToolTip="Runs SPV3.2 in fullscreen mode." />
+                                      ToolTip="Runs SPV3 in fullscreen mode." />
                         <ComboBoxItem Content="Window"
-                                      ToolTip="Runs SPV3.2 in windowed mode." />
+                                      ToolTip="Runs SPV3 in windowed mode." />
                         <ComboBoxItem Content="Borderless"
-                                      ToolTip="Runs SPV3.2 in borderless mode."
+                                      ToolTip="Runs SPV3 in borderless mode."
                                       IsEnabled="{Binding Loader.BorderlessEnabled}" />
                     </ComboBox>
                 </DockPanel>
@@ -175,7 +175,7 @@
                 <DockPanel>
                     <Label Content="SPV3 Input Preset:" />
                     <CheckBox IsChecked="{Binding Loader.Preset}"
-                              ToolTip="Forces SPV3.2 controller mapping. Disable this if you want custom mapping." />
+                              ToolTip="Forces SPV3 controller mapping. Disable this if you want custom mapping." />
                 </DockPanel>
                 <DockPanel>
                     <Label Content="DSOAL/EAX Audio:" />
@@ -218,7 +218,7 @@
                 <DockPanel>
                     <Label Content="Post-Processing:" />
                     <CheckBox IsChecked="{Binding Loader.Shaders}"
-                              ToolTip="Enables SPV3.2's or SPV3.3's post-processing system." />
+                              ToolTip="Enables SPV3's post-processing system." />
                 </DockPanel>
                 <DockPanel>
                     <Label Content="Visor Overlay:"

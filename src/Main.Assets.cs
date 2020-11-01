@@ -36,7 +36,7 @@ namespace SPV3
         "https://raw.githubusercontent.com/yumiris/SPV3/meta/update.hxe?" + Guid.NewGuid();
 
       private readonly Update     _update     = new Update();
-      private          string     _status     = "Update SPV3.2 Data";
+      private          string     _status     = "Update SPV3 Data";
       private          Visibility _visibility = Visibility.Collapsed;
 
       public Visibility Visibility
@@ -95,7 +95,7 @@ namespace SPV3
         }
         catch (Exception)
         {
-          Status = "Update SPV3.2 Data";
+          Status = "Update SPV3 Data";
           throw;
         }
       }
