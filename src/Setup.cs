@@ -33,7 +33,7 @@ namespace SPV3
     /// <summary>
     ///   Setup download path.
     /// </summary>
-    public const string Address = "http://hce.halomaps.org/?fid=410";
+    public const string Address = "https://haloce3.com/ce/?_sft_category=official-files";
 
     /// <summary>
     ///   Setup executable path.
