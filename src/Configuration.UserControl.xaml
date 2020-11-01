@@ -457,7 +457,7 @@
 
                 <DockPanel>
                     <Label Content="Cinematic Bars:" />
-                    <CheckBox IsChecked="{Binding Loader.Cinematic}" />
+                    <CheckBox IsChecked="{Binding Loader.CinemaBars}" />
                 </DockPanel>
             </StackPanel>
         </Grid>

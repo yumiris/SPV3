@@ -213,13 +213,13 @@ namespace SPV3
         }
       }
 
-      public bool Cinematic
+      public bool CinemaBars
       {
-        get => _cinematic;
+        get => _cinemabars;
         set
         {
-          if (value == _cinematic) return;
-          _cinematic = value;
+          if (value == _cinemabars) return;
+          _cinemabars = value;
           OnPropertyChanged();
         }
       }
@@ -340,7 +340,7 @@ namespace SPV3
           {
             bw.Write(EAX);
             bw.Write(Preset);
-            bw.Write(Cinematic);
+            bw.Write(CinemaBars);
             bw.Write(Elevated);
           }
 
@@ -393,10 +393,10 @@ namespace SPV3
 
           /* tweaks */
           {
-            EAX       = br.ReadBoolean();
-            Preset    = br.ReadBoolean();
-            Cinematic = br.ReadBoolean();
-            Elevated  = br.ReadBoolean();
+            EAX        = br.ReadBoolean();
+            Preset     = br.ReadBoolean();
+            CinemaBars = br.ReadBoolean();
+            Elevated   = br.ReadBoolean();
           }
 
           /* display mode */
