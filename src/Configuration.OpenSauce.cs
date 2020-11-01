@@ -30,8 +30,8 @@ namespace SPV3
   {
     public class ConfigurationOpenSauce : INotifyPropertyChanged
     {
-      private bool   _bloom        = false;
-      private bool   _detailedMaps = true;
+      private bool   _bloom            = false;
+      private bool   _detailNormalMaps = true;
       private double _fieldOfView;
       private bool   _gBuffer          = true;
       private bool   _normalMaps       = true;
@@ -51,13 +51,13 @@ namespace SPV3
         }
       }
 
-      public bool DetailedMaps
+      public bool DetailNormalMaps
       {
-        get => _detailedMaps;
+        get => _detailNormalMaps;
         set
         {
-          if (value == _detailedMaps) return;
-          _detailedMaps = value;
+          if (value == _detailNormalMaps) return;
+          _detailNormalMaps = value;
           OnPropertyChanged();
         }
       }
@@ -123,7 +123,7 @@ namespace SPV3
       {
         Configuration.Rasterizer.GBuffer.Enabled                          = GBuffer;
         Configuration.Rasterizer.ShaderExtensions.Object.NormalMaps       = NormalMaps;
-        Configuration.Rasterizer.ShaderExtensions.Object.DetailNormalMaps = DetailedMaps;
+        Configuration.Rasterizer.ShaderExtensions.Object.DetailNormalMaps = DetailNormalMaps;
         Configuration.Rasterizer.ShaderExtensions.Object.SpecularMaps     = SpecularMaps;
         Configuration.Rasterizer.ShaderExtensions.Object.SpecularLighting = SpecularLighting;
         Configuration.Rasterizer.PostProcessing.Bloom.Enabled             = Bloom;
@@ -142,7 +142,7 @@ namespace SPV3
         Configuration.Load();
         GBuffer          = Configuration.Rasterizer.GBuffer.Enabled;
         NormalMaps       = Configuration.Rasterizer.ShaderExtensions.Object.NormalMaps;
-        DetailedMaps     = Configuration.Rasterizer.ShaderExtensions.Object.DetailNormalMaps;
+        DetailNormalMaps = Configuration.Rasterizer.ShaderExtensions.Object.DetailNormalMaps;
         SpecularMaps     = Configuration.Rasterizer.ShaderExtensions.Object.SpecularMaps;
         SpecularLighting = Configuration.Rasterizer.ShaderExtensions.Object.SpecularLighting;
         Bloom            = Configuration.Rasterizer.PostProcessing.Bloom.Enabled;
