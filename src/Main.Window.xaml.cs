@@ -22,6 +22,7 @@ using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace SPV3
 {
@@ -35,6 +36,8 @@ namespace SPV3
     public Main_Window()
     {
       InitializeComponent();
+      MainWindow.WindowTitleBrush = new SolidColorBrush(Color.FromArgb(100, 21, 43, 82));
+
       _main = (Main) DataContext;
       _main.Initialise();
 
@@ -43,23 +46,6 @@ namespace SPV3
       InstallUserControl.Home       += Main;
       CompileUserControl.Home       += Main;
       VersionUserControl.Update     += Update;
-
-      var dragMode = false;
-
-      PreviewKeyDown += (s1, e1) =>
-      {
-        if (e1.Key == Key.LeftCtrl) dragMode = true;
-      };
-
-      PreviewKeyUp += (s2, e2) =>
-      {
-        if (e2.Key == Key.LeftCtrl) dragMode = false;
-      };
-
-      PreviewMouseLeftButtonDown += (s, e) =>
-      {
-        if (dragMode) DragMove();
-      };
     }
 
     private async void Load(object sender, RoutedEventArgs e)

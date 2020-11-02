@@ -25,26 +25,24 @@
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:spv3="clr-namespace:SPV3"
+                      x:Name="MainWindow"
                       mc:Ignorable="d"
-                      Title="SPV3 GUI"
+                      Title="SPV3"
                       SnapsToDevicePixels="True"
                       WindowStartupLocation="CenterScreen"
                       ResizeMode="CanMinimize"
                       WindowStyle="None"
-                      ShowTitleBar="False"
-                      ShowCloseButton="False"
-                      ShowMinButton="False"
                       BorderThickness="0"
                       Background="Black"
                       Width="960"
-                      Height="540">
+                      Height="570">
     <Window.DataContext>
         <spv3:Main />
     </Window.DataContext>
     <TabControl Name="MainTabControl"
                 Background="Transparent"
                 Padding="0"
-                Margin="0,0,0,5"
+                Margin="0,-5,0,5"
                 BorderThickness="0">
         <!-- Main -->
         <TabItem Name="MainTabItem">
