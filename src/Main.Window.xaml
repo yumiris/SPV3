@@ -35,14 +35,14 @@
                       BorderThickness="0"
                       Background="Black"
                       Width="960"
-                      Height="540">
+                      Height="570">
     <Window.DataContext>
         <spv3:Main />
     </Window.DataContext>
     <TabControl Name="MainTabControl"
                 Background="Transparent"
                 Padding="0"
-                Margin="0,0,0,5"
+                Margin="0,-5,0,5"
                 BorderThickness="0">
         <!-- Main -->
         <TabItem Name="MainTabItem">
