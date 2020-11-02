@@ -156,7 +156,7 @@
                               ToolTip="Sets the display that HCE/SPV3 will run on." />
                 </DockPanel>
                 <DockPanel>
-                    <Label Content="Elevated:" />
+                    <Label Content="Run as Admin:" />
                     <CheckBox IsChecked="{Binding Loader.Elevated}"
                               ToolTip="Runs SPV3 as administrator, in hopes of preventing certain crashes." />
                 </DockPanel>
