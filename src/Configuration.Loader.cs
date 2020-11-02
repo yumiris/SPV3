@@ -38,7 +38,7 @@ namespace SPV3
       private byte   _adapter;                                          /* physical monitor to run hce/spv3 on        */
       private bool   _borderless;                                       /* run hce/spv3 without window borders        */
       private bool   _borderlessEnabled;                                /* ability to toggle borderless               */
-      private bool   _cinematic = true;                                 /* toggle spv3 cinematic settings             */
+      private bool   _cinemabars = false;                               /* toggle spv3 cinematic black bars           */
       private bool   _doom;                                             /* toggle spv3 doom mode                      */
       private bool   _eax;                                              /* toggle hw accel. & environmental sound     */
       private byte   _framerate = 60;                                   /* framerate to run spv3 at (in vsync mode)   */
