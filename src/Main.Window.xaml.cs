@@ -46,23 +46,6 @@ namespace SPV3
       InstallUserControl.Home       += Main;
       CompileUserControl.Home       += Main;
       VersionUserControl.Update     += Update;
-
-      var dragMode = false;
-
-      PreviewKeyDown += (s1, e1) =>
-      {
-        if (e1.Key == Key.LeftCtrl) dragMode = true;
-      };
-
-      PreviewKeyUp += (s2, e2) =>
-      {
-        if (e2.Key == Key.LeftCtrl) dragMode = false;
-      };
-
-      PreviewMouseLeftButtonDown += (s, e) =>
-      {
-        if (dragMode) DragMove();
-      };
     }
 
     private async void Load(object sender, RoutedEventArgs e)
