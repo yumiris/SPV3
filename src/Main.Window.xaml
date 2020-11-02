@@ -27,7 +27,7 @@
                       xmlns:spv3="clr-namespace:SPV3"
                       x:Name="MainWindow"
                       mc:Ignorable="d"
-                      Title="SPV3 GUI"
+                      Title="SPV3"
                       SnapsToDevicePixels="True"
                       WindowStartupLocation="CenterScreen"
                       ResizeMode="CanMinimize"
