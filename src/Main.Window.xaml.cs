@@ -22,6 +22,7 @@ using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace SPV3
 {
@@ -35,6 +36,8 @@ namespace SPV3
     public Main_Window()
     {
       InitializeComponent();
+      MainWindow.WindowTitleBrush = new SolidColorBrush(Color.FromArgb(100, 21, 43, 82));
+
       _main = (Main) DataContext;
       _main.Initialise();
 
