@@ -106,6 +106,9 @@ namespace SPV3
         else
           openSauce.Camera.CalculateFOV();
 
+        if (!File.Exists(HXE.Paths.Configuration))
+          openSauce.Camera.CalculateFOV();
+
         openSauce.HUD.ShowHUD                                       = true;
         openSauce.Rasterizer.PostProcessing.MapEffects.Enabled      = false; /* for opensauce to interpret as true  */
         openSauce.Rasterizer.PostProcessing.ExternalEffects.Enabled = true;  /* for opensauce to interpret as false */
@@ -127,6 +130,7 @@ namespace SPV3
 
         if (openSauce.Camera.FieldOfView < 40 || openSauce.Camera.FieldOfView > 180)
           openSauce.Camera.CalculateFOV();
+
 
         spv3.Save();      /* saves to %APPDATA%\SPV3 */
         openSauce.Save(); /* saves to %APPDATA%\SPV3 */
