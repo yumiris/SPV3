@@ -199,7 +199,7 @@ namespace SPV3
       hxe.WaitForExit();
     }
 
-    private void Placeholder(object sender, RoutedEventArgs e)
+    private void Positions(object sender, RoutedEventArgs e)
     {
       // new HXE.Positions().Show();
       Process hxe = new Process();

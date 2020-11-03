@@ -186,13 +186,23 @@
                     <Label Content="Field of View:" />
                     <TextBox Text="{Binding OpenSauce.FieldOfView}" />
                 </DockPanel>
-                <Button Margin="0,5,0,0"
-                        Content="Calculate FOV"
-                        Click="CalculateFOV" />
-                <Button Margin="0,1,0,0"
-                        Content="Reset Weapon Positions"
-                        Click="ResetWeaponPositions"
-                        ToolTip="Click here if DOOM mode persists when you don't want it to." />
+                <DockPanel>
+                    <Button Margin="0,5,0,0"
+                            Content="Optimal FOV"
+                            Click="CalculateFOV" />
+                    <Button Margin="1,5,0,0"
+                            ToolTip="Click here if DOOM mode persists when you don't want it to."
+                            Width="122" 
+                            FontSize="9"
+                            Content="Reset Weapon Positions"
+                            Click="ResetWeaponPositions" />
+                </DockPanel>
+                <DockPanel>
+                    <Button Visibility="Hidden"
+                            Margin="0,5,0,0"
+                            Content="Positions"
+                            Click="Positions" />
+                </DockPanel>
             </StackPanel>
 
             <!-- Graphics -->
@@ -480,7 +490,7 @@
 
       <!-- HXE Config -->
             <Button Content="Advanced"
-                    Click=""
+                    Click="Advanced"
                     HorizontalAlignment="Right"
                     Margin="350,0"
                     Width="100" />
