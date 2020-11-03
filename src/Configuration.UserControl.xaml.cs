@@ -19,6 +19,7 @@
  */
 
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -186,6 +187,26 @@ namespace SPV3
       _configuration.Chimera.Interpolation        = 8;
       _configuration.Chimera.AnisotropicFiltering = true;
       _configuration.Chimera.BlockLOD             = false;
+    }
+
+    private void Advanced(object sender, RoutedEventArgs e)
+    {
+      // new HXE.Settings().Show();
+      Process hxe = new Process();
+      hxe.StartInfo.FileName = Paths.HXE;
+      hxe.StartInfo.Arguments = "-config";
+      hxe.Start();
+      hxe.WaitForExit();
+    }
+
+    private void Placeholder(object sender, RoutedEventArgs e)
+    {
+      // new HXE.Positions().Show();
+      Process hxe = new Process();
+      hxe.StartInfo.FileName = Paths.HXE;
+      hxe.StartInfo.Arguments = "-positions";
+      hxe.Start();
+      hxe.WaitForExit();
     }
   }
 }

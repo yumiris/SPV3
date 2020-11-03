@@ -475,8 +475,15 @@
                     Width="100"
                     Margin="1,0,0,0" />
 
-            <!-- Versions -->
+      <!-- Versions -->
             <local:Version_UserControl />
-        </StackPanel>
+
+      <!-- HXE Config -->
+            <Button Content="Advanced"
+                    Click=""
+                    HorizontalAlignment="Right"
+                    Margin="350,0"
+                    Width="100" />
+    </StackPanel>
     </Grid>
 </UserControl>
