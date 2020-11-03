@@ -78,6 +78,7 @@ namespace SPV3
         hxe.Video.Resolution   = true;          /* permit custom resolution override */
         hxe.Video.Quality      = false;         /* permit in-game quality settings   */
         hxe.Video.Uncap        = spv3.Preference == 1;
+        hxe.Video.UseGamma     = spv3.UseGamma;
         hxe.Video.Gamma        = spv3.Gamma;
         hxe.Video.Bless        = spv3.Borderless && spv3.Window && spv3.Preference == 1 && spv3.Elevated == false;
         hxe.Audio.Enhancements = spv3.EAX;
@@ -152,7 +153,7 @@ namespace SPV3
             Refresh = spv3.Framerate,
             Window  = spv3.Window,
             Adapter = (byte) (spv3.Adapter + 1),
-            NoGamma = hxe.Video.Gamma == 0
+            NoGamma = hxe.Video.UseGamma == false
           },
           Debug = new Executable.DebugOptions
           {
@@ -165,7 +166,7 @@ namespace SPV3
           {
             NoVideo = true
           }
-        }, hxe);
+        }, hxe);;
       }
 
       [NotifyPropertyChangedInvocator]

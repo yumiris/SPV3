@@ -115,27 +115,24 @@
                     </ComboBox>
                 </DockPanel>
                 <DockPanel Margin="0,5,0,0">
-                    <Label Content="FPS/Hz &amp; Gamma:" />
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <TextBox Grid.Column="0"
-                                 Width="50"
+                    <Label Content="V-Sync Rate" />
+                        <TextBox Width="50"
                                  HorizontalAlignment="Left"
                                  HorizontalContentAlignment="Center"
                                  Text="{Binding Loader.Framerate}"
                                  IsEnabled="{Binding Loader.Preference}"
                                  ToolTip="Set the in-game refresh rate." />
-                        <TextBox Grid.Column="1"
-                                 Width="50"
-                                 HorizontalAlignment="Right"
-                                 HorizontalContentAlignment="Center"
-                                 Text="{Binding Loader.Gamma}"
-                                 ToolTip="Set the in-game gamma." />
-                    </Grid>
                 </DockPanel>
+                <DockPanel Margin="0,5,0,0">
+                    <Label Content="Gamma"/>
+                    <CheckBox IsChecked="{Binding Loader.UseGamma}" />
+                    <TextBox  Width="50"
+                              HorizontalAlignment="Left"
+                              HorizontalContentAlignment="Center"
+                              Text="{Binding Loader.Gamma}"
+                              IsEnabled="{Binding Loader.UseGamma}"
+                              ToolTip="Set the in-game refresh rate." />
+        </DockPanel>
                 <DockPanel Margin="0,5,0,0">
                     <Label Content="Display Mode:" />
                     <ComboBox SelectedIndex="{Binding Loader.Mode}"

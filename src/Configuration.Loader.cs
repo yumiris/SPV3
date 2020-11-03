@@ -42,6 +42,7 @@ namespace SPV3
       private bool   _doom;                                             /* toggle spv3 doom mode                      */
       private bool   _eax;                                              /* toggle hw accel. & environmental sound     */
       private byte   _framerate = 60;                                   /* framerate to run spv3 at (in vsync mode)   */
+      private bool   _usegamma  = true;                                 /* when false, runs spv3/hce with -nogamma    */
       private byte   _gamma     = 150;                                  /* gamma level to run spv3 at (in vsync mode) */
       private ushort _height    = (ushort) PrimaryScreen.Bounds.Height; /* height spv3/hce will be displayed at       */
       private byte   _mode;                                             /* display - fullscreen/window/borderless     */
@@ -191,6 +192,17 @@ namespace SPV3
         }
       }
 
+      public bool UseGamma
+      {
+        get => _usegamma;
+        set
+        {
+          if (value == _usegamma) return;
+          _usegamma = value;
+          OnPropertyChanged();
+        }
+      }
+
       public byte Gamma
       {
         get => _gamma;
@@ -325,6 +337,7 @@ namespace SPV3
             bw.Write(Height);
             bw.Write(Framerate);
             bw.Write(Preference);
+            bw.Write(UseGamma);
             bw.Write(Gamma);
             bw.Write(Adapter);
           }
@@ -380,6 +393,7 @@ namespace SPV3
             Height     = br.ReadUInt16();
             Framerate  = br.ReadByte();
             Preference = br.ReadByte();
+            UseGamma   = br.ReadBoolean();
             Gamma      = br.ReadByte();
             Adapter    = br.ReadByte();
           }
