@@ -20,7 +20,6 @@
  */
 
 using System.IO;
-using Microsoft.Win32;
 using static System.Environment;
 using static System.Environment.SpecialFolder;
 using static System.IO.File;
@@ -111,7 +110,7 @@ namespace HXE.HCE
       FileInfo GetFromSubKey(string subKey)
       {
         const string member = "EXE Path";
-        using (var key = Registry.LocalMachine.OpenSubKey(subKey))
+        using (var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(subKey))
         {
           var path = key?.GetValue(member).ToString();
           path = Combine(path, Paths.HCE.Executable);

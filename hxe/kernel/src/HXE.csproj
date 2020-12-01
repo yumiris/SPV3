@@ -67,6 +67,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HCE\Registry.cs" />
     <Compile Include="HCE\Progress.cs" />
     <Compile Include="NewProfile.cs" />
     <Compile Include="Compiler.cs" />
