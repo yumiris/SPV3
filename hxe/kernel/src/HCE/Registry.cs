@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Microsoft.Win32;
 
 namespace HXE.HCE
 {
@@ -26,9 +27,14 @@ namespace HXE.HCE
      *    and Halo Retail/Custom requires these
      *    two registry values to run. Else, it
      *    complains that it isn't activated/legitimate.
+     *  > If HXE is used for installing/deploying a
+     *    Halo package, assign the Target path to
+     *    data.EXE_Path.
+     *    Additionally, assign the language enum as 
+     *    indicated by the package to data.LangID.
      */
 
-    public static string DPID
+    public static string StringDPID
     {
       get => _dpid;
       set
@@ -64,41 +70,96 @@ namespace HXE.HCE
 
     public static void CreateKeys(string game, string path)
     {
-      var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(path);
+      var key  = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(path);
+      var data = new Data();
+      // https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registry.setvalue?view=netframework-4.6#Microsoft_Win32_Registry_SetValue_System_String_System_String_System_Object_Microsoft_Win32_RegistryValueKind_
+      // https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registryvaluekind?view=netframework-4.6
+
+      /// Create the game's registry key if it doesn't exist.
+      if (key == null)
+      {
+        var key2 = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG));
+        if (key2 == null)
+        {
+          var key3 = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(WoWCheck());
+          key3.CreateSubKey(MSG);
+        }
+        key2.CreateSubKey(game);
+      }
 
       switch (game)
       {
         case "Retail":
-          if (key == null)
-          {
-            var key2 = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG));
-            key2.CreateSubKey(Retail);
+          { 
+            data.Version     = "1.10";
+            data.VersionType = "RetailVersion";
+            key.SetValue("CDPath"          , data.CDPath          , RegistryValueKind.String);
+            key.SetValue("DigitalProductID", data.DigitalProductID, RegistryValueKind.Binary);
+            key.SetValue("DistID"          , data.DistID          , RegistryValueKind.DWord);
+            key.SetValue("EXE Path"        , data.EXE_Path        , RegistryValueKind.String);
+            key.SetValue("InstalledGroup"  , data.InstalledGroup  , RegistryValueKind.String);
+            key.SetValue("LangID"          , data.LangID          , RegistryValueKind.DWord);
+            key.SetValue("Launched"        , data.Launched        , RegistryValueKind.String);
+            key.SetValue("PendingVersion"  , data.PendingVersion  , RegistryValueKind.String);
+            key.SetValue("PID"             , data.PID             , RegistryValueKind.String);
+            key.SetValue("Version"         , data.Version         , RegistryValueKind.String);
+            key.SetValue("VersionType"     , data.VersionType     , RegistryValueKind.String);
+            key.SetValue("Zone"            , data.Zone            , RegistryValueKind.String);
           }
-          // https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registry.setvalue?view=netframework-4.6#Microsoft_Win32_Registry_SetValue_System_String_System_String_System_Object_Microsoft_Win32_RegistryValueKind_
-          // https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registryvaluekind?view=netframework-4.6
-          key.SetValue("CDPath", "", (Microsoft.Win32.RegistryValueKind) 1);
           break;
+
         case "Custom":
-          if (key == null)
-          {
-            var key2 = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG));
-            key2.CreateSubKey(Custom);
+          { 
+            data.Version     = "1.10";
+            data.VersionType = "TrialVersion";
+            key.SetValue("CDPath"          , data.CDPath          , RegistryValueKind.String);
+            key.SetValue("DigitalProductID", data.DigitalProductID, RegistryValueKind.Binary);
+            key.SetValue("DistID"          , data.DistID          , RegistryValueKind.DWord);
+            key.SetValue("EXE Path"        , data.EXE_Path        , RegistryValueKind.String); /// EXE_Path = SPV3.Installer.Target
+            key.SetValue("InstalledGroup"  , data.InstalledGroup  , RegistryValueKind.String);
+            key.SetValue("LangID"          , data.LangID          , RegistryValueKind.DWord);
+            key.SetValue("Launched"        , data.Launched        , RegistryValueKind.String);
+            key.SetValue("PendingVersion"  , data.PendingVersion  , RegistryValueKind.String);
+            key.SetValue("PID"             , data.PID             , RegistryValueKind.String);
+            key.SetValue("Version"         , data.Version         , RegistryValueKind.String);
+            key.SetValue("VersionType"     , data.VersionType     , RegistryValueKind.String);
           }
           break;
+
         case "Trial":
-          if (key == null)
-          {
-            var key2 = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG));
-            key2.CreateSubKey(Trial);
+          { 
+            data.DigitalProductID = null;
+            data.PID              = null;
+            data.Version          = "1";
+            data.VersionType = "TrialVersion";
+            key.SetValue("CDPath"          , data.CDPath          , RegistryValueKind.String);
+            key.SetValue("DigitalProductID", data.DigitalProductID, RegistryValueKind.Binary);
+            key.SetValue("EXE Path"        , data.EXE_Path        , RegistryValueKind.String);
+            key.SetValue("InstalledGroup"  , data.InstalledGroup  , RegistryValueKind.String);
+            key.SetValue("LangID"          , data.LangID          , RegistryValueKind.DWord);
+            key.SetValue("Launched"        , data.Launched        , RegistryValueKind.String);
+            key.SetValue("PID"             , data.PID             , RegistryValueKind.String);
+            key.SetValue("Version"         , data.Version         , RegistryValueKind.String);
+            key.SetValue("VersionType"     , data.VersionType     , RegistryValueKind.String);
           }
           break;
+
         case "HEK":
-          if (key == null)
-          {
-            var key2 = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG));
-            key2.CreateSubKey(HEK);
+          { 
+            data.DigitalProductID = null;
+            data.PID              = null;
+            data.VersionType      = "TrialVersion";
+            key.SetValue("CDPath"          , data.CDPath          , RegistryValueKind.String);
+            key.SetValue("DigitalProductID", data.DigitalProductID, RegistryValueKind.Binary);
+            key.SetValue("EXE Path"        , data.EXE_Path        , RegistryValueKind.String);
+            key.SetValue("InstalledGroup"  , data.InstalledGroup  , RegistryValueKind.String);
+            key.SetValue("LangID"          , data.LangID          , RegistryValueKind.DWord);
+            key.SetValue("Launched"        , data.Launched        , RegistryValueKind.String);
+            key.SetValue("PID"             , data.PID             , RegistryValueKind.String);
+            key.SetValue("VersionType"     , data.VersionType     , RegistryValueKind.String);
           }
           break;
+
         default: 
           break;
       }
@@ -136,70 +197,70 @@ namespace HXE.HCE
           break;
       }
     }
-    class Data
+    public class Data
     {
-      /** Halo 1 Registry Keys
+      /** ---- Halo 1 Registry Keys ----
        *  Retail : Halo
        *  Custom : Halo CE
        *  Trial  : Halo Trial
        *  HEK    : Halo HEK
        */
 
-      /** Key Values */
-      
-      /// <summary>
-      /// Applies to: All;
-      /// </summary>
-      string          CDPath         = "";
-      /// <summary>
-      /// Applies to: All;
-      /// Only Retail, Custom fill value;
-      /// </summary>
-      byte[]          DigitalProductID;
-      /// <summary>
-      /// Applies to: Retail, Custom;
-      /// </summary>
-      int             DistID         = 860; // 0x35c
-      ///<summary>
-      /// Applies to: All;
-      /// </summary>
-      string          EXE_Path       = "";
-      /// <summary>
-      /// Applies to: All;
-      /// </summary>
-      readonly string InstalledGroup = "1";
-      /// <summary>
-      /// Applies to: All;
-      /// 9 == English
-      /// </summary>
-      byte            LangID         = 9;
+      /** ---- SubKey Values and Rules ---- */
       /// <summary>
       /// Applies to: All
       /// </summary>
-      readonly string Launched       = "1";
+      public string          CDPath           = Environment.CurrentDirectory;
       /// <summary>
-      /// Applies to: Retail, Custom;
-      /// No Value
+      /// Applies to: All
       /// </summary>
-      string          PendingVersion = "";
+      /// <remarks>Only Retail, Custom fill value</remarks>
+      public byte[]          DigitalProductID = ByteDPID;
+      /// <summary>
+      /// Applies to: Retail, Custom
+      /// </summary>
+      public readonly int    DistID           = 860; // 0x35c
+      ///<summary>
+      /// Applies to: All
+      /// </summary>
+      public string          EXE_Path         = "";
+      /// <summary>
+      /// Applies to: All
+      /// </summary>
+      public readonly string InstalledGroup   = "1";
       /// <summary>
       /// Applies to: All;
-      /// Only Custom, Retail fill value;
       /// </summary>
-      string          PID            = "";
+      /// <remarks>9 == English</remarks>
+      public byte            LangID           = 9;
       /// <summary>
-      /// Applies to: Retail, Custom, Trial;
-      /// Trial is "1". Retail, Custom can be 1.10 or older;
+      /// Applies to: All
       /// </summary>
-      string          Version        = "";
+      public readonly string Launched         = "1";
       /// <summary>
-      /// If Retail, RetailVersion. Else, TrialVersion.
+      /// Applies to: Retail, Custom
       /// </summary>
-      string          VersionType    = "";
+      /// <remarks>Typically no value. Probably only used by HaloUpdate.exe</remarks>
+      public string          PendingVersion   = "";
       /// <summary>
-      /// Applies to: Retail;
+      /// Applies to: All
       /// </summary>
-      readonly string Zone           = "http://www.zone.com/asp/script/default.asp?Game=Halo&password=Password";
+      /// <remarks>Only Custom, Retail fill value</remarks>
+      public string          PID              = Registry.PID;
+      /// <summary>
+      /// Applies to: Retail, Custom, Trial
+      /// </summary>
+      /// <remarks>Trial is "1". Retail, Custom can be 1.10 or older.</remarks>
+      public string          Version          = "";
+      /// <summary>
+      /// Applies to: All
+      /// </summary>
+      /// <remarks>If Retail, RetailVersion. Else, TrialVersion.</remarks>
+      public string          VersionType      = "";
+      /// <summary>
+      /// Applies to: Retail
+      /// </summary>
+      public readonly string Zone             = "http://www.zone.com/asp/script/default.asp?Game=Halo&password=Password";
 
       /// SubKey Examples
       /** Halo 
@@ -235,19 +296,6 @@ namespace HXE.HCE
        *  | String | VersionType      | TrialVersion
        */
 
-      /** Halo HEK
-       *  | Type   | Name             | Value
-       *  | ------ | ---------------- | -----
-       *  | String | CDPath           | H:\Downloads\
-       *  | Binary | DigitalProductID | 
-       *  | String | EXE Path         | J:\Games\Halo Custom Edition
-       *  | String | InstalledGroup   | 1
-       *  | DWord  | LangID           | 9
-       *  | String | Launched         | 1
-       *  | String | PID              | 
-       *  | String | VersionType      | TrialVersion
-       */
-
       /** Halo Trial
        *  | Type   | Name             | Value
        *  | ------ | ---------------- | -----
@@ -259,6 +307,19 @@ namespace HXE.HCE
        *  | String | Launched         | 1
        *  | String | PID              | 
        *  | String | Version          | 1.10
+       *  | String | VersionType      | TrialVersion
+       */
+
+      /** Halo HEK
+       *  | Type   | Name             | Value
+       *  | ------ | ---------------- | -----
+       *  | String | CDPath           | H:\Downloads\
+       *  | Binary | DigitalProductID | 
+       *  | String | EXE Path         | J:\Games\Halo Custom Edition
+       *  | String | InstalledGroup   | 1
+       *  | DWord  | LangID           | 9
+       *  | String | Launched         | 1
+       *  | String | PID              | 
        *  | String | VersionType      | TrialVersion
        */
     }
