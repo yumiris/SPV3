@@ -87,6 +87,7 @@
       <DependentUpon>Configuration.UserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Context.cs" />
+    <Compile Include="Debug.cs" />
     <Compile Include="Information.UserControl.xaml.cs">
       <DependentUpon>Information.UserControl.xaml</DependentUpon>
     </Compile>

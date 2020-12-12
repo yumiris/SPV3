@@ -113,6 +113,7 @@ namespace HXE.HCE
         using (var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(subKey))
         {
           var path = key?.GetValue(member).ToString();
+          if (path == null) return null;
           path = Combine(path, Paths.HCE.Executable);
 
           if (path != null && Exists(path))

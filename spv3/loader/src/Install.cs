@@ -43,7 +43,7 @@ namespace SPV3
     private readonly string     _source   = Path.Combine(CurrentDirectory, "data");
     private          bool       _isDebug  = false; // Temporary: set "True" to skip Halo CE Detection and access HCE and MCC panels
     private          bool       _canInstall;
-    private          Visibility _debug    = Visibility.Visible; // TODO: Implement Debug-Tools 'floating' panel
+    private          Visibility _dbgPnl   = Visibility.Visible; // TODO: Implement Debug-Tools 'floating' panel
     private          Visibility _mcc      = Visibility.Collapsed;
     private          Visibility _hce      = Visibility.Collapsed;
     private          Visibility _load     = Visibility.Collapsed;
@@ -63,10 +63,10 @@ namespace SPV3
         OnPropertyChanged();
         if (value)
         {
-          _debug = Visibility.Visible; 
+          _dbgPnl = Visibility.Visible; 
 
         }
-        else _debug = Visibility.Collapsed;
+        else _dbgPnl = Visibility.Collapsed;
       }
     }
 
@@ -117,7 +117,12 @@ namespace SPV3
               Status = e.Message.ToLower();
             }
           }
-          Status = "You've finally arrived, but there's still more work to be done! Next up: Crack!";
+          if (Exists(Halo1Path))
+          {
+            var path = Path.Combine(Registry.WoWCheck(), Registry.MSG, Registry.Custom);
+            Registry.CreateKeys("Custom", path);
+          }
+          Status = "SPV3 successfully activated.";
         }
       }
     }
@@ -265,7 +270,7 @@ namespace SPV3
       Hce  = Visibility.Collapsed;
 
       /**
-       * Determine if the current environment fulfils the installation requirements.
+       * Determine if the current environment fulfills the installation requirements.
        */
 
       var manifest = (Manifest) Path.Combine(_source, HXE.Paths.Manifest);

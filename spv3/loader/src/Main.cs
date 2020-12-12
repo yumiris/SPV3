@@ -36,13 +36,13 @@ namespace SPV3
     public MainAssets  Assets  { get; set; } = new MainAssets();  /* permits SPV3 assets update   */
 
     /// <summary>
-    ///   Wrapper for subclass initialisation methods.
+    ///   Wrapper for subclass initialization methods.
     /// </summary>
     public void Initialise()
     {
       Directory.CreateDirectory(Paths.Directory);     /* create data directory */
       Directory.CreateDirectory(HXE.Paths.Directory); /* create hxe directory  */
-
+      
       /**
        * We determine installation or initiation mode:
        * 

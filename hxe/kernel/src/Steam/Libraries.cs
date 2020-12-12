@@ -28,15 +28,15 @@ namespace HXE.Steam
   public class Libraries : File
   {
     /// <summary>
-    /// Create an object representing LibraryFolders.vdf on the filesystem.
+    /// Create an object representing LibraryFolders.vdf on the file system.
     /// Local functions will read the contents of this file object.
     /// </summary>
     public File     LibFoldersVdf = (File)SteamLibList;
     public string[] LibList       = new string[15];  /// Arbitrary limit of 16 libraries. If you go over this, you're insane.
-    public string[] ReturnPaths   = new string[15]; /// Arbitary limit of 16 results per search.
+    public string[] ReturnPaths   = new string[15]; /// Arbitrary limit of 16 results per search.
     
     /// <summary>
-    /// Read Steam's "libraryfolders.vdf" and assign the libary folders to an index array.
+    /// Read Steam's "libraryfolders.vdf" and assign the library folders to an index array.
     /// </summary>
     public void ParseLibraries()
     {
@@ -62,7 +62,7 @@ namespace HXE.Steam
           lines[x] = lines[x].Replace("\"", "");
           lines[x] = lines[x].Replace("\\\\", "\\");
           lines[x] = lines[x].Trim('\t');
-          LibList[y - 1] = lines[x]; /// y-1 because 0 is ununsed. This moves all entries so the first one occupies LibList[0]
+          LibList[y - 1] = lines[x]; /// y-1 because 0 is unused. This moves all entries so the first one occupies LibList[0]
           y++;
         }
         if (x != z)

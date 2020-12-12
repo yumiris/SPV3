@@ -4,7 +4,7 @@ using Microsoft.Win32;
 
 namespace HXE.HCE
 {
-  class Registry
+  public class Registry
   {
     private static string _dpid   = BogusDPID;
     
@@ -182,7 +182,7 @@ namespace HXE.HCE
           path = Path.Combine(path, Retail);
           if (!KeyExists(path))
             CreateKeys(game, path);
-
+          // read to memory
           break;
         case "Custom":
           path = Path.Combine(path, Custom);
@@ -190,8 +190,14 @@ namespace HXE.HCE
             CreateKeys(game, path);
           break;
         case "Trial":
+          path = Path.Combine(path, Trial);
+          if (!KeyExists(path))
+            CreateKeys(game, path);
           break;
         case "HEK":
+          path = Path.Combine(path, HEK);
+          if (!KeyExists(path))
+            CreateKeys(game, path);
           break;
         default:
           break;
