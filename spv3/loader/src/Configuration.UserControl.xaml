@@ -485,7 +485,8 @@
               Click="Advanced"
               HorizontalAlignment="Right"
               Margin="350,0"
-              Width="100" />
+              Width="100" 
+              Visibility="{Binding Adv}"/>
     </StackPanel>
   </Grid>
 </UserControl>

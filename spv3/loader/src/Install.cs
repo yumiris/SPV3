@@ -41,9 +41,10 @@ namespace SPV3
   public class Install : INotifyPropertyChanged
   {
     private readonly string     _source   = Path.Combine(CurrentDirectory, "data");
-    private          bool       _isDebug  = false; // Temporary: set "True" to skip Halo CE Detection and access HCE and MCC panels
+    private          bool       _skipDetect  = false; // Temporary: set "True" to skip Halo CE Detection and access HCE and MCC panels
     private          bool       _canInstall;
-    private          Visibility _dbgPnl   = Visibility.Visible; // TODO: Implement Debug-Tools 'floating' panel
+    private          bool       _compress = true;
+    private          Visibility _dbgPnl   = Debug.IsDebug ? Visibility.Visible : Visibility.Collapsed; // TODO: Implement Debug-Tools 'floating' panel
     private          Visibility _mcc      = Visibility.Collapsed;
     private          Visibility _hce      = Visibility.Collapsed;
     private          Visibility _load     = Visibility.Collapsed;
@@ -53,23 +54,6 @@ namespace SPV3
     private          string     _steamExe = Path.Combine(Steam, SteamExe);
     private          string     _steamStatus = "Find Steam.exe or its shortcut and we'll do the rest!";
 
-    public bool IsDebug
-    {
-      get => _isDebug;
-      set
-      {
-        if (value == _isDebug) return;
-        _isDebug = value;
-        OnPropertyChanged();
-        if (value)
-        {
-          _dbgPnl = Visibility.Visible; 
-
-        }
-        else _dbgPnl = Visibility.Collapsed;
-      }
-    }
-
     public bool CanInstall
     {
       get => _canInstall;
@@ -77,6 +61,17 @@ namespace SPV3
       {
         if (value == _canInstall) return;
         _canInstall = value;
+        OnPropertyChanged();
+      }
+    }
+
+    public bool Compress
+    {
+      get => _compress;
+      set
+      {
+        if (value == _compress) return;
+        _compress = value;
         OnPropertyChanged();
       }
     }
@@ -115,14 +110,20 @@ namespace SPV3
             catch (Exception e)
             {
               Status = e.Message.ToLower();
+              return;
             }
           }
-          if (Exists(Halo1Path))
+          try
           {
             var path = Path.Combine(Registry.WoWCheck(), Registry.MSG, Registry.Custom);
             Registry.CreateKeys("Custom", path);
+            Status = "SPV3 successfully activated.";
           }
-          Status = "SPV3 successfully activated.";
+          catch (Exception e)
+          {
+            Status = "Failed to create registry keys: " + e.ToString();
+            return;
+          }
         }
       }
     }
@@ -155,7 +156,7 @@ namespace SPV3
         {
           var exists = Directory.Exists(Target);
 
-          if (!Directory.Exists(Target))
+          if (!exists)
             Directory.CreateDirectory(Target);
 
           var test = Path.Combine(Target, "io.bin");
@@ -203,7 +204,7 @@ namespace SPV3
           CanInstall = false;
         }
 
-        /*
+        /**
          * Prohibit installations to known problematic folders.
          */
 
@@ -260,7 +261,7 @@ namespace SPV3
         OnPropertyChanged();
       }
     }
-
+    
     public event PropertyChangedEventHandler PropertyChanged;
 
     public void Initialise()
@@ -287,7 +288,7 @@ namespace SPV3
         return;
       }
 
-      if (!IsDebug) // USE FOR DEBUGGING HCE AND MCC PANELS. If True, skip the following If statement
+      if (!_skipDetect) // USE FOR DEBUGGING HCE AND MCC PANELS. If True, skip the following If statement
       if (Detection.InferFromRegistryKeyEntry() != null) return;
 
       Status     = "Please install a legal copy of HCE before installing SPV3.";
@@ -309,7 +310,7 @@ namespace SPV3
           (o, s) => Status =
             $"Installing SPV3. Please wait until this is finished! - {(decimal) s.Current / s.Total:P}";
 
-        await Task.Run(() => { Installer.Install(_source, _target, progress); });
+        await Task.Run(() => { Installer.Install(_source, _target, progress, Compress); });
 
         /* shortcuts */
         {

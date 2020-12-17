@@ -136,5 +136,11 @@ namespace SPV3
         _install.Status = ex.Message;
       }
     }
+
+    private void CompressButton_Click(object sender, RoutedEventArgs e)
+    {
+      /// Flip the boolean on click
+      _install.Compress = _install.Compress ? false : true;
+    }
   }
 }

@@ -222,6 +222,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\compressFolder.png" />
     <Content Include="Assets\logo_chief.png" />
   </ItemGroup>
   <ItemGroup>

@@ -81,16 +81,56 @@
             </DockPanel>
 
             <DockPanel Margin="0,1,0,0">
-                <Button Click="Back">
-                    Go back...
-                </Button>
-                <Button x:Name="InstallButton"
-                        Margin="1,0,0,0"
-                        Click="Install"
-                        Content="Install"
-                        IsEnabled="{Binding CanInstall}" />
-            </DockPanel>
-        </StackPanel>
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="150"/>
+          </Grid.ColumnDefinitions>
+          <Button Click="Back"
+                  Grid.Column="0">
+            Go back...
+          </Button>
+          <Button x:Name="InstallButton"
+                  Grid.Column="1"
+                  Margin="1,0,0,0"
+                  Click="Install"
+                  Content="Install"
+                  IsEnabled="{Binding CanInstall}"/>
+          <Button x:Name="CompressButton"
+                  Margin="1,0,0,0"
+                  Grid.Column="2"
+                  Padding="0"
+                  Click="CompressButton_Click"
+                  ToolTip="Enable NTFS compression for this folder to significantly save space.
+                  WARNING: Unless installing to an SSD, NTFS compression will cause data to load slower. This means maps may freeze up longer when loading new areas.
+                  NOTE: Only added files will compress. If there were already files present, they will not be compressed.">
+            <Grid Margin="-25,0" Width="auto">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+              </Grid.ColumnDefinitions>
+              <Image Source="Assets/compressFolder.png"
+                     Grid.Column="0"
+                     Margin="1,0,0,0"
+                     Height="auto" 
+                     Width="24"/>
+              <CheckBox  IsChecked="{Binding Compress}"
+                          Grid.Column="1"
+                          VerticalAlignment="Center"
+                          Margin="2,0,2,0"
+                          Padding="0"/>
+              <TextBlock Grid.Column="2"
+                          Margin="1,0,1,0"
+                          VerticalAlignment="Center">
+                Compress Folder
+              </TextBlock>
+            </Grid>
+          </Button>
+        </Grid>
+      </DockPanel>
+    </StackPanel>
         
         <!-- MCC -->
         <StackPanel Grid.Row="1"

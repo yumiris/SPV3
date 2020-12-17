@@ -19,6 +19,7 @@
  */
 
 using System.Collections.Generic;
+using System.Windows;
 using static HXE.OpenSauce.OpenSauceObjects.ObjectsWeapon;
 using static SPV3.Kernel;
 
@@ -76,5 +77,7 @@ namespace SPV3
     {
       Positions.ShowDialog();
     }
+
+    public Visibility Adv = Debug.IsDebug ? Visibility.Collapsed : Visibility.Visible;
   }
 }

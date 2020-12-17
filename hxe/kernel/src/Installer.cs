@@ -1,5 +1,6 @@
 /**
  * Copyright (c) 2019 Emilian Roman
+ * Copyright (c) 2020 Noah Sherwin
  * 
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -19,6 +20,7 @@
  */
 
 using System;
+using System.Management;
 using System.IO;
 using System.IO.Compression;
 using System.Threading;
@@ -47,7 +49,7 @@ namespace HXE
     /// <param name="progress">
     ///   Optional IProgress object for calling GUI clients.
     /// </param>
-    public static void Install(string source, string target, IProgress<Status> progress = null)
+    public static void Install(string source, string target, IProgress<Status> progress = null, bool enableLZNT1 = false)
     {
       /**
        * Normalisation of the paths will preserve our sanity later on! ;-)
@@ -68,6 +70,19 @@ namespace HXE
 
       if (!Directory.Exists(target))
         Directory.CreateDirectory(target);
+      if (enableLZNT1)
+      {
+        var dirInfo = new DirectoryInfo(target);
+        if ((dirInfo.Attributes & FileAttributes.Compressed) != FileAttributes.Compressed)
+        {
+          var objPath = $"Win32_Directory.Name='{target}'";
+          using (var dir = new ManagementObject(objPath))
+          {
+            var outParams = dir.InvokeMethod("Compress", null, null);
+            uint ret = (uint)outParams.Properties["ReturnValue"].Value;
+          }
+        }
+      }
 
       Info("Gracefully created target directory");
 

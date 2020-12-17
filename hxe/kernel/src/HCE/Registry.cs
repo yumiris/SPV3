@@ -18,7 +18,7 @@ namespace HXE.HCE
     public const string BogusPID  = "00000-000-0000000-00000";
     public const string BogusDPID = "a40000000300000030303030302d3030302d303030303030302d303030303000500000004d30302d30303030300000000000000046203249cdb922e66221b02cc3ee01000000000082610f5b913a8a030000000000000000000000000000000000000000000000003030303030000000000000000b0d0000ba6d6b82000800000000000000000000000000000000000000000000000000000000000000000000f9a404e6";
     public static string PID      = BogusPID;
-    public static byte[] ByteDPID = StringToByteArray(PID);
+    public static byte[] ByteDPID = StringToByteArray(StringDPID);
     /** TODO:
      * > Reverse-engineer Product Activation Key system.
      * > Allow the user to input their legitimate key.
@@ -59,8 +59,8 @@ namespace HXE.HCE
 
     public static bool KeyExists(string keyPath)
     {
-      var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(keyPath);
-      return key != null;
+        var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(keyPath);
+        return key != null;
     }
 
     public static string WoWCheck()
@@ -68,20 +68,38 @@ namespace HXE.HCE
       return KeyExists(x86_64) ? x86_64 : x86;
     }
 
+    /// <summary>
+    /// Creates the registry keys for the given game. Uses default Data values for registry variables. 
+    /// </summary>
+    /// <param name="game">The game.</param>
+    /// <param name="path">The path.</param>
     public static void CreateKeys(string game, string path)
     {
-      var key  = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(path);
-      var data = new Data();
-      // https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registry.setvalue?view=netframework-4.6#Microsoft_Win32_Registry_SetValue_System_String_System_String_System_Object_Microsoft_Win32_RegistryValueKind_
-      // https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registryvaluekind?view=netframework-4.6
+      Data data = new Data();
+      CreateKeys(game, path, data);
+    }
 
+    /// <summary>
+    /// Creates the registry keys for the given game. 
+    /// Requires an instance of Registry.Data which can be used for specifying values of registry variables such as the EXE path.
+    /// </summary>
+    /// <param name="game">The game.</param>
+    /// <param name="path">The path.</param>
+    /// <param name="data">The data.</param>
+    public static void CreateKeys(string game, string path, Data data)
+    {
+      bool writeAccess = true;
+      var key  = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(path, writeAccess);
+      var process = new System.Diagnostics.Process();
+      process.StartInfo.UseShellExecute = true;
+      process.StartInfo.Verb = "runas";
       /// Create the game's registry key if it doesn't exist.
       if (key == null)
       {
-        var key2 = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG));
+        var key2 = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG), writeAccess);
         if (key2 == null)
         {
-          var key3 = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(WoWCheck());
+          var key3 = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(WoWCheck(), writeAccess);
           key3.CreateSubKey(MSG);
         }
         key2.CreateSubKey(game);
@@ -173,6 +191,7 @@ namespace HXE.HCE
     /// Pass Custom to look for the Custom Edition registry entries
     /// or Retail to look for Retail registry entries.
     /// </param>
+    /// <remarks>Normally, I would use a more efficients variable than string, but string allows better labeling</remarks>
     public static void GetRegistryKeys(string game)
     {
       var path = Path.Combine(WoWCheck(), MSG);
@@ -180,29 +199,36 @@ namespace HXE.HCE
       {
         case "Retail":
           path = Path.Combine(path, Retail);
-          if (!KeyExists(path))
+          if (KeyExists(path)) return; // read to Data
+          else
             CreateKeys(game, path);
-          // read to memory
           break;
         case "Custom":
           path = Path.Combine(path, Custom);
-          if (!KeyExists(path))
+          if (KeyExists(path)) return; // read to Data
+          else 
             CreateKeys(game, path);
           break;
         case "Trial":
           path = Path.Combine(path, Trial);
-          if (!KeyExists(path))
+          if (KeyExists(path)) return; // read to Data
+          else
             CreateKeys(game, path);
           break;
         case "HEK":
           path = Path.Combine(path, HEK);
-          if (!KeyExists(path))
+          if (KeyExists(path)) return; // read to Data
+          else 
             CreateKeys(game, path);
           break;
         default:
           break;
       }
     }
+
+    /// <summary>
+    /// A Class object to store a game's registry key variable and values in memory.
+    /// </summary>
     public class Data
     {
       /** ---- Halo 1 Registry Keys ----
@@ -212,60 +238,21 @@ namespace HXE.HCE
        *  HEK    : Halo HEK
        */
 
-      /** ---- SubKey Values and Rules ---- */
-      /// <summary>
-      /// Applies to: All
-      /// </summary>
+      /** ---- SubKey Values and Rules ---- 
+       *  PLEASE refer to the examples below this section for rules. 
+       *  Don't assign incompatible values!
+       */
       public string          CDPath           = Environment.CurrentDirectory;
-      /// <summary>
-      /// Applies to: All
-      /// </summary>
-      /// <remarks>Only Retail, Custom fill value</remarks>
       public byte[]          DigitalProductID = ByteDPID;
-      /// <summary>
-      /// Applies to: Retail, Custom
-      /// </summary>
       public readonly int    DistID           = 860; // 0x35c
-      ///<summary>
-      /// Applies to: All
-      /// </summary>
       public string          EXE_Path         = "";
-      /// <summary>
-      /// Applies to: All
-      /// </summary>
       public readonly string InstalledGroup   = "1";
-      /// <summary>
-      /// Applies to: All;
-      /// </summary>
-      /// <remarks>9 == English</remarks>
       public byte            LangID           = 9;
-      /// <summary>
-      /// Applies to: All
-      /// </summary>
       public readonly string Launched         = "1";
-      /// <summary>
-      /// Applies to: Retail, Custom
-      /// </summary>
-      /// <remarks>Typically no value. Probably only used by HaloUpdate.exe</remarks>
       public string          PendingVersion   = "";
-      /// <summary>
-      /// Applies to: All
-      /// </summary>
-      /// <remarks>Only Custom, Retail fill value</remarks>
       public string          PID              = Registry.PID;
-      /// <summary>
-      /// Applies to: Retail, Custom, Trial
-      /// </summary>
-      /// <remarks>Trial is "1". Retail, Custom can be 1.10 or older.</remarks>
       public string          Version          = "";
-      /// <summary>
-      /// Applies to: All
-      /// </summary>
-      /// <remarks>If Retail, RetailVersion. Else, TrialVersion.</remarks>
       public string          VersionType      = "";
-      /// <summary>
-      /// Applies to: Retail
-      /// </summary>
       public readonly string Zone             = "http://www.zone.com/asp/script/default.asp?Game=Halo&password=Password";
 
       /// SubKey Examples
