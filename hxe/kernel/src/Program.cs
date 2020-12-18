@@ -79,6 +79,7 @@ namespace HXE
       var install    = string.Empty; /* Installs HCE/SPV3 to destination    */
       var compile    = string.Empty; /* Compiles HCE/SPV3 to destination    */
       var update     = string.Empty; /* Updates directory using manifest    */
+      var registry   = string.Empty; /* Write to Windows Registry           */
       var console    = false;        /* Loads HCE with console mode         */
       var devmode    = false;        /* Loads HCE with developer mode       */
       var screenshot = false;        /* Loads HCE with screenshot ability   */
@@ -90,21 +91,22 @@ namespace HXE
       var vidmode    = string.Empty; /* Loads HCE with custom res. and Hz   */
 
       var options = new OptionSet()
-        .Add("help",       "Displays commands list",             s => help = s       != null) /* hxe command   */
-        .Add("config",     "Opens configuration GUI",            s => config = s     != null) /* hxe command   */
-        .Add("positions",  "Opens positions GUI",                s => positions = s  != null) /* hxe command   */
-        .Add("install=",   "Installs HCE/SPV3 to destination",   s => install = s)            /* hxe parameter */
-        .Add("compile=",   "Compiles HCE/SPV3 to destination",   s => compile = s)            /* hxe parameter */
-        .Add("update=",    "Updates directory using manifest",   s => update = s)             /* hxe parameter */
-        .Add("console",    "Loads HCE with console mode",        s => console = s    != null) /* hce parameter */
-        .Add("devmode",    "Loads HCE with developer mode",      s => devmode = s    != null) /* hce parameter */
-        .Add("screenshot", "Loads HCE with screenshot ability",  s => screenshot = s != null) /* hce parameter */
-        .Add("window",     "Loads HCE in window mode",           s => window = s     != null) /* hce parameter */
-        .Add("nogamma",    "Loads HCE without gamma overriding", s => nogamma = s    != null) /* hce parameter */
-        .Add("adapter=",   "Loads HCE on monitor X",             s => adapter = s)            /* hce parameter */
-        .Add("path=",      "Loads HCE with custom profile path", s => path = s)               /* hce parameter */
-        .Add("exec=",      "Loads HCE with custom init file",    s => exec = s)               /* hce parameter */
-        .Add("vidmode=",   "Loads HCE with custom res. and Hz",  s => vidmode = s);           /* hce parameter */
+        .Add("help",       "Displays commands list",                                  s => help = s       != null) /* hxe command   */
+        .Add("config",     "Opens configuration GUI",                                 s => config = s     != null) /* hxe command   */
+        .Add("positions",  "Opens positions GUI",                                     s => positions = s  != null) /* hxe command   */
+        .Add("install=",   "Installs HCE/SPV3 to destination",                        s => install = s)            /* hxe parameter */
+        .Add("compile=",   "Compiles HCE/SPV3 to destination",                        s => compile = s)            /* hxe parameter */
+        .Add("update=",    "Updates directory using manifest",                        s => update = s)             /* hxe parameter */
+        .Add("registry=",  "Create Registry keys for Retail, Custom, Trial, or HEK",  s => registry = s)           /* hxe parameter */
+        .Add("console",    "Loads HCE with console mode",                             s => console = s    != null) /* hce parameter */
+        .Add("devmode",    "Loads HCE with developer mode",                           s => devmode = s    != null) /* hce parameter */
+        .Add("screenshot", "Loads HCE with screenshot ability",                       s => screenshot = s != null) /* hce parameter */
+        .Add("window",     "Loads HCE in window mode",                                s => window = s     != null) /* hce parameter */
+        .Add("nogamma",    "Loads HCE without gamma overriding",                      s => nogamma = s    != null) /* hce parameter */
+        .Add("adapter=",   "Loads HCE on monitor X",                                  s => adapter = s)            /* hce parameter */
+        .Add("path=",      "Loads HCE with custom profile path",                      s => path = s)               /* hce parameter */
+        .Add("exec=",      "Loads HCE with custom init file",                         s => exec = s)               /* hce parameter */
+        .Add("vidmode=",   "Loads HCE with custom res. and Hz",                       s => vidmode = s);           /* hce parameter */
 
       var input = options.Parse(args);
 
@@ -144,6 +146,13 @@ namespace HXE
           updateModule.Import(update);
           updateModule.Commit();
         });
+
+      if (!string.IsNullOrWhiteSpace(registry))
+      {
+
+      }
+
+
 
       /**
        * Implicit verification for legal HCE installations.

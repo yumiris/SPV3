@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Security.Principal;
+using System.Diagnostics;
 using Microsoft.Win32;
 
 namespace HXE.HCE
@@ -69,121 +71,6 @@ namespace HXE.HCE
     }
 
     /// <summary>
-    /// Creates the registry keys for the given game. Uses default Data values for registry variables. 
-    /// </summary>
-    /// <param name="game">The game.</param>
-    /// <param name="path">The path.</param>
-    public static void CreateKeys(string game, string path)
-    {
-      Data data = new Data();
-      CreateKeys(game, path, data);
-    }
-
-    /// <summary>
-    /// Creates the registry keys for the given game. 
-    /// Requires an instance of Registry.Data which can be used for specifying values of registry variables such as the EXE path.
-    /// </summary>
-    /// <param name="game">The game.</param>
-    /// <param name="path">The path.</param>
-    /// <param name="data">The data.</param>
-    public static void CreateKeys(string game, string path, Data data)
-    {
-      bool writeAccess = true;
-      var key  = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(path, writeAccess);
-      var process = new System.Diagnostics.Process();
-      process.StartInfo.UseShellExecute = true;
-      process.StartInfo.Verb = "runas";
-      /// Create the game's registry key if it doesn't exist.
-      if (key == null)
-      {
-        var key2 = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG), writeAccess);
-        if (key2 == null)
-        {
-          var key3 = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(WoWCheck(), writeAccess);
-          key3.CreateSubKey(MSG);
-        }
-        key2.CreateSubKey(game);
-      }
-
-      switch (game)
-      {
-        case "Retail":
-          { 
-            data.Version     = "1.10";
-            data.VersionType = "RetailVersion";
-            key.SetValue("CDPath"          , data.CDPath          , RegistryValueKind.String);
-            key.SetValue("DigitalProductID", data.DigitalProductID, RegistryValueKind.Binary);
-            key.SetValue("DistID"          , data.DistID          , RegistryValueKind.DWord);
-            key.SetValue("EXE Path"        , data.EXE_Path        , RegistryValueKind.String);
-            key.SetValue("InstalledGroup"  , data.InstalledGroup  , RegistryValueKind.String);
-            key.SetValue("LangID"          , data.LangID          , RegistryValueKind.DWord);
-            key.SetValue("Launched"        , data.Launched        , RegistryValueKind.String);
-            key.SetValue("PendingVersion"  , data.PendingVersion  , RegistryValueKind.String);
-            key.SetValue("PID"             , data.PID             , RegistryValueKind.String);
-            key.SetValue("Version"         , data.Version         , RegistryValueKind.String);
-            key.SetValue("VersionType"     , data.VersionType     , RegistryValueKind.String);
-            key.SetValue("Zone"            , data.Zone            , RegistryValueKind.String);
-          }
-          break;
-
-        case "Custom":
-          { 
-            data.Version     = "1.10";
-            data.VersionType = "TrialVersion";
-            key.SetValue("CDPath"          , data.CDPath          , RegistryValueKind.String);
-            key.SetValue("DigitalProductID", data.DigitalProductID, RegistryValueKind.Binary);
-            key.SetValue("DistID"          , data.DistID          , RegistryValueKind.DWord);
-            key.SetValue("EXE Path"        , data.EXE_Path        , RegistryValueKind.String); /// EXE_Path = SPV3.Installer.Target
-            key.SetValue("InstalledGroup"  , data.InstalledGroup  , RegistryValueKind.String);
-            key.SetValue("LangID"          , data.LangID          , RegistryValueKind.DWord);
-            key.SetValue("Launched"        , data.Launched        , RegistryValueKind.String);
-            key.SetValue("PendingVersion"  , data.PendingVersion  , RegistryValueKind.String);
-            key.SetValue("PID"             , data.PID             , RegistryValueKind.String);
-            key.SetValue("Version"         , data.Version         , RegistryValueKind.String);
-            key.SetValue("VersionType"     , data.VersionType     , RegistryValueKind.String);
-          }
-          break;
-
-        case "Trial":
-          { 
-            data.DigitalProductID = null;
-            data.PID              = null;
-            data.Version          = "1";
-            data.VersionType = "TrialVersion";
-            key.SetValue("CDPath"          , data.CDPath          , RegistryValueKind.String);
-            key.SetValue("DigitalProductID", data.DigitalProductID, RegistryValueKind.Binary);
-            key.SetValue("EXE Path"        , data.EXE_Path        , RegistryValueKind.String);
-            key.SetValue("InstalledGroup"  , data.InstalledGroup  , RegistryValueKind.String);
-            key.SetValue("LangID"          , data.LangID          , RegistryValueKind.DWord);
-            key.SetValue("Launched"        , data.Launched        , RegistryValueKind.String);
-            key.SetValue("PID"             , data.PID             , RegistryValueKind.String);
-            key.SetValue("Version"         , data.Version         , RegistryValueKind.String);
-            key.SetValue("VersionType"     , data.VersionType     , RegistryValueKind.String);
-          }
-          break;
-
-        case "HEK":
-          { 
-            data.DigitalProductID = null;
-            data.PID              = null;
-            data.VersionType      = "TrialVersion";
-            key.SetValue("CDPath"          , data.CDPath          , RegistryValueKind.String);
-            key.SetValue("DigitalProductID", data.DigitalProductID, RegistryValueKind.Binary);
-            key.SetValue("EXE Path"        , data.EXE_Path        , RegistryValueKind.String);
-            key.SetValue("InstalledGroup"  , data.InstalledGroup  , RegistryValueKind.String);
-            key.SetValue("LangID"          , data.LangID          , RegistryValueKind.DWord);
-            key.SetValue("Launched"        , data.Launched        , RegistryValueKind.String);
-            key.SetValue("PID"             , data.PID             , RegistryValueKind.String);
-            key.SetValue("VersionType"     , data.VersionType     , RegistryValueKind.String);
-          }
-          break;
-
-        default: 
-          break;
-      }
-    }
-
-    /// <summary>
     /// Read Windows Registry entries for the selected game
     /// or create them if they don't exist.
     /// </summary>
@@ -225,6 +112,153 @@ namespace HXE.HCE
           break;
       }
     }
+
+    /// <summary>
+    /// Creates the registry keys for the given game. Uses default Data values for registry variables. 
+    /// </summary>
+    /// <param name="game">The game.</param>
+    /// <param name="path">The path.</param>
+    public static void CreateKeys(string game, string path)
+    {
+      Data data = new Data();
+      CreateKeys(game, path, data);
+    }
+
+    public static bool RunningAsAdmin()
+    {
+      var Principle = new WindowsPrincipal(WindowsIdentity.GetCurrent());
+      return Principle.IsInRole(WindowsBuiltInRole.Administrator);
+    }
+
+    /// <summary>
+    /// Creates the registry keys for the given game. 
+    /// Requires an instance of Registry.Data which can be used for specifying values of registry variables such as the EXE path.
+    /// </summary>
+    /// <param name="game">The game.</param>
+    /// <param name="path">The path.</param>
+    /// <param name="data">An instance of the Registry.Data class.</param>
+    public static void CreateKeys(string game, string path, Data data)
+    {
+      if (!RunningAsAdmin())
+      {
+        var StartInfo = new ProcessStartInfo
+        {
+          WorkingDirectory = Environment.CurrentDirectory,
+          FileName = Process.GetCurrentProcess().MainModule.FileName,
+          UseShellExecute = true,
+          Verb = "runas"
+          /** runas rundown
+            * "runas" implicitly means "Run As Administrator". 
+            * This particular Verb requires UseShellExecute to be True.
+            * As it is with many string variables and parameters, acceptable
+            *  values are poorly documented.
+            * Microsoft Docs explains the acceptable values depend on the file 
+            *  extension of the process' file name.
+            * The only examples it provides are valid for .txt and suggests using 
+            *  StartInfo.Verbs to print/list acceptable values for the given file name.
+            * See https://stackoverflow.com/a/133500
+            */
+        };
+        using (Process process = Process.Start(StartInfo))
+        {
+          int timeout = 5000;
+          process.WaitForExit(timeout);
+          if (process.ExitCode != 0)
+            throw new Exception("Elevated process exited unexpectedly. Exit Code: " + process.ExitCode);
+        }
+      }
+
+      var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(path, true);
+      /// Create the game's registry key if it doesn't exist.
+      if (key == null)
+      {
+        var key2 = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG), true);
+        if (key2 == null)
+        {
+          var key3 = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(WoWCheck(), true);
+          key3.CreateSubKey(MSG);
+        }
+        key2.CreateSubKey(game);
+      }
+
+      switch (game)
+      {
+        case "Retail":
+          {
+            data.Version     = "1.10";
+            data.VersionType = "RetailVersion";
+            key.SetValue("CDPath"          , data.CDPath          , RegistryValueKind.String);
+            key.SetValue("DigitalProductID", data.DigitalProductID, RegistryValueKind.Binary);
+            key.SetValue("DistID"          , data.DistID          , RegistryValueKind.DWord);
+            key.SetValue("EXE Path"        , data.EXE_Path        , RegistryValueKind.String);
+            key.SetValue("InstalledGroup"  , data.InstalledGroup  , RegistryValueKind.String);
+            key.SetValue("LangID"          , data.LangID          , RegistryValueKind.DWord);
+            key.SetValue("Launched"        , data.Launched        , RegistryValueKind.String);
+            key.SetValue("PendingVersion"  , data.PendingVersion  , RegistryValueKind.String);
+            key.SetValue("PID"             , data.PID             , RegistryValueKind.String);
+            key.SetValue("Version"         , data.Version         , RegistryValueKind.String);
+            key.SetValue("VersionType"     , data.VersionType     , RegistryValueKind.String);
+            key.SetValue("Zone"            , data.Zone            , RegistryValueKind.String);
+          }
+          break;
+
+        case "Custom":
+          {
+            data.Version     = "1.10";
+            data.VersionType = "TrialVersion";
+            key.SetValue("CDPath"          , data.CDPath          , RegistryValueKind.String);
+            key.SetValue("DigitalProductID", data.DigitalProductID, RegistryValueKind.Binary);
+            key.SetValue("DistID"          , data.DistID          , RegistryValueKind.DWord);
+            key.SetValue("EXE Path"        , data.EXE_Path        , RegistryValueKind.String); /// EXE_Path = SPV3.Installer.Target
+            key.SetValue("InstalledGroup"  , data.InstalledGroup  , RegistryValueKind.String);
+            key.SetValue("LangID"          , data.LangID          , RegistryValueKind.DWord);
+            key.SetValue("Launched"        , data.Launched        , RegistryValueKind.String);
+            key.SetValue("PendingVersion"  , data.PendingVersion  , RegistryValueKind.String);
+            key.SetValue("PID"             , data.PID             , RegistryValueKind.String);
+            key.SetValue("Version"         , data.Version         , RegistryValueKind.String);
+            key.SetValue("VersionType"     , data.VersionType     , RegistryValueKind.String);
+          }
+          break;
+
+        case "Trial":
+          {
+            data.DigitalProductID = null;
+            data.PID              = null;
+            data.Version          = "1";
+            data.VersionType      = "TrialVersion";
+            key.SetValue("CDPath"          , data.CDPath          , RegistryValueKind.String);
+            key.SetValue("DigitalProductID", data.DigitalProductID, RegistryValueKind.Binary);
+            key.SetValue("EXE Path"        , data.EXE_Path        , RegistryValueKind.String);
+            key.SetValue("InstalledGroup"  , data.InstalledGroup  , RegistryValueKind.String);
+            key.SetValue("LangID"          , data.LangID          , RegistryValueKind.DWord);
+            key.SetValue("Launched"        , data.Launched        , RegistryValueKind.String);
+            key.SetValue("PID"             , data.PID             , RegistryValueKind.String);
+            key.SetValue("Version"         , data.Version         , RegistryValueKind.String);
+            key.SetValue("VersionType"     , data.VersionType     , RegistryValueKind.String);
+          }
+          break;
+
+        case "HEK":
+          {
+            data.DigitalProductID = null;
+            data.PID              = null;
+            data.VersionType      = "TrialVersion";
+            key.SetValue("CDPath"          , data.CDPath          , RegistryValueKind.String);
+            key.SetValue("DigitalProductID", data.DigitalProductID, RegistryValueKind.Binary);
+            key.SetValue("EXE Path"        , data.EXE_Path        , RegistryValueKind.String);
+            key.SetValue("InstalledGroup"  , data.InstalledGroup  , RegistryValueKind.String);
+            key.SetValue("LangID"          , data.LangID          , RegistryValueKind.DWord);
+            key.SetValue("Launched"        , data.Launched        , RegistryValueKind.String);
+            key.SetValue("PID"             , data.PID             , RegistryValueKind.String);
+            key.SetValue("VersionType"     , data.VersionType     , RegistryValueKind.String);
+          }
+          break;
+
+        default:
+          break;
+      }
+    }
+
 
     /// <summary>
     /// A Class object to store a game's registry key variable and values in memory.
