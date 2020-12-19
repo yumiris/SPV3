@@ -348,6 +348,10 @@ namespace SPV3
 
           Shortcut(GetFolderPath(DesktopDirectory));
           Shortcut(appStartMenuPath);
+
+          var data =  new Registry.Data
+          { CDPath = Target };
+          Registry.WriteKey(data); // NOT IMPLEMENTED
         }
 
         MessageBox.Show(

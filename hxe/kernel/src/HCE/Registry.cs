@@ -65,52 +65,15 @@ namespace HXE.HCE
         return key != null;
     }
 
+    public static bool RunningAsAdmin()
+    {
+      var Principle = new WindowsPrincipal(WindowsIdentity.GetCurrent());
+      return Principle.IsInRole(WindowsBuiltInRole.Administrator);
+    }
+
     public static string WoWCheck()
     {
       return KeyExists(x86_64) ? x86_64 : x86;
-    }
-
-    /// <summary>
-    /// Read Windows Registry entries for the selected game
-    /// or create them if they don't exist.
-    /// </summary>
-    /// <param name="game">
-    /// Pass Custom to look for the Custom Edition registry entries
-    /// or Retail to look for Retail registry entries.
-    /// </param>
-    /// <remarks>Normally, I would use a more efficients variable than string, but string allows better labeling</remarks>
-    public static void GetRegistryKeys(string game)
-    {
-      var path = Path.Combine(WoWCheck(), MSG);
-      switch (game)
-      {
-        case "Retail":
-          path = Path.Combine(path, Retail);
-          if (KeyExists(path)) return; // read to Data
-          else
-            CreateKeys(game, path);
-          break;
-        case "Custom":
-          path = Path.Combine(path, Custom);
-          if (KeyExists(path)) return; // read to Data
-          else 
-            CreateKeys(game, path);
-          break;
-        case "Trial":
-          path = Path.Combine(path, Trial);
-          if (KeyExists(path)) return; // read to Data
-          else
-            CreateKeys(game, path);
-          break;
-        case "HEK":
-          path = Path.Combine(path, HEK);
-          if (KeyExists(path)) return; // read to Data
-          else 
-            CreateKeys(game, path);
-          break;
-        default:
-          break;
-      }
     }
 
     /// <summary>
@@ -122,12 +85,6 @@ namespace HXE.HCE
     {
       Data data = new Data();
       CreateKeys(game, path, data);
-    }
-
-    public static bool RunningAsAdmin()
-    {
-      var Principle = new WindowsPrincipal(WindowsIdentity.GetCurrent());
-      return Principle.IsInRole(WindowsBuiltInRole.Administrator);
     }
 
     /// <summary>
@@ -259,6 +216,84 @@ namespace HXE.HCE
       }
     }
 
+    /// <summary>
+    /// Read Windows Registry entries for the selected game
+    /// or create them if they don't exist.
+    /// </summary>
+    /// <param name="game">
+    /// Pass Custom to look for the Custom Edition registry entries
+    /// or Retail to look for Retail registry entries.
+    /// </param>
+    /// <remarks>Normally, I would use a more efficients variable than string, but string allows better labeling</remarks>
+    public static void GetRegistryKeys(string game)
+    {
+      Data data = new Data();
+      GetRegistryKeys(game, data);
+    }
+
+    public static void GetRegistryKeys(string game, Data data)
+    {
+      string path = Path.Combine(WoWCheck(), MSG);
+      RegistryKey key;
+
+      switch (game)
+      {
+        case "Retail":
+          path = Path.Combine(path, Custom);
+          key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(path);
+          if (key != null)// read to Data
+          {
+            data.VersionType      = "RetailVersion";
+            data.CDPath           = key.GetValue("CDPath"          , data.CDPath).ToString();
+            data.DigitalProductID = key.GetValue("DigitalProductID", data.DigitalProductID);
+            data.EXE_Path         = key.GetValue("EXE Path"        , data.EXE_Path);
+            data.LangID           = key.GetValue("LangID"          , data.LangID);
+            data.Launched         = key.GetValue("Launched"        , data.Launched);
+            data.PendingVersion   = key.GetValue("PendingVersion"  , data.PendingVersion);
+            data.PID              = key.GetValue("PID"             , data.PID);
+            data.Version          = key.GetValue("Version"         , data.Version);
+          }
+          else
+            CreateKeys(game, path);
+          break;
+        case "Custom":
+          path = Path.Combine(path, Custom);
+          key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(path);
+          if (key != null) // read to Data
+          {
+            data.VersionType      = "TrialVersion";
+            data.CDPath           = key.GetValue("CDPath"          , data.CDPath          ).ToString();
+            data.DigitalProductID = key.GetValue("DigitalProductID", data.DigitalProductID).ToByteArray();
+            data.EXE_Path         = key.GetValue("EXE Path"        , data.EXE_Path        );
+            data.LangID           = key.GetValue("LangID"          , data.LangID          );
+            data.PendingVersion   = key.GetValue("PendingVersion"  , data.PendingVersion  );
+            data.PID              = key.GetValue("PID"             , data.PID             );
+            data.Version          = key.GetValue("Version"         , data.Version         ).ToString();
+          }
+          else 
+            CreateKeys(game, path);
+          break;
+        case "Trial":
+          path = Path.Combine(path, Trial);
+          if (KeyExists(path)) return; // read to Data
+          else
+            CreateKeys(game, path);
+          break;
+        case "HEK":
+          path = Path.Combine(path, HEK);
+          if (KeyExists(path)) return; // read to Data
+          else 
+            CreateKeys(game, path);
+          break;
+        default:
+          break;
+      }
+    }
+
+    public static void WriteKey(Data data)
+    {
+      //take a parameter
+    }
 
     /// <summary>
     /// A Class object to store a game's registry key variable and values in memory.
@@ -282,7 +317,7 @@ namespace HXE.HCE
       public string          EXE_Path         = "";
       public readonly string InstalledGroup   = "1";
       public byte            LangID           = 9;
-      public readonly string Launched         = "1";
+      public string          Launched         = "0";
       public string          PendingVersion   = "";
       public string          PID              = Registry.PID;
       public string          Version          = "";
