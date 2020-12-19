@@ -42,6 +42,7 @@ namespace HXE.SPV3
     public Campaign.Mission    Mission           { get; set; } = Campaign.Mission.Spv3A10;
     public Campaign.Difficulty Difficulty        { get; set; } = Campaign.Difficulty.Normal;
     public bool                Unlock            { get; set; }
+    public bool                Attract           { get; set; } = true;
 
     public PostProcessing PostProcessing { get; set; } =
       new PostProcessing();
@@ -110,6 +111,9 @@ namespace HXE.SPV3
 
       if (Unlock)
         output.Append("set f1 8");
+
+      if (Attract)
+        output.Append("play_bink_movie attract.bik");
 
       if (Gamma > 0)
         output.AppendLine($"set_gamma {gamma}");

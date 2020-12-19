@@ -221,7 +221,7 @@ namespace HXE
           init.MouseAcceleration = configuration.Tweaks.Acceleration;
           init.Gamma             = configuration.Video.Gamma;
 
-          if (configuration.Mode == Configuration.ConfigurationMode.SPV32 &&
+          if (configuration.Mode == Configuration.ConfigurationMode.SPV32 ||
               configuration.Mode == Configuration.ConfigurationMode.SPV33)
           {
             init.CinemaBars    = configuration.Tweaks.CinemaBars;
