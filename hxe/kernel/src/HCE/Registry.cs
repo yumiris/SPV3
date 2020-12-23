@@ -3,6 +3,8 @@ using System.IO;
 using System.Security.Principal;
 using System.Diagnostics;
 using Microsoft.Win32;
+using Enc = System.Text.Encoding;
+using WinReg = Microsoft.Win32.Registry;
 
 namespace HXE.HCE
 {
@@ -11,7 +13,7 @@ namespace HXE.HCE
     private static string _dpid   = BogusDPID;
     
     public const string x86       = @"SOFTWARE\Microsoft";
-    public const string x86_64    = @"SOFTWARE\Wow6432Node\Microsoft";
+    public const string x86_64    = @"SOFTWARE\WOW6432Node\Microsoft";
     public const string MSG       = "Microsoft Games";
     public const string Retail    = "Halo";
     public const string Custom    = "Halo CE";
@@ -61,7 +63,7 @@ namespace HXE.HCE
 
     public static bool KeyExists(string keyPath)
     {
-        var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(keyPath);
+        var key = WinReg.LocalMachine.OpenSubKey(keyPath);
         return key != null;
     }
 
@@ -76,11 +78,126 @@ namespace HXE.HCE
       return KeyExists(x86_64) ? x86_64 : x86;
     }
 
+    public static void WriteToFile(string game)
+    {
+      Data data = new Data();
+      WriteToFile(game, data);
+    }
+
+    public static void WriteToFile(string game, Data data)
+    {
+      /*Unable to use custom DPIDs*/
+      /*Retail and Custom Edition DPIDs end differently*/
+      File   file = (File) Path.Combine(Environment.CurrentDirectory, $"{game}.reg");
+      string content = "";
+      switch (game)
+      {
+        case "Retail":
+          {
+            content = 
+              "Windows Registry Editor Version 5.00"                                               + '\n' +
+                                                                                                     '\n' +
+              $@"[HKEY_LOCAL_MACHINE\{WoWCheck()}\{MSG}\{Retail}]"                                 + '\n' +
+              $"\"Zone\" = \"{data.Zone}\""                                                        + '\n' +
+              "\"DistID\"=dword:0000035c"                                                          + '\n' +
+              $"\"Version\"=\"{data.Version}\""                                                    + '\n' +
+              "\"Launched\"=\"0\""                                                                 + '\n' +
+              $"\"PID\"=\"{data.PID}\""                                                            + '\n' +
+              $"\"DigitalProductID\"=hex:a4,20,20,20,03,20,20,20,30,30,30,30,30,2d,30,30,30,2d,\\" + '\n' +
+              "  30,30,30,30,30,30,30,2d,30,30,30,30,30,20,50,20,20,20,4d,36,31,2d,30,30,30,\\"    + '\n' +
+              "  33,32,20,20,20,20,20,20,20,46,20,32,49,cd,b9,22,e6,62,21,b0,2c,c3,ee,01,20,\\"    + '\n' +
+              "  20,20,20,20,95,9c,8a,5e,e6,2e,1e,25,20,20,20,20,20,20,20,20,20,20,20,20,20,\\"    + '\n' +
+              "  20,20,20,20,20,20,20,20,20,20,20,38,37,35,30,30,20,20,20,20,20,20,20,01,0d,\\"    + '\n' +
+              "  20,20,f0,cf,5d,f1,20,08,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,\\"    + '\n' +
+              "  20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,da,a8,75,23"                   + '\n' +
+              $"\"EXE Path\"=\"{data.EXE_Path}\""                                                  + '\n' +
+              $"\"CDPath\"=\"{data.CDPath}\""                                                      + '\n' +
+              "\"VersionType\"=\"RetailVersion\""                                                  + '\n' +
+              "\"InstalledGroup\"=\"1\""                                                           + '\n' +
+              "\"LangID\"=dword:00000009"                                                          + '\n' +
+              "\"PendingVersion\"=\"\""                                                            + '\n' +
+                                                                                                     '\n' +
+                                                                                                     '\n';
+          }
+          break;
+        case "Custom":
+          {
+            content = 
+              "Windows Registry Editor Version 5.00"                                               + "\r\n" +
+                                                                                                     "\r\n" +
+              $@"[HKEY_LOCAL_MACHINE\{WoWCheck()}\{MSG}\{Custom}]"                                 + "\r\n" +
+              "\"DistID\"=dword:0000035c"                                                          + "\r\n" +
+              $"\"Version\"=\"{data.Version}\""                                                    + "\r\n" +
+              "\"Launched\"=\"0\""                                                                 + "\r\n" +
+              $"\"PID\"=\"{data.PID}\""                                                            + "\r\n" +
+              "\"DigitalProductID\"=hex:a4,00,00,00,03,00,00,00,30,30,30,30,30,2d,30,30,30,2d,\\"  + "\r\n" +
+              "  30,30,30,30,30,30,30,2d,30,30,30,30,30,00,50,00,00,00,4d,30,30,2d,30,30,30,\\"    + "\r\n" +
+              "  30,30,00,00,00,00,00,00,00,46,20,32,49,cd,b9,22,e6,62,21,b0,2c,c3,ee,01,00,\\"    + "\r\n" +
+              "  00,00,00,00,82,61,0f,5b,91,3a,8a,03,00,00,00,00,00,00,00,00,00,00,00,00,00,\\"    + "\r\n" +
+              "  00,00,00,00,00,00,00,00,00,00,00,30,30,30,30,30,00,00,00,00,00,00,00,0b,0d,\\"    + "\r\n" +
+              "  00,00,ba,6d,6b,82,00,08,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,\\"    + "\r\n" +
+              "  00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,f9,a4,04,e6"                   + "\r\n" +
+              $"\"EXE Path\"=\"{data.EXE_Path}\""                                                  + "\r\n" +
+              $"\"CDPath\"=\"{data.CDPath}\""                                                      + "\r\n" +
+              "\"VersionType\"=\"TrialVersion\""                                                   + "\r\n" +
+              "\"InstalledGroup\"=\"1\""                                                           + "\r\n" +
+              "\"LangID\"=dword:00000009"                                                          + "\r\n" +
+              "\"PendingVersion\"=\"\""                                                            + "\r\n" +
+                                                                                                     "\r\n" +
+                                                                                                     "\r\n";
+
+          }
+          break;
+        case "Trial":
+          {
+            content = 
+              "Windows Registry Editor Version 5.00"                                               + "\r\n" +
+                                                                                                     "\r\n" +
+              $@"[HKEY_LOCAL_MACHINE\{WoWCheck()}\{MSG}\{Trial}]"                                  + "\r\n" +
+              "\"Version\"=\"1\""                                                                  + "\r\n" +
+              "\"Launched\"=\"0\""                                                                 + "\r\n" +
+              "\"PID\"=\"\""                                                                       + "\r\n" +
+              "\"DigitalProductID\"=hex:"                                                          + "\r\n" +
+              $"\"EXE Path\"=\"{data.EXE_Path}\""                                                  + "\r\n" +
+              $"\"CDPath\"=\"{data.CDPath}\""                                                      + "\r\n" +
+              "\"VersionType\"=\"TrialVersion\""                                                   + "\r\n" +
+              "\"InstalledGroup\"=\"1\""                                                           + "\r\n" +
+              "\"LangID\"=dword:00000009"                                                          + "\r\n" +
+                                                                                                     "\r\n" +
+                                                                                                     "\r\n";
+
+          }
+          break;
+        case "HEK":
+          {
+            content = 
+              "Windows Registry Editor Version 5.00"                                               + "\r\n" +
+                                                                                                     "\r\n" +
+              $@"[HKEY_LOCAL_MACHINE\{WoWCheck()}\{MSG}\{HEK}]"                                    + "\r\n" +
+              "\"Launched\"=\"0\""                                                                 + "\r\n" +
+              "\"PID\"=\"\""                                                                       + "\r\n" +
+              "\"DigitalProductID\"=hex:"                                                          + "\r\n" +
+              $"\"EXE Path\"=\"{data.EXE_Path}\""                                                  + "\r\n" +
+              $"\"CDPath\"=\"{data.CDPath}\""                                                      + "\r\n" +
+              "\"VersionType\"=\"TrialVersion\""                                                   + "\r\n" +
+              "\"InstalledGroup\"=\"1\""                                                           + "\r\n" +
+              "\"LangID\"=dword:00000009"                                                          + "\r\n" +
+                                                                                                     "\r\n" +
+                                                                                                     "\r\n";
+          }
+          break;
+        default:
+          break;
+      } 
+
+      file.WriteAllText(content);
+    }
+
     /// <summary>
     /// Creates the registry keys for the given game. Uses default Data values for registry variables. 
     /// </summary>
-    /// <param name="game">The game.</param>
-    /// <param name="path">The path.</param>
+    /// <remarks>Totally broken. Use WriteToFile() instead.</remarks>
+
     public static void CreateKeys(string game, string path)
     {
       Data data = new Data();
@@ -91,9 +208,10 @@ namespace HXE.HCE
     /// Creates the registry keys for the given game. 
     /// Requires an instance of Registry.Data which can be used for specifying values of registry variables such as the EXE path.
     /// </summary>
-    /// <param name="game">The game.</param>
-    /// <param name="path">The path.</param>
+    /// <param name="game">The game or app.</param>
+    /// <param name="path">The Registry key path.</param>
     /// <param name="data">An instance of the Registry.Data class.</param>
+    /// <remarks>Totally broken. Use WriteToFile() instead.</remarks>
     public static void CreateKeys(string game, string path, Data data)
     {
       if (!RunningAsAdmin())
@@ -125,23 +243,23 @@ namespace HXE.HCE
         }
       }
 
-      var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(path, true);
+      var key = WinReg.LocalMachine.OpenSubKey(path, true);
       /// Create the game's registry key if it doesn't exist.
       if (key == null)
       {
-        var key2 = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG), true);
+        var key2 = WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG), true);
         if (key2 == null)
         {
-          var key3 = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(WoWCheck(), true);
-          key3.CreateSubKey(MSG);
+          WinReg.LocalMachine.OpenSubKey(WoWCheck(), true).CreateSubKey(MSG);
         }
         key2.CreateSubKey(game);
       }
-
       switch (game)
       {
         case "Retail":
           {
+            key = WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG, Retail));
+            
             data.Version     = "1.10";
             data.VersionType = "RetailVersion";
             key.SetValue("CDPath"          , data.CDPath          , RegistryValueKind.String);
@@ -158,9 +276,9 @@ namespace HXE.HCE
             key.SetValue("Zone"            , data.Zone            , RegistryValueKind.String);
           }
           break;
-
         case "Custom":
           {
+            key = WinReg.LocalMachine.OpenSubKey(Path.Combine());
             data.Version     = "1.10";
             data.VersionType = "TrialVersion";
             key.SetValue("CDPath"          , data.CDPath          , RegistryValueKind.String);
@@ -176,9 +294,9 @@ namespace HXE.HCE
             key.SetValue("VersionType"     , data.VersionType     , RegistryValueKind.String);
           }
           break;
-
         case "Trial":
           {
+            key = WinReg.LocalMachine.OpenSubKey(Path.Combine());
             data.DigitalProductID = null;
             data.PID              = null;
             data.Version          = "1";
@@ -194,9 +312,9 @@ namespace HXE.HCE
             key.SetValue("VersionType"     , data.VersionType     , RegistryValueKind.String);
           }
           break;
-
         case "HEK":
           {
+            key = WinReg.LocalMachine.OpenSubKey(Path.Combine());
             data.DigitalProductID = null;
             data.PID              = null;
             data.VersionType      = "TrialVersion";
@@ -210,7 +328,6 @@ namespace HXE.HCE
             key.SetValue("VersionType"     , data.VersionType     , RegistryValueKind.String);
           }
           break;
-
         default:
           break;
       }
@@ -236,57 +353,68 @@ namespace HXE.HCE
       string path = Path.Combine(WoWCheck(), MSG);
       RegistryKey key;
 
-      switch (game)
+      try
       {
-        case "Retail":
-          path = Path.Combine(path, Custom);
-          key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(path);
-          if (key != null)// read to Data
-          {
-            data.VersionType      = "RetailVersion";
-            data.CDPath           = key.GetValue("CDPath"          , data.CDPath).ToString();
-            data.DigitalProductID = key.GetValue("DigitalProductID", data.DigitalProductID);
-            data.EXE_Path         = key.GetValue("EXE Path"        , data.EXE_Path);
-            data.LangID           = key.GetValue("LangID"          , data.LangID);
-            data.Launched         = key.GetValue("Launched"        , data.Launched);
-            data.PendingVersion   = key.GetValue("PendingVersion"  , data.PendingVersion);
-            data.PID              = key.GetValue("PID"             , data.PID);
-            data.Version          = key.GetValue("Version"         , data.Version);
-          }
-          else
-            CreateKeys(game, path);
-          break;
-        case "Custom":
-          path = Path.Combine(path, Custom);
-          key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(path);
-          if (key != null) // read to Data
-          {
-            data.VersionType      = "TrialVersion";
-            data.CDPath           = key.GetValue("CDPath"          , data.CDPath          ).ToString();
-            data.DigitalProductID = key.GetValue("DigitalProductID", data.DigitalProductID).ToByteArray();
-            data.EXE_Path         = key.GetValue("EXE Path"        , data.EXE_Path        );
-            data.LangID           = key.GetValue("LangID"          , data.LangID          );
-            data.PendingVersion   = key.GetValue("PendingVersion"  , data.PendingVersion  );
-            data.PID              = key.GetValue("PID"             , data.PID             );
-            data.Version          = key.GetValue("Version"         , data.Version         ).ToString();
-          }
-          else 
-            CreateKeys(game, path);
-          break;
-        case "Trial":
-          path = Path.Combine(path, Trial);
-          if (KeyExists(path)) return; // read to Data
-          else
-            CreateKeys(game, path);
-          break;
-        case "HEK":
-          path = Path.Combine(path, HEK);
-          if (KeyExists(path)) return; // read to Data
-          else 
-            CreateKeys(game, path);
-          break;
-        default:
-          break;
+        switch (game)
+        {
+          case "Retail":
+            path = Path.Combine(path, Custom);
+            key = WinReg.LocalMachine.OpenSubKey(path);
+            if (key != null)// read to Data
+            {
+              data.VersionType      = "RetailVersion";
+              data.CDPath           = key.GetValue("CDPath"           , data.CDPath           ).ToString();
+              data.DigitalProductID = Enc.Unicode.GetBytes(
+                                      key.GetValue("DigitalProductID" , data.DigitalProductID).ToString() );
+              data.EXE_Path         = key.GetValue("EXE Path"         , data.EXE_Path        ).ToString();
+              data.LangID           = Enc.Unicode.GetBytes(
+                                      key.GetValue("LangID"           , data.LangID          ).ToString() )[0];
+              data.Launched         = key.GetValue("Launched"         , data.Launched        ).ToString();
+              data.PendingVersion   = key.GetValue("PendingVersion"   , data.PendingVersion  ).ToString();
+              data.PID              = key.GetValue("PID"              , data.PID             ).ToString();
+              data.Version          = key.GetValue("Version"          , data.Version         ).ToString();
+            }
+            else
+              CreateKeys(game, path);
+            break;
+          case "Custom":
+            path = Path.Combine(path, Custom);
+            key = WinReg.LocalMachine.OpenSubKey(path);
+            if (key != null) // read to Data
+            {
+              data.VersionType      = "TrialVersion";
+              data.CDPath           = key.GetValue("CDPath"           , data.CDPath           ).ToString();
+              data.DigitalProductID = Enc.Unicode.GetBytes(
+                                      key.GetValue("DigitalProductID" , data.DigitalProductID ).ToString());
+              data.EXE_Path         = key.GetValue("EXE Path"         , data.EXE_Path         ).ToString();
+              data.LangID           = Enc.Unicode.GetBytes(
+                                      key.GetValue("LangID"           , data.LangID           ).ToString() )[0];
+              data.PendingVersion   = key.GetValue("PendingVersion"   , data.PendingVersion   ).ToString();
+              data.PID              = key.GetValue("PID"              , data.PID              ).ToString();
+              data.Version          = key.GetValue("Version"          , data.Version          ).ToString();
+            }
+            else
+              CreateKeys(game, path);
+            break;
+          case "Trial":
+            path = Path.Combine(path, Trial);
+            if (KeyExists(path)) return; // read to Data
+            else
+              CreateKeys(game, path);
+            break;
+          case "HEK":
+            path = Path.Combine(path, HEK);
+            if (KeyExists(path)) return; // read to Data
+            else
+              CreateKeys(game, path);
+            break;
+          default:
+            break;
+        }
+      }
+      catch(Exception e)
+      {
+        throw new Exception("Failed to read registry keys: " + e);
       }
     }
 
