@@ -101,10 +101,16 @@
                   Margin="1,0,0,0"
                   Grid.Column="2"
                   Padding="0"
-                  Click="CompressButton_Click"
-                  ToolTip="Enable NTFS compression for this folder to significantly save space.
-                  WARNING: Unless installing to an SSD, NTFS compression will cause data to load slower. This means maps may freeze up longer when loading new areas.
-                  NOTE: Only added files will compress. If there were already files present, they will not be compressed.">
+                  Click="CompressButton_Click">
+            <Button.ToolTip>
+              <ToolTip MaxWidth="400">
+                <TextBlock TextWrapping="Wrap">
+                  Enable NTFS compression for this folder to significantly save space.
+                  WARNING: Unless installing to an SSD, NTFS compression will cause data to load slower.
+                  This means maps may freeze up longer when loading new areas.
+                </TextBlock>
+              </ToolTip>
+            </Button.ToolTip>
             <Grid Margin="-25,0" Width="auto">
               <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
