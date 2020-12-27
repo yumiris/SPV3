@@ -192,7 +192,7 @@
         <DockPanel>
           <Button Visibility="Hidden"
                   Content="Positions"
-                  Click="Positions" />
+                  Click="ShowPositions" />
         </DockPanel>
       </StackPanel>
 
@@ -482,11 +482,12 @@
 
       <!-- HXE Config -->
       <Button Content="Advanced"
-              Click="Advanced"
+              Click="ShowAdvanced"
               HorizontalAlignment="Right"
               Margin="350,0"
-              Width="100" 
-              Visibility="{Binding Adv}"/>
+              Visibility="Collapsed" 
+              Width="100"/>
+      <!-- Remove Visibility property when usable -->
     </StackPanel>
   </Grid>
 </UserControl>

@@ -140,7 +140,8 @@
                     </Button>
 
                     <!-- Settings -->
-                    <Button Click="Settings">
+                    <Button Visibility="{Binding Load.Visibility}"
+                            Click="Settings">
                         Loader Settings
                     </Button>
 

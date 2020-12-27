@@ -61,12 +61,6 @@ namespace HXE.HCE
       return bytes;
     }
 
-    public static bool KeyExists(string keyPath)
-    {
-        var key = WinReg.LocalMachine.OpenSubKey(keyPath);
-        return key != null;
-    }
-
     public static bool RunningAsAdmin()
     {
       var Principle = new WindowsPrincipal(WindowsIdentity.GetCurrent());
@@ -75,7 +69,24 @@ namespace HXE.HCE
 
     public static string WoWCheck()
     {
-      return KeyExists(x86_64) ? x86_64 : x86;
+      return null != WinReg.LocalMachine.OpenSubKey(x86_64) ? x86_64 : x86;
+    }
+
+    public static bool GameExists(string game)
+    {
+      switch(game)
+      {
+        case "Retail":
+          return null == WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG, Retail));
+        case "Custom":
+          return null == WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG, Custom));
+        case "Trial":
+          return null == WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG, Trial));
+        case "HEK":
+          return null == WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG, HEK));
+        default:
+          throw new ArgumentException("The variable passed to GameExists() is invalid.");
+      }
     }
 
     public static void WriteToFile(string game)
@@ -145,7 +156,6 @@ namespace HXE.HCE
               "\"PendingVersion\"=\"\""                                                            + "\r\n" +
                                                                                                      "\r\n" +
                                                                                                      "\r\n";
-
           }
           break;
         case "Trial":
@@ -165,7 +175,6 @@ namespace HXE.HCE
               "\"LangID\"=dword:00000009"                                                          + "\r\n" +
                                                                                                      "\r\n" +
                                                                                                      "\r\n";
-
           }
           break;
         case "HEK":
@@ -189,7 +198,6 @@ namespace HXE.HCE
         default:
           break;
       } 
-
       file.WriteAllText(content);
     }
 
@@ -198,10 +206,10 @@ namespace HXE.HCE
     /// </summary>
     /// <remarks>Totally broken. Use WriteToFile() instead.</remarks>
 
-    public static void CreateKeys(string game, string path)
+    public static void CreateKeys(string game)
     {
       Data data = new Data();
-      CreateKeys(game, path, data);
+      CreateKeys(game, data);
     }
 
     /// <summary>
@@ -211,9 +219,29 @@ namespace HXE.HCE
     /// <param name="game">The game or app.</param>
     /// <param name="path">The Registry key path.</param>
     /// <param name="data">An instance of the Registry.Data class.</param>
-    /// <remarks>Totally broken. Use WriteToFile() instead.</remarks>
-    public static void CreateKeys(string game, string path, Data data)
+    /// <remarks>TOTALLY BROKEN. Use WriteToFile() instead.</remarks>
+    public static void CreateKeys(string game, Data data)
     {
+      /** Temporarily Abandoned
+       * This method of writing to the Windows Registry
+       * was intended to either...
+       * A. Temporarily elevate the current process to write
+       *    directly to the Registry. (NOT POSSIBLE)
+       *    or...
+       * B. Pass an instance of Data to a new, elevated 
+       *    process so the process can then write that 
+       *    Data to the Registry.
+       *    
+       *    Because data cannot be directly passed between 
+       *    elevated and non-elevated processes, this idea
+       *    is limited to two implementations:
+       *    > Pass Data via start parameters to a new, 
+       *      elevated HXE process.
+       *      or...
+       *    > Write Data to a file and read that file in
+       *      the new process.
+       */
+
       if (!RunningAsAdmin())
       {
         var StartInfo = new ProcessStartInfo
@@ -243,7 +271,7 @@ namespace HXE.HCE
         }
       }
 
-      var key = WinReg.LocalMachine.OpenSubKey(path, true);
+      var key = WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG), true);
       /// Create the game's registry key if it doesn't exist.
       if (key == null)
       {
@@ -362,51 +390,69 @@ namespace HXE.HCE
             key = WinReg.LocalMachine.OpenSubKey(path);
             if (key != null)// read to Data
             {
-              data.VersionType      = "RetailVersion";
-              data.CDPath           = key.GetValue("CDPath"           , data.CDPath           ).ToString();
+              data.CDPath           = key.GetValue("CDPath"          , data.CDPath          ).ToString();
               data.DigitalProductID = Enc.Unicode.GetBytes(
-                                      key.GetValue("DigitalProductID" , data.DigitalProductID).ToString() );
-              data.EXE_Path         = key.GetValue("EXE Path"         , data.EXE_Path        ).ToString();
+                                      key.GetValue("DigitalProductID", data.DigitalProductID).ToString());
+              data.EXE_Path         = key.GetValue("EXE Path"        , data.EXE_Path        ).ToString();
               data.LangID           = Enc.Unicode.GetBytes(
-                                      key.GetValue("LangID"           , data.LangID          ).ToString() )[0];
-              data.Launched         = key.GetValue("Launched"         , data.Launched        ).ToString();
-              data.PendingVersion   = key.GetValue("PendingVersion"   , data.PendingVersion  ).ToString();
-              data.PID              = key.GetValue("PID"              , data.PID             ).ToString();
-              data.Version          = key.GetValue("Version"          , data.Version         ).ToString();
+                                      key.GetValue("LangID"          , data.LangID          ).ToString())[0];
+              data.Launched         = key.GetValue("Launched"        , data.Launched        ).ToString();
+              data.PendingVersion   = key.GetValue("PendingVersion"  , data.PendingVersion  ).ToString();
+              data.PID              = key.GetValue("PID"             , data.PID             ).ToString();
+              data.Version          = key.GetValue("Version"         , data.Version         ).ToString();
+              data.VersionType      = "RetailVersion";
             }
-            else
-              CreateKeys(game, path);
             break;
           case "Custom":
             path = Path.Combine(path, Custom);
             key = WinReg.LocalMachine.OpenSubKey(path);
             if (key != null) // read to Data
             {
-              data.VersionType      = "TrialVersion";
-              data.CDPath           = key.GetValue("CDPath"           , data.CDPath           ).ToString();
+              data.CDPath           = key.GetValue("CDPath"          , data.CDPath          ).ToString();
               data.DigitalProductID = Enc.Unicode.GetBytes(
-                                      key.GetValue("DigitalProductID" , data.DigitalProductID ).ToString());
-              data.EXE_Path         = key.GetValue("EXE Path"         , data.EXE_Path         ).ToString();
+                                      key.GetValue("DigitalProductID", data.DigitalProductID).ToString());
+              data.EXE_Path         = key.GetValue("EXE Path"        , data.EXE_Path        ).ToString();
               data.LangID           = Enc.Unicode.GetBytes(
-                                      key.GetValue("LangID"           , data.LangID           ).ToString() )[0];
-              data.PendingVersion   = key.GetValue("PendingVersion"   , data.PendingVersion   ).ToString();
-              data.PID              = key.GetValue("PID"              , data.PID              ).ToString();
-              data.Version          = key.GetValue("Version"          , data.Version          ).ToString();
+                                      key.GetValue("LangID"          , data.LangID          ).ToString())[0];
+              data.Launched         = key.GetValue("Launched"        , data.Launched        ).ToString();
+              data.PendingVersion   = key.GetValue("PendingVersion"  , data.PendingVersion  ).ToString();
+              data.PID              = key.GetValue("PID"             , data.PID             ).ToString();
+              data.Version          = key.GetValue("Version"         , data.Version         ).ToString();
+              data.VersionType      = "TrialVersion";
             }
-            else
-              CreateKeys(game, path);
             break;
           case "Trial":
             path = Path.Combine(path, Trial);
-            if (KeyExists(path)) return; // read to Data
-            else
-              CreateKeys(game, path);
+            key = WinReg.LocalMachine.OpenSubKey(path);
+            if (key != null) // read to Data
+            {
+              data.CDPath           = key.GetValue("CDPath"          , data.CDPath          ).ToString();
+              data.DigitalProductID = Enc.Unicode.GetBytes(
+                                      key.GetValue("DigitalProductID", data.DigitalProductID).ToString());
+              data.EXE_Path         = key.GetValue("EXE Path"        , data.EXE_Path        ).ToString();
+              data.LangID           = Enc.Unicode.GetBytes(
+                                      key.GetValue("LangID"          , data.LangID          ).ToString())[0];
+              data.Launched         = key.GetValue("Launched"        , data.Launched        ).ToString();
+              data.PID              = key.GetValue("PID"             , data.PID             ).ToString();
+              data.Version          = key.GetValue("Version"         , data.Version         ).ToString();
+              data.VersionType      = "TrialVersion";
+
+            }
             break;
           case "HEK":
             path = Path.Combine(path, HEK);
-            if (KeyExists(path)) return; // read to Data
-            else
-              CreateKeys(game, path);
+            key = WinReg.LocalMachine.OpenSubKey(path);
+            if (key != null) // read to Data
+            {
+              data.CDPath           = key.GetValue("CDPath"  , data.CDPath  ).ToString();
+              data.DigitalProductID = null;
+              data.EXE_Path         = key.GetValue("EXE Path", data.EXE_Path).ToString();
+              data.LangID           = Enc.Unicode.GetBytes(
+                                      key.GetValue("LangID"  , data.LangID  ).ToString())[0];
+              data.Launched         = key.GetValue("Launched", data.Launched).ToString();
+              data.PID              = null;
+              data.VersionType      = "TrialVersion";
+            }
             break;
           default:
             break;

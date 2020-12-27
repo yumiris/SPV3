@@ -25,7 +25,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Windows;
 using SPV3.Annotations;
 using static System.Windows.Forms.Screen;
 
@@ -56,9 +55,6 @@ namespace SPV3
       private ushort _width   = (ushort) PrimaryScreen.Bounds.Width;    /* width spv3/hce will be displayed at        */
       private bool   _window;                                           /* runs spv3/hce as a windowed application    */
       private bool   _elevated;                                         /* runs spv3/hce in elevated (admin) mode     */
-
-
-      public Visibility Adv = Debug.IsDebug ? Visibility.Collapsed : Visibility.Visible;
 
       public bool Native
       {

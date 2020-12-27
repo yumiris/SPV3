@@ -189,12 +189,12 @@ namespace SPV3
       _configuration.Chimera.BlockLOD             = false;
     }
 
-    private void Advanced(object sender, RoutedEventArgs e)
+    private void ShowAdvanced(object sender, RoutedEventArgs e)
     {
       _configuration.ShowHxeSettings();
     }
 
-    private void Positions(object sender, RoutedEventArgs e)
+    private void ShowPositions(object sender, RoutedEventArgs e)
     {
       _configuration.ShowHxeWepPositions();
     }

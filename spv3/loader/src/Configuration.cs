@@ -19,7 +19,6 @@
  */
 
 using System.Collections.Generic;
-using System.Windows;
 using static HXE.OpenSauce.OpenSauceObjects.ObjectsWeapon;
 using static SPV3.Kernel;
 
@@ -67,6 +66,7 @@ namespace SPV3
 
     public void ShowHxeSettings()
     {
+      // Button is collapsed until the DataContext is synced
       Kernel.Save();
       Settings = new HXE.Settings(hxe);
       Settings.ShowDialog();
@@ -75,9 +75,8 @@ namespace SPV3
 
     public void ShowHxeWepPositions()
     {
+      // Button is collapsed, but it works.
       Positions.ShowDialog();
     }
-
-    public Visibility Adv = Debug.IsDebug ? Visibility.Collapsed : Visibility.Visible;
   }
 }

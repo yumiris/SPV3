@@ -44,7 +44,7 @@ namespace SPV3
     private          bool       _skipDetect  = false; // Temporary: set "True" to skip Halo CE Detection and access HCE and MCC panels
     private          bool       _canInstall;
     private          bool       _compress = true;
-    private          Visibility _dbgPnl   = Debug.IsDebug ? Visibility.Visible : Visibility.Collapsed; // TODO: Implement Debug-Tools 'floating' panel
+    private readonly Visibility _dbgPnl   = Debug.IsDebug ? Visibility.Visible : Visibility.Collapsed; // TODO: Implement Debug-Tools 'floating' panel
     private          Visibility _mcc      = Visibility.Collapsed;
     private          Visibility _hce      = Visibility.Collapsed;
     private          Visibility _load     = Visibility.Collapsed;
@@ -115,13 +115,35 @@ namespace SPV3
           }
           try
           {
-            var path = Path.Combine(Registry.WoWCheck(), Registry.MSG, Registry.Custom);
-            Registry.CreateKeys("Custom", path);
+            /** Write a .reg file */
+            {
+              var data = new Registry.Data();
+
+              if (!Registry.GameExists("Custom"))
+                data.EXE_Path = Target;
+              Registry.WriteToFile("Custom", data);
+            }
+
+            /** Tell RegEdit to import the file */
+            {
+              var regedit = new Process();
+              regedit.StartInfo.FileName         = "regedit.exe";
+              regedit.StartInfo.Arguments        = "/s Custom.reg";
+              regedit.StartInfo.WorkingDirectory = CurrentDirectory;
+              regedit.StartInfo.UseShellExecute  = true;
+              regedit.StartInfo.Verb             = "runas";
+              regedit.Start();
+              regedit.WaitForExit();
+              if (0 != regedit.ExitCode)
+                throw new Exception("Failed to import to Registry.");
+            }
+
+            /** Cheers */
             Status = "SPV3 successfully activated.";
           }
           catch (Exception e)
           {
-            Status = "Failed to create registry keys: " + e.ToString();
+            Status = "Failed to Activate Halo: " + e.ToString();
             return;
           }
         }

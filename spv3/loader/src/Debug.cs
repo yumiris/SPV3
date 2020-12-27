@@ -24,9 +24,9 @@ namespace SPV3
   public static class Debug
   {
   #if DEBUG
-    public static readonly bool IsDebug = true;
+    public const bool IsDebug = true;
   #else
-    public static readonly bool IsDebug = false;
+    public const bool IsDebug = false;
   #endif
   }
 }
