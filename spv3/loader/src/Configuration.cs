@@ -67,7 +67,21 @@ namespace SPV3
     public void ShowHxeSettings()
     {
       // Button is collapsed until the DataContext is synced
-      Kernel.Save();
+      Save();
+      Kernel.Load();
+      hxe.Main.Elevated      = Loader.Elevated;
+      hxe.Video.Resolution   = Loader.ResolutionEnabled;
+      hxe.Video.Uncap        = !Loader.Vsync;
+      hxe.Video.GammaEnabled = Loader.GammaEnabled;
+      hxe.Video.Gamma        = Loader.Gamma;
+      hxe.Video.Bless        = Loader.Borderless;
+      hxe.Audio.Enhancements = Loader.EAX;
+      hxe.Input.Override     = Loader.Preset;
+      hxe.Tweaks.CinemaBars  = Loader.CinemaBars;
+      hxe.Tweaks.Sensor      = !Loader.Photo;
+      hxe.Tweaks.Unload      = Loader.Shaders;
+
+
       Settings = new HXE.Settings(hxe);
       Settings.ShowDialog();
       Kernel.Load();

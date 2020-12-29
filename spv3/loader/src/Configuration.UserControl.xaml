@@ -166,6 +166,7 @@
         <DockPanel>
           <Label Content="DSOAL/EAX Audio:" />
           <CheckBox IsChecked="{Binding Loader.EAX}"
+                    Click="EaxChanged"
                     ToolTip="Enables Hardware Acceleration and Sound Enhancement. DSOAL is required for this!" />
         </DockPanel>
         <DockPanel>
@@ -291,19 +292,27 @@
                     ToolTip="Enables Dynamic Lens Flares effects." />
         </DockPanel>
         <DockPanel>
+          <Label Content="Adaptive HDR:"
+                 IsEnabled="{Binding Loader.Shaders}"/>
+          <CheckBox IsChecked="{Binding Loader.AHDR}"
+                    IsEnabled="{Binding Loader.Shaders}"
+                    Unchecked="AHDR_Unchecked"
+                    ToolTip="Enables High Dynamic Range. Adapts to the scene's light levels." />
+        </DockPanel>
+        <DockPanel>
           <Label Content="SSR:"
                  IsEnabled="{Binding Loader.Shaders}" />
           <CheckBox IsChecked="{Binding Shaders.SSR}"
-                    IsEnabled="{Binding Loader.Shaders}"
+                    IsEnabled="{Binding Loader.AHDR}"
                     Checked="SSR_Or_ResolutionChanged"
-                    ToolTip="Enables Screen Space Ray Traced Reflections" />
+                    ToolTip="Enables Screen Space Ray Traced Reflections." />
         </DockPanel>
         <DockPanel Visibility="{Binding Shaders.DebandAvailable, Converter={StaticResource BooleanToVisibilityConverter}}">
           <Label Content="Debanding:"
                  IsEnabled="{Binding Loader.Shaders}" />
           <CheckBox IsChecked="{Binding Shaders.DynamicLensFlares}"
                     IsEnabled="{Binding Loader.Shaders}"
-                    ToolTip="Removes banding artifacts/anomalies" />
+                    ToolTip="Smooths color banding artifacts/anomalies." />
         </DockPanel>
 
         <Label Content="Quality Presets"
@@ -415,7 +424,7 @@
         <DockPanel>
           <Label Content="Bloom:" />
           <CheckBox IsChecked="{Binding OpenSauce.Bloom}"
-                    ToolTip="Adds glowy highlights to visual bright spots." />
+                    ToolTip="Requires Adaptive HDR. Adds glowy highlights to visual bright spots." />
         </DockPanel>
 
         <Button Click="InstallOpenSauce"
@@ -449,10 +458,6 @@
         <DockPanel>
           <Label Content="Uncap Cinematic:" />
           <CheckBox IsChecked="{Binding Chimera.UncapCinematic}" />
-        </DockPanel>
-        <DockPanel>
-          <Label Content="Block LOD:" />
-          <CheckBox IsChecked="{Binding Chimera.BlockLOD}" />
         </DockPanel>
 
         <Separator Margin="0,15,0,10" Background="#FFC8C8C8" />

@@ -35,6 +35,7 @@ using static HXE.Paths.MCC;
 using static System.Environment;
 using static System.Environment.SpecialFolder;
 using static System.IO.File;
+using static System.Windows.Visibility;
 
 namespace SPV3
 {
@@ -44,11 +45,11 @@ namespace SPV3
     private          bool       _skipDetect  = false; // Temporary: set "True" to skip Halo CE Detection and access HCE and MCC panels
     private          bool       _canInstall;
     private          bool       _compress = true;
-    private readonly Visibility _dbgPnl   = Debug.IsDebug ? Visibility.Visible : Visibility.Collapsed; // TODO: Implement Debug-Tools 'floating' panel
-    private          Visibility _mcc      = Visibility.Collapsed;
-    private          Visibility _hce      = Visibility.Collapsed;
-    private          Visibility _load     = Visibility.Collapsed;
-    private          Visibility _main     = Visibility.Visible;
+    private readonly Visibility _dbgPnl   = Debug.IsDebug ? Visible : Collapsed; // TODO: Implement Debug-Tools 'floating' panel
+    private          Visibility _mcc      = Collapsed;
+    private          Visibility _hce      = Collapsed;
+    private          Visibility _load     = Collapsed;
+    private          Visibility _main     = Visible;
     private          string     _status   = "Awaiting user input...";
     private          string     _target   = Path.Combine(GetFolderPath(Personal), "My Games", "Halo SPV3");
     private          string     _steamExe = Path.Combine(Steam, SteamExe);
@@ -120,7 +121,7 @@ namespace SPV3
               var data = new Registry.Data();
 
               if (!Registry.GameExists("Custom"))
-                data.EXE_Path = Target;
+                data.EXE_Path = $@"{Target}";
               Registry.WriteToFile("Custom", data);
             }
 
@@ -288,9 +289,9 @@ namespace SPV3
 
     public void Initialise()
     {
-      Main = Visibility.Visible;
-      Mcc  = Visibility.Collapsed;
-      Hce  = Visibility.Collapsed;
+      Main = Visible;
+      Mcc  = Collapsed;
+      Hce  = Collapsed;
 
       /**
        * Determine if the current environment fulfills the installation requirements.
@@ -316,9 +317,9 @@ namespace SPV3
       Status     = "Please install a legal copy of HCE before installing SPV3.";
       CanInstall = false;
 
-      Main = Visibility.Collapsed;
-      Mcc  = Visibility.Collapsed;
-      Hce  = Visibility.Visible;
+      Main = Collapsed;
+      Mcc  = Collapsed;
+      Hce  = Visible;
     }
 
     public async void Commit()
@@ -397,9 +398,9 @@ namespace SPV3
 
           if (Exists(Path.Combine(Target, Paths.Executable)))
           {
-            Main = Visibility.Collapsed;
-            Hce  = Visibility.Collapsed;
-            Load = Visibility.Visible;
+            Main = Collapsed;
+            Hce  = Collapsed;
+            Load = Visible;
           }
           else
           {
@@ -424,23 +425,23 @@ namespace SPV3
 
     public void ViewHce()
     {
-      Main = Visibility.Collapsed;
-      Mcc = Visibility.Collapsed;
-      Hce = Visibility.Visible;
+      Main = Collapsed;
+      Mcc  = Collapsed;
+      Hce  = Visible;
     }
 
     public void ViewMain()
     {
-      Main = Visibility.Visible;
-      Mcc = Visibility.Collapsed;
-      Hce = Visibility.Collapsed;
+      Main = Visible;
+      Mcc  = Collapsed;
+      Hce  = Collapsed;
     }
 
     public void ViewMcc()
     {
-      Main = Visibility.Collapsed;
-      Mcc = Visibility.Visible;
-      Hce = Visibility.Collapsed;
+      Main = Collapsed;
+      Mcc  = Visible;
+      Hce  = Collapsed;
     }
 
     public void InstallHce()

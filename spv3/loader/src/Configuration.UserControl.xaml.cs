@@ -33,7 +33,7 @@ namespace SPV3
     public Configuration_UserControl()
     {
       InitializeComponent();
-      _configuration = (Configuration) DataContext;
+      _configuration = (Configuration)DataContext;
       _configuration.Load();
     }
 
@@ -81,112 +81,118 @@ namespace SPV3
                       "This should only be used on low-end computers as a last resort.");
     }
 
+    private void AHDR_Unchecked(object sender, RoutedEventArgs e)
+    {
+      _configuration.OpenSauce.Bloom = false;
+      _configuration.Shaders.SSR = false;
+    }
+
     private void PresetVeryLow(object sender, RoutedEventArgs e)
     {
-      _configuration.OpenSauce.GBuffer            = false;
-      _configuration.Shaders.FilmGrain            = false;
-      _configuration.Shaders.VolumetricLighting   = false;
-      _configuration.Shaders.LensDirt             = false;
-      _configuration.Shaders.DynamicLensFlares    = false;
-      _configuration.Shaders.MotionBlur           = 0;
-      _configuration.Shaders.DOF                  = 0;
-      _configuration.Shaders.MXAO                 = 0;
-      _configuration.Shaders.SSR                  = false;
-      _configuration.Shaders.Deband               = false;
-      _configuration.OpenSauce.Bloom              = false;
-      _configuration.Chimera.Interpolation        = 0;
+      _configuration.OpenSauce.GBuffer = false;
+      _configuration.Shaders.FilmGrain = false;
+      _configuration.Shaders.VolumetricLighting = false;
+      _configuration.Shaders.LensDirt = false;
+      _configuration.Shaders.DynamicLensFlares = false;
+      _configuration.Shaders.MotionBlur = 0;
+      _configuration.Shaders.DOF = 0;
+      _configuration.Shaders.MXAO = 0;
+      _configuration.Shaders.SSR = false;
+      _configuration.Shaders.Deband = false;
+      _configuration.OpenSauce.Bloom = false;
+      _configuration.Chimera.Interpolation = 0;
       _configuration.Chimera.AnisotropicFiltering = false;
-      _configuration.Chimera.BlockLOD             = false;
+      _configuration.Chimera.BlockLOD = false;
     }
 
     private void PresetLow(object sender, RoutedEventArgs e)
     {
-      _configuration.OpenSauce.GBuffer            = true;
-      _configuration.Shaders.FilmGrain            = false;
-      _configuration.Shaders.VolumetricLighting   = true;
-      _configuration.Shaders.LensDirt             = true;
-      _configuration.Shaders.DynamicLensFlares    = false;
-      _configuration.Shaders.MotionBlur           = 0;
-      _configuration.Shaders.DOF                  = 0;
-      _configuration.Shaders.MXAO                 = 0;
-      _configuration.Shaders.SSR                  = false;
-      _configuration.Shaders.Deband               = false;
-      _configuration.OpenSauce.Bloom              = false;
-      _configuration.Chimera.Interpolation        = 8;
+      _configuration.OpenSauce.GBuffer = true;
+      _configuration.Shaders.FilmGrain = false;
+      _configuration.Shaders.VolumetricLighting = true;
+      _configuration.Shaders.LensDirt = true;
+      _configuration.Shaders.DynamicLensFlares = false;
+      _configuration.Shaders.MotionBlur = 0;
+      _configuration.Shaders.DOF = 0;
+      _configuration.Shaders.MXAO = 0;
+      _configuration.Shaders.SSR = false;
+      _configuration.Shaders.Deband = false;
+      _configuration.OpenSauce.Bloom = false;
+      _configuration.Chimera.Interpolation = 8;
       _configuration.Chimera.AnisotropicFiltering = false;
-      _configuration.Chimera.BlockLOD             = false;
+      _configuration.Chimera.BlockLOD = false;
     }
 
     private void PresetMedium(object sender, RoutedEventArgs e)
     {
-      _configuration.OpenSauce.GBuffer            = true;
-      _configuration.Shaders.FilmGrain            = false;
-      _configuration.Shaders.VolumetricLighting   = true;
-      _configuration.Shaders.LensDirt             = true;
-      _configuration.Shaders.DynamicLensFlares    = false;
-      _configuration.Shaders.MotionBlur           = 1;
-      _configuration.Shaders.DOF                  = 1;
-      _configuration.Shaders.MXAO                 = 0;
-      _configuration.Shaders.SSR                  = false;
-      _configuration.Shaders.Deband               = true;
-      _configuration.OpenSauce.Bloom              = true;
-      _configuration.Chimera.Interpolation        = 8;
+      _configuration.OpenSauce.GBuffer = true;
+      _configuration.Shaders.FilmGrain = false;
+      _configuration.Shaders.VolumetricLighting = true;
+      _configuration.Shaders.LensDirt = true;
+      _configuration.Shaders.DynamicLensFlares = false;
+      _configuration.Shaders.MotionBlur = 1;
+      _configuration.Shaders.DOF = 1;
+      _configuration.Shaders.MXAO = 0;
+      _configuration.Shaders.SSR = false;
+      _configuration.Shaders.Deband = true;
+      _configuration.OpenSauce.Bloom = true;
+      _configuration.Chimera.Interpolation = 8;
       _configuration.Chimera.AnisotropicFiltering = true;
-      _configuration.Chimera.BlockLOD             = false;
+      _configuration.Chimera.BlockLOD = false;
     }
 
     private void PresetHigh(object sender, RoutedEventArgs e)
     {
-      _configuration.OpenSauce.GBuffer            = true;
-      _configuration.Shaders.FilmGrain            = true;
-      _configuration.Shaders.VolumetricLighting   = true;
-      _configuration.Shaders.LensDirt             = true;
-      _configuration.Shaders.DynamicLensFlares    = false;
-      _configuration.Shaders.MotionBlur           = 2;
-      _configuration.Shaders.DOF                  = 1;
-      _configuration.Shaders.MXAO                 = 1;
-      _configuration.Shaders.SSR                  = false;
-      _configuration.Shaders.Deband               = true;
-      _configuration.OpenSauce.Bloom              = true;
-      _configuration.Chimera.Interpolation        = 8;
+      _configuration.OpenSauce.GBuffer = true;
+      _configuration.Shaders.FilmGrain = true;
+      _configuration.Shaders.VolumetricLighting = true;
+      _configuration.Shaders.LensDirt = true;
+      _configuration.Shaders.DynamicLensFlares = false;
+      _configuration.Shaders.MotionBlur = 2;
+      _configuration.Shaders.DOF = 1;
+      _configuration.Shaders.MXAO = 1;
+      _configuration.Shaders.SSR = false;
+      _configuration.Shaders.Deband = true;
+      _configuration.OpenSauce.Bloom = true;
+      _configuration.Chimera.Interpolation = 8;
       _configuration.Chimera.AnisotropicFiltering = true;
-      _configuration.Chimera.BlockLOD             = false;
+      _configuration.Chimera.BlockLOD = false;
     }
 
     private void PresetVeryHigh(object sender, RoutedEventArgs e)
     {
-      _configuration.OpenSauce.GBuffer            = true;
-      _configuration.Shaders.FilmGrain            = true;
-      _configuration.Shaders.VolumetricLighting   = true;
-      _configuration.Shaders.LensDirt             = true;
-      _configuration.Shaders.DynamicLensFlares    = false;
-      _configuration.Shaders.MotionBlur           = 3;
-      _configuration.Shaders.DOF                  = 2;
-      _configuration.Shaders.MXAO                 = 2;
-      _configuration.Shaders.Deband               = true;
-      _configuration.Shaders.SSR                  = false;
-      _configuration.OpenSauce.Bloom              = true;
-      _configuration.Chimera.Interpolation        = 8;
+      _configuration.OpenSauce.GBuffer = true;
+      _configuration.Shaders.FilmGrain = true;
+      _configuration.Shaders.VolumetricLighting = true;
+      _configuration.Shaders.LensDirt = true;
+      _configuration.Shaders.DynamicLensFlares = false;
+      _configuration.Shaders.MotionBlur = 3;
+      _configuration.Shaders.DOF = 2;
+      _configuration.Shaders.MXAO = 2;
+      _configuration.Shaders.Deband = true;
+      _configuration.Shaders.SSR = false;
+      _configuration.OpenSauce.Bloom = true;
+      _configuration.Chimera.Interpolation = 8;
       _configuration.Chimera.AnisotropicFiltering = true;
-      _configuration.Chimera.BlockLOD             = false;
+      _configuration.Chimera.BlockLOD = false;
     }
 
     private void PresetUltra(object sender, RoutedEventArgs e)
     {
-      _configuration.OpenSauce.GBuffer            = true;
-      _configuration.Shaders.FilmGrain            = true;
-      _configuration.Shaders.VolumetricLighting   = true;
-      _configuration.Shaders.LensDirt             = true;
-      _configuration.Shaders.DynamicLensFlares    = true;
-      _configuration.Shaders.MotionBlur           = 3;
-      _configuration.Shaders.DOF                  = 2;
-      _configuration.Shaders.MXAO                 = 2;
-      _configuration.Shaders.SSR                  = true;
-      _configuration.Shaders.Deband               = true;
-      _configuration.OpenSauce.Bloom              = true;
-      _configuration.Chimera.Interpolation        = 8;
+      _configuration.OpenSauce.GBuffer = true;
+      _configuration.Shaders.FilmGrain = true;
+      _configuration.Shaders.VolumetricLighting = true;
+      _configuration.Shaders.LensDirt = true;
+      _configuration.Shaders.DynamicLensFlares = true;
+      _configuration.Shaders.MotionBlur = 3;
+      _configuration.Shaders.DOF = 2;
+      _configuration.Shaders.MXAO = 2;
+      _configuration.Shaders.SSR = true;
+      _configuration.Shaders.Deband = true;
+      _configuration.OpenSauce.Bloom = true;
+      _configuration.Chimera.Interpolation = 8;
       _configuration.Chimera.AnisotropicFiltering = true;
-      _configuration.Chimera.BlockLOD             = false;
+      _configuration.Chimera.BlockLOD = false;
     }
 
     private void ShowAdvanced(object sender, RoutedEventArgs e)
@@ -197,6 +203,13 @@ namespace SPV3
     private void ShowPositions(object sender, RoutedEventArgs e)
     {
       _configuration.ShowHxeWepPositions();
+    }
+
+    private void EaxChanged(object sender, RoutedEventArgs e)
+    {
+      if (_configuration.Loader.EAX)
+        MessageBox.Show("WARNING: EAX sound enhancements coincide with certain " +
+                        "crashes. Please do not report sound effect crashes when EAX is ON.");
     }
 
     private void SSR_Or_ResolutionChanged(object sender, RoutedEventArgs e)

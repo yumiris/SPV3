@@ -485,7 +485,7 @@ namespace HXE.HCE
        *  PLEASE refer to the examples below this section for rules. 
        *  Don't assign incompatible values!
        */
-      public string          CDPath           = Environment.CurrentDirectory;
+      public string          CDPath           = $@"{Environment.CurrentDirectory}";
       public byte[]          DigitalProductID = ByteDPID;
       public readonly int    DistID           = 860; // 0x35c
       public string          EXE_Path         = "";
