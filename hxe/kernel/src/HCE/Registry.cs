@@ -77,13 +77,13 @@ namespace HXE.HCE
       switch(game)
       {
         case "Retail":
-          return null == WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG, Retail));
+          return null != WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG, Retail));
         case "Custom":
-          return null == WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG, Custom));
+          return null != WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG, Custom));
         case "Trial":
-          return null == WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG, Trial));
+          return null != WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG, Trial));
         case "HEK":
-          return null == WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG, HEK));
+          return null != WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG, HEK));
         default:
           throw new ArgumentException("The variable passed to GameExists() is invalid.");
       }
@@ -101,34 +101,40 @@ namespace HXE.HCE
       /*Retail and Custom Edition DPIDs end differently*/
       File   file = (File) Path.Combine(Environment.CurrentDirectory, $"{game}.reg");
       string content = "";
+
+      /** Replace strings containing single backslashes with double-backslashes*/
+      if (!data.EXE_Path.Contains("\\\\"))
+        data.EXE_Path = data.EXE_Path.Replace("\\", "\\\\");
+      if (!data.CDPath.Contains("\\\\"))
+        data.CDPath = data.CDPath.Replace("\\", "\\\\");
+      
       switch (game)
       {
         case "Retail":
           {
             content = 
-              "Windows Registry Editor Version 5.00"                                               + '\n' +
-                                                                                                     '\n' +
-              $@"[HKEY_LOCAL_MACHINE\{WoWCheck()}\{MSG}\{Retail}]"                                 + '\n' +
-              $"\"Zone\" = \"{data.Zone}\""                                                        + '\n' +
-              "\"DistID\"=dword:0000035c"                                                          + '\n' +
-              $"\"Version\"=\"{data.Version}\""                                                    + '\n' +
-              "\"Launched\"=\"0\""                                                                 + '\n' +
-              $"\"PID\"=\"{data.PID}\""                                                            + '\n' +
-              $"\"DigitalProductID\"=hex:a4,20,20,20,03,20,20,20,30,30,30,30,30,2d,30,30,30,2d,\\" + '\n' +
-              "  30,30,30,30,30,30,30,2d,30,30,30,30,30,20,50,20,20,20,4d,36,31,2d,30,30,30,\\"    + '\n' +
-              "  33,32,20,20,20,20,20,20,20,46,20,32,49,cd,b9,22,e6,62,21,b0,2c,c3,ee,01,20,\\"    + '\n' +
-              "  20,20,20,20,95,9c,8a,5e,e6,2e,1e,25,20,20,20,20,20,20,20,20,20,20,20,20,20,\\"    + '\n' +
-              "  20,20,20,20,20,20,20,20,20,20,20,38,37,35,30,30,20,20,20,20,20,20,20,01,0d,\\"    + '\n' +
-              "  20,20,f0,cf,5d,f1,20,08,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,\\"    + '\n' +
-              "  20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,da,a8,75,23"                   + '\n' +
-              $"\"EXE Path\"=\"{data.EXE_Path}\""                                                  + '\n' +
-              $"\"CDPath\"=\"{data.CDPath}\""                                                      + '\n' +
-              "\"VersionType\"=\"RetailVersion\""                                                  + '\n' +
-              "\"InstalledGroup\"=\"1\""                                                           + '\n' +
-              "\"LangID\"=dword:00000009"                                                          + '\n' +
-              "\"PendingVersion\"=\"\""                                                            + '\n' +
-                                                                                                     '\n' +
-                                                                                                     '\n';
+              "Windows Registry Editor Version 5.00"                                               + "\r\n" +
+                                                                                                     "\r\n" +
+              $@"[HKEY_LOCAL_MACHINE\{WoWCheck()}\{MSG}\{Retail}]"                                 + "\r\n" +
+              $"\"Zone\" = \"{data.Zone}\""                                                        + "\r\n" +
+              $"\"Version\"=\"{data.Version}\""                                                    + "\r\n" +
+              "\"DistID\"=dword:0000035c"                                                          + "\r\n" +
+              "\"Launched\"=\"0\""                                                                 + "\r\n" +
+              $"\"PID\"=\"{data.PID}\""                                                            + "\r\n" +
+              $"\"DigitalProductID\"=hex:a4,20,20,20,03,20,20,20,30,30,30,30,30,2d,30,30,30,2d,\\" + "\r\n" +
+              "  30,30,30,30,30,30,30,2d,30,30,30,30,30,20,50,20,20,20,4d,36,31,2d,30,30,30,\\"    + "\r\n" +
+              "  33,32,20,20,20,20,20,20,20,46,20,32,49,cd,b9,22,e6,62,21,b0,2c,c3,ee,01,20,\\"    + "\r\n" +
+              "  20,20,20,20,95,9c,8a,5e,e6,2e,1e,25,20,20,20,20,20,20,20,20,20,20,20,20,20,\\"    + "\r\n" +
+              "  20,20,20,20,20,20,20,20,20,20,20,38,37,35,30,30,20,20,20,20,20,20,20,01,0d,\\"    + "\r\n" +
+              "  20,20,f0,cf,5d,f1,20,08,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,\\"    + "\r\n" +
+              "  20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,da,a8,75,23"                   + "\r\n" +
+              "\"EXE Path\"=\"" + $"{data.EXE_Path}" + "\""                                        + "\r\n" +
+              "\"CDPath\"=\"" + $"{data.CDPath}" + "\""                                            + "\r\n" +
+              "\"VersionType\"=\"RetailVersion\""                                                  + "\r\n" +
+              "\"InstalledGroup\"=\"1\""                                                           + "\r\n" +
+              "\"LangID\"=dword:00000009"                                                          + "\r\n" +
+              "\"PendingVersion\"=\"\""                                                            + "\r\n" +
+                                                                                                     "\r\n";
           }
           break;
         case "Custom":
@@ -137,8 +143,8 @@ namespace HXE.HCE
               "Windows Registry Editor Version 5.00"                                               + "\r\n" +
                                                                                                      "\r\n" +
               $@"[HKEY_LOCAL_MACHINE\{WoWCheck()}\{MSG}\{Custom}]"                                 + "\r\n" +
-              "\"DistID\"=dword:0000035c"                                                          + "\r\n" +
               $"\"Version\"=\"{data.Version}\""                                                    + "\r\n" +
+              "\"DistID\"=dword:0000035c"                                                          + "\r\n" +
               "\"Launched\"=\"0\""                                                                 + "\r\n" +
               $"\"PID\"=\"{data.PID}\""                                                            + "\r\n" +
               "\"DigitalProductID\"=hex:a4,00,00,00,03,00,00,00,30,30,30,30,30,2d,30,30,30,2d,\\"  + "\r\n" +
@@ -148,13 +154,12 @@ namespace HXE.HCE
               "  00,00,00,00,00,00,00,00,00,00,00,30,30,30,30,30,00,00,00,00,00,00,00,0b,0d,\\"    + "\r\n" +
               "  00,00,ba,6d,6b,82,00,08,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,\\"    + "\r\n" +
               "  00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,f9,a4,04,e6"                   + "\r\n" +
-              $"\"EXE Path\"=\"{data.EXE_Path}\""                                                  + "\r\n" +
-              $"\"CDPath\"=\"{data.CDPath}\""                                                      + "\r\n" +
+              "\"EXE Path\"=\"" + $"{data.EXE_Path}" + "\""                                        + "\r\n" +
+              "\"CDPath\"=\"" + $"{data.CDPath}" + "\""                                            + "\r\n" +
               "\"VersionType\"=\"TrialVersion\""                                                   + "\r\n" +
               "\"InstalledGroup\"=\"1\""                                                           + "\r\n" +
               "\"LangID\"=dword:00000009"                                                          + "\r\n" +
               "\"PendingVersion\"=\"\""                                                            + "\r\n" +
-                                                                                                     "\r\n" +
                                                                                                      "\r\n";
           }
           break;
@@ -168,12 +173,11 @@ namespace HXE.HCE
               "\"Launched\"=\"0\""                                                                 + "\r\n" +
               "\"PID\"=\"\""                                                                       + "\r\n" +
               "\"DigitalProductID\"=hex:"                                                          + "\r\n" +
-              $"\"EXE Path\"=\"{data.EXE_Path}\""                                                  + "\r\n" +
-              $"\"CDPath\"=\"{data.CDPath}\""                                                      + "\r\n" +
+              "\"EXE Path\"=\"" + $"{data.EXE_Path}" + "\""                                        + "\r\n" +
+              "\"CDPath\"=\"" + $"{data.CDPath}" + "\""                                            + "\r\n" +
               "\"VersionType\"=\"TrialVersion\""                                                   + "\r\n" +
               "\"InstalledGroup\"=\"1\""                                                           + "\r\n" +
               "\"LangID\"=dword:00000009"                                                          + "\r\n" +
-                                                                                                     "\r\n" +
                                                                                                      "\r\n";
           }
           break;
@@ -186,12 +190,11 @@ namespace HXE.HCE
               "\"Launched\"=\"0\""                                                                 + "\r\n" +
               "\"PID\"=\"\""                                                                       + "\r\n" +
               "\"DigitalProductID\"=hex:"                                                          + "\r\n" +
-              $"\"EXE Path\"=\"{data.EXE_Path}\""                                                  + "\r\n" +
-              $"\"CDPath\"=\"{data.CDPath}\""                                                      + "\r\n" +
+              "\"EXE Path\"=\"" + $"{data.EXE_Path}" + "\""                                        + "\r\n" +
+              "\"CDPath\"=\"" + $"{data.CDPath}" + "\""                                            + "\r\n" +
               "\"VersionType\"=\"TrialVersion\""                                                   + "\r\n" +
               "\"InstalledGroup\"=\"1\""                                                           + "\r\n" +
               "\"LangID\"=dword:00000009"                                                          + "\r\n" +
-                                                                                                     "\r\n" +
                                                                                                      "\r\n";
           }
           break;

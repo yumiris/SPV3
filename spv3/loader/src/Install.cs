@@ -107,45 +107,20 @@ namespace SPV3
             try
             {
               MCC.Halo1.SetHalo1Path();
+              if(Exists(Halo1Path))
+              {
+                Status = "Halo CEA Located." + "\r\n"
+                       + "Note: You will need administrative permissions to activate Halo via MCC.";
+                CanInstall = true;
+                Mcc = Collapsed;
+                Main = Visible;
+              }
             }
             catch (Exception e)
             {
               Status = e.Message.ToLower();
               return;
             }
-          }
-          try
-          {
-            /** Write a .reg file */
-            {
-              var data = new Registry.Data();
-
-              if (!Registry.GameExists("Custom"))
-                data.EXE_Path = $@"{Target}";
-              Registry.WriteToFile("Custom", data);
-            }
-
-            /** Tell RegEdit to import the file */
-            {
-              var regedit = new Process();
-              regedit.StartInfo.FileName         = "regedit.exe";
-              regedit.StartInfo.Arguments        = "/s Custom.reg";
-              regedit.StartInfo.WorkingDirectory = CurrentDirectory;
-              regedit.StartInfo.UseShellExecute  = true;
-              regedit.StartInfo.Verb             = "runas";
-              regedit.Start();
-              regedit.WaitForExit();
-              if (0 != regedit.ExitCode)
-                throw new Exception("Failed to import to Registry.");
-            }
-
-            /** Cheers */
-            Status = "SPV3 successfully activated.";
-          }
-          catch (Exception e)
-          {
-            Status = "Failed to Activate Halo: " + e.ToString();
-            return;
           }
         }
       }
@@ -328,6 +303,43 @@ namespace SPV3
       {
         CanInstall = false;
 
+        if (Exists(Halo1Path))
+        {
+          try
+          {
+            /** Write a .reg file */
+            {
+              var data = new Registry.Data{ Version = "1.10" };
+              if (!Registry.GameExists("Custom"))
+                data.EXE_Path = $@"{Target}";
+              Registry.WriteToFile("Custom", data);
+            }
+
+            /** Tell RegEdit to import the file */
+            {
+              var filepath = Path.Combine(CurrentDirectory, "Custom.reg");
+              var regedit = new Process();
+              regedit.StartInfo.FileName = "regedit.exe";
+              regedit.StartInfo.Arguments = $"/s {filepath}";
+              regedit.StartInfo.WorkingDirectory = CurrentDirectory;
+              regedit.StartInfo.UseShellExecute = true;
+              regedit.StartInfo.Verb = "runas";
+              regedit.Start();
+              regedit.WaitForExit();
+              if (0 != regedit.ExitCode)
+                throw new Exception("Failed to import to Registry.");
+            }
+
+            /** Cheers */
+            Status = "SPV3 successfully activated.";
+          }
+          catch (Exception e)
+          {
+            Status = "Failed to Activate Halo: " + e.ToString();
+            return;
+          }
+        }
+
         var progress = new Progress<Status>();
         progress.ProgressChanged +=
           (o, s) => Status =
@@ -372,9 +384,6 @@ namespace SPV3
           Shortcut(GetFolderPath(DesktopDirectory));
           Shortcut(appStartMenuPath);
 
-          var data =  new Registry.Data
-          { CDPath = Target };
-          Registry.WriteKey(data); // NOT IMPLEMENTED
         }
 
         MessageBox.Show(
