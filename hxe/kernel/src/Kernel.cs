@@ -467,29 +467,37 @@ namespace HXE
           if (!configuration.Input.Override)
             return;
 
-          blam.Input.Mapping = new Dictionary<Profile.ProfileInput.Action, Profile.ProfileInput.Button>
+          blam.Input.JoyBindings = new List<Profile.ProfileInput.Binding>
           {
-            {Profile.ProfileInput.Action.MoveForward, Profile.ProfileInput.Button.LSU},
-            {Profile.ProfileInput.Action.MoveBackward, Profile.ProfileInput.Button.LSD},
-            {Profile.ProfileInput.Action.MoveLeft, Profile.ProfileInput.Button.LSL},
-            {Profile.ProfileInput.Action.MoveRight, Profile.ProfileInput.Button.LSR},
-            {Profile.ProfileInput.Action.Crouch, Profile.ProfileInput.Button.LSM},
-            {Profile.ProfileInput.Action.Reload, Profile.ProfileInput.Button.DPU},
-            {Profile.ProfileInput.Action.Jump, Profile.ProfileInput.Button.A},
-            {Profile.ProfileInput.Action.SwitchGrenade, Profile.ProfileInput.Button.B},
-            {Profile.ProfileInput.Action.Action, Profile.ProfileInput.Button.X},
-            {Profile.ProfileInput.Action.SwitchWeapon, Profile.ProfileInput.Button.Y},
-            {Profile.ProfileInput.Action.LookUp, Profile.ProfileInput.Button.RSU},
-            {Profile.ProfileInput.Action.LookDown, Profile.ProfileInput.Button.RSD},
-            {Profile.ProfileInput.Action.LookLeft, Profile.ProfileInput.Button.RSL},
-            {Profile.ProfileInput.Action.LookRight, Profile.ProfileInput.Button.RSR},
-            {Profile.ProfileInput.Action.ScopeZoom, Profile.ProfileInput.Button.RSM},
-            {Profile.ProfileInput.Action.ThrowGrenade, Profile.ProfileInput.Button.LB},
-            {Profile.ProfileInput.Action.Flashlight, Profile.ProfileInput.Button.LT},
-            {Profile.ProfileInput.Action.MeleeAttack, Profile.ProfileInput.Button.RB},
-            {Profile.ProfileInput.Action.FireWeapon, Profile.ProfileInput.Button.RT},
-            {Profile.ProfileInput.Action.MenuBack, Profile.ProfileInput.Button.Back},
-            {Profile.ProfileInput.Action.MenuAccept, Profile.ProfileInput.Button.Start}
+            new Profile.ProfileInput.Binding (Profile.ProfileInput.Action.MoveForward  , Profile.ProfileInput.Button.LSU),
+            new Profile.ProfileInput.Binding (Profile.ProfileInput.Action.MoveBackward , Profile.ProfileInput.Button.LSD),
+            new Profile.ProfileInput.Binding (Profile.ProfileInput.Action.MoveLeft     , Profile.ProfileInput.Button.LSL),
+            new Profile.ProfileInput.Binding (Profile.ProfileInput.Action.MoveRight    , Profile.ProfileInput.Button.LSR),
+            new Profile.ProfileInput.Binding (Profile.ProfileInput.Action.Crouch       , Profile.ProfileInput.Button.LSM),
+            new Profile.ProfileInput.Binding (Profile.ProfileInput.Action.Reload       , Profile.ProfileInput.Button.DPU),
+            new Profile.ProfileInput.Binding (Profile.ProfileInput.Action.Jump         , Profile.ProfileInput.Button.A),
+            new Profile.ProfileInput.Binding (Profile.ProfileInput.Action.SwitchGrenade, Profile.ProfileInput.Button.B),
+            new Profile.ProfileInput.Binding (Profile.ProfileInput.Action.Action       , Profile.ProfileInput.Button.X),
+            new Profile.ProfileInput.Binding (Profile.ProfileInput.Action.SwitchWeapon , Profile.ProfileInput.Button.Y),
+            new Profile.ProfileInput.Binding (Profile.ProfileInput.Action.LookUp       , Profile.ProfileInput.Button.RSU),
+            new Profile.ProfileInput.Binding (Profile.ProfileInput.Action.LookDown     , Profile.ProfileInput.Button.RSD),
+            new Profile.ProfileInput.Binding (Profile.ProfileInput.Action.LookLeft     , Profile.ProfileInput.Button.RSL),
+            new Profile.ProfileInput.Binding (Profile.ProfileInput.Action.LookRight    , Profile.ProfileInput.Button.RSR),
+            new Profile.ProfileInput.Binding (Profile.ProfileInput.Action.ScopeZoom    , Profile.ProfileInput.Button.RSM),
+            new Profile.ProfileInput.Binding (Profile.ProfileInput.Action.ThrowGrenade , Profile.ProfileInput.Button.LB),
+            new Profile.ProfileInput.Binding (Profile.ProfileInput.Action.Flashlight   , Profile.ProfileInput.Button.LT),
+            new Profile.ProfileInput.Binding (Profile.ProfileInput.Action.MeleeAttack  , Profile.ProfileInput.Button.RB),
+            new Profile.ProfileInput.Binding (Profile.ProfileInput.Action.FireWeapon   , Profile.ProfileInput.Button.RT),
+            new Profile.ProfileInput.Binding (Profile.ProfileInput.Action.MenuBack     , Profile.ProfileInput.Button.B),
+            new Profile.ProfileInput.Binding (Profile.ProfileInput.Action.MenuAccept   , Profile.ProfileInput.Button.A),
+            new Profile.ProfileInput.Binding (Profile.ProfileInput.Action.ShowScores   , Profile.ProfileInput.Button.Back)
+            /** to do 
+             * 1. Bind gamepad Start to kbm Escape. Requires input wrapper loaded by Halo.
+             *    Alternatively, bind directly to the Pause/Exit-Menu/Cancel-Menu functions.
+            *  2. Split L/R Triggers to Z-Axis and Z-Rotation respectively, with or without the aid of x360ce or XInputPlus (which has a comp
+            *     Left Trigger  = Z-Axis     [XBCD] aka Axis 3 [x360ce]
+            *     Right Trigger = Z-Rotation [XBCD] aka Axis 6 [x360ce]
+            */              
           };
 
           Core("BLAM.INPUT: Input overrides have been applied accordingly.");

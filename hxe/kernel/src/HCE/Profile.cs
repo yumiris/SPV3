@@ -146,7 +146,7 @@ namespace HXE.HCE
           bw.Write(0x7F);
         }
 
-        foreach (var mapping in Input.Mapping)
+        foreach (var mapping in Input.JoyBindings)
         {
           var value  = (byte) mapping.Key;  /* action */
           var offset = (int) mapping.Value; /* button */
@@ -324,7 +324,7 @@ namespace HXE.HCE
         Audio.EAX                    = GetBoolean(Offset.AudioEAX);
         Audio.HWA                    = GetBoolean(Offset.AudioHWA);
 
-        Input.Mapping = new Dictionary<ProfileInput.Action, Button>();
+        Input.JoyBindings = new Dictionary<ProfileInput.Action, Button>();
 
         foreach (var button in Enum.GetValues(typeof(Button)))
         {
@@ -333,8 +333,8 @@ namespace HXE.HCE
           var key   = (ProfileInput.Action) reader.ReadByte();
           var value = (Button) button;
 
-          if (!Input.Mapping.ContainsKey(key))
-            Input.Mapping.Add(key, value);
+          if (!Input.JoyBindings.ContainsKey(key))
+            Input.JoyBindings.Add(key, value);
         }
 
         if ((int) Details.Colour == 0xFF)
@@ -695,7 +695,18 @@ namespace HXE.HCE
         Back  = 0x236  /* home - back                     */
       }
 
-      public Dictionary<Action, Button> Mapping = new Dictionary<Action, Button>();
+      public List<Binding> JoyBindings = new List<Binding> { };
+
+      public class Binding
+      {
+        public Binding(Action action, Button button)
+        {
+          Action = action;
+          Button = button;
+        }
+        public Action Action { get; set; }
+        public Button Button { get; set; }
+      }
     }
   }
 }
