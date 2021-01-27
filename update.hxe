@@ -2,18 +2,18 @@
 <Update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Assets>
     <Asset>
-      <URL>https://github.com/yumiris/SPV3/releases/download/updates/credits.zip</URL>
+      <URL>https://github.com/yumiris/HCE/releases/download/updates/credits.zip</URL>
       <Name>credits.pdf</Name>
       <Size>178846</Size>
     </Asset>
     <Asset>
-      <URL>https://github.com/yumiris/SPV3/releases/download/updates/config.zip</URL>
+      <URL>https://github.com/yumiris/HCE/releases/download/updates/config.zip</URL>
       <Name>config.txt</Name>
       <Size>22678</Size>
     </Asset>
     <Asset>
-      <URL>https://github.com/yumiris/SPV3/releases/download/updates/fix-amd.zip</URL>
+      <URL>https://github.com/yumiris/HCE/releases/download/updates/fix-amd.zip</URL>
       <Name>fix-amd.pdf</Name>
-      <Size>589830</Siz
+      <Size>589830</Size>
   </Assets>
 </Update>
