@@ -36,6 +36,8 @@ namespace SPV3
       InitializeComponent();
       _configuration = (Configuration) DataContext;
       _configuration.Load();
+
+      _configuration.Chimera.Throttle = (byte) (_configuration.Loader.Framerate - 1);
     }
 
     public event EventHandler Home;
@@ -102,6 +104,29 @@ namespace SPV3
     {
       if (_configuration == null) return;
       _configuration.Shaders.AdaptiveHDRisReady = true == _configuration.Loader.Shaders == _configuration.Shaders.AdaptiveHDR;
+    }
+
+    /** 
+     * "Go To Definition" in VS will create a new function
+     * But it works as-is.
+     */
+    private void FramerateControl(object sender, RoutedEventArgs e) 
+    {
+      if (_configuration == null) return;
+
+      switch(_configuration.Loader.FramerateControl)
+      {
+        case 0: // V-Sync
+          _configuration.Chimera.Throttle = 0;
+          break;
+        case 1: // Throttle
+          _configuration.Chimera.Throttle = (byte) (_configuration.Loader.Framerate - 1);
+          break;
+        case 2: // Unlimited
+          _configuration.Chimera.Throttle = 0;
+          break;
+        default: break;
+      }
     }
 
     private void PresetVeryLow(object sender, RoutedEventArgs e)
