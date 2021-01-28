@@ -42,6 +42,7 @@ namespace SPV3
       private bool   _doom     = false;                                 /* toggle spv3 doom mode                      */
       private bool   _eax      = false;                                 /* toggle hw accel. & environmental sound     */
       private byte   _framerate = 60;                                   /* framerate to run spv3 at (in vsync mode)   */
+      private byte   _framerateControl = 1;                             /* fps control - vsync, throttle, uncap       */
       private bool   _gammaOn  = false;                                 /* when false, runs spv3/hce with -nogamma    */
       private byte   _gamma    = 150;                                   /* gamma level to run spv3 at (in vsync mode) */
       private ushort _height   = (ushort) PrimaryScreen.Bounds.Height;  /* height spv3/hce will be displayed at       */
@@ -54,6 +55,7 @@ namespace SPV3
       private ushort _width    = (ushort) PrimaryScreen.Bounds.Width;   /* width spv3/hce will be displayed at        */
       private bool   _window   = false;                                 /* runs spv3/hce as a windowed application    */
       private bool   _elevated = false;                                 /* runs spv3/hce in elevated (admin) mode     */
+      private bool   _framerateIsCapped = true;
 
        /**
        * 0 == Fullscreen
@@ -167,6 +169,33 @@ namespace SPV3
         }
       }
 
+      public byte FramerateControl
+      {
+        get => _framerateControl;
+        set
+        {
+          if (value == _framerateControl) return;
+          _framerateControl = value;
+          OnPropertyChanged();
+          switch (value)
+          {
+            case 0: // V-Sync
+              FramerateIsCapped = true;
+              Vsync = true;
+              break;
+            case 1: // Throttle
+              FramerateIsCapped = true;
+              Vsync = false;
+              break;
+            case 2: // Unlimited
+              FramerateIsCapped = false;
+              Vsync = false;
+              break;
+            default: break;
+          }
+        }
+      }
+
       public bool Vsync
       {
         get => _vsync;
@@ -269,6 +298,17 @@ namespace SPV3
           OnPropertyChanged();
           if (value == true) DisplayMode = 0;
           /// DisplayMode.Get{} calls WindowBorderlessUpdate()
+        }
+      }
+
+      public bool FramerateIsCapped
+      {
+        get => _framerateIsCapped;
+        set
+        {
+          if (value == _framerateIsCapped) return;
+          _framerateIsCapped = value;
+          OnPropertyChanged();
         }
       }
 
