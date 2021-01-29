@@ -119,7 +119,7 @@ namespace HXE.SPV3
        * Encodes post-processing settings to the initc file. Refer to doc/shaders.txt for further information.
        */
 
-      output.AppendLine("\n;;;  Toggle Volumetric Lighting");
+      output.AppendLine("\n;;;  Enable Volumetric Lighting");
       output.AppendLine((Shaders & PP.VOLUMETRIC_LIGHTING) != 0
         ? "set rasterizer_soft_filter true"
         : "set rasterizer_soft_filter false");
@@ -134,12 +134,12 @@ namespace HXE.SPV3
         ? "set use_new_vehicle_update_scheme false"
         : "set use_new_vehicle_update_scheme true");
 
-      output.AppendLine("\n;;;  If TRUE, disable immersive helmet/visor overlay");
+      output.AppendLine("\n;;;  Enable immersive helmet/visor overlay");
       output.AppendLine((Shaders & PP.HUD_VISOR) != 0
-        ? "set multiplayer_draw_teammates_names false"
-        : "set multiplayer_draw_teammates_names true");
+        ? "set multiplayer_draw_teammates_names true"
+        : "set multiplayer_draw_teammates_names false");
 
-      output.AppendLine("\n;;;  Toggle Screen-Space, path-traced Reflections");
+      output.AppendLine("\n;;;  Enable Screen-Space, path-traced Reflections");
       output.AppendLine((Shaders & PP.SSR) != 0
         ? "set error_suppress_all true"
         : "set error_suppress_all false");
@@ -151,7 +151,7 @@ namespace HXE.SPV3
 
       if (System.IO.File.Exists(Paths.Legacy))
       {
-        output.AppendLine("\n;;;  Toggle Dynamic Lens Flares");
+        output.AppendLine("\n;;;  Enable Dynamic Lens Flares");
         output.AppendLine((Shaders & PP.DYNAMIC_LENS_FLARES) != 0
           ? "set display_precache_progress true"
           : "set display_precache_progress false");
@@ -159,7 +159,7 @@ namespace HXE.SPV3
 
       if (!System.IO.File.Exists(Paths.Legacy))
       {
-        output.AppendLine("\n;;;  Toggle Color Deband");
+        output.AppendLine("\n;;;  Enable Color Deband");
         output.AppendLine((Shaders & PP.DEBAND) != 0
           ? "set display_precache_progress true"
           : "set display_precache_progress false");
