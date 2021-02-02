@@ -60,7 +60,7 @@ HANDLE main_thread;
 std::string combined;
 int64_t start_time;
 byte CURRENT_PLAYERS;
-void main() {
+int main() {
 
 	discordInit();
 	combined = "Main Menu";;
@@ -152,6 +152,7 @@ void main() {
 			}
 		Sleep(1000);
 	}
+	return 0;
 }
 
 bool APIENTRY DllMain(HINSTANCE hDLLInst, DWORD fdwReason, LPVOID lpvReserved) {
