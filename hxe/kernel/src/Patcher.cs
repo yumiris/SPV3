@@ -35,11 +35,14 @@ namespace HXE
     public static List<PatchGroup> Reader() 
     {
       /* Get patches.crk resource from assembly resources */
-      System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
-      string file = "patches.crk";
-      file = a.GetName().Name + "." + file;
+      var file = Properties.Resources.patches.Split().ToList();
+      foreach (var line in file)
+      {
+        if (line.ToString().StartsWith(";"))
+          file.Remove(line);
+      }
 
-      /* Read bytes from memory to...array? */
+      /* Read strings from memory to...array? */
 
       /* Parse the data to members "PatchGroup" of list "Patches" */
 
@@ -55,11 +58,12 @@ namespace HXE
     public void Write(uint cfg, string exePath)
     {
       var LAA = true;
-      var DRM = (cfg & KPatches.DISABLE_DRM_AND_KEY_CHECKS) != 0;
-      var patchlist = new List<DataSet>();
-      
-      patchlist.Add(new DataSet() { Offset = 0x136, Original = 0x0F, Patch = 0x2F }); /* LAA */
-      
+      var DRM = (cfg & EXEP.DISABLE_DRM_AND_KEY_CHECKS) != 0;
+      var patchlist = new List<DataSet>
+      {
+        new DataSet() { Offset = 0x136, Original = 0x0F, Patch = 0x2F } /* LAA */
+      };
+
       if (DRM)
       {
         // just the most important ones for now
@@ -165,7 +169,7 @@ namespace HXE
     /// <summary>
     /// Offsets for bitwise operations
     /// </summary>
-    public static class KPatches
+    public static class EXEP
     {
       public const uint ENABLE_LARGE_ADDRESS_AWARE = 1 << 0x00; // Increase max memory range from 2GiB to 4GiB.
       public const uint DISABLE_DRM_AND_KEY_CHECKS = 1 << 0x01; // Removes several DRM/key checks.

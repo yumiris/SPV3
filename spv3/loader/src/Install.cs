@@ -296,7 +296,7 @@ namespace SPV3
 
       if (Registry.GameExists("Custom")
        || Registry.GameExists("Retail")
-       || ( Kernel.hxe.Tweaks.Patches & Patcher.KPatches.DISABLE_DRM_AND_KEY_CHECKS) == 1)
+       || ( Kernel.hxe.Tweaks.Patches & Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS) == 1)
         return;
       // else, prompt for activation
 
@@ -321,7 +321,7 @@ namespace SPV3
         await Task.Run(() => { Installer.Install(_source, _target, progress, Compress); });
 
         /* MCC DRM Patch */
-        if ((Kernel.hxe.Tweaks.Patches & Patcher.KPatches.DISABLE_DRM_AND_KEY_CHECKS) != 0)
+        if ((Kernel.hxe.Tweaks.Patches & Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS) != 0)
           new Patcher().Write(Kernel.hxe.Tweaks.Patches, Path.Combine(Target, HXE.Paths.HCE.Executable));
 
         /* shortcuts */
@@ -445,7 +445,7 @@ namespace SPV3
 
         if (Exists(Halo1Path))
         {
-          Kernel.hxe.Tweaks.Patches |= Patcher.KPatches.DISABLE_DRM_AND_KEY_CHECKS;
+          Kernel.hxe.Tweaks.Patches |= Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS;
           Status = "Halo CEA Located via Steam." + NewLine
                  + "Waiting for user to install SPV3." + NewLine
                  + "Note: Administrator permissions are required to activate Halo via MCC.";
@@ -503,7 +503,7 @@ namespace SPV3
         if (filename.Contains("haloce.exe") || filename.Contains("halo.exe"))
           if (process.MainModule.FileVersionInfo.FileVersion == "01.00.10.0621")
           {
-            Kernel.hxe.Tweaks.Patches |= Patcher.KPatches.DISABLE_DRM_AND_KEY_CHECKS;
+            Kernel.hxe.Tweaks.Patches |= Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS;
             CanInstall = true;
             Main       = Visible;
             Activation = Collapsed;
@@ -515,7 +515,7 @@ namespace SPV3
           {
               if (module.FileName.Contains("halo1.dll"))
               {
-                Kernel.hxe.Tweaks.Patches |= Patcher.KPatches.DISABLE_DRM_AND_KEY_CHECKS;
+                Kernel.hxe.Tweaks.Patches |= Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS;
                 CanInstall = true;
                 Main       = Visible;
                 Activation = Collapsed;
