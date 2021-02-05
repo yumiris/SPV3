@@ -266,6 +266,11 @@ namespace SPV3
     
     public event PropertyChangedEventHandler PropertyChanged;
 
+    private void DRMPatch()
+    {
+      new Patcher().Write(Kernel.hxe.Tweaks.Patches, Path.Combine(Target, HXE.Paths.HCE.Executable));
+    }
+
     public void Initialise()
     {
       Main = Visible;
@@ -295,10 +300,10 @@ namespace SPV3
         return;
       // else, prompt for activation
 
-      Status     = "Please install a legal copy of HCE before installing SPV3.";
+      Status     = "Please install a legal copy of Halo 1 before installing SPV3.";
       CanInstall = false;
 
-      Main = Collapsed;
+      Main        = Collapsed;
       Activation  = Visible;
     }
 
@@ -315,12 +320,9 @@ namespace SPV3
 
         await Task.Run(() => { Installer.Install(_source, _target, progress, Compress); });
 
-        /* DRM Patch */
-        {
-          if (Exists(Halo1Path) && !Registry.GameActivated("Custom"))
-            Kernel.hxe.Tweaks.Patches |= Patcher.KPatches.DISABLE_DRM_AND_KEY_CHECKS;
+        /* MCC DRM Patch */
+        if ((Kernel.hxe.Tweaks.Patches & Patcher.KPatches.DISABLE_DRM_AND_KEY_CHECKS) != 0)
           new Patcher().Write(Kernel.hxe.Tweaks.Patches, Path.Combine(Target, HXE.Paths.HCE.Executable));
-        }
 
         /* shortcuts */
         {
@@ -443,7 +445,9 @@ namespace SPV3
 
         if (Exists(Halo1Path))
         {
-          Status = "Halo CEA Located." + NewLine
+          Kernel.hxe.Tweaks.Patches |= Patcher.KPatches.DISABLE_DRM_AND_KEY_CHECKS;
+          Status = "Halo CEA Located via Steam." + NewLine
+                 + "Waiting for user to install SPV3." + NewLine
                  + "Note: Administrator permissions are required to activate Halo via MCC.";
           CanInstall = true;
           Main       = Visible;
@@ -499,10 +503,11 @@ namespace SPV3
         if (filename.Contains("haloce.exe") || filename.Contains("halo.exe"))
           if (process.MainModule.FileVersionInfo.FileVersion == "01.00.10.0621")
           {
+            Kernel.hxe.Tweaks.Patches |= Patcher.KPatches.DISABLE_DRM_AND_KEY_CHECKS;
             CanInstall = true;
             Main       = Visible;
             Activation = Collapsed;
-            Status = "MCC CEA Found" + NewLine + "Waiting for user to install SPV3.";
+            Status = "Halo PC Found" + NewLine + "Waiting for user to install SPV3.";
             return;
           }
         if (process.MainModule.FileName.Contains("MCC-Win64-Shipping.exe"))
@@ -510,6 +515,7 @@ namespace SPV3
           {
               if (module.FileName.Contains("halo1.dll"))
               {
+                Kernel.hxe.Tweaks.Patches |= Patcher.KPatches.DISABLE_DRM_AND_KEY_CHECKS;
                 CanInstall = true;
                 Main       = Visible;
                 Activation = Collapsed;
