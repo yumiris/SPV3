@@ -316,7 +316,8 @@ namespace SPV3
         return;
       }
 
-      if (Detection.InferFromRegistryKeyEntry() != null) return;
+      if (!Registry.GameExists("Custom") || !Registry.GameExists("Retail"))
+        return;
 
       Status     = "Please install a legal copy of HCE before installing SPV3.";
       CanInstall = false;
@@ -340,7 +341,7 @@ namespace SPV3
 
         /* DRM Patch */
         {
-          if (Exists(Halo1Path) && !Registry.GameExists("Custom"))
+          if (Exists(Halo1Path) && !Registry.GameActivated("Custom"))
             Kernel.hxe.Tweaks.Patches |= Patcher.KPatches.DISABLE_DRM_AND_KEY_CHECKS;
           new Patcher().Write(Kernel.hxe.Tweaks.Patches, Path.Combine(Target, HXE.Paths.HCE.Executable));
         }

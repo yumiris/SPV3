@@ -33,7 +33,7 @@ namespace HXE.HCE
 {
   public class Registry
   {
-    private static string _dpid   = BogusDPID;
+//  private static string _dpid   = BogusDPID;
     
     public const string x86       = @"SOFTWARE\Microsoft";
     public const string x86_64    = @"SOFTWARE\WOW6432Node\Microsoft";
@@ -45,7 +45,7 @@ namespace HXE.HCE
     public const string BogusPID  = "00000-000-0000000-00000";
     public const string BogusDPID = "a40000000300000030303030302d3030302d303030303030302d303030303000500000004d30302d30303030300000000000000046203249cdb922e66221b02cc3ee01000000000082610f5b913a8a030000000000000000000000000000000000000000000000003030303030000000000000000b0d0000ba6d6b82000800000000000000000000000000000000000000000000000000000000000000000000f9a404e6";
     public static string PID      = BogusPID;
-    public static byte[] ByteDPID = StringToByteArray(StringDPID);
+  //public static byte[] ByteDPID = StringToByteArray(StringDPID);
     /** TODO:
      * > Reverse-engineer Product Activation Key system.
      * > Allow the user to input their legitimate key.
@@ -61,7 +61,7 @@ namespace HXE.HCE
      *    indicated by the package to data.LangID.
      */
 
-    public static string StringDPID
+  /*public static string StringDPID
     {
       get => _dpid;
       set
@@ -71,7 +71,7 @@ namespace HXE.HCE
         ByteDPID = StringToByteArray(value);
         _dpid = value;
       }
-    }
+    }*/
 
     public static string WoWCheck()
     {
@@ -95,10 +95,20 @@ namespace HXE.HCE
       }
     }
 
-    public static void WriteToFile(string game)
+    public static bool GameActivated(string game)
     {
-      Data data = new Data();
-      WriteToFile(game, data);
+      RegistryKey key;
+      switch(game)
+      {
+        case "Retail":
+          key = WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG, Retail));
+          return (key != null && key.GetValue("PID").ToString() != null);
+        case "Custom":
+          key = WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG, Custom));
+          return (key != null && key.GetValue("PID").ToString() != null);
+        default:
+          throw new ArgumentException("The specified game does not need activation.");
+      }
     }
 
     public static void WriteToFile(string game, Data data)
@@ -383,14 +393,16 @@ namespace HXE.HCE
     /// Pass Custom to look for the Custom Edition registry entries
     /// or Retail to look for Retail registry entries.
     /// </param>
-    /// <remarks>Normally, I would use a more efficients variable than string, but string allows better labeling</remarks>
-    public static void GetRegistryKeys(string game)
+    /// <remarks>
+    /// I would use enums instead of strings if I could.
+    /// </remarks>
+    public static Data GetRegistryKeys(string game)
     {
       Data data = new Data();
-      GetRegistryKeys(game, data);
+      return GetRegistryKeys(game, data);
     }
 
-    public static void GetRegistryKeys(string game, Data data)
+    public static Data GetRegistryKeys(string game, Data data)
     {
       string path = Path.Combine(WoWCheck(), MSG);
       RegistryKey key;
@@ -471,6 +483,7 @@ namespace HXE.HCE
           default:
             break;
         }
+        return data;
       }
       catch(Exception e)
       {
@@ -495,8 +508,8 @@ namespace HXE.HCE
        *  Don't assign incompatible values!
        */
       public string          CDPath           = $@"{Environment.CurrentDirectory}";
-      public byte[]          DigitalProductID = ByteDPID;
-      public readonly int    DistID           = 860; // 0x35c
+      public byte[]          DigitalProductID = { 0x0 };
+      public readonly int    DistID           = 0x35c;
       public string          EXE_Path         = "";
       public readonly string InstalledGroup   = "1";
       public byte            LangID           = 9;
