@@ -91,6 +91,11 @@ namespace SPV3
       _install.Initialise();
     }
 
+    private void CheckRunningProcesses(object sender, RoutedEventArgs e)
+    {
+      _install.IsHaloOrCEARunning();
+    }
+
     private void Quit(object sender, RoutedEventArgs e)
     {
       Environment.Exit(0);

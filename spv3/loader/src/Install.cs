@@ -20,6 +20,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -480,6 +481,45 @@ namespace SPV3
         log.AppendAllText(msg);
         Status = msg;
       }
+    }
+
+    public void IsHaloOrCEARunning()
+    {
+      List<Process> processes = new List<Process>();
+      processes.AddRange(Process.GetProcessesByName("halo.exe"));
+      processes.AddRange(Process.GetProcessesByName("haloce.exe"));
+      processes.AddRange(Process.GetProcessesByName("MCC-Win64-Shipping.exe"));
+
+      if (processes.Count == 0)
+        return;
+      else
+      foreach (var process in processes)
+      {
+        var filename = process.MainModule.FileName;
+        if (filename.Contains("haloce.exe") || filename.Contains("halo.exe"))
+          if (process.MainModule.FileVersionInfo.FileVersion == "01.00.10.0621")
+          {
+            CanInstall = true;
+            Main       = Visible;
+            Activation = Collapsed;
+            Status = "MCC CEA Found" + NewLine + "Waiting for user to install SPV3.";
+            return;
+          }
+        if (process.MainModule.FileName.Contains("MCC-Win64-Shipping.exe"))
+          foreach (ProcessModule module in process.Modules) 
+          {
+              if (module.FileName.Contains("halo1.dll"))
+              {
+                CanInstall = true;
+                Main       = Visible;
+                Activation = Collapsed;
+                Status = "MCC CEA Found" + NewLine + "Waiting for user to install SPV3.";
+                return;
+              }
+          }
+      }
+
+      return;
     }
 
     public void InvokeSpv3()
