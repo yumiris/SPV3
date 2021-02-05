@@ -255,6 +255,28 @@
           OR
         </TextBlock>
         
+        <!-- Process -->
+        <StackPanel Grid.Row="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="960"
+                    Background="#80506080"
+                    Visibility="Visible"
+                    Margin="0,30"
+                    Height="90">
+          <TextBlock Foreground="White"
+                     TextWrapping="WrapWithOverflow"
+                     Margin="0,10"
+                     TextAlignment="Center">
+                    Please run MCC (if CEA is installed), Halo Retail, or Halo Custom Edition then click on "Check Running Processes".
+        </TextBlock>
+        <Button 
+                Width="600"
+                Margin="0.5,0,0.5,0"
+                Click="CheckRunningProcesses"
+                Content="Check Running Processes" />
+      </StackPanel>
+        
         <!-- HCE -->
         <StackPanel Grid.Row="3"
                     HorizontalAlignment="Center"
