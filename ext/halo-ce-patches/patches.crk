@@ -1,0 +1,224 @@
+Patches for Halo CE v1.0.10
+;orig SHA256: FEEA46FCE285EC071016CF5534ABE47ECF36F6CFAC8F1973EE6919851EA5A037
+
+Make large address aware
+haloce.exe
+;-----------------------
+;Normally 32-bit applications can only use up to 2GB of RAM. This patch increases that limit to 4GB.
+;It is required for some maps and mods.
+;
+;Set the IMAGE_FILE_LARGE_ADDRESS_AWARE characteristic flag in the PE header
+00000136: 0F 2F
+
+Remove DRM and key checks
+haloce.exe
+;------------------------
+;Allows playing and hosting games without requiring you or connecting players to have valid CD keys.
+;This game was released in 2004 and can no longer be purchased. As a result most current players use
+;cracked copies with one of a few common CD keys. Enforcing unique CD keys on your server will lead
+;to many players being unable to join.
+;
+;Removes the check on startup "Your product key is invalid - we recommend reinstalling the game".
+;Changes a `CMP`, `JZ` to a `JMP` to bypass the check.
+00144C2B: 38 EB
+00144C2C: 18 13
+;
+;Allows a server with a missing/invalid key to host an internet game.
+;`NOP`s out a call to `_atol` to cause a later comparison to fail.
+001BF82A: E8 90
+001BF82B: C7 90
+001BF82C: AC 90
+001BF82D: 00 90
+001BF82E: 00 90
+;
+;Disables checking the CD keys of incoming clients for duplicate keys.
+;Changes a `JE` to a `JMP` to skip the check.
+001BFF48: 74 EB
+
+
+Bind server to 0.0.0.0
+haloce.exe
+;---------------------
+;Fixes LAN game discovery and helps when running on systems with multiple interfaces. Can still bind
+;to a specific IP using the `-ip` flag.
+;
+;The game uses WS2_32.gethostbyname(<your hostname>) to get your IP. This patch takes the result of
+;that call and zeros it so the IP is "0.0.0.0".
+;Replaces `OR ECX,EDX` with `XOR ECX,ECX` to zero out ECX.
+00041695: 0B 31
+00041696: CA C9
+
+
+Disable safe mode prompt
+haloce.exe
+;-----------------------
+;Prevents the safe mode prompt from showing and always tries to continue normally. Safe mode is
+;completely broken on modern systems and is pretty easy to accidentally enable from the prompt.
+;If you really want to try safe mode (why?), the `-safemode` launch flag still works.
+;
+;If something went wrong and "safe mode" is an option, just `JMP` to the end of the function.
+;(safe mode is off by default)
+001822D0: 8B E9
+001822D1: 4D 57
+001822D2: 08 02
+001822D3: 51 00
+001822D4: 8B 00
+;
+;Use `XOR EAX,EAX`, `RET` to always return 0 ("continue")
+0018252C: 8B 31
+0018252D: C3 C0
+
+
+Disable modification of OS-level gamma
+haloce.exe
+;-------------------------------------
+;In the stock version the current gamma level is saved in the registry on launch and the system-wide
+;gamma level is set to whatever is specified by the in-game setting. When the game exits, the
+;registry key is read and the gamma level is set back. This patch completely removes gamma
+;modification and the associated registry keys.
+;
+;Disable adding the current gamma level to the registry on startup.
+;Replace the first instruction in the function with `RET`.
+00125860: 83 C3
+;
+;Disable in-game setting of gamma.
+;Replace the first instruction in the function with `RET`.
+00125AE0: A0 C3
+;
+;Disable resetting gamma level and setting the registry key when the game exits.
+;Replace the first instruction in the function with `RET`.
+00125A00: 83 C3
+
+
+Fix blue explosions when using 32-bit textures
+haloce.exe
+;---------------------------------------------
+;When using maps with uncompressed 32-bit textures, brown explosions would render as blue.
+;Uncompressed 32-bit colors are defined in ARGB but laid out in memory as BGRA due to endianness.
+;Without this patch, only the first 8 bits (the blue channel) were copied and the rest were set to
+;0, causing blue explosions.
+;
+;Replace `MOVZX BYTE` with `MOV DWORD`
+00127C57: 0F 8B
+00127C58: B6 74
+00127C59: 34 3A
+00127C5A: 3A 00
+
+
+Disable EULA
+haloce.exe
+;-----------
+;Allows the game to be run without displaying the EULA. Removes the need for eula.dll to be present.
+;
+;Jump over code that checks for the "FIRSTRUN" registry key and loads eula.dll if it can't find it
+;(eula.dll creates the key).
+0014470D: 8D E9
+0014470E: 55 93
+0014470F: C8 00
+00144710: 52 00
+00144711: 68 00
+
+
+Disable storing exit status in the registry
+haloce.exe
+;-----------------------------
+;Makes the executable more portable by not requiring/adding registry keys.
+;
+;Disable setting the registry key "ExitFlag" to "clean" when exiting normally.
+;Replace the first instruction in the function with `RET`.
+00182000: 51 C3
+;
+;Bypass accessing the "ExitFlag" registry key on startup to check/set it.
+;Replace the first instruction with `XOR EAX,EAX`, `RET` (return 0).
+00181E40: 81 31
+00181E41: EC C0
+00181E42: 1C C3
+
+
+Disable auto-centering the crosshair in vehicles
+haloce.exe
+;-----------------------------------------------
+;In the stock version the crosshair in vehicles like the scorpion tank will slowly move towards the
+;center of the screen as you drive. This prevents that behaviour.
+;
+;`NOP` out a `JP` (jump if the parity bit is set).
+;Hypothesis: JP is using the frame count - JP jumps every second frame. By NOPing it out, we never
+;jump and therefore never apply the auto-centering
+0007512A: 7A 90
+0007512B: 0B 90
+
+
+Disable mouse acceleration
+haloce.exe
+;-------------------------
+;These modifications take the built-in mouse acceleration curve and flatten it so no mouse
+;acceleration is applied.
+;
+;Turn a `JLE` into a `JMP`.
+;Skips a loop with some speed calculations and an early return if the speed is under a certain
+;threshold.
+0008F7E2: 7E EB
+;
+;Change an `FADD` to a `FLD` so the constant mouse speed is loaded into `ST0` instead of being
+;added to the previous acceleration calculation.
+0008F826: D8 D9
+
+
+Block update checks
+haloce.exe
+;------------------
+;Prevents checking for game updates. There probably won't be any but if there is you really don't
+;want to be forced to download them. Plus, the check slows down the loading of the server list.
+;
+;Replaces the first instruction of the update check with `XOR EAX,EAX`, `RET` (return 0).
+;A return code of 0 means no updates found.
+0017A920: 55 31
+0017A921: 8B C0
+0017A922: EC C3
+
+
+Disable camera shaking
+haloce.exe
+;---------------------
+;Disables the camera shaking that happens when firing weapons or taking damage since it's a bit
+;broken at high framerates.
+;
+;Turn a `JNE` into a `NOP`, `JMP` to skip over the code that applies the shaking.
+000CC46D: 0F 90
+000CC46E: 85 E9
+
+
+Prevent descoping when taking damage
+haloce.exe
+;-----------------------------------
+;Prevents zoomed-in weapons from descoping when the player takes damage.
+;Note that this gives a significant advantage in some situations so it's probably best to only
+;apply and use this if everyone you're playing with does as well.
+;
+;`NOP` out the call to the descope function
+0016B0F1: E8 90
+0016B0F2: 8A 90
+0016B0F3: DD 90
+0016B0F4: FF 90
+0016B0F5: FF 90
+
+
+Add tag
+haloce.exe
+;------
+00000FF0: 00 70
+00000FF1: 00 61
+00000FF2: 00 74
+00000FF3: 00 63
+00000FF4: 00 68
+00000FF5: 00 65
+00000FF6: 00 64
+00000FF7: 00 20
+00000FF8: 00 62
+00000FF9: 00 79
+00000FFA: 00 20
+00000FFB: 00 70
+00000FFC: 00 52
+00000FFD: 00 30
+00000FFE: 00 50
+00000FFF: 00 73
