@@ -49,8 +49,12 @@ namespace HXE
 		/**
 		 * Creates an SFX of the given source, using the current HXE executable, to the given target.
 		 */
-		public static void Compile(DirectoryInfo source, DirectoryInfo target, string filter = "*")
+		public static void Compile(Configuration configuration)
 		{
+			var source = configuration.Source;
+			var target = configuration.Target;
+			var filter = configuration.Filter;
+
 			target.Create();
 
 			/**
@@ -351,6 +355,13 @@ namespace HXE
 			public string Path   { get; set; } = string.Empty; /* path relative to root source/target dir */
 			public long   Offset { get; set; }                 /* offset in the HXE SFX executable        */
 			public long   Length { get; set; }                 /* file length on the filesystem           */
+		}
+
+		public class Configuration
+		{
+			public DirectoryInfo Source { get; set; } = new DirectoryInfo(CurrentDirectory);
+			public DirectoryInfo Target { get; set; } = new DirectoryInfo(CurrentDirectory).Parent;
+			public string        Filter { get; set; } = "*";
 		}
 	}
 }

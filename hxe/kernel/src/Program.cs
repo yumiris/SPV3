@@ -137,7 +137,14 @@ namespace HXE
         Run(() => { SFX.Extract(new DirectoryInfo(install)); });
 
       if (!string.IsNullOrWhiteSpace(compile))
-        Run(() => { SFX.Compile(new DirectoryInfo(CurrentDirectory), new DirectoryInfo(compile)); });
+        Run(() =>
+        {
+          SFX.Compile(new SFX.Configuration
+          {
+            Source = new DirectoryInfo(CurrentDirectory),
+            Target = new DirectoryInfo(compile)
+          });
+        });
 
       if (!string.IsNullOrWhiteSpace(update))
         Run(() =>
