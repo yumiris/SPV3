@@ -1,0 +1,231 @@
+chimera_language_shortened_name                                                 en
+
+common_no                                                                       No
+common_yes                                                                      Yes
+common_false                                                                    False
+common_true                                                                     True
+
+chimera_error_config                                                            Chimera: Error opening config file %s
+chimera_error_command_not_found                                                 Command not found
+chimera_error_command_error                                                     %s: An error occurred while executing the command
+chimera_error_command_unavailable                                               %s: Command is unavailable on your Halo installation (missing %s)
+chimera_error_not_enough_arguments                                              %s: Not enough arguments were specified. Expected at least %zu
+chimera_error_too_many_arguments                                                %s: Too many arguments were specified. Expected at most %zu
+
+chimera_error_must_be_in_a_server                                               You have to be in a server to do that.
+chimera_error_must_be_host                                                      You have to be the host to do that.
+chimera_error_player_not_found                                                  Player %s was not found.
+chimera_error_takes_player_number                                               This command takes a player number from chimera_players.
+chimera_error_failed_to_open_init                                               Failed to open init file %s
+chimera_error_cannot_download_retail_maps_1                                     Retail Halo PC and HaloMD maps are unsupported by the map downloader.
+chimera_error_cannot_download_retail_maps_2                                     Modify chimera.ini and set \"download_retail_maps\" under \"memory\" to enable.
+
+chimera_tag_map_is_protected                                                    Map is protected (unknown)
+
+chimera_warning_command_will_take_effect_on_next_load                           This command will take effect on next load.
+
+chimera_custom_chat_to_all                                                      All
+chimera_custom_chat_to_team                                                     Team
+chimera_custom_chat_to_vehicle                                                  Vehicle
+
+chimera_color_white                                                             white
+chimera_color_black                                                             black
+chimera_color_red                                                               red
+chimera_color_blue                                                              blue
+chimera_color_gray                                                              gray
+chimera_color_yellow                                                            yellow
+chimera_color_green                                                             green
+chimera_color_pink                                                              pink
+chimera_color_purple                                                            purple
+chimera_color_cyan                                                              cyan
+chimera_color_cobalt                                                            cobalt
+chimera_color_orange                                                            orange
+chimera_color_teal                                                              teal
+chimera_color_sage                                                              sage
+chimera_color_brown                                                             brown
+chimera_color_tan                                                               tan
+chimera_color_maroon                                                            maroon
+chimera_color_salmon                                                            salmon
+chimera_color_random                                                            random
+
+chimera_custom_chat_from_all                                                    ^%s%s^;^;: %s
+chimera_custom_chat_from_team                                                   ^%s%s^;^; (team): %s
+chimera_custom_chat_from_vehicle                                                ^%s%s^;^; (vehicle): %s
+
+chimera_category_bookmark                                                       bookmark
+chimera_category_controller                                                     controller
+chimera_category_core                                                           core
+chimera_category_custom_chat                                                    custom_chat
+chimera_category_debug                                                          debug
+chimera_category_enhancement                                                    enhancement
+chimera_category_fix                                                            fix
+chimera_category_lua                                                          	lua
+chimera_category_mouse                                                          mouse
+chimera_category_server                                                         server
+chimera_category_visual                                                         visual
+
+chimera_about_command_credits_header                                            Credits
+chimera_about_command_credits                                                   DEVELOPMENT\n    Snowy - Chimera lead developer\n    Vaporeon - Chat color palette, Testing\nSPANISH TRANSLATION\n    dr.oldboi\n    Jerry\n    MrChromed\n    Rock Candy\nTESTING\n    SteamFox
+chimera_about_command_license_header                                            License
+chimera_about_command_license                                                   Copyright (C) 2020 Snowy\n\nThis software is licensed under the GNU General Public License version 3.\nSee https://www.gnu.org/licenses/ for more information.
+chimera_about_command_help                                                      List information about this mod.
+chimera_af_command_help                                                         Enable anisotropic filtering.
+chimera_aim_assist_command_help                                                 Enable aim assist.
+chimera_allow_all_passengers_command_help                                       Disable team restrictions for vehicles.
+chimera_auto_uncrouch_help                                                      Use Xbox-style crouch mechanics, uncrouching when at full speed and on the ground.
+chimera_block_all_bullshit_help                                                 Disable various things that most people may find annoying.
+chimera_block_auto_center_command_help                                          Set whether auto centering is disabled.
+chimera_block_button_quotes_command_help                                        Set whether or not to remove quotes from button prompts.
+chimera_block_buffering_command_help                                            Disable buffering. May improve mouse input.
+chimera_block_buffering_command_warning                                         Disable Buffering is already enabled (likely via config.txt)!
+chimera_block_camera_shake_command_help                                         Disable camera shaking from damage.
+chimera_block_extra_weapon_blocked                                              Blocked %s
+chimera_block_extra_weapon_error_cannot_get_object                              Failed to read your object (you are dead)
+chimera_block_extra_weapon_error_cannot_get_weapon                              Failed to read the weapon
+chimera_block_extra_weapon_error_not_enough_weapons                             You need to be holding at least 3 unblocked weapons.
+chimera_block_extra_weapon_error_weapon_already_blocked                         Your held weapon is already blocked.
+chimera_block_extra_weapon_help                                                 Block the weapon you're holding (must be holding at least 3 weapons)
+chimera_unblock_all_extra_weapons_fail                                          No weapons were blocked.
+chimera_unblock_all_extra_weapons_help                                          Unblock all extra weapons.
+chimera_unblock_all_extra_weapons_success                                       All weapons were unblocked.
+chimera_block_equipment_rotation_command_help                                   Disable rotation from equipment spawns when hosting (emulates Xbox behavior).
+chimera_block_gametype_indicator_command_help                                   Hide the gametype indicator.
+chimera_block_gametype_rules_command_help                                       Disable gametype rules at the start of a game.
+chimera_block_hold_f1_command_help                                              Disable the Hold \"F1\" for score prompt.
+chimera_block_loading_screen_command_help                                       Disable loading screen.
+chimera_block_mouse_acceleration_command_help                                   Disable mouse acceleration.
+chimera_block_server_ip_command_help                                            Hide the server IP.
+chimera_block_zoom_blur_command_help                                            Disable scope blur.
+chimera_bookmark_add_command_help                                               Add a bookmark, optionally with the given connect parameters. If no parameters are given,\nthe latest connection is used.
+chimera_bookmark_add_no_recent_servers                                          You haven't joined any servers recently.
+chimera_bookmark_add_success                                                    Added %s%s%s:%u to bookmarks (%zu)
+chimera_bookmark_connect_help                                                   Connect to the bookmarked server at the given index.
+chimera_bookmark_delete_command_help                                            Delete a bookmark, either by bookmark index or by ip:port.
+chimera_bookmark_delete_success                                                 Deleted %s%s%s:%u from bookmarks
+chimera_bookmark_list_command_busy                                              A server list is already being queried. Wait until that is finished and try again.
+chimera_bookmark_list_command_help                                              List all bookmarks.
+chimera_bookmark_list_header                                                    Name|tMap|tGametype|tPlayers|rPing
+chimera_bookmark_list_error_failed_to_resolve                                   Error: Failed to resolve
+chimera_bookmark_list_error_timed_out                                           Error: Timed out
+chimera_bookmark_list_command_querying                                          Querying bookmarks...
+chimera_bookmark_error_invalid                                                  An invalid bookmark was given.
+chimera_bookmark_error_password_too_long                                        Passwords must be no longer than eight (8) characters.
+chimera_bookmark_error_not_found                                                No such bookmark exists.
+chimera_history_connect_help                                                    Connect to the server at the given index.
+chimera_history_list_command_help                                               List all recent servers.
+chimera_history_list_command_querying                                           Querying recent servers...
+chimera_chat_block_ips_command_help                                             Hide IPs from being shown in messages.
+chimera_chat_block_server_messages_command_help                                 Hide server messages.
+chimera_chat_color_help_command_help                                            Display a list of chat colors when inputting chat messages.
+chimera_command_categories                                                      Categories:
+chimera_command_commands_in_category                                            Commands in %s:
+chimera_command_no_commands_available_in_category                               No commands are available for your Halo installation.
+chimera_command_error_no_such_category_or_command                               No such category or command %s
+chimera_command_help                                                            Get information about Chimera.
+chimera_command_info_for_command                                                Info for %s:
+chimera_command_version                                                         Chimera version %s
+chimera_config_note                                                             #         NOTE: This file is autosaved and may be overwritten on load.         #
+chimera_console_prompt_color_command_help                                       Change the console prompt color.
+chimera_console_prompt_color_command_output                                     %.02f red, %.02f green, %.02f blue
+custom_edition_netcode_command_help                                             Enable Custom Edition support.
+custom_edition_netcode_command_error_needs_custom_edition_map_support           Custom Edition map support is not enabled on your client.
+chimera_delete_empty_weapons_help                                               Delete empty weapons when hosting (emulates Xbox behavior).
+chimera_devmode_command_help                                                    Enable devmode. This will enable Halo's developer and cheat commands.
+chimera_deadzones_command_help                                                  Set the value for all deadzones.
+chimera_diagonals_command_help                                                  Set diagonals for controller movement in multiplayer.
+chimera_enable_console_command_help                                             Enable the console.
+chimera_enable_console_command_warning                                          Console was enabled before startup (-console) and cannot be disabled.
+
+chimera_fix_blue_particles_command_help                                         Fix blue particles appearing in 32-bit maps.
+chimera_fix_contrails_command_help                                              Fix contrail behavior on high frame rates.
+chimera_fix_flashlight_command_help                                             Fix flashlight being too dim.
+chimera_fix_inverted_flags_command_help                                         Fix various shader behavior being inverted.
+chimera_fix_lens_flare_scaling_command_help                                     Fix lens flares not scaling at higher resolutions.
+chimera_fix_motion_sensor_command_help                                          Fix motion sensor behavior on high frame rates.
+
+chimera_fov_command_help                                                        Set field of view. Use \"auto\" for automatic FOV or suffix FOV with \"v\" to lock to a vertical FOV.
+chimera_fov_vehicle_command_help                                                Set field of view for vehicles. Use \"auto\" for automatic FOV or suffix FOV with \"v\" to lock to a vertical FOV.
+chimera_fov_cinematic_command_help                                              Set field of view for cinematics. Use \"auto\" for automatic FOV or suffix FOV with \"v\" to lock to a vertical FOV.
+chimera_fov_error_invalid_fov_given                                             Invalid FOV given. Expected \"auto\", <FOV>, <FOV>v, or \"off\"
+chimera_fp_reverb_command_help                                                  Set whether or not first person sounds should have reverb when EAX is enabled.
+chimera_interpolate_help                                                        Improve the appearance of object movement and animation. (CPU intensive!)
+chimera_language_command_available_languages                                    Available languages:
+chimera_language_command_error_invalid_language                                 Invalid language %s.
+chimera_language_command_help                                                   Set the language of Chimera.
+chimera_model_detail_command_help                                               Change Halo's model detail.
+chimera_mouse_sensitivity_command_help                                          Change mouse sensitivity.
+chimera_mouse_sensitivity_command_setting                                       %f horizontal; %f vertical
+chimera_player_info_command_help                                                Show information for a player by rcon index or yourself if none is given.
+chimera_player_list_command_help                                                List players in the server.
+chimera_player_list_command_none_found                                          There are no players in the server.
+chimera_send_chat_message_help                                                  Send a chat message on the given channel.
+chimera_send_chat_message_invalid_channel                                       Invalid channel number %i
+chimera_send_chat_message_throttled                                             You are sending messages too quickly!
+chimera_set_color_command_help                                                  Set your color.
+chimera_set_color_command_invalid_color                                         Invalid color %s specified.
+chimera_set_name_help                                                           Set your name.
+chimera_set_name_invalid_name_error                                             Invalid name \"%s\". Argument must be between 0 and 11 characters.
+chimera_show_coordinates_help                                                   Display your coordinates.
+chimera_show_fps_help                                                           Display your frame rate.
+chimera_shrink_empty_weapons_help                                               Shrink all empty weapons on the ground.
+chimera_signature_info_command_dumped                                           Dumped all signatures to %s
+chimera_signature_info_command_error                                            Unknown signature %s
+chimera_signature_info_command_help                                             Get information for a signature.
+chimera_signature_info_command_signature_address                                Memory Address
+chimera_signature_info_command_signature_feature                                Feature
+chimera_signature_info_command_signature_info                                   Signature info for %s:
+chimera_simple_score_screen_command_help                                        Show a simplified classic-style score screen.
+chimera_split_screen_hud_command_help                                           Use the split screen HUD.
+chimera_spam_to_join_command_help                                               Set whether or not to retry automatically if the server is full.
+chimera_spam_to_join_retrying                                                   Server is full! Retrying...\n(Hold ESCAPE to cancel)
+chimera_spectate_command_help                                                   Change your perspective to another player's perspective.
+chimera_spectate_command_now_spectating                                         Now spectating %S
+chimera_spectate_next_command_help                                              Switch to the next player.
+chimera_spectate_next_command_nobody_to_spectate                                There is nobody else you can spectate.
+chimera_spectate_previous_command_help                                          Switch to the previous player.
+chimera_throttle_fps_help                                                       Throttle Halo's frame rate.
+chimera_teleport_help                                                           Teleport to a player or coordinates.
+chimera_teleport_invalid_arguments                                              Invalid arguments were given.
+chimera_teleport_dead                                                           Failed to teleport: target is not alive
+chimera_teleport_dead_self                                                      Failed to teleport: teleported player is not alive
+chimera_teleport_success_mp                                                     Teleported %S to %f %f %f
+chimera_teleport_success_sp                                                     Teleported to %f %f %f
+chimera_uncap_cinematic_command_help                                            Disable the 30 FPS lock in cutscenes.
+chimera_map_info_command_current_map_info                                       Current map info
+chimera_map_info_command_map_name                                               Name
+chimera_map_info_command_map_build                                              Build
+chimera_map_info_command_compressed                                             Compressed
+chimera_map_info_command_map_size                                               Size
+chimera_map_info_command_uncompressed_map_size                                  Uncompressed size
+chimera_map_info_command_ram_buffer                                             RAM buffer
+chimera_map_info_command_map_tag_count                                          Tag count
+chimera_map_info_command_map_tag_data_size                                      Tag data size
+chimera_map_info_command_map_protected                                          Protected
+chimera_map_info_command_mismatched                                             Mismatched
+chimera_map_info_command_target_engine                                          Target engine
+chimera_widescreen_fix_command_warning_cannot_disable_font_override_enabled     Cannot disable widescreen fix while font_override is enabled
+
+chimera_lua_reload_scripts_command_help                                         Reload all Lua scripts.
+chimera_lua_scripts_were_reloaded                                               Lua scripts were reloaded.
+chimera_lua_warning_script_too_updated                                          %s was made for a newer version of Chimera.
+chimera_lua_warning_script_too_outdated                                         %s was made for a much older version of Chimera.
+chimera_lua_warning_script_possibly_not_work                                    It may possibly not work as intended.
+chimera_lua_warning_script_undefined_api_version                                %s does not have clua_version global defined.
+chimera_lua_error_failed_to_load_script                                         Failed to load %s
+chimera_lua_error_wrong_number_of_arguments                                     wrong number of arguments in %s
+chimera_lua_error_invalid_function_argument                                     invalid argument #%d in %s
+chimera_lua_error_scope_path                                                    invalid path (filesystem functions are scoped to script data directory)
+chimera_lua_error_invalid_object_id                                             invalid object ID
+chimera_lua_error_invalid_callback                                              invalid callback %s given in set_callback.
+chimera_lua_error_global_not_found                                              global not found or not implemented
+chimera_lua_error_expected_number                                               expected a number in argument #%d
+chimera_lua_error_expected_number_or_boolean                                    expected a number or boolean in argument #%d
+chimera_lua_error_invalid_timer_argument                                        timer argument must be boolean, string, number, or nil
+chimera_lua_error_minimum_timer_interval                                        interval must be at least 0.1 millseconds
+chimera_lua_error_timer_does_not_exists                                         timer with that ID does not exist
+chimera_lua_error_spawn_object_invalid_id                                       invalid tag ID specified in spawn_object
+chimera_lua_error_spawn_object_invalid_path                                     invalid tag path specified in spawn_object
+chimera_lua_error_minimum_tick_rate                                             tick rate must be at least 0.01
+chimera_lua_error_script_sandbox_invalid_address                                invalid address specified (script is sandboxed)
+chimera_lua_error_draw_text_invalid_font_id                                     invalid font tag id in draw_text
+chimera_lua_error_draw_text_invalid_alignment                                   invalid text alignment in draw_text
