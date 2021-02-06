@@ -27,11 +27,25 @@ namespace HXE.Common
     {
       int sLength = hex.Length;
       byte[] bytes = new byte[sLength / 2];
+
       for (int i = 0; i < sLength; i += 2)
       {
         bytes[i / 2] = System.Convert.ToByte(hex.Substring(i, 2), 16);
       }
+
       return bytes;
+    }
+
+    public static uint ByteArrayToUInt(byte[] bytes)
+    {
+      uint result = 0;
+
+      foreach(var b in bytes)
+      {
+        result += b;
+      }
+
+      return result;
     }
   }
 }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.IO.Path;
 using static HXE.Console;
+using static HXE.Common.ExtConvert;
 
 namespace HXE
 {
@@ -61,7 +62,7 @@ namespace HXE
         var line = file.ElementAt(index);
 
         /// If the first char in the line is a letter...     */
-        if (char.IsLetter(line.ToCharArray().First())) 
+        while (char.IsLetter(line.ToCharArray().First())) 
         {
           /** ...skip Name and Executable. Go to patch data. */
           index += 2;
@@ -69,7 +70,7 @@ namespace HXE
           /** ...assign patch name,                          */
           /** ...assign filename,                            */
           /** ...and then read patch data.                   */
-          if (char.IsDigit(file.ElementAt(index).ToCharArray().First()))
+          while (char.IsDigit(file.ElementAt(index).ToCharArray().First()))
           {
             
             patchGroup.Name = file.ElementAt(index - 2);
@@ -86,9 +87,9 @@ namespace HXE
               List<string> values = file.
                                     ElementAt(index).Split(byteSep, StringSplitOptions.RemoveEmptyEntries).
                                     ToList();
-              patchGroup.DataSets.Add(new DataSet { Offset   = uint.Parse(values[0]),
-                                                    Original = byte.Parse(values[1]),
-                                                    Patch    = byte.Parse(values[2]) });
+              patchGroup.DataSets.Add(new DataSet { Offset   = ByteArrayToUInt(StringToByteArray(values[0])),
+                                                    Original = StringToByteArray(values[1])[0],
+                                                    Patch    = StringToByteArray(values[2])[0]});
               index++;
             }
           }
