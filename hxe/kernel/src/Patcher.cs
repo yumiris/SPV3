@@ -108,14 +108,36 @@ namespace HXE
     /// <param name="exePath">Path to Halo executable</param>
     public void Write(uint cfg, string exePath)
     {
-      var LAA = true;
-      var DRM = (cfg & EXEP.DISABLE_DRM_AND_KEY_CHECKS) != 0;
-      var patchlist = new List<DataSet>
+      bool LAA               = (cfg & EXEP.ENABLE_LARGE_ADDRESS_AWARE) != 0;
+      bool DRM               = (cfg & EXEP.DISABLE_DRM_AND_KEY_CHECKS) != 0;
+      bool FixLAN            = (cfg & EXEP.BIND_SERVER_TO_0000)        != 0;
+      bool NoSafe            = (cfg & EXEP.DISABLE_SAFEMODE_PROMPT)    != 0;
+      bool NoGamma           = (cfg & EXEP.DISABLE_SYSTEM_GAMMA)       != 0;
+      bool NoEULA            = (cfg & EXEP.DISABLE_EULA)               != 0;
+      bool NoRegistryExit    = (cfg & EXEP.DISABLE_VEHICLE_AUTOCENTER) != 0;
+      bool NoMouseAccel      = (cfg & EXEP.DISABLE_MOUSE_ACCELERATION) != 0;
+      bool BlockUpdates      = (cfg & EXEP.BLOCK_UPDATE_CHECKS)        != 0;
+      bool BlockCamShake     = (cfg & EXEP.BLOCK_CAMERA_SHAKE)         != 0;
+      bool BlockDescopeOnDMG = (cfg & EXEP.PREVENT_DESCOPING_ON_DMG)   != 0;
+
+
+      var patchlist = new List<DataSet> // TEMP
       {
         new DataSet() { Offset = 0x136, Original = 0x0F, Patch = 0x2F } /* LAA */
       };
 
-      if (DRM)
+      /* Overrides */
+      {
+        LAA = true;
+        FixLAN = true;
+        NoSafe = true;
+        NoEULA = true;
+        NoRegistryExit = true;
+        BlockUpdates = true;
+      }
+
+
+      if (DRM) //TEMP
       {
         // just the most important ones for now
         patchlist.Add(new DataSet() { Offset = 0x144c2B, Original = 0x38, Patch = 0xEB });
@@ -232,8 +254,9 @@ namespace HXE
       public const uint DISABLE_VEHICLE_AUTOCENTER = 1 << 0x07; // In stock Halo, the crosshair in vehicles (e.g. scorpion tank) will slowly move towards the horizon as you move.
       public const uint DISABLE_MOUSE_ACCELERATION = 1 << 0x08; // Self-explanatory.
       public const uint BLOCK_UPDATE_CHECKS        = 1 << 0x09; // Prevents checking for game updates.
-      public const uint PREVENT_DESCOPING_ON_DMG   = 1 << 0x10; // Prevents zoomed-in weapons from descoping when the player takes damage.
-    //public const uint ADD_TAG                    = 1 << 0x11; // pR0Ps' signature
+      public const uint BLOCK_CAMERA_SHAKE         = 1 << 0x10; // Completely disable camera shake effect. Expose option to players prone to motion sickness.
+      public const uint PREVENT_DESCOPING_ON_DMG   = 1 << 0x11; // Prevents zoomed-in weapons from descoping when the player takes damage.
+    //public const uint ADD_TAG                    = 1 << 0x12; // pR0Ps' signature
     }
   }
 }
