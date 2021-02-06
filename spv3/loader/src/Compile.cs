@@ -82,7 +82,7 @@ namespace SPV3
         /**
          * Back up the file which permits us to compile.
          *
-         * After all, we wouldn't want our end-users compiling. :-)
+         * After all, we wouldn't want our end-users compiling. ^_^
          */
 
         var sourceCompileFile = Combine(CurrentDirectory,               Paths.Compile);

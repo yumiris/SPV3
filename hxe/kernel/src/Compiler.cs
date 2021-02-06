@@ -55,7 +55,7 @@ namespace HXE
     public static void Compile(string source, string target, IProgress<Status> progress = null)
     {
       /**
-       * Normalisation of the paths will preserve our sanity later on! ;-)
+       * Normalisation of the paths will preserve our sanity later on! ^_^
        */
 
       source = GetFullPath(source); /* normalise source path */

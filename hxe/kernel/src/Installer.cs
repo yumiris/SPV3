@@ -52,7 +52,7 @@ namespace HXE
     public static void Install(string source, string target, IProgress<Status> progress = null, bool enableLZNT1 = false)
     {
       /**
-       * Normalisation of the paths will preserve our sanity later on! ;-)
+       * Normalisation of the paths will preserve our sanity later on! ^_^
        */
 
       source = GetFullPath(source);
