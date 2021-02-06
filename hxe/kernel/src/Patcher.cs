@@ -35,19 +35,55 @@ namespace HXE
     public static List<PatchGroup> Reader() 
     {
       /* Get patches.crk resource from assembly resources */
-      var file = Properties.Resources.patches.Split().ToList();
-      foreach (var line in file)
+      /* Read strings from memory to...array? */
+      var nl         = new string[]{ "\r\n" };
+      var byteSep    = new string[]{": ", " "};
+      var list       = new List<PatchGroup>();
+      var patchGroup = new PatchGroup();
+      var file       = Properties.Resources.patches.Split(nl, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+      file.RemoveAt(0);
+
+      /* Remove comments from list */
       {
-        if (line.ToString().StartsWith(";"))
-          file.Remove(line);
+        var file2 = new List<string>();
+        foreach (var line in file)
+        {
+          if (!line.StartsWith(";"))
+            file2.Add(line);
+        }
+        file = file2;
       }
 
-      /* Read strings from memory to...array? */
+      /* Add Name, exe, and patch data to list */
+      for (var index = 0; index < file.Count; index++)
+      {
+        var line = file.ElementAt(index);
+        if (char.IsLetter(line.ToCharArray().First())) // if the first char in the line is a letter...
+        {
+          index += 2; // skip Name and Executable. Go to first patch values
+          if (char.IsDigit(file.ElementAt(index).ToCharArray().First()))
+          {
+            patchGroup.Name = file.ElementAt(index - 2);
+            while (char.IsDigit(file.ElementAt(index).ToCharArray().First())) // and the first char in the next line is a digit...
+            {
+              List<string> values = file.
+                                    ElementAt(index).Split(byteSep, StringSplitOptions.RemoveEmptyEntries).
+                                    ToList();
+
+              // Assign values{offset, original, patch}
+
+              list.Add(patchGroup);
+            }
+          }
+        }
+      }
+
 
       /* Parse the data to members "PatchGroup" of list "Patches" */
 
       /* return list */
-      return new List<PatchGroup>();
+      return list;
     }
 
     /// <summary>
