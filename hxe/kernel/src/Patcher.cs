@@ -59,10 +59,8 @@ namespace HXE
       /* Add Name, exe, and patch data to list */
       for (var index = 0; index < file.Count; index++)
       {
-        var line = file.ElementAt(index);
-
         /// If the first char in the line is a letter...     */
-        while (char.IsLetter(line.ToCharArray().First())) 
+        while (index < file.Count && char.IsLetter(file.ElementAt(index).ToCharArray().First())) 
         {
           /** ...skip Name and Executable. Go to patch data. */
           index += 2;
@@ -70,14 +68,13 @@ namespace HXE
           /** ...assign patch name,                          */
           /** ...assign filename,                            */
           /** ...and then read patch data.                   */
-          while (char.IsDigit(file.ElementAt(index).ToCharArray().First()))
+          while (index < file.Count && char.IsDigit(file.ElementAt(index).ToCharArray().First()))
           {
+            patchGroup = new PatchGroup() { DataSets = new List<DataSet>(),
+                                            Name = file.ElementAt(index - 2),
+                                            Executable = file.ElementAt(index - 1) };
             
-            patchGroup.Name = file.ElementAt(index - 2);
-            
-            patchGroup.Executable = file.ElementAt(index - 1);
-            
-            while (char.IsDigit(file.ElementAt(index).ToCharArray().First())) 
+            while (index < file.Count && char.IsDigit(file.ElementAt(index).ToCharArray().First())) 
             {
               /** Read Patch Data to List, ... 
               * Assign values{offset, original, patch} 
