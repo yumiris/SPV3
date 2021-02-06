@@ -20,7 +20,7 @@ namespace HXE
     {
       public string Name       { get; set; } = string.Empty;   /* Make large address aware */
       public string Executable { get; set; } = string.Empty;   /* haloce.exe               */
-      public List<DataSet> DataSet = new List<DataSet>();
+      public List<DataSet> DataSets = new List<DataSet>();
     }
 
     public class DataSet // 00000136: 0F 2F
@@ -59,23 +59,40 @@ namespace HXE
       for (var index = 0; index < file.Count; index++)
       {
         var line = file.ElementAt(index);
-        if (char.IsLetter(line.ToCharArray().First())) // if the first char in the line is a letter...
+
+        /// If the first char in the line is a letter...     */
+        if (char.IsLetter(line.ToCharArray().First())) 
         {
-          index += 2; // skip Name and Executable. Go to first patch values
+          /** ...skip Name and Executable. Go to patch data. */
+          index += 2;
+          /** Then, if the line is patch data...             */
+          /** ...assign patch name,                          */
+          /** ...assign filename,                            */
+          /** ...and then read patch data.                   */
           if (char.IsDigit(file.ElementAt(index).ToCharArray().First()))
           {
+            
             patchGroup.Name = file.ElementAt(index - 2);
-            while (char.IsDigit(file.ElementAt(index).ToCharArray().First())) // and the first char in the next line is a digit...
+            
+            patchGroup.Executable = file.ElementAt(index - 1);
+            
+            while (char.IsDigit(file.ElementAt(index).ToCharArray().First())) 
             {
+              /** Read Patch Data to List, ... 
+              * Assign values{offset, original, patch} 
+              * proceed to next Patch Data, 
+              * then check if line is Patch Data 
+              */
               List<string> values = file.
                                     ElementAt(index).Split(byteSep, StringSplitOptions.RemoveEmptyEntries).
                                     ToList();
-
-              // Assign values{offset, original, patch}
-
-              list.Add(patchGroup);
+              patchGroup.DataSets.Add(new DataSet { Offset   = uint.Parse(values[0]),
+                                                    Original = byte.Parse(values[1]),
+                                                    Patch    = byte.Parse(values[2]) });
+              index++;
             }
           }
+          list.Add(patchGroup);
         }
       }
 
@@ -163,7 +180,7 @@ namespace HXE
         }
         foreach (var PatchGroup in FilteredPatches)
         {
-          foreach (var DataSet in PatchGroup.DataSet) // I hate this
+          foreach (var DataSet in PatchGroup.DataSets) // I hate this
           {
 
             byte value  = false ? DataSet.Patch : DataSet.Original;
