@@ -127,89 +127,94 @@ namespace SPV3
         /**
          * Check validity of the specified target value.
          */
-
-        try
-        {
-          var exists = Directory.Exists(Target);
-          var path = Target;
-          var rootExists = Directory.Exists(Path.GetPathRoot(Target));
-
-          if (!exists && !rootExists)
+        var array = value.ToCharArray();
+        if (char.IsLetter(array[0])
+          && array[1] == ':'
+          && ( array[2] == '\\' || array[2] == '/'))
+          try
           {
-            throw new DirectoryNotFoundException(Target);
-          }
-          if (!exists && rootExists)
-          {
-            while (!Directory.Exists(path))
+            var exists = Directory.Exists(Target);
+            var path = Target;
+            var rootExists = Directory.Exists(Path.GetPathRoot(Target));
+
+            if (!exists && !rootExists)
             {
-              path = Directory.GetParent(path).Name;
-              if (path == "Debug") return;
+              throw new DirectoryNotFoundException(Target);
             }
+            if (!exists && rootExists)
+            {
+              while (!Directory.Exists(path))
+              {
+                path = Directory.GetParent(path).Name;
+                if (path == "Debug") return;
+              }
+            }
+
+            // if Target and Root exist...
+            _target = Path.GetFullPath(_target);
+            value = Path.GetFullPath(value);
+            var test = Path.Combine(path, "io.bin");
+            WriteAllBytes(test, new byte[8]);
+            Delete(test);
+
+            Status     = "Waiting for user to install SPV3.";
+            CanInstall = true;
           }
-
-          // if Target and Root exist...
-          _target = Path.GetFullPath(_target);
-          value = Path.GetFullPath(value);
-          var test = Path.Combine(path, "io.bin");
-          WriteAllBytes(test, new byte[8]);
-          Delete(test);
-
-          Status     = "Waiting for user to install SPV3.";
-          CanInstall = true;
-        }
-        catch (Exception e)
-        {
-          var msg = "Installation not possible at selected path: " + Target + "\n Error: " + e.ToString() + "\n";
-          var log = (HXE.File)Paths.Exception;
-          log.AppendAllText(msg);
-          Status = msg;
-          CanInstall = false;
-          return;
-        }
+          catch (Exception e)
+          {
+            var msg = "Installation not possible at selected path: " + Target + "\n Error: " + e.ToString() + "\n";
+            var log = (HXE.File)Paths.Exception;
+            log.AppendAllText(msg);
+            Status = msg;
+            CanInstall = false;
+            return;
+          }
 
         /**
          * Check available disk space. This will NOT work on UNC paths!
          */
-
-        try
-        {
-
-          /** First, check the C:\ drive to ensure there's enough free space 
-           * for temporary extraction to %temp% */
-          if (Directory.Exists(@"C:\"))
+        if (char.IsLetter(array[0])
+          && array[1] == ':'
+          && (array[2] == '\\' || array[2] == '/'))
+          try
           {
-            var systemDrive = new DriveInfo(@"C:\");
-            if (systemDrive.TotalFreeSpace < 10737418240)
-            { 
-              Status     = @"Not enough disk space (10GB required) on the C:\ drive. " + 
-                            "Clear junk files using Disk Cleanup or allocate more space to the volume";
+
+            /** First, check the C:\ drive to ensure there's enough free space 
+             * for temporary extraction to %temp% */
+            if (Directory.Exists(@"C:\"))
+            {
+              var systemDrive = new DriveInfo(@"C:\");
+              if (systemDrive.TotalFreeSpace < 10737418240)
+              { 
+                Status     = @"Not enough disk space (10GB required) on the C:\ drive. " + 
+                              "Clear junk files using Disk Cleanup or allocate more space to the volume";
+                CanInstall = false;
+              }
+            }
+
+            /** 
+             * Check if the target drive has at least 16GB of free space 
+             */
+            var targetDrive = new DriveInfo(Path.GetPathRoot(Target));
+
+            if (targetDrive.IsReady && targetDrive.TotalFreeSpace > 17179869184)
+            {
+              CanInstall = true;
+            }
+            else
+            {
+              Status     = "Not enough disk space (16GB required) at selected path: " + Target;
               CanInstall = false;
             }
           }
-
-          /** 
-           * Check if the target drive has at least 16GB of free space 
-           */
-          var targetDrive = new DriveInfo(Path.GetPathRoot(Target));
-
-          if (targetDrive.IsReady && targetDrive.TotalFreeSpace > 17179869184)
+          catch (Exception e)
           {
-            CanInstall = true;
-          }
-          else
-          {
-            Status     = "Not enough disk space (16GB required) at selected path: " + Target;
+            var msg = "Failed to get drive space.\n Error:  " + e.ToString() + "\n";
+            var log = (HXE.File)Paths.Exception;
+            log.AppendAllText(msg);
+            Status     = msg;
             CanInstall = false;
           }
-        }
-        catch (Exception e)
-        {
-          var msg = "Failed to get drive space.\n Error:  " + e.ToString() + "\n";
-          var log = (HXE.File)Paths.Exception;
-          log.AppendAllText(msg);
-          Status     = msg;
-          CanInstall = false;
-        }
 
         /**
          * Prohibit installations to known problematic folders.
