@@ -68,7 +68,7 @@ namespace SPV3
       using (var dialog = new OpenFileDialog())
       {
         dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-        dialog.Filter = "Steam (*.exe)|*.exe";
+        dialog.Filter = "Steam.exe|*.exe";
         dialog.FilterIndex = 1;
         _install.Update_SteamStatus();
         if (dialog.ShowDialog() == DialogResult.OK)
@@ -122,7 +122,11 @@ namespace SPV3
         if (_install == null) 
           return;
         if (SteamExePath_TextBox.Text.Contains("steam.exe"))
-          _install.SteamExePath = SteamExePath_TextBox.Text;
+        {
+          var array = SteamExePath_TextBox.Text.ToCharArray();
+          if (char.IsLetter(array[0]) && array[1] == ':')
+            _install.SteamExePath = SteamExePath_TextBox.Text;
+        }
       }
       catch (Exception ex)
       {

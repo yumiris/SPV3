@@ -88,52 +88,19 @@ namespace SPV3
 
     public string SteamExePath
     {
-      get => _steamExe;
+      get 
+      {
+        if (Exists(_steamExe))
+          CheckSteamPath(_steamExe);
+        return _steamExe; 
+      }
       set
       {
         if (value == _steamExe) return;
         _steamExe = value;
         OnPropertyChanged();
 
-        if (Exists(_steamExe))
-        {
-          SetSteam(value);
-          Update_SteamStatus();
-          Halo1Path = Path.Combine(SteamLibrary, SteamMccH1, Halo1dll);
-
-          if (!Exists(Halo1Path))
-          {
-            try
-            {
-              MCC.Halo1.SetHalo1Path();
-            }
-            catch (Exception e)
-            {
-              var msg = "SteamExePath could not be set.\n Error: " + e.Message + "\n";
-              var log = (HXE.File)Paths.Exception;
-              log.AppendAllText(msg);
-              SteamStatus = e.Message.ToLower();
-              return;
-            }
-          }
-
-          if (Exists(Halo1Path))
-          {
-            Status = "Halo CEA Located." + "\r\n"
-                   + "Note: You will need administrative permissions to activate Halo via MCC.";
-            CanInstall = true;
-            Main = Visible;
-            Activation = Collapsed;
-          }
-          else
-          {
-            SteamStatus = "Steam Located, but Halo CEA not found.";
-          }
-        }
-        else
-        {
-          Update_SteamStatus();
-        }
+        CheckSteamPath(value);
       }
     }
 
@@ -160,89 +127,94 @@ namespace SPV3
         /**
          * Check validity of the specified target value.
          */
-
-        try
-        {
-          var exists = Directory.Exists(Target);
-          var path = Target;
-          var rootExists = Directory.Exists(Path.GetPathRoot(Target));
-
-          if (!exists && !rootExists)
+        var array = value.ToCharArray();
+        if (char.IsLetter(array[0])
+          && array[1] == ':'
+          && ( array[2] == '\\' || array[2] == '/'))
+          try
           {
-            throw new DirectoryNotFoundException(Target);
-          }
-          if (!exists && rootExists)
-          {
-            while (!Directory.Exists(path))
+            var exists = Directory.Exists(Target);
+            var path = Target;
+            var rootExists = Directory.Exists(Path.GetPathRoot(Target));
+
+            if (!exists && !rootExists)
             {
-              path = Directory.GetParent(path).Name;
-              if (path == "Debug") return;
+              throw new DirectoryNotFoundException(Target);
             }
+            if (!exists && rootExists)
+            {
+              while (!Directory.Exists(path))
+              {
+                path = Directory.GetParent(path).Name;
+                if (path == "Debug") return;
+              }
+            }
+
+            // if Target and Root exist...
+            _target = Path.GetFullPath(_target);
+            value = Path.GetFullPath(value);
+            var test = Path.Combine(path, "io.bin");
+            WriteAllBytes(test, new byte[8]);
+            Delete(test);
+
+            Status     = "Waiting for user to install SPV3.";
+            CanInstall = true;
           }
-
-          // if Target and Root exist...
-          _target = Path.GetFullPath(_target);
-          value = Path.GetFullPath(value);
-          var test = Path.Combine(path, "io.bin");
-          WriteAllBytes(test, new byte[8]);
-          Delete(test);
-
-          Status     = "Waiting for user to install SPV3.";
-          CanInstall = true;
-        }
-        catch (Exception e)
-        {
-          var msg = "Installation not possible at selected path: " + Target + "\n Error: " + e.ToString() + "\n";
-          var log = (HXE.File)Paths.Exception;
-          log.AppendAllText(msg);
-          Status = msg;
-          CanInstall = false;
-          return;
-        }
+          catch (Exception e)
+          {
+            var msg = "Installation not possible at selected path: " + Target + "\n Error: " + e.ToString() + "\n";
+            var log = (HXE.File)Paths.Exception;
+            log.AppendAllText(msg);
+            Status = msg;
+            CanInstall = false;
+            return;
+          }
 
         /**
          * Check available disk space. This will NOT work on UNC paths!
          */
-
-        try
-        {
-
-          /** First, check the C:\ drive to ensure there's enough free space 
-           * for temporary extraction to %temp% */
-          if (Directory.Exists(@"C:\"))
+        if (char.IsLetter(array[0])
+          && array[1] == ':'
+          && (array[2] == '\\' || array[2] == '/'))
+          try
           {
-            var systemDrive = new DriveInfo(@"C:\");
-            if (systemDrive.TotalFreeSpace < 10737418240)
-            { 
-              Status     = @"Not enough disk space (10GB required) on the C:\ drive. " + 
-                            "Clear junk files using Disk Cleanup or allocate more space to the volume";
+
+            /** First, check the C:\ drive to ensure there's enough free space 
+             * for temporary extraction to %temp% */
+            if (Directory.Exists(@"C:\"))
+            {
+              var systemDrive = new DriveInfo(@"C:\");
+              if (systemDrive.TotalFreeSpace < 10737418240)
+              { 
+                Status     = @"Not enough disk space (10GB required) on the C:\ drive. " + 
+                              "Clear junk files using Disk Cleanup or allocate more space to the volume";
+                CanInstall = false;
+              }
+            }
+
+            /** 
+             * Check if the target drive has at least 16GB of free space 
+             */
+            var targetDrive = new DriveInfo(Path.GetPathRoot(Target));
+
+            if (targetDrive.IsReady && targetDrive.TotalFreeSpace > 17179869184)
+            {
+              CanInstall = true;
+            }
+            else
+            {
+              Status     = "Not enough disk space (16GB required) at selected path: " + Target;
               CanInstall = false;
             }
           }
-
-          /** 
-           * Check if the target drive has at least 16GB of free space 
-           */
-          var targetDrive = new DriveInfo(Path.GetPathRoot(Target));
-
-          if (targetDrive.IsReady && targetDrive.TotalFreeSpace > 17179869184)
+          catch (Exception e)
           {
-            CanInstall = true;
-          }
-          else
-          {
-            Status     = "Not enough disk space (16GB required) at selected path: " + Target;
+            var msg = "Failed to get drive space.\n Error:  " + e.ToString() + "\n";
+            var log = (HXE.File)Paths.Exception;
+            log.AppendAllText(msg);
+            Status     = msg;
             CanInstall = false;
           }
-        }
-        catch (Exception e)
-        {
-          var msg = "Failed to get drive space.\n Error:  " + e.ToString() + "\n";
-          var log = (HXE.File)Paths.Exception;
-          log.AppendAllText(msg);
-          Status     = msg;
-          CanInstall = false;
-        }
 
         /**
          * Prohibit installations to known problematic folders.
@@ -435,12 +407,52 @@ namespace SPV3
     public void Update_SteamStatus()
     {
       SteamStatus =
-        Exists(SteamExePath) ?
+        Exists(_steamExe) ?
         "Steam located!" :
         "Find Steam.exe or a Steam shortcut and we'll do the rest!";
     }
 
-    public void ViewHce()
+    public void CheckSteamPath(string exe)
+    {
+      if (Exists(exe) && exe.Contains("steam.exe"))
+      {
+        SetSteam(exe);
+        Update_SteamStatus();
+        Halo1Path = Path.Combine(SteamLibrary, SteamMccH1, Halo1dll);
+
+        if (!Exists(Halo1Path))
+        {
+          try
+          {
+            MCC.Halo1.SetHalo1Path();
+          }
+          catch (Exception e)
+          {
+            SteamStatus = "Failed to find CEA";
+            var msg = SteamStatus + NewLine
+                    + " Error: " + e.Message + NewLine;
+            var log = (HXE.File) Paths.Exception;
+            log.AppendAllText(msg);
+            return;
+          }
+        }
+
+        if (Exists(Halo1Path))
+        {
+          Status = "Halo CEA Located." + NewLine
+                 + "Note: Administrator permissions are required to activate Halo via MCC.";
+          CanInstall = true;
+          Main       = Visible;
+          Activation = Collapsed;
+        }
+        else
+          SteamStatus = "Steam Located, but Halo CEA not found.";
+      }
+      else
+        Update_SteamStatus();
+    }
+
+    public void ViewActivation() // Debug widget
     {
       Main = Collapsed;
       Activation  = Visible;
@@ -460,7 +472,7 @@ namespace SPV3
       }
       catch (Exception e)
       {
-        var msg = "Failed to install Halo Custom Ediiton.\n Error:  " + e.ToString() + "\n";
+        var msg = "Failed to install Halo Custom Edition.\n Error:  " + e.ToString() + "\n";
         var log = (HXE.File)Paths.Exception;
         log.AppendAllText(msg);
         Status = msg;
