@@ -88,52 +88,20 @@ namespace SPV3
 
     public string SteamExePath
     {
-      get => _steamExe;
+      get 
+      {
+        if (Exists(_steamExe))
+          CheckSteamPath(_steamExe);
+
+        return _steamExe; 
+      }
       set
       {
         if (value == _steamExe) return;
         _steamExe = value;
         OnPropertyChanged();
 
-        if (Exists(_steamExe))
-        {
-          SetSteam(value);
-          Update_SteamStatus();
-          Halo1Path = Path.Combine(SteamLibrary, SteamMccH1, Halo1dll);
-
-          if (!Exists(Halo1Path))
-          {
-            try
-            {
-              MCC.Halo1.SetHalo1Path();
-            }
-            catch (Exception e)
-            {
-              var msg = "SteamExePath could not be set.\n Error: " + e.Message + "\n";
-              var log = (HXE.File)Paths.Exception;
-              log.AppendAllText(msg);
-              SteamStatus = e.Message.ToLower();
-              return;
-            }
-          }
-
-          if (Exists(Halo1Path))
-          {
-            Status = "Halo CEA Located." + "\r\n"
-                   + "Note: You will need administrative permissions to activate Halo via MCC.";
-            CanInstall = true;
-            Main = Visible;
-            Activation = Collapsed;
-          }
-          else
-          {
-            SteamStatus = "Steam Located, but Halo CEA not found.";
-          }
-        }
-        else
-        {
-          Update_SteamStatus();
-        }
+        CheckSteamPath(value);
       }
     }
 
@@ -440,7 +408,50 @@ namespace SPV3
         "Find Steam.exe or a Steam shortcut and we'll do the rest!";
     }
 
-    public void ViewHce()
+    public void CheckSteamPath(string exe)
+    {
+      if (Exists(exe))
+      {
+        SetSteam(exe);
+        Update_SteamStatus();
+        Halo1Path = Path.Combine(SteamLibrary, SteamMccH1, Halo1dll);
+
+        if (!Exists(Halo1Path))
+        {
+          try
+          {
+            MCC.Halo1.SetHalo1Path();
+          }
+          catch (Exception e)
+          {
+            var msg = "Failed to find CEA." + NewLine
+                    + " Error: " + e.Message + NewLine;
+            var log = (HXE.File) Paths.Exception;
+            log.AppendAllText(msg);
+            SteamStatus = msg;
+            return;
+          }
+        }
+
+        if (Exists(Halo1Path))
+        {
+          Status = "Halo CEA Located." + NewLine
+                 + "Note: Administrator permissions are required to activate Halo via MCC.";
+          CanInstall = true;
+          Main       = Visible;
+          Activation = Collapsed;
+        }
+        else
+          SteamStatus = "Steam Located, but Halo CEA not found.";
+      }
+      else
+      {
+        Update_SteamStatus();
+      }
+
+    }
+
+    public void ViewActivation()
     {
       Main = Collapsed;
       Activation  = Visible;
@@ -460,7 +471,7 @@ namespace SPV3
       }
       catch (Exception e)
       {
-        var msg = "Failed to install Halo Custom Ediiton.\n Error:  " + e.ToString() + "\n";
+        var msg = "Failed to install Halo Custom Edition.\n Error:  " + e.ToString() + "\n";
         var log = (HXE.File)Paths.Exception;
         log.AppendAllText(msg);
         Status = msg;
