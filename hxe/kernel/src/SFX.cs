@@ -37,12 +37,12 @@ using static HXE.Console;
 namespace HXE
 {
 	/**
-	 * Class containing the data structure and logic for creating HXE SFX binaries.
+	 * Class containing the data structure and logic for creating SFX binaries.
 	 */
 	public class SFX
 	{
 		/**
-		 * Files to be compressed and extracted on the filesystem using the HXE SFX system.
+		 * Files to be compressed and extracted on the filesystem using the SFX system.
 		 */
 		public List<Entry> Entries { get; set; } = new List<Entry>();
 
@@ -66,37 +66,37 @@ namespace HXE
 			 *
 			 * The structure of the output SFX is essentially:
 			 *
-			 * [hxe assembly] + [deflate data] + [sfx object] + [sfx object length]
-			 * |------------|   |------------|   |----------|   |-----------------|
-			 *              |                |              |                     |
-			 *              |                |              |                     +- used for seeking the start of this sfx
-			 *              |                |              |                        object, by reading backwards from EOF
-			 *              |                |              |
-			 *              |                |              +----------------------- specifies the deflate offsets & output
-			 *              |                |                                       file name + path on the filesystem
-			 *              |                |
-			 *              |                +-------------------------------------- deflate data for each discovered file in
-			 *              |                                                        the source directory
-			 *              |
-			 *              +------------------------------------------------------- contents of this executable; essentially,
-			 *                                                                       we append the aforementioned data to the
-			 *                                                                       end of this executable
+			 * [pe executable] + [deflate data] + [sfx object] + [sfx object length]
+			 * |-------------|   |------------|   |----------|   |-----------------|
+			 *               |                |              |                     |
+			 *               |                |              |                     +- used for seeking the start of this sfx
+			 *               |                |              |                        object, by reading backwards from EOF
+			 *               |                |              |
+			 *               |                |              +----------------------- specifies the deflate offsets & output
+			 *               |                |                                       file name + path on the filesystem
+			 *               |                |
+			 *               |                +-------------------------------------- deflate data for each discovered file in
+			 *               |                                                        the source directory
+			 *               |
+			 *               +------------------------------------------------------- contents of this executable; essentially
+			 *                                                                        we append the aforementioned data to the
+			 *                                                                        end of this executable
 			 */
 
 			var sfx   = new SFX();
 			var files = source.GetFiles(filter, SearchOption.AllDirectories);
 
-			var sourceHxe = new FileInfo(GetEntryAssembly()?.Location ?? throw new InvalidOperationException());
-			var targetHxe = new FileInfo(Combine(target.FullName, "hxe.sfx.exe"));
+			var sourceExe = configuration.Executable;
+			var targetExe = new FileInfo(Combine(target.FullName, sourceExe.Name));
 
 			Info($"Source: {source.FullName}");
 			Info($"Target: {target.FullName}");
 
-			Info($"Source HXE EXE: {sourceHxe.FullName}");
-			Info($"Target HXE SFX: {targetHxe.FullName}");
+			Info($"Source EXE: {sourceExe.FullName}");
+			Info($"Target SFX: {targetExe.FullName}");
 
-			if (targetHxe.Exists)
-				targetHxe.Delete();
+			if (targetExe.Exists)
+				targetExe.Delete();
 
 			var sourceSize = files.Sum(x => x.Length);
 			var sfxSize    = 0L;
@@ -106,10 +106,10 @@ namespace HXE
 			 * object to ensure that we have the real length of the executable on the fs.
 			 */
 
-			sourceHxe.CopyTo(targetHxe.FullName);
-			targetHxe.Refresh();
+			sourceExe.CopyTo(targetExe.FullName);
+			targetExe.Refresh();
 
-			Info($"Copied {targetHxe.Length} bytes to: {targetHxe.Length}");
+			Info($"Copied {targetExe.Length} bytes to: {targetExe.Length}");
 
 			/**
 			 * For each discovered file in the given source directory, we will:
@@ -118,9 +118,9 @@ namespace HXE
 			 * 2. Create an SFX entry specifying:
 			 *    a) the file name & path on the fs
 			 *    b) the file length on the fs
-			 *    c) offset of the DEFLATE data in HXE SFX
+			 *    c) offset of the DEFLATE data in SFX
 			 */
-			using (var oStream = System.IO.File.Open(targetHxe.FullName, Append))
+			using (var oStream = System.IO.File.Open(targetExe.FullName, Append))
 			{
 				for (var i = 0; i < files.Length; i++)
 				{
@@ -128,9 +128,9 @@ namespace HXE
 					Info($"Packaging file: {file.Name}");
 
 					/**
-					 * We append the DEFLATE data to the HXE SFX binary. After the procedure is done, we will refresh the FileInfo
+					 * We append the DEFLATE data to the SFX binary. After the procedure is done, we will refresh the FileInfo
 					 * for the SFX to retrieve its new length. This length will be used to determine length of the DEFALTE and thus
-					 * its offset in the HXE SFX binary.
+					 * its offset in the SFX binary.
 					 */
 
 					var  length = file.Length;
@@ -147,11 +147,11 @@ namespace HXE
 
 						WriteLine(NewLine + new string('-', 80));
 
-						var oldLength = targetHxe.Length;
-						targetHxe.Refresh();
-						var newLength = targetHxe.Length;
+						var oldLength = targetExe.Length;
+						targetExe.Refresh();
+						var newLength = targetExe.Length;
 
-						Info($"HXE SFX increased from {oldLength} to {newLength} bytes.");
+						Info($"SFX increased from {oldLength} to {newLength} bytes.");
 
 						deflateLength = newLength - oldLength;
 
@@ -164,27 +164,27 @@ namespace HXE
 					}
 
 					/**
-					 * We will add an entry for the current file and its DEFLATE representation to teach the HXE SFX how to recreate
+					 * We will add an entry for the current file and its DEFLATE representation to teach the SFX how to recreate
 					 * the file down the line.
 					 *
 					 * The entries are designed to recreate the structure of the source directory, in a given arbitrary target
 					 * directory. As such, we will avoid absoltue paths for the files and instead infer paths relative to the source
 					 * directory.
 					 *
-					 * Each DEFLATE entry will be appended at the end of the HXE SFX binary. To determine where each file's DEFLATE
-					 * representation starts, we determine the offset by extracting the DEFLATE length, from the HXE SFX binary
+					 * Each DEFLATE entry will be appended at the end of the SFX binary. To determine where each file's DEFLATE
+					 * representation starts, we determine the offset by extracting the DEFLATE length, from the SFX binary
 					 * length.
 					 */
 
 					{
 						var name   = file.Name;
-						var offset = targetHxe.Length - deflateLength;
+						var offset = targetExe.Length - deflateLength;
 						var path = file.DirectoryName != null && file.DirectoryName.Equals(source.FullName)
 							? string.Empty
 							: file.DirectoryName?.Substring(source.FullName.Length + 1);
 
-						Info($"Acknowledging new entry: {targetHxe.Name} <= {path}\\{name}");
-						Info($"DEFLATE starts at offset 0x{offset:x8} in the HXE SFX binary.");
+						Info($"Acknowledging new entry: {targetExe.Name} <= {path}\\{name}");
+						Info($"DEFLATE starts at offset 0x{offset:x8} in the SFX binary.");
 
 						sfx.Entries.Add(new Entry
 						{
@@ -194,7 +194,7 @@ namespace HXE
 							Offset = offset
 						});
 
-						targetHxe.Refresh();
+						targetExe.Refresh();
 					}
 
 					WriteLine(NewLine + new string('-', 80));
@@ -205,7 +205,7 @@ namespace HXE
 
 				/**
 				 * Once we have created & appended the DEFLATE data for each file, and also populated the SFX object, we will
-				 * serialise it to a byte array which in turn gets appended to the HXE SFX binary as well. This makes the SFX
+				 * serialise it to a byte array which in turn gets appended to the SFX binary as well. This makes the SFX
 				 * completely self-contained and portable.
 				 *
 				 * Because an SFX object's array representation is a variable length, we will append the said length to the binary
@@ -216,7 +216,7 @@ namespace HXE
 
 				{
 					var sfxData   = sfx.Serialise();
-					var sfxOffset = targetHxe.Length;
+					var sfxOffset = targetExe.Length;
 
 					Info($"Appending SFX length ({sfxData.Length}) at offset 0x{sfxOffset:x8}.");
 
@@ -233,7 +233,7 @@ namespace HXE
 
 			{
 				WriteLine(NewLine + new string('*', 80));
-				Info($"Finished packaging {targetHxe.Name} with {files.Length} files.");
+				Info($"Finished packaging {targetExe.Name} with {files.Length} files.");
 
 				var percentage = (double) sfxSize / sourceSize * 100;
 
@@ -246,21 +246,23 @@ namespace HXE
 		/**
 		 * Extracts the SFX contents of the current HXE executable to the given target.
 		 */
-		public static void Extract(DirectoryInfo target)
+		public static void Extract(Configuration configuration)
 		{
+			var target = configuration.Target;
+			
 			target.Create();
 
 			/**
 			 * We will assume that the current HXE executable contains SFX data to be extracted.
 			 */
 
-			var hxe = new FileInfo(GetEntryAssembly()?.Location ?? throw new InvalidOperationException());
+			var exe = configuration.Executable;
 			var sfx = new SFX();
 
-			Info($"Determining SFX structure in {hxe.Name}");
+			Info($"Determining SFX structure in {exe.Name}");
 
 			/**
-			 * We first hydrate the SFX object with information from the HXE SFX binary. The start of the SFX data is inferred
+			 * We first hydrate the SFX object with information from the SFX binary. The start of the SFX data is inferred
 			 * from the length specified at the EOF. We also need to keep in mind the length of the variable that specifies
 			 * the length of the SFX data. Since it's a long, the size would be 8.
 			 *
@@ -269,15 +271,15 @@ namespace HXE
 			 * - Ending offset of the SFX data   = (hxe length - sizeof(long))
 			 */
 
-			using (var binReader = new BinaryReader(hxe.OpenRead()))
+			using (var binReader = new BinaryReader(exe.OpenRead()))
 			{
-				binReader.BaseStream.Seek(hxe.Length - sizeof(long), Begin);
+				binReader.BaseStream.Seek(exe.Length - sizeof(long), Begin);
 				binReader.BaseStream.Seek(binReader.ReadInt64(),     Begin);
 				sfx.Deserialise
 				(
 					binReader.ReadBytes
 					(
-						(int) hxe.Length - (int) binReader.BaseStream.Position - sizeof(long)
+						(int) exe.Length - (int) binReader.BaseStream.Position - sizeof(long)
 					)
 				);
 			}
@@ -298,7 +300,7 @@ namespace HXE
 				Info($"Found {entry.Length} bytes at 0x{entry.Offset:x8}: {entry.Name}");
 				Info($"Extracting its DEFLATE data to: {original.FullName}");
 
-				using (var iStream = hxe.OpenRead())
+				using (var iStream = exe.OpenRead())
 				using (var oStream = original.Create())
 				using (var dStream = new DeflateStream(iStream, Decompress))
 				{
@@ -347,13 +349,13 @@ namespace HXE
 		}
 
 		/**
-		 * Entry for a file to be compressed and extracted using the HXE SFX system.
+		 * Entry for a file to be compressed and extracted using the SFX system.
 		 */
 		public class Entry
 		{
 			public string Name   { get; set; }                 /* original file name on the filesystem    */
 			public string Path   { get; set; } = string.Empty; /* path relative to root source/target dir */
-			public long   Offset { get; set; }                 /* offset in the HXE SFX executable        */
+			public long   Offset { get; set; }                 /* offset in the SFX executable            */
 			public long   Length { get; set; }                 /* file length on the filesystem           */
 		}
 
@@ -362,6 +364,9 @@ namespace HXE
 			public DirectoryInfo Source { get; set; } = new DirectoryInfo(CurrentDirectory);
 			public DirectoryInfo Target { get; set; } = new DirectoryInfo(CurrentDirectory).Parent;
 			public string        Filter { get; set; } = "*";
+
+			public FileInfo Executable { get; set; } = new FileInfo(GetEntryAssembly()?.Location
+			                                                        ?? throw new InvalidOperationException());
 		}
 	}
 }

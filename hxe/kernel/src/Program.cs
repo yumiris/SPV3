@@ -134,7 +134,13 @@ namespace HXE
       }
 
       if (!string.IsNullOrWhiteSpace(install))
-        Run(() => { SFX.Extract(new DirectoryInfo(install)); });
+        Run(() => 
+        {
+          SFX.Extract(new SFX.Configuration
+          {
+            Target = new DirectoryInfo(install)
+          }); 
+        });
 
       if (!string.IsNullOrWhiteSpace(compile))
         Run(() =>
