@@ -424,11 +424,11 @@ namespace SPV3
           }
           catch (Exception e)
           {
-            var msg = "Failed to find CEA." + NewLine
+            SteamStatus = "Failed to find CEA";
+            var msg = SteamStatus + NewLine
                     + " Error: " + e.Message + NewLine;
             var log = (HXE.File) Paths.Exception;
             log.AppendAllText(msg);
-            SteamStatus = msg;
             return;
           }
         }
@@ -445,13 +445,10 @@ namespace SPV3
           SteamStatus = "Steam Located, but Halo CEA not found.";
       }
       else
-      {
         Update_SteamStatus();
-      }
-
     }
 
-    public void ViewActivation()
+    public void ViewActivation() // Debug widget
     {
       Main = Collapsed;
       Activation  = Visible;
