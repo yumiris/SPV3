@@ -122,7 +122,11 @@ namespace SPV3
         if (_install == null) 
           return;
         if (SteamExePath_TextBox.Text.Contains("steam.exe"))
-          _install.SteamExePath = SteamExePath_TextBox.Text;
+        {
+          var array = SteamExePath_TextBox.Text.ToCharArray();
+          if (char.IsLetter(array[0]) && array[1] == ':')
+            _install.SteamExePath = SteamExePath_TextBox.Text;
+        }
       }
       catch (Exception ex)
       {

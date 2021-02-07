@@ -92,7 +92,6 @@ namespace SPV3
       {
         if (Exists(_steamExe))
           CheckSteamPath(_steamExe);
-
         return _steamExe; 
       }
       set
@@ -403,14 +402,14 @@ namespace SPV3
     public void Update_SteamStatus()
     {
       SteamStatus =
-        Exists(SteamExePath) ?
+        Exists(_steamExe) ?
         "Steam located!" :
         "Find Steam.exe or a Steam shortcut and we'll do the rest!";
     }
 
     public void CheckSteamPath(string exe)
     {
-      if (Exists(exe))
+      if (Exists(exe) && exe.Contains("steam.exe"))
       {
         SetSteam(exe);
         Update_SteamStatus();
