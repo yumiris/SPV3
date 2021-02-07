@@ -164,7 +164,7 @@
     </Grid>
     
     <!-- Activation -->
-    <Canvas>
+    <Canvas Visibility="{Binding Activation}">
       <Image Source="Assets/background_activation.jpg"
              Height="540"/>
       <Canvas 
@@ -197,8 +197,7 @@
       </Canvas>
       <Grid Panel.ZIndex="2"
             Width="960"
-            Height="540"
-            Visibility="{Binding Activation}">
+            Height="540">
         <Grid.RowDefinitions>
           <RowDefinition Height="50"  />
           <RowDefinition Height="150" /><!-- MCC      -->
