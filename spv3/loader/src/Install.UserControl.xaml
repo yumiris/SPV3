@@ -26,276 +26,294 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:SPV3"
              mc:Ignorable="d">
-    <UserControl.DataContext>
-        <local:Install />
-    </UserControl.DataContext>
-    <UserControl.Resources>
-        <Style TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="#7F000000" />
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}" Padding="25,10">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#BF000000" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </UserControl.Resources>
+  <UserControl.DataContext>
+    <local:Install />
+  </UserControl.DataContext>
+  <UserControl.Resources>
+    <Style TargetType="{x:Type Button}">
+      <Setter Property="Background" Value="#7F000000" />
+      <Setter Property="Foreground" Value="White" />
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="{x:Type Button}">
+            <Border Background="{TemplateBinding Background}" Padding="25,10">
+              <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+      <Style.Triggers>
+        <Trigger Property="IsMouseOver" Value="True">
+          <Setter Property="Background" Value="#BF000000" />
+        </Trigger>
+      </Style.Triggers>
+    </Style>
+  </UserControl.Resources>
   <Canvas>
     <!-- Installation -->
     <Grid Width="960"
             Height="540"
           Visibility="Visible">
-          <Grid.Background>
-              <ImageBrush ImageSource="Assets/background_install.jpg" />
-          </Grid.Background>
-          <Grid.RowDefinitions>
-              <RowDefinition Height="225" /> <!-- top      -->
-              <RowDefinition Height="115" /> <!-- contents -->
-              <RowDefinition Height="*" />   <!-- bottom   -->
-          </Grid.RowDefinitions>
+      <Grid.Background>
+        <ImageBrush ImageSource="Assets/background_install.jpg" />
+      </Grid.Background>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="225" /><!-- top      -->
+        <RowDefinition Height="115" /><!-- contents -->
+        <RowDefinition Height="*"   /><!-- bottom   -->
+      </Grid.RowDefinitions>
 
-          <StackPanel Grid.Row="1"
+      <StackPanel Grid.Row="1"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
                       Width="640"
                       Visibility="{Binding Main}">
-              <Label Content="Location:"
+        <Label Content="Location:"
                      Foreground="White" />
-              <DockPanel>
-                  <Button DockPanel.Dock="Right"
+        <DockPanel>
+          <Button DockPanel.Dock="Right"
                           Margin="1,0,0,0"
                           Content="Browse"
                           Click="Browse" />
-                  <TextBox Name="Target"
+          <TextBox Name="Target"
                            Text="{Binding Target}"
                            TextChanged="Target_TextChanged"
                            VerticalContentAlignment="Center"
                            Margin="1,0,0,0"
                            BorderThickness="0" />
-              </DockPanel>
+        </DockPanel>
 
-              <DockPanel Margin="0,1,0,0">
-            <Grid>
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="150"/>
-              </Grid.ColumnDefinitions>
-              <Button Click="Back"
+        <DockPanel Margin="0,1,0,0">
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="150"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="150"/>
+            </Grid.ColumnDefinitions>
+            <Button Click="Back"
                       Grid.Column="0">
-                Go back...
-              </Button>
-              <Button x:Name="InstallButton"
+              Go back...
+            </Button>
+            <Button x:Name="InstallButton"
                       Grid.Column="1"
                       Margin="1,0,0,0"
                       Click="Install"
                       Content="Install"
                       IsEnabled="{Binding CanInstall}"/>
-              <Button x:Name="CompressButton"
+            <Button x:Name="CompressButton"
                       Margin="1,0,0,0"
                       Grid.Column="2"
                       Padding="0"
                       Click="CompressButton_Click">
-                <Button.ToolTip>
-                  <ToolTip MaxWidth="400">
-                    <TextBlock TextWrapping="Wrap">
+              <Button.ToolTip>
+                <ToolTip MaxWidth="400">
+                  <TextBlock TextWrapping="Wrap">
                       Enable NTFS compression for this folder to significantly save space.
                       WARNING: Unless installing to an SSD, NTFS compression will cause data to load slower.
                       This means maps may freeze up longer when loading new areas.
-                    </TextBlock>
-                  </ToolTip>
-                </Button.ToolTip>
-                <Grid Margin="-25,0" Width="auto">
-                  <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                  </Grid.ColumnDefinitions>
-                  <Image Source="Assets/compressFolder.png"
-                         Grid.Column="0"
-                         Margin="1,0,0,0"
-                         Height="auto" 
-                         Width="24"/>
-                  <CheckBox  IsChecked="{Binding Compress}"
-                             Click="CompressButton_Click"
-                             Grid.Column="1"
-                             VerticalAlignment="Center"
-                             Margin="2,0,2,0"
-                             Padding="0"/>
-                  <TextBlock Grid.Column="2"
-                             Margin="1,0,1,0"
-                             VerticalAlignment="Center">
-                    Compress Folder
                   </TextBlock>
-                </Grid>
-              </Button>
-            </Grid>
-          </DockPanel>
-        </StackPanel>
-      
-        <!-- Load -->
-        <StackPanel Grid.Row="1"
+                </ToolTip>
+              </Button.ToolTip>
+              <Grid Margin="-25,0" Width="auto">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto"/>
+                  <ColumnDefinition Width="auto"/>
+                  <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="Assets/compressFolder.png"
+                       Grid.Column="0"
+                       Margin="1,0,0,0"
+                       Height="auto" 
+                       Width="24"/>
+                <CheckBox IsChecked="{Binding Compress}"
+                          Click="CompressButton_Click"
+                          Grid.Column="1"
+                          VerticalAlignment="Center"
+                          Margin="2,0,2,0"
+                          Padding="0"/>
+                <TextBlock Grid.Column="2"
+                           Margin="1,0,1,0"
+                           VerticalAlignment="Center">
+                    Compress Folder
+                </TextBlock>
+              </Grid>
+            </Button>
+          </Grid>
+        </DockPanel>
+      </StackPanel>
+
+      <!-- Load -->
+      <StackPanel Grid.Row="1"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Width="640"
                     Visibility="{Binding Load}">
 
-            <Button Margin="1,0,0,0"
+        <Button Margin="1,0,0,0"
                     Click="InvokeSpv3"
                     Content="Load SPV3" />
-        </StackPanel>
+      </StackPanel>
 
-        <!-- Status -->
-        <Label Grid.Row="2"
+      <!-- Status -->
+      <Label Grid.Row="2"
                 Content="{Binding Status}"
                 Foreground="White"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
                 Margin="0,0,0,50" />
-      </Grid>
+    </Grid>
+    
     <!-- Activation -->
-    <Grid Width="960"
-            Height="540"
-            Visibility="{Binding Activation}">
-      <Grid.Background>
-        <ImageBrush ImageSource="Assets/background_activation.jpg"/>
-      </Grid.Background>
-      <Grid.RowDefinitions>
-        <RowDefinition Height="50" />
-        <RowDefinition Height="150"/>
-        <!-- MCC      -->
-        <RowDefinition Height="140" />
-        <!-- or -->
-        <RowDefinition Height="150" />
-        <!-- HCE   -->
-        <RowDefinition Height="50"/>
-        <!-- Footer   -->
-      </Grid.RowDefinitions>
-
-      <!-- MCC -->
-      <Canvas Grid.Row="1" 
-              ClipToBounds="true">
-        <Image Source="Assets/background_activation.jpg"
-               Height="540"
-               Margin="0,-50,0,0">
+    <Canvas>
+      <Image Source="Assets/background_activation.jpg"
+             Height="540"/>
+      <Canvas 
+        Panel.ZIndex="1"
+        ClipToBounds="true"
+        Height="150"
+        Width="960"
+        Margin="0,50,0,0">
+        <Image 
+          Source="Assets/background_activation.jpg"
+          Height="540" Canvas.Top="-50">
           <Image.Effect>
             <BlurEffect Radius="20"/>
           </Image.Effect>
         </Image>
       </Canvas>
-      <StackPanel Grid.Row="1"
+      <Canvas 
+        Panel.ZIndex="1"
+        ClipToBounds="true"
+        Height="150"
+        Width="960"
+        Margin="0,340,0,0">
+        <Image Source="Assets/background_activation.jpg"
+               Height="540"
+               Canvas.Top="-340">
+          <Image.Effect>
+            <BlurEffect Radius="20"/>
+          </Image.Effect>
+        </Image>
+      </Canvas>
+      <Grid Panel.ZIndex="2"
+            Width="960"
+            Height="540"
+            Visibility="{Binding Activation}">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="50"  />
+          <RowDefinition Height="150" /><!-- MCC      -->
+          <RowDefinition Height="140" /><!-- or       -->
+          <RowDefinition Height="150" /><!-- HCE      -->
+          <RowDefinition Height="50"  /><!-- Footer   -->
+        </Grid.RowDefinitions>
+
+        <!-- MCC -->
+        <StackPanel Grid.Row="1"
                     Width="960"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Visibility="Visible"
-                    Background="#80DC143C">
-        <DockPanel>
-          <Label Content="Locate Steam or its shortcut:"
-                   Foreground="White"
-                   Margin="100,0"/>
-        </DockPanel>
-        <DockPanel>
-          <Grid Margin="100,0">
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="1*"/>
-              <ColumnDefinition Width="100"/>
-            </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0"
+                    Background="#80DC143C" >
+          <DockPanel>
+            <Label Content="Locate Steam or its shortcut:"
+                    Foreground="White"
+                    Margin="100,0"/>
+          </DockPanel>
+          <DockPanel>
+            <Grid Margin="100,0">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="100"/>
+              </Grid.ColumnDefinitions>
+              <TextBox Grid.Column="0"
                        Name="SteamExePath_TextBox"
                        Text="{Binding SteamExePath}"
                        TextChanged="SteamExePath_TextChanged"
                        VerticalContentAlignment="Center"/>
-            <Button Grid.Column="1"
+              <Button Grid.Column="1"
                       Click="BrowseSteam"
                       Content="Browse"/>
-          </Grid>
-        </DockPanel>
-        <DockPanel>
-          <Label Margin="100,0"
+            </Grid>
+            </DockPanel>
+          <DockPanel>
+            <Label Margin="100,0"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center">
-            <TextBlock Foreground="White"
+              <TextBlock Foreground="White"
                          TextWrapping="WrapWithOverflow"
                          TextAlignment="Center"
                          Text="{Binding SteamStatus}"/>
-          </Label>
-        </DockPanel>
-      </StackPanel>
+            </Label>
+          </DockPanel>
+        </StackPanel>
 
-      <!-- HCE -->
-      <Canvas Grid.Row="3" 
-              ClipToBounds="true">
-        <Image Source="Assets/background_activation.jpg"
-               Height="540"
-               Margin="0,-340,0,0">
-          <Image.Effect>
-            <BlurEffect Radius="20"/>
-          </Image.Effect>
-        </Image>
-      </Canvas>
-      <StackPanel Grid.Row="3"
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Center"
-                  Width="960"
-                  Background="#80DC143C"
-                  Visibility="Visible"
-                  Margin="0,30"
-                  Height="90">
-        <TextBlock Foreground="White"
-                   TextWrapping="WrapWithOverflow"
-                   Margin="0,10"
-                   TextAlignment="Center">
+        <TextBlock Grid.Row="2"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Foreground="White"
+                   FontSize="30"
+                   FontFamily="Unispace">
+          OR
+        </TextBlock>
+        
+        <!-- HCE -->
+        <StackPanel Grid.Row="3"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="960"
+                    Background="#80DC143C"
+                    Visibility="Visible"
+                    Margin="0,30"
+                    Height="90">
+          <TextBlock Foreground="White"
+                     TextWrapping="WrapWithOverflow"
+                     Margin="0,10"
+                     TextAlignment="Center">
             A legal copy of Halo: Custom Edition has not been found on your system.
             <LineBreak />
             Please install it, then click on "Verify HCE" to check if the installation succeeded.
-        </TextBlock>
-        <Grid Margin="0,1,0,0">
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="120" />
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition Width="120" />
-          </Grid.ColumnDefinitions>
-          <Button Grid.Column="1"
-                  Margin="0.5,0"
-                  Click="InstallHce"
-                  Content="Step 1: Install HCE" />
-          <Button Grid.Column="2"
-                  Margin="0.5,0,0.5,0"
-                  Click="VerifyHce"
-                  Content="Step 2: Verify HCE" />
-        </Grid>
-      </StackPanel>
+          </TextBlock>
+          <Grid Margin="0,1,0,0">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="120" />
+              <ColumnDefinition />
+              <ColumnDefinition />
+              <ColumnDefinition Width="120" />
+            </Grid.ColumnDefinitions>
+            <Button
+              Grid.Column="1"
+              Margin="0.5,0"
+              Click="InstallHce"
+              Content="Step 1: Install HCE" />
+            <Button
+              Grid.Column="2"
+              Margin="0.5,0,0.5,0"
+              Click="VerifyHce"
+              Content="Step 2: Verify HCE" />
+          </Grid>
+        </StackPanel>
 
-      <!-- Status -->
-      <Grid Grid.Row="4"
-            VerticalAlignment="Center">
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="100"/>
-          <ColumnDefinition />
-          <ColumnDefinition Width="100"/>
-        </Grid.ColumnDefinitions>
-        <Button Grid.Column="0"
-                Click="Back"
-                Content="Go Back"/>
-        <Label Grid.Column="1"
-               Content="{Binding Status}"
-               Foreground="White"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"/>
-        <Button Grid.Column="2"
-                Click="Quit"
-                Content="Exit"/>
+        <!-- Status -->
+        <Grid Grid.Row="4"
+              VerticalAlignment="Center">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition />
+            <ColumnDefinition Width="100"/>
+          </Grid.ColumnDefinitions>
+          <Button Grid.Column="0"
+                  Click="Back"
+                  Content="Go Back"/>
+          <Label Grid.Column="1"
+                 Content="{Binding Status}"
+                 Foreground="White"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Center"/>
+          <Button Grid.Column="2"
+                  Click="Quit"
+                  Content="Exit"/>
+        </Grid>
       </Grid>
-    </Grid>
+    </Canvas>
   </Canvas>
 </UserControl>
