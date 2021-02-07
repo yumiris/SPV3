@@ -68,7 +68,7 @@ namespace SPV3
       using (var dialog = new OpenFileDialog())
       {
         dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-        dialog.Filter = "Steam (*.exe)|*.exe";
+        dialog.Filter = "Steam.exe|*.exe";
         dialog.FilterIndex = 1;
         _install.Update_SteamStatus();
         if (dialog.ShowDialog() == DialogResult.OK)
