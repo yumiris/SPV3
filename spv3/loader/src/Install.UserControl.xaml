@@ -213,7 +213,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Visibility="Visible"
-                    Background="#80DC143C" >
+                    Background="#80506080" >
           <DockPanel>
             <Label Content="Locate Steam or its shortcut:"
                     Foreground="White"
@@ -261,7 +261,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Width="960"
-                    Background="#80DC143C"
+                    Background="#80506080"
                     Visibility="Visible"
                     Margin="0,30"
                     Height="90">
