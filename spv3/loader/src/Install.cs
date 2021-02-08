@@ -288,8 +288,11 @@ namespace SPV3
         return;
       }
 
-      if (!Registry.GameExists("Custom") || !Registry.GameExists("Retail"))
+      if (Registry.GameExists("Custom")
+       || Registry.GameExists("Retail")
+       || ( Kernel.hxe.Tweaks.Patches & Patcher.KPatches.DISABLE_DRM_AND_KEY_CHECKS) == 1)
         return;
+      // else, prompt for activation
 
       Status     = "Please install a legal copy of HCE before installing SPV3.";
       CanInstall = false;
