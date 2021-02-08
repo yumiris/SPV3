@@ -297,7 +297,7 @@
             <ComboBoxItem Content="High" />
           </ComboBox>
         </DockPanel>
-        <DockPanel Visibility="{Binding Shaders.DynamicFlaresAvailable, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <DockPanel Visibility="{Binding Shaders.DynamicFlaresAvailable}">
           <Label Content="Dynamic Lens Flares:"
                  IsEnabled="{Binding Loader.Shaders}" />
           <CheckBox IsChecked="{Binding Shaders.DynamicLensFlares}"
@@ -312,7 +312,7 @@
                     Click="SSR_Or_ResolutionChanged"
                     ToolTip="Requires Adaptive HDR. Enables Screen Space Ray Traced Reflections." />
         </DockPanel>
-        <DockPanel Visibility="{Binding Shaders.DebandAvailable, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <DockPanel Visibility="{Binding Shaders.DebandAvailable}">
           <Label Content="Debanding:"
                  IsEnabled="{Binding Loader.Shaders}" />
           <CheckBox IsChecked="{Binding Shaders.DynamicLensFlares}"

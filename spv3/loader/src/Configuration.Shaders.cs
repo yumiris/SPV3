@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using HXE.SPV3;
 using SPV3.Annotations;
 
@@ -82,15 +83,21 @@ namespace SPV3
       }
 
       // Remove when we have Halo global variables for both DLF and Deband. Still used by XML bindings.
-      public bool DynamicFlaresAvailable
+      public Visibility DynamicFlaresAvailable
       {
-        get => !ModeIsSPV33();
+        get 
+        {
+          return !ModeIsSPV33() ? Visibility.Visible : Visibility.Collapsed; 
+        }
       }
 
       // Remove when we have Halo global variables for both DLF and Deband. Still used by XML bindings.
-      public bool DebandAvailable
+      public Visibility DebandAvailable
       {
-        get => ModeIsSPV33();
+        get
+        {
+          return ModeIsSPV33() ? Visibility.Visible : Visibility.Collapsed;
+        }
       }
 
       public bool DynamicLensFlares
