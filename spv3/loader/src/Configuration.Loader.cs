@@ -49,7 +49,7 @@ namespace SPV3
       private ushort _height   = (ushort) PrimaryScreen.Bounds.Height;  /* height spv3/hce will be displayed at       */
       private byte   _displayMode = 0;                                  /* display - fullscreen/window/borderless     */
       private bool   _photo    = false;                                 /* enables spv3 photo/blind mode              */
-      private bool   _vsync    = true;                                  /* V-sync preference (locked vs unlocked)     */
+      private bool   _vsync    = false;                                 /* V-sync preference (locked vs unlocked)     */
       private bool   _preset   = true;                                  /* use the built-in spv3 controller preset    */
       private bool   _resolutionEnabled = false;                        /* ability to provide custom resolution       */
       private bool   _shaders  = true;                                  /* toggle spv3 post-processing effects        */
@@ -72,6 +72,13 @@ namespace SPV3
           OnPropertyChanged();
           UpdateWindowBorderless();
         }
+      }
+
+      public enum DisplayModes
+      {
+        Fullscreen = 0,
+        Window     = 1,
+        Borderless = 2
       }
 
       public bool Window
@@ -363,6 +370,7 @@ namespace SPV3
       {
         if (!Exists())
           return this;
+
         try {
           using (var fs = new FileStream(Paths.Configuration, FileMode.Open, FileAccess.Read))
           using (var ms = new MemoryStream(Length))
