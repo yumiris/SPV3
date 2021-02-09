@@ -166,57 +166,74 @@ namespace HXE
           {
             var  lastprof = (LastProfile) Custom.LastProfile(executable.Profile.Path);
 
-            if (!lastprof.Exists())
+            /** Check if lastprof.txt exists
+             * If it exists, load its data
+             * Else, create a new one 
+             */
+            if (lastprof.Exists())
+              lastprof.Load();
+            else 
             {
               Error("Lastprof.txt does not Exist.");
+              Core("Saving LastProf.txt...");
               lastprof.Save();
             }
-
-            lastprof.Load();
 
             var name = lastprof.Profile;
             var save = (Progress) Custom.Progress(executable.Profile.Path, name);
 
+            /** Check for the existence of the blam.sav specified by LastProfile.
+             * If it exists, skip this abomination.
+             * Else, create a new player profile
+             *   or search for existing profiles.
+             */
             if (!save.Exists())
             {
-              Error("Player Profile could not be found.");
+              Error("Player Profile specified in LastProfile not found.");
               var savegames = Custom.Profiles(executable.Profile.Path);
-              if (!Exists(savegames))
-              {
-                Error("Savegames folder does not exist.");
-                NewProfile.Generate(executable.Profile.Path, lastprof, new Profile(), false);
-                name = lastprof.Profile;
-                save = (Progress) Custom.Progress(executable.Profile.Path, name);
-              }
-              else
-              {
-                var profiles = new List<string>(GetDirectories(savegames));
-                var validProfiles = new List<string>{ };
 
-                if (profiles.Count == 0)
+              /** Check if the Savegames (profiles) folder exists.
+               * If it exists, search for existing profiles.
+               * Else, create a new player profile.
+               */
+              if (Exists(savegames))
+              {
+                List<Profile> profiles      = Profile.List(savegames);
+                List<Profile> validProfiles = new List<Profile>{ };
+
+                /** Check for any existing profile folders 
+                 * If any are found, check if their blam.sav also exists.
+                 *  Select the first valid profile.
+                 * Else, create a new player profile.
+                 */
+                if (profiles.Count != 0)
+                {
+                  foreach (Profile profile in profiles)
+                  {
+                    if (profile.Exists())
+                      validProfiles.Add(profile); // todo: implement better validation
+                  }
+                  lastprof.Profile = validProfiles[0].Name;
+                  lastprof.Save();
+                }
+                else
                 {
                   Error("No profiles found in savegames folder.");
                   Core("Generating new profile");
                   NewProfile.Generate(executable.Profile.Path, lastprof, new Profile(), false);
                 }
-                else
-                {
-                  foreach (string profile in profiles)
-                  {
-                    var dirName = profile;
-                    if (System.IO.File.Exists(System.IO.Path.Combine(profile, "blam.sav")))
-                      validProfiles.Add(dirName); // todo: implement better validation
-                  }
-                  save = (Progress) Custom.Progress(executable.Profile.Path, validProfiles[0]); // todo: allow the user to select another profile
-                  lastprof.Profile = GetFileName(validProfiles[0]);
-                  lastprof.Save();
-                  name = lastprof.Profile;
-                  save = (Progress) Custom.Progress(executable.Profile.Path, name);
-                }
               }
+              else
+              {
+                Error("Savegames folder does not exist.");
+                Core("Creating savegames folder and a new profile...");
+                NewProfile.Generate(executable.Profile.Path, lastprof, new Profile(), false);;
+              }
+              name = lastprof.Profile;
+              save = (Progress) Custom.Progress(executable.Profile.Path, name);
             }
 
-            var campaign = new HXE.Campaign(Paths.Campaign(configuration.Mode));
+            var campaign = new Campaign(Paths.Campaign(configuration.Mode));
 
             campaign.Load();
             save.Load(campaign);
@@ -893,7 +910,7 @@ namespace HXE
       public Configuration Load()
       {
         if (!System.IO.File.Exists(_path))
-          Save();
+          return this;
 
         using (var fs = new FileStream(_path, FileMode.Open, FileAccess.Read))
         using (var ms = new MemoryStream(Length))
@@ -997,7 +1014,7 @@ namespace HXE
         public bool Quality           { get; set; }          /* set to false by default for optimisation */
         public bool GammaOn           { get; set; } = false; /* enable hce gamma   */
         public byte Gamma             { get; set; }          /* game video gamma   */
-        public bool Bless             { get; set; } = true;  /* border-less hack   */
+        public bool Bless             { get; set; } = false; /* border-less hack   */
       }
 
       public class ConfigurationAudio
