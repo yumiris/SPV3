@@ -181,15 +181,29 @@
           </Image.Effect>
         </Image>
       </Canvas>
+      <Canvas
+        Panel.ZIndex="1"
+        ClipToBounds="true"
+        Height="150"
+        Width="960"
+        Margin="0,200,0,0">
+        <Image 
+          Source="Assets/background_activation.jpg"
+          Height="540" Canvas.Top="-200">
+          <Image.Effect>
+            <BlurEffect Radius="20"/>
+          </Image.Effect>
+        </Image>
+      </Canvas>
       <Canvas 
         Panel.ZIndex="1"
         ClipToBounds="true"
         Height="150"
         Width="960"
-        Margin="0,340,0,0">
+        Margin="0,350,0,0">
         <Image Source="Assets/background_activation.jpg"
                Height="540"
-               Canvas.Top="-340">
+               Canvas.Top="-350">
           <Image.Effect>
             <BlurEffect Radius="20"/>
           </Image.Effect>
@@ -199,19 +213,32 @@
             Width="960"
             Height="540">
         <Grid.RowDefinitions>
-          <RowDefinition Height="50"  />
-          <RowDefinition Height="150" /><!-- MCC      -->
-          <RowDefinition Height="140" /><!-- or       -->
+          <RowDefinition Height="50"  /><!-- Pick Your Poison -->
+          <RowDefinition Height="150" /><!-- SteamExe -->
+          <RowDefinition Height="150" /><!-- Process  -->
           <RowDefinition Height="150" /><!-- HCE      -->
-          <RowDefinition Height="50"  /><!-- Footer   -->
+          <RowDefinition Height="43"  /><!-- Footer   -->
         </Grid.RowDefinitions>
 
+        <!-- Header -->
+        <StackPanel Grid.Row="0"
+                    Width="960"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Background="#80506080">
+          <TextBlock FontFamily="Unispace"
+                     Foreground="White"
+                     FontSize="25"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Text="Choose how to activate SPV3"/>
+        </StackPanel>
+        
         <!-- MCC -->
         <StackPanel Grid.Row="1"
                     Width="960"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Visibility="Visible"
                     Background="#80506080" >
           <DockPanel>
             <Label Content="Locate Steam or its shortcut:"
@@ -233,7 +260,7 @@
                       Click="BrowseSteam"
                       Content="Browse"/>
             </Grid>
-            </DockPanel>
+          </DockPanel>
           <DockPanel>
             <Label Margin="100,0"
                    VerticalAlignment="Center"
@@ -246,15 +273,28 @@
           </DockPanel>
         </StackPanel>
 
-        <TextBlock Grid.Row="2"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   Foreground="White"
-                   FontSize="30"
-                   FontFamily="Unispace">
-          OR
-        </TextBlock>
-        
+        <!-- Process -->
+        <StackPanel Grid.Row="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="960"
+                    Background="#80506080"
+                    Visibility="Visible"
+                    Margin="0,30"
+                    Height="90">
+          <TextBlock Foreground="White"
+                     TextWrapping="WrapWithOverflow"
+                     Margin="0,10"
+                     TextAlignment="Center">
+                    Please open MCC (if CEA is installed), Halo Retail, or Custom Edition then click on "Check Running Processes".
+          </TextBlock>
+          <Button 
+                Width="600"
+                Margin="0.5,0,0.5,0"
+                Click="CheckRunningProcesses"
+                Content="Check Running Processes" />
+        </StackPanel>
+
         <!-- HCE -->
         <StackPanel Grid.Row="3"
                     HorizontalAlignment="Center"
