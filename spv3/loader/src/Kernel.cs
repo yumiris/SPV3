@@ -69,6 +69,7 @@ namespace SPV3
         spv3.Borderless = true;
         spv3.Window     = true;
         spv3.ResolutionEnabled = false;
+        spv3.DisplayMode = (byte) Configuration.ConfigurationLoader.DisplayModes.Borderless;
 
         spv3.Vsync      = false;
         spv3.Elevated   = false;
@@ -79,7 +80,7 @@ namespace SPV3
     {
       hxe.Load();
       spv3.Load();
-      CopyKernelToLoader();
+      CopyLoaderToKernel();
     }
 
     /// <summary>
