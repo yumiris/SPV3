@@ -22,8 +22,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Linq;
+using Directory = System.IO.Directory;
 using static HXE.Console;
 using static HXE.Paths;
+using static System.Environment;
 
 namespace HXE.HCE
 {
@@ -43,11 +46,37 @@ namespace HXE.HCE
     /// </summary>
     public void Load()
     {
-      var data   = ReadAllText();
-      var split  = data.Split('\\');
-      var offset = split.Length - 2;
-
-      Profile = split[offset];
+      try
+      {
+        var data   = ReadAllText();
+        var split  = data.Split('\\');
+        var offset = split.Length - 2;
+        Profile    = split[offset];
+      }
+      catch (System.IndexOutOfRangeException e)
+      {
+        var msg = " -- LASTPROFILE.LOAD FAILED" + NewLine
+                + " Error:  " + e.ToString()    + NewLine;
+        var log = (File) Exception;
+        log.AppendAllText(msg);
+        Error(e.Message + " -- LASTPROFILE.LOAD FAILED");
+        
+        Core("Recreating LastProf.txt...");
+        {
+          Profile firstProfile = new Profile();
+          string userPath = System.IO.Path.GetDirectoryName(Path);
+          try
+          {
+            firstProfile = HCE.Profile.List(Custom.Profiles(userPath)).First();
+            // TODO : validate profile. Is it corrupted?
+            Name = firstProfile.Name;
+          }
+          catch (System.Exception)
+          {
+            NewProfile.Generate(userPath, this, firstProfile, Directory.Exists(Custom.Profiles(userPath)));
+          }
+        }
+      } 
     }
 
     /// <summary>
