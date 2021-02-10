@@ -660,6 +660,8 @@ namespace HXE
         {
           if (configuration.Tweaks.Acceleration)
             configuration.Tweaks.Patches |= Patcher.EXEP.DISABLE_MOUSE_ACCELERATION;
+          if (configuration.Video.GammaOn == false)
+            configuration.Tweaks.Patches |= Patcher.EXEP.DISABLE_SYSTEM_GAMMA;
           
           try
           {
