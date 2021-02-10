@@ -19,8 +19,9 @@ namespace HXE
     /// Later, some patches may be configured in SPV3 loader. Perhaps via The "Advanced" menu aka HXE's Configuration UserControl. Bring it full circle.
     public class PatchGroup
     {
-      public string Name       { get; set; } = string.Empty;   /* Make large address aware */
-      public string Executable { get; set; } = string.Empty;   /* haloce.exe               */
+      public string Name       { get; set; } = string.Empty;   /** Make large address aware */
+      public string Executable { get; set; } = string.Empty;   /** haloce.exe               */
+      public bool   Toggle     { get; set; } = false;          /** Patch/Restore values     */
       public List<DataSet> DataSets = new List<DataSet>();
     }
 
@@ -130,70 +131,16 @@ namespace HXE
       bool BlockCamShake     = (cfg & EXEP.BLOCK_CAMERA_SHAKE)         != 0;
       bool BlockDescopeOnDMG = (cfg & EXEP.PREVENT_DESCOPING_ON_DMG)   != 0;
       var FilteredPatches    = new List<PatchGroup>();
-      var patchlist          = new List<DataSet> // TEMP
-      {
-        new DataSet() { Offset = 0x136, Original = 0x0F, Patch = 0x2F } /* LAA */
-      };
 
-
-
-      /* Overrides */
+      /** Overrides */
       {
         LAA            = true;
         FixLAN         = true;
+        Fix32Tex       = true;
         NoSafe         = true;
         NoEULA         = true;
         NoRegistryExit = true;
         BlockUpdates   = true;
-      }
-
-      if (DRM) //TEMP
-      {
-        // just the most important ones for now
-        patchlist.Add(new DataSet() { Offset = 0x144c2B, Original = 0x38, Patch = 0xEB });
-        patchlist.Add(new DataSet() { Offset = 0x144c2C, Original = 0x18, Patch = 0x13 });
-      }
-
-      /* Temporary LAA, DRM */
-      {
-        using (var fs = new FileStream(exePath, FileMode.Open, FileAccess.ReadWrite))
-        using (var ms = new MemoryStream(0x24B000))
-        using (var bw = new BinaryWriter(ms))
-        using (var br = new BinaryReader(ms))
-        {
-          byte value;
-          foreach (var patch in patchlist)
-          {
-            ms.Position = 0;
-            fs.Position = 0;
-            fs.CopyTo(ms);
-
-            ms.Position = patch.Offset;
-            value = patch.Patch;
-
-            if (br.ReadByte() != value)
-            {
-              ms.Position -= 1; /* restore position */
-              bw.Write(value);  /* patch            */
-
-              fs.Position = 0;
-              ms.Position = 0;
-              ms.CopyTo(fs);
-
-              if (patch.Offset == 0x136)
-                Info($"Applied LAA patch to the HCE executable");
-              if (DRM)
-                Info($"Applied Partial DRM patch to the HCE executable");
-            }
-            else
-            {
-              if (patch.Offset == 0x136)
-                Info($"HCE executable already patched with LAA");
-              if (DRM && patch.Offset != 0x136)
-                Info($"HCE executable already patched with NoDRM");
-            }
-          }
-        }
       }
       
       /** Filter PatchGroups for those requested 
@@ -295,8 +242,8 @@ namespace HXE
 
             if (br.ReadByte() != value)
             {
-              ms.Position -= 1; /* restore position */
-              bw.Write(value);  /* patch            */
+              ms.Position -= 1; /** restore position */
+              bw.Write(value);  /** write value      */
 
               fs.Position = 0;
               ms.Position = 0;
