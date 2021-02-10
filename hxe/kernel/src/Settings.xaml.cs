@@ -83,10 +83,10 @@ namespace HXE
           Mode.SelectedIndex = 0;
           break;
         case Kernel.Configuration.ConfigurationMode.SPV32:
-          Mode.SelectedIndex = 2;
+          Mode.SelectedIndex = 1;
           break;
         case Kernel.Configuration.ConfigurationMode.SPV33:
-          Mode.SelectedIndex = 3;
+          Mode.SelectedIndex = 2;
           break;
         default:
           throw new ArgumentOutOfRangeException("Switch (Configuration.Mode)", "Kernel Mode not recognized.");
