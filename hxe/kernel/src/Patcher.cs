@@ -124,7 +124,7 @@ namespace HXE
       bool NoGamma           = (cfg & EXEP.DISABLE_SYSTEM_GAMMA)       != 0;
       bool Fix32Tex          = (cfg & EXEP.FIX_32BIT_TEXTURES)         != 0;
       bool NoEULA            = (cfg & EXEP.DISABLE_EULA)               != 0;
-      bool NoRegistryExit    = (cfg & EXEP.DISABLE_VEHICLE_AUTOCENTER) != 0;
+      bool NoRegistryExit    = (cfg & EXEP.DISABLE_REG_EXIT_STATE)     != 0;
       bool NoAutoCenter      = (cfg & EXEP.DISABLE_VEHICLE_AUTOCENTER) != 0;
       bool NoMouseAccel      = (cfg & EXEP.DISABLE_MOUSE_ACCELERATION) != 0;
       bool BlockUpdates      = (cfg & EXEP.BLOCK_UPDATE_CHECKS)        != 0;
