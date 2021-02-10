@@ -2,9 +2,6 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.IO.Path;
 using static HXE.Console;
 using static HXE.Common.ExtConvert;
 
