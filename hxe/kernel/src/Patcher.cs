@@ -111,9 +111,9 @@ namespace HXE
     }
 
     /// <summary>
-    /// 
+    /// Toggle patches in Halo executable
     /// </summary>
-    /// <param name="cfg">HXE.Kernel.Configuration.Tweaks.Patches unsigned integer</param>
+    /// <param name="cfg">HXE.Kernel.Configuration.Tweaks.Patches</param>
     /// <param name="exePath">Path to Halo executable</param>
     public void Write(uint cfg, string exePath)
     {
@@ -153,66 +153,79 @@ namespace HXE
         {
           if (LAA               && pg.Executable == "haloce.exe" && pg.Name.Contains("large address aware"))
           {
+            pg.Toggle = true;
             filter.Add(pg);
             continue;
           }
           if (DRM               && pg.Executable == "haloce.exe" && pg.Name.Contains("DRM"))
           {
+            pg.Toggle = true;
             filter.Add(pg);
             continue;
           }
           if (FixLAN            && pg.Executable == "haloce.exe" && pg.Name.Contains("Bind server to 0.0.0.0"))
-          { 
+          {
+            pg.Toggle = true;
             filter.Add(pg);
             continue;
           }
           if (NoSafe            && pg.Executable == "haloce.exe" && pg.Name.Contains("safe mode prompt"))
           {
+            pg.Toggle = true;
             filter.Add(pg);
             continue;
           }
           if (NoGamma           && pg.Executable == "haloce.exe" && pg.Name.Contains("gamma"))
           {
+            pg.Toggle = true;
             filter.Add(pg);
             continue;
           }
           if (Fix32Tex          && pg.Executable == "haloce.exe" && pg.Name.Contains("32-bit textures"))
           {
+            pg.Toggle = true;
             filter.Add(pg);
             continue;
           }
           if (NoEULA            && pg.Executable == "haloce.exe" && pg.Name.Contains("EULA"))
           {
+            pg.Toggle = true;
             filter.Add(pg);
             continue;
           }
           if (NoRegistryExit    && pg.Executable == "haloce.exe" && pg.Name.Contains("exit status"))
           {
+            pg.Toggle = true;
             filter.Add(pg);
             continue;
           }
           if (NoAutoCenter      && pg.Executable == "haloce.exe" && pg.Name.Contains("auto-centering"))
           {
+            pg.Toggle = true;
             filter.Add(pg);
             continue;
           }
           if (NoMouseAccel      && pg.Executable == "haloce.exe" && pg.Name.Contains("mouse acceleration"))
           {
+            pg.Toggle = true;
             filter.Add(pg);
             continue;
           }
           if (BlockUpdates      && pg.Executable == "haloce.exe" && pg.Name.Contains("update checks"))
           {
+            pg.Toggle = true;
             filter.Add(pg);
             continue;
           }
           if (BlockCamShake     && pg.Executable == "haloce.exe" && pg.Name.Contains("camera shaking"))
           {
+            pg.Toggle = true;
             filter.Add(pg);
             continue;
           }
           if (BlockDescopeOnDMG && pg.Executable == "haloce.exe" && pg.Name.Contains("Prevent descoping when taking damage"))
           {
+            pg.Toggle = true;
             filter.Add(pg);
             continue;
           }
@@ -232,7 +245,7 @@ namespace HXE
 
           foreach (var DataSet in PatchGroup.DataSets) // I hate this
           {
-            byte value  = DataSet.Patch;
+            byte value  = PatchGroup.Toggle ? DataSet.Patch : DataSet.Original;
             long offset = DataSet.Offset;
             ms.Position = 0;
             fs.Position = 0;
