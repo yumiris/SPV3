@@ -31,8 +31,16 @@ namespace HXE
       public byte Patch    { get; set; }
     }
 
+    /// <summary>
+    /// The list of patch groups specified by pR0ps' halo ce patches.
+    /// </summary>
     public static List<PatchGroup> Patches = Reader(); // See Write() for tmp overrides
 
+    /// <summary>
+    /// Reads PatchGroups from patches.crk to this instance.
+    /// </summary>
+    /// <returns>A list of PatchGroups read from the patches.crk file resource.</returns>
+    /// <remarks>This is only used for Patches list initialization.</remarks>
     public static List<PatchGroup> Reader() 
     {
       /* Get patches.crk resource from assembly resources */
@@ -113,29 +121,31 @@ namespace HXE
       bool FixLAN            = (cfg & EXEP.BIND_SERVER_TO_0000)        != 0;
       bool NoSafe            = (cfg & EXEP.DISABLE_SAFEMODE_PROMPT)    != 0;
       bool NoGamma           = (cfg & EXEP.DISABLE_SYSTEM_GAMMA)       != 0;
+      bool Fix32Tex          = (cfg & EXEP.FIX_32BIT_TEXTURES)         != 0;
       bool NoEULA            = (cfg & EXEP.DISABLE_EULA)               != 0;
       bool NoRegistryExit    = (cfg & EXEP.DISABLE_VEHICLE_AUTOCENTER) != 0;
+      bool NoAutoCenter      = (cfg & EXEP.DISABLE_VEHICLE_AUTOCENTER) != 0;
       bool NoMouseAccel      = (cfg & EXEP.DISABLE_MOUSE_ACCELERATION) != 0;
       bool BlockUpdates      = (cfg & EXEP.BLOCK_UPDATE_CHECKS)        != 0;
       bool BlockCamShake     = (cfg & EXEP.BLOCK_CAMERA_SHAKE)         != 0;
       bool BlockDescopeOnDMG = (cfg & EXEP.PREVENT_DESCOPING_ON_DMG)   != 0;
-
-
-      var patchlist = new List<DataSet> // TEMP
+      var FilteredPatches    = new List<PatchGroup>();
+      var patchlist          = new List<DataSet> // TEMP
       {
         new DataSet() { Offset = 0x136, Original = 0x0F, Patch = 0x2F } /* LAA */
       };
 
+
+
       /* Overrides */
       {
-        LAA = true;
-        FixLAN = true;
-        NoSafe = true;
-        NoEULA = true;
+        LAA            = true;
+        FixLAN         = true;
+        NoSafe         = true;
+        NoEULA         = true;
         NoRegistryExit = true;
-        BlockUpdates = true;
+        BlockUpdates   = true;
       }
-
 
       if (DRM) //TEMP
       {
@@ -186,19 +196,103 @@ namespace HXE
         }
       }
 
+      /** Filter for PatchGroups applicable to Custom Edition 
+       * Reads from this.Patches
+       * Writes to  this.Write().
+       */
+      foreach (var PatchGroup in Patches)
+      {
+        // NEED TO ADAPT FOR TRIAL & RETAIL
+        if (PatchGroup.Executable == "haloce.exe") 
+          FilteredPatches.Add(PatchGroup);
+      }
+      
+      /** Filter PatchGroups for those requested 
+       * NOTE: Update String matches as needed.
+       */
+      {
+        var filter = new List<PatchGroup>();
+        
+        foreach (var pg in FilteredPatches)
+        {
+          if (DRM               && pg.Name.Contains("DRM"))
+          {
+            filter.Add(pg);
+            continue;
+          }
+          if (LAA               && pg.Name.Contains("large address aware"))
+          {
+            filter.Add(pg);
+            continue;
+          }
+          if (FixLAN            && pg.Name.Contains("Bind server to 0.0.0.0"))
+          { 
+            filter.Add(pg);
+            continue;
+          }
+          if (NoSafe            && pg.Name.Contains("safe mode prompt"))
+          {
+            filter.Add(pg);
+            continue;
+          }
+          if (NoGamma           && pg.Name.Contains("gamma"))
+          {
+            filter.Add(pg);
+            continue;
+          }
+          if (Fix32Tex          && pg.Name.Contains("32-bit textures"))
+          {
+            filter.Add(pg);
+            continue;
+          }
+          if (NoEULA            && pg.Name.Contains("EULA"))
+          {
+            filter.Add(pg);
+            continue;
+          }
+          if (NoRegistryExit    && pg.Name.Contains("exit status"))
+          {
+            filter.Add(pg);
+            continue;
+          }
+          if (NoAutoCenter      && pg.Name.Contains("auto-centering"))
+          {
+            filter.Add(pg);
+            continue;
+          }
+          if (NoMouseAccel      && pg.Name.Contains("mouse acceleration"))
+          {
+            filter.Add(pg);
+            continue;
+          }
+          if (BlockUpdates      && pg.Name.Contains("update checks"))
+          {
+            filter.Add(pg);
+            continue;
+          }
+          if (BlockCamShake     && pg.Name.Contains("camera shaking"))
+          {
+            filter.Add(pg);
+            continue;
+          }
+          if (BlockDescopeOnDMG && pg.Name.Contains("Prevent descoping when taking damage"))
+          {
+            filter.Add(pg);
+            continue;
+          }
+        }
+
+        FilteredPatches = filter;
+      }
+
       /* Flexible patcher */ /** This does not yet function, but it does't throw exceptions */
       using (var fs = new FileStream(exePath, FileMode.Open, FileAccess.ReadWrite))
       using (var ms = new MemoryStream(0x24B000))
       using (var bw = new BinaryWriter(ms))
       using (var br = new BinaryReader(ms))
       {
-        var FilteredPatches = new List<PatchGroup>();
+      
         foreach (var PatchGroup in Patches)
-        {
-          if (PatchGroup.Executable == "haloce.exe")
-            FilteredPatches.Add(PatchGroup);
-        }
-        foreach (var PatchGroup in FilteredPatches)
         {
           foreach (var DataSet in PatchGroup.DataSets) // I hate this
           {
@@ -249,14 +343,15 @@ namespace HXE
       public const uint BIND_SERVER_TO_0000        = 1 << 0x02; // Fixes LAN game discovery. Helps systems with multiple interfaces. Can still bind to IP using `-ip` flag.
       public const uint DISABLE_SAFEMODE_PROMPT    = 1 << 0x03; // Disables prompt to restart Halo with disfunctional Safe Mode.
       public const uint DISABLE_SYSTEM_GAMMA       = 1 << 0x04; // Disables system-wide modification of display gamma. Disables in-game gamma altogether. Removes need for RegKeys.
-      public const uint DISABLE_EULA               = 1 << 0x05; // Allows the game to be run without displaying the EULA. Removes the need for eula.dll to be present.
-      public const uint DISABLE_REG_EXIT_STATE     = 1 << 0x06; // Makes the executable more portable by not requiring/adding registry keys.
-      public const uint DISABLE_VEHICLE_AUTOCENTER = 1 << 0x07; // In stock Halo, the crosshair in vehicles (e.g. scorpion tank) will slowly move towards the horizon as you move.
-      public const uint DISABLE_MOUSE_ACCELERATION = 1 << 0x08; // Self-explanatory.
-      public const uint BLOCK_UPDATE_CHECKS        = 1 << 0x09; // Prevents checking for game updates.
-      public const uint BLOCK_CAMERA_SHAKE         = 1 << 0x10; // Completely disable camera shake effect. Expose option to players prone to motion sickness.
-      public const uint PREVENT_DESCOPING_ON_DMG   = 1 << 0x11; // Prevents zoomed-in weapons from descoping when the player takes damage.
-    //public const uint ADD_TAG                    = 1 << 0x12; // pR0Ps' signature
+      public const uint FIX_32BIT_TEXTURES         = 1 << 0x05; // Fixes 32-bit textures being truncated to only a blue channel.
+      public const uint DISABLE_EULA               = 1 << 0x06; // Allows the game to be run without displaying the EULA. Removes the need for eula.dll to be present.
+      public const uint DISABLE_REG_EXIT_STATE     = 1 << 0x07; // Makes the executable more portable by not requiring/adding registry keys.
+      public const uint DISABLE_VEHICLE_AUTOCENTER = 1 << 0x08; // In stock Halo, the crosshair in vehicles (e.g. scorpion tank) will slowly move towards the horizon as you move.
+      public const uint DISABLE_MOUSE_ACCELERATION = 1 << 0x09; // Self-explanatory.
+      public const uint BLOCK_UPDATE_CHECKS        = 1 << 0x10; // Prevents checking for game updates.
+      public const uint BLOCK_CAMERA_SHAKE         = 1 << 0x11; // Completely disable camera shake effect. Expose option to players prone to motion sickness.
+      public const uint PREVENT_DESCOPING_ON_DMG   = 1 << 0x12; // Prevents zoomed-in weapons from descoping when the player takes damage.
+    //public const uint ADD_TAG                    = 1 << 0x13; // pR0Ps' signature
     }
   }
 }
