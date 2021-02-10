@@ -69,7 +69,9 @@ namespace SPV3
       Settings.ShowDialog();
       if (Settings.DialogResult == true)
       {
-        Kernel.Load();
+        hxe.Load();
+        spv3.Load();
+        CopyKernelToLoader();
         Loader = spv3;
       }
     }
