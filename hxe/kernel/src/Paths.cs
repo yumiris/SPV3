@@ -37,7 +37,7 @@ namespace HXE
 
     public static readonly string StartDirectory= Combine(GetDirectoryName(GetCurrentProcess().MainModule.FileName));
     public static readonly string Directory     = Combine(GetFolderPath(ApplicationData), "HXE");
-    public static readonly string Configuration = Combine(Directory,                      "kernel-0x04.bin");
+    public static readonly string Configuration = Combine(Directory,                      "kernel-0x05.bin");
     public static readonly string Exception     = Combine(Directory,                      "exception.log");
     public static readonly string Positions     = Combine(CurrentDirectory,               "positions.bin");
     public static readonly string DSOAL         = Combine(CurrentDirectory,               "dsoal-aldrv.dll");
