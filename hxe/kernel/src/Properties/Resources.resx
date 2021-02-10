@@ -128,7 +128,7 @@
     <value>https://source.n2.network/spv3/tag/?h=build-{0}</value>
   </data>
   <data name="patches" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\..\..\halo-ce-patches\patches.crk;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\..\..\..\ext\halo-ce-patches\patches.crk;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Progress" xml:space="preserve">
     <value>.</value>
