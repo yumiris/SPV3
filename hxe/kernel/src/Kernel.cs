@@ -658,6 +658,9 @@ namespace HXE
 
         void Patch()
         {
+          if (configuration.Tweaks.Acceleration)
+            configuration.Tweaks.Patches |= Patcher.EXEP.DISABLE_MOUSE_ACCELERATION;
+          
           try
           {
             new Patcher().Write(configuration.Tweaks.Patches, executable.Path);

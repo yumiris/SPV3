@@ -89,7 +89,7 @@
                     <CheckBox Content="Auto Aim"
                               Name="TweaksAutoAim"
                               ToolTip="Toggles controller auto-aim." />
-                    <CheckBox Content="Acceleration"
+                    <CheckBox Content="Mouse Accel"
                               Name="TweaksAcceleration"
                               ToolTip="Toggles mouse acceleration." />
                     <CheckBox Content="PP Unload"
