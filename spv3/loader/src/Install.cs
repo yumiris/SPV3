@@ -337,6 +337,7 @@ namespace SPV3
 
               shortcut.Description = "Single Player Version 3";
               shortcut.TargetPath  = targetFileLocation;
+              shortcut.WorkingDirectory = Target;
               shortcut.Save();
             }
             catch (Exception e)
