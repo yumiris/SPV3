@@ -195,17 +195,6 @@ namespace HXE
           }
         }
       }
-
-      /** Filter for PatchGroups applicable to Custom Edition 
-       * Reads from this.Patches
-       * Writes to  this.Write().
-       */
-      foreach (var PatchGroup in Patches)
-      {
-        // NEED TO ADAPT FOR TRIAL & RETAIL
-        if (PatchGroup.Executable == "haloce.exe") 
-          FilteredPatches.Add(PatchGroup);
-      }
       
       /** Filter PatchGroups for those requested 
        * NOTE: Update String matches as needed.
@@ -213,69 +202,69 @@ namespace HXE
       {
         var filter = new List<PatchGroup>();
         
-        foreach (var pg in FilteredPatches)
+        foreach (var pg in Patches)
         {
-          if (DRM               && pg.Name.Contains("DRM"))
+          if (LAA               && pg.Executable == "haloce.exe" && pg.Name.Contains("large address aware"))
           {
             filter.Add(pg);
             continue;
           }
-          if (LAA               && pg.Name.Contains("large address aware"))
+          if (DRM               && pg.Executable == "haloce.exe" && pg.Name.Contains("DRM"))
           {
             filter.Add(pg);
             continue;
           }
-          if (FixLAN            && pg.Name.Contains("Bind server to 0.0.0.0"))
+          if (FixLAN            && pg.Executable == "haloce.exe" && pg.Name.Contains("Bind server to 0.0.0.0"))
           { 
             filter.Add(pg);
             continue;
           }
-          if (NoSafe            && pg.Name.Contains("safe mode prompt"))
+          if (NoSafe            && pg.Executable == "haloce.exe" && pg.Name.Contains("safe mode prompt"))
           {
             filter.Add(pg);
             continue;
           }
-          if (NoGamma           && pg.Name.Contains("gamma"))
+          if (NoGamma           && pg.Executable == "haloce.exe" && pg.Name.Contains("gamma"))
           {
             filter.Add(pg);
             continue;
           }
-          if (Fix32Tex          && pg.Name.Contains("32-bit textures"))
+          if (Fix32Tex          && pg.Executable == "haloce.exe" && pg.Name.Contains("32-bit textures"))
           {
             filter.Add(pg);
             continue;
           }
-          if (NoEULA            && pg.Name.Contains("EULA"))
+          if (NoEULA            && pg.Executable == "haloce.exe" && pg.Name.Contains("EULA"))
           {
             filter.Add(pg);
             continue;
           }
-          if (NoRegistryExit    && pg.Name.Contains("exit status"))
+          if (NoRegistryExit    && pg.Executable == "haloce.exe" && pg.Name.Contains("exit status"))
           {
             filter.Add(pg);
             continue;
           }
-          if (NoAutoCenter      && pg.Name.Contains("auto-centering"))
+          if (NoAutoCenter      && pg.Executable == "haloce.exe" && pg.Name.Contains("auto-centering"))
           {
             filter.Add(pg);
             continue;
           }
-          if (NoMouseAccel      && pg.Name.Contains("mouse acceleration"))
+          if (NoMouseAccel      && pg.Executable == "haloce.exe" && pg.Name.Contains("mouse acceleration"))
           {
             filter.Add(pg);
             continue;
           }
-          if (BlockUpdates      && pg.Name.Contains("update checks"))
+          if (BlockUpdates      && pg.Executable == "haloce.exe" && pg.Name.Contains("update checks"))
           {
             filter.Add(pg);
             continue;
           }
-          if (BlockCamShake     && pg.Name.Contains("camera shaking"))
+          if (BlockCamShake     && pg.Executable == "haloce.exe" && pg.Name.Contains("camera shaking"))
           {
             filter.Add(pg);
             continue;
           }
-          if (BlockDescopeOnDMG && pg.Name.Contains("Prevent descoping when taking damage"))
+          if (BlockDescopeOnDMG && pg.Executable == "haloce.exe" && pg.Name.Contains("Prevent descoping when taking damage"))
           {
             filter.Add(pg);
             continue;
@@ -285,33 +274,24 @@ namespace HXE
         FilteredPatches = filter;
       }
 
-      /* Flexible patcher */ /** This does not yet function, but it does't throw exceptions */
+      /** Flexible patcher */
       using (var fs = new FileStream(exePath, FileMode.Open, FileAccess.ReadWrite))
       using (var ms = new MemoryStream(0x24B000))
       using (var bw = new BinaryWriter(ms))
       using (var br = new BinaryReader(ms))
       {
-      
-        foreach (var PatchGroup in Patches)
+        foreach (var PatchGroup in FilteredPatches)
         {
+
           foreach (var DataSet in PatchGroup.DataSets) // I hate this
           {
-
-            byte value  = false ? DataSet.Patch : DataSet.Original;
+            byte value  = DataSet.Patch;
             long offset = DataSet.Offset;
             ms.Position = 0;
             fs.Position = 0;
             fs.CopyTo(ms);
 
             ms.Position = offset;
-
-            switch(PatchGroup.Name)
-            {
-              case "":
-                break;
-              default:
-                break;
-            }
 
             if (br.ReadByte() != value)
             {
