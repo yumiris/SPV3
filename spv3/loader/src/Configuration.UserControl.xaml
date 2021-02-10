@@ -497,7 +497,6 @@
               Click="ShowAdvanced"
               HorizontalAlignment="Right"
               Margin="350,0"
-              Visibility="{Binding Loader.AdvancedVis}" 
               Width="100"/>
       <!-- Remove Visibility property when usable -->
     </StackPanel>

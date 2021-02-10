@@ -36,7 +36,6 @@ namespace SPV3
     public class ConfigurationLoader : INotifyPropertyChanged
     {
       private const int Length = 256;
-      private readonly System.Windows.Visibility _advancedButton = Debug.IsDebug ? Visible : Collapsed;
 
       private byte   _adapter;                                          /* physical monitor to run hce/spv3 on        */
       private bool   _borderless = false;                               /* run hce/spv3 without window borders        */
@@ -386,35 +385,35 @@ namespace SPV3
 
             /* video */
             {
-              Shaders = br.ReadBoolean();
-              Window = br.ReadBoolean();
-              Width = br.ReadUInt16();
-              Height = br.ReadUInt16();
+              Shaders   = br.ReadBoolean();
+              Window    = br.ReadBoolean();
+              Width     = br.ReadUInt16();
+              Height    = br.ReadUInt16();
               Framerate = br.ReadByte();
-              Vsync = br.ReadBoolean();
-              GammaOn = br.ReadBoolean();
-              Gamma = br.ReadByte();
-              Adapter = br.ReadByte();
+              Vsync     = br.ReadBoolean();
+              GammaOn   = br.ReadBoolean();
+              Gamma     = br.ReadByte();
+              Adapter   = br.ReadByte();
             }
 
             /* modes */
             {
-              DOOM = br.ReadBoolean();
-              Photo = br.ReadBoolean();
+              DOOM       = br.ReadBoolean();
+              Photo      = br.ReadBoolean();
               Borderless = br.ReadBoolean();
             }
 
             /* tweaks */
             {
-              EAX = br.ReadBoolean();
-              Preset = br.ReadBoolean();
+              EAX        = br.ReadBoolean();
+              Preset     = br.ReadBoolean();
               CinemaBars = br.ReadBoolean();
-              Elevated = br.ReadBoolean();
+              Elevated   = br.ReadBoolean();
             }
 
             /* display mode */
             {
-              DisplayMode = br.ReadByte();
+              DisplayMode       = br.ReadByte();
               ResolutionEnabled = br.ReadBoolean();
             }
             return this;
@@ -425,15 +424,6 @@ namespace SPV3
           var log = (HXE.File) Paths.Exception;
           log.AppendAllText("Failed to load Loader settings.\n Error: " + e + "\n");
           return this;
-        }
-      }
-
-      public System.Windows.Visibility AdvancedVis
-      { 
-        get => _advancedButton;
-        set
-        {
-          OnPropertyChanged();
         }
       }
 
