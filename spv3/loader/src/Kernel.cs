@@ -38,10 +38,7 @@ namespace SPV3
       hxe.Main.Patch               = true;                   /* improve loading stability         */
       hxe.Main.Resume              = true;                   /* improve loading stability         */
       hxe.Main.Start               = true;                   /* improve loading stability         */
-      hxe.Main.Elevated            = spv3.Elevated;          /* prevent certain crashes           */
-      hxe.Video.ResolutionEnabled  = spv3.ResolutionEnabled; /* permit custom resolution override */
       hxe.Video.Quality            = true;                   /* enforce in-game quality settings  */
-      hxe.Video.Uncap              = spv3.Vsync == false;
       hxe.Video.GammaOn            = spv3.GammaOn;
       hxe.Video.Gamma              = spv3.Gamma;
       hxe.Video.Bless              = spv3.Borderless && spv3.Window && spv3.Vsync == false && spv3.Elevated == false;
@@ -49,14 +46,17 @@ namespace SPV3
       hxe.Input.Override           = spv3.Preset;
       hxe.Tweaks.CinemaBars        = spv3.CinemaBars;
       hxe.Tweaks.Unload            = !spv3.Shaders;
+      if (!hxe.Video.Bless)
+      {
+        hxe.Main.Elevated           = spv3.Elevated;          /* prevent certain crashes           */
+        hxe.Video.ResolutionEnabled = spv3.ResolutionEnabled; /* permit custom resolution override */
+        hxe.Video.Uncap             = spv3.Vsync == false;    /* sync fps to refresh rate          */
+      }
     }
 
     public static void CopyKernelToLoader()
     {
       spv3.Photo             = Exists(Paths.Photo) && hxe.Tweaks.Sensor == false;
-      spv3.Elevated          = hxe.Main.Elevated;
-      spv3.ResolutionEnabled = hxe.Video.ResolutionEnabled;
-      spv3.Vsync             = hxe.Video.Uncap == false;
       spv3.GammaOn           = hxe.Video.GammaOn;
       spv3.Gamma             = hxe.Video.Gamma;
       spv3.EAX               = hxe.Audio.Enhancements;
@@ -66,13 +66,18 @@ namespace SPV3
 
       if (hxe.Video.Bless)
       {
-        spv3.Borderless = true;
-        spv3.Window     = true;
-        spv3.ResolutionEnabled = false;
         spv3.DisplayMode = (byte) Configuration.ConfigurationLoader.DisplayModes.Borderless;
-
-        spv3.Vsync      = false;
-        spv3.Elevated   = false;
+          //spv3.ResolutionEnabled = false;
+          //spv3.Window     = true;
+          //spv3.Borderless = true;
+          //spv3.Vsync      = false;
+          //spv3.Elevated   = false;
+      }
+      else
+      {
+        spv3.ResolutionEnabled = hxe.Video.ResolutionEnabled;
+        spv3.Vsync             = hxe.Video.Uncap == false;
+        spv3.Elevated          = hxe.Main.Elevated;
       }
     }
 
