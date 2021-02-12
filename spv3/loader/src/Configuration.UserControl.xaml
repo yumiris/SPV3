@@ -320,7 +320,7 @@
                     ToolTip="Smooths color banding artifacts/anomalies." />
         </DockPanel>
 
-        <Label Content="Quality Presets"
+        <Label Content="Graphics Quality Presets"
                HorizontalAlignment="Center"
                Width="Auto"
                FontSize="16"
