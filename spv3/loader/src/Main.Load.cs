@@ -128,7 +128,7 @@ namespace SPV3
             DisplayMode = true,
             Width       = Kernel.spv3.ResolutionEnabled ? Kernel.spv3.Width  : (ushort) 0,
             Height      = Kernel.spv3.ResolutionEnabled ? Kernel.spv3.Height : (ushort) 0,
-            Refresh     = Kernel.spv3.Framerate,
+            Refresh     = Kernel.spv3.Vsync ? Kernel.spv3.Framerate : (ushort) 0,
             Window      = Kernel.spv3.Window,
             Adapter     = (byte) (Kernel.spv3.Adapter + 1),
             NoGamma     = Kernel.hxe.Video.GammaOn == false
