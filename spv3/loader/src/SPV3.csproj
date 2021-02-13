@@ -108,6 +108,7 @@
       <DependentUpon>ControllerPreset.xaml</DependentUpon>
     </Compile>
     <Compile Include="Debug.cs" />
+    <Compile Include="Extern\User32.cs" />
     <Compile Include="Information.UserControl.xaml.cs">
       <DependentUpon>Information.UserControl.xaml</DependentUpon>
     </Compile>
