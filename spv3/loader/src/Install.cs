@@ -125,110 +125,109 @@ namespace SPV3
         /**
          * Check validity of the specified target value.
          */
-        if (string.IsNullOrEmpty(Target))
+        if (string.IsNullOrEmpty(Target) || !Directory.Exists(Target))
         {
           Status = "Enter a valid path.";
           CanInstall = false;
           return;
         }
 
-        var array = value.ToCharArray();
-        if (array.Count() >= 3
-          && char.IsLetter(array[0])
-          && array[1] == ':'
-          && (array[2] == '\\' || array[2] == '/'))
-          try
+        if (Target.Contains(GetFolderPath(ProgramFiles)) 
+        || !string.IsNullOrEmpty(GetFolderPath(ProgramFilesX86)) && Target.Contains(GetFolderPath(ProgramFilesX86)) )
+        {
+          Status = "The game does not function correctly when install to Program Files. Please choose a difference location.";
+          CanInstall = false;
+          return;
+        }
+
+
+        try
+        {
+          var exists     = Directory.Exists(Target);
+          var path       = Target;
+          var rootExists = Directory.Exists(Path.GetPathRoot(Target));
+
+          if (!exists && !rootExists)
           {
-            var exists     = Directory.Exists(Target);
-            var path       = Target;
-            var rootExists = Directory.Exists(Path.GetPathRoot(Target));
-
-            if (!exists && !rootExists)
-            {
-              throw new DirectoryNotFoundException(Target);
-            }
-            if (!exists && rootExists)
-            {
-              while (!Directory.Exists(path))
-              {
-                path = Directory.GetParent(path).Name;
-                if (path == "Debug") return;
-              }
-            }
-
-            // if Target and Root exist...
-            _target = Path.GetFullPath(_target);
-            value = Path.GetFullPath(value);
-            var test = Path.Combine(path, "io.bin");
-            WriteAllBytes(test, new byte[8]);
-            Delete(test);
-
-            Status     = "Waiting for user to install SPV3.";
-            CanInstall = true;
+            throw new DirectoryNotFoundException(Target);
           }
-          catch (Exception e)
+          if (!exists && rootExists)
           {
-            var msg = "Installation not possible at selected path: " + Target + "\n Error: " + e.ToString() + "\n";
-            var log = (HXE.File)Paths.Exception;
-            log.AppendAllText(msg);
-            Status = msg;
-            CanInstall = false;
-            return;
+            while (!Directory.Exists(path))
+            {
+              path = Directory.GetParent(path).Name;
+              if (path == "Debug") return;
+            }
           }
+
+          // if Target and Root exist...
+          _target = Path.GetFullPath(_target);
+          value = Path.GetFullPath(value);
+          var test = Path.Combine(path, "io.bin");
+          WriteAllBytes(test, new byte[8]);
+          Delete(test);
+
+          Status     = "Waiting for user to install SPV3.";
+          CanInstall = true;
+        }
+        catch (Exception e)
+        {
+          var msg = "Installation not possible at selected path: " + Target + "\n Error: " + e.ToString() + "\n";
+          var log = (HXE.File)Paths.Exception;
+          log.AppendAllText(msg);
+          Status = msg;
+          CanInstall = false;
+          return;
+        }
 
         /**
          * Check available disk space. This will NOT work on UNC paths!
          */
-        if (array.Count() >= 3
-          && char.IsLetter(array[0])
-          && array[1] == ':'
-          && (array[2] == '\\' || array[2] == '/'))
-          try
+        try
+        {
+
+          /** First, check the C:\ drive to ensure there's enough free space 
+            * for temporary extraction to %temp% */
+          if (Directory.Exists(@"C:\"))
           {
-
-            /** First, check the C:\ drive to ensure there's enough free space 
-             * for temporary extraction to %temp% */
-            if (Directory.Exists(@"C:\"))
-            {
-              var systemDrive = new DriveInfo(@"C:\");
-              if (systemDrive.TotalFreeSpace < 10737418240)
-              { 
-                Status     = @"Not enough disk space (10GB required) on the C:\ drive. " + 
-                              "Clear junk files using Disk Cleanup or allocate more space to the volume";
-                CanInstall = false;
-                return;
-              }
-            }
-
-            /** 
-             * Check if the target drive has at least 16GB of free space 
-             */
-            var targetDrive = new DriveInfo(Path.GetPathRoot(Target));
-
-            if (targetDrive.IsReady && targetDrive.TotalFreeSpace > 17179869184)
-            {
-              CanInstall = true;
-            }
-            else
-            {
-              Status     = "Not enough disk space (16GB required) at selected path: " + Target;
+            var systemDrive = new DriveInfo(@"C:\");
+            if (systemDrive.TotalFreeSpace < 10737418240)
+            { 
+              Status     = @"Not enough disk space (10GB required) on the C:\ drive. " + 
+                            "Clear junk files using Disk Cleanup or allocate more space to the volume";
               CanInstall = false;
               return;
             }
           }
-          catch (Exception e)
+
+          /** 
+            * Check if the target drive has at least 16GB of free space 
+            */
+          var targetDrive = new DriveInfo(Path.GetPathRoot(Target));
+
+          if (targetDrive.IsReady && targetDrive.TotalFreeSpace > 17179869184)
           {
-            var msg = "Failed to get drive space.\n Error:  " + e.ToString() + "\n";
-            var log = (HXE.File)Paths.Exception;
-            log.AppendAllText(msg);
-            Status     = msg;
-            CanInstall = false;
+            CanInstall = true;
           }
+          else
+          {
+            Status     = "Not enough disk space (16GB required) at selected path: " + Target;
+            CanInstall = false;
+            return;
+          }
+        }
+        catch (Exception e)
+        {
+          var msg = "Failed to get drive space.\n Error:  " + e.ToString() + "\n";
+          var log = (HXE.File)Paths.Exception;
+          log.AppendAllText(msg);
+          Status     = msg;
+          CanInstall = false;
+        }
 
         /**
          * Prohibit installations to known problematic folders.
          */
-
         if (Exists(Path.Combine(Target, HXE.Paths.HCE.Executable))
          || Exists(Path.Combine(Target, HXE.Paths.Executable))
          || Exists(Path.Combine(Target, Paths.Executable)))
