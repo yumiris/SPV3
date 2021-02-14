@@ -4,7 +4,12 @@
     <Asset>
       <URL>https://github.com/yumiris/HCE/releases/download/updates/credits.zip</URL>
       <Name>credits.pdf</Name>
-      <Size>178846</Size>
+      <Size>581128</Size>
+    </Asset>
+    <Asset>
+      <URL>https://github.com/yumiris/HCE/releases/download/updates/readme.zip</URL>
+      <Name>readme.pdf</Name>
+      <Size>24781</Size>
     </Asset>
     <Asset>
       <URL>https://github.com/yumiris/HCE/releases/download/updates/config.zip</URL>
