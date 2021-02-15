@@ -21,5 +21,10 @@
       <Name>fix-amd.pdf</Name>
       <Size>589830</Size>
     </Asset>
+    <Asset>
+      <URL>https://github.com/BinToss/HCE/releases/download/updates-001/Optimization.Guide.zip</URL>
+      <Name>Optimization Guide.pdf</Name>
+      <Size>6782944</Size>
+    </Asset>
   </Assets>
 </Update>
