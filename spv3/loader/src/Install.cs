@@ -573,8 +573,6 @@ namespace SPV3
             Status                    =  $"Process Detection: MCC CEA Found{NewLine}{_ssdRec}";
             break;
         }
-
-        Status = "Process Detection: MCC Found, but CEA not present";
       }
       else
         Status = $"Process Detection: No Matching Processes{NewLine}No MCC (with CEA), HPC, or HCE processes found.";
