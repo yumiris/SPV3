@@ -1,4 +1,5 @@
-﻿using Loader = SPV3.Configuration.ConfigurationLoader;
+﻿using LoaderConf = SPV3.Configuration.ConfigurationLoader;
+using KernelConf = HXE.Kernel.Configuration;
 using static System.IO.File;
 
 namespace SPV3
@@ -8,8 +9,8 @@ namespace SPV3
    */
   public static class Kernel
   {
-    public static HXE.Kernel.Configuration          hxe  = new HXE.Kernel.Configuration(Paths.Kernel);
-    public static Configuration.ConfigurationLoader spv3 = new Configuration.ConfigurationLoader();
+    public static KernelConf hxe  = new KernelConf(Paths.Kernel);
+    public static LoaderConf spv3 = new LoaderConf();
 
     /**
      * Available HXE kernel modes.
@@ -42,7 +43,7 @@ namespace SPV3
       hxe.Video.Quality            = true;                   /* enforce in-game quality settings  */
       hxe.Video.GammaOn            = spv3.GammaOn;
       hxe.Video.Gamma              = spv3.Gamma;
-      hxe.Video.Bless              = spv3.DisplayMode == (byte) Loader.DisplayModes.Borderless;
+      hxe.Video.Bless              = spv3.DisplayMode == (byte) LoaderConf.DisplayModes.Borderless;
       hxe.Audio.Enhancements       = spv3.EAX;
       hxe.Input.Override           = spv3.Preset;
       hxe.Tweaks.CinemaBars        = spv3.CinemaBars;
@@ -67,7 +68,7 @@ namespace SPV3
 
       if (hxe.Video.Bless)
       {
-        spv3.DisplayMode = (byte) Loader.DisplayModes.Borderless;
+        spv3.DisplayMode = (byte) LoaderConf.DisplayModes.Borderless;
           //spv3.ResolutionEnabled = false;
           //spv3.Window     = true;
           //spv3.Borderless = true;
