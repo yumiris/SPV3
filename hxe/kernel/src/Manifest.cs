@@ -21,8 +21,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
-using SevenZip;
 using System.Xml.Serialization;
+using SevenZip.Compression.LZMA;
 using static System.Text.Encoding;
 
 namespace HXE
@@ -40,6 +40,7 @@ namespace HXE
     public void Save()
     {
       var    mode = CompressionMode.Compress;
+      var    encoder = new Encoder();
       byte[] data;
 
       using (var writer = new StringWriter())
@@ -51,7 +52,6 @@ namespace HXE
 
       using (var inflatedStream = new MemoryStream(data))
       using (var deflatedStream = new MemoryStream())
-      using (var lzmaStream     = new SevenZip.Compression.LZMA.Encoder)
       using (var compressStream = new DeflateStream(deflatedStream, mode))
       {
         inflatedStream.CopyTo(compressStream);
