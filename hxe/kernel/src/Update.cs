@@ -30,6 +30,7 @@ using HXE.Exceptions;
 using HXE.Properties;
 using static System.Environment;
 using static System.IO.Compression.ZipFile;
+using static SevenZip.Compression.LZMA.Decoder;
 using static System.IO.File;
 using static System.IO.Path;
 using static System.Net.Cache.HttpRequestCacheLevel;
@@ -256,8 +257,18 @@ namespace HXE
         /**
          * This is almost an installer on steroids!
          */
+        if (Name.EndsWith(".7z"))
+        {
+          try
+          {
 
-        try
+          }
+          catch(Exception)
+          {
+
+          }
+        }
+        else try
         {
           if (Exists(target))
             Move(target, backup);
