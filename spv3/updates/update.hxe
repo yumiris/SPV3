@@ -21,5 +21,15 @@
       <Name>fix-amd.pdf</Name>
       <Size>589830</Size>
     </Asset>
+    <Asset>
+      <URL>https://github.com/BinToss/HCE/releases/download/updates-001/OpenSauce-2017.zip</URL>
+      <Name>dinput8.dll</Name>
+      <Size>1113088</Size>
+    </Asset>
+    <Asset>
+      <URL>https://github.com/BinToss/HCE/releases/download/updates-001/optimization_guide.2021-02-15.zip</URL>
+      <Name>optimization_guide.pdf</Name>
+      <Size>2406203</Size>
+    </Asset>
   </Assets>
 </Update>
