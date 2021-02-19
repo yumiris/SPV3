@@ -255,7 +255,6 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="spv3_art.png" />
     <Resource Include="Assets\xbox_one_controller.png" />
     <Resource Include="Assets\compressFolder.png" />
     <Resource Include="Assets\background_activation.jpg" />

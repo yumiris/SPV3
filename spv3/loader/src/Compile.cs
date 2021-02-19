@@ -20,7 +20,6 @@
 
 using System;
 using System.ComponentModel;
-using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using HXE;
@@ -99,14 +98,12 @@ namespace SPV3
          * And now... we lift off!
          */
 
-        Status = "Currently compiling SPV3, please wait ...";
-        
-        await Task.Run(() => { SFX.Compile(new SFX.Configuration
-        {
-          Source     = new DirectoryInfo(CurrentDirectory),
-          Target     = new DirectoryInfo(Paths.Packages(Target)),
-          Executable = new FileInfo(GetExecutingAssembly().Location)
-        }); });
+        var progress = new Progress<Status>();
+        progress.ProgressChanged +=
+          (o, s) => Status =
+            $"Compiling SPV3. Please wait until this is finished! - {(decimal) s.Current / s.Total:P}";
+
+        await Task.Run(() => { Compiler.Compile(CurrentDirectory, Paths.Packages(Target), progress); });
 
         /**
          * Copy data... 

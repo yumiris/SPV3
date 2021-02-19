@@ -32,18 +32,18 @@ namespace SPV3
   {
     public class ConfigurationShaders : INotifyPropertyChanged
     {
-      private bool _adaptiveHDR_isReady = false;
-      private bool _adaptiveHDR        = false;
-      private int  _dof                = 0;
+      private bool _adaptiveHDR_isReady = true;
+      private bool _adaptiveHDR        = true;
+      private int  _dof                = 2;
       private bool _dynamicLensFlares  = false;
       private bool _filmGrain          = false;
       private bool _hudVisor           = true;
-      private bool _lensDirt           = false;
+      private bool _lensDirt           = true ;
       private int  _motionBlur         = 0;
-      private int  _mxao               = 0;
-      private bool _volumetricLighting = false;
+      private int  _mxao               = 1;
+      private bool _volumetricLighting = true;
       private bool _ssr                = false;
-      private bool _deband             = false;
+      private bool _deband             = true;
 
       public bool ModeIsSPV33()
       {

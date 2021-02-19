@@ -31,7 +31,7 @@ namespace SPV3
   {
     public class ConfigurationOpenSauce : INotifyPropertyChanged
     {
-      private bool   _bloom            = false;
+      private bool   _bloom            = true;
       private bool   _detailNormalMaps = true;
       private double _fieldOfView      = 70;
       private bool   _gBuffer          = true;

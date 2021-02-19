@@ -41,7 +41,7 @@ namespace SPV3
       private bool   _borderless = false;                               /* run hce/spv3 without window borders        */
       private bool   _cinemabars = false;                               /* toggle spv3 cinematic black bars           */
       private bool   _doom     = false;                                 /* toggle spv3 doom mode                      */
-      private bool   _eax      = true;                                  /* toggle hw accel. & environmental sound     */
+      private bool   _eax      = false;                                 /* toggle hw accel. & environmental sound     */
       private byte   _framerate = 60;                                   /* framerate to run spv3 at (in vsync mode)   */
       private bool   _gammaOn  = false;                                 /* when false, runs spv3/hce with -nogamma    */
       private byte   _gamma    = 150;                                   /* gamma level to run spv3 at (in vsync mode) */

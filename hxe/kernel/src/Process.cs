@@ -19,7 +19,6 @@
  */
 
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using static System.Diagnostics.Process;
 
@@ -49,55 +48,13 @@ namespace HXE
 		 */
 		public static Type Infer()
 		{
-			foreach (var candidate in Candidates)
-			{
-				var processes = GetProcessesByName(candidate.Name);
-
-				if (processes.Length <= 0)
-					continue;
-
-				switch (candidate.Type)
-				{
-					/**
-					 * MCC CEA
-					 *
-					 * HXE infers a valid MCC process through the invocation of a valid MCC executable with the CEA DLL attached.
-					 */
-					case Type.Steam:
-					case Type.Store:
-					{
-						var hasCEA = processes
-							.First()
-							.Modules
-							.Cast<ProcessModule>()
-							.Any(module => module.ModuleName == Paths.MCC.Halo1dll);
-
-						if (hasCEA)
-							return candidate.Type;
-
-						break;
-					}
-
-					/**
-					 * HPC/HCE
-					 *
-					 * HXE infers a valid HPC/HCE process through the invocation of a valid executable with the specified version.
-					 */
-					case Type.Retail:
-					case Type.HCE:
-					{
-						var isValid = processes
-							.Any(process => process.MainModule?.FileVersionInfo.FileVersion == "01.00.10.0621");
-
-						if (isValid)
-							return candidate.Type;
-
-						break;
-					}
-				}
-			}
-
-			return Type.Unknown;
+			return
+			(
+				from candidate in Candidates
+				let processes = GetProcessesByName(candidate.Name)
+				where processes.Length > 0
+				select candidate.Type
+			).FirstOrDefault();
 		}
 
 		public class Candidate

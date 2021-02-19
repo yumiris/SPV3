@@ -36,33 +36,6 @@ namespace SPV3
       InitializeComponent();
       _configuration = (Configuration) DataContext;
       _configuration.Load();
-
-      // If this is first run, then use a custom preset
-      if (!File.Exists(Paths.Kernel))
-        FirstRunConfiguration();
-    }
-
-    public void FirstRunConfiguration()
-    {
-      _configuration.OpenSauce.GBuffer            = true;
-      _configuration.Shaders.AdaptiveHDR          = true;
-      _configuration.Shaders.HudVisor             = true;
-      _configuration.Shaders.VolumetricLighting   = true;
-      _configuration.Shaders.LensDirt             = true;
-      _configuration.Shaders.DOF                  = 2;
-      _configuration.Shaders.MXAO                 = 1;
-      _configuration.Shaders.Deband               = true;
-      _configuration.OpenSauce.NormalMaps         = true;
-      _configuration.OpenSauce.DetailNormalMaps   = true;
-      _configuration.OpenSauce.SpecularMaps       = true;
-      _configuration.OpenSauce.SpecularLighting   = true;
-      _configuration.OpenSauce.Bloom              = true;
-      _configuration.Chimera.Interpolation        = 8;
-      _configuration.Chimera.AnisotropicFiltering = true;
-      _configuration.Chimera.BlockLOD             = false;
-      _configuration.Save();
-      if (File.Exists(Paths.OptimizeGuide))
-        Process.Start(Paths.OptimizeGuide);
     }
 
     public event EventHandler Home;
