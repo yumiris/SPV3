@@ -1,6 +1,8 @@
 DISCORD RICH PRESENCE
 =====================
 
+[Discord Game SDK](https://discord.com/developers/docs/game-sdk/sdk-starter-guide)
+
 This tree contains the DRP (Discord Rich Presence) source code, which
 aims to ingrate SPV3.2 with Discord by allowing players to display the
 campaign mission & difficulty they're playing on.
@@ -35,8 +37,8 @@ Presence:
 
   directory    description
   ------------ --------------------------------------------
-  campaign     images representing each SPV3.2 campaign
-  difficulty   images representing each SPV3.2 difficulty
+  maps         images representing each SPV3.3 map
+  difficulty   images representing each SPV3.3 difficulty
 
 Images have been generously provided by Arecaidian Fox, giraffe, sbdJazz
 and the rest of the SPV3 crew.
