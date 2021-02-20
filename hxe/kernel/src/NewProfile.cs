@@ -44,12 +44,12 @@ namespace HXE
       lastprofile.Save();
     }
 
-    /// <summary>
-    ///   Reusable functions for Profile Generation.
-    /// </summary>
-    public class GenerateVars
-    {
-      readonly private static string NameGen = $"New{new Random().Next(1, 999).ToString("D3")}";
+		/// <summary>
+		///   Reusable functions for Profile Generation.
+		/// </summary>
+		public class GenerateVars
+		{
+			private static readonly string NameGen = $"New{new Random().Next(1, 999):D3}";
 
       /// <summary>
       ///   Use once to generate a profile name. Read from ProfileName for the result.
