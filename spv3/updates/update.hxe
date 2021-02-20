@@ -12,7 +12,7 @@
       <Size>24781</Size>
     </Asset>
     <Asset>
-      <URL>https://github.com/BinToss/HCE/releases/download/updates-001/config.2021-02-14.zip</URL>
+      <URL>https://github.com/BinToss/HCE/releases/download/updates-001/2021-02-14_config.zip</URL>
       <Name>config.txt</Name>
       <Size>24684</Size>
     </Asset>
@@ -22,14 +22,14 @@
       <Size>589830</Size>
     </Asset>
     <Asset>
+      <URL>https://github.com/BinToss/HCE/releases/download/updates-001/2021-02-15_optimization_guide.zip</URL>
+      <Name>optimization_guide.pdf</Name>
+      <Size>2406203</Size>
+    </Asset>
+    <Asset>
       <URL>https://github.com/BinToss/HCE/releases/download/updates-001/OpenSauce-2017.zip</URL>
       <Name>dinput8.dll</Name>
       <Size>1113088</Size>
-    </Asset>
-    <Asset>
-      <URL>https://github.com/BinToss/HCE/releases/download/updates-001/optimization_guide.2021-02-15.zip</URL>
-      <Name>optimization_guide.pdf</Name>
-      <Size>2406203</Size>
     </Asset>
   </Assets>
 </Update>
