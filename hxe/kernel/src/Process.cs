@@ -43,19 +43,57 @@ namespace HXE
 			new Candidate { Type = Type.Store,  Name = "MCC-Win64-Shipping-WinStore" }
 		};
 
-		/**
-		 * Infers the running Halo executable, with support for HCE, HCE and MCC (Steam & Windows Store).
-		 */
+		/// <summary>
+		/// Infers the running Halo executable, with support for HCE, HCE and MCC (Steam & Windows Store).
+		/// </summary>
+		/// <returns>Type of Platform</returns>
 		public static Type Infer()
 		{
-			return
-			(
-				from candidate in Candidates
-				let processes = GetProcessesByName(candidate.Name)
-				where processes.Length > 0
-				select candidate.Type
-			).FirstOrDefault();
+            var processCandidate = Candidates
+                .FirstOrDefault(x => DeeperCheck(GetProcesses()
+                    .FirstOrDefault(Processname => Processname.ProcessName == x.Name)));
+
+            return processCandidate?.Type ?? Type.Unknown;
 		}
+
+		static bool DeeperCheck(System.Diagnostics.Process process)
+        {
+			if (process == null)
+				return false;
+			else if (process.ProcessName == "MCC-Win64-Shipping-WinStore")
+			{
+				using (System.Diagnostics.Process checkerProcess = new System.Diagnostics.Process())
+				{
+					checkerProcess.StartInfo = new System.Diagnostics.ProcessStartInfo(@"Validator.exe", process.Id.ToString());
+					checkerProcess.StartInfo.CreateNoWindow = true;
+					checkerProcess.StartInfo.ErrorDialog = false;
+					checkerProcess.StartInfo.RedirectStandardError = true;
+					checkerProcess.StartInfo.RedirectStandardInput = true;
+					checkerProcess.StartInfo.RedirectStandardOutput = true;
+					checkerProcess.StartInfo.UseShellExecute = false;
+					checkerProcess.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+					checkerProcess.Start();
+					if (!checkerProcess.HasExited)
+					{
+						checkerProcess.WaitForExit(30000);
+						if (!checkerProcess.HasExited)
+						{
+							checkerProcess.Kill();
+						}
+					}
+
+					bool output = bool.Parse(checkerProcess.StandardOutput.ReadToEnd().Trim());
+					if (output)
+						return true;
+					else
+						return false;
+				}
+			}
+			else if (process.MainModule.FileVersionInfo.FileVersion == "01.00.10.0621")
+				return true;
+			else
+				return false;
+        }
 
 		public class Candidate
 		{
