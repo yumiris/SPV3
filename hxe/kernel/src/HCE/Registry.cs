@@ -20,15 +20,14 @@
  */
 
 using System;
-using System.IO;
 using System.Diagnostics;
+using System.IO;
 using Microsoft.Win32;
 using static System.Diagnostics.Process;
-using Enc = System.Text.Encoding;
-using WinReg = Microsoft.Win32.Registry;
-using static HXE.Common.ExtConvert;
 using static HXE.Common.ExtPath;
 using static HXE.Common.ExtProcess;
+using Enc = System.Text.Encoding;
+using WinReg = Microsoft.Win32.Registry;
 
 namespace HXE.HCE
 {

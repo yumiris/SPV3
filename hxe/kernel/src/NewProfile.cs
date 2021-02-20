@@ -2,8 +2,8 @@
 using System.IO;
 using HXE.HCE;
 using static HXE.Console;
-using static HXE.Paths;
 using static HXE.NewProfile.GenerateVars;
+using static HXE.Paths;
 using Directory = System.IO.Directory;
 
 namespace HXE

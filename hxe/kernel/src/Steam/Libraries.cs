@@ -20,8 +20,8 @@
  */
 
 using System.IO;
-using static HXE.Paths.MCC;
 using static System.IO.Path;
+using static HXE.Paths.MCC;
 
 namespace HXE.Steam
 {

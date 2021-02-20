@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using HXE.HCE;
@@ -31,12 +30,12 @@ using static System.Diagnostics.Process;
 using static System.Environment;
 using static System.IO.Directory;
 using static System.IO.Path;
+using static System.Text.Encoding;
 using static System.Windows.Forms.Screen;
 using static HXE.Console;
-using static HXE.Paths;
 using static HXE.HCE.Profile.ProfileAudio;
 using static HXE.HCE.Profile.ProfileVideo;
-using static System.Text.Encoding;
+using static HXE.Paths;
 
 namespace HXE
 {

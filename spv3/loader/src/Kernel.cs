@@ -1,6 +1,6 @@
-﻿using LoaderConf = SPV3.Configuration.ConfigurationLoader;
+﻿using static System.IO.File;
 using KernelConf = HXE.Kernel.Configuration;
-using static System.IO.File;
+using LoaderConf = SPV3.Configuration.ConfigurationLoader;
 
 namespace SPV3
 {
