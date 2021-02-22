@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using HXE.HCE;
 using static HXE.Console;
 using static HXE.NewProfile.GenerateVars;
@@ -33,7 +32,6 @@ namespace HXE
       ///     blam.sav has some defaults listed. What needs to be set manually?
       ///   load the file
       ///     Do I still need to do this?
-      SetNewName(profile);
       profile.Path = Custom.Profile(path, profile.Details.Name);
       lastprofile.Profile = profile.Details.Name;
 
@@ -44,21 +42,11 @@ namespace HXE
       lastprofile.Save();
     }
 
-		/// <summary>
-		///   Reusable functions for Profile Generation.
-		/// </summary>
-		public class GenerateVars
-		{
-			private static readonly string NameGen = $"New{new Random().Next(1, 999):D3}";
-
-      /// <summary>
-      ///   Use once to generate a profile name. Read from ProfileName for the result.
-      /// </summary>
-      public static void SetNewName(Profile profile)
-      {
-        profile.Details.Name = NameGen;
-      }
-
+    /// <summary>
+    ///   Reusable functions for Profile Generation.
+    /// </summary>
+    public class GenerateVars
+    {
       /// <summary>
       ///   Output the File.Path variable's current value. Verify its full path exists in the file system.
       /// </summary>
