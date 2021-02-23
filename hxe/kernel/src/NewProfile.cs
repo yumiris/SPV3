@@ -84,9 +84,29 @@ namespace HXE
       VerifyPath(file.Path);
 
       /// Create blam.sav
-      file.Path = Custom.Profile(path, profile.Details.Name); /// e.g. ".\temp\savegames\New001\blam.sav"
-      file.WriteAllBytes(new byte[8192]);
-      VerifyPath(file.Path);
+      using (var fs = new FileStream(Custom.Profile(path, profile.Details.Name), FileMode.OpenOrCreate)) /// e.g. ".\temp\savegames\New001\blam.sav"
+      using (var ms = new MemoryStream(8192))
+      using (var bw = new BinaryWriter(ms))
+      {
+        fs.Position = 0;
+        fs.CopyTo(ms);
+
+        /** Write Buffer 1 (7fff) */
+        {
+          fs.Position = 0x13c;
+          while (ms.Position < 0x938)
+          {
+            // To do: Convert Little Endian value to BigEndian
+            // https://stackoverflow.com/a/33587754/14894786
+            bw.Write(0x7fff);
+            ms.Position += 2;
+          }
+        }
+
+        ms.Position = 0;
+        ms.CopyTo(fs);
+      }
+      VerifyPath(Custom.Profile(path, profile.Details.Name));
 
       /// Create savegame.bin
       file.Path = Custom.Progress(path, profile.Details.Name); /// e.g. ".\temp\savegames\New001\savegame.bin"
