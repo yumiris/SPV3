@@ -23,14 +23,8 @@ namespace HXE
     {
       Core("Beginning to generate a new Player Profile");
       /// todo:
-      ///   create the file.
-      ///     double check it
-      ///   DONE: if the file is still null, *then* throw an exception.
-      ///     Do this everywhere this function is called.
       ///   populate with default settings
       ///     blam.sav has some defaults listed. What needs to be set manually?
-      ///   load the file
-      ///     Do I still need to do this?
       profile.Path = Custom.Profile(path, profile.Details.Name);
       lastprofile.Profile = profile.Details.Name;
 
