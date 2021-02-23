@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using HXE.HCE;
 using static HXE.Console;
-using static HXE.NewProfile.GenerateVars;
 using static HXE.Paths;
 using Directory = System.IO.Directory;
 
@@ -43,38 +42,31 @@ namespace HXE
     }
 
     /// <summary>
-    ///   Reusable functions for Profile Generation.
+    ///   Output the File.Path variable's current value. Verify its full path exists in the file system.
     /// </summary>
-    public class GenerateVars
+    public static void VerifyPath(string path)
     {
-      /// <summary>
-      ///   Output the File.Path variable's current value. Verify its full path exists in the file system.
-      /// </summary>
-      public static void VerifyPath(string path)
+      FileAttributes attr = System.IO.File.GetAttributes(path);
+      Debug("");
+      Debug($"Path is currently \"{path}\"");
+      Debug($"The Full Path is \"{Path.GetFullPath(path)}\"");
+      Debug($"Path is folder? {attr.HasFlag(FileAttributes.Directory)}");
+      if (attr.HasFlag(FileAttributes.Directory)) 
       {
-        FileAttributes attr = System.IO.File.GetAttributes(path);
-        Debug("");
-        Debug($"Path is currently \"{path}\"");
-        Debug($"The Full Path is \"{Path.GetFullPath(path)}\"");
-        Debug($"Path is folder? {attr.HasFlag(FileAttributes.Directory)}");
-        if (attr.HasFlag(FileAttributes.Directory)) 
-        {
-          Debug($"\"{path}\" exists? {Directory.Exists(path)}");
-        }
-        else
-        {
-          Debug($"\"{path}\" exists? {System.IO.File.Exists(path)}");
-        }
+        Debug($"\"{path}\" exists? {Directory.Exists(path)}");
       }
-
+      else
+      {
+        Debug($"\"{path}\" exists? {System.IO.File.Exists(path)}");
+      }
     }
 
     /// <summary>
     ///   Create file and folder structure for Profile.Generate() using variables from GenVars.
     /// </summary>
-    /// <param name="path" >-path parameter to pass to Halo and write to profiles.</param>
-    /// <param name="profile"   >Object to represent as string.</param>
-    /// <param name="file"      >An instance of the File class</param>
+    /// <param name="path"    > -path parameter to pass to Halo and write to profiles.</param>
+    /// <param name="profile" > Object to represent as string.</param>
+    /// <param name="file"    > An instance of the File class</param>
     public static void Scaffold(string path, LastProfile lastprofile, Profile profile)
     {
       Core("Creating Scaffold...");
