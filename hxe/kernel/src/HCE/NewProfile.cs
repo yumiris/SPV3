@@ -93,13 +93,10 @@ namespace HXE
 
         /** Write Buffer 1 (7fff) */
         {
-          new System.Runtime.Remoting.Metadata.W3cXsd2001.SoapHexBinary();
           fs.Position = 0x13c;
           while (ms.Position < 0x938)
           {
-            // To do: Convert Little Endian value to BigEndian
-            // https://stackoverflow.com/a/33587754/14894786
-            bw.Write(0x7fff);
+            bw.Write(0xff7f); // 0x7fff BE
             ms.Position += 2;
           }
         }

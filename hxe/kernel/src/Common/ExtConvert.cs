@@ -46,6 +46,7 @@ namespace HXE.Common
     /// <summary>
     /// reverse byte order (16-bit)/(UShort)
     /// </summary>
+    /// <see cref="https://www.csharp-examples.net/reverse-bytes/"/>
     public static ushort ReverseBytes(ushort value)
     {
       return (ushort) ((value & 0xFFU) << 8 | (value & 0xFF00U) >> 8);
