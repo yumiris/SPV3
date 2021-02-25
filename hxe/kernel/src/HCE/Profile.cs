@@ -512,17 +512,17 @@ namespace HXE.HCE
        * Where _buffer, the 0x7fff is written until the Position reaches the next notable offset.
        */
         _0x0000                  = 0x0000, //        0x0009
-      ProfileName                = 0x0002, // String New001
+      ProfileName                = 0x0002, //        "New001"  UTF-16 BE String
       ProfileColour              = 0x011A, //        0xffff
-        _0x012e                  = 0x012E, // Byte   0x03
-      MouseInvertVerticalAxis    = 0x012F, // Byte   0x00  
+        _0x012E                  = 0x012E, // Byte   0x03
+      MouseInvertVerticalAxis    = 0x012F, // Byte   0x00
         _0x0134                  = 0x0134, //        0x0009
         _0x0136                  = 0x0136, //        0x000c
         _0x0138                  = 0x0138, //        0x001b
-        _0x013a                  = 0x013A, //        0x001c
-        _0x013c_buffer           = 0x013C, //          0x7fff
+        _0x013A                  = 0x013A, //        0x001c
+        _0x013C_buffer           = 0x013C, //          0x7fff
                                                    
-        _0x014e                  = 0x014E, //        0x0012
+        _0x014E                  = 0x014E, //        0x0012
         _0x0150_buffer           = 0x0150, //          0x7fff
                                                    
         _0x0170                  = 0x0170, //        0x0003
@@ -530,36 +530,36 @@ namespace HXE.HCE
         _0x0174                  = 0x0174, //        0x0013
         _0x0176                  = 0x0176, //        0x0002
         _0x0178                  = 0x0178, //        0x000d
-        _0x017a                  = 0x017a, //        0x000f
-        _0x017c                  = 0x017C, //        0x0010
-        _0x017e_buffer           = 0x017E, //          0x7fff
+        _0x017A                  = 0x017a, //        0x000f
+        _0x017C                  = 0x017C, //        0x0010
+        _0x017E_buffer           = 0x017E, //          0x7fff
                                                    
-        _0x018e                  = 0x018E, //        0x0015
+        _0x018E                  = 0x018E, //        0x0015
         _0x0190                  = 0x0190, //        0x0014
         _0x0192                  = 0x0192, //        0x0016
         _0x0194                  = 0x0194, //        0x0004
         _0x0196                  = 0x0196, //        0x0001
         _0x0198                  = 0x0198, //        0x0011
-        _0x019a_buffer           = 0x019A, //          0x7fff
+        _0x019A_buffer           = 0x019A, //          0x7fff
                                                    
-        _0x01a4                  = 0x01A4, //        0x0008
-        _0x01a6_buffer           = 0x01A6, //          0x7fff
-        _0x01a8                  = 0x01A8, //        0x000b
-        _0x01aa                  = 0x01AA, //        0x000e
-        _0x01ac_buffer           = 0x01AC, //          0x7fff
+        _0x01A4                  = 0x01A4, //        0x0008
+        _0x01A6_buffer           = 0x01A6, //          0x7fff
+        _0x01A8                  = 0x01A8, //        0x000b
+        _0x01AA                  = 0x01AA, //        0x000e
+        _0x01AC_buffer           = 0x01AC, //          0x7fff
                                                    
-        _0x01be                  = 0x01BE, //        0x000a
-        _0x01c0_buffer           = 0x01C0, //          0x7fff
+        _0x01BE                  = 0x01BE, //        0x000a
+        _0x01C0_buffer           = 0x01C0, //          0x7fff
 
-        _0x01c4                  = 0x01C4, //        0x0000
-        _0x01c6_buffer           = 0x01C6, //          0x7fff
+        _0x01C4                  = 0x01C4, //        0x0000
+        _0x01C6_buffer           = 0x01C6, //          0x7fff
                                                    
-        _0x020e                  = 0x020E, //        0x0007
+        _0x020E                  = 0x020E, //        0x0007
         _0x0210                  = 0x0210, //        0x000b
         _0x0212                  = 0x0212, //        0x0006
         _0x0214_buffer           = 0x0214, //          0x7fff
                                                    
-        _0x021e                  = 0x021E, //        0x001a
+        _0x021E                  = 0x021E, //        0x001a
         _0x0220                  = 0x0220, //        0x0019
         _0x0222                  = 0x0222, //        0x0017
         _0x0224                  = 0x0224, //        0x0018
@@ -576,12 +576,84 @@ namespace HXE.HCE
         //Input.MenuBack         = 0x0334, //        0xffff
         //Input.MenuAccept       = 0x0336, //        0xffff
         //Input.MenuBack         = 0x0338, //        0xffff
-        _0x033a                  = 0x033A, //          0x7fff
-                                                   
-        _0x035e                  = 0x035E, //          0x7fff
+        _0x033A                  = 0x033A, //          0x7fff
+        
+        _0x093A_buffer_0x0       = 0x093A, //          0x0
 
-      MouseSensitivityHorizontal = 0x0954, // 
+        _0x093E                  = 0x093E, //        0x3f80
+        _0x0940                  = 0x0940, //        0x0000
+        _0x0942                  = 0x0942, //        0x3f80
+        _0x0944                  = 0x0944, //        0x04fc
+        _0x0946                  = 0x0946, //        0x3e41
+        _0x0948                  = 0x0948, //        0x04fc
+        _0x094A                  = 0x094A, //        0x3e41
+        _0x094C                  = 0x094C, //        0x0000
+        _0x094E                  = 0x094E, //        0x4300
+        _0x0950                  = 0x0950, //        0x0000
+        _0x0952                  = 0x0952, //        0x4300
+      MouseSensitivityHorizontal = 0x0954,
       MouseSensitivityVertical   = 0x0955,
+        _0x0956                  = 0x0956, //        0x0303
+        _0x0958                  = 0x0958, //        0x0303
+        _0x095A                  = 0x095A, //        0x0303
+        _0x095C                  = 0x095C, //        0x0303
+        _0x095E                  = 0x095E, //        0x0000
+        _0x0960                  = 0x0960, //        0x0000
+        _0x0962                  = 0x0962, //        0x3f40
+        _0x0964                  = 0x0964, //        0x0000
+        _0x0966                  = 0x0966, //        0x3f40
+        _0x0968                  = 0x0968, //        0x0000
+        _0x096A_buffer_0x0       = 0x096a, //          0x0
+
+        _0x0A68                  = 0x0A68, //        0x0780
+        _0x0A6A                  = 0x0A6A, //        0x0438
+        _0x0A6C                  = 0x0A6C, //        0x0090
+        _0x0A6E                  = 0x0A6E, //        0x0002
+        _0x0A70                  = 0x0A70, //        0x0101
+        _0x0A72                  = 0x0A72, //        0x0201
+        _0x0A74                  = 0x0A74, //        0x0202
+        _0x0A76                  = 0x0A76, //        0x0001
+        _0x0A78_buffer_0x0       = 0x0A78, //          0x0
+
+        _0x0B78                  = 0x0B78, //        0x0a0a
+        _0x0B7A                  = 0x0B7A, //        0x0106
+        _0x0B7C                  = 0x0B7C, //        0x0201
+        _0x0B7E                  = 0x0B7E, //        0x0200
+        _0x0B80_buffer_0x0       = 0x0B80, //          0x0
+
+        _0x0C80                  = 0x0C80, //        0x0103
+        _0x0C82                  = 0x0C82, //        0x0001
+        _0x0C84                  = 0x0C84, //        0x0000
+        _0x0C86                  = 0x0C86, //        0x0101
+        _0x0C88_buffer_0x0       = 0x0C88, //          0x0
+
+        _0x0D8C                  = 0x0D8C, //        "Halo"    UTF-16 BE String
+
+        _0x0D94_buffer_0x0       = 0x0D94, //          0x0
+
+        _0x0EBE                  = 0x0EBE, //        0x0300
+        _0x0EC0_buffer_0x0       = 0x0EC0, //          0x0
+
+        _0x0FC0                  = 0x0FC0, //        0x0001
+        _0x0FC2_buffer_0x0       = 0x0FC2, //          0x0
+
+        _0x1002                  = 0x1002, //        0x08fe
+        _0x1004                  = 0x1004, //        0x08ff
+        _0x1006_buffer_0x0       = 0x1006, //          0x0
+
+      GamePad_0_Name             = 0x1108, //        ""        UTF-16 String; can be either BE (Xbox Controller S via XBCD ) or LE (Xbox 360 Controller For Windows)
+
+      PIDVID_1_prefix_01         = 0x1314, //        0x045e
+      PIDVID_1_prefix_02         = 0x1316, //        0x028e if controller assigned, 0x0289 if no assignement
+      PIDVID_1_buffer            = 0x1318, //        0x000, 0x000, 0x000
+      PIDVID_1                   = 0x1314, //        "PIDVID"  UTF-8 String
+      GamePad_1_Name_Buffer      = 0x1324, //        0x0000, 0x0000
+      GamePad_1_Name             = 0x131E, //        ""        UTF-16 String; can be either BE (Xbox Controller S via XBCD ) or LE (Xbox 360 Controller For Windows)
+
+      // a few more left
+
+
+
       VideoResolutionWidth       = 0x0A68,
       VideoResolutionHeight      = 0x0A6A,
       VideoRefreshRate           = 0x0A6C,
