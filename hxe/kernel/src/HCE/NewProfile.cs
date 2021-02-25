@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using HXE.HCE;
+using static System.Environment;
 using static HXE.Console;
 using static HXE.Paths;
 using Directory = System.IO.Directory;
@@ -40,19 +41,14 @@ namespace HXE
     /// </summary>
     public static void VerifyPath(string path)
     {
-      FileAttributes attr = System.IO.File.GetAttributes(path);
-      Debug("");
-      Debug($"Path is currently \"{path}\"");
-      Debug($"The Full Path is \"{Path.GetFullPath(path)}\"");
-      Debug($"Path is folder? {attr.HasFlag(FileAttributes.Directory)}");
-      if (attr.HasFlag(FileAttributes.Directory)) 
-      {
-        Debug($"\"{path}\" exists? {Directory.Exists(path)}");
-      }
-      else
-      {
-        Debug($"\"{path}\" exists? {System.IO.File.Exists(path)}");
-      }
+      bool isDir = System.IO.File.GetAttributes(path).HasFlag(FileAttributes.Directory);
+
+      Debug(NewLine
+          + NewLine + $"Path is currently \"{path}\""
+          + NewLine + $"The Full Path is \"{Path.GetFullPath(path)}\""
+          + NewLine + $"Path points to a folder? {isDir}"
+          + NewLine + $"\"{path}\" exists?" + (isDir? Directory.Exists(path) : System.IO.File.Exists(path))
+          );
     }
 
     /// <summary>
