@@ -18,6 +18,7 @@
  *    misrepresented as being the original software.
  * 3. This notice may not be removed or altered from any source distribution.
  */
+using System;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 
 namespace HXE.Common
@@ -40,6 +41,14 @@ namespace HXE.Common
       }
 
       return result;
+    }
+
+    /// <summary>
+    /// reverse byte order (16-bit)/(UShort)
+    /// </summary>
+    public static ushort ReverseBytes(ushort value)
+    {
+      return (ushort) ((value & 0xFFU) << 8 | (value & 0xFF00U) >> 8);
     }
   }
 }
