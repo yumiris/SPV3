@@ -93,6 +93,7 @@ namespace HXE
 
         /** Write Buffer 1 (7fff) */
         {
+          new System.Runtime.Remoting.Metadata.W3cXsd2001.SoapHexBinary();
           fs.Position = 0x13c;
           while (ms.Position < 0x938)
           {
