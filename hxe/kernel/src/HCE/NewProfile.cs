@@ -119,11 +119,11 @@ namespace HXE
 
           ms.Position = 0x134;
           bw.Write(0x0900); // 0x9
-          ms.Position = 0x136;
+          ms.Position += 2;
           bw.Write(0x0c00); // 0xC
-          ms.Position = 0x138;
+          ms.Position += 2;
           bw.Write(0x1b00); // 0x1B
-          ms.Position = 0x13a;
+          ms.Position += 2;
           bw.Write(0x1c00); // 0x1C
 
           ms.Position = 0x14e;
@@ -131,26 +131,62 @@ namespace HXE
 
           ms.Position = 0x170;
           bw.Write(0x0300); // 0x3
-          ms.Position = 0x172;
+          ms.Position += 2;
           bw.Write(0x0500); // 0x5
-          ms.Position = 0x174;
+          ms.Position += 2;
           bw.Write(0x1300); // 0x13
-          ms.Position = 0x176;
+          ms.Position += 2;
           bw.Write(0x0200); // 0x2
-          ms.Position = 0x178;
+          ms.Position += 2;
           bw.Write(0x0d00); // 0xD
-          ms.Position = 0x17a;
+          ms.Position += 2;
           bw.Write(0x0f00); // 0xf
-          ms.Position = 0x17c;
+          ms.Position += 2;
           bw.Write(0x1000); // 0x10
 
           ms.Position = 0x18e;
           bw.Write(0x1500); // 0x15
-          ms.Position = 0x190;
+          ms.Position += 2;
           bw.Write(0x1400); // 0x14
-          ms.Position = 0x192;
+          ms.Position += 2;
+          bw.Write(0x1600); // 0x16
+          ms.Position += 2;
+          bw.Write(0x0400); // 0x4
+          ms.Position += 2;
+          bw.Write(0x0100); // 0x1
+          ms.Position += 2;
+          bw.Write(0x1100); // 0x11
 
+          ms.Position = 0x1a4;
+          bw.Write(0x0800); // 0x8
 
+          ms.Position = 0x1a8;
+          bw.Write(0x0b00); // 0xb
+          ms.Position += 2;
+          bw.Write(0x0e00); // 0xe
+
+          ms.Position = 0x01be;
+          bw.Write(0x0a00); // 0xa
+
+          ms.Position = 0x1c4;
+          bw.Write(0x0000); // 0x00
+
+          ms.Position = 0x20e;
+          bw.Write(0x0b00); // 0xb
+          ms.Position += 2;
+          bw.Write(0x0600); // 0x6
+
+          ms.Position = 0x21e;
+          bw.Write(0x1a00); // 0x1a
+          ms.Position += 2;
+          bw.Write(0x1900); // 0x19
+          ms.Position += 2;
+          bw.Write(0x1700); // 0x17
+          ms.Position += 2;
+          bw.Write(0x1800); // 0x18
+
+          ms.Position = 0x326;
+          bw.Write(0xffff);
 
         }
 
