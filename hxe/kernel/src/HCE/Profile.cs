@@ -548,10 +548,9 @@ namespace HXE.HCE
         _0x01aa                  = 0x01AA, //        0x000e
         _0x01ac_buffer           = 0x01AC, //          0x7fff
                                                    
-        _0x01bc_buffer           = 0x01BC, //          0x7fff
         _0x01be                  = 0x01BE, //        0x000a
         _0x01c0_buffer           = 0x01C0, //          0x7fff
-        _0x01c2_buffer           = 0x01C2, //          0x7fff
+
         _0x01c4                  = 0x01C4, //        0x0000
         _0x01c6_buffer           = 0x01C6, //          0x7fff
                                                    
@@ -569,14 +568,14 @@ namespace HXE.HCE
         _0x0324                  = 0x0324, //          0x7fff
         _0x0326                  = 0x0326, //        0xffff
         _0x0328                  = 0x0328, //          0x7fff
-        //Input.MenuAccept       = 0x032A, //          0x7fff
+        //Input.MenuAccept       = 0x032A, //        0xffff
         //Input.MenuBack         = 0x032C, //        0xffff
-        _0x032e                  = 0x032E, //        0xffff
-        _0x0330                  = 0x0330, //        0xffff
-        _0x0332                  = 0x0332, //        0xffff
-        _0x0334                  = 0x0334, //        0xffff
-        _0x0336                  = 0x0336, //        0xffff
-        _0x0338                  = 0x0338, //        0xffff
+        //Input.MenuAccept       = 0x032E, //        0xffff
+        //Input.MenuBack         = 0x0330, //        0xffff
+        //Input.MenuAccept       = 0x0332, //        0xffff
+        //Input.MenuBack         = 0x0334, //        0xffff
+        //Input.MenuAccept       = 0x0336, //        0xffff
+        //Input.MenuBack         = 0x0338, //        0xffff
         _0x033a                  = 0x033A, //          0x7fff
                                                    
         _0x035e                  = 0x035E, //          0x7fff
@@ -804,18 +803,25 @@ namespace HXE.HCE
 
       /// <summary>
       /// Offsets from 810=0x32A to 825=0x339.
-      /// Represents Actions in Misc section
+      /// Represents per-controller MenuAccept and MenuBack in Misc
       /// </summary>
+      /// <remarks>
+      /// If there is only one controller in the profile, 
+      ///  only _03 will be used.
+      /// When there are two, Controller 0 will be assigned group _02
+      ///  and Controller 1 will be assigned group _03
+      /// ...and so on.
+      /// </remarks>
       public enum OddOffsets
       {
-        MenuAccept = 0x32A, /* misc.           */
-        MenuBack   = 0x32C, /* misc.           */
-        unknown2   = 0x32E,
-        unknown3   = 0x330,
-        unknown4   = 0x332,
-        unknown5   = 0x334,
-        unknown6   = 0x336,
-        unknown7   = 0x338
+        MenuAccept_03 = 0x32A,
+        MenuBack_03   = 0x32C,
+        MenuAccept_02 = 0x32E,
+        MenuBack_02   = 0x330,
+        MenuAccept_01 = 0x332,
+        MenuBack_01   = 0x334,
+        MenuAccept_00 = 0x336,
+        MenuBack_00   = 0x338
       }
 
       public enum OddValues // bit mask?
