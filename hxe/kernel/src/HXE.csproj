@@ -78,7 +78,7 @@
     <Compile Include="Common\ExtPath.cs" />
     <Compile Include="Common\ExtProcess.cs" />
     <Compile Include="HCE\Registry.cs" />
-    <Compile Include="NewProfile.cs" />
+    <Compile Include="HCE\NewProfile.cs" />
     <Compile Include="Compiler.cs" />
     <Compile Include="Console.cs" />
     <Compile Include="Exceptions\AssetException.cs" />
