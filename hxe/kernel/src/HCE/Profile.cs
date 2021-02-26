@@ -563,11 +563,8 @@ namespace HXE.HCE
         _0x0220                  = 0x0220, //        0x0019
         _0x0222                  = 0x0222, //        0x0017
         _0x0224                  = 0x0224, //        0x0018
-        _0x0226                  = 0x0226, //          0x7fff
+        _0x0226_buffer           = 0x0226, //          0x7fff
                                                    
-        _0x0324                  = 0x0324, //          0x7fff
-        _0x0326                  = 0x0326, //        0xffff
-        _0x0328                  = 0x0328, //          0x7fff
         //Input.MenuAccept       = 0x032A, //        0xffff
         //Input.MenuBack         = 0x032C, //        0xffff
         //Input.MenuAccept       = 0x032E, //        0xffff
@@ -605,75 +602,65 @@ namespace HXE.HCE
         _0x0968                  = 0x0968, //        0x0000
         _0x096A_buffer_0x0       = 0x096a, //          0x0
 
-        _0x0A68                  = 0x0A68, //        0x0780
-        _0x0A6A                  = 0x0A6A, //        0x0438
-        _0x0A6C                  = 0x0A6C, //        0x0090
-        _0x0A6E                  = 0x0A6E, //        0x0002
-        _0x0A70                  = 0x0A70, //        0x0101
-        _0x0A72                  = 0x0A72, //        0x0201
-        _0x0A74                  = 0x0A74, //        0x0202
-        _0x0A76                  = 0x0A76, //        0x0001
+      VideoResolutionWidth       = 0x0A68, //        0x0780
+      VideoResolutionHeight      = 0x0A6A, //        0x0438
+      VideoRefreshRate           = 0x0A6C, //        0x0090
+        _0x0A6E                  = 0x0A6E, //        0x02
+      VideoFrameRate             = 0x0A6F, //        0x02
+      VideoEffectsSpecular       = 0x0A70, //        0x0101
+      VideoEffectsShadows        = 0x0A71, //        0x0201
+      VideoEffectsDecals         = 0x0A72, //        0x0202
+      VideoQualityParticles      = 0x0A73, //        0x0001
+      VideoQualityTextures       = 0x0A74,
+      VideoMiscellaneousGamma    = 0x0A76,
         _0x0A78_buffer_0x0       = 0x0A78, //          0x0
 
-        _0x0B78                  = 0x0B78, //        0x0a0a
-        _0x0B7A                  = 0x0B7A, //        0x0106
-        _0x0B7C                  = 0x0B7C, //        0x0201
-        _0x0B7E                  = 0x0B7E, //        0x0200
+
+      AudioVolumeMaster          = 0x0B78, //        0x0a
+      AudioVolumeEffects         = 0x0B79, //        0x0a
+      AudioVolumeMusic           = 0x0B7A, //        0x06
+      AudioEAX                   = 0x0B7B, //        0x00
+      AudioHWA                   = 0x0B7C, //        0x00
+      AudioQuality               = 0x0B7D, //        0x01
+        _0x0B7E                  = 0x0B7E, //        0x00
+      AudioVariety               = 0x0B7F, //        0x02
         _0x0B80_buffer_0x0       = 0x0B80, //          0x0
 
-        _0x0C80                  = 0x0C80, //        0x0103
-        _0x0C82                  = 0x0C82, //        0x0001
-        _0x0C84                  = 0x0C84, //        0x0000
-        _0x0C86                  = 0x0C86, //        0x0101
+      _0x0C80                    = 0x0C80, //        0x0103
+      _0x0C82                    = 0x0C82, //        0x0001
+      _0x0C84                    = 0x0C84, //        0x0000
+      _0x0C86                    = 0x0C86, //        0x0101
         _0x0C88_buffer_0x0       = 0x0C88, //          0x0
 
-        _0x0D8C                  = 0x0D8C, //        "Halo"    UTF-16 BE String
+      _0x0D8C                    = 0x0D8C, //        "Halo"    UTF-16 BE String
 
         _0x0D94_buffer_0x0       = 0x0D94, //          0x0
 
-        _0x0EBE                  = 0x0EBE, //        0x0300
+      _0x0EBE                    = 0x0EBE, //        0x0300
         _0x0EC0_buffer_0x0       = 0x0EC0, //          0x0
 
-        _0x0FC0                  = 0x0FC0, //        0x0001
+      NetworkConnectionType      = 0x0FC0, //        0x0001
         _0x0FC2_buffer_0x0       = 0x0FC2, //          0x0
 
-        _0x1002                  = 0x1002, //        0x08fe
-        _0x1004                  = 0x1004, //        0x08ff
+      NetworkPortServer          = 0x1002, //        0x08fe
+      NetworkPortClient          = 0x1004, //        0x08ff
         _0x1006_buffer_0x0       = 0x1006, //          0x0
 
       GamePad_0_Name             = 0x1108, //        ""        UTF-16 String; can be either BE (Xbox Controller S via XBCD ) or LE (Xbox 360 Controller For Windows)
 
-      PIDVID_1_prefix_01         = 0x1314, //        0x045e
-      PIDVID_1_prefix_02         = 0x1316, //        0x028e if controller assigned, 0x0289 if no assignement
-      PIDVID_1_buffer            = 0x1318, //        0x000, 0x000, 0x000
-      PIDVID_1                   = 0x1314, //        "PIDVID"  UTF-8 String
-      GamePad_1_Name_Buffer      = 0x1324, //        0x0000, 0x0000
-      GamePad_1_Name             = 0x131E, //        ""        UTF-16 String; can be either BE (Xbox Controller S via XBCD ) or LE (Xbox 360 Controller For Windows)
+      GamePad_0_PIDVID_01        = 0x1314, //        0x045e (Marker?)
+      GamePad_0_PIDVID_02        = 0x1316, //        Gamepad ID (XBCD OGX-S ==  
+      GamePad_0_PIDVID_buffer    = 0x1318, //        0x000, 0x000, 0x000
+      GamePad_0_PIDVID           = 0x1314, //        "PIDVID"  UTF-8 String
+      GamePad_0_PIDVID_DupeID    = 0x1318, //        0x00; Byte; If duplicate, then 0x01 and so on.
+        _0x1324_buffer_0x0       = 0x1324, //        0x0000, 0x0000
+
+      GamePad_1_Name             = 0x131E, //        ""        UTF-16 String; BE or LE
+
+
 
       // a few more left
 
-
-
-      VideoResolutionWidth       = 0x0A68,
-      VideoResolutionHeight      = 0x0A6A,
-      VideoRefreshRate           = 0x0A6C,
-      VideoFrameRate             = 0x0A6F,
-      VideoEffectsSpecular       = 0x0A70,
-      VideoEffectsShadows        = 0x0A71,
-      VideoEffectsDecals         = 0x0A72,
-      VideoQualityParticles      = 0x0A73,
-      VideoQualityTextures       = 0x0A74,
-      VideoMiscellaneousGamma    = 0x0A76,
-      AudioVolumeMaster          = 0x0B78,
-      AudioVolumeEffects         = 0x0B79,
-      AudioVolumeMusic           = 0x0B7A,
-      AudioEAX                   = 0x0B7B,
-      AudioHWA                   = 0x0B7C,
-      AudioQuality               = 0x0B7D,
-      AudioVariety               = 0x0B7F,
-      NetworkConnectionType      = 0x0FC0,
-      NetworkPortServer          = 0x1002,
-      NetworkPortClient          = 0x1004,
       BinaryCrc32Hash            = 0x1FFC
     }
 
