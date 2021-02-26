@@ -31,9 +31,11 @@ namespace HXE
 
       if (!scaffold)
         Scaffold(path, lastprofile, profile);
-
-      profile.Save();
-      lastprofile.Save();
+      else
+      {
+        profile.Save();
+        lastprofile.Save();
+      }
     }
 
     /// <summary>
@@ -104,95 +106,114 @@ namespace HXE
           ms.Position = 0x13c;
           while (ms.Position < 0x938)
           {
-            bw.Write(0xff7f); // 0x7fff BE
-            ms.Position += 2;
+            bw.Write((ushort) 0xff7f); // 0x7fff BE
           }
         }
 
-        /** Unknown bits */
+        /** Defaults to Refactor later */
         {
-          ms.Position = 0x11a;
-          bw.Write(0xffff);
+          ms.Position = 0x11a; // multiplayer biped color
+          bw.Write((ushort) 0xffff);
 
+          /** Unknown */
           ms.Position = 0x12e;
-          bw.Write(0x0300); // 0x3 BE
+          bw.Write((byte) 0x3);
 
-          ms.Position = 0x134;
-          bw.Write(0x0900); // 0x9
-          ms.Position += 2;
-          bw.Write(0x0c00); // 0xC
-          ms.Position += 2;
-          bw.Write(0x1b00); // 0x1B
-          ms.Position += 2;
-          bw.Write(0x1c00); // 0x1C
+          /** Mouse - Invert Vertical Axis */
+          ms.Position = 0x12F;
+          bw.Write(0x00);
 
-          ms.Position = 0x14e;
-          bw.Write(0x1200); // 0x12
+          /** Keyboard bindings */
+          { 
+            ms.Position = 0x134;
+            bw.Write((ushort) 0x9);
+            ms.Position += 2;
+            bw.Write((ushort) 0xC);
+            ms.Position += 2;
+            bw.Write((ushort) 0x1B);
+            ms.Position += 2;
+            bw.Write((ushort) 0x1C);
 
-          ms.Position = 0x170;
-          bw.Write(0x0300); // 0x3
-          ms.Position += 2;
-          bw.Write(0x0500); // 0x5
-          ms.Position += 2;
-          bw.Write(0x1300); // 0x13
-          ms.Position += 2;
-          bw.Write(0x0200); // 0x2
-          ms.Position += 2;
-          bw.Write(0x0d00); // 0xD
-          ms.Position += 2;
-          bw.Write(0x0f00); // 0xf
-          ms.Position += 2;
-          bw.Write(0x1000); // 0x10
+            ms.Position = 0x14e;
+            bw.Write((ushort) 0x12);
 
-          ms.Position = 0x18e;
-          bw.Write(0x1500); // 0x15
-          ms.Position += 2;
-          bw.Write(0x1400); // 0x14
-          ms.Position += 2;
-          bw.Write(0x1600); // 0x16
-          ms.Position += 2;
-          bw.Write(0x0400); // 0x4
-          ms.Position += 2;
-          bw.Write(0x0100); // 0x1
-          ms.Position += 2;
-          bw.Write(0x1100); // 0x11
+            ms.Position = 0x170;
+            bw.Write((ushort) 0x3);
+            ms.Position += 2;
+            bw.Write((ushort) 0x5);
+            ms.Position += 2;
+            bw.Write((ushort) 0x13);
+            ms.Position += 2;
+            bw.Write((ushort) 0x2);
+            ms.Position += 2;
+            bw.Write((ushort) 0xD);
+            ms.Position += 2;
+            bw.Write((ushort) 0xF);
+            ms.Position += 2;
+            bw.Write((ushort) 0x10);
 
-          ms.Position = 0x1a4;
-          bw.Write(0x0800); // 0x8
+            ms.Position = 0x18e;
+            bw.Write((ushort) 0x15);
+            ms.Position += 2;
+            bw.Write((ushort) 0x14);
+            ms.Position += 2;
+            bw.Write((ushort) 0x16);
+            ms.Position += 2;
+            bw.Write((ushort) 0x4);
+            ms.Position += 2;
+            bw.Write((ushort) 0x1);
+            ms.Position += 2;
+            bw.Write((ushort) 0x11);
 
-          ms.Position = 0x1a8;
-          bw.Write(0x0b00); // 0xb
-          ms.Position += 2;
-          bw.Write(0x0e00); // 0xe
+            ms.Position = 0x1a4;
+            bw.Write((ushort) 0x8);
 
-          ms.Position = 0x01be;
-          bw.Write(0x0a00); // 0xa
+            ms.Position = 0x1a8;
+            bw.Write((ushort) 0xB);
+            ms.Position += 2;
+            bw.Write((ushort) 0xE);
 
-          ms.Position = 0x1c4;
-          bw.Write(0x0000); // 0x00
+            ms.Position = 0x01be;
+            bw.Write((ushort) 0xA);
 
-          ms.Position = 0x20e;
-          bw.Write(0x0b00); // 0xb
-          ms.Position += 2;
-          bw.Write(0x0600); // 0x6
+            ms.Position = 0x1c4;
+            bw.Write((ushort) 0x0);
+          }
 
-          ms.Position = 0x21e;
-          bw.Write(0x1a00); // 0x1a
-          ms.Position += 2;
-          bw.Write(0x1900); // 0x19
-          ms.Position += 2;
-          bw.Write(0x1700); // 0x17
-          ms.Position += 2;
-          bw.Write(0x1800); // 0x18
+          /** Mouse offsets */
+          {
+            ms.Position = 0x20e;
+            bw.Write((ushort) 0xB);  // 0xb - left mouse button to 
+            ms.Position += 2;
+            bw.Write((ushort) 0x6);
 
-          ms.Position = 0x326;
-          bw.Write(0xffff);
+            ms.Position = 0x21e;
+            bw.Write((ushort) 0x1A);
+            ms.Position += 2;
+            bw.Write((ushort) 0x19);
+            ms.Position += 2;
+            bw.Write((ushort) 0x17);
+            ms.Position += 2;
+            bw.Write((ushort) 0x18);
+          }
+        }
 
+        /** Gamepad - Menu bindings */
+        {
+          ms.Position = 0x32A;
+          while (ms.Position < 0x33A)
+          {
+            // Just default all controllers to A/Accept and B/Back
+            bw.Write((ushort) 0x0); 
+            bw.Write((ushort) 0x1);
+          }
         }
 
         ms.Position = 0;
         ms.CopyTo(fs);
       }
+      profile.Load();
+      profile.Save();
       VerifyPath(Custom.Profile(path, profile.Details.Name));
 
       /** Savegame.bin
