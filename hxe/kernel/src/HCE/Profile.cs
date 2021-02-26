@@ -554,9 +554,23 @@ namespace HXE.HCE
         _0x01C4                  = 0x01C4, //        0x0000
         _0x01C6_buffer           = 0x01C6, //          0x7fff
                                                    
-        _0x020E                  = 0x020E, //        0x0007
-        _0x0210                  = 0x0210, //        0x000b
-        _0x0212                  = 0x0212, //        0x0006
+        Mouse_LeftButton         = 0x020E, //        0x0007
+        Mouse_MiddleButton       = 0x0210, //        0x000b
+        Mouse_RightButton        = 0x0212, //        0x0006
+        Mouse_4                  = 0x0214, //        
+        Mouse_5                  = 0x0216, //        
+        Mouse_6                  = 0x0218, //        
+        Mouse_7                  = 0x021A, //        
+        Mouse_8                  = 0x021C, //        
+        Mouse_HAxis_Neg          = 0x021E, //
+        Mouse_HAxis_Pos          = 0x0220, //
+        Mouse_VAxis_Neg          = 0x0222,
+        Mouse_VAxis_Pos          = 0x0224,
+        Mouse_Wheel_Neg          = 0x0226,
+        Mouse_Wheel_Pos          = 0x0228, 
+
+
+
         _0x0214_buffer           = 0x0214, //          0x7fff
                                                    
         _0x021E                  = 0x021E, //        0x001a
@@ -613,7 +627,7 @@ namespace HXE.HCE
       VideoQualityParticles      = 0x0A73, //        0x0001
       VideoQualityTextures       = 0x0A74,
       VideoMiscellaneousGamma    = 0x0A76,
-        _0x0A78_buffer_0x0       = 0x0A78, //          0x0
+        _0x0A78_Padding          = 0x0A78, //          0x0
 
 
       AudioVolumeMaster          = 0x0B78, //        0x0a
@@ -624,38 +638,38 @@ namespace HXE.HCE
       AudioQuality               = 0x0B7D, //        0x01
         _0x0B7E                  = 0x0B7E, //        0x00
       AudioVariety               = 0x0B7F, //        0x02
-        _0x0B80_buffer_0x0       = 0x0B80, //          0x0
+        _0x0B80_Padding          = 0x0B80, //          0x0
 
       _0x0C80                    = 0x0C80, //        0x0103
       _0x0C82                    = 0x0C82, //        0x0001
       _0x0C84                    = 0x0C84, //        0x0000
       _0x0C86                    = 0x0C86, //        0x0101
-        _0x0C88_buffer_0x0       = 0x0C88, //          0x0
+        _0x0C88_Padding          = 0x0C88, //          0x0
 
-      _0x0D8C                    = 0x0D8C, //        "Halo"    UTF-16 BE String
+      NetworkServerName          = 0x0D8C, //        UTF-16 String. Null-terminated. 31 characters, excluding null.
 
-        _0x0D94_buffer_0x0       = 0x0D94, //          0x0
+      NetworkPassword            = 0x0EAC, //        UTF-16 String. Null-terminated. 8 characters, excluding null.
 
-      _0x0EBE                    = 0x0EBE, //        0x0300
-        _0x0EC0_buffer_0x0       = 0x0EC0, //          0x0
+      NetworkMaxPlayers          = 0x0EBF, //        0x03 uint8
+        _0x0EC0_Padding          = 0x0EC0, //          0x0
 
-      NetworkConnectionType      = 0x0FC0, //        0x0001
-        _0x0FC2_buffer_0x0       = 0x0FC2, //          0x0
+      NetworkConnectionType      = 0x0FC0, //        0x01 uint8
+      NetworkServerAddress       = 0x0FC2, //        UTF-16 String. Null-terminated. 31 characters, excluding null.
 
       NetworkPortServer          = 0x1002, //        0x08fe
       NetworkPortClient          = 0x1004, //        0x08ff
-        _0x1006_buffer_0x0       = 0x1006, //          0x0
+        _0x1006_Padding          = 0x1006, //          0x0
 
-      GamePad_0_Name             = 0x1108, //        ""        UTF-16 String; can be either BE (Xbox Controller S via XBCD ) or LE (Xbox 360 Controller For Windows)
+      GamePad_0_Name             = 0x1108, //        UTF-16 String; can be either LE (Xbox Controller S via XBCD ) or BE (Xbox 360 Controller For Windows)
 
       GamePad_0_PIDVID_01        = 0x1314, //        0x045e (Marker?)
       GamePad_0_PIDVID_02        = 0x1316, //        Gamepad ID (XBCD OGX-S ==  
-      GamePad_0_PIDVID_buffer    = 0x1318, //        0x000, 0x000, 0x000
+      GamePad_0_PIDVID_buffer    = 0x1318, //        0x0000, 0x0000, 0x0000
       GamePad_0_PIDVID           = 0x1314, //        "PIDVID"  UTF-8 String
       GamePad_0_PIDVID_DupeID    = 0x1318, //        0x00; Byte; If duplicate, then 0x01 and so on.
-        _0x1324_buffer_0x0       = 0x1324, //        0x0000, 0x0000
+        _0x1324_Padding          = 0x1324, //        0x0000, 0x0000
 
-      GamePad_1_Name             = 0x131E, //        ""        UTF-16 String; BE or LE
+      GamePad_1_Name             = 0x131E, //        UTF-16 String; BE or LE
 
 
 
@@ -834,30 +848,32 @@ namespace HXE.HCE
 
       public enum Button
       {
-        DPU   = 0x53A, /* directional - up                */
-        DPD   = 0x542, /* directional - down              */
-        DPL   = 0x546, /* directional - left              */
-        DPR   = 0x53E, /* directional - right             */
-        LSU   = 0x33C, /* analogue - left stick - up      */
-        LSD   = 0x33A, /* analogue - left stick - down    */
-        LSL   = 0x340, /* analogue - left stick - left    */
-        LSR   = 0x33E, /* analogue - left stick - right   */
-        LSM   = 0x23A, /* analogue - left stick - middle  */
-        RSU   = 0x344, /* analogue - right stick - up     */
-        RSD   = 0x342, /* analogue - right stick - down   */
-        RSL   = 0x348, /* analogue - right stick - left   */
-        RSR   = 0x346, /* analogue - right stick - right  */
-        RSM   = 0x23C, /* analogue - right stick - middle */
-        LB    = 0x232, /* shoulder - bumper - left        */
-        RB    = 0x234, /* shoulder - bumper - right       */
-        LT    = 0x34A, /* shoulder - trigger - left       */
-        RT    = 0x34C, /* shoulder - trigger - right      */
         A     = 0x22A, /* face - button a                 */
         B     = 0x22C, /* face - button b                 */
         X     = 0x22E, /* face - button x                 */
         Y     = 0x230, /* face - button y                 */
+        LB    = 0x232, /* shoulder - bumper - left        */
+        RB    = 0x234, /* shoulder - bumper - right       */
+        Back  = 0x236, /* home - back                     */
         Start = 0x238, /* home - start                    */
-        Back  = 0x236  /* home - back                     */
+        LSM   = 0x23A, /* analogue - left stick - middle  */
+        RSM   = 0x23C, /* analogue - right stick - middle */
+
+        LSD   = 0x33A, /* analogue - left stick - down    */
+        LSU   = 0x33C, /* analogue - left stick - up      */
+        LSR   = 0x33E, /* analogue - left stick - right   */
+        LSL   = 0x340, /* analogue - left stick - left    */
+        RSD   = 0x342, /* analogue - right stick - down   */
+        RSU   = 0x344, /* analogue - right stick - up     */
+        RSR   = 0x346, /* analogue - right stick - right  */
+        RSL   = 0x348, /* analogue - right stick - left   */
+        LT    = 0x34A, /* shoulder - trigger - left       */
+        RT    = 0x34C, /* shoulder - trigger - right      */
+
+        DPU   = 0x53A, /* directional - up                */
+        DPR   = 0x53E, /* directional - right             */
+        DPD   = 0x542, /* directional - down              */
+        DPL   = 0x546, /* directional - left              */
       }
 
       /// <summary>
