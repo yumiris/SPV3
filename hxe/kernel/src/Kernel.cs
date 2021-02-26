@@ -527,10 +527,10 @@ namespace HXE
             {Profile.ProfileInput.Action.FireWeapon, Profile.ProfileInput.Button.RT}
           };
 
-          blam.Input.BitBinding = new Dictionary<Profile.ProfileInput.OddValues, Profile.ProfileInput.OddOffsets>
+          blam.Input.BitBinding = new Dictionary<Profile.ProfileInput.DICapEnums, Profile.ProfileInput.GamePadMenu>
           {
-            {Profile.ProfileInput.OddValues.Button1, Profile.ProfileInput.OddOffsets.MenuAccept},
-            {Profile.ProfileInput.OddValues.Button2, Profile.ProfileInput.OddOffsets.MenuBack}
+            {Profile.ProfileInput.DICapEnums.Button1, Profile.ProfileInput.GamePadMenu.MenuAccept},
+            {Profile.ProfileInput.DICapEnums.Button2, Profile.ProfileInput.GamePadMenu.MenuBack}
           };
 
           Core("BLAM.INPUT: Input overrides have been applied accordingly.");

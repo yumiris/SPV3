@@ -146,7 +146,7 @@ namespace HXE.HCE
           bw.Write(0x7F);
         }
 
-        foreach (var offset in Enum.GetValues(typeof(OddOffsets)))
+        foreach (var offset in Enum.GetValues(typeof(GamePadMenu)))
         {
           Debug("Nulling input - " + offset);
 
@@ -357,14 +357,14 @@ namespace HXE.HCE
             Input.Mapping.Add(key, value);
         }
 
-        Input.BitBinding = new Dictionary<OddValues, OddOffsets>();
+        Input.BitBinding = new Dictionary<DICapEnums, GamePadMenu>();
 
-        foreach (var offset in Enum.GetValues(typeof(OddOffsets)))
+        foreach (var offset in Enum.GetValues(typeof(GamePadMenu)))
         {
           reader.BaseStream.Seek((int) offset, SeekOrigin.Begin);
 
-          var key   = (OddValues) reader.ReadByte();
-          var value = (OddOffsets) offset;
+          var key   = (DICapEnums) reader.ReadByte();
+          var value = (GamePadMenu) offset;
 
           if (!Input.BitBinding.ContainsKey(key))
             Input.BitBinding.Add(key, value);
@@ -864,26 +864,19 @@ namespace HXE.HCE
       /// Offsets from 810=0x32A to 825=0x339.
       /// Represents per-controller MenuAccept and MenuBack in Misc
       /// </summary>
-      /// <remarks>
-      /// If there is only one controller in the profile, 
-      ///  only _03 will be used.
-      /// When there are two, Controller 0 will be assigned group _02
-      ///  and Controller 1 will be assigned group _03
-      /// ...and so on.
-      /// </remarks>
-      public enum OddOffsets
+      public enum GamePadMenu
       {
-        MenuAccept_03 = 0x32A,
-        MenuBack_03   = 0x32C,
-        MenuAccept_02 = 0x32E,
-        MenuBack_02   = 0x330,
-        MenuAccept_01 = 0x332,
-        MenuBack_01   = 0x334,
-        MenuAccept_00 = 0x336,
-        MenuBack_00   = 0x338
+        GP0_MenuAccept = 0x32A,
+        GP0_MenuBack   = 0x32C,
+        GP1_MenuAccept = 0x32E,
+        GP1_MenuBack   = 0x330,
+        GP2_MenuAccept = 0x332,
+        GP2_MenuBack   = 0x334,
+        GP3_MenuAccept = 0x336,
+        GP3_MenuBack   = 0x338
       }
 
-      public enum OddValues // bit mask?
+      public enum DICapEnums // bit mask?
       {
         Button1  = 0x00, /* face - button a                */ //confirmed
         Button2  = 0x01, /* face - button b                */ //confirmed
@@ -900,7 +893,7 @@ namespace HXE.HCE
 
       public Dictionary<Action, Button> Mapping = new Dictionary<Action, Button>();
 
-      public Dictionary<OddValues, OddOffsets> BitBinding = new Dictionary<OddValues, OddOffsets>();
+      public Dictionary<DICapEnums, GamePadMenu> BitBinding = new Dictionary<DICapEnums, GamePadMenu>();
     }
   }
 }
