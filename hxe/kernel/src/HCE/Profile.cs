@@ -40,6 +40,7 @@ namespace HXE.HCE
   /// <summary>
   ///   Object representing a HCE profile blam.sav binary.
   /// </summary>
+  /// <see cref="https://c20.reclaimers.net/h1/engine/files/#blam-sav"/>
   public class Profile : File
   {
     public ProfileDetails Details { get; set; } = new ProfileDetails(); /* profile name & online player colour */
@@ -357,13 +358,13 @@ namespace HXE.HCE
             Input.Mapping.Add(key, value);
         }
 
-        Input.BitBinding = new Dictionary<DICapEnums, GamePadMenu>();
+        Input.BitBinding = new Dictionary<DIButtons, GamePadMenu>();
 
         foreach (var offset in Enum.GetValues(typeof(GamePadMenu)))
         {
           reader.BaseStream.Seek((int) offset, SeekOrigin.Begin);
 
-          var key   = (DICapEnums) reader.ReadByte();
+          var key   = (DIButtons) reader.ReadByte();
           var value = (GamePadMenu) offset;
 
           if (!Input.BitBinding.ContainsKey(key))
@@ -816,8 +817,28 @@ namespace HXE.HCE
 
     public class ProfileInput
     {
+      /// <summary>
+      /// Actions written to input offsets.
+      /// Applicable to keyboards, mice, gamepads, and other input devices.
+      /// </summary>
       public enum Action
       {
+        Jump            = 0x00, /* actions  */
+        SwitchGrenade   = 0x01, /* combat   */
+        Action          = 0x02, /* actions  */
+        SwitchWeapon    = 0x03, /* combat   */
+        MeleeAttack     = 0x04, /* combat   */
+        Flashlight      = 0x05, /* actions  */
+        ThrowGrenade    = 0x06, /* combat   */
+        FireWeapon      = 0x07, /* combat   */
+        Crouch          = 0x0A, /* actions  */
+        ScopeZoom       = 0x0B, /* actions  */
+        ShowScores      = 0x0C, /* misc.    */
+        Reload          = 0x0D, /* combat   */
+        ExchangeWeapon  = 0x0E, /* combat   */
+        Say             = 0x0F, /* misc.    */
+        SayToTeam       = 0x10, /* misc.    */
+        SayToVehicle    = 0x11, /* misc.    */
         MoveForward     = 0x13, /* movement */
         MoveBackward    = 0x14, /* movement */
         MoveLeft        = 0x15, /* movement */
@@ -826,24 +847,47 @@ namespace HXE.HCE
         LookDown        = 0x18, /* movement */
         LookLeft        = 0x19, /* movement */
         LookRight       = 0x1A, /* movement */
-        FireWeapon      = 0x07, /* combat   */
-        ThrowGrenade    = 0x06, /* combat   */
-        SwitchGrenade   = 0x01, /* combat   */
-        SwitchWeapon    = 0x03, /* combat   */
-        Reload          = 0x0D, /* combat   */
-        MeleeAttack     = 0x04, /* combat   */
-        ExchangeWeapon  = 0x0E, /* combat   */
-        Jump            = 0x00, /* actions  */
-        Crouch          = 0x0A, /* actions  */
-        Flashlight      = 0x05, /* actions  */
-        ScopeZoom       = 0x0B, /* actions  */
-        Action          = 0x02, /* actions  */
-        Say             = 0x0F, /* misc.    */
-        SayToTeam       = 0x10, /* misc.    */
-        SayToVehicle    = 0x11, /* misc.    */
-        ShowScores      = 0x0C, /* misc.    */
         ShowRules       = 0x1B, /* misc.    */
         ShowPlayerNames = 0x1C  /* misc.    */
+      }
+
+      /// <summary>
+      /// blam.sav keyboard offsets.
+      /// 0x0134-0x020D
+      /// </summary>
+      public enum Keyboard
+      {
+        k_1      = 0x156,
+        k_2      = 0x158,
+        k_3      = 0x15A,
+        k_4      = 0x15C,
+        k_5      = 0x15E,
+        k_6      = 0x160,
+        k_7      = 0x162,
+        k_8      = 0x164,
+        k_9      = 0x166,
+        k_0      = 0x168,
+        k_enDash = 0x16A,
+
+        k_A      = 0x18E
+      }
+
+      public enum Mouse
+      {
+        LeftButton         = 0x020E,
+        MiddleButton       = 0x0210,
+        RightButton        = 0x0212,
+        Button4            = 0x0214, // Typically "Browser Back"
+        Button5            = 0x0216, // Typically "Browser Forward"
+        Button6            = 0x0218,
+        Button7            = 0x021A,
+        Button8            = 0x021C,
+        HAxis_Neg          = 0x021E,
+        HAxis_Pos          = 0x0220,
+        VAxis_Neg          = 0x0222,
+        VAxis_Pos          = 0x0224,
+        Wheel_Neg          = 0x0226,
+        Wheel_Pos          = 0x0228
       }
 
       public enum Button
@@ -877,8 +921,8 @@ namespace HXE.HCE
       }
 
       /// <summary>
-      /// Offsets from 810=0x32A to 825=0x339.
       /// Represents per-controller MenuAccept and MenuBack in Misc
+      /// Offsets from 810=0x32A to 825=0x339.
       /// </summary>
       public enum GamePadMenu
       {
@@ -892,24 +936,26 @@ namespace HXE.HCE
         GP3_MenuBack   = 0x338
       }
 
-      public enum DICapEnums // bit mask?
+      /// <summary>
+      /// Buttons for gamepads and similar devices
+      /// </summary>
+      public enum DIButtons
       {
-        Button1  = 0x00, /* face - button a                */ //confirmed
-        Button2  = 0x01, /* face - button b                */ //confirmed
+        Button1  = 0x00, /* face - button a                */
+        Button2  = 0x01, /* face - button b                */
         Button3  = 0x02, /* face - button x                */
         Button4  = 0x03, /* face - button y                */
         Button5  = 0x04, /* shoulder - L shoulder, white   */
         Button6  = 0x05, /* shoulder - R shoulder, black   */
         Button7  = 0x06, /* home - back                    */
-        Button8  = 0x07, /* home - start                   */ //confirmed
+        Button8  = 0x07, /* home - start                   */
         Button9  = 0x08, /* analogue - left  stick - click */
         Button10 = 0x09  /* analogue - right stick - click */
-        //todo: confirm the other values
       }
 
       public Dictionary<Action, Button> Mapping = new Dictionary<Action, Button>();
 
-      public Dictionary<DICapEnums, GamePadMenu> BitBinding = new Dictionary<DICapEnums, GamePadMenu>();
+      public Dictionary<DIButtons, GamePadMenu> BitBinding = new Dictionary<DIButtons, GamePadMenu>();
     }
   }
 }
