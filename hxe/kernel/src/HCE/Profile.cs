@@ -517,110 +517,78 @@ namespace HXE.HCE
       ProfileColour              = 0x011A, //        0xffff
         _0x012E                  = 0x012E, // Byte   0x03
       MouseInvertVerticalAxis    = 0x012F, // Byte   0x00
-        _0x0134                  = 0x0134, //        0x0009
-        _0x0136                  = 0x0136, //        0x000c
-        _0x0138                  = 0x0138, //        0x001b
-        _0x013A                  = 0x013A, //        0x001c
-        _0x013C_buffer           = 0x013C, //          0x7fff
-                                                   
-        _0x014E                  = 0x014E, //        0x0012
-        _0x0150_buffer           = 0x0150, //          0x7fff
-                                                   
-        _0x0170                  = 0x0170, //        0x0003
-        _0x0172                  = 0x0172, //        0x0005
-        _0x0174                  = 0x0174, //        0x0013
-        _0x0176                  = 0x0176, //        0x0002
-        _0x0178                  = 0x0178, //        0x000d
-        _0x017A                  = 0x017a, //        0x000f
-        _0x017C                  = 0x017C, //        0x0010
-        _0x017E_buffer           = 0x017E, //          0x7fff
-                                                   
-        _0x018E                  = 0x018E, //        0x0015
-        _0x0190                  = 0x0190, //        0x0014
-        _0x0192                  = 0x0192, //        0x0016
-        _0x0194                  = 0x0194, //        0x0004
-        _0x0196                  = 0x0196, //        0x0001
-        _0x0198                  = 0x0198, //        0x0011
-        _0x019A_buffer           = 0x019A, //          0x7fff
-                                                   
-        _0x01A4                  = 0x01A4, //        0x0008
-        _0x01A6_buffer           = 0x01A6, //          0x7fff
-        _0x01A8                  = 0x01A8, //        0x000b
-        _0x01AA                  = 0x01AA, //        0x000e
-        _0x01AC_buffer           = 0x01AC, //          0x7fff
-                                                   
-        _0x01BE                  = 0x01BE, //        0x000a
-        _0x01C0_buffer           = 0x01C0, //          0x7fff
+      /** Input.Keyboard 0x134-0x20D */
+      /* empty space filled with 0x7fff*/
 
-        _0x01C4                  = 0x01C4, //        0x0000
-        _0x01C6_buffer           = 0x01C6, //          0x7fff
-                                                   
-        Mouse_LeftButton         = 0x020E, //        0x0007
-        Mouse_MiddleButton       = 0x0210, //        0x000b
-        Mouse_RightButton        = 0x0212, //        0x0006
-        Mouse_4                  = 0x0214, //        
-        Mouse_5                  = 0x0216, //        
-        Mouse_6                  = 0x0218, //        
-        Mouse_7                  = 0x021A, //        
-        Mouse_8                  = 0x021C, //        
-        Mouse_HAxis_Neg          = 0x021E, //
-        Mouse_HAxis_Pos          = 0x0220, //
-        Mouse_VAxis_Neg          = 0x0222,
-        Mouse_VAxis_Pos          = 0x0224,
-        Mouse_Wheel_Neg          = 0x0226,
-        Mouse_Wheel_Pos          = 0x0228, 
+      /** Input.Mouse 0x20E-0x93A */
+      /* empty space filled with 0x7fff*/
+      Mouse_LeftButton           = 0x020E, //        0x0007
+      Mouse_MiddleButton         = 0x0210, //        0x000b
+      Mouse_RightButton          = 0x0212, //        0x0006
+      Mouse_4                    = 0x0214, //        
+      Mouse_5                    = 0x0216, //        
+      Mouse_6                    = 0x0218, //        
+      Mouse_7                    = 0x021A, //        
+      Mouse_8                    = 0x021C, //        
+      Mouse_HAxis_Neg            = 0x021E, //
+      Mouse_HAxis_Pos            = 0x0220, //
+      Mouse_VAxis_Neg            = 0x0222,
+      Mouse_VAxis_Pos            = 0x0224,
+      Mouse_Wheel_Neg            = 0x0226,
+      Mouse_Wheel_Pos            = 0x0228, 
 
 
 
-        _0x0214_buffer           = 0x0214, //          0x7fff
+      _0x0214_buffer             = 0x0214, //          0x7fff
                                                    
-        _0x021E                  = 0x021E, //        0x001a
-        _0x0220                  = 0x0220, //        0x0019
-        _0x0222                  = 0x0222, //        0x0017
-        _0x0224                  = 0x0224, //        0x0018
-        _0x0226_buffer           = 0x0226, //          0x7fff
+      _0x021E                    = 0x021E, //        0x001a
+      _0x0220                    = 0x0220, //        0x0019
+      _0x0222                    = 0x0222, //        0x0017
+      _0x0224                    = 0x0224, //        0x0018
+      _0x0226_buffer             = 0x0226, //          0x7fff
                                                    
-        //Input.MenuAccept       = 0x032A, //        0xffff
-        //Input.MenuBack         = 0x032C, //        0xffff
-        //Input.MenuAccept       = 0x032E, //        0xffff
-        //Input.MenuBack         = 0x0330, //        0xffff
-        //Input.MenuAccept       = 0x0332, //        0xffff
-        //Input.MenuBack         = 0x0334, //        0xffff
-        //Input.MenuAccept       = 0x0336, //        0xffff
-        //Input.MenuBack         = 0x0338, //        0xffff
-        _0x033A                  = 0x033A, //          0x7fff
-        
-        _0x093A_buffer_0x0       = 0x093A, //          0x0
+      //Input.MenuAccept         = 0x032A, //        0xffff
+      //Input.MenuBack           = 0x032C, //        0xffff
+      //Input.MenuAccept         = 0x032E, //        0xffff
+      //Input.MenuBack           = 0x0330, //        0xffff
+      //Input.MenuAccept         = 0x0332, //        0xffff
+      //Input.MenuBack           = 0x0334, //        0xffff
+      //Input.MenuAccept         = 0x0336, //        0xffff
+      //Input.MenuBack           = 0x0338, //        0xffff
+      _0x033A                    = 0x033A, //          0x7fff
+      
+      _0x093A_buffer_0x0         = 0x093A, //          0x0
 
-        _0x093E                  = 0x093E, //        0x3f80
-        _0x0940                  = 0x0940, //        0x0000
-        _0x0942                  = 0x0942, //        0x3f80
-        _0x0944                  = 0x0944, //        0x04fc
-        _0x0946                  = 0x0946, //        0x3e41
-        _0x0948                  = 0x0948, //        0x04fc
-        _0x094A                  = 0x094A, //        0x3e41
-        _0x094C                  = 0x094C, //        0x0000
-        _0x094E                  = 0x094E, //        0x4300
-        _0x0950                  = 0x0950, //        0x0000
-        _0x0952                  = 0x0952, //        0x4300
+      _0x093E                    = 0x093E, //        0x3f80
+      _0x0940                    = 0x0940, //        0x0000
+      _0x0942                    = 0x0942, //        0x3f80
+      _0x0944                    = 0x0944, //        0x04fc
+      _0x0946                    = 0x0946, //        0x3e41
+      _0x0948                    = 0x0948, //        0x04fc
+      _0x094A                    = 0x094A, //        0x3e41
+      _0x094C                    = 0x094C, //        0x0000
+      _0x094E                    = 0x094E, //        0x4300
+      _0x0950                    = 0x0950, //        0x0000
+      _0x0952                    = 0x0952, //        0x00
+      _0x0953                    = 0x0953, //        0x43
       MouseSensitivityHorizontal = 0x0954,
       MouseSensitivityVertical   = 0x0955,
-        _0x0956                  = 0x0956, //        0x0303
-        _0x0958                  = 0x0958, //        0x0303
-        _0x095A                  = 0x095A, //        0x0303
-        _0x095C                  = 0x095C, //        0x0303
-        _0x095E                  = 0x095E, //        0x0000
-        _0x0960                  = 0x0960, //        0x0000
-        _0x0962                  = 0x0962, //        0x3f40
-        _0x0964                  = 0x0964, //        0x0000
-        _0x0966                  = 0x0966, //        0x3f40
-        _0x0968                  = 0x0968, //        0x0000
-        _0x096A_buffer_0x0       = 0x096a, //          0x0
+      _0x0956                    = 0x0956, //        0x0303
+      _0x0958                    = 0x0958, //        0x0303
+      _0x095A                    = 0x095A, //        0x0303
+      _0x095C                    = 0x095C, //        0x0303
+      _0x095E                    = 0x095E, //        0x0000
+      _0x0960                    = 0x0960, //        0x0000
+      _0x0962                    = 0x0962, //        0x3f40
+      _0x0964                    = 0x0964, //        0x0000
+      _0x0966                    = 0x0966, //        0x3f40
+      _0x0968                    = 0x0968, //        0x0000
+      _0x096A_buffer_0x0         = 0x096a, //          0x0
 
       VideoResolutionWidth       = 0x0A68, //        0x0780
       VideoResolutionHeight      = 0x0A6A, //        0x0438
       VideoRefreshRate           = 0x0A6C, //        0x0090
-        _0x0A6E                  = 0x0A6E, //        0x02
+      _0x0A6E                    = 0x0A6E, //        0x02
       VideoFrameRate             = 0x0A6F, //        0x02
       VideoEffectsSpecular       = 0x0A70, //        0x0101
       VideoEffectsShadows        = 0x0A71, //        0x0201
@@ -628,7 +596,7 @@ namespace HXE.HCE
       VideoQualityParticles      = 0x0A73, //        0x0001
       VideoQualityTextures       = 0x0A74,
       VideoMiscellaneousGamma    = 0x0A76,
-        _0x0A78_Padding          = 0x0A78, //          0x0
+      _0x0A78_Padding            = 0x0A78, //          0x0
 
 
       AudioVolumeMaster          = 0x0B78, //        0x0a
@@ -637,22 +605,22 @@ namespace HXE.HCE
       AudioEAX                   = 0x0B7B, //        0x00
       AudioHWA                   = 0x0B7C, //        0x00
       AudioQuality               = 0x0B7D, //        0x01
-        _0x0B7E                  = 0x0B7E, //        0x00
+      _0x0B7E                    = 0x0B7E, //        0x00
       AudioVariety               = 0x0B7F, //        0x02
-        _0x0B80_Padding          = 0x0B80, //          0x0
+      _0x0B80_Padding            = 0x0B80, //          0x0
 
       _0x0C80                    = 0x0C80, //        0x0103
       _0x0C82                    = 0x0C82, //        0x0001
       _0x0C84                    = 0x0C84, //        0x0000
       _0x0C86                    = 0x0C86, //        0x0101
-        _0x0C88_Padding          = 0x0C88, //          0x0
+      _0x0C88_Padding            = 0x0C88, //          0x0
 
       NetworkServerName          = 0x0D8C, //        UTF-16 String. Null-terminated. 31 characters, excluding null.
 
       NetworkPassword            = 0x0EAC, //        UTF-16 String. Null-terminated. 8 characters, excluding null.
 
       NetworkMaxPlayers          = 0x0EBF, //        0x03 uint8
-        _0x0EC0_Padding          = 0x0EC0, //          0x0
+      _0x0EC0_Padding            = 0x0EC0, //          0x0
 
       NetworkConnectionType      = 0x0FC0, //        0x01 uint8
       NetworkServerAddress       = 0x0FC2, //        UTF-16 String. Null-terminated. 31 characters, excluding null.
@@ -668,7 +636,7 @@ namespace HXE.HCE
       GamePad_0_PIDVID_buffer    = 0x1318, //        0x0000, 0x0000, 0x0000
       GamePad_0_PIDVID           = 0x1314, //        "PIDVID"  UTF-8 String
       GamePad_0_PIDVID_DupeID    = 0x1318, //        0x00; Byte; If duplicate, then 0x01 and so on.
-        _0x1324_Padding          = 0x1324, //        0x0000, 0x0000
+      _0x1324_Padding            = 0x1324, //        0x0000, 0x0000
 
       GamePad_1_Name             = 0x131E, //        UTF-16 String; BE or LE
 
@@ -821,6 +789,9 @@ namespace HXE.HCE
       /// Actions written to input offsets.
       /// Applicable to keyboards, mice, gamepads, and other input devices.
       /// </summary>
+      /// <remarks>
+      /// Values are written as Little-Endian unsigned Shorts
+      /// </remarks>
       public enum Action
       {
         Jump            = 0x00, /* actions  */
@@ -857,19 +828,115 @@ namespace HXE.HCE
       /// </summary>
       public enum Keyboard
       {
-        k_1      = 0x156,
-        k_2      = 0x158,
-        k_3      = 0x15A,
-        k_4      = 0x15C,
-        k_5      = 0x15E,
-        k_6      = 0x160,
-        k_7      = 0x162,
-        k_8      = 0x164,
-        k_9      = 0x166,
-        k_0      = 0x168,
-        k_enDash = 0x16A,
-
-        k_A      = 0x18E
+        _0x134      = 0x134, // 0x09 ???
+        kF1         = 0x136, // 0x0C ShowScores
+        kF2         = 0x138, // 0x1B ShowRules
+        kF3         = 0x13A, // 0x1C ShowPlayerNames
+        kF4         = 0x13C,
+        kF5         = 0x13E,
+        kF6         = 0x140,
+        kF7         = 0x142,
+        kF8         = 0x144,
+        kF9         = 0x146,
+        kF10        = 0x148,
+        kF11        = 0x14A,
+        kF12        = 0x14C,
+        _0x14E      = 0x14E, // 0x12 ??? Printscreen and Screenshot?
+        _0x150      = 0x150, //      ??? Scroll Lock?
+        _0x152      = 0x152, //      ??? Pause/Break?
+        kGrave      = 0x154,
+        k1          = 0x156,
+        k2          = 0x158,
+        k3          = 0x15A,
+        k4          = 0x15C,
+        k5          = 0x15E,
+        k6          = 0x160,
+        k7          = 0x162,
+        k8          = 0x164,
+        k9          = 0x166,
+        k0          = 0x168,
+        kEnDash     = 0x16A,
+        kEquals     = 0x16C,
+        kBackspace  = 0x16E,
+        kTab        = 0x170, // 0x03 SwitchWeapon
+        kQ          = 0x172, // 0x05 Flashlight
+        kW          = 0x174, // 0x13 MoveForward
+        kE          = 0x176, // 0x02 Action
+        kR          = 0x178, // 0x0D Reload
+        kT          = 0x17A, // 0x0F Say
+        kY          = 0x17C, // 0x10 SayToTeam
+        kU          = 0x17E, 
+        kI          = 0x180,
+        kO          = 0x182,
+        kP          = 0x184,
+        kBracketL   = 0x186,
+        kBracketR   = 0x188,
+        kBackslash  = 0x18A,
+        kCapsLock   = 0x18C,
+        kA          = 0x18E, // 0x15 MoveLeft
+        kS          = 0x190, // 0x14 MoveBackward
+        kD          = 0x192, // 0x16 MoveRight
+        kF          = 0x194, // 0x04 MeleeAttack
+        kG          = 0x196, // 0x01 SwitchGrenade
+        kH          = 0x198, // 0x11 SayToVehicle
+        kJ          = 0x19A, 
+        kK          = 0x19C,
+        kL          = 0x19E,
+        kSemiColon  = 0x1A0,
+        kApostrophe = 0x1A2,
+        kEnter      = 0x1A4, // 0x08
+        kShiftL     = 0x1A6,
+        kZ          = 0x1A8, // 0x0B ScopeZoom
+        kX          = 0x1AA, // 0x0E ExchangeWeapon
+        kC          = 0x1AC,
+        kV          = 0x1AE,
+        kB          = 0x1B0,
+        kN          = 0x1B2,
+        kM          = 0x1B4,
+        kComma      = 0x1B6,
+        kPeriod     = 0x1B8,
+        kSlash      = 0x1BA,
+        kShiftR     = 0x1BC,
+        kControlR   = 0x1BE, // 0x0A Crouch
+        kOS         = 0x1C0,
+        kAltL       = 0x1C2,
+        kSpace      = 0x1C4, // 0x00 Space
+        _0x1C6      = 0x1C6, //      ??? Probably Right Alt
+        _0x1C8      = 0x1C8, //      ??? Either Right OS key or Menu
+        _0x1CA      = 0x1CA, //      ??? Menu or Right Control
+        _0x1CC      = 0x1CC, //      ??? Maybe Right Control
+        _0x1CE      = 0x1CE,
+        _0x1D0      = 0x1D0,
+        _0x1D2      = 0x1D2,
+        _0x1D4      = 0x1C4,
+        _0x1D6      = 0x1D6,
+        _0x1D8      = 0x1D8,
+        _0x1DA      = 0x1DA,
+        _0x1DC      = 0x1DC,
+        _0x1DE      = 0x1DE,
+        _0x1E0      = 0x1E0,
+        _0x1E2      = 0x1E2,
+        _0x1E4      = 0x1E4,
+        _0x1E6      = 0x1E6,
+        _0x1E8      = 0x1E8,
+        _0x1EA      = 0x1EA,
+        _0x1EC      = 0x1EC,
+        _0x1EE      = 0x1EE,
+        _0x1F0      = 0x1F0,
+        _0x1F2      = 0x1F2,
+        _0x1F4      = 0x1F4,
+        _0x1F6      = 0x1F6,
+        _0x1F8      = 0x1F8,
+        _0x1FA      = 0x1FA,
+        _0x1FC      = 0x1FC,
+        _0x1FE      = 0x1FE,
+        _0x200      = 0x200,
+        _0x202      = 0x202,
+        _0x204      = 0x204,
+        _0x206      = 0x206,
+        _0x208      = 0x208,
+        _0x20A      = 0x20A,
+        _0x20C      = 0x20C
       }
 
       public enum Mouse
