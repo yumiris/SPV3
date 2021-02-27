@@ -237,8 +237,8 @@ namespace HXE
        * e.g. ".\temp\lastprof.txt"
        */
       file.Path = Custom.LastProfile(path);
-      file.WriteAllBytes(new byte[0xFF]); /// 255 int. Makes room for up to 255 characters.
       lastprofile.Path = file.Path;
+      lastprofile.Name = profile.Details.Name;
       lastprofile.Save();
       VerifyPath(file.Path);
 

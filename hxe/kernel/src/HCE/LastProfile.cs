@@ -84,6 +84,8 @@ namespace HXE.HCE
     /// </summary>
     public void Save()
     {
+      WriteAllBytes(new byte[0xFF]);
+
       using (var fs = new FileStream(Path, FileMode.OpenOrCreate, FileAccess.ReadWrite))
       using (var ms = new MemoryStream(255))
       using (var bw = new BinaryWriter(ms))
