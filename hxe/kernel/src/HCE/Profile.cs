@@ -522,42 +522,19 @@ namespace HXE.HCE
 
       /** Input.Mouse 0x20E-0x93A */
       /* empty space filled with 0x7fff*/
-      Mouse_LeftButton           = 0x020E, //        0x0007
-      Mouse_MiddleButton         = 0x0210, //        0x000b
-      Mouse_RightButton          = 0x0212, //        0x0006
-      Mouse_4                    = 0x0214, //        
-      Mouse_5                    = 0x0216, //        
-      Mouse_6                    = 0x0218, //        
-      Mouse_7                    = 0x021A, //        
-      Mouse_8                    = 0x021C, //        
-      Mouse_HAxis_Neg            = 0x021E, //
-      Mouse_HAxis_Pos            = 0x0220, //
-      Mouse_VAxis_Neg            = 0x0222,
-      Mouse_VAxis_Pos            = 0x0224,
-      Mouse_Wheel_Neg            = 0x0226,
-      Mouse_Wheel_Pos            = 0x0228, 
-
-
-
-      _0x0214_buffer             = 0x0214, //          0x7fff
+      _0x0214_unbound            = 0x0214, //          0x7fff
                                                    
       _0x021E                    = 0x021E, //        0x001a
       _0x0220                    = 0x0220, //        0x0019
       _0x0222                    = 0x0222, //        0x0017
       _0x0224                    = 0x0224, //        0x0018
-      _0x0226_buffer             = 0x0226, //          0x7fff
-                                                   
-      //Input.MenuAccept         = 0x032A, //        0xffff
-      //Input.MenuBack           = 0x032C, //        0xffff
-      //Input.MenuAccept         = 0x032E, //        0xffff
-      //Input.MenuBack           = 0x0330, //        0xffff
-      //Input.MenuAccept         = 0x0332, //        0xffff
-      //Input.MenuBack           = 0x0334, //        0xffff
-      //Input.MenuAccept         = 0x0336, //        0xffff
-      //Input.MenuBack           = 0x0338, //        0xffff
-      _0x033A                    = 0x033A, //          0x7fff
+      _0x0226_unbound            = 0x0226, //          0x7fff
+                      
+      /** Input.GamePadMenu 0x32A-0x339 */
+      /* unbound is 0xffff */
+      _0x033A_unbound            = 0x033A, //          0x7fff
       
-      _0x093A_buffer_0x0         = 0x093A, //          0x0
+      // padding                 = 0x093A, //          0x0
 
       _0x093E                    = 0x093E, //        0x3f80
       _0x0940                    = 0x0940, //        0x0000
@@ -573,17 +550,17 @@ namespace HXE.HCE
       _0x0953                    = 0x0953, //        0x43
       MouseSensitivityHorizontal = 0x0954,
       MouseSensitivityVertical   = 0x0955,
-      _0x0956                    = 0x0956, //        0x0303
-      _0x0958                    = 0x0958, //        0x0303
-      _0x095A                    = 0x095A, //        0x0303
-      _0x095C                    = 0x095C, //        0x0303
+      _0x0956                    = 0x0956, //        0x0303 Likely gamepad0 sensitivity
+      _0x0958                    = 0x0958, //        0x0303 Likely gamepad1 sensitivity
+      _0x095A                    = 0x095A, //        0x0303 Likely gamepad2 sensitivity
+      _0x095C                    = 0x095C, //        0x0303 Likely gamepad3 sensitivity
       _0x095E                    = 0x095E, //        0x0000
       _0x0960                    = 0x0960, //        0x0000
       _0x0962                    = 0x0962, //        0x3f40
       _0x0964                    = 0x0964, //        0x0000
       _0x0966                    = 0x0966, //        0x3f40
       _0x0968                    = 0x0968, //        0x0000
-      _0x096A_buffer_0x0         = 0x096a, //          0x0
+      // padding                 = 0x096a, //          0x0
 
       VideoResolutionWidth       = 0x0A68, //        0x0780
       VideoResolutionHeight      = 0x0A6A, //        0x0438
@@ -596,8 +573,7 @@ namespace HXE.HCE
       VideoQualityParticles      = 0x0A73, //        0x0001
       VideoQualityTextures       = 0x0A74,
       VideoMiscellaneousGamma    = 0x0A76,
-      _0x0A78_Padding            = 0x0A78, //          0x0
-
+      // padding                 = 0x0A78, //          0x0
 
       AudioVolumeMaster          = 0x0B78, //        0x0a
       AudioVolumeEffects         = 0x0B79, //        0x0a
@@ -613,34 +589,55 @@ namespace HXE.HCE
       _0x0C82                    = 0x0C82, //        0x0001
       _0x0C84                    = 0x0C84, //        0x0000
       _0x0C86                    = 0x0C86, //        0x0101
-      _0x0C88_Padding            = 0x0C88, //          0x0
+      // padding                 = 0x0C88, //          0x0
 
       NetworkServerName          = 0x0D8C, //        UTF-16 String. Null-terminated. 31 characters, excluding null.
 
       NetworkPassword            = 0x0EAC, //        UTF-16 String. Null-terminated. 8 characters, excluding null.
 
       NetworkMaxPlayers          = 0x0EBF, //        0x03 uint8
-      _0x0EC0_Padding            = 0x0EC0, //          0x0
+      // padding                 = 0x0EC0, //          0x0
 
       NetworkConnectionType      = 0x0FC0, //        0x01 uint8
       NetworkServerAddress       = 0x0FC2, //        UTF-16 String. Null-terminated. 31 characters, excluding null.
 
       NetworkPortServer          = 0x1002, //        0x08fe
       NetworkPortClient          = 0x1004, //        0x08ff
-        _0x1006_Padding          = 0x1006, //          0x0
+      // padding                 = 0x1006, //          0x0
 
-      GamePad_0_Name             = 0x1108, //        UTF-16 String; can be either LE (Xbox Controller S via XBCD ) or BE (Xbox 360 Controller For Windows)
+      Gamepad0_Name              = 0x1108, //        UTF-16 String; Can be LE ("Xbox Controller S via XBCD") or BE ("Xbox 360 Controller For Windows")
+      // padding                 
+      Gamepad0_Vendor            = 0x1314, //        4-digit hex; e.g. 0x5e04; 045E == Microsoft; 
+      Gamepad0_Product           = 0x1316, //        4-digit hex; e.g. 0x8902; 0289 == XBCD Xbox Controller;
+      Gamepad0_padding           = 0x1318, //        0x0000, 0x0000, 0x0000
+      Gamepad0_PIDVID            = 0x131E, //        "PIDVID"  UTF-8 String
+      Gamepad0_DupeID            = 0x1324, //        0x00; If duplicate, then 0x01 and so on.
+      // padding                 = 0x1326, //        0x00 00 00
 
-      GamePad_0_PIDVID_01        = 0x1314, //        0x045e (Marker?)
-      GamePad_0_PIDVID_02        = 0x1316, //        Gamepad ID (XBCD OGX-S ==  
-      GamePad_0_PIDVID_buffer    = 0x1318, //        0x0000, 0x0000, 0x0000
-      GamePad_0_PIDVID           = 0x1314, //        "PIDVID"  UTF-8 String
-      GamePad_0_PIDVID_DupeID    = 0x1318, //        0x00; Byte; If duplicate, then 0x01 and so on.
-      _0x1324_Padding            = 0x1324, //        0x0000, 0x0000
+      Gamepad1_Name              = 0x1328, //        UTF-16 String; BE or LE
+      // padding
+      Gamepad1_Vendor            = 0x1534, //        4-digit hex; e.g. 0x6d04; 046D == Razer?  - Doesn't match DevMgr
+      Gamepad1_Product           = 0x1536, //        4-digit hex; e.g. 0x1dc2; C21D == Serval? - Doesn't match DevMgr
+      Gamepad1_padding           = 0x1538,
+      Gamepad1_PIDVID            = 0x153E,
+      Gamepad1_DupeID            = 0x1544,
+      // padding
 
-      GamePad_1_Name             = 0x131E, //        UTF-16 String; BE or LE
+      Gamepad2_Name              = 0x1548,
+      // padding
+      Gamepad2_Vendor            = 0x1754,
+      Gamepad2_Product           = 0x1756,
+      Gamepad2_padding           = 0x1758,
+      Gamepad2_PIDVID            = 0x175E,
+      Gamepad2_DupeID            = 0x1764,
+      // padding
 
-
+      Gampead3_Name              = 0x1768,
+      // padding
+      Gampead3_Vendor            = 0x1974,
+      Gamepad3_Product           = 0x1976,
+      Gamepad3_padding           = 0x1978,
+      Gamepad3_PIDVID            = 0x197E,
 
       // a few more left
 
