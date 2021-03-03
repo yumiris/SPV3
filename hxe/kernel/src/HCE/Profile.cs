@@ -841,7 +841,7 @@ namespace HXE.HCE
         F10           = 0x148,
         F11           = 0x14A,
         F12           = 0x14C,
-        Printscreen   = 0x14E, // 0x12 ??? Printscreen and Screenshot?
+        Printscreen   = 0x14E, // 0x12 Screenshot
         ScrollLock    = 0x150,
         PauseBreak    = 0x152,
         Grave         = 0x154,
@@ -908,7 +908,7 @@ namespace HXE.HCE
         UpArrow       = 0x1CE,
         DownArrow     = 0x1D0,
         LeftArrow     = 0x1D2,
-        RightArrow    = 0x1C4,
+        RightArrow    = 0x1D4,
         Insert        = 0x1D6,
         Home          = 0x1D8,
         PgUp          = 0x1DA,
