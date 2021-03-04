@@ -1009,16 +1009,21 @@ namespace HXE.HCE
       /// </summary>
       public enum DIButtons
       {
-        Button1  = 0x00, /* face - button a                */
-        Button2  = 0x01, /* face - button b                */
-        Button3  = 0x02, /* face - button x                */
-        Button4  = 0x03, /* face - button y                */
-        Button5  = 0x04, /* shoulder - L shoulder, white   */
-        Button6  = 0x05, /* shoulder - R shoulder, black   */
-        Button7  = 0x06, /* home - back                    */
-        Button8  = 0x07, /* home - start                   */
-        Button9  = 0x08, /* analogue - left  stick - click */
-        Button10 = 0x09  /* analogue - right stick - click */
+        B1  = 0x00, /* face - button a                */
+        B2  = 0x01, /* face - button b                */
+        B3  = 0x02, /* face - button x                */
+        B4  = 0x03, /* face - button y                */
+        B5  = 0x04, /* shoulder - L shoulder, white   */
+        B6  = 0x05, /* shoulder - R shoulder, black   */
+        B7  = 0x06, /* home - back                    */
+        B8  = 0x07, /* home - start                   */
+        B9  = 0x08, /* analogue - left  stick - click */
+        B10 = 0x09, /* analogue - right stick - click */
+        // B11 = 0x0A or 0x11 ? /* Test with an X360/1 gamepad's Guide button...or a similar input device.
+        // B12 = 0x0B,
+        // B13 = 0x0C,
+        // B14 = 0x0D,
+        // B15 = 0x0E,
       }
 
       public Dictionary<Action, Button> Mapping = new Dictionary<Action, Button>();
