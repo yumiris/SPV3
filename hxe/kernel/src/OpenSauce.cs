@@ -218,7 +218,6 @@ namespace HXE
          *
          * This gets me nostalgic!
          */
-
         var w = width - 8;
         var h = height - 8;
 
