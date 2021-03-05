@@ -101,7 +101,7 @@ namespace HXE
         fs.Position = 0;
         fs.CopyTo(ms);
 
-        /** Write Buffer 1 (7fff) */
+        /** Write Bindings Buffer (7fff) */
         {
           ms.Position = 0x13c;
           while (ms.Position < 0x938)
@@ -112,16 +112,9 @@ namespace HXE
 
         /** Defaults to Refactor later */
         {
-          ms.Position = 0x11a; // multiplayer biped color
-          bw.Write((ushort) 0xffff);
-
           /** Unknown */
           ms.Position = 0x12e;
           bw.Write((byte) 0x3);
-
-          /** Mouse - Invert Vertical Axis */
-          ms.Position = 0x12F;
-          bw.Write(0x00);
 
           /** Keyboard bindings */
           { 

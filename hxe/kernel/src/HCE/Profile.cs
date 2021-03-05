@@ -155,7 +155,7 @@ namespace HXE.HCE
           bw.Write(0xFFFF);
         }
 
-        foreach (var mapping in Input.Mapping)
+        foreach (var mapping in Input.GPMapping)
         {
           var value  = (byte) mapping.Key;  /* action */
           var offset = (int) mapping.Value; /* button */
@@ -166,12 +166,12 @@ namespace HXE.HCE
           bw.Write(value);
         }
         
-        foreach (var bitbind in Input.BitBinding)
+        foreach (var pair in Input.GPMenuBinding)
         {
-          var value  = (byte) bitbind.Key;   /* button */
-          var offset = (int)  bitbind.Value; /* action */
+          var value  = (byte) pair.Key;   /* button */
+          var offset = (int)  pair.Value; /* action */
 
-          Debug("Assigning input to action - " + bitbind.Key + " -> " + bitbind.Value);
+          Debug("Assigning input to action - " + pair.Key + " -> " + pair.Value);
 
           ms.Position = offset;
           bw.Write(value);
@@ -345,7 +345,7 @@ namespace HXE.HCE
         Audio.EAX                    = GetBoolean(Offset.AudioEAX);
         Audio.HWA                    = GetBoolean(Offset.AudioHWA);
 
-        Input.Mapping = new Dictionary<ProfileInput.Action, Button>();
+        Input.GPMapping = new Dictionary<ProfileInput.Action, Button>();
 
         foreach (var button in Enum.GetValues(typeof(Button)))
         {
@@ -354,11 +354,11 @@ namespace HXE.HCE
           var key   = (ProfileInput.Action) reader.ReadByte();
           var value = (Button) button;
 
-          if (!Input.Mapping.ContainsKey(key))
-            Input.Mapping.Add(key, value);
+          if (!Input.GPMapping.ContainsKey(key))
+            Input.GPMapping.Add(key, value);
         }
 
-        Input.BitBinding = new Dictionary<DIButtons, GamePadMenu>();
+        Input.GPMenuBinding = new Dictionary<DIButtons, GamePadMenu>();
 
         foreach (var offset in Enum.GetValues(typeof(GamePadMenu)))
         {
@@ -367,8 +367,8 @@ namespace HXE.HCE
           var key   = (DIButtons) reader.ReadByte();
           var value = (GamePadMenu) offset;
 
-          if (!Input.BitBinding.ContainsKey(key))
-            Input.BitBinding.Add(key, value);
+          if (!Input.GPMenuBinding.ContainsKey(key))
+            Input.GPMenuBinding.Add(key, value);
         }
 
         if ((int) Details.Colour == 0xFF)
@@ -749,7 +749,7 @@ namespace HXE.HCE
 
     public class ProfileMouse
     {
-      public bool             InvertVerticalAxis { get; set; } /* default value */
+      public bool             InvertVerticalAxis { get; set; } = false; /* default value */
       public MouseSensitivity Sensitivity        { get; set; } = new MouseSensitivity();
 
       public class MouseSensitivity
@@ -989,7 +989,7 @@ namespace HXE.HCE
       }
 
       /// <summary>
-      /// Represents per-controller MenuAccept and MenuBack in Misc
+      /// Represents per-controller MenuAccept and MenuBack in Misc<br/>
       /// Offsets from 810=0x32A to 825=0x339.
       /// </summary>
       public enum GamePadMenu
@@ -1026,9 +1026,9 @@ namespace HXE.HCE
         // B15 = 0x0E,
       }
 
-      public Dictionary<Action, Button> Mapping = new Dictionary<Action, Button>();
+      public Dictionary<Action, Button> GPMapping = new Dictionary<Action, Button>();
 
-      public Dictionary<DIButtons, GamePadMenu> BitBinding = new Dictionary<DIButtons, GamePadMenu>();
+      public Dictionary<DIButtons, GamePadMenu> GPMenuBinding = new Dictionary<DIButtons, GamePadMenu>();
     }
   }
 }
