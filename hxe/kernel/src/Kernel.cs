@@ -504,7 +504,7 @@ namespace HXE
           if (!configuration.Input.Override)
             return;
 
-          blam.Input.GPMapping = new Dictionary<Profile.ProfileInput.Action, Profile.ProfileInput.Button>
+          blam.Input.GamepadMapping = new Dictionary<Profile.ProfileInput.Action, Profile.ProfileInput.Button>
           {
             {Profile.ProfileInput.Action.MoveForward, Profile.ProfileInput.Button.LSU},
             {Profile.ProfileInput.Action.MoveBackward, Profile.ProfileInput.Button.LSD},
@@ -527,7 +527,7 @@ namespace HXE
             {Profile.ProfileInput.Action.FireWeapon, Profile.ProfileInput.Button.RT}
           };
 
-          blam.Input.GPMenuBinding = new Dictionary<Profile.ProfileInput.DIButtons, Profile.ProfileInput.GamePadMenu>
+          blam.Input.GamepadMenu = new Dictionary<Profile.ProfileInput.DIButtons, Profile.ProfileInput.GamePadMenu>
           {
             {Profile.ProfileInput.DIButtons.Button1, Profile.ProfileInput.GamePadMenu.MenuAccept},
             {Profile.ProfileInput.DIButtons.Button2, Profile.ProfileInput.GamePadMenu.MenuBack}

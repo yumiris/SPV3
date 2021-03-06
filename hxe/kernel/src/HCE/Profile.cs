@@ -155,7 +155,7 @@ namespace HXE.HCE
           bw.Write(0xFFFF);
         }
 
-        foreach (var mapping in Input.GPMapping)
+        foreach (var mapping in Input.GamepadMapping)
         {
           var value  = (byte) mapping.Key;  /* action */
           var offset = (int) mapping.Value; /* button */
@@ -166,7 +166,7 @@ namespace HXE.HCE
           bw.Write(value);
         }
         
-        foreach (var pair in Input.GPMenuBinding)
+        foreach (var pair in Input.GamepadMenu)
         {
           var value  = (byte) pair.Key;   /* button */
           var offset = (int)  pair.Value; /* action */
@@ -345,7 +345,7 @@ namespace HXE.HCE
         Audio.EAX                    = GetBoolean(Offset.AudioEAX);
         Audio.HWA                    = GetBoolean(Offset.AudioHWA);
 
-        Input.GPMapping = new Dictionary<ProfileInput.Action, Button>();
+        Input.GamepadMapping = new Dictionary<ProfileInput.Action, Button>();
 
         foreach (var button in Enum.GetValues(typeof(Button)))
         {
@@ -354,11 +354,11 @@ namespace HXE.HCE
           var key   = (ProfileInput.Action) reader.ReadByte();
           var value = (Button) button;
 
-          if (!Input.GPMapping.ContainsKey(key))
-            Input.GPMapping.Add(key, value);
+          if (!Input.GamepadMapping.ContainsKey(key))
+            Input.GamepadMapping.Add(key, value);
         }
 
-        Input.GPMenuBinding = new Dictionary<DIButtons, GamePadMenu>();
+        Input.GamepadMenu = new Dictionary<DIButtons, GamePadMenu>();
 
         foreach (var offset in Enum.GetValues(typeof(GamePadMenu)))
         {
@@ -367,8 +367,8 @@ namespace HXE.HCE
           var key   = (DIButtons) reader.ReadByte();
           var value = (GamePadMenu) offset;
 
-          if (!Input.GPMenuBinding.ContainsKey(key))
-            Input.GPMenuBinding.Add(key, value);
+          if (!Input.GamepadMenu.ContainsKey(key))
+            Input.GamepadMenu.Add(key, value);
         }
 
         if ((int) Details.Colour == 0xFF)
@@ -1026,9 +1026,13 @@ namespace HXE.HCE
         // B15 = 0x0E,
       }
 
-      public Dictionary<Action, Button> GPMapping = new Dictionary<Action, Button>();
+      public Dictionary<Action, Keyboard> KeyboardMapping = new Dictionary<Action, Keyboard>();
 
-      public Dictionary<DIButtons, GamePadMenu> GPMenuBinding = new Dictionary<DIButtons, GamePadMenu>();
+      public Dictionary<Action, Mouse> MouseMapping = new Dictionary<Action, Mouse>();
+
+      public Dictionary<Action, Button> GamepadMapping = new Dictionary<Action, Button>();
+
+      public Dictionary<DIButtons, GamePadMenu> GamepadMenu = new Dictionary<DIButtons, GamePadMenu>();
     }
   }
 }
