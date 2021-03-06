@@ -504,33 +504,39 @@ namespace HXE
           if (!configuration.Input.Override)
             return;
 
-          blam.Input.GamepadMapping = new Dictionary<Profile.ProfileInput.Action, Profile.ProfileInput.Button>
+          blam.Input.GP0_Mapping = new Dictionary<Profile.ProfileInput.GP0_Button, Profile.ProfileInput.Action>
           {
-            {Profile.ProfileInput.Action.MoveForward, Profile.ProfileInput.Button.LSU},
-            {Profile.ProfileInput.Action.MoveBackward, Profile.ProfileInput.Button.LSD},
-            {Profile.ProfileInput.Action.MoveLeft, Profile.ProfileInput.Button.LSL},
-            {Profile.ProfileInput.Action.MoveRight, Profile.ProfileInput.Button.LSR},
-            {Profile.ProfileInput.Action.Crouch, Profile.ProfileInput.Button.LSM},
-            {Profile.ProfileInput.Action.Reload, Profile.ProfileInput.Button.DPU},
-            {Profile.ProfileInput.Action.Jump, Profile.ProfileInput.Button.A},
-            {Profile.ProfileInput.Action.SwitchGrenade, Profile.ProfileInput.Button.B},
-            {Profile.ProfileInput.Action.Action, Profile.ProfileInput.Button.X},
-            {Profile.ProfileInput.Action.SwitchWeapon, Profile.ProfileInput.Button.Y},
-            {Profile.ProfileInput.Action.LookUp, Profile.ProfileInput.Button.RSU},
-            {Profile.ProfileInput.Action.LookDown, Profile.ProfileInput.Button.RSD},
-            {Profile.ProfileInput.Action.LookLeft, Profile.ProfileInput.Button.RSL},
-            {Profile.ProfileInput.Action.LookRight, Profile.ProfileInput.Button.RSR},
-            {Profile.ProfileInput.Action.ScopeZoom, Profile.ProfileInput.Button.RSM},
-            {Profile.ProfileInput.Action.ThrowGrenade, Profile.ProfileInput.Button.LB},
-            {Profile.ProfileInput.Action.Flashlight, Profile.ProfileInput.Button.LT},
-            {Profile.ProfileInput.Action.MeleeAttack, Profile.ProfileInput.Button.RB},
-            {Profile.ProfileInput.Action.FireWeapon, Profile.ProfileInput.Button.RT}
+            {Profile.ProfileInput.GP0_Button.Axis_1_n, Profile.ProfileInput.Action.MoveForward  },
+            {Profile.ProfileInput.GP0_Button.Axis_1_p, Profile.ProfileInput.Action.MoveBackward },
+            {Profile.ProfileInput.GP0_Button.Axis_2_n, Profile.ProfileInput.Action.MoveLeft     },
+            {Profile.ProfileInput.GP0_Button.Axis_2_p, Profile.ProfileInput.Action.MoveRight    },
+            {Profile.ProfileInput.GP0_Button.Button_8, Profile.ProfileInput.Action.Crouch       },
+            {Profile.ProfileInput.GP0_Button.DPU     , Profile.ProfileInput.Action.Reload       },
+            {Profile.ProfileInput.GP0_Button.Button_0, Profile.ProfileInput.Action.Jump         },
+            {Profile.ProfileInput.GP0_Button.Button_1, Profile.ProfileInput.Action.SwitchGrenade},
+            {Profile.ProfileInput.GP0_Button.Button_2, Profile.ProfileInput.Action.Action       },
+            {Profile.ProfileInput.GP0_Button.Button_3, Profile.ProfileInput.Action.SwitchWeapon },
+            {Profile.ProfileInput.GP0_Button.Axis_3_n, Profile.ProfileInput.Action.LookUp       },
+            {Profile.ProfileInput.GP0_Button.Axis_3_p, Profile.ProfileInput.Action.LookDown     },
+            {Profile.ProfileInput.GP0_Button.Axis_4_n, Profile.ProfileInput.Action.LookLeft     },
+            {Profile.ProfileInput.GP0_Button.Axis_4_p, Profile.ProfileInput.Action.LookRight    },
+            {Profile.ProfileInput.GP0_Button.Button_9, Profile.ProfileInput.Action.ScopeZoom    },
+            {Profile.ProfileInput.GP0_Button.Button_4, Profile.ProfileInput.Action.ThrowGrenade },
+            {Profile.ProfileInput.GP0_Button.Axis_5_p, Profile.ProfileInput.Action.Flashlight   },
+            {Profile.ProfileInput.GP0_Button.Button_5, Profile.ProfileInput.Action.MeleeAttack  },
+            {Profile.ProfileInput.GP0_Button.Axis_5_n, Profile.ProfileInput.Action.FireWeapon   }
           };
 
-          blam.Input.GamepadMenu = new Dictionary<Profile.ProfileInput.DIButtons, Profile.ProfileInput.GamePadMenu>
+          blam.Input.Gamepads_Menu = new Dictionary<Profile.ProfileInput.GamePadMenu, Profile.ProfileInput.DIButtons_Values>
           {
-            {Profile.ProfileInput.DIButtons.Button1, Profile.ProfileInput.GamePadMenu.MenuAccept},
-            {Profile.ProfileInput.DIButtons.Button2, Profile.ProfileInput.GamePadMenu.MenuBack}
+            {Profile.ProfileInput.GamePadMenu.GP0_MenuAccept, Profile.ProfileInput.DIButtons_Values.Button0},
+            {Profile.ProfileInput.GamePadMenu.GP0_MenuBack  , Profile.ProfileInput.DIButtons_Values.Button1},
+            {Profile.ProfileInput.GamePadMenu.GP1_MenuAccept, Profile.ProfileInput.DIButtons_Values.Button0},
+            {Profile.ProfileInput.GamePadMenu.GP1_MenuBack  , Profile.ProfileInput.DIButtons_Values.Button1},
+            {Profile.ProfileInput.GamePadMenu.GP2_MenuAccept, Profile.ProfileInput.DIButtons_Values.Button0},
+            {Profile.ProfileInput.GamePadMenu.GP2_MenuBack  , Profile.ProfileInput.DIButtons_Values.Button1},
+            {Profile.ProfileInput.GamePadMenu.GP3_MenuAccept, Profile.ProfileInput.DIButtons_Values.Button0},
+            {Profile.ProfileInput.GamePadMenu.GP3_MenuBack  , Profile.ProfileInput.DIButtons_Values.Button1},
           };
 
           Core("BLAM.INPUT: Input overrides have been applied accordingly.");

@@ -175,18 +175,22 @@ namespace HXE
 
           /** Mouse offsets */
           {
+            profile.Input.MouseMapping.Add(Profile.ProfileInput.Action.LookDown, Profile.ProfileInput.Mouse.VAxis_Neg);
+            
+              
+            
             ms.Position = 0x20e;
             bw.Write((ushort) 0xB);  // 0xb - left mouse button to 
-            ms.Position += 2;
+            ms.Position += 2; // 0x210
             bw.Write((ushort) 0x6);
 
             ms.Position = 0x21e;
             bw.Write((ushort) 0x1A);
-            ms.Position += 2;
+            ms.Position += 2; // 0x220
             bw.Write((ushort) 0x19);
-            ms.Position += 2;
+            ms.Position += 2; // 0x222
             bw.Write((ushort) 0x17);
-            ms.Position += 2;
+            ms.Position += 2; // 0x224
             bw.Write((ushort) 0x18);
           }
         }

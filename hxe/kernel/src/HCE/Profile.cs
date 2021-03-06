@@ -139,7 +139,15 @@ namespace HXE.HCE
          * Mapping is conducted by writing values at offsets, where values = actions and offsets = inputs.
          */
 
-        foreach (var offset in Enum.GetValues(typeof(Button)))
+        foreach (var offset in Enum.GetValues(typeof(GP0_Button)))
+        {
+          Debug("Nulling input - " + offset);
+
+          ms.Position = (int) offset;
+          bw.Write(0x7F);
+        }
+
+        foreach (var offset in Enum.GetValues(typeof(GP1_Button)))
         {
           Debug("Nulling input - " + offset);
 
@@ -155,7 +163,7 @@ namespace HXE.HCE
           bw.Write(0xFFFF);
         }
 
-        foreach (var mapping in Input.GamepadMapping)
+        foreach (var mapping in Input.GP0_Mapping)
         {
           var value  = (byte) mapping.Key;  /* action */
           var offset = (int) mapping.Value; /* button */
@@ -166,7 +174,7 @@ namespace HXE.HCE
           bw.Write(value);
         }
         
-        foreach (var pair in Input.GamepadMenu)
+        foreach (var pair in Input.Gamepads_Menu)
         {
           var value  = (byte) pair.Key;   /* button */
           var offset = (int)  pair.Value; /* action */
@@ -345,30 +353,30 @@ namespace HXE.HCE
         Audio.EAX                    = GetBoolean(Offset.AudioEAX);
         Audio.HWA                    = GetBoolean(Offset.AudioHWA);
 
-        Input.GamepadMapping = new Dictionary<ProfileInput.Action, Button>();
+        Input.GP0_Mapping = new Dictionary<GP0_Button, ProfileInput.Action>();
 
-        foreach (var button in Enum.GetValues(typeof(Button)))
+        foreach (var button in Enum.GetValues(typeof(GP0_Button)))
         {
           reader.BaseStream.Seek((int) button, SeekOrigin.Begin);
 
-          var key   = (ProfileInput.Action) reader.ReadByte();
-          var value = (Button) button;
+          var key   = (GP0_Button) button;
+          var value = (ProfileInput.Action) reader.ReadByte();
 
-          if (!Input.GamepadMapping.ContainsKey(key))
-            Input.GamepadMapping.Add(key, value);
+          if (!Input.GP0_Mapping.ContainsKey(key))
+            Input.GP0_Mapping.Add(key, value);
         }
 
-        Input.GamepadMenu = new Dictionary<DIButtons, GamePadMenu>();
+        Input.Gamepads_Menu = new Dictionary<GamePadMenu, DIButtons_Values>();
 
         foreach (var offset in Enum.GetValues(typeof(GamePadMenu)))
         {
           reader.BaseStream.Seek((int) offset, SeekOrigin.Begin);
 
-          var key   = (DIButtons) reader.ReadByte();
-          var value = (GamePadMenu) offset;
+          var key   = (GamePadMenu) offset;
+          var value = (DIButtons_Values) reader.ReadByte();
 
-          if (!Input.GamepadMenu.ContainsKey(key))
-            Input.GamepadMenu.Add(key, value);
+          if (!Input.Gamepads_Menu.ContainsKey(key))
+            Input.Gamepads_Menu.Add(key, value);
         }
 
         if ((int) Details.Colour == 0xFF)
@@ -520,11 +528,10 @@ namespace HXE.HCE
       /** Input.Keyboard 0x134-0x20D */
       /* empty space filled with 0x7fff*/
 
-      /** Input.Mouse 0x20E-0x93A */
+      /** Input.Mouse 0x20E-0x220 */
       /* empty space filled with 0x7fff*/
       _0x0214_unbound            = 0x0214, //          0x7fff
                                                    
-      _0x021E                    = 0x021E, //        0x001a
       _0x0220                    = 0x0220, //        0x0019
       _0x0222                    = 0x0222, //        0x0017
       _0x0224                    = 0x0224, //        0x0018
@@ -950,37 +957,71 @@ namespace HXE.HCE
         Button6            = 0x0218,
         Button7            = 0x021A,
         Button8            = 0x021C,
-        HAxis_Neg          = 0x021E,
-        HAxis_Pos          = 0x0220,
-        VAxis_Neg          = 0x0222,
-        VAxis_Pos          = 0x0224,
+        HAxis_Neg          = 0x021E, // Look Right
+        HAxis_Pos          = 0x0220, // Look Left
+        VAxis_Neg          = 0x0222, // 
+        VAxis_Pos          = 0x0224, // 
         Wheel_Neg          = 0x0226,
         Wheel_Pos          = 0x0228
       }
 
-      public enum Button
+      public enum GP0_Button
       {
-        A     = 0x22A, /* face - button a                 */
-        B     = 0x22C, /* face - button b                 */
-        X     = 0x22E, /* face - button x                 */
-        Y     = 0x230, /* face - button y                 */
-        LB    = 0x232, /* shoulder - bumper - left        */
-        RB    = 0x234, /* shoulder - bumper - right       */
-        Back  = 0x236, /* home - back                     */
-        Start = 0x238, /* home - start                    */
-        LSM   = 0x23A, /* analogue - left stick - middle  */
-        RSM   = 0x23C, /* analogue - right stick - middle */
+        Button_0 = 0x22A, /* face - button a                 - DI Button 0 */
+        Button_1 = 0x22C, /* face - button b                 - DI Button 1 */
+        Button_2 = 0x22E, /* face - button x                 - DI Button 2 */
+        Button_3 = 0x230, /* face - button y                 - DI Button 3 */
+        Button_4 = 0x232, /* shoulder - bumper - left        - DI Button 4 */
+        Button_5 = 0x234, /* shoulder - bumper - right       - DI Button 5 */
+        Button_6 = 0x236, /* home - back                     - DI Button 6 */
+        Button_7 = 0x238, /* home - start                    - DI Button 7 */
+        Button_8 = 0x23A, /* analogue - left stick - middle  - DI Button 8 */
+        Button_9 = 0x23C, /* analogue - right stick - middle - DI Button 9 */
 
-        LSD   = 0x33A, /* analogue - left stick - down    */
-        LSU   = 0x33C, /* analogue - left stick - up      */
-        LSR   = 0x33E, /* analogue - left stick - right   */
-        LSL   = 0x340, /* analogue - left stick - left    */
-        RSD   = 0x342, /* analogue - right stick - down   */
-        RSU   = 0x344, /* analogue - right stick - up     */
-        RSR   = 0x346, /* analogue - right stick - right  */
-        RSL   = 0x348, /* analogue - right stick - left   */
-        LT    = 0x34A, /* shoulder - trigger - left       */
-        RT    = 0x34C, /* shoulder - trigger - right      */
+        //Axis_0_p
+        //Axis_0_n
+        Axis_1_p   = 0x33A, /* analogue - left stick - down    - DI Axis 0 + */
+        Axis_1_n   = 0x33C, /* analogue - left stick - up      - DI Axis 0 - */
+        Axis_2_p   = 0x33E, /* analogue - left stick - right   - DI Axis 1 + */
+        Axis_2_n   = 0x340, /* analogue - left stick - left    - DI Axis 1 - */
+        Axis_3_p   = 0x342, /* analogue - right stick - down   - DI Axis 2 + */
+        Axis_3_n   = 0x344, /* analogue - right stick - up     - DI Axis 2 - */
+        Axis_4_p   = 0x346, /* analogue - right stick - right  - DI Axis 3 + */
+        Axis_4_n   = 0x348, /* analogue - right stick - left   - DI Axis 3 - */
+        Axis_5_p   = 0x34A, /* shoulder - trigger - left       - DI Axis 4 + */
+        Axis_5_n   = 0x34C, /* shoulder - trigger - right      - DI Axis 4 - */
+        //Axis_6_p
+        //Axis_6_n
+
+        DPU   = 0x53A, /* directional - up                */
+        DPR   = 0x53E, /* directional - right             */
+        DPD   = 0x542, /* directional - down              */
+        DPL   = 0x546, /* directional - left              */
+      }
+
+      public enum GP1_Button
+      {
+        Button_0 = 0x22A, /* face - button a                 - DI Button 0 */
+        Button_1 = 0x22C, /* face - button b                 - DI Button 1 */
+        Button_2 = 0x22E, /* face - button x                 - DI Button 2 */
+        Button_3 = 0x230, /* face - button y                 - DI Button 3 */
+        Button_4 = 0x232, /* shoulder - bumper - left        - DI Button 4 */
+        Button_5 = 0x234, /* shoulder - bumper - right       - DI Button 5 */
+        Button_6 = 0x236, /* home - back                     - DI Button 6 */
+        Button_7 = 0x238, /* home - start                    - DI Button 7 */
+        Button_8 = 0x23A, /* analogue - left stick - middle  - DI Button 8 */
+        Button_9 = 0x23C, /* analogue - right stick - middle - DI Button 9 */
+
+        LSD   = 0x33A, /* analogue - left stick - down    - DI Axis 0 + */
+        LSU   = 0x33C, /* analogue - left stick - up      - DI Axis 0 - */
+        LSR   = 0x33E, /* analogue - left stick - right   - DI Axis 1 + */
+        LSL   = 0x340, /* analogue - left stick - left    - DI Axis 1 - */
+        RSD   = 0x342, /* analogue - right stick - down   - DI Axis 2 + */
+        RSU   = 0x344, /* analogue - right stick - up     - DI Axis 2 - */
+        RSR   = 0x346, /* analogue - right stick - right  - DI Axis 3 + */
+        RSL   = 0x348, /* analogue - right stick - left   - DI Axis 3 - */
+        LT    = 0x34A, /* shoulder - trigger - left       - DI Axis 4 + */
+        RT    = 0x34C, /* shoulder - trigger - right      - DI Axis 4 - */
 
         DPU   = 0x53A, /* directional - up                */
         DPR   = 0x53E, /* directional - right             */
@@ -1007,32 +1048,32 @@ namespace HXE.HCE
       /// <summary>
       /// Buttons for gamepads and similar devices
       /// </summary>
-      public enum DIButtons
+      public enum DIButtons_Values
       {
-        B1  = 0x00, /* face - button a                */
-        B2  = 0x01, /* face - button b                */
-        B3  = 0x02, /* face - button x                */
-        B4  = 0x03, /* face - button y                */
-        B5  = 0x04, /* shoulder - L shoulder, white   */
-        B6  = 0x05, /* shoulder - R shoulder, black   */
-        B7  = 0x06, /* home - back                    */
-        B8  = 0x07, /* home - start                   */
-        B9  = 0x08, /* analogue - left  stick - click */
-        B10 = 0x09, /* analogue - right stick - click */
-        // B11 = 0x0A or 0x11 ? /* Test with an X360/1 gamepad's Guide button...or a similar input device.
-        // B12 = 0x0B,
-        // B13 = 0x0C,
-        // B14 = 0x0D,
-        // B15 = 0x0E,
+        Button0  = 0x00, /* face - button a                */
+        Button1  = 0x01, /* face - button b                */
+        Button2  = 0x02, /* face - button x                */
+        Button3  = 0x03, /* face - button y                */
+        Button4  = 0x04, /* shoulder - L shoulder, white   */
+        Button5  = 0x05, /* shoulder - R shoulder, black   */
+        Button6  = 0x06, /* home - back                    */
+        Button7  = 0x07, /* home - start                   */
+        Button8  = 0x08, /* analogue - left  stick - click */
+        Button9  = 0x09, /* analogue - right stick - click */
+     // Button11 = 0x0A or 0x11 ? /* Test with an X360/1 gamepad's Guide button...or a similar input device.
+     // Button12 = 0x0B,
+     // Button13 = 0x0C,
+     // Button14 = 0x0D,
+     // Button15 = 0x0E,
       }
 
       public Dictionary<Action, Keyboard> KeyboardMapping = new Dictionary<Action, Keyboard>();
 
       public Dictionary<Action, Mouse> MouseMapping = new Dictionary<Action, Mouse>();
 
-      public Dictionary<Action, Button> GamepadMapping = new Dictionary<Action, Button>();
+      public Dictionary<GP0_Button, Action> GP0_Mapping = new Dictionary<GP0_Button, Action>();
 
-      public Dictionary<DIButtons, GamePadMenu> GamepadMenu = new Dictionary<DIButtons, GamePadMenu>();
+      public Dictionary<GamePadMenu, DIButtons_Values> Gamepads_Menu = new Dictionary<GamePadMenu, DIButtons_Values>();
     }
   }
 }
