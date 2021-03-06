@@ -175,6 +175,19 @@ namespace HXE
 
           /** Mouse offsets */
           {
+            profile.Input.MouseMapping = new System.Collections.Generic.Dictionary<Profile.ProfileInput.Action, Profile.ProfileInput.Mouse>
+            {
+              /** Movement */
+              { Profile.ProfileInput.Action.LookUp   , Profile.ProfileInput.Mouse.VAxis_Neg },
+              { Profile.ProfileInput.Action.LookDown , Profile.ProfileInput.Mouse.VAxis_Pos },
+              { Profile.ProfileInput.Action.LookLeft , Profile.ProfileInput.Mouse.VAxis_Pos },
+              { Profile.ProfileInput.Action.LookRight, Profile.ProfileInput.Mouse.VAxis_Neg },
+              /** Combat */
+              { Profile.ProfileInput.Action.FireWeapon  , Profile.ProfileInput.Mouse.LeftButton  },
+              { Profile.ProfileInput.Action.ThrowGrenade, Profile.ProfileInput.Mouse.RightButton },
+              /** Actions */
+              { Profile.ProfileInput.Action.ScopeZoom, Profile.ProfileInput.Mouse.MiddleButton },
+            };
             profile.Input.MouseMapping.Add(Profile.ProfileInput.Action.LookDown, Profile.ProfileInput.Mouse.VAxis_Neg);
             
               
@@ -184,13 +197,13 @@ namespace HXE
             ms.Position += 2; // 0x210
             bw.Write((ushort) 0x6);
 
-            ms.Position = 0x21e;
-            bw.Write((ushort) 0x1A);
-            ms.Position += 2; // 0x220
-            bw.Write((ushort) 0x19);
-            ms.Position += 2; // 0x222
-            bw.Write((ushort) 0x17);
-            ms.Position += 2; // 0x224
+            ms.Position = 0x21e;           // Hori+
+            bw.Write((ushort) 0x1A); // LookLeft
+            ms.Position += 2; // 0x220        Hori-
+            bw.Write((ushort) 0x19); // LookRight 
+            ms.Position += 2; // 0x222        LookDown  Vert-
+            bw.Write((ushort) 0x17); // 
+            ms.Position += 2; // 0x224        LookUp    Vert+
             bw.Write((ushort) 0x18);
           }
         }

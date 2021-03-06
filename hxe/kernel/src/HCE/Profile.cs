@@ -830,7 +830,7 @@ namespace HXE.HCE
       }
 
       /// <summary>
-      /// blam.sav keyboard offsets.
+      /// blam.sav keyboard offsets.<br/>
       /// 0x0134-0x020D
       /// </summary>
       public enum Keyboard
@@ -949,9 +949,9 @@ namespace HXE.HCE
 
       public enum Mouse
       {
-        LeftButton         = 0x020E,
-        MiddleButton       = 0x0210,
-        RightButton        = 0x0212,
+        LeftButton         = 0x020E, // FireWeapon
+        MiddleButton       = 0x0210, // 
+        RightButton        = 0x0212, // ThrowGrenade
         Button4            = 0x0214, // Typically "Browser Back"
         Button5            = 0x0216, // Typically "Browser Forward"
         Button6            = 0x0218,
@@ -959,8 +959,8 @@ namespace HXE.HCE
         Button8            = 0x021C,
         HAxis_Neg          = 0x021E, // Look Right
         HAxis_Pos          = 0x0220, // Look Left
-        VAxis_Neg          = 0x0222, // 
-        VAxis_Pos          = 0x0224, // 
+        VAxis_Neg          = 0x0222, //
+        VAxis_Pos          = 0x0224, //
         Wheel_Neg          = 0x0226,
         Wheel_Pos          = 0x0228
       }
