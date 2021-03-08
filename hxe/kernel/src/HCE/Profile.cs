@@ -453,16 +453,27 @@ namespace HXE.HCE
         {
           reader.BaseStream.Seek((int) button, SeekOrigin.Begin);
 
-          var key   = (Keyboard) button;
-          var value = (ProfileInput.Action) reader.ReadByte();
+          var key = (ProfileInput.Action) reader.ReadByte();
+          var value = (Keyboard) button;
 
           if (!Input.KeyboardMapping.ContainsKey(key))
             Input.KeyboardMapping.Add(key, value);
         }
-        
+
 
         /** Mouse Bindings */
+        Input.MouseMapping = new Dictionary<Mouse, ProfileInput.Action>();
 
+        foreach (var input in Enum.GetValues(typeof(Mouse)))
+        {
+          reader.BaseStream.Seek((int) input, SeekOrigin.Begin);
+
+          var key = (Mouse) input;
+          var value = (ProfileInput.Action) reader.ReadByte();
+
+          if (!Input.MouseMapping.ContainsKey(key))
+            Input.MouseMapping.Add(key, value);
+        }
 
         /** Gamepad Bindings */
         Input.GP0_Mapping = new Dictionary<GP0_Input, ProfileInput.Action>();
@@ -718,10 +729,14 @@ namespace HXE.HCE
       _0x0953                    = 0x0953, // 0x43
       MouseSensitivityHorizontal = 0x0954,
       MouseSensitivityVertical   = 0x0955,
-      _0x0956                    = 0x0956, // 0x0303 Likely gamepad0 sensitivity
-      _0x0958                    = 0x0958, // 0x0303 Likely gamepad1 sensitivity
-      _0x095A                    = 0x095A, // 0x0303 Likely gamepad2 sensitivity
-      _0x095C                    = 0x095C, // 0x0303 Likely gamepad3 sensitivity
+      Gamepad0_Sens_H            = 0x0956,
+      Gamepad1_Sens_H            = 0x0957,
+      Gamepad2_Sens_H            = 0x0958,
+      Gamepad3_Sens_H            = 0x0959,
+      Gamepad0_Sens_V            = 0x095A,
+      Gamepad1_Sens_V            = 0x095B,
+      Gamepad2_Sens_V            = 0x095C,
+      Gamepad3_Sens_V            = 0x095D,
       _0x095E                    = 0x095E, // 0x0000
       _0x0960                    = 0x0960, // 0x0000
       _0x0962                    = 0x0962, // 0x3f40
