@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using HXE.HCE;
 using static System.Environment;
 using static HXE.Console;
@@ -118,111 +119,96 @@ namespace HXE
 
           /** Keyboard bindings */
           { 
-            ms.Position = 0x134;
-            bw.Write((ushort) 0x9);
-            ms.Position += 2;
-            bw.Write((ushort) 0xC);
-            ms.Position += 2;
-            bw.Write((ushort) 0x1B);
-            ms.Position += 2;
-            bw.Write((ushort) 0x1C);
-
-            ms.Position = 0x14e;
-            bw.Write((ushort) 0x12);
-
-            ms.Position = 0x170;
-            bw.Write((ushort) 0x3);
-            ms.Position += 2;
-            bw.Write((ushort) 0x5);
-            ms.Position += 2;
-            bw.Write((ushort) 0x13);
-            ms.Position += 2;
-            bw.Write((ushort) 0x2);
-            ms.Position += 2;
-            bw.Write((ushort) 0xD);
-            ms.Position += 2;
-            bw.Write((ushort) 0xF);
-            ms.Position += 2;
-            bw.Write((ushort) 0x10);
-
-            ms.Position = 0x18e;
-            bw.Write((ushort) 0x15);
-            ms.Position += 2;
-            bw.Write((ushort) 0x14);
-            ms.Position += 2;
-            bw.Write((ushort) 0x16);
-            ms.Position += 2;
-            bw.Write((ushort) 0x4);
-            ms.Position += 2;
-            bw.Write((ushort) 0x1);
-            ms.Position += 2;
-            bw.Write((ushort) 0x11);
-
-            ms.Position = 0x1a4;
-            bw.Write((ushort) 0x8);
-
-            ms.Position = 0x1a8;
-            bw.Write((ushort) 0xB);
-            ms.Position += 2;
-            bw.Write((ushort) 0xE);
-
-            ms.Position = 0x01be;
-            bw.Write((ushort) 0xA);
-
-            ms.Position = 0x1c4;
-            bw.Write((ushort) 0x0);
+            ms.Position = 0x134;          // 
+            bw.Write((ushort) 0x9); // 
+            ms.Position += 2;             // 
+            bw.Write((ushort) 0xC); // 
+            ms.Position += 2;             // 
+            bw.Write((ushort) 0x1B);// 
+            ms.Position += 2;             // 
+            bw.Write((ushort) 0x1C);// 
+                                          // 
+            ms.Position = 0x14e;          // 
+            bw.Write((ushort) 0x12);// 
+                                          // 
+            ms.Position = 0x170;          // 
+            bw.Write((ushort) 0x3); // 
+            ms.Position += 2;             // 
+            bw.Write((ushort) 0x5); // 
+            ms.Position += 2;             // 
+            bw.Write((ushort) 0x13);// 
+            ms.Position += 2;             // 
+            bw.Write((ushort) 0x2); // 
+            ms.Position += 2;             // 
+            bw.Write((ushort) 0xD); // 
+            ms.Position += 2;             // 
+            bw.Write((ushort) 0xF); // 
+            ms.Position += 2;             // 
+            bw.Write((ushort) 0x10);// 
+                                          // 
+            ms.Position = 0x18e;          // 
+            bw.Write((ushort) 0x15);// 
+            ms.Position += 2;             // 
+            bw.Write((ushort) 0x14);// 
+            ms.Position += 2;             // 
+            bw.Write((ushort) 0x16);// 
+            ms.Position += 2;             // 
+            bw.Write((ushort) 0x4); // 
+            ms.Position += 2;             // 
+            bw.Write((ushort) 0x1); // 
+            ms.Position += 2;             // 
+            bw.Write((ushort) 0x11);// 
+                                          // 
+            ms.Position = 0x1a4;          // 
+            bw.Write((ushort) 0x8); // 
+                                          // 
+            ms.Position = 0x1a8;          // 
+            bw.Write((ushort) 0xB); // 
+            ms.Position += 2;             // 
+            bw.Write((ushort) 0xE); // 
+                                          // 
+            ms.Position = 0x01be;         // 
+            bw.Write((ushort) 0xA); // 
+                                          // 
+            ms.Position = 0x1c4;          // 
+            bw.Write((ushort) 0x0); // 
           }
 
-          /** Mouse offsets */
-          {
-            profile.Input.MouseMapping = new System.Collections.Generic.Dictionary<Profile.ProfileInput.Action, Profile.ProfileInput.Mouse>
-            {
-              /** Movement */
-              { Profile.ProfileInput.Action.LookUp   , Profile.ProfileInput.Mouse.VAxis_Neg },
-              { Profile.ProfileInput.Action.LookDown , Profile.ProfileInput.Mouse.VAxis_Pos },
-              { Profile.ProfileInput.Action.LookLeft , Profile.ProfileInput.Mouse.VAxis_Pos },
-              { Profile.ProfileInput.Action.LookRight, Profile.ProfileInput.Mouse.VAxis_Neg },
-              /** Combat */
-              { Profile.ProfileInput.Action.FireWeapon  , Profile.ProfileInput.Mouse.LeftButton  },
-              { Profile.ProfileInput.Action.ThrowGrenade, Profile.ProfileInput.Mouse.RightButton },
-              /** Actions */
-              { Profile.ProfileInput.Action.ScopeZoom, Profile.ProfileInput.Mouse.MiddleButton },
-            };
-            profile.Input.MouseMapping.Add(Profile.ProfileInput.Action.LookDown, Profile.ProfileInput.Mouse.VAxis_Neg);
-            
-              
-            
-            ms.Position = 0x20e;
-            bw.Write((ushort) 0xB);  // 0xb - left mouse button to 
-            ms.Position += 2; // 0x210
-            bw.Write((ushort) 0x6);
 
-            ms.Position = 0x21e;           // Hori+
-            bw.Write((ushort) 0x1A); // LookLeft
-            ms.Position += 2; // 0x220        Hori-
-            bw.Write((ushort) 0x19); // LookRight 
-            ms.Position += 2; // 0x222        LookDown  Vert-
-            bw.Write((ushort) 0x17); // 
-            ms.Position += 2; // 0x224        LookUp    Vert+
-            bw.Write((ushort) 0x18);
-          }
         }
 
-        /** Gamepad - Menu bindings */
-        {
-          ms.Position = 0x32A;
-          while (ms.Position < 0x33A)
-          {
-            // Just default all controllers to A/Accept and B/Back
-            bw.Write((ushort) 0x0); 
-            bw.Write((ushort) 0x1);
-          }
-        }
+
 
         ms.Position = 0;
         ms.CopyTo(fs);
       }
-      profile.Load();
+      /** Managed Bindings */
+      {
+        /** Mouse offsets */
+        profile.Input.MouseMapping = new Dictionary<Profile.ProfileInput.Mouse, Profile.ProfileInput.Action>
+        {
+          { Profile.ProfileInput.Mouse.VAxis_Neg   , Profile.ProfileInput.Action.LookUp       },
+          { Profile.ProfileInput.Mouse.VAxis_Pos   , Profile.ProfileInput.Action.LookDown     },
+          { Profile.ProfileInput.Mouse.VAxis_Pos   , Profile.ProfileInput.Action.LookLeft     },
+          { Profile.ProfileInput.Mouse.VAxis_Neg   , Profile.ProfileInput.Action.LookRight    },
+          { Profile.ProfileInput.Mouse.LeftButton  , Profile.ProfileInput.Action.FireWeapon   },
+          { Profile.ProfileInput.Mouse.RightButton , Profile.ProfileInput.Action.ThrowGrenade },
+          { Profile.ProfileInput.Mouse.MiddleButton, Profile.ProfileInput.Action.ScopeZoom    },
+        };
+
+        /** Gamepad - Menu bindings */
+        profile.Input.Gamepads_Menu = new Dictionary<Profile.ProfileInput.GamePadMenu, Profile.ProfileInput.DIButtons_Values>
+        {
+          { Profile.ProfileInput.GamePadMenu.GP0_MenuAccept, Profile.ProfileInput.DIButtons_Values.Button0 },
+          { Profile.ProfileInput.GamePadMenu.GP0_MenuBack  , Profile.ProfileInput.DIButtons_Values.Button1 },
+          { Profile.ProfileInput.GamePadMenu.GP1_MenuAccept, Profile.ProfileInput.DIButtons_Values.Button0 },
+          { Profile.ProfileInput.GamePadMenu.GP1_MenuBack  , Profile.ProfileInput.DIButtons_Values.Button1 },
+          { Profile.ProfileInput.GamePadMenu.GP2_MenuAccept, Profile.ProfileInput.DIButtons_Values.Button0 },
+          { Profile.ProfileInput.GamePadMenu.GP2_MenuBack  , Profile.ProfileInput.DIButtons_Values.Button1 },
+          { Profile.ProfileInput.GamePadMenu.GP3_MenuAccept, Profile.ProfileInput.DIButtons_Values.Button0 },
+          { Profile.ProfileInput.GamePadMenu.GP3_MenuBack  , Profile.ProfileInput.DIButtons_Values.Button1 },
+        };
+      }
       profile.Save();
       VerifyPath(Custom.Profile(path, profile.Details.Name));
 

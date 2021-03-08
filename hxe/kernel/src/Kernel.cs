@@ -504,27 +504,27 @@ namespace HXE
           if (!configuration.Input.Override)
             return;
 
-          blam.Input.GP0_Mapping = new Dictionary<Profile.ProfileInput.GP0_Button, Profile.ProfileInput.Action>
+          blam.Input.GP0_Mapping = new Dictionary<Profile.ProfileInput.GP0_Input, Profile.ProfileInput.Action>
           {
-            {Profile.ProfileInput.GP0_Button.Axis_1_n, Profile.ProfileInput.Action.MoveForward  },
-            {Profile.ProfileInput.GP0_Button.Axis_1_p, Profile.ProfileInput.Action.MoveBackward },
-            {Profile.ProfileInput.GP0_Button.Axis_2_n, Profile.ProfileInput.Action.MoveLeft     },
-            {Profile.ProfileInput.GP0_Button.Axis_2_p, Profile.ProfileInput.Action.MoveRight    },
-            {Profile.ProfileInput.GP0_Button.Button_8, Profile.ProfileInput.Action.Crouch       },
-            {Profile.ProfileInput.GP0_Button.DPU     , Profile.ProfileInput.Action.Reload       },
-            {Profile.ProfileInput.GP0_Button.Button_0, Profile.ProfileInput.Action.Jump         },
-            {Profile.ProfileInput.GP0_Button.Button_1, Profile.ProfileInput.Action.SwitchGrenade},
-            {Profile.ProfileInput.GP0_Button.Button_2, Profile.ProfileInput.Action.Action       },
-            {Profile.ProfileInput.GP0_Button.Button_3, Profile.ProfileInput.Action.SwitchWeapon },
-            {Profile.ProfileInput.GP0_Button.Axis_3_n, Profile.ProfileInput.Action.LookUp       },
-            {Profile.ProfileInput.GP0_Button.Axis_3_p, Profile.ProfileInput.Action.LookDown     },
-            {Profile.ProfileInput.GP0_Button.Axis_4_n, Profile.ProfileInput.Action.LookLeft     },
-            {Profile.ProfileInput.GP0_Button.Axis_4_p, Profile.ProfileInput.Action.LookRight    },
-            {Profile.ProfileInput.GP0_Button.Button_9, Profile.ProfileInput.Action.ScopeZoom    },
-            {Profile.ProfileInput.GP0_Button.Button_4, Profile.ProfileInput.Action.ThrowGrenade },
-            {Profile.ProfileInput.GP0_Button.Axis_5_p, Profile.ProfileInput.Action.Flashlight   },
-            {Profile.ProfileInput.GP0_Button.Button_5, Profile.ProfileInput.Action.MeleeAttack  },
-            {Profile.ProfileInput.GP0_Button.Axis_5_n, Profile.ProfileInput.Action.FireWeapon   }
+            {Profile.ProfileInput.GP0_Input.Axis_1_n, Profile.ProfileInput.Action.MoveForward  },
+            {Profile.ProfileInput.GP0_Input.Axis_1_p, Profile.ProfileInput.Action.MoveBackward },
+            {Profile.ProfileInput.GP0_Input.Axis_2_n, Profile.ProfileInput.Action.MoveLeft     },
+            {Profile.ProfileInput.GP0_Input.Axis_2_p, Profile.ProfileInput.Action.MoveRight    },
+            {Profile.ProfileInput.GP0_Input.Button_8, Profile.ProfileInput.Action.Crouch       },
+            {Profile.ProfileInput.GP0_Input.DPU     , Profile.ProfileInput.Action.Reload       },
+            {Profile.ProfileInput.GP0_Input.Button_0, Profile.ProfileInput.Action.Jump         },
+            {Profile.ProfileInput.GP0_Input.Button_1, Profile.ProfileInput.Action.SwitchGrenade},
+            {Profile.ProfileInput.GP0_Input.Button_2, Profile.ProfileInput.Action.Action       },
+            {Profile.ProfileInput.GP0_Input.Button_3, Profile.ProfileInput.Action.SwitchWeapon },
+            {Profile.ProfileInput.GP0_Input.Axis_3_n, Profile.ProfileInput.Action.LookUp       },
+            {Profile.ProfileInput.GP0_Input.Axis_3_p, Profile.ProfileInput.Action.LookDown     },
+            {Profile.ProfileInput.GP0_Input.Axis_4_n, Profile.ProfileInput.Action.LookLeft     },
+            {Profile.ProfileInput.GP0_Input.Axis_4_p, Profile.ProfileInput.Action.LookRight    },
+            {Profile.ProfileInput.GP0_Input.Button_9, Profile.ProfileInput.Action.ScopeZoom    },
+            {Profile.ProfileInput.GP0_Input.Button_4, Profile.ProfileInput.Action.ThrowGrenade },
+            {Profile.ProfileInput.GP0_Input.Axis_5_p, Profile.ProfileInput.Action.Flashlight   },
+            {Profile.ProfileInput.GP0_Input.Button_5, Profile.ProfileInput.Action.MeleeAttack  },
+            {Profile.ProfileInput.GP0_Input.Axis_5_n, Profile.ProfileInput.Action.FireWeapon   }
           };
 
           blam.Input.Gamepads_Menu = new Dictionary<Profile.ProfileInput.GamePadMenu, Profile.ProfileInput.DIButtons_Values>

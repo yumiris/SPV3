@@ -139,51 +139,144 @@ namespace HXE.HCE
          * Mapping is conducted by writing values at offsets, where values = actions and offsets = inputs.
          */
 
-        foreach (var offset in Enum.GetValues(typeof(GP0_Button)))
+        /** Erase Old Input Bindings */
         {
-          Debug("Nulling input - " + offset);
+          foreach (var offset in Enum.GetValues(typeof(Keyboard)))
+          {
+            Debug("Nulling input - " + offset);
 
-          ms.Position = (int) offset;
-          bw.Write(0x7F);
+            ms.Position = (int) offset;
+            bw.Write(0x7F);
+          }
+
+          foreach (var offset in Enum.GetValues(typeof(Mouse)))
+          {
+            Debug("Nulling input - " + offset);
+
+            ms.Position = (int) offset;
+            bw.Write(0x7F);
+          }
+
+          foreach (var offset in Enum.GetValues(typeof(GP0_Input)))
+          {
+            Debug("Nulling input - " + offset);
+
+            ms.Position = (int) offset;
+            bw.Write(0x7F);
+          }
+
+          foreach (var offset in Enum.GetValues(typeof(GP1_Input)))
+          {
+            Debug("Nulling input - " + offset);
+
+            ms.Position = (int) offset;
+            bw.Write(0x7F);
+          }
+
+          foreach (var offset in Enum.GetValues(typeof(GP2_Input)))
+          {
+            Debug("Nulling input - " + offset);
+
+            ms.Position = (int) offset;
+            bw.Write(0x7F);
+          }
+
+          foreach (var offset in Enum.GetValues(typeof(GP3_Input)))
+          {
+            Debug("Nulling input - " + offset);
+
+            ms.Position = (int) offset;
+            bw.Write(0x7F);
+          }
+
+          foreach (var offset in Enum.GetValues(typeof(GamePadMenu)))
+          {
+            Debug("Nulling input - " + offset);
+
+            ms.Position = (int) offset;
+            bw.Write(0xFFFF);
+          }
         }
 
-        foreach (var offset in Enum.GetValues(typeof(GP1_Button)))
+        /** Write New Input Bindings*/
         {
-          Debug("Nulling input - " + offset);
+          foreach (var mapping in Input.KeyboardMapping)
+          {
+            var value  = (byte) mapping.Key;  /* action */
+            var offset = (int) mapping.Value; /* button */
 
-          ms.Position = (int) offset;
-          bw.Write(0x7F);
-        }
+            Debug("Assigning input to action - " + mapping.Key + " -> " + mapping.Value);
 
-        foreach (var offset in Enum.GetValues(typeof(GamePadMenu)))
-        {
-          Debug("Nulling input - " + offset);
+            ms.Position = offset;
+            bw.Write(value);
+          }
 
-          ms.Position = (int) offset;
-          bw.Write(0xFFFF);
-        }
+          foreach (var mapping in Input.MouseMapping)
+          {
+            var value  = (byte) mapping.Key;  /* action */
+            var offset = (int) mapping.Value; /* button */
 
-        foreach (var mapping in Input.GP0_Mapping)
-        {
-          var value  = (byte) mapping.Key;  /* action */
-          var offset = (int) mapping.Value; /* button */
+            Debug("Assigning input to action - " + mapping.Key + " -> " + mapping.Value);
 
-          Debug("Assigning input to action - " + mapping.Key + " -> " + mapping.Value);          
+            ms.Position = offset;
+            bw.Write(value);
+          }
 
-          ms.Position = offset;
-          bw.Write(value);
-        }
-        
-        foreach (var pair in Input.Gamepads_Menu)
-        {
-          var value  = (byte) pair.Key;   /* button */
-          var offset = (int)  pair.Value; /* action */
+          foreach (var mapping in Input.GP0_Mapping)
+          {
+            var value  = (byte) mapping.Key;  /* action */
+            var offset = (int) mapping.Value; /* button */
 
-          Debug("Assigning input to action - " + pair.Key + " -> " + pair.Value);
+            Debug("Assigning input to action - " + mapping.Key + " -> " + mapping.Value);
 
-          ms.Position = offset;
-          bw.Write(value);
-          bw.Write((byte) 0x00);
+            ms.Position = offset;
+            bw.Write(value);
+          }
+
+          foreach (var mapping in Input.GP1_Mapping)
+          {
+            var value  = (byte) mapping.Key;  /* action */
+            var offset = (int) mapping.Value; /* button */
+
+            Debug("Assigning input to action - " + mapping.Key + " -> " + mapping.Value);
+
+            ms.Position = offset;
+            bw.Write(value);
+          }
+
+          foreach (var mapping in Input.GP2_Mapping)
+          {
+            var value  = (byte) mapping.Key;  /* action */
+            var offset = (int) mapping.Value; /* button */
+
+            Debug("Assigning input to action - " + mapping.Key + " -> " + mapping.Value);
+
+            ms.Position = offset;
+            bw.Write(value);
+          }
+
+          foreach (var mapping in Input.GP3_Mapping)
+          {
+            var value  = (byte) mapping.Key;  /* action */
+            var offset = (int) mapping.Value; /* button */
+
+            Debug("Assigning input to action - " + mapping.Key + " -> " + mapping.Value);
+
+            ms.Position = offset;
+            bw.Write(value);
+          }
+
+          foreach (var pair in Input.Gamepads_Menu)
+          {
+            var value  = (byte) pair.Key;   /* button */
+            var offset = (int)  pair.Value; /* action */
+
+            Debug("Assigning input to action - " + pair.Key + " -> " + pair.Value);
+
+            ms.Position = offset;
+            bw.Write(value);
+            bw.Write((byte) 0x00);
+          }
         }
 
         /**
@@ -353,18 +446,75 @@ namespace HXE.HCE
         Audio.EAX                    = GetBoolean(Offset.AudioEAX);
         Audio.HWA                    = GetBoolean(Offset.AudioHWA);
 
-        Input.GP0_Mapping = new Dictionary<GP0_Button, ProfileInput.Action>();
+        /** Keyboard Bindings */
+        Input.KeyboardMapping = new Dictionary<ProfileInput.Action, Keyboard>();
 
-        foreach (var button in Enum.GetValues(typeof(GP0_Button)))
+        foreach (var button in Enum.GetValues(typeof(Keyboard)))
         {
           reader.BaseStream.Seek((int) button, SeekOrigin.Begin);
 
-          var key   = (GP0_Button) button;
+          var key   = (Keyboard) button;
+          var value = (ProfileInput.Action) reader.ReadByte();
+
+          if (!Input.KeyboardMapping.ContainsKey(key))
+            Input.KeyboardMapping.Add(key, value);
+        }
+        
+
+        /** Mouse Bindings */
+
+
+        /** Gamepad Bindings */
+        Input.GP0_Mapping = new Dictionary<GP0_Input, ProfileInput.Action>();
+        Input.GP1_Mapping = new Dictionary<GP1_Input, ProfileInput.Action>();
+        Input.GP2_Mapping = new Dictionary<GP2_Input, ProfileInput.Action>();
+        Input.GP3_Mapping = new Dictionary<GP3_Input, ProfileInput.Action>();
+
+        foreach (var button in Enum.GetValues(typeof(GP0_Input)))
+        {
+          reader.BaseStream.Seek((int) button, SeekOrigin.Begin);
+
+          var key   = (GP0_Input) button;
           var value = (ProfileInput.Action) reader.ReadByte();
 
           if (!Input.GP0_Mapping.ContainsKey(key))
             Input.GP0_Mapping.Add(key, value);
         }
+
+        foreach (var button in Enum.GetValues(typeof(GP1_Input)))
+        {
+          reader.BaseStream.Seek((int) button, SeekOrigin.Begin);
+
+          var key   = (GP1_Input) button;
+          var value = (ProfileInput.Action) reader.ReadByte();
+
+          if (!Input.GP1_Mapping.ContainsKey(key))
+            Input.GP1_Mapping.Add(key, value);
+        }
+
+        foreach (var button in Enum.GetValues(typeof(GP2_Input)))
+        {
+          reader.BaseStream.Seek((int) button, SeekOrigin.Begin);
+
+          var key   = (GP2_Input) button;
+          var value = (ProfileInput.Action) reader.ReadByte();
+
+          if (!Input.GP2_Mapping.ContainsKey(key))
+            Input.GP2_Mapping.Add(key, value);
+        }
+
+        foreach (var button in Enum.GetValues(typeof(GP3_Input)))
+        {
+          reader.BaseStream.Seek((int) button, SeekOrigin.Begin);
+
+          var key   = (GP3_Input) button;
+          var value = (ProfileInput.Action) reader.ReadByte();
+
+          if (!Input.GP3_Mapping.ContainsKey(key))
+            Input.GP3_Mapping.Add(key, value);
+        }
+
+        /** Gamepad Menu Bindings */
 
         Input.Gamepads_Menu = new Dictionary<GamePadMenu, DIButtons_Values>();
 
@@ -514,117 +664,128 @@ namespace HXE.HCE
     ///   then written in reverse (Big Endian).
     /// </remark>
     private enum Offset
-    { 
+    {
       /** values as writen by haloce.exe. 
        * Shorts shown here as LE; write as BE. 
        * Value types are Uint16/Short where unspecified.
-       * Where _buffer, the 0x7fff is written until the Position reaches the next notable offset.
+       * Where _unbound, 0x7fff (32,767) is written until the Position reaches the next notable offset.
        */
-        _0x0000                  = 0x0000, //        0x0009
-      ProfileName                = 0x0002, //        "New001"  UTF-16 BE String
-      ProfileColour              = 0x011A, //        0xffff
-        _0x012E                  = 0x012E, // Byte   0x03
-      MouseInvertVerticalAxis    = 0x012F, // Byte   0x00
+        _0x0000                  = 0x0000, // 0x0009
+      ProfileName                = 0x0002, // "New001"  UTF-16 BE String
+      ProfileColour              = 0x011A, // 0xffff
+        _0x011E                  = 0x011E, // 0x0; possible value: 0x08 (from Retail)
+        _0x011F                  = 0x011F, // 0x0; possible value: 0x0A (from Retail)
+        _0x0120                  = 0x0120, // 0x0; possible value: 0x08 (from Retail)
+        _0x0121                  = 0x0121, // 0x0; possible value: 0x08 (from Retail)
+        _0x0122                  = 0x0122, // 0x0; possible value: 0x08 (from Retail)
+        _0x0123                  = 0x0123, // 0x0; possible value: 0x08 (from Retail)
+        _0x0124                  = 0x0124, // 0x0; possible value: 0x08 (from Retail)
+        _0x0125                  = 0x0125, // 0x0; possible value: 0x08 (from Retail)
+        _0x0126                  = 0x0126, // 0x0; possible value: 0x08 (from Retail)
+        _0x0127                  = 0x0127, // 0x0
+        _0x0128                  = 0x0128, // 0x0; possible value: 07 (from Retail)
+        _0x012E                  = 0x012E, // 0x03
+      MouseInvertVerticalAxis    = 0x012F, // 0x00
       /** Input.Keyboard 0x134-0x20D */
       /* empty space filled with 0x7fff*/
 
       /** Input.Mouse 0x20E-0x220 */
       /* empty space filled with 0x7fff*/
-      _0x0214_unbound            = 0x0214, //          0x7fff
-                                                   
-      _0x0220                    = 0x0220, //        0x0019
-      _0x0222                    = 0x0222, //        0x0017
-      _0x0224                    = 0x0224, //        0x0018
-      _0x0226_unbound            = 0x0226, //          0x7fff
+      _0x0214_unbound            = 0x0214, //   0x7fff
+                                              
+      _0x0220                    = 0x0220, // 0x0019
+      _0x0222                    = 0x0222, // 0x0017
+      _0x0224                    = 0x0224, // 0x0018
+      _0x0226_unbound            = 0x0226, //   0x7fff
                       
       /** Input.GamePadMenu 0x32A-0x339 */
       /* unbound is 0xffff */
-      _0x033A_unbound            = 0x033A, //          0x7fff
+      _0x033A_unbound            = 0x033A, //   0x7fff
       
-      // padding                 = 0x093A, //          0x0
+      // padding                 = 0x093A, //   0x0
 
-      _0x093E                    = 0x093E, //        0x3f80
-      _0x0940                    = 0x0940, //        0x0000
-      _0x0942                    = 0x0942, //        0x3f80
-      _0x0944                    = 0x0944, //        0x04fc
-      _0x0946                    = 0x0946, //        0x3e41
-      _0x0948                    = 0x0948, //        0x04fc
-      _0x094A                    = 0x094A, //        0x3e41
-      _0x094C                    = 0x094C, //        0x0000
-      _0x094E                    = 0x094E, //        0x4300
-      _0x0950                    = 0x0950, //        0x0000
-      _0x0952                    = 0x0952, //        0x00
-      _0x0953                    = 0x0953, //        0x43
+      _0x093E                    = 0x093E, // 0x3f80
+      _0x0940                    = 0x0940, // 0x0000
+      _0x0942                    = 0x0942, // 0x3f80
+      _0x0944                    = 0x0944, // 0x04fc
+      _0x0946                    = 0x0946, // 0x3e41
+      _0x0948                    = 0x0948, // 0x04fc
+      _0x094A                    = 0x094A, // 0x3e41
+      _0x094C                    = 0x094C, // 0x0000
+      _0x094E                    = 0x094E, // 0x4300
+      _0x0950                    = 0x0950, // 0x0000
+      _0x0952                    = 0x0952, // 0x00
+      _0x0953                    = 0x0953, // 0x43
       MouseSensitivityHorizontal = 0x0954,
       MouseSensitivityVertical   = 0x0955,
-      _0x0956                    = 0x0956, //        0x0303 Likely gamepad0 sensitivity
-      _0x0958                    = 0x0958, //        0x0303 Likely gamepad1 sensitivity
-      _0x095A                    = 0x095A, //        0x0303 Likely gamepad2 sensitivity
-      _0x095C                    = 0x095C, //        0x0303 Likely gamepad3 sensitivity
-      _0x095E                    = 0x095E, //        0x0000
-      _0x0960                    = 0x0960, //        0x0000
-      _0x0962                    = 0x0962, //        0x3f40
-      _0x0964                    = 0x0964, //        0x0000
-      _0x0966                    = 0x0966, //        0x3f40
-      _0x0968                    = 0x0968, //        0x0000
-      // padding                 = 0x096a, //          0x0
+      _0x0956                    = 0x0956, // 0x0303 Likely gamepad0 sensitivity
+      _0x0958                    = 0x0958, // 0x0303 Likely gamepad1 sensitivity
+      _0x095A                    = 0x095A, // 0x0303 Likely gamepad2 sensitivity
+      _0x095C                    = 0x095C, // 0x0303 Likely gamepad3 sensitivity
+      _0x095E                    = 0x095E, // 0x0000
+      _0x0960                    = 0x0960, // 0x0000
+      _0x0962                    = 0x0962, // 0x3f40
+      _0x0964                    = 0x0964, // 0x0000
+      _0x0966                    = 0x0966, // 0x3f40
+      _0x0968                    = 0x0968, // 0x0000
+      // padding                 = 0x096a, //   0x0
 
-      VideoResolutionWidth       = 0x0A68, //        0x0780
-      VideoResolutionHeight      = 0x0A6A, //        0x0438
-      VideoRefreshRate           = 0x0A6C, //        0x0090
-      _0x0A6E                    = 0x0A6E, //        0x02
-      VideoFrameRate             = 0x0A6F, //        0x02
-      VideoEffectsSpecular       = 0x0A70, //        0x0101
-      VideoEffectsShadows        = 0x0A71, //        0x0201
-      VideoEffectsDecals         = 0x0A72, //        0x0202
-      VideoQualityParticles      = 0x0A73, //        0x0001
+      VideoResolutionWidth       = 0x0A68, // 0x0780
+      VideoResolutionHeight      = 0x0A6A, // 0x0438
+      VideoRefreshRate           = 0x0A6C, // 0x0090
+      _0x0A6E                    = 0x0A6E, // 0x02
+      VideoFrameRate             = 0x0A6F, // 0x02
+      VideoEffectsSpecular       = 0x0A70, // 0x0101
+      VideoEffectsShadows        = 0x0A71, // 0x0201
+      VideoEffectsDecals         = 0x0A72, // 0x0202
+      VideoQualityParticles      = 0x0A73, // 0x0001
       VideoQualityTextures       = 0x0A74,
       VideoMiscellaneousGamma    = 0x0A76,
-      // padding                 = 0x0A78, //          0x0
+      // padding                 = 0x0A78, //   0x0
 
-      AudioVolumeMaster          = 0x0B78, //        0x0a
-      AudioVolumeEffects         = 0x0B79, //        0x0a
-      AudioVolumeMusic           = 0x0B7A, //        0x06
-      AudioEAX                   = 0x0B7B, //        0x00
-      AudioHWA                   = 0x0B7C, //        0x00
-      AudioQuality               = 0x0B7D, //        0x01
-      _0x0B7E                    = 0x0B7E, //        0x00
-      AudioVariety               = 0x0B7F, //        0x02
-      _0x0B80_Padding            = 0x0B80, //          0x0
+      AudioVolumeMaster          = 0x0B78, // 0x0a
+      AudioVolumeEffects         = 0x0B79, // 0x0a
+      AudioVolumeMusic           = 0x0B7A, // 0x06
+      AudioEAX                   = 0x0B7B, // 0x00
+      AudioHWA                   = 0x0B7C, // 0x00
+      AudioQuality               = 0x0B7D, // 0x01
+      _0x0B7E                    = 0x0B7E, // 0x00
+      AudioVariety               = 0x0B7F, // 0x02
+      _0x0B80_Padding            = 0x0B80, //   0x0
 
-      _0x0C80                    = 0x0C80, //        0x0103
-      _0x0C82                    = 0x0C82, //        0x0001
-      _0x0C84                    = 0x0C84, //        0x0000
-      _0x0C86                    = 0x0C86, //        0x0101
-      // padding                 = 0x0C88, //          0x0
+      _0x0C80                    = 0x0C80, // 0x0103
+      _0x0C82                    = 0x0C82, // 0x0001
+      _0x0C84                    = 0x0C84, // 0x0000
+      _0x0C86                    = 0x0C86, // 0x0101
+      // padding                 = 0x0C88, //   0x0
 
-      NetworkServerName          = 0x0D8C, //        UTF-16 String. Null-terminated. 31 characters, excluding null.
+      NetworkServerName          = 0x0D8C, // UTF-16 String. Null-terminated. 31 characters, excluding null.
 
-      NetworkPassword            = 0x0EAC, //        UTF-16 String. Null-terminated. 8 characters, excluding null.
+      NetworkPassword            = 0x0EAC, // UTF-16 String. Null-terminated. 8 characters, excluding null.
 
-      NetworkMaxPlayers          = 0x0EBF, //        0x03 uint8
-      // padding                 = 0x0EC0, //          0x0
+      NetworkMaxPlayers          = 0x0EBF, // 0x03 uint8
+      // padding                 = 0x0EC0, //   0x0
 
-      NetworkConnectionType      = 0x0FC0, //        0x01 uint8
-      NetworkServerAddress       = 0x0FC2, //        UTF-16 String. Null-terminated. 31 characters, excluding null.
+      NetworkConnectionType      = 0x0FC0, // 0x01 uint8
+      NetworkServerAddress       = 0x0FC2, // UTF-16 String. Null-terminated. 31 characters, excluding null.
 
-      NetworkPortServer          = 0x1002, //        0x08fe
-      NetworkPortClient          = 0x1004, //        0x08ff
-      // padding                 = 0x1006, //          0x0
+      NetworkPortServer          = 0x1002, // 0x08fe
+      NetworkPortClient          = 0x1004, // 0x08ff
+      // padding                 = 0x1006, //   0x0
 
-      Gamepad0_Name              = 0x1108, //        UTF-16 String; Can be LE ("Xbox Controller S via XBCD") or BE ("Xbox 360 Controller For Windows")
+      Gamepad0_Name              = 0x1108, // UTF-16 String; Can be LE ("Xbox Controller S via XBCD") or BE ("Xbox 360 Controller For Windows")
       // padding                 
-      Gamepad0_Vendor            = 0x1314, //        4-digit hex; e.g. 0x5e04; 045E == Microsoft; 
-      Gamepad0_Product           = 0x1316, //        4-digit hex; e.g. 0x8902; 0289 == XBCD Xbox Controller;
-      Gamepad0_padding           = 0x1318, //        0x0000, 0x0000, 0x0000
-      Gamepad0_PIDVID            = 0x131E, //        "PIDVID"  UTF-8 String
-      Gamepad0_DupeID            = 0x1324, //        0x00; If duplicate, then 0x01 and so on.
-      // padding                 = 0x1326, //        0x00 00 00
+      Gamepad0_Vendor            = 0x1314, // 4-digit hex; e.g. 0x5e04; 045E == Microsoft; 
+      Gamepad0_Product           = 0x1316, // 4-digit hex; e.g. 0x8902; 0289 == XBCD Xbox Controller;
+      Gamepad0_padding           = 0x1318, // 0x0000, 0x0000, 0x0000
+      Gamepad0_PIDVID            = 0x131E, // "PIDVID"  UTF-8 String
+      Gamepad0_DupeID            = 0x1324, // 0x00; If duplicate, then 0x01 and so on.
+      // padding                 = 0x1326, // 0x00 00 00
 
-      Gamepad1_Name              = 0x1328, //        UTF-16 String; BE or LE
+      Gamepad1_Name              = 0x1328, // UTF-16 String; BE or LE
       // padding
-      Gamepad1_Vendor            = 0x1534, //        4-digit hex; e.g. 0x6d04; 046D == Razer?  - Doesn't match DevMgr
-      Gamepad1_Product           = 0x1536, //        4-digit hex; e.g. 0x1dc2; C21D == Serval? - Doesn't match DevMgr
+      Gamepad1_Vendor            = 0x1534, // 4-digit hex; e.g. 0x6d04; 046D == Razer?  - Doesn't match DevMgr
+      Gamepad1_Product           = 0x1536, // 4-digit hex; e.g. 0x1dc2; C21D == Serval? - Doesn't match DevMgr
       Gamepad1_padding           = 0x1538,
       Gamepad1_PIDVID            = 0x153E,
       Gamepad1_DupeID            = 0x1544,
@@ -965,68 +1126,145 @@ namespace HXE.HCE
         Wheel_Pos          = 0x0228
       }
 
-      public enum GP0_Button
+      public enum GP0_Input
       {
-        Button_0 = 0x22A, /* face - button a                 - DI Button 0 */
-        Button_1 = 0x22C, /* face - button b                 - DI Button 1 */
-        Button_2 = 0x22E, /* face - button x                 - DI Button 2 */
-        Button_3 = 0x230, /* face - button y                 - DI Button 3 */
-        Button_4 = 0x232, /* shoulder - bumper - left        - DI Button 4 */
-        Button_5 = 0x234, /* shoulder - bumper - right       - DI Button 5 */
-        Button_6 = 0x236, /* home - back                     - DI Button 6 */
-        Button_7 = 0x238, /* home - start                    - DI Button 7 */
-        Button_8 = 0x23A, /* analogue - left stick - middle  - DI Button 8 */
-        Button_9 = 0x23C, /* analogue - right stick - middle - DI Button 9 */
+        Button_0  = 0x22A, /* face - button a                 - DI Button 0 */
+        Button_1  = 0x22C, /* face - button b                 - DI Button 1 */
+        Button_2  = 0x22E, /* face - button x                 - DI Button 2 */
+        Button_3  = 0x230, /* face - button y                 - DI Button 3 */
+        Button_4  = 0x232, /* shoulder - bumper - left        - DI Button 4 */
+        Button_5  = 0x234, /* shoulder - bumper - right       - DI Button 5 */
+        Button_6  = 0x236, /* home - back                     - DI Button 6 */
+        Button_7  = 0x238, /* home - start                    - DI Button 7 */
+        Button_8  = 0x23A, /* analogue - left stick - middle  - DI Button 8 */
+        Button_9  = 0x23C, /* analogue - right stick - middle - DI Button 9 */
+        Button_10 = 0x23E,
 
-        //Axis_0_p
-        //Axis_0_n
-        Axis_1_p   = 0x33A, /* analogue - left stick - down    - DI Axis 0 + */
-        Axis_1_n   = 0x33C, /* analogue - left stick - up      - DI Axis 0 - */
-        Axis_2_p   = 0x33E, /* analogue - left stick - right   - DI Axis 1 + */
-        Axis_2_n   = 0x340, /* analogue - left stick - left    - DI Axis 1 - */
-        Axis_3_p   = 0x342, /* analogue - right stick - down   - DI Axis 2 + */
-        Axis_3_n   = 0x344, /* analogue - right stick - up     - DI Axis 2 - */
-        Axis_4_p   = 0x346, /* analogue - right stick - right  - DI Axis 3 + */
-        Axis_4_n   = 0x348, /* analogue - right stick - left   - DI Axis 3 - */
-        Axis_5_p   = 0x34A, /* shoulder - trigger - left       - DI Axis 4 + */
-        Axis_5_n   = 0x34C, /* shoulder - trigger - right      - DI Axis 4 - */
-        //Axis_6_p
-        //Axis_6_n
+        Axis_1_p = 0x33A, /* analogue - left stick - down    - DI Axis 1 + */
+        Axis_1_n = 0x33C, /* analogue - left stick - up      - DI Axis 1 - */
+        Axis_2_p = 0x33E, /* analogue - left stick - right   - DI Axis 2 + */
+        Axis_2_n = 0x340, /* analogue - left stick - left    - DI Axis 2 - */
+        Axis_3_p = 0x342, /* analogue - right stick - down   - DI Axis 3 + */
+        Axis_3_n = 0x344, /* analogue - right stick - up     - DI Axis 3 - */
+        Axis_4_p = 0x346, /* analogue - right stick - right  - DI Axis 4 + */
+        Axis_4_n = 0x348, /* analogue - right stick - left   - DI Axis 4 - */
+        Axis_5_p = 0x34A, /* shoulder - trigger - left       - DI Axis 5 + */
+        Axis_5_n = 0x34C, /* shoulder - trigger - right      - DI Axis 5 - */
+        Axis_6_p = 0x34E,
+        Axis_6_n = 0x350,
 
-        DPU   = 0x53A, /* directional - up                */
-        DPR   = 0x53E, /* directional - right             */
-        DPD   = 0x542, /* directional - down              */
-        DPL   = 0x546, /* directional - left              */
+        DPU   = 0x53A, /* directional - up    */
+        DPR   = 0x53E, /* directional - right */
+        DPD   = 0x542, /* directional - down  */
+        DPL   = 0x546, /* directional - left  */
       }
 
-      public enum GP1_Button
+      public enum GP1_Input
       {
-        Button_0 = 0x22A, /* face - button a                 - DI Button 0 */
-        Button_1 = 0x22C, /* face - button b                 - DI Button 1 */
-        Button_2 = 0x22E, /* face - button x                 - DI Button 2 */
-        Button_3 = 0x230, /* face - button y                 - DI Button 3 */
-        Button_4 = 0x232, /* shoulder - bumper - left        - DI Button 4 */
-        Button_5 = 0x234, /* shoulder - bumper - right       - DI Button 5 */
-        Button_6 = 0x236, /* home - back                     - DI Button 6 */
-        Button_7 = 0x238, /* home - start                    - DI Button 7 */
-        Button_8 = 0x23A, /* analogue - left stick - middle  - DI Button 8 */
-        Button_9 = 0x23C, /* analogue - right stick - middle - DI Button 9 */
+        // Previous Gamepad + 0x40
+        Button_0  = GP0_Input.Button_0  + 0x40, /* 0x26A - face - button a                 */
+        Button_1  = GP0_Input.Button_1  + 0x40, /* 0x26C - face - button b                 */
+        Button_2  = GP0_Input.Button_2  + 0x40, /* 0x26E - face - button x                 */
+        Button_3  = GP0_Input.Button_3  + 0x40, /* 0x270 - face - button y                 */
+        Button_4  = GP0_Input.Button_4  + 0x40, /* 0x272 - shoulder - bumper - left        */
+        Button_5  = GP0_Input.Button_5  + 0x40, /* 0x274 - shoulder - bumper - right       */
+        Button_6  = GP0_Input.Button_6  + 0x40, /* 0x276 - home - back                     */
+        Button_7  = GP0_Input.Button_7  + 0x40, /* 0x278 - home - start                    */
+        Button_8  = GP0_Input.Button_8  + 0x40, /* 0x27A - analogue - left stick - middle  */
+        Button_9  = GP0_Input.Button_9  + 0x40, /* 0x27C - analogue - right stick - middle */
+        Button_10 = GP0_Input.Button_10 + 0x40, /* 0x27E - Guide */
 
-        LSD   = 0x33A, /* analogue - left stick - down    - DI Axis 0 + */
-        LSU   = 0x33C, /* analogue - left stick - up      - DI Axis 0 - */
-        LSR   = 0x33E, /* analogue - left stick - right   - DI Axis 1 + */
-        LSL   = 0x340, /* analogue - left stick - left    - DI Axis 1 - */
-        RSD   = 0x342, /* analogue - right stick - down   - DI Axis 2 + */
-        RSU   = 0x344, /* analogue - right stick - up     - DI Axis 2 - */
-        RSR   = 0x346, /* analogue - right stick - right  - DI Axis 3 + */
-        RSL   = 0x348, /* analogue - right stick - left   - DI Axis 3 - */
-        LT    = 0x34A, /* shoulder - trigger - left       - DI Axis 4 + */
-        RT    = 0x34C, /* shoulder - trigger - right      - DI Axis 4 - */
+        // Previous Gamepad + 0x80
+        Axis_1_p = GP0_Input.Axis_1_p + 0x80, /* 0x3BA - analogue - left stick - down   */
+        Axis_1_n = GP0_Input.Axis_1_n + 0x80, /* 0x3BC - analogue - left stick - up     */
+        Axis_2_p = GP0_Input.Axis_2_p + 0x80, /* 0x3BE - analogue - left stick - right  */
+        Axis_2_n = GP0_Input.Axis_2_n + 0x80, /* 0x3C0 - analogue - left stick - left   */
+        Axis_3_p = GP0_Input.Axis_3_p + 0x80, /* 0x3C2 - analogue - right stick - down  */
+        Axis_3_n = GP0_Input.Axis_3_n + 0x80, /* 0x3C4 - analogue - right stick - up    */
+        Axis_4_p = GP0_Input.Axis_4_p + 0x80, /* 0x3C6 - analogue - right stick - right */
+        Axis_4_n = GP0_Input.Axis_4_n + 0x80, /* 0x3C8 - analogue - right stick - left  */
+        Axis_5_p = GP0_Input.Axis_5_p + 0x80, /* 0x3CA - shoulder - trigger - left      */
+        Axis_5_n = GP0_Input.Axis_5_n + 0x80, /* 0x3CC - shoulder - trigger - right     */
+        Axis_6_p = GP0_Input.Axis_6_p + 0x80, /* 0x3CE */
+        Axis_6_n = GP0_Input.Axis_6_n + 0x80, /* 0x3D0 */
 
-        DPU   = 0x53A, /* directional - up                */
-        DPR   = 0x53E, /* directional - right             */
-        DPD   = 0x542, /* directional - down              */
-        DPL   = 0x546, /* directional - left              */
+        // Previous Gamepad + 0x100
+        DPU = GP0_Input.DPU + 0x100, /* 0x63A - directional - up    */
+        DPR = GP0_Input.DPR + 0x100, /* 0x63E - directional - right */
+        DPD = GP0_Input.DPD + 0x100, /* 0x642 - directional - down  */
+        DPL = GP0_Input.DPL + 0x100, /* 0x646 - directional - left  */
+      }
+
+      public enum GP2_Input
+      {
+        // Previous Gamepad + 0x40
+        Button_0  = GP1_Input.Button_0  + 0x40, /* 0x2AA - face - button a                 */
+        Button_1  = GP1_Input.Button_1  + 0x40, /* 0x2AC - face - button b                 */
+        Button_2  = GP1_Input.Button_2  + 0x40, /* 0x2AE - face - button x                 */
+        Button_3  = GP1_Input.Button_3  + 0x40, /* 0x2B0 - face - button y                 */
+        Button_4  = GP1_Input.Button_4  + 0x40, /* 0x2B2 - shoulder - bumper - left        */
+        Button_5  = GP1_Input.Button_5  + 0x40, /* 0x2B4 - shoulder - bumper - right       */
+        Button_6  = GP1_Input.Button_6  + 0x40, /* 0x2B6 - home - back                     */
+        Button_7  = GP1_Input.Button_7  + 0x40, /* 0x2B8 - home - start                    */
+        Button_8  = GP1_Input.Button_8  + 0x40, /* 0x2BA - analogue - left stick - middle  */
+        Button_9  = GP1_Input.Button_9  + 0x40, /* 0x2BC - analogue - right stick - middle */
+        Button_10 = GP1_Input.Button_10 + 0x40, /* 0x2BE - Guide */
+
+        // Previous Gamepad + 0x80
+        Axis_1_p = GP1_Input.Axis_1_p + 0x80, /* 0x43A - analogue - left stick - down   */
+        Axis_1_n = GP1_Input.Axis_1_n + 0x80, /* 0x43C - analogue - left stick - up     */
+        Axis_2_p = GP1_Input.Axis_2_p + 0x80, /* 0x43E - analogue - left stick - right  */
+        Axis_2_n = GP1_Input.Axis_2_n + 0x80, /* 0x440 - analogue - left stick - left   */
+        Axis_3_p = GP1_Input.Axis_3_p + 0x80, /* 0x442 - analogue - right stick - down  */
+        Axis_3_n = GP1_Input.Axis_3_n + 0x80, /* 0x444 - analogue - right stick - up    */
+        Axis_4_p = GP1_Input.Axis_4_p + 0x80, /* 0x446 - analogue - right stick - right */
+        Axis_4_n = GP1_Input.Axis_4_n + 0x80, /* 0x448 - analogue - right stick - left  */
+        Axis_5_p = GP1_Input.Axis_5_p + 0x80, /* 0x44A - shoulder - trigger - left      */
+        Axis_5_n = GP1_Input.Axis_5_n + 0x80, /* 0x44C - shoulder - trigger - right     */
+        Axis_6_p = GP1_Input.Axis_6_p + 0x80, /* 0x44E */
+        Axis_6_n = GP1_Input.Axis_6_n + 0x80, /* 0x450 */
+
+        // Previous Gamepad + 0x100
+        DPU = GP1_Input.DPU + 0x100, /* 0x73A - directional - up    */
+        DPR = GP1_Input.DPR + 0x100, /* 0x73E - directional - right */
+        DPD = GP1_Input.DPD + 0x100, /* 0x742 - directional - down  */
+        DPL = GP1_Input.DPL + 0x100, /* 0x746 - directional - left  */
+      }
+
+      public enum GP3_Input
+      {
+        // Previous Gamepad + 0x40
+        Button_0  = GP2_Input.Button_0  + 0x40, /* 0x2EA - face - button a                 */
+        Button_1  = GP2_Input.Button_1  + 0x40, /* 0x2EC - face - button b                 */
+        Button_2  = GP2_Input.Button_2  + 0x40, /* 0x2EE - face - button x                 */
+        Button_3  = GP2_Input.Button_3  + 0x40, /* 0x2F0 - face - button y                 */
+        Button_4  = GP2_Input.Button_4  + 0x40, /* 0x2F2 - shoulder - bumper - left        */
+        Button_5  = GP2_Input.Button_5  + 0x40, /* 0x2F4 - shoulder - bumper - right       */
+        Button_6  = GP2_Input.Button_6  + 0x40, /* 0x2F6 - home - back                     */
+        Button_7  = GP2_Input.Button_7  + 0x40, /* 0x2F8 - home - start                    */
+        Button_8  = GP2_Input.Button_8  + 0x40, /* 0x2FA - analogue - left stick - middle  */
+        Button_9  = GP2_Input.Button_9  + 0x40, /* 0x2FC - analogue - right stick - middle */
+        Button_10 = GP2_Input.Button_10 + 0x40, /* 0x2FE - Guide */
+
+        // Previous Gamepad + 0x80
+        Axis_1_p = GP2_Input.Axis_1_p + 0x80, /* 0x4BA - analogue - left stick - down   */
+        Axis_1_n = GP2_Input.Axis_1_n + 0x80, /* 0x4BC - analogue - left stick - up     */
+        Axis_2_p = GP2_Input.Axis_2_p + 0x80, /* 0x4BE - analogue - left stick - right  */
+        Axis_2_n = GP2_Input.Axis_2_n + 0x80, /* 0x4C0 - analogue - left stick - left   */
+        Axis_3_p = GP2_Input.Axis_3_p + 0x80, /* 0x4C2 - analogue - right stick - down  */
+        Axis_3_n = GP2_Input.Axis_3_n + 0x80, /* 0x4C4 - analogue - right stick - up    */
+        Axis_4_p = GP2_Input.Axis_4_p + 0x80, /* 0x4C6 - analogue - right stick - right */
+        Axis_4_n = GP2_Input.Axis_4_n + 0x80, /* 0x4C8 - analogue - right stick - left  */
+        Axis_5_p = GP2_Input.Axis_5_p + 0x80, /* 0x4CA - shoulder - trigger - left      */
+        Axis_5_n = GP2_Input.Axis_5_n + 0x80, /* 0x4CC - shoulder - trigger - right     */
+        Axis_6_p = GP2_Input.Axis_6_p + 0x80, /* 0x4CE */
+        Axis_6_n = GP2_Input.Axis_6_n + 0x80, /* 0x4D0 */
+
+        // Previous Gamepad + 0x100
+        DPU = GP2_Input.DPU + 0x100, /* 0x83A - directional - up    */
+        DPR = GP2_Input.DPR + 0x100, /* 0x83E - directional - right */
+        DPD = GP2_Input.DPD + 0x100, /* 0x842 - directional - down  */
+        DPL = GP2_Input.DPL + 0x100, /* 0x846 - directional - left  */
       }
 
       /// <summary>
@@ -1060,7 +1298,7 @@ namespace HXE.HCE
         Button7  = 0x07, /* home - start                   */
         Button8  = 0x08, /* analogue - left  stick - click */
         Button9  = 0x09, /* analogue - right stick - click */
-     // Button11 = 0x0A or 0x11 ? /* Test with an X360/1 gamepad's Guide button...or a similar input device.
+     // Button11 = 0x0A  /* Test with an X360/1 gamepad's Guide button...or a similar input device.
      // Button12 = 0x0B,
      // Button13 = 0x0C,
      // Button14 = 0x0D,
@@ -1069,9 +1307,12 @@ namespace HXE.HCE
 
       public Dictionary<Action, Keyboard> KeyboardMapping = new Dictionary<Action, Keyboard>();
 
-      public Dictionary<Action, Mouse> MouseMapping = new Dictionary<Action, Mouse>();
+      public Dictionary<Mouse, Action> MouseMapping = new Dictionary<Mouse, Action>();
 
-      public Dictionary<GP0_Button, Action> GP0_Mapping = new Dictionary<GP0_Button, Action>();
+      public Dictionary<GP0_Input, Action> GP0_Mapping = new Dictionary<GP0_Input, Action>();
+      public Dictionary<GP1_Input, Action> GP1_Mapping = new Dictionary<GP1_Input, Action>();
+      public Dictionary<GP2_Input, Action> GP2_Mapping = new Dictionary<GP2_Input, Action>();
+      public Dictionary<GP3_Input, Action> GP3_Mapping = new Dictionary<GP3_Input, Action>();
 
       public Dictionary<GamePadMenu, DIButtons_Values> Gamepads_Menu = new Dictionary<GamePadMenu, DIButtons_Values>();
     }
