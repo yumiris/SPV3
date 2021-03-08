@@ -43,12 +43,16 @@ namespace HXE.HCE
   /// <see cref="https://c20.reclaimers.net/h1/engine/files/#blam-sav"/>
   public class Profile : File
   {
-    public ProfileDetails Details { get; set; } = new ProfileDetails(); /* profile name & online player colour */
-    public ProfileMouse   Mouse   { get; set; } = new ProfileMouse();   /* sensitivities & vertical axis inversion */
-    public ProfileAudio   Audio   { get; set; } = new ProfileAudio();   /* volumes, qualities, varieties & eax/hw */
-    public ProfileVideo   Video   { get; set; } = new ProfileVideo();   /* resolutions, rates, effects & qualities */
-    public ProfileNetwork Network { get; set; } = new ProfileNetwork(); /* connection types & server/client ports */
-    public ProfileInput   Input   { get; set; } = new ProfileInput();   /* input-action mapping */
+    public ProfileDetails  Details { get; set; } = new ProfileDetails();   /* profile name & online player colour */
+    public ProfileMouse    Mouse   { get; set; } = new ProfileMouse();     /* sensitivities & vertical axis inversion */
+    public ProfileGamepad Gamepad0 { get; set; } = new ProfileGamepad();  /* sensitivities & vertical axis inversion */
+    public ProfileGamepad Gamepad1 { get; set; } = new ProfileGamepad();  /* sensitivities & vertical axis inversion */
+    public ProfileGamepad Gamepad2 { get; set; } = new ProfileGamepad();  /* sensitivities & vertical axis inversion */
+    public ProfileGamepad Gamepad3 { get; set; } = new ProfileGamepad();  /* sensitivities & vertical axis inversion */
+    public ProfileAudio    Audio   { get; set; } = new ProfileAudio();     /* volumes, qualities, varieties & eax/hw */
+    public ProfileVideo    Video   { get; set; } = new ProfileVideo();     /* resolutions, rates, effects & qualities */
+    public ProfileNetwork  Network { get; set; } = new ProfileNetwork();   /* connection types & server/client ports */
+    public ProfileInput    Input   { get; set; } = new ProfileInput();     /* input-action mapping */
 
     /// <summary>
     ///   Saves object state to the inbound file.
@@ -119,6 +123,14 @@ namespace HXE.HCE
         WriteByte(Offset.VideoMiscellaneousGamma,    Video.Gamma);
         WriteByte(Offset.MouseSensitivityHorizontal, Mouse.Sensitivity.Horizontal);
         WriteByte(Offset.MouseSensitivityVertical,   Mouse.Sensitivity.Vertical);
+        WriteByte(Offset.GP0SensitivityHorizontal,   Gamepad0.Sensitivity.Horizontal);
+        WriteByte(Offset.GP1SensitivityHorizontal,   Gamepad1.Sensitivity.Horizontal);
+        WriteByte(Offset.GP2SensitivityHorizontal,   Gamepad2.Sensitivity.Horizontal);
+        WriteByte(Offset.GP3SensitivityHorizontal,   Gamepad3.Sensitivity.Horizontal);
+        WriteByte(Offset.GP0SensitivityVertical,     Gamepad0.Sensitivity.Vertical);
+        WriteByte(Offset.GP1SensitivityVertical,     Gamepad1.Sensitivity.Vertical);
+        WriteByte(Offset.GP2SensitivityVertical,     Gamepad2.Sensitivity.Vertical);
+        WriteByte(Offset.GP3SensitivityVertical,     Gamepad3.Sensitivity.Vertical);
         WriteByte(Offset.AudioVolumeMaster,          Audio.Volume.Master);
         WriteByte(Offset.AudioVolumeEffects,         Audio.Volume.Effects);
         WriteByte(Offset.AudioVolumeMusic,           Audio.Volume.Music);
@@ -430,6 +442,14 @@ namespace HXE.HCE
         Audio.Variety                = (AudioVariety) GetByte(Offset.AudioVariety);
         Mouse.Sensitivity.Horizontal = GetByte(Offset.MouseSensitivityHorizontal);
         Mouse.Sensitivity.Vertical   = GetByte(Offset.MouseSensitivityVertical);
+        Gamepad0.Sensitivity.Horizontal = GetByte(Offset.GP0SensitivityHorizontal);
+        Gamepad1.Sensitivity.Horizontal = GetByte(Offset.GP1SensitivityHorizontal);
+        Gamepad2.Sensitivity.Horizontal = GetByte(Offset.GP2SensitivityHorizontal);
+        Gamepad3.Sensitivity.Horizontal = GetByte(Offset.GP3SensitivityHorizontal);
+        Gamepad0.Sensitivity.Vertical = GetByte(Offset.GP0SensitivityVertical);
+        Gamepad1.Sensitivity.Vertical = GetByte(Offset.GP1SensitivityVertical);
+        Gamepad2.Sensitivity.Vertical = GetByte(Offset.GP2SensitivityVertical);
+        Gamepad3.Sensitivity.Vertical = GetByte(Offset.GP3SensitivityVertical);
         Video.Resolution.Width       = GetShort(Offset.VideoResolutionWidth);
         Video.Resolution.Height      = GetShort(Offset.VideoResolutionHeight);
         Video.RefreshRate            = GetByte(Offset.VideoRefreshRate);
@@ -729,14 +749,14 @@ namespace HXE.HCE
       _0x0953                    = 0x0953, // 0x43
       MouseSensitivityHorizontal = 0x0954,
       MouseSensitivityVertical   = 0x0955,
-      Gamepad0_Sens_H            = 0x0956,
-      Gamepad1_Sens_H            = 0x0957,
-      Gamepad2_Sens_H            = 0x0958,
-      Gamepad3_Sens_H            = 0x0959,
-      Gamepad0_Sens_V            = 0x095A,
-      Gamepad1_Sens_V            = 0x095B,
-      Gamepad2_Sens_V            = 0x095C,
-      Gamepad3_Sens_V            = 0x095D,
+      GP0SensitivityHorizontal   = 0x0956,
+      GP1SensitivityHorizontal   = 0x0957,
+      GP2SensitivityHorizontal   = 0x0958,
+      GP3SensitivityHorizontal   = 0x0959,
+      GP0SensitivityVertical     = 0x095A,
+      GP1SensitivityVertical     = 0x095B,
+      GP2SensitivityVertical     = 0x095C,
+      GP3SensitivityVertical     = 0x095D,
       _0x095E                    = 0x095E, // 0x0000
       _0x0960                    = 0x0960, // 0x0000
       _0x0962                    = 0x0962, // 0x3f40
@@ -936,6 +956,18 @@ namespace HXE.HCE
       public MouseSensitivity Sensitivity        { get; set; } = new MouseSensitivity();
 
       public class MouseSensitivity
+      {
+        public byte Horizontal { get; set; } = 3; /* default value */
+        public byte Vertical   { get; set; } = 3; /* default value */
+      }
+    }
+
+    public class ProfileGamepad
+    {
+      public bool /* Exists? */  InvertVerticalAxis { get; set; } = false; /* default value */
+      public JoystickSensitivity Sensitivity        { get; set; } = new JoystickSensitivity();
+
+      public class JoystickSensitivity
       {
         public byte Horizontal { get; set; } = 3; /* default value */
         public byte Vertical   { get; set; } = 3; /* default value */
