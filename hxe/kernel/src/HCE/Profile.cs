@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2019 Emilian Roman
  * Copyright (c) 2020 Noah Sherwin
- * 
+ *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
  * arising from the use of this software.
- * 
+ *
  * Permission is granted to anyone to use this software for any purpose,
  * including commercial applications, and to alter it and redistribute it
  * freely, subject to the following restrictions:
- * 
+ *
  * 1. The origin of this software must not be misrepresented; you must not
  *    claim that you wrote the original software. If you use this software
  *    in a product, an acknowledgment in the product documentation would be
@@ -99,7 +99,7 @@ namespace HXE.HCE
 
         /**
          * First, we'll take care of the enum options. Storing them is rather straightforward: we cast their values to
-         * integers, which can be then written to the binary. 
+         * integers, which can be then written to the binary.
          */
 
         WriteInteger(Offset.ProfileColour,         (int) Details.Colour);
@@ -158,7 +158,7 @@ namespace HXE.HCE
             Debug("Nulling input - " + offset);
 
             ms.Position = (int) offset;
-            bw.Write(0x7F);
+            bw.Write(0x7FFF);
           }
 
           foreach (var offset in Enum.GetValues(typeof(Mouse)))
@@ -166,7 +166,7 @@ namespace HXE.HCE
             Debug("Nulling input - " + offset);
 
             ms.Position = (int) offset;
-            bw.Write(0x7F);
+            bw.Write(0x7FFF);
           }
 
           foreach (var offset in Enum.GetValues(typeof(GP0_Input)))
@@ -174,7 +174,7 @@ namespace HXE.HCE
             Debug("Nulling input - " + offset);
 
             ms.Position = (int) offset;
-            bw.Write(0x7F);
+            bw.Write(0x7FFF);
           }
 
           foreach (var offset in Enum.GetValues(typeof(GP1_Input)))
@@ -182,7 +182,7 @@ namespace HXE.HCE
             Debug("Nulling input - " + offset);
 
             ms.Position = (int) offset;
-            bw.Write(0x7F);
+            bw.Write(0x7FFF);
           }
 
           foreach (var offset in Enum.GetValues(typeof(GP2_Input)))
@@ -190,7 +190,7 @@ namespace HXE.HCE
             Debug("Nulling input - " + offset);
 
             ms.Position = (int) offset;
-            bw.Write(0x7F);
+            bw.Write(0x7FFF);
           }
 
           foreach (var offset in Enum.GetValues(typeof(GP3_Input)))
@@ -198,7 +198,7 @@ namespace HXE.HCE
             Debug("Nulling input - " + offset);
 
             ms.Position = (int) offset;
-            bw.Write(0x7F);
+            bw.Write(0x7FFF);
           }
 
           foreach (var offset in Enum.GetValues(typeof(GamePadMenu)))
@@ -300,7 +300,7 @@ namespace HXE.HCE
          *         + ------------------- main data (8188 bytes)
          *
          * By ...
-         * 
+         *
          * 1.   truncating the last four bytes (the hash) from the memory stream; then
          * 2.   calculating the hash for the main data (i.e. remaining bytes); then
          * 3.   appending it to the memory stream (i.e. replacing the old hash) ...
@@ -482,31 +482,31 @@ namespace HXE.HCE
 
 
         /** Mouse Bindings */
-        Input.MouseMapping = new Dictionary<Mouse, ProfileInput.Action>();
+        Input.MouseMapping = new Dictionary<ProfileInput.Action, Mouse>();
 
         foreach (var input in Enum.GetValues(typeof(Mouse)))
         {
           reader.BaseStream.Seek((int) input, SeekOrigin.Begin);
 
-          var key = (Mouse) input;
-          var value = (ProfileInput.Action) reader.ReadByte();
+          var key = (ProfileInput.Action) reader.ReadByte();
+          var value = (Mouse) input;
 
           if (!Input.MouseMapping.ContainsKey(key))
             Input.MouseMapping.Add(key, value);
         }
 
         /** Gamepad Bindings */
-        Input.GP0_Mapping = new Dictionary<GP0_Input, ProfileInput.Action>();
-        Input.GP1_Mapping = new Dictionary<GP1_Input, ProfileInput.Action>();
-        Input.GP2_Mapping = new Dictionary<GP2_Input, ProfileInput.Action>();
-        Input.GP3_Mapping = new Dictionary<GP3_Input, ProfileInput.Action>();
+        Input.GP0_Mapping = new Dictionary<ProfileInput.Action, GP0_Input>();
+        Input.GP1_Mapping = new Dictionary<ProfileInput.Action, GP1_Input>();
+        Input.GP2_Mapping = new Dictionary<ProfileInput.Action, GP2_Input>();
+        Input.GP3_Mapping = new Dictionary<ProfileInput.Action, GP3_Input>();
 
         foreach (var button in Enum.GetValues(typeof(GP0_Input)))
         {
           reader.BaseStream.Seek((int) button, SeekOrigin.Begin);
 
-          var key   = (GP0_Input) button;
-          var value = (ProfileInput.Action) reader.ReadByte();
+          var key   = (ProfileInput.Action) reader.ReadByte();
+          var value = (GP0_Input) button;
 
           if (!Input.GP0_Mapping.ContainsKey(key))
             Input.GP0_Mapping.Add(key, value);
@@ -516,8 +516,8 @@ namespace HXE.HCE
         {
           reader.BaseStream.Seek((int) button, SeekOrigin.Begin);
 
-          var key   = (GP1_Input) button;
-          var value = (ProfileInput.Action) reader.ReadByte();
+          var key   = (ProfileInput.Action) reader.ReadByte();
+          var value = (GP1_Input) button;
 
           if (!Input.GP1_Mapping.ContainsKey(key))
             Input.GP1_Mapping.Add(key, value);
@@ -527,8 +527,8 @@ namespace HXE.HCE
         {
           reader.BaseStream.Seek((int) button, SeekOrigin.Begin);
 
-          var key   = (GP2_Input) button;
-          var value = (ProfileInput.Action) reader.ReadByte();
+          var key   = (ProfileInput.Action) reader.ReadByte();
+          var value = (GP2_Input) button;
 
           if (!Input.GP2_Mapping.ContainsKey(key))
             Input.GP2_Mapping.Add(key, value);
@@ -538,8 +538,8 @@ namespace HXE.HCE
         {
           reader.BaseStream.Seek((int) button, SeekOrigin.Begin);
 
-          var key   = (GP3_Input) button;
-          var value = (ProfileInput.Action) reader.ReadByte();
+          var key   = (ProfileInput.Action) reader.ReadByte();
+          var value = (GP3_Input) button;
 
           if (!Input.GP3_Mapping.ContainsKey(key))
             Input.GP3_Mapping.Add(key, value);
@@ -696,8 +696,8 @@ namespace HXE.HCE
     /// </remark>
     private enum Offset
     {
-      /** values as writen by haloce.exe. 
-       * Shorts shown here as LE; write as BE. 
+      /** values as writen by haloce.exe.
+       * Shorts shown here as LE; write as BE.
        * Value types are Uint16/Short where unspecified.
        * Where _unbound, 0x7fff (32,767) is written until the Position reaches the next notable offset.
        */
@@ -723,16 +723,16 @@ namespace HXE.HCE
       /** Input.Mouse 0x20E-0x220 */
       /* empty space filled with 0x7fff*/
       _0x0214_unbound            = 0x0214, //   0x7fff
-                                              
+
       _0x0220                    = 0x0220, // 0x0019
       _0x0222                    = 0x0222, // 0x0017
       _0x0224                    = 0x0224, // 0x0018
       _0x0226_unbound            = 0x0226, //   0x7fff
-                      
+
       /** Input.GamePadMenu 0x32A-0x339 */
       /* unbound is 0xffff */
       _0x033A_unbound            = 0x033A, //   0x7fff
-      
+
       // padding                 = 0x093A, //   0x0
 
       _0x093E                    = 0x093E, // 0x3f80
@@ -809,8 +809,8 @@ namespace HXE.HCE
       // padding                 = 0x1006, //   0x0
 
       Gamepad0_Name              = 0x1108, // UTF-16 String; Can be LE ("Xbox Controller S via XBCD") or BE ("Xbox 360 Controller For Windows")
-      // padding                 
-      Gamepad0_Vendor            = 0x1314, // 4-digit hex; e.g. 0x5e04; 045E == Microsoft; 
+      // padding
+      Gamepad0_Vendor            = 0x1314, // 4-digit hex; e.g. 0x5e04; 045E == Microsoft;
       Gamepad0_Product           = 0x1316, // 4-digit hex; e.g. 0x8902; 0289 == XBCD Xbox Controller;
       Gamepad0_padding           = 0x1318, // 0x0000, 0x0000, 0x0000
       Gamepad0_PIDVID            = 0x131E, // "PIDVID"  UTF-8 String
@@ -1080,7 +1080,7 @@ namespace HXE.HCE
         R             = 0x178, // 0x0D Reload
         T             = 0x17A, // 0x0F Say
         Y             = 0x17C, // 0x10 SayToTeam
-        U             = 0x17E, 
+        U             = 0x17E,
         I             = 0x180,
         O             = 0x182,
         P             = 0x184,
@@ -1094,7 +1094,7 @@ namespace HXE.HCE
         F             = 0x194, // 0x04 MeleeAttack
         G             = 0x196, // 0x01 SwitchGrenade
         H             = 0x198, // 0x11 SayToVehicle
-        J             = 0x19A, 
+        J             = 0x19A,
         K             = 0x19C,
         L             = 0x19E,
         SemiColon     = 0x1A0,
@@ -1158,7 +1158,7 @@ namespace HXE.HCE
       public enum Mouse
       {
         LeftButton         = 0x020E, // FireWeapon
-        MiddleButton       = 0x0210, // 
+        MiddleButton       = 0x0210, //
         RightButton        = 0x0212, // ThrowGrenade
         Button4            = 0x0214, // Typically "Browser Back"
         Button5            = 0x0216, // Typically "Browser Forward"
@@ -1352,16 +1352,61 @@ namespace HXE.HCE
      // Button15 = 0x0E,
       }
 
-      public Dictionary<Action, Keyboard> KeyboardMapping = new Dictionary<Action, Keyboard>();
+      public Dictionary<Action, Keyboard> KeyboardMapping = new Dictionary<Action, Keyboard>
+      {
+        /* Defaults as determined by Halo */
+        { Action.Jump           , Keyboard.Space },
+        { Action.SwitchGrenade  , Keyboard.G },
+        { Action.Action         , Keyboard.E },
+        { Action.SwitchWeapon   , Keyboard.Tab },
+        { Action.MeleeAttack    , Keyboard.F },
+        { Action.Flashlight     , Keyboard.Q },
+        { Action.MenuAccept     , Keyboard.Enter },
+        { Action.MenuBack       , Keyboard.Escape },
+        { Action.Crouch         , Keyboard.LCtrl },
+        { Action.ScopeZoom      , Keyboard.Z },
+        { Action.ShowScores     , Keyboard.F1 },
+        { Action.Reload         , Keyboard.R },
+        { Action.ExchangeWeapon , Keyboard.X },
+        { Action.Say            , Keyboard.T },
+        { Action.SayToTeam      , Keyboard.Y },
+        { Action.SayToVehicle   , Keyboard.H },
+        { Action.Screenshot     , Keyboard.Printscreen },
+        { Action.MoveForward    , Keyboard.W },
+        { Action.MoveBackward   , Keyboard.S },
+        { Action.MoveLeft       , Keyboard.A },
+        { Action.MoveRight      , Keyboard.D },
+        { Action.ShowRules      , Keyboard.F2 },
+        { Action.ShowPlayerNames, Keyboard.F3 },
+      };
 
-      public Dictionary<Mouse, Action> MouseMapping = new Dictionary<Mouse, Action>();
+      public Dictionary<Action, Mouse> MouseMapping = new Dictionary<Action, Mouse>
+      {
+          { Action.LookUp      , Mouse.VAxis_Neg    },
+          { Action.LookDown    , Mouse.VAxis_Pos    },
+          { Action.LookLeft    , Mouse.VAxis_Pos    },
+          { Action.LookRight   , Mouse.VAxis_Neg    },
+          { Action.FireWeapon  , Mouse.LeftButton   },
+          { Action.ThrowGrenade, Mouse.RightButton  },
+          { Action.ScopeZoom   , Mouse.MiddleButton },
+      };
 
-      public Dictionary<GP0_Input, Action> GP0_Mapping = new Dictionary<GP0_Input, Action>();
-      public Dictionary<GP1_Input, Action> GP1_Mapping = new Dictionary<GP1_Input, Action>();
-      public Dictionary<GP2_Input, Action> GP2_Mapping = new Dictionary<GP2_Input, Action>();
-      public Dictionary<GP3_Input, Action> GP3_Mapping = new Dictionary<GP3_Input, Action>();
+      public Dictionary<Action, GP0_Input> GP0_Mapping = new Dictionary<Action, GP0_Input>();
+      public Dictionary<Action, GP1_Input> GP1_Mapping = new Dictionary<Action, GP1_Input>();
+      public Dictionary<Action, GP2_Input> GP2_Mapping = new Dictionary<Action, GP2_Input>();
+      public Dictionary<Action, GP3_Input> GP3_Mapping = new Dictionary<Action, GP3_Input>();
 
-      public Dictionary<GamePadMenu, DIButtons_Values> Gamepads_Menu = new Dictionary<GamePadMenu, DIButtons_Values>();
+      public Dictionary<GamePadMenu, DIButtons_Values> Gamepads_Menu = new Dictionary<GamePadMenu, DIButtons_Values>
+      {
+        { GamePadMenu.GP0_MenuAccept, DIButtons_Values.Button0 },
+        { GamePadMenu.GP0_MenuBack  , DIButtons_Values.Button1 },
+        { GamePadMenu.GP1_MenuAccept, DIButtons_Values.Button0 },
+        { GamePadMenu.GP1_MenuBack  , DIButtons_Values.Button1 },
+        { GamePadMenu.GP2_MenuAccept, DIButtons_Values.Button0 },
+        { GamePadMenu.GP2_MenuBack  , DIButtons_Values.Button1 },
+        { GamePadMenu.GP3_MenuAccept, DIButtons_Values.Button0 },
+        { GamePadMenu.GP3_MenuBack  , DIButtons_Values.Button1 },
+      };
     }
   }
 }
