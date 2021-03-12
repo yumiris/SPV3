@@ -38,7 +38,7 @@ namespace HXE
     /// </summary>
     /// <returns>A list of PatchGroups read from the patches.crk file resource.</returns>
     /// <remarks>This is only used for Patches list initialization.</remarks>
-    public static List<PatchGroup> Reader() 
+    public static List<PatchGroup> Reader()
     {
       /* Get patches.crk resource from assembly resources */
       /* Read strings from memory to...array? */
@@ -65,7 +65,7 @@ namespace HXE
       for (var index = 0; index < file.Count; index++)
       {
         /// If the first char in the line is a letter...     */
-        while (index < file.Count && char.IsLetter(file.ElementAt(index).ToCharArray().First())) 
+        while (index < file.Count && char.IsLetter(file.ElementAt(index).ToCharArray().First()))
         {
           /** ...skip Name and Executable. Go to patch data. */
           index += 2;
@@ -78,13 +78,13 @@ namespace HXE
             patchGroup = new PatchGroup() { DataSets = new List<DataSet>(),
                                             Name = file.ElementAt(index - 2),
                                             Executable = file.ElementAt(index - 1) };
-            
-            while (index < file.Count && char.IsDigit(file.ElementAt(index).ToCharArray().First())) 
+
+            while (index < file.Count && char.IsDigit(file.ElementAt(index).ToCharArray().First()))
             {
-              /** Read Patch Data to List, ... 
-              * Assign values{offset, original, patch} 
-              * proceed to next Patch Data, 
-              * then check if line is Patch Data 
+              /** Read Patch Data to List, ...
+              * Assign values{offset, original, patch}
+              * proceed to next Patch Data,
+              * then check if line is Patch Data
               */
               List<string> values = file.
                                     ElementAt(index).Split(byteSep, StringSplitOptions.RemoveEmptyEntries).
@@ -133,7 +133,7 @@ namespace HXE
       bool BlockUpdates   = true; // (cfg & EXEP.BLOCK_UPDATE_CHECKS)        != 0;
 
 
-      /** Filter PatchGroups for those requested 
+      /** Filter PatchGroups for those requested
        * NOTE: Update String matches as needed.
        */
       foreach (var pg in Patches)
@@ -219,48 +219,55 @@ namespace HXE
       }
 
       /** Flexible patcher */
-      try
       {
-        using (var fs = new FileStream(exePath, FileMode.Open, FileAccess.ReadWrite))
-        using (var ms = new MemoryStream(0x24B000))
-        using (var bw = new BinaryWriter(ms))
-        using (var br = new BinaryReader(ms))
-        foreach (var PatchGroup in FilteredPatches)
+        bool isFileReady = false;
+        while (!isFileReady)
+        {
+          try
           {
-            foreach (var DataSet in PatchGroup.DataSets)
-            {
-              byte value  = PatchGroup.Toggle ? DataSet.Patch : DataSet.Original;
-              long offset = DataSet.Offset;
-              ms.Position = 0;
-              fs.Position = 0;
-              fs.CopyTo(ms);
-
-              ms.Position = offset;
-
-              if (br.ReadByte() != value)
+            using (var fs = new FileStream(exePath, FileMode.Open, FileAccess.ReadWrite))
+            using (var ms = new MemoryStream(0x24B000))
+            using (var bw = new BinaryWriter(ms))
+            using (var br = new BinaryReader(ms))
+              foreach (var PatchGroup in FilteredPatches)
               {
-                if (PatchGroup.Name.Contains("DRM") && PatchGroup.Toggle == false)
-                  return;
+                foreach (var DataSet in PatchGroup.DataSets)
+                {
+                  byte value  = PatchGroup.Toggle ? DataSet.Patch : DataSet.Original;
+                  long offset = DataSet.Offset;
+                  ms.Position = 0;
+                  fs.Position = 0;
+                  fs.CopyTo(ms);
 
-                ms.Position -= 1; /** restore position */
-                bw.Write(value);  /** write value      */
+                  ms.Position = offset;
 
-                fs.Position = 0;
-                ms.Position = 0;
-                ms.CopyTo(fs);
+                  if (br.ReadByte() != value)
+                  {
+                    if (PatchGroup.Name.Contains("DRM") && PatchGroup.Toggle == false)
+                      return;
 
-                Info($"Applied \"{PatchGroup.Name}\" patch to the HCE executable");
+                    ms.Position -= 1; /** restore position */
+                    bw.Write(value);  /** write value      */
+
+                    fs.Position = 0;
+                    ms.Position = 0;
+                    ms.CopyTo(fs);
+
+                    Info($"Applied \"{PatchGroup.Name}\" patch to the HCE executable");
+                  }
+                  else
+                    Info($"HCE executable already patched with \"{PatchGroup.Name}\"");
+                }
               }
-              else
-                Info($"HCE executable already patched with \"{PatchGroup.Name}\"");
-            }
+            isFileReady = true;
           }
+          catch (IOException)
+          {
+            Wait("Waiting for Halo executable to be available for modification...");
+            System.Threading.Thread.Sleep(1000);
+          }
+        }
       }
-      catch (Exception)
-      {
-        // We need to catch exceptions thrown by the using() statements.
-        throw;
-      }    
     }
 
     /// <summary>
