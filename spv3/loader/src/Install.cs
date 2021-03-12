@@ -20,7 +20,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -32,13 +31,11 @@ using HXE.HCE;
 using HXE.Steam;
 using IWshRuntimeLibrary;
 using SPV3.Annotations;
-using static HXE.Paths.MCC;
 using static System.Environment;
 using static System.Environment.SpecialFolder;
 using static System.IO.File;
 using static System.Windows.Visibility;
-using System.Linq;
-using static System.Reflection.Assembly;
+using static HXE.Paths.MCC;
 using Process = System.Diagnostics.Process;
 
 namespace SPV3

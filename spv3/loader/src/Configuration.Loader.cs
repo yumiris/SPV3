@@ -27,7 +27,6 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using SPV3.Annotations;
 using static System.Windows.Forms.Screen;
-using static System.Windows.Visibility;
 
 namespace SPV3
 {

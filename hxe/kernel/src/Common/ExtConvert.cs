@@ -18,6 +18,8 @@
  *    misrepresented as being the original software.
  * 3. This notice may not be removed or altered from any source distribution.
  */
+using System;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 
 namespace HXE.Common
 {
@@ -25,15 +27,8 @@ namespace HXE.Common
   {
     public static byte[] StringToByteArray(string hex)
     {
-      int sLength = hex.Length;
-      byte[] bytes = new byte[sLength / 2];
-
-      for (int i = 0; i < sLength; i += 2)
-      {
-        bytes[i / 2] = System.Convert.ToByte(hex.Substring(i, 2), 16);
-      }
-
-      return bytes;
+      // alternatively, long.Parse(hex, System.Globalization.NumberStyles.HexNumber)
+      return SoapHexBinary.Parse(hex).Value;
     }
 
     public static uint ByteArrayToUInt(byte[] bytes)
@@ -46,6 +41,15 @@ namespace HXE.Common
       }
 
       return result;
+    }
+
+    /// <summary>
+    /// reverse byte order (16-bit)/(UShort)
+    /// </summary>
+    /// <see cref="https://www.csharp-examples.net/reverse-bytes/"/>
+    public static ushort ReverseBytes(ushort value)
+    {
+      return (ushort) ((value & 0xFFU) << 8 | (value & 0xFF00U) >> 8);
     }
   }
 }

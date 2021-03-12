@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2019 Emilian Roman
  * Copyright (c) 2020 Noah Sherwin
- * 
+ *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
  * arising from the use of this software.
- * 
+ *
  * Permission is granted to anyone to use this software for any purpose,
  * including commercial applications, and to alter it and redistribute it
  * freely, subject to the following restrictions:
- * 
+ *
  * 1. The origin of this software must not be misrepresented; you must not
  *    claim that you wrote the original software. If you use this software
  *    in a product, an acknowledgment in the product documentation would be
@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using HXE.HCE;
@@ -31,12 +30,12 @@ using static System.Diagnostics.Process;
 using static System.Environment;
 using static System.IO.Directory;
 using static System.IO.Path;
+using static System.Text.Encoding;
 using static System.Windows.Forms.Screen;
 using static HXE.Console;
-using static HXE.Paths;
 using static HXE.HCE.Profile.ProfileAudio;
 using static HXE.HCE.Profile.ProfileVideo;
-using static System.Text.Encoding;
+using static HXE.Paths;
 
 namespace HXE
 {
@@ -169,11 +168,11 @@ namespace HXE
 
             /** Check if lastprof.txt exists
              * If it exists, load its data
-             * Else, create a new one 
+             * Else, create a new one
              */
             if (lastprof.Exists())
               lastprof.Load();
-            else 
+            else
             {
               Error("Lastprof.txt does not Exist.");
               Core("Saving LastProf.txt...");
@@ -202,7 +201,7 @@ namespace HXE
                 List<Profile> profiles      = Profile.List(savegames);
                 List<Profile> validProfiles = new List<Profile>{ };
 
-                /** Check for any existing profile folders 
+                /** Check for any existing profile folders
                  * If any are found, check if their blam.sav also exists.
                  *  Select the first valid profile.
                  * Else, create a new player profile.
@@ -238,6 +237,13 @@ namespace HXE
 
             campaign.Load();
             save.Load(campaign);
+
+            if(save.Mission.Initiation == string.Empty || save.Mission.Name == "SPV3 A05")
+            {
+              /** Default to the first mission on Legendary */
+              save.Mission = campaign.Missions[0];
+              save.Difficulty = campaign.Difficulties.Find(d => d.Name == "Legendary");
+            }
 
             init.Progress = save;
             init.Resume = campaign.Resume;
@@ -346,7 +352,7 @@ namespace HXE
         try
         {
           blam = Profile.Detect(executable.Profile.Path);
-             
+
           Video();
           Audio();
           Input();
@@ -444,7 +450,7 @@ namespace HXE
 
           if (configuration.Video.Uncap)
           {
-            blam.Video.FrameRate = VideoFrameRate.VsyncOff; 
+            blam.Video.FrameRate = VideoFrameRate.VsyncOff;
 
             Core("BLAM.VIDEO.UNCAP: Applied V-Sync off for framerate uncap.");
 
@@ -505,33 +511,39 @@ namespace HXE
           if (!configuration.Input.Override)
             return;
 
-          blam.Input.Mapping = new Dictionary<Profile.ProfileInput.Action, Profile.ProfileInput.Button>
+          blam.Input.GP0_Mapping = new Dictionary<Profile.ProfileInput.Action, Profile.ProfileInput.GP0_Input>
           {
-            {Profile.ProfileInput.Action.MoveForward, Profile.ProfileInput.Button.LSU},
-            {Profile.ProfileInput.Action.MoveBackward, Profile.ProfileInput.Button.LSD},
-            {Profile.ProfileInput.Action.MoveLeft, Profile.ProfileInput.Button.LSL},
-            {Profile.ProfileInput.Action.MoveRight, Profile.ProfileInput.Button.LSR},
-            {Profile.ProfileInput.Action.Crouch, Profile.ProfileInput.Button.LSM},
-            {Profile.ProfileInput.Action.Reload, Profile.ProfileInput.Button.DPU},
-            {Profile.ProfileInput.Action.Jump, Profile.ProfileInput.Button.A},
-            {Profile.ProfileInput.Action.SwitchGrenade, Profile.ProfileInput.Button.B},
-            {Profile.ProfileInput.Action.Action, Profile.ProfileInput.Button.X},
-            {Profile.ProfileInput.Action.SwitchWeapon, Profile.ProfileInput.Button.Y},
-            {Profile.ProfileInput.Action.LookUp, Profile.ProfileInput.Button.RSU},
-            {Profile.ProfileInput.Action.LookDown, Profile.ProfileInput.Button.RSD},
-            {Profile.ProfileInput.Action.LookLeft, Profile.ProfileInput.Button.RSL},
-            {Profile.ProfileInput.Action.LookRight, Profile.ProfileInput.Button.RSR},
-            {Profile.ProfileInput.Action.ScopeZoom, Profile.ProfileInput.Button.RSM},
-            {Profile.ProfileInput.Action.ThrowGrenade, Profile.ProfileInput.Button.LB},
-            {Profile.ProfileInput.Action.Flashlight, Profile.ProfileInput.Button.LT},
-            {Profile.ProfileInput.Action.MeleeAttack, Profile.ProfileInput.Button.RB},
-            {Profile.ProfileInput.Action.FireWeapon, Profile.ProfileInput.Button.RT}
+            {Profile.ProfileInput.Action.MoveForward  , Profile.ProfileInput.GP0_Input.Axis_1_n},
+            {Profile.ProfileInput.Action.MoveBackward , Profile.ProfileInput.GP0_Input.Axis_1_p},
+            {Profile.ProfileInput.Action.MoveLeft     , Profile.ProfileInput.GP0_Input.Axis_2_n},
+            {Profile.ProfileInput.Action.MoveRight    , Profile.ProfileInput.GP0_Input.Axis_2_p},
+            {Profile.ProfileInput.Action.Crouch       , Profile.ProfileInput.GP0_Input.Button_8},
+            {Profile.ProfileInput.Action.Reload       , Profile.ProfileInput.GP0_Input.DPU     },
+            {Profile.ProfileInput.Action.Jump         , Profile.ProfileInput.GP0_Input.Button_0},
+            {Profile.ProfileInput.Action.SwitchGrenade, Profile.ProfileInput.GP0_Input.Button_1},
+            {Profile.ProfileInput.Action.Action       , Profile.ProfileInput.GP0_Input.Button_2},
+            {Profile.ProfileInput.Action.SwitchWeapon , Profile.ProfileInput.GP0_Input.Button_3},
+            {Profile.ProfileInput.Action.LookUp       , Profile.ProfileInput.GP0_Input.Axis_3_n},
+            {Profile.ProfileInput.Action.LookDown     , Profile.ProfileInput.GP0_Input.Axis_3_p},
+            {Profile.ProfileInput.Action.LookLeft     , Profile.ProfileInput.GP0_Input.Axis_4_n},
+            {Profile.ProfileInput.Action.LookRight    , Profile.ProfileInput.GP0_Input.Axis_4_p},
+            {Profile.ProfileInput.Action.ScopeZoom    , Profile.ProfileInput.GP0_Input.Button_9},
+            {Profile.ProfileInput.Action.ThrowGrenade , Profile.ProfileInput.GP0_Input.Button_4},
+            {Profile.ProfileInput.Action.Flashlight   , Profile.ProfileInput.GP0_Input.Axis_5_p},
+            {Profile.ProfileInput.Action.MeleeAttack  , Profile.ProfileInput.GP0_Input.Button_5},
+            {Profile.ProfileInput.Action.FireWeapon   , Profile.ProfileInput.GP0_Input.Axis_5_n}
           };
 
-          blam.Input.BitBinding = new Dictionary<Profile.ProfileInput.OddValues, Profile.ProfileInput.OddOffsets>
+          blam.Input.Gamepads_Menu = new Dictionary<Profile.ProfileInput.GamePadMenu, Profile.ProfileInput.DIButtons_Values>
           {
-            {Profile.ProfileInput.OddValues.Button1, Profile.ProfileInput.OddOffsets.MenuAccept},
-            {Profile.ProfileInput.OddValues.Button2, Profile.ProfileInput.OddOffsets.MenuBack}
+            {Profile.ProfileInput.GamePadMenu.GP0_MenuAccept, Profile.ProfileInput.DIButtons_Values.Button0},
+            {Profile.ProfileInput.GamePadMenu.GP0_MenuBack  , Profile.ProfileInput.DIButtons_Values.Button1},
+            {Profile.ProfileInput.GamePadMenu.GP1_MenuAccept, Profile.ProfileInput.DIButtons_Values.Button0},
+            {Profile.ProfileInput.GamePadMenu.GP1_MenuBack  , Profile.ProfileInput.DIButtons_Values.Button1},
+            {Profile.ProfileInput.GamePadMenu.GP2_MenuAccept, Profile.ProfileInput.DIButtons_Values.Button0},
+            {Profile.ProfileInput.GamePadMenu.GP2_MenuBack  , Profile.ProfileInput.DIButtons_Values.Button1},
+            {Profile.ProfileInput.GamePadMenu.GP3_MenuAccept, Profile.ProfileInput.DIButtons_Values.Button0},
+            {Profile.ProfileInput.GamePadMenu.GP3_MenuBack  , Profile.ProfileInput.DIButtons_Values.Button1},
           };
 
           Core("BLAM.INPUT: Input overrides have been applied accordingly.");
@@ -563,15 +575,15 @@ namespace HXE
           Debug("Open Sauce not found");
 
         if (open.Exists() && mod)
-        { 
-          open.Load(); 
+        {
+          open.Load();
         }
         else if(mod)
         {
           open.Save();
           open.Load();
         }
-        
+
 
         try
         {
@@ -581,7 +593,7 @@ namespace HXE
           open.HUD.ScaleHUD                                 = true; /* fixes user interface    */
           open.Camera.IgnoreFOVChangeInCinematics           = true; /* fixes user interface    */
           open.Camera.IgnoreFOVChangeInMainMenu             = true; /* fixes user interface    */
-          open.Rasterizer.ShaderExtensions.Effect.DepthFade = true; /* shader optimisations    */ 
+          open.Rasterizer.ShaderExtensions.Effect.DepthFade = true; /* shader optimisations    */
 
           open.Save();
 
@@ -666,7 +678,7 @@ namespace HXE
             configuration.Tweaks.Patches |= Patcher.EXEP.DISABLE_MOUSE_ACCELERATION;
           if (configuration.Video.GammaOn == false)
             configuration.Tweaks.Patches |= Patcher.EXEP.DISABLE_SYSTEM_GAMMA;
-          
+
           try
           {
             new Patcher().Write(configuration.Tweaks.Patches, executable.Path);

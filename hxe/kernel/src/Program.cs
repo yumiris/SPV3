@@ -28,7 +28,6 @@ using System.Windows;
 using HXE.HCE;
 using static System.Console;
 using static System.Environment;
-using static System.IO.File;
 using static HXE.Console;
 using static HXE.Exit;
 using static HXE.Properties.Resources;

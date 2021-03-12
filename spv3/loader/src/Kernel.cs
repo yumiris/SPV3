@@ -1,5 +1,6 @@
-﻿using Loader = SPV3.Configuration.ConfigurationLoader;
-using static System.IO.File;
+﻿using static System.IO.File;
+using KernelConf = HXE.Kernel.Configuration;
+using LoaderConf = SPV3.Configuration.ConfigurationLoader;
 
 namespace SPV3
 {
@@ -8,8 +9,8 @@ namespace SPV3
    */
   public static class Kernel
   {
-    public static HXE.Kernel.Configuration          hxe  = new HXE.Kernel.Configuration(Paths.Kernel);
-    public static Configuration.ConfigurationLoader spv3 = new Configuration.ConfigurationLoader();
+    public static KernelConf hxe  = new KernelConf(Paths.Kernel);
+    public static LoaderConf spv3 = new LoaderConf();
 
     /**
      * Available HXE kernel modes.
@@ -33,20 +34,20 @@ namespace SPV3
 
     public static void CopyLoaderToKernel()
     {
-      hxe.Mode = (HXE.Kernel.Configuration.ConfigurationMode) Infer();
-      hxe.Tweaks.Sensor            = !(spv3.Photo && Exists(Paths.Photo)); /* forcefully enable motion sensor   */
-      hxe.Main.Reset               = true;                   /* improve loading stability         */
-      hxe.Main.Patch               = true;                   /* improve loading stability         */
-      hxe.Main.Resume              = true;                   /* improve loading stability         */
-      hxe.Main.Start               = true;                   /* improve loading stability         */
-      hxe.Video.Quality            = true;                   /* enforce in-game quality settings  */
-      hxe.Video.GammaOn            = spv3.GammaOn;
-      hxe.Video.Gamma              = spv3.Gamma;
-      hxe.Video.Bless              = spv3.DisplayMode == (byte) Loader.DisplayModes.Borderless;
-      hxe.Audio.Enhancements       = spv3.EAX;
-      hxe.Input.Override           = spv3.Preset;
-      hxe.Tweaks.CinemaBars        = spv3.CinemaBars;
-      hxe.Tweaks.Unload            = !spv3.Shaders;
+      hxe.Mode               = (KernelConf.ConfigurationMode) Infer();
+      hxe.Tweaks.Sensor      = !(spv3.Photo && Exists(Paths.Photo)); /* forcefully enable motion sensor   */
+      hxe.Main.Reset         = true; /* improve loading stability         */
+      hxe.Main.Patch         = true; /* improve loading stability         */
+      hxe.Main.Resume        = true; /* improve loading stability         */
+      hxe.Main.Start         = true; /* improve loading stability         */
+      hxe.Video.Quality      = true; /* enforce in-game quality settings  */
+      hxe.Video.GammaOn      = spv3.GammaOn;
+      hxe.Video.Gamma        = spv3.Gamma;
+      hxe.Video.Bless        = spv3.DisplayMode == (byte) LoaderConf.DisplayModes.Borderless;
+      hxe.Audio.Enhancements = spv3.EAX;
+      hxe.Input.Override     = spv3.Preset;
+      hxe.Tweaks.CinemaBars  = spv3.CinemaBars;
+      hxe.Tweaks.Unload      = !spv3.Shaders;
       if (!hxe.Video.Bless)
       {
         hxe.Main.Elevated           = spv3.Elevated;          /* prevent certain crashes           */
@@ -57,22 +58,24 @@ namespace SPV3
 
     public static void CopyKernelToLoader()
     {
-      spv3.Photo             = Exists(Paths.Photo) && hxe.Tweaks.Sensor == false;
-      spv3.GammaOn           = hxe.Video.GammaOn;
-      spv3.Gamma             = hxe.Video.Gamma;
-      spv3.EAX               = hxe.Audio.Enhancements;
-      spv3.Preset            = hxe.Input.Override;
-      spv3.CinemaBars        = hxe.Tweaks.CinemaBars;
-      spv3.Shaders           = hxe.Tweaks.Unload == false;
+      spv3.Photo      = Exists(Paths.Photo) && hxe.Tweaks.Sensor == false;
+      spv3.GammaOn    = hxe.Video.GammaOn;
+      spv3.Gamma      = hxe.Video.Gamma;
+      spv3.EAX        = hxe.Audio.Enhancements;
+      spv3.Preset     = hxe.Input.Override;
+      spv3.CinemaBars = hxe.Tweaks.CinemaBars;
+      spv3.Shaders    = hxe.Tweaks.Unload == false;
 
       if (hxe.Video.Bless)
       {
-        spv3.DisplayMode = (byte) Loader.DisplayModes.Borderless;
-          //spv3.ResolutionEnabled = false;
-          //spv3.Window     = true;
-          //spv3.Borderless = true;
-          //spv3.Vsync      = false;
-          //spv3.Elevated   = false;
+        spv3.DisplayMode = (byte) LoaderConf.DisplayModes.Borderless;
+        /* spv3.ResolutionEnabled = false;
+         * 
+            spv3.Window     = true;
+            spv3.Borderless = true;
+            spv3.Vsync      = false;
+            spv3.Elevated   = false; 
+          */
       }
       else
       {
