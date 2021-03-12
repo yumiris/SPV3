@@ -214,91 +214,67 @@ namespace HXE.HCE
         {
           foreach (var mapping in Input.KeyboardMapping)
           {
-            var value  = (ushort) mapping.Key; /* action */
             var offset = (int) mapping.Value;  /* button */
+            var value  = (ushort) mapping.Key; /* action */
 
             Debug("Assigning action to input - " + mapping.Key + " -> " + mapping.Value);
 
             ms.Position = offset;
             bw.Write(value);
           }
-
-          /* temp */
-          fs.SetLength(0);
-          ms.Position = 0;
-          ms.CopyTo(fs);
 
           foreach (var mapping in Input.MouseMapping)
           {
-            var value  = (ushort) mapping.Key; /* action */
             var offset = (int) mapping.Value;  /* button */
+            var value  = (ushort) mapping.Key; /* action */
 
             Debug("Assigning action to input - " + mapping.Key + " -> " + mapping.Value);
 
             ms.Position = offset;
             bw.Write(value);
           }
-
-          fs.SetLength(0);
-          ms.Position = 0;
-          ms.CopyTo(fs);
 
           if (Input.GP0_Mapping.Count != 0)
             foreach (var mapping in Input.GP0_Mapping)
             {
-              var value  = (ushort) mapping.Key; /* action */
               var offset = (int) mapping.Value;  /* button */
+              var value  = (ushort) mapping.Key; /* action */
 
               Debug("Assigning action to input - " + mapping.Key + " -> " + mapping.Value);
 
               ms.Position = offset;
               bw.Write(value);
             }
-
-          /* temp */
-          fs.SetLength(0);
-          ms.Position = 0;
-          ms.CopyTo(fs);
 
           if (Input.GP1_Mapping.Count != 0)
             foreach (var mapping in Input.GP1_Mapping)
             {
-              var value  = (ushort) mapping.Key; /* action */
               var offset = (int) mapping.Value;  /* button */
+              var value  = (ushort) mapping.Key; /* action */
 
               Debug("Assigning action to input - " + mapping.Key + " -> " + mapping.Value);
 
               ms.Position = offset;
               bw.Write(value);
             }
-
-          /* temp */
-          fs.SetLength(0);
-          ms.Position = 0;
-          ms.CopyTo(fs);
 
           if (Input.GP2_Mapping.Count != 0)
             foreach (var mapping in Input.GP2_Mapping)
             {
-              var value  = (ushort) mapping.Key; /* action */
               var offset = (int) mapping.Value;  /* button */
+              var value  = (ushort) mapping.Key; /* action */
 
               Debug("Assigning action to input - " + mapping.Key + " -> " + mapping.Value);
 
               ms.Position = offset;
               bw.Write(value);
             }
-
-          /* temp */
-          fs.SetLength(0);
-          ms.Position = 0;
-          ms.CopyTo(fs);
 
           if (Input.GP3_Mapping.Count != 0)
             foreach (var mapping in Input.GP3_Mapping)
             {
-              var value  = (ushort) mapping.Key; /* action */
               var offset = (int) mapping.Value;  /* button */
+              var value  = (ushort) mapping.Key; /* action */
 
               Debug("Assigning action to input - " + mapping.Key + " -> " + mapping.Value);
 
@@ -306,16 +282,12 @@ namespace HXE.HCE
               bw.Write(value);
             }
 
-          /* temp */
-          fs.SetLength(0);
-          ms.Position = 0;
-          ms.CopyTo(fs);
-
           if (Input.Gamepads_Menu.Count != 0)
             foreach (var pair in Input.Gamepads_Menu)
             {
-              var value  = (ushort) pair.Key; /* button */
-              var offset = (int) pair.Value;  /* action */
+              /* The exception to the rule. The Key is the offset instead of the value. */
+              var offset = (int) pair.Key; /* button */
+              var value  = (ushort) pair.Value;  /* action */
 
               Debug("Assigning action to input - " + pair.Key + " -> " + pair.Value);
 
@@ -506,8 +478,12 @@ namespace HXE.HCE
         {
           reader.BaseStream.Seek((int) button, SeekOrigin.Begin);
 
-          var key = (ProfileInput.Action) reader.ReadByte();
+          var key = (ProfileInput.Action) reader.ReadUInt16();
           var value = (Keyboard) button;
+
+          /* Skip unassigned input */
+          if (key == (ProfileInput.Action) 0x7fff)
+          { continue; }
 
           if (!Input.KeyboardMapping.ContainsKey(key))
             Input.KeyboardMapping.Add(key, value);
@@ -521,8 +497,12 @@ namespace HXE.HCE
         {
           reader.BaseStream.Seek((int) input, SeekOrigin.Begin);
 
-          var key = (ProfileInput.Action) reader.ReadByte();
+          var key = (ProfileInput.Action) reader.ReadUInt16();
           var value = (Mouse) input;
+
+          /* Skip unassigned input */
+          if (key == (ProfileInput.Action) 0x7fff)
+          { continue; }
 
           if (!Input.MouseMapping.ContainsKey(key))
             Input.MouseMapping.Add(key, value);
@@ -538,8 +518,12 @@ namespace HXE.HCE
         {
           reader.BaseStream.Seek((int) button, SeekOrigin.Begin);
 
-          var key   = (ProfileInput.Action) reader.ReadByte();
+          var key   = (ProfileInput.Action) reader.ReadUInt16();
           var value = (GP0_Input) button;
+
+          /* Skip unassigned input */
+          if (key == (ProfileInput.Action) 0x7fff)
+          { continue; }
 
           if (!Input.GP0_Mapping.ContainsKey(key))
             Input.GP0_Mapping.Add(key, value);
@@ -549,8 +533,12 @@ namespace HXE.HCE
         {
           reader.BaseStream.Seek((int) button, SeekOrigin.Begin);
 
-          var key   = (ProfileInput.Action) reader.ReadByte();
+          var key   = (ProfileInput.Action) reader.ReadUInt16();
           var value = (GP1_Input) button;
+
+          /* Skip unassigned input */
+          if (key == (ProfileInput.Action) 0x7fff)
+          { continue; }
 
           if (!Input.GP1_Mapping.ContainsKey(key))
             Input.GP1_Mapping.Add(key, value);
@@ -560,8 +548,12 @@ namespace HXE.HCE
         {
           reader.BaseStream.Seek((int) button, SeekOrigin.Begin);
 
-          var key   = (ProfileInput.Action) reader.ReadByte();
+          var key   = (ProfileInput.Action) reader.ReadUInt16();
           var value = (GP2_Input) button;
+
+          /* Skip unassigned input */
+          if (key == (ProfileInput.Action) 0x7fff)
+          { continue; }
 
           if (!Input.GP2_Mapping.ContainsKey(key))
             Input.GP2_Mapping.Add(key, value);
@@ -571,8 +563,12 @@ namespace HXE.HCE
         {
           reader.BaseStream.Seek((int) button, SeekOrigin.Begin);
 
-          var key   = (ProfileInput.Action) reader.ReadByte();
+          var key   = (ProfileInput.Action) reader.ReadUInt16();
           var value = (GP3_Input) button;
+
+          /* Skip unassigned input */
+          if (key == (ProfileInput.Action) 0x7fff)
+          { continue; }
 
           if (!Input.GP3_Mapping.ContainsKey(key))
             Input.GP3_Mapping.Add(key, value);
@@ -587,7 +583,11 @@ namespace HXE.HCE
           reader.BaseStream.Seek((int) offset, SeekOrigin.Begin);
 
           var key   = (GamePadMenu) offset;
-          var value = (DIButtons_Values) reader.ReadByte();
+          var value = (DIButtons_Values) reader.ReadUInt16();
+
+          /* Skip unassigned input */
+          if (value == (DIButtons_Values) 0xffff)
+          { continue; }
 
           if (!Input.Gamepads_Menu.ContainsKey(key))
             Input.Gamepads_Menu.Add(key, value);
