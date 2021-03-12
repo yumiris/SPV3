@@ -238,6 +238,13 @@ namespace HXE
             campaign.Load();
             save.Load(campaign);
 
+            if(save.Mission.Initiation == string.Empty || save.Mission.Name == "SPV3 A05")
+            {
+              /** Default to the first mission on Legendary */
+              save.Mission = campaign.Missions[0];
+              save.Difficulty = campaign.Difficulties.Find(d => d.Name == "Legendary");
+            }
+
             init.Progress = save;
             init.Resume = campaign.Resume;
 
