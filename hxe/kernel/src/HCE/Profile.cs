@@ -74,7 +74,7 @@ namespace HXE.HCE
           bw.Write(data);
         }
 
-        void WriteInteger(Offset offset, int data)
+        void WriteUShort(Offset offset, ushort data)
         {
           ms.Position = (int) offset;
           bw.Write(data);
@@ -99,25 +99,25 @@ namespace HXE.HCE
 
         /**
          * First, we'll take care of the enum options. Storing them is rather straightforward: we cast their values to
-         * integers, which can be then written to the binary.
+         * 16-bit integers, which can be then written to the binary.
          */
 
-        WriteInteger(Offset.ProfileColour,         (int) Details.Colour);
-        WriteInteger(Offset.VideoFrameRate,        (int) Video.FrameRate);
-        WriteInteger(Offset.VideoQualityParticles, (int) Video.Particles);
-        WriteInteger(Offset.VideoQualityTextures,  (int) Video.Quality);
-        WriteInteger(Offset.AudioQuality,          (int) Audio.Quality);
-        WriteInteger(Offset.AudioVariety,          (int) Audio.Variety);
-        WriteInteger(Offset.NetworkConnectionType, (int) Network.Connection);
+        WriteUShort(Offset.ProfileColour,         (ushort) Details.Colour);
+        WriteUShort(Offset.VideoFrameRate,        (ushort) Video.FrameRate);
+        WriteUShort(Offset.VideoQualityParticles, (ushort) Video.Particles);
+        WriteUShort(Offset.VideoQualityTextures,  (ushort) Video.Quality);
+        WriteUShort(Offset.AudioQuality,          (ushort) Audio.Quality);
+        WriteUShort(Offset.AudioVariety,          (ushort) Audio.Variety);
+        WriteUShort(Offset.NetworkConnectionType, (ushort) Network.Connection);
 
         /**
          * The following values are values which can have any integer (within the limits of the data types, of course).
          */
 
-        WriteInteger(Offset.VideoResolutionWidth,  Video.Resolution.Width);
-        WriteInteger(Offset.VideoResolutionHeight, Video.Resolution.Height);
-        WriteInteger(Offset.NetworkPortServer,     Network.Port.Server);
-        WriteInteger(Offset.NetworkPortClient,     Network.Port.Client);
+        WriteUShort(Offset.VideoResolutionWidth,  Video.Resolution.Width);
+        WriteUShort(Offset.VideoResolutionHeight, Video.Resolution.Height);
+        WriteUShort(Offset.NetworkPortServer,     Network.Port.Server);
+        WriteUShort(Offset.NetworkPortClient,     Network.Port.Client);
 
         WriteByte(Offset.VideoRefreshRate,           Video.RefreshRate);
         WriteByte(Offset.VideoMiscellaneousGamma,    Video.Gamma);
@@ -158,7 +158,7 @@ namespace HXE.HCE
             Debug("Nulling input - " + offset);
 
             ms.Position = (int) offset;
-            bw.Write(0x7FFF);
+            bw.Write((ushort) 0x7FFF);
           }
 
           foreach (var offset in Enum.GetValues(typeof(Mouse)))
@@ -166,7 +166,7 @@ namespace HXE.HCE
             Debug("Nulling input - " + offset);
 
             ms.Position = (int) offset;
-            bw.Write(0x7FFF);
+            bw.Write((ushort) 0x7FFF);
           }
 
           foreach (var offset in Enum.GetValues(typeof(GP0_Input)))
@@ -174,7 +174,7 @@ namespace HXE.HCE
             Debug("Nulling input - " + offset);
 
             ms.Position = (int) offset;
-            bw.Write(0x7FFF);
+            bw.Write((ushort) 0x7FFF);
           }
 
           foreach (var offset in Enum.GetValues(typeof(GP1_Input)))
@@ -182,7 +182,7 @@ namespace HXE.HCE
             Debug("Nulling input - " + offset);
 
             ms.Position = (int) offset;
-            bw.Write(0x7FFF);
+            bw.Write((ushort) 0x7FFF);
           }
 
           foreach (var offset in Enum.GetValues(typeof(GP2_Input)))
@@ -190,7 +190,7 @@ namespace HXE.HCE
             Debug("Nulling input - " + offset);
 
             ms.Position = (int) offset;
-            bw.Write(0x7FFF);
+            bw.Write((ushort) 0x7FFF);
           }
 
           foreach (var offset in Enum.GetValues(typeof(GP3_Input)))
@@ -198,7 +198,7 @@ namespace HXE.HCE
             Debug("Nulling input - " + offset);
 
             ms.Position = (int) offset;
-            bw.Write(0x7FFF);
+            bw.Write((ushort) 0x7FFF);
           }
 
           foreach (var offset in Enum.GetValues(typeof(GamePadMenu)))
@@ -206,7 +206,7 @@ namespace HXE.HCE
             Debug("Nulling input - " + offset);
 
             ms.Position = (int) offset;
-            bw.Write(0xFFFF);
+            bw.Write((ushort) 0xFFFF);
           }
         }
 
@@ -214,81 +214,114 @@ namespace HXE.HCE
         {
           foreach (var mapping in Input.KeyboardMapping)
           {
-            var value  = (byte) mapping.Key;  /* action */
-            var offset = (int) mapping.Value; /* button */
+            var value  = (ushort) mapping.Key; /* action */
+            var offset = (int) mapping.Value;  /* button */
 
-            Debug("Assigning input to action - " + mapping.Key + " -> " + mapping.Value);
+            Debug("Assigning action to input - " + mapping.Key + " -> " + mapping.Value);
 
             ms.Position = offset;
             bw.Write(value);
           }
+
+          /* temp */
+          fs.SetLength(0);
+          ms.Position = 0;
+          ms.CopyTo(fs);
 
           foreach (var mapping in Input.MouseMapping)
           {
-            var value  = (byte) mapping.Key;  /* action */
-            var offset = (int) mapping.Value; /* button */
+            var value  = (ushort) mapping.Key; /* action */
+            var offset = (int) mapping.Value;  /* button */
 
-            Debug("Assigning input to action - " + mapping.Key + " -> " + mapping.Value);
-
-            ms.Position = offset;
-            bw.Write(value);
-          }
-
-          foreach (var mapping in Input.GP0_Mapping)
-          {
-            var value  = (byte) mapping.Key;  /* action */
-            var offset = (int) mapping.Value; /* button */
-
-            Debug("Assigning input to action - " + mapping.Key + " -> " + mapping.Value);
+            Debug("Assigning action to input - " + mapping.Key + " -> " + mapping.Value);
 
             ms.Position = offset;
             bw.Write(value);
           }
 
-          foreach (var mapping in Input.GP1_Mapping)
-          {
-            var value  = (byte) mapping.Key;  /* action */
-            var offset = (int) mapping.Value; /* button */
+          fs.SetLength(0);
+          ms.Position = 0;
+          ms.CopyTo(fs);
 
-            Debug("Assigning input to action - " + mapping.Key + " -> " + mapping.Value);
+          if (Input.GP0_Mapping.Count != 0)
+            foreach (var mapping in Input.GP0_Mapping)
+            {
+              var value  = (ushort) mapping.Key; /* action */
+              var offset = (int) mapping.Value;  /* button */
 
-            ms.Position = offset;
-            bw.Write(value);
-          }
+              Debug("Assigning action to input - " + mapping.Key + " -> " + mapping.Value);
 
-          foreach (var mapping in Input.GP2_Mapping)
-          {
-            var value  = (byte) mapping.Key;  /* action */
-            var offset = (int) mapping.Value; /* button */
+              ms.Position = offset;
+              bw.Write(value);
+            }
 
-            Debug("Assigning input to action - " + mapping.Key + " -> " + mapping.Value);
+          /* temp */
+          fs.SetLength(0);
+          ms.Position = 0;
+          ms.CopyTo(fs);
 
-            ms.Position = offset;
-            bw.Write(value);
-          }
+          if (Input.GP1_Mapping.Count != 0)
+            foreach (var mapping in Input.GP1_Mapping)
+            {
+              var value  = (ushort) mapping.Key; /* action */
+              var offset = (int) mapping.Value;  /* button */
 
-          foreach (var mapping in Input.GP3_Mapping)
-          {
-            var value  = (byte) mapping.Key;  /* action */
-            var offset = (int) mapping.Value; /* button */
+              Debug("Assigning action to input - " + mapping.Key + " -> " + mapping.Value);
 
-            Debug("Assigning input to action - " + mapping.Key + " -> " + mapping.Value);
+              ms.Position = offset;
+              bw.Write(value);
+            }
 
-            ms.Position = offset;
-            bw.Write(value);
-          }
+          /* temp */
+          fs.SetLength(0);
+          ms.Position = 0;
+          ms.CopyTo(fs);
 
-          foreach (var pair in Input.Gamepads_Menu)
-          {
-            var value  = (byte) pair.Key;   /* button */
-            var offset = (int)  pair.Value; /* action */
+          if (Input.GP2_Mapping.Count != 0)
+            foreach (var mapping in Input.GP2_Mapping)
+            {
+              var value  = (ushort) mapping.Key; /* action */
+              var offset = (int) mapping.Value;  /* button */
 
-            Debug("Assigning input to action - " + pair.Key + " -> " + pair.Value);
+              Debug("Assigning action to input - " + mapping.Key + " -> " + mapping.Value);
 
-            ms.Position = offset;
-            bw.Write(value);
-            bw.Write((byte) 0x00);
-          }
+              ms.Position = offset;
+              bw.Write(value);
+            }
+
+          /* temp */
+          fs.SetLength(0);
+          ms.Position = 0;
+          ms.CopyTo(fs);
+
+          if (Input.GP3_Mapping.Count != 0)
+            foreach (var mapping in Input.GP3_Mapping)
+            {
+              var value  = (ushort) mapping.Key; /* action */
+              var offset = (int) mapping.Value;  /* button */
+
+              Debug("Assigning action to input - " + mapping.Key + " -> " + mapping.Value);
+
+              ms.Position = offset;
+              bw.Write(value);
+            }
+
+          /* temp */
+          fs.SetLength(0);
+          ms.Position = 0;
+          ms.CopyTo(fs);
+
+          if (Input.Gamepads_Menu.Count != 0)
+            foreach (var pair in Input.Gamepads_Menu)
+            {
+              var value  = (ushort) pair.Key; /* button */
+              var offset = (int) pair.Value;  /* action */
+
+              Debug("Assigning action to input - " + pair.Key + " -> " + pair.Value);
+
+              ms.Position = offset;
+              bw.Write(value);
+            }
         }
 
         /**
@@ -690,10 +723,6 @@ namespace HXE.HCE
     /// <summary>
     ///   Offsets for the data stored in the blam.sav binary.
     /// </summary>
-    /// <remark>
-    ///   The binary stream position is set to an offset,
-    ///   then written in reverse (Big Endian).
-    /// </remark>
     private enum Offset
     {
       /** values as writen by haloce.exe.
@@ -702,8 +731,9 @@ namespace HXE.HCE
        * Where _unbound, 0x7fff (32,767) is written until the Position reaches the next notable offset.
        */
         _0x0000                  = 0x0000, // 0x0009
-      ProfileName                = 0x0002, // "New001"  UTF-16 BE String
+      ProfileName                = 0x0002, // "New001"  UTF-16 String
       ProfileColour              = 0x011A, // 0xffff
+        _0x011C                  = 0x011C, // 0x1 (default_profile/00.sav)
         _0x011E                  = 0x011E, // 0x0; possible value: 0x08 (from Retail)
         _0x011F                  = 0x011F, // 0x0; possible value: 0x0A (from Retail)
         _0x0120                  = 0x0120, // 0x0; possible value: 0x08 (from Retail)
@@ -722,15 +752,10 @@ namespace HXE.HCE
 
       /** Input.Mouse 0x20E-0x220 */
       /* empty space filled with 0x7fff*/
-      _0x0214_unbound            = 0x0214, //   0x7fff
-
-      _0x0220                    = 0x0220, // 0x0019
-      _0x0222                    = 0x0222, // 0x0017
-      _0x0224                    = 0x0224, // 0x0018
-      _0x0226_unbound            = 0x0226, //   0x7fff
 
       /** Input.GamePadMenu 0x32A-0x339 */
       /* unbound is 0xffff */
+
       _0x033A_unbound            = 0x033A, //   0x7fff
 
       // padding                 = 0x093A, //   0x0
@@ -767,7 +792,7 @@ namespace HXE.HCE
 
       VideoResolutionWidth       = 0x0A68, // 0x0780
       VideoResolutionHeight      = 0x0A6A, // 0x0438
-      VideoRefreshRate           = 0x0A6C, // 0x0090
+      VideoRefreshRate           = 0x0A6C, //
       _0x0A6E                    = 0x0A6E, // 0x02
       VideoFrameRate             = 0x0A6F, // 0x02
       VideoEffectsSpecular       = 0x0A70, // 0x0101
@@ -868,7 +893,9 @@ namespace HXE.HCE
         Brown  = 0x10, /* universal ui => brown */
         Tan    = 0x11, /* universal ui => tan */
         Maroon = 0x14, /* universal ui => maroon */
-        Salmon = 0x15  /* universal ui => peach */
+        Salmon = 0x15, /* universal ui => peach */
+
+        //Random = 0xffff /* Default Value */
       }
 
       public string        Name   { get; set; } = "New001";            /* default value */
@@ -964,7 +991,7 @@ namespace HXE.HCE
 
     public class ProfileGamepad
     {
-      public bool /* Exists? */  InvertVerticalAxis { get; set; } = false; /* default value */
+      public bool /* Exists? */  InvertVerticalAxis { get; set; } = false;
       public JoystickSensitivity Sensitivity        { get; set; } = new JoystickSensitivity();
 
       public class JoystickSensitivity
@@ -1167,8 +1194,8 @@ namespace HXE.HCE
         Button8            = 0x021C,
         HAxis_Neg          = 0x021E, // Look Right
         HAxis_Pos          = 0x0220, // Look Left
-        VAxis_Neg          = 0x0222, //
-        VAxis_Pos          = 0x0224, //
+        VAxis_Neg          = 0x0222, // Look Up
+        VAxis_Pos          = 0x0224, // Look Down
         Wheel_Neg          = 0x0226,
         Wheel_Pos          = 0x0228
       }
@@ -1382,13 +1409,13 @@ namespace HXE.HCE
 
       public Dictionary<Action, Mouse> MouseMapping = new Dictionary<Action, Mouse>
       {
-          { Action.LookUp      , Mouse.VAxis_Neg    },
-          { Action.LookDown    , Mouse.VAxis_Pos    },
-          { Action.LookLeft    , Mouse.VAxis_Pos    },
-          { Action.LookRight   , Mouse.VAxis_Neg    },
-          { Action.FireWeapon  , Mouse.LeftButton   },
-          { Action.ThrowGrenade, Mouse.RightButton  },
-          { Action.ScopeZoom   , Mouse.MiddleButton },
+        { Action.LookUp      , Mouse.VAxis_Neg    },
+        { Action.LookDown    , Mouse.VAxis_Pos    },
+        { Action.LookLeft    , Mouse.HAxis_Pos    },
+        { Action.LookRight   , Mouse.HAxis_Neg    },
+        { Action.FireWeapon  , Mouse.LeftButton   },
+        { Action.ThrowGrenade, Mouse.RightButton  },
+        { Action.ScopeZoom   , Mouse.MiddleButton },
       };
 
       public Dictionary<Action, GP0_Input> GP0_Mapping = new Dictionary<Action, GP0_Input>();
