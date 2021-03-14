@@ -119,18 +119,18 @@ namespace HXE
       bool DRM               = (cfg & EXEP.DISABLE_DRM_AND_KEY_CHECKS) != 0;
       bool NoGamma           = (cfg & EXEP.DISABLE_SYSTEM_GAMMA)       != 0;
       bool NoAutoCenter      = (cfg & EXEP.DISABLE_VEHICLE_AUTOCENTER) != 0;
-      bool NoMouseAccel      = (cfg & EXEP.DISABLE_MOUSE_ACCELERATION) != 0;
       bool BlockCamShake     = (cfg & EXEP.BLOCK_CAMERA_SHAKE)         != 0;
       bool BlockDescopeOnDMG = (cfg & EXEP.PREVENT_DESCOPING_ON_DMG)   != 0;
 
       /** Overrides */
-      bool LAA            = true; // (cfg & EXEP.ENABLE_LARGE_ADDRESS_AWARE) != 0;
-      bool FixLAN         = true; // (cfg & EXEP.BIND_SERVER_TO_0000)        != 0;
-      bool Fix32Tex       = true; // (cfg & EXEP.DISABLE_SAFEMODE_PROMPT)    != 0;
-      bool NoSafe         = true; // (cfg & EXEP.FIX_32BIT_TEXTURES)         != 0;
-      bool NoEULA         = true; // (cfg & EXEP.DISABLE_EULA)               != 0;
-      bool NoRegistryExit = true; // (cfg & EXEP.DISABLE_REG_EXIT_STATE)     != 0;
-      bool BlockUpdates   = true; // (cfg & EXEP.BLOCK_UPDATE_CHECKS)        != 0;
+      bool LAA            = true;  // (cfg & EXEP.ENABLE_LARGE_ADDRESS_AWARE) != 0;
+      bool FixLAN         = true;  // (cfg & EXEP.BIND_SERVER_TO_0000)        != 0;
+      bool Fix32Tex       = true;  // (cfg & EXEP.FIX_32BIT_TEXTURES)         != 0;
+      bool NoMouseAccel   = false; // (cfg & EXEP.DISABLE_MOUSE_ACCELERATION) != 0;
+      bool NoSafe         = true;  // (cfg & EXEP.FIX_32BIT_TEXTURES)         != 0;
+      bool NoEULA         = true;  // (cfg & EXEP.DISABLE_EULA)               != 0;
+      bool NoRegistryExit = true;  // (cfg & EXEP.DISABLE_REG_EXIT_STATE)     != 0;
+      bool BlockUpdates   = true;  // (cfg & EXEP.BLOCK_UPDATE_CHECKS)        != 0;
 
 
       /** Filter PatchGroups for those requested
@@ -138,81 +138,82 @@ namespace HXE
        */
       foreach (var pg in Patches)
       {
-        if (LAA && pg.Executable == "haloce.exe" && pg.Name.Contains("large address aware"))
+        if (pg.Executable == "haloce.exe" && pg.Name.Contains("large address aware"))
         {
-          pg.Toggle = true;
+          pg.Toggle = LAA;
           FilteredPatches.Add(pg);
           continue;
         }
-        if (DRM && pg.Executable == "haloce.exe" && pg.Name.Contains("DRM"))
+        if (pg.Executable == "haloce.exe" && pg.Name.Contains("DRM"))
         {
-          pg.Toggle = true;
+          pg.Toggle = DRM;
           FilteredPatches.Add(pg);
           continue;
         }
-        if (FixLAN && pg.Executable == "haloce.exe" && pg.Name.Contains("Bind server to 0.0.0.0"))
+        if (pg.Executable == "haloce.exe" && pg.Name.Contains("Bind server to 0.0.0.0"))
         {
-          pg.Toggle = true;
+          pg.Toggle = FixLAN;
           FilteredPatches.Add(pg);
           continue;
         }
-        if (NoSafe && pg.Executable == "haloce.exe" && pg.Name.Contains("safe mode prompt"))
+        if (pg.Executable == "haloce.exe" && pg.Name.Contains("safe mode prompt"))
         {
-          pg.Toggle = true;
+          pg.Toggle = NoSafe;
           FilteredPatches.Add(pg);
           continue;
         }
-        if (NoGamma && pg.Executable == "haloce.exe" && pg.Name.Contains("gamma"))
+        if (pg.Executable == "haloce.exe" && pg.Name.Contains("gamma"))
         {
-          pg.Toggle = true;
+          pg.Toggle = NoGamma;
           FilteredPatches.Add(pg);
           continue;
         }
-        if (Fix32Tex && pg.Executable == "haloce.exe" && pg.Name.Contains("32-bit textures"))
+        if (pg.Executable == "haloce.exe" && pg.Name.Contains("32-bit textures"))
         {
-          pg.Toggle = true;
+          pg.Toggle = Fix32Tex;
           FilteredPatches.Add(pg);
           continue;
         }
-        if (NoEULA && pg.Executable == "haloce.exe" && pg.Name.Contains("EULA"))
+        if (pg.Executable == "haloce.exe" && pg.Name.Contains("EULA"))
         {
-          pg.Toggle = true;
+          pg.Toggle = NoEULA;
           FilteredPatches.Add(pg);
           continue;
         }
-        if (NoRegistryExit && pg.Executable == "haloce.exe" && pg.Name.Contains("exit status"))
+        if (pg.Executable == "haloce.exe" && pg.Name.Contains("exit status"))
         {
-          pg.Toggle = true;
+          pg.Toggle = NoRegistryExit;
           FilteredPatches.Add(pg);
           continue;
         }
-        if (NoAutoCenter && pg.Executable == "haloce.exe" && pg.Name.Contains("auto-centering"))
+        if (pg.Executable == "haloce.exe" && pg.Name.Contains("auto-centering"))
         {
-          pg.Toggle = true;
+          pg.Toggle = NoAutoCenter;
           FilteredPatches.Add(pg);
           continue;
         }
-        if (NoMouseAccel && pg.Executable == "haloce.exe" && pg.Name.Contains("mouse acceleration"))
+        if (pg.Executable == "haloce.exe" && pg.Name.Contains("mouse acceleration"))
         {
-          pg.Toggle = true;
+
+          pg.Toggle = NoMouseAccel;
           FilteredPatches.Add(pg);
           continue;
         }
-        if (BlockUpdates && pg.Executable == "haloce.exe" && pg.Name.Contains("update checks"))
+        if (pg.Executable == "haloce.exe" && pg.Name.Contains("update checks"))
         {
-          pg.Toggle = true;
+          pg.Toggle = BlockUpdates;
           FilteredPatches.Add(pg);
           continue;
         }
-        if (BlockCamShake && pg.Executable == "haloce.exe" && pg.Name.Contains("camera shaking"))
+        if (pg.Executable == "haloce.exe" && pg.Name.Contains("camera shaking"))
         {
-          pg.Toggle = true;
+          pg.Toggle = BlockCamShake;
           FilteredPatches.Add(pg);
           continue;
         }
-        if (BlockDescopeOnDMG && pg.Executable == "haloce.exe" && pg.Name.Contains("Prevent descoping when taking damage"))
+        if (pg.Executable == "haloce.exe" && pg.Name.Contains("Prevent descoping when taking damage"))
         {
-          pg.Toggle = true;
+          pg.Toggle = BlockDescopeOnDMG;
           FilteredPatches.Add(pg);
           continue;
         }
