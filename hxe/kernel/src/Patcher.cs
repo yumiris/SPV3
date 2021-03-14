@@ -1,9 +1,8 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using static HXE.Console;
-using static HXE.Common.ExtConvert;
 
 namespace HXE
 {
@@ -39,7 +38,7 @@ namespace HXE
     /// </summary>
     /// <returns>A list of PatchGroups read from the patches.crk file resource.</returns>
     /// <remarks>This is only used for Patches list initialization.</remarks>
-    public static List<PatchGroup> Reader() 
+    public static List<PatchGroup> Reader()
     {
       /* Get patches.crk resource from assembly resources */
       /* Read strings from memory to...array? */
@@ -66,7 +65,7 @@ namespace HXE
       for (var index = 0; index < file.Count; index++)
       {
         /// If the first char in the line is a letter...     */
-        while (index < file.Count && char.IsLetter(file.ElementAt(index).ToCharArray().First())) 
+        while (index < file.Count && char.IsLetter(file.ElementAt(index).ToCharArray().First()))
         {
           /** ...skip Name and Executable. Go to patch data. */
           index += 2;
@@ -79,13 +78,13 @@ namespace HXE
             patchGroup = new PatchGroup() { DataSets = new List<DataSet>(),
                                             Name = file.ElementAt(index - 2),
                                             Executable = file.ElementAt(index - 1) };
-            
-            while (index < file.Count && char.IsDigit(file.ElementAt(index).ToCharArray().First())) 
+
+            while (index < file.Count && char.IsDigit(file.ElementAt(index).ToCharArray().First()))
             {
-              /** Read Patch Data to List, ... 
-              * Assign values{offset, original, patch} 
-              * proceed to next Patch Data, 
-              * then check if line is Patch Data 
+              /** Read Patch Data to List, ...
+              * Assign values{offset, original, patch}
+              * proceed to next Patch Data,
+              * then check if line is Patch Data
               */
               List<string> values = file.
                                     ElementAt(index).Split(byteSep, StringSplitOptions.RemoveEmptyEntries).
@@ -120,148 +119,156 @@ namespace HXE
       bool DRM               = (cfg & EXEP.DISABLE_DRM_AND_KEY_CHECKS) != 0;
       bool NoGamma           = (cfg & EXEP.DISABLE_SYSTEM_GAMMA)       != 0;
       bool NoAutoCenter      = (cfg & EXEP.DISABLE_VEHICLE_AUTOCENTER) != 0;
-      bool NoMouseAccel      = (cfg & EXEP.DISABLE_MOUSE_ACCELERATION) != 0;
       bool BlockCamShake     = (cfg & EXEP.BLOCK_CAMERA_SHAKE)         != 0;
       bool BlockDescopeOnDMG = (cfg & EXEP.PREVENT_DESCOPING_ON_DMG)   != 0;
 
       /** Overrides */
-      bool LAA            = true; // (cfg & EXEP.ENABLE_LARGE_ADDRESS_AWARE) != 0;
-      bool FixLAN         = true; // (cfg & EXEP.BIND_SERVER_TO_0000)        != 0;
-      bool Fix32Tex       = true; // (cfg & EXEP.DISABLE_SAFEMODE_PROMPT)    != 0;
-      bool NoSafe         = true; // (cfg & EXEP.FIX_32BIT_TEXTURES)         != 0;
-      bool NoEULA         = true; // (cfg & EXEP.DISABLE_EULA)               != 0;
-      bool NoRegistryExit = true; // (cfg & EXEP.DISABLE_REG_EXIT_STATE)     != 0;
-      bool BlockUpdates   = true; // (cfg & EXEP.BLOCK_UPDATE_CHECKS)        != 0;
+      bool LAA            = true;  // (cfg & EXEP.ENABLE_LARGE_ADDRESS_AWARE) != 0;
+      bool FixLAN         = true;  // (cfg & EXEP.BIND_SERVER_TO_0000)        != 0;
+      bool Fix32Tex       = true;  // (cfg & EXEP.FIX_32BIT_TEXTURES)         != 0;
+      bool NoMouseAccel   = false; // (cfg & EXEP.DISABLE_MOUSE_ACCELERATION) != 0;
+      bool NoSafe         = true;  // (cfg & EXEP.FIX_32BIT_TEXTURES)         != 0;
+      bool NoEULA         = true;  // (cfg & EXEP.DISABLE_EULA)               != 0;
+      bool NoRegistryExit = true;  // (cfg & EXEP.DISABLE_REG_EXIT_STATE)     != 0;
+      bool BlockUpdates   = true;  // (cfg & EXEP.BLOCK_UPDATE_CHECKS)        != 0;
 
 
-      /** Filter PatchGroups for those requested 
+      /** Filter PatchGroups for those requested
        * NOTE: Update String matches as needed.
        */
       foreach (var pg in Patches)
       {
-        if (LAA && pg.Executable == "haloce.exe" && pg.Name.Contains("large address aware"))
+        if (pg.Executable == "haloce.exe" && pg.Name.Contains("large address aware"))
         {
-          pg.Toggle = true;
+          pg.Toggle = LAA;
           FilteredPatches.Add(pg);
           continue;
         }
-        if (DRM && pg.Executable == "haloce.exe" && pg.Name.Contains("DRM"))
+        if (pg.Executable == "haloce.exe" && pg.Name.Contains("DRM"))
         {
-          pg.Toggle = true;
+          pg.Toggle = DRM;
           FilteredPatches.Add(pg);
           continue;
         }
-        if (FixLAN && pg.Executable == "haloce.exe" && pg.Name.Contains("Bind server to 0.0.0.0"))
+        if (pg.Executable == "haloce.exe" && pg.Name.Contains("Bind server to 0.0.0.0"))
         {
-          pg.Toggle = true;
+          pg.Toggle = FixLAN;
           FilteredPatches.Add(pg);
           continue;
         }
-        if (NoSafe && pg.Executable == "haloce.exe" && pg.Name.Contains("safe mode prompt"))
+        if (pg.Executable == "haloce.exe" && pg.Name.Contains("safe mode prompt"))
         {
-          pg.Toggle = true;
+          pg.Toggle = NoSafe;
           FilteredPatches.Add(pg);
           continue;
         }
-        if (NoGamma && pg.Executable == "haloce.exe" && pg.Name.Contains("gamma"))
+        if (pg.Executable == "haloce.exe" && pg.Name.Contains("gamma"))
         {
-          pg.Toggle = true;
+          pg.Toggle = NoGamma;
           FilteredPatches.Add(pg);
           continue;
         }
-        if (Fix32Tex && pg.Executable == "haloce.exe" && pg.Name.Contains("32-bit textures"))
+        if (pg.Executable == "haloce.exe" && pg.Name.Contains("32-bit textures"))
         {
-          pg.Toggle = true;
+          pg.Toggle = Fix32Tex;
           FilteredPatches.Add(pg);
           continue;
         }
-        if (NoEULA && pg.Executable == "haloce.exe" && pg.Name.Contains("EULA"))
+        if (pg.Executable == "haloce.exe" && pg.Name.Contains("EULA"))
         {
-          pg.Toggle = true;
+          pg.Toggle = NoEULA;
           FilteredPatches.Add(pg);
           continue;
         }
-        if (NoRegistryExit && pg.Executable == "haloce.exe" && pg.Name.Contains("exit status"))
+        if (pg.Executable == "haloce.exe" && pg.Name.Contains("exit status"))
         {
-          pg.Toggle = true;
+          pg.Toggle = NoRegistryExit;
           FilteredPatches.Add(pg);
           continue;
         }
-        if (NoAutoCenter && pg.Executable == "haloce.exe" && pg.Name.Contains("auto-centering"))
+        if (pg.Executable == "haloce.exe" && pg.Name.Contains("auto-centering"))
         {
-          pg.Toggle = true;
+          pg.Toggle = NoAutoCenter;
           FilteredPatches.Add(pg);
           continue;
         }
-        if (NoMouseAccel && pg.Executable == "haloce.exe" && pg.Name.Contains("mouse acceleration"))
+        if (pg.Executable == "haloce.exe" && pg.Name.Contains("mouse acceleration"))
         {
-          pg.Toggle = true;
+
+          pg.Toggle = NoMouseAccel;
           FilteredPatches.Add(pg);
           continue;
         }
-        if (BlockUpdates && pg.Executable == "haloce.exe" && pg.Name.Contains("update checks"))
+        if (pg.Executable == "haloce.exe" && pg.Name.Contains("update checks"))
         {
-          pg.Toggle = true;
+          pg.Toggle = BlockUpdates;
           FilteredPatches.Add(pg);
           continue;
         }
-        if (BlockCamShake && pg.Executable == "haloce.exe" && pg.Name.Contains("camera shaking"))
+        if (pg.Executable == "haloce.exe" && pg.Name.Contains("camera shaking"))
         {
-          pg.Toggle = true;
+          pg.Toggle = BlockCamShake;
           FilteredPatches.Add(pg);
           continue;
         }
-        if (BlockDescopeOnDMG && pg.Executable == "haloce.exe" && pg.Name.Contains("Prevent descoping when taking damage"))
+        if (pg.Executable == "haloce.exe" && pg.Name.Contains("Prevent descoping when taking damage"))
         {
-          pg.Toggle = true;
+          pg.Toggle = BlockDescopeOnDMG;
           FilteredPatches.Add(pg);
           continue;
         }
       }
 
       /** Flexible patcher */
-      try
       {
-        using (var fs = new FileStream(exePath, FileMode.Open, FileAccess.ReadWrite))
-        using (var ms = new MemoryStream(0x24B000))
-        using (var bw = new BinaryWriter(ms))
-        using (var br = new BinaryReader(ms))
-        foreach (var PatchGroup in FilteredPatches)
+        bool isFileReady = false;
+        while (!isFileReady)
+        {
+          try
           {
-            foreach (var DataSet in PatchGroup.DataSets)
-            {
-              byte value  = PatchGroup.Toggle ? DataSet.Patch : DataSet.Original;
-              long offset = DataSet.Offset;
-              ms.Position = 0;
-              fs.Position = 0;
-              fs.CopyTo(ms);
-
-              ms.Position = offset;
-
-              if (br.ReadByte() != value)
+            using (var fs = new FileStream(exePath, FileMode.Open, FileAccess.ReadWrite))
+            using (var ms = new MemoryStream(0x24B000))
+            using (var bw = new BinaryWriter(ms))
+            using (var br = new BinaryReader(ms))
+              foreach (var PatchGroup in FilteredPatches)
               {
-                if (PatchGroup.Name.Contains("DRM") && PatchGroup.Toggle == false)
-                  return;
+                foreach (var DataSet in PatchGroup.DataSets)
+                {
+                  byte value  = PatchGroup.Toggle ? DataSet.Patch : DataSet.Original;
+                  long offset = DataSet.Offset;
+                  ms.Position = 0;
+                  fs.Position = 0;
+                  fs.CopyTo(ms);
 
-                ms.Position -= 1; /** restore position */
-                bw.Write(value);  /** write value      */
+                  ms.Position = offset;
 
-                fs.Position = 0;
-                ms.Position = 0;
-                ms.CopyTo(fs);
+                  if (br.ReadByte() != value)
+                  {
+                    if (PatchGroup.Name.Contains("DRM") && PatchGroup.Toggle == false)
+                      return;
 
-                Info($"Applied \"{PatchGroup.Name}\" patch to the HCE executable");
+                    ms.Position -= 1; /** restore position */
+                    bw.Write(value);  /** write value      */
+
+                    fs.Position = 0;
+                    ms.Position = 0;
+                    ms.CopyTo(fs);
+
+                    Info($"Applied \"{PatchGroup.Name}\" patch to the HCE executable");
+                  }
+                  else
+                    Info($"HCE executable already patched with \"{PatchGroup.Name}\"");
+                }
               }
-              else
-                Info($"HCE executable already patched with \"{PatchGroup.Name}\"");
-            }
+            isFileReady = true;
           }
+          catch (IOException)
+          {
+            Wait("Waiting for Halo executable to be available for modification...");
+            System.Threading.Thread.Sleep(1000);
+          }
+        }
       }
-      catch (Exception)
-      {
-        // We need to catch exceptions thrown by the using() statements.
-        throw;
-      }    
     }
 
     /// <summary>

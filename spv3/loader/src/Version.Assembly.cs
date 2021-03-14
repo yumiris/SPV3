@@ -1,14 +1,14 @@
 /**
  * Copyright (c) 2019 Emilian Roman
- * 
+ *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
  * arising from the use of this software.
- * 
+ *
  * Permission is granted to anyone to use this software for any purpose,
  * including commercial applications, and to alter it and redistribute it
  * freely, subject to the following restrictions:
- * 
+ *
  * 1. The origin of this software must not be misrepresented; you must not
  *    claim that you wrote the original software. If you use this software
  *    in a product, an acknowledgment in the product documentation would be
@@ -91,17 +91,17 @@ namespace SPV3
         if (versionMajor == null) return;
 
         var version = (int) versionMajor;
-                var refHash = new Func<string>(() =>
-                {
-                    using (var stream = GetExecutingAssembly().GetManifestResourceStream("SPV3.hash"))
-                    using (var reader = new StreamReader(stream ?? throw new InvalidOperationException()))
-                        return reader.ReadToEnd();
-                })();
+        var refHash = new Func<string>(() =>
+        {
+          using (var stream = GetExecutingAssembly().GetManifestResourceStream("SPV3.hash"))
+          using (var reader = new StreamReader(stream ?? throw new InvalidOperationException()))
+            return reader.ReadToEnd();
+        })();
 
-                Version    = version;
-                Content    = $"Version {version:D4}-{refHash.ToUpper()}";
-                Address    = $"https://github.com/yumiris/HCE/commit/{refHash}";
-                Visibility = Visibility.Visible;
+        Version    = version;
+        Content    = $"Version {version:D4}-{refHash.ToUpper()}";
+        Address    = $"https://github.com/HaloSPV3/HCE/commit/{refHash}";
+        Visibility = Visibility.Visible;
       }
 
       [NotifyPropertyChangedInvocator]

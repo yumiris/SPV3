@@ -21,12 +21,12 @@
 
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Linq;
-using Directory = System.IO.Directory;
+using System.Text;
+using static System.Environment;
 using static HXE.Console;
 using static HXE.Paths;
-using static System.Environment;
+using Directory = System.IO.Directory;
 
 namespace HXE.HCE
 {
@@ -84,6 +84,8 @@ namespace HXE.HCE
     /// </summary>
     public void Save()
     {
+      WriteAllBytes(new byte[0xFF]);
+
       using (var fs = new FileStream(Path, FileMode.OpenOrCreate, FileAccess.ReadWrite))
       using (var ms = new MemoryStream(255))
       using (var bw = new BinaryWriter(ms))

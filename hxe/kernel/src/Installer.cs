@@ -20,9 +20,9 @@
  */
 
 using System;
-using System.Management;
 using System.IO;
 using System.IO.Compression;
+using System.Management;
 using System.Threading;
 using System.Threading.Tasks;
 using HXE.Properties;

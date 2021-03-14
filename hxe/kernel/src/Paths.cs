@@ -19,11 +19,11 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
+using static System.Diagnostics.Process;
 using static System.Environment;
 using static System.Environment.SpecialFolder;
 using static System.IO.File;
 using static System.IO.Path;
-using static System.Diagnostics.Process;
 
 namespace HXE
 {

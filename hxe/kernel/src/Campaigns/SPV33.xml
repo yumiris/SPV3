@@ -126,12 +126,12 @@
       <Value>spv3_lumoria_cd</Value>
       <Initiation>18</Initiation>
     </Mission>
-    
+
     <!-- SPV3 A05 -->
     <Mission>
       <Name>SPV3 A05</Name>
       <Value>spv3a05</Value>
-      <Initiaton>19</Initiaton>
+      <Initiation>19</Initiation>
     </Mission>
 
     <!-- SPV3 rockslide spartan -->
@@ -140,42 +140,42 @@
       <Value>spv3_rockslide_spartan</Value>
       <Initiation>101</Initiation>
     </Mission>
-    
+
             <!-- SPV3 rockslide flood -->
     <Mission>
       <Name>SPV3 Rockslide Flood</Name>
       <Value>spv3_rockslide_flood</Value>
       <Initiation>102</Initiation>
     </Mission>
-    
+
                 <!-- SPV3 rockslide elite -->
     <Mission>
       <Name>SPV3 Rockslide Elite</Name>
       <Value>spv3_rockslide_elite</Value>
       <Initiation>103</Initiation>
     </Mission>
-    
+
             <!-- SPV3 engine spartan -->
     <Mission>
       <Name>SPV3 engine Spartan</Name>
       <Value>spv3_engine_spartan</Value>
       <Initiation>201</Initiation>
     </Mission>
-    
+
             <!-- SPV3 engine flood -->
     <Mission>
       <Name>SPV3 engine Flood</Name>
       <Value>spv3_engine_flood</Value>
       <Initiation>202</Initiation>
     </Mission>
-    
+
                 <!-- SPV3 engine elite -->
     <Mission>
       <Name>SPV3 engine Elite</Name>
       <Value>spv3_engine_elite</Value>
       <Initiation>203</Initiation>
     </Mission>
-    
+
   </Missions>
   <Difficulties>
     <!-- Default -->
