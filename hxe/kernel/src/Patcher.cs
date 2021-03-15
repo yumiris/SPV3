@@ -254,7 +254,14 @@ namespace HXE
                     ms.Position = 0;
                     ms.CopyTo(fs);
 
-                    Info($"Applied \"{PatchGroup.Name}\" patch to the HCE executable");
+                    if (PatchGroup.Toggle)
+                    {
+                      Info($"Applied \"{PatchGroup.Name}\" patch to the HCE executable");
+                    }
+                    else
+                    {
+                      Info($"Removed \"{PatchGroup.Name}\" patch from HCE executable and restored original values.");
+                    }
                   }
                   else
                     Info($"HCE executable already patched with \"{PatchGroup.Name}\"");
