@@ -1,15 +1,15 @@
 ﻿/**
  * Copyright (c) 2019 Emilian Roman
  * Copyright (c) 2020 Noah Sherwin
- * 
+ *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
  * arising from the use of this software.
- * 
+ *
  * Permission is granted to anyone to use this software for any purpose,
  * including commercial applications, and to alter it and redistribute it
  * freely, subject to the following restrictions:
- * 
+ *
  * 1. The origin of this software must not be misrepresented; you must not
  *    claim that you wrote the original software. If you use this software
  *    in a product, an acknowledgment in the product documentation would be
@@ -33,8 +33,8 @@ namespace HXE.HCE
 {
   public class Registry
   {
-//  private static string _dpid   = BogusDPID;
-    
+    //  private static string _dpid   = BogusDPID;
+
     public const string x86       = @"SOFTWARE\Microsoft";
     public const string x86_64    = @"SOFTWARE\WOW6432Node\Microsoft";
     public const string MSG       = "Microsoft Games";
@@ -57,7 +57,7 @@ namespace HXE.HCE
      *  > If HXE is used for installing/deploying a
      *    Halo package, assign the Target path to
      *    data.EXE_Path.
-     *    Additionally, assign the language enum as 
+     *    Additionally, assign the language enum as
      *    indicated by the package to data.LangID.
      */
 
@@ -97,18 +97,50 @@ namespace HXE.HCE
 
     public static bool GameActivated(string game)
     {
-      RegistryKey key;
-      switch(game)
+      bool keyIsValid = false;
+      bool subkeyIsValid = false;
+      RegistryKey key = null;
+      string subkey;
+
+      /** Select a registry subkey based on the Game parameter */
+      switch (game)
       {
         case "Retail":
-          key = WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG, Retail));
-          return (key != null && key.GetValue("PID").ToString() != null);
+          subkey = Path.Combine(WoWCheck(), MSG, Retail);
+          break;
         case "Custom":
-          key = WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG, Custom));
-          return (key != null && key.GetValue("PID").ToString() != null);
+          subkey = Path.Combine(WoWCheck(), MSG, Custom);
+          break;
         default:
           throw new ArgumentException("The specified game does not need activation.");
       }
+
+      /** Open the subkey and read the PID entry */
+      try
+      {
+        var file = (File) Paths.Exception;
+        var fullPath = Path.Combine(WinReg.LocalMachine.Name, subkey);
+
+        key = WinReg.LocalMachine.OpenSubKey(subkey);
+        keyIsValid = key != null;
+
+        if (keyIsValid)
+          subkeyIsValid = !string.IsNullOrEmpty(key.GetValue("PID").ToString());
+
+        file.AppendAllText(
+          $"INFO -- Registry Key: \"{fullPath}\"{Environment.NewLine}" +
+          $"INFO -- Key is valid? {keyIsValid}{Environment.NewLine}" +
+          $"INFO -- PID is valid? {subkeyIsValid}{Environment.NewLine}"
+          );
+      }
+      catch(Exception e)
+      {
+        var file = (File) Paths.Exception;
+        file.AppendAllText($"Error -- {e}");
+        throw;
+      }
+
+      return keyIsValid && subkeyIsValid;
     }
 
     public static void WriteToFile(string game, Data data)
@@ -118,22 +150,22 @@ namespace HXE.HCE
       File   file = (File) Path.Combine(Environment.CurrentDirectory, $"{game}.reg");
       string content = "";
 
-      /** 
+      /**
        * All path separators must be "\\\\" in memory and written to file as "\\".
        * TRUE bool indicates the return string must escape double-backslashes.
        */
       data.EXE_Path = SanitizeSeparators(data.EXE_Path, true);
       data.CDPath   = SanitizeSeparators(data.CDPath  , true);
-      
+
       /** Ensure EXE Path ends with double-backslash*/
       if (!data.EXE_Path.EndsWith("\\\\"))
         data.EXE_Path += "\\\\";
-      
+
       switch (game)
       {
         case "Retail":
           {
-            content = 
+            content =
               "Windows Registry Editor Version 5.00"                                               + "\r\n" +
                                                                                                      "\r\n" +
               $@"[HKEY_LOCAL_MACHINE\{WoWCheck()}\{MSG}\{Retail}]"                                 + "\r\n" +
@@ -160,7 +192,7 @@ namespace HXE.HCE
           break;
         case "Custom":
           {
-            content = 
+            content =
               "Windows Registry Editor Version 5.00"                                               + "\r\n" +
                                                                                                      "\r\n" +
               $@"[HKEY_LOCAL_MACHINE\{WoWCheck()}\{MSG}\{Custom}]"                                 + "\r\n" +
@@ -186,7 +218,7 @@ namespace HXE.HCE
           break;
         case "Trial":
           {
-            content = 
+            content =
               "Windows Registry Editor Version 5.00"                                               + "\r\n" +
                                                                                                      "\r\n" +
               $@"[HKEY_LOCAL_MACHINE\{WoWCheck()}\{MSG}\{Trial}]"                                  + "\r\n" +
@@ -204,7 +236,7 @@ namespace HXE.HCE
           break;
         case "HEK":
           {
-            content = 
+            content =
               "Windows Registry Editor Version 5.00"                                               + "\r\n" +
                                                                                                      "\r\n" +
               $@"[HKEY_LOCAL_MACHINE\{WoWCheck()}\{MSG}\{HEK}]"                                    + "\r\n" +
@@ -221,12 +253,12 @@ namespace HXE.HCE
           break;
         default:
           break;
-      } 
+      }
       file.WriteAllText(content);
     }
 
     /// <summary>
-    /// Creates the registry keys for the given game. Uses default Data values for registry variables. 
+    /// Creates the registry keys for the given game. Uses default Data values for registry variables.
     /// </summary>
     /// <remarks>Totally broken. Use WriteToFile() instead.</remarks>
 
@@ -237,7 +269,7 @@ namespace HXE.HCE
     }
 
     /// <summary>
-    /// Creates the registry keys for the given game. 
+    /// Creates the registry keys for the given game.
     /// Requires an instance of Registry.Data which can be used for specifying values of registry variables such as the EXE path.
     /// </summary>
     /// <param name="game">The game or app.</param>
@@ -252,14 +284,14 @@ namespace HXE.HCE
        * A. Temporarily elevate the current process to write
        *    directly to the Registry. (NOT POSSIBLE)
        *    or...
-       * B. Pass an instance of Data to a new, elevated 
-       *    process so the process can then write that 
+       * B. Pass an instance of Data to a new, elevated
+       *    process so the process can then write that
        *    Data to the Registry.
-       *    
-       *    Because data cannot be directly passed between 
+       *
+       *    Because data cannot be directly passed between
        *    elevated and non-elevated processes, this idea
        *    is limited to two implementations:
-       *    > Pass Data via start parameters to a new, 
+       *    > Pass Data via start parameters to a new,
        *      elevated HXE process.
        *      or...
        *    > Write Data to a file and read that file in
@@ -275,13 +307,13 @@ namespace HXE.HCE
           UseShellExecute  = true,
           Verb             = "runas"
           /** runas rundown
-            * "runas" implicitly means "Run As Administrator". 
+            * "runas" implicitly means "Run As Administrator".
             * This particular Verb requires UseShellExecute to be True.
             * As it is with many string variables and parameters, acceptable
             *  values are poorly documented.
-            * Microsoft Docs explains the acceptable values depend on the file 
+            * Microsoft Docs explains the acceptable values depend on the file
             *  extension of the process' file name.
-            * The only examples it provides are valid for .txt and suggests using 
+            * The only examples it provides are valid for .txt and suggests using
             *  StartInfo.Verbs to print/list acceptable values for the given file name.
             * See https://stackoverflow.com/a/133500
             */
@@ -311,7 +343,7 @@ namespace HXE.HCE
         case "Retail":
           {
             key = WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG, Retail));
-            
+
             data.Version     = "1.10";
             data.VersionType = "RetailVersion";
             key.SetValue("CDPath"          , data.CDPath          , RegistryValueKind.String);
@@ -503,8 +535,8 @@ namespace HXE.HCE
        *  HEK    : Halo HEK
        */
 
-      /** ---- SubKey Values and Rules ---- 
-       *  PLEASE refer to the examples below this section for rules. 
+      /** ---- SubKey Values and Rules ----
+       *  PLEASE refer to the examples below this section for rules.
        *  Don't assign incompatible values!
        */
       public string          CDPath           = $@"{Environment.CurrentDirectory}";
@@ -521,7 +553,7 @@ namespace HXE.HCE
       public readonly string Zone             = "http://www.zone.com/asp/script/default.asp?Game=Halo&password=Password";
 
       /// SubKey Examples
-      /** Halo 
+      /** Halo
        *  | Type   | Name             | Value
        *  | ------ | ---------------- | -----
        *  | String | CDPath           | C:\Users\Noah\Desktop\Halo PC\
@@ -531,7 +563,7 @@ namespace HXE.HCE
        *  | String | InstalledGroup   | 1
        *  | DWord  | LangID           | 9
        *  | String | Launched         | 1
-       *  | String | PendingVersion   | 
+       *  | String | PendingVersion   |
        *  | String | PID              | 75043-035-5925194-40507
        *  | String | Version          | 1.10
        *  | String | VersionType      | RetailVersion
@@ -548,7 +580,7 @@ namespace HXE.HCE
        *  | String | InstalledGroup   | 1
        *  | DWord  | LangID           | 9
        *  | String | Launched         | 1
-       *  | String | PendingVersion   | 
+       *  | String | PendingVersion   |
        *  | String | PID              | 75043-035-5925194-40060
        *  | String | Version          | 1.10
        *  | String | VersionType      | TrialVersion
@@ -558,12 +590,12 @@ namespace HXE.HCE
        *  | Type   | Name             | Value
        *  | ------ | ---------------- | -----
        *  | String | CDPath           | H:\Downloads\Games\Halo1\
-       *  | Binary | DigitalProductID | 
+       *  | Binary | DigitalProductID |
        *  | String | EXE Path         | J:\Games\Halo Trial
        *  | String | InstalledGroup   | 1
        *  | DWord  | LangID           | 9
        *  | String | Launched         | 1
-       *  | String | PID              | 
+       *  | String | PID              |
        *  | String | Version          | 1.10
        *  | String | VersionType      | TrialVersion
        */
@@ -572,12 +604,12 @@ namespace HXE.HCE
        *  | Type   | Name             | Value
        *  | ------ | ---------------- | -----
        *  | String | CDPath           | H:\Downloads\
-       *  | Binary | DigitalProductID | 
+       *  | Binary | DigitalProductID |
        *  | String | EXE Path         | J:\Games\Halo Custom Edition
        *  | String | InstalledGroup   | 1
        *  | DWord  | LangID           | 9
        *  | String | Launched         | 1
-       *  | String | PID              | 
+       *  | String | PID              |
        *  | String | VersionType      | TrialVersion
        */
     }
