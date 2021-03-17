@@ -73,9 +73,17 @@ namespace HXE.HCE
       }
     }*/
 
+    public enum Game
+    {
+      Retail,
+      Custom,
+      Trial,
+      HEK
+    }
+
     public static string WoWCheck()
     {
-      return null != WinReg.LocalMachine.OpenSubKey(x86_64) ? x86_64 : x86;
+      return Environment.Is64BitOperatingSystem ? x86_64 : x86;
     }
 
     public static bool GameExists(string game)
