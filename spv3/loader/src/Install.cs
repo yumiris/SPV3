@@ -583,7 +583,22 @@ namespace SPV3
 
     public void IsHaloOrCEARunning()
     {
-      var inferredProcess = HXE.Process.Infer();
+      var inferredProcess = HXE.Process.Type.Unknown;
+      try
+      {
+        inferredProcess = HXE.Process.Infer();
+      }
+      catch(Exception e)
+      {
+        var msg  = "Failed to infer Halo process." + NewLine
+                 + " Error:  " + e.ToString() + NewLine;
+        var log  = (HXE.File) Paths.Exception;
+        var ilog = (HXE.File) Paths.Install;
+        log.AppendAllText(msg);
+        ilog.AppendAllText(msg);
+        Status = "Failed to infer Halo process." + NewLine
+               + " Error:  " + e.Message;
+      }
 
       if (inferredProcess != HXE.Process.Type.Unknown)
       {

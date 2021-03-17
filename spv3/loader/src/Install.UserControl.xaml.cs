@@ -143,7 +143,18 @@ namespace SPV3
 
     private void DirctList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
     {
-      _install.CheckMCCWinStorePath(DirctList.SelectedValue.ToString());
+      /** After returning to the main menu to restart the
+       * Install/Activation procedure, the selection will
+       * be changed because it no longer exists.
+       */
+      try
+      {
+        _install.CheckMCCWinStorePath(DirctList.SelectedValue.ToString());
+      }
+      catch(NullReferenceException)
+      {
+        return;
+      }
     }
 
     private void OnLoadDrive(object sender, RoutedEventArgs e)

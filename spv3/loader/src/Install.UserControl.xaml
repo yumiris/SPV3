@@ -391,7 +391,9 @@
                  Content="{Binding Status}"
                  Foreground="White"
                  HorizontalAlignment="Center"
-                 VerticalAlignment="Center"/>
+                 VerticalAlignment="Center"
+                 HorizontalContentAlignment="Center"
+                 ToolTip="{Binding Status}"/>
           <Button Grid.Column="2"
                   Click="Quit"
                   Content="Exit"/>

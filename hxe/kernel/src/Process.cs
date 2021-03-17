@@ -50,15 +50,37 @@ namespace HXE
 		/// <returns>Type of Platform</returns>
 		public static Type Infer()
 		{
-			var processCandidate = Candidates
-				.FirstOrDefault(x => DeeperCheck(GetProcesses()
-					.FirstOrDefault(Processname => Processname.ProcessName == x.Name)));
+			var processCandidate = new Candidate();
+			try
+			{
+				processCandidate = Candidates
+					.FirstOrDefault(x => DeeperCheck(GetProcesses()
+						.FirstOrDefault(Processname => Processname.ProcessName == x.Name), x.Name));
+			}
+			catch(System.Exception e)
+      {
+				var msg = $" -- Process Inference failed{NewLine}Error:  { e }{NewLine}";
+				var log = (File) Paths.Exception;
+				log.AppendAllText(msg);
+				Console.Info(msg);
+				throw;
+			}
 
 			return processCandidate?.Type ?? Type.Unknown;
 		}
 
-		static bool DeeperCheck(System.Diagnostics.Process process)
+		static bool DeeperCheck(System.Diagnostics.Process process, string candidateName)
 		{
+			/** Check for NullReferenceException (no processes match current candidate) */
+			try
+			{
+				bool check = process.ProcessName == candidateName;
+			}
+			catch(System.NullReferenceException)
+      {
+				return false;
+      }
+
 			switch(process.ProcessName)
 			{
 				case "halo":
@@ -103,7 +125,7 @@ namespace HXE
 				var msg = $" -- Process Inference failed{NewLine}{msg2}{NewLine}Error:  { e }{NewLine}";
 				var log = (File) Paths.Exception;
 				log.AppendAllText(msg);
-				Console.Info(msg);
+				Console.Error(msg);;
 			}
 		}
 
