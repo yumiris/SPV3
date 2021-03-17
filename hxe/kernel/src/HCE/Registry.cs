@@ -35,9 +35,8 @@ namespace HXE.HCE
   {
     //  private static string _dpid   = BogusDPID;
 
-    public const string x86       = @"SOFTWARE\Microsoft";
-    public const string x86_64    = @"SOFTWARE\WOW6432Node\Microsoft";
-    public const string MSG       = "Microsoft Games";
+    public const string x86       = @"SOFTWARE\Microsoft\Microsoft Games";
+    public const string x86_64    = @"SOFTWARE\WOW6432Node\Microsoft\Microsoft Games";
     public const string Retail    = "Halo";
     public const string Custom    = "Halo CE";
     public const string Trial     = "Halo Trial";
@@ -91,13 +90,13 @@ namespace HXE.HCE
       switch(game)
       {
         case "Retail":
-          return null != WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG, Retail));
+          return null != WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), Retail));
         case "Custom":
-          return null != WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG, Custom));
+          return null != WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), Custom));
         case "Trial":
-          return null != WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG, Trial));
+          return null != WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), Trial));
         case "HEK":
-          return null != WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG, HEK));
+          return null != WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), HEK));
         default:
           throw new ArgumentException("The variable passed to GameExists() is invalid.");
       }
@@ -114,10 +113,10 @@ namespace HXE.HCE
       switch (game)
       {
         case "Retail":
-          subkey = Path.Combine(WoWCheck(), MSG, Retail);
+          subkey = Path.Combine(WoWCheck(), Retail);
           break;
         case "Custom":
-          subkey = Path.Combine(WoWCheck(), MSG, Custom);
+          subkey = Path.Combine(WoWCheck(), Custom);
           break;
         default:
           throw new ArgumentException("The specified game does not need activation.");
@@ -176,7 +175,7 @@ namespace HXE.HCE
             content =
               "Windows Registry Editor Version 5.00"                                               + "\r\n" +
                                                                                                      "\r\n" +
-              $@"[HKEY_LOCAL_MACHINE\{WoWCheck()}\{MSG}\{Retail}]"                                 + "\r\n" +
+              $@"[HKEY_LOCAL_MACHINE\{WoWCheck()}\{Retail}]"                                       + "\r\n" +
               $"\"Zone\" = \"{data.Zone}\""                                                        + "\r\n" +
               $"\"Version\"=\"{data.Version}\""                                                    + "\r\n" +
               "\"DistID\"=dword:0000035c"                                                          + "\r\n" +
@@ -203,7 +202,7 @@ namespace HXE.HCE
             content =
               "Windows Registry Editor Version 5.00"                                               + "\r\n" +
                                                                                                      "\r\n" +
-              $@"[HKEY_LOCAL_MACHINE\{WoWCheck()}\{MSG}\{Custom}]"                                 + "\r\n" +
+              $@"[HKEY_LOCAL_MACHINE\{WoWCheck()}\{Custom}]"                                       + "\r\n" +
               $"\"Version\"=\"{data.Version}\""                                                    + "\r\n" +
               "\"DistID\"=dword:0000035c"                                                          + "\r\n" +
               "\"Launched\"=\"0\""                                                                 + "\r\n" +
@@ -229,7 +228,7 @@ namespace HXE.HCE
             content =
               "Windows Registry Editor Version 5.00"                                               + "\r\n" +
                                                                                                      "\r\n" +
-              $@"[HKEY_LOCAL_MACHINE\{WoWCheck()}\{MSG}\{Trial}]"                                  + "\r\n" +
+              $@"[HKEY_LOCAL_MACHINE\{WoWCheck()}\{Trial}]"                                        + "\r\n" +
               "\"Version\"=\"1\""                                                                  + "\r\n" +
               "\"Launched\"=\"0\""                                                                 + "\r\n" +
               "\"PID\"=\"\""                                                                       + "\r\n" +
@@ -247,7 +246,7 @@ namespace HXE.HCE
             content =
               "Windows Registry Editor Version 5.00"                                               + "\r\n" +
                                                                                                      "\r\n" +
-              $@"[HKEY_LOCAL_MACHINE\{WoWCheck()}\{MSG}\{HEK}]"                                    + "\r\n" +
+              $@"[HKEY_LOCAL_MACHINE\{WoWCheck()}\{HEK}]"                                          + "\r\n" +
               "\"Launched\"=\"0\""                                                                 + "\r\n" +
               "\"PID\"=\"\""                                                                       + "\r\n" +
               "\"DigitalProductID\"=hex:"                                                          + "\r\n" +
@@ -335,22 +334,26 @@ namespace HXE.HCE
         }
       }
 
-      var key = WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG), true);
+      var key = WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck()), true);
       /// Create the game's registry key if it doesn't exist.
       if (key == null)
       {
-        var key2 = WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG), true);
-        if (key2 == null)
+        var path0 = Environment.Is64BitOperatingSystem ? @"SOFTWARE\WOW6432Node" : @"SOFTWARE";
+        var path1 = Path.Combine(path0, "Microsoft", "Microsoft Games");
+        var MSGames = WinReg.LocalMachine.OpenSubKey($"{path0}\\Microsoft\\Microsoft Games", true);
+
+        if (MSGames == null)
         {
-          WinReg.LocalMachine.OpenSubKey(WoWCheck(), true).CreateSubKey(MSG);
+          WinReg.LocalMachine.OpenSubKey(Path.Combine(path0, "Microsoft"), true).CreateSubKey("Microsoft Games");
         }
-        key2.CreateSubKey(game);
+
+        MSGames.CreateSubKey(game);
       }
       switch (game)
       {
         case "Retail":
           {
-            key = WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), MSG, Retail));
+            key = WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), Retail));
 
             data.Version     = "1.10";
             data.VersionType = "RetailVersion";
@@ -370,7 +373,7 @@ namespace HXE.HCE
           break;
         case "Custom":
           {
-            key = WinReg.LocalMachine.OpenSubKey(Path.Combine());
+            key = WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), Custom));
             data.Version     = "1.10";
             data.VersionType = "TrialVersion";
             key.SetValue("CDPath"          , data.CDPath          , RegistryValueKind.String);
@@ -388,7 +391,7 @@ namespace HXE.HCE
           break;
         case "Trial":
           {
-            key = WinReg.LocalMachine.OpenSubKey(Path.Combine());
+            key = WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), Trial));
             data.DigitalProductID = null;
             data.PID              = null;
             data.Version          = "1";
@@ -406,7 +409,7 @@ namespace HXE.HCE
           break;
         case "HEK":
           {
-            key = WinReg.LocalMachine.OpenSubKey(Path.Combine());
+            key = WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), HEK));
             data.DigitalProductID = null;
             data.PID              = null;
             data.VersionType      = "TrialVersion";
@@ -444,7 +447,7 @@ namespace HXE.HCE
 
     public static Data GetRegistryKeys(string game, Data data)
     {
-      string path = Path.Combine(WoWCheck(), MSG);
+      string path = WoWCheck();
       RegistryKey key;
 
       try
