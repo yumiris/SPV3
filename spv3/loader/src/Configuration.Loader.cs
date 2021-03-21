@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2019 Emilian Roman
  * Copyright (c) 2020 Noah Sherwin
- * 
+ *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
  * arising from the use of this software.
- * 
+ *
  * Permission is granted to anyone to use this software for any purpose,
  * including commercial applications, and to alter it and redistribute it
  * freely, subject to the following restrictions:
- * 
+ *
  * 1. The origin of this software must not be misrepresented; you must not
  *    claim that you wrote the original software. If you use this software
  *    in a product, an acknowledgment in the product documentation would be
@@ -58,7 +58,7 @@ namespace SPV3
        /**
        * 0 == Fullscreen
        * 1 == Window
-       * 2 == Borderless 
+       * 2 == Borderless
        */
       public byte DisplayMode
       {
@@ -175,8 +175,9 @@ namespace SPV3
           if (value == _vsync) return;
           _vsync = value;
           OnPropertyChanged();
-          if (value == true) DisplayMode = 0;
-          // UpdateWindowBorderless() is called by DisplayMode.Set{}. Sets Borderless to False if Vsync is True.
+          if (value == true && DisplayMode == (byte) DisplayModes.Borderless)
+            DisplayMode = (byte) DisplayModes.Fullscreen;
+          // UpdateWindowBorderless() is called by DisplayMode.Set{}; Sets Borderless to False if Vsync is True.
         }
       }
 
