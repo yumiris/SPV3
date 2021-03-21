@@ -54,6 +54,7 @@ namespace SPV3
     private          string     _target   = Path.Combine(GetFolderPath(Personal), "My Games", "Halo SPV3");
     private          string     _steamExe = Path.Combine(Steam, SteamExe);
     private          string     _steamStatus = "Find Steam.exe or its shortcut and we'll do the rest!";
+    private          string      _winStoreStatus = "Choose the drive where halo MCC CEA is!";
 
     public bool CanInstall
     {
@@ -112,7 +113,18 @@ namespace SPV3
       }
     }
 
-    public string Target
+        public string WinStoreStatus
+        {
+            get => _winStoreStatus;
+            set
+            {
+                if (value == _winStoreStatus) return;
+                _winStoreStatus = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Target
     {
       get => _target;
       set
@@ -393,6 +405,30 @@ namespace SPV3
         Update_SteamStatus();
     }
 
+    public void CheckMCCWinStorePath(string drive)
+        {
+            var path = $"{drive}Program Files\\ModifiableWindowsApps\\HaloMCC\\halo1";
+
+            if (Exists(path + "\\halo1.dll"))
+            {
+                Kernel.hxe.Tweaks.Patches |= Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS;
+                Status = "Halo CEA Located via WinStore Mod." + NewLine
+                 + _ssdRec + NewLine;
+                CanInstall = true;
+                Main = Visible;
+                Activation = Collapsed;
+            }
+            else
+            {
+                WinStoreStatus = "Failed to find CEA on the drive";
+                var msg = WinStoreStatus + NewLine
+                        + " Error: " + "Could not find CEA for Winstore on " +drive + NewLine;
+                var log = (HXE.File)Paths.Exception;
+                log.AppendAllText(msg);
+                return;
+            }
+        }
+
     public void ValidateTarget(string path)
     {
       /** Check validity of the specified target value.
@@ -577,8 +613,6 @@ namespace SPV3
             Status                    =  $"Process Detection: MCC CEA Found{NewLine}{_ssdRec}";
             break;
         }
-
-        Status = "Process Detection: MCC Found, but CEA not present";
       }
       else
         Status = $"Process Detection: No Matching Processes{NewLine}No MCC (with CEA), HPC, or HCE processes found.";

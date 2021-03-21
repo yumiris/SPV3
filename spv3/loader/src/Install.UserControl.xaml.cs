@@ -19,6 +19,7 @@
  */
 
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
@@ -138,5 +139,17 @@ namespace SPV3
     /// Flip boolean on click
     private void CompressButton_Click(object sender, RoutedEventArgs e) =>
       _install.Compress = true != _install.Compress;
-  }
+
+
+        private void DirctList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            _install.CheckMCCWinStorePath(DirctList.SelectedValue.ToString());
+        }
+
+        private void onLoadDrive(object sender, RoutedEventArgs e)
+        {
+            var allDrives = DriveInfo.GetDrives();
+            DirctList.ItemsSource = allDrives;
+        }
+    }
 }

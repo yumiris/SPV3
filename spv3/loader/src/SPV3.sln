@@ -4,8 +4,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3", "SPV3.csproj", "{C6922C15-C0C1-46D0-B2BC-2B0FF2BAD82B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4F3BAC0A-DD55-4D79-B7A1-1662A59D51A3} = {4F3BAC0A-DD55-4D79-B7A1-1662A59D51A3}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HXE", "..\..\..\hxe\kernel\src\HXE.csproj", "{ACAA5D9F-B23D-43E1-B2DF-8C03230975A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validator", "..\Validator\Validator.csproj", "{4F3BAC0A-DD55-4D79-B7A1-1662A59D51A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +26,10 @@ Global
 		{ACAA5D9F-B23D-43E1-B2DF-8C03230975A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACAA5D9F-B23D-43E1-B2DF-8C03230975A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACAA5D9F-B23D-43E1-B2DF-8C03230975A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F3BAC0A-DD55-4D79-B7A1-1662A59D51A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F3BAC0A-DD55-4D79-B7A1-1662A59D51A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F3BAC0A-DD55-4D79-B7A1-1662A59D51A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F3BAC0A-DD55-4D79-B7A1-1662A59D51A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
