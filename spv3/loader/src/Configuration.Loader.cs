@@ -68,7 +68,7 @@ namespace SPV3
           if (value == _displayMode) return;
           _displayMode = value;
           OnPropertyChanged();
-          UpdateWindowBorderless();
+          UpdateDisplayParams();
         }
       }
 
@@ -177,7 +177,7 @@ namespace SPV3
           OnPropertyChanged();
           if (value == true && DisplayMode == (byte) DisplayModes.Borderless)
             DisplayMode = (byte) DisplayModes.Fullscreen;
-          // UpdateWindowBorderless() is called by DisplayMode.Set{}; Sets Borderless to False if Vsync is True.
+          // UpdateDisplayParams() is called by DisplayMode.Set{}; Sets Borderless to False if Vsync is True.
         }
       }
 
@@ -283,7 +283,7 @@ namespace SPV3
 
       public event PropertyChangedEventHandler PropertyChanged;
 
-      public void UpdateWindowBorderless()
+      public void UpdateDisplayParams()
       {
         switch(_displayMode)
         {
