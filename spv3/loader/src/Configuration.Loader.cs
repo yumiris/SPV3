@@ -39,21 +39,21 @@ namespace SPV3
       private byte   _adapter;                                          /* physical monitor to run hce/spv3 on        */
       private bool   _borderless = false;                               /* run hce/spv3 without window borders        */
       private bool   _cinemabars = false;                               /* toggle spv3 cinematic black bars           */
+      private byte   _displayMode = 0;                                  /* display - fullscreen/window/borderless     */
       private bool   _doom     = false;                                 /* toggle spv3 doom mode                      */
       private bool   _eax      = false;                                 /* toggle hw accel. & environmental sound     */
+      private bool   _elevated = false;                                 /* runs spv3/hce in elevated (admin) mode     */
       private byte   _framerate = 60;                                   /* framerate to run spv3 at (in vsync mode)   */
       private bool   _gammaOn  = false;                                 /* when false, runs spv3/hce with -nogamma    */
       private byte   _gamma    = 150;                                   /* gamma level to run spv3 at (in vsync mode) */
       private ushort _height   = (ushort) PrimaryScreen.Bounds.Height;  /* height spv3/hce will be displayed at       */
-      private byte   _displayMode = 0;                                  /* display - fullscreen/window/borderless     */
       private bool   _photo    = false;                                 /* enables spv3 photo/blind mode              */
-      private bool   _vsync    = false;                                 /* V-sync preference (locked vs unlocked)     */
       private bool   _preset   = true;                                  /* use the built-in spv3 controller preset    */
       private bool   _resolutionEnabled = false;                        /* ability to provide custom resolution       */
       private bool   _shaders  = true;                                  /* toggle spv3 post-processing effects        */
+      private bool   _vsync    = false;                                 /* V-sync preference (locked vs unlocked)     */
       private ushort _width    = (ushort) PrimaryScreen.Bounds.Width;   /* width spv3/hce will be displayed at        */
       private bool   _window   = false;                                 /* runs spv3/hce as a windowed application    */
-      private bool   _elevated = false;                                 /* runs spv3/hce in elevated (admin) mode     */
 
        /**
        * 0 == Fullscreen
@@ -285,15 +285,32 @@ namespace SPV3
 
       public void UpdateWindowBorderless()
       {
-        Window = _displayMode == 1 || _displayMode == 2;
-        if (_displayMode == 2)
+        switch(_displayMode)
         {
-          Borderless = true;
-          Elevated = false;
-          Vsync = false;
-          ResolutionEnabled = false;
+          case 0:
+            Borderless        = false;
+          /*Elevated          = Elevated;          */
+          /*ResolutionEnabled = ResolutionEnabled; */
+          /*Vsync             = Vsync;             */
+            Window            = false;
+            break;
+          case 1:
+            Borderless        = false;
+          /*Elevated          = Elevated;          */
+          /*ResolutionEnabled = ResolutionEnabled  */
+            Vsync             = true;
+            Window            = true;
+            break;
+          case 2:
+            Borderless        = true;
+            Elevated          = false;
+            ResolutionEnabled = false;
+            Vsync             = true;
+            Window            = true;
+            break;
+          default:
+            break;
         }
-        else Borderless = false;
       }
 
       public void Save()
