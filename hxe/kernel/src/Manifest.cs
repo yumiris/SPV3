@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Xml.Serialization;
+using SevenZip.Compression.LZMA;
 using static System.Text.Encoding;
 
 namespace HXE
@@ -39,6 +40,7 @@ namespace HXE
     public void Save()
     {
       var    mode = CompressionMode.Compress;
+      var    encoder = new Encoder();
       byte[] data;
 
       using (var writer = new StringWriter())
