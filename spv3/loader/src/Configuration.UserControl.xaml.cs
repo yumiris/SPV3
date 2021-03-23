@@ -66,14 +66,7 @@ namespace SPV3
     {
       try
       {
-        new AmaiSosu
-        {
-          Path = Directory.EnumerateFiles(
-            Environment.CurrentDirectory,
-            "amaisosu*.exe",
-            SearchOption.TopDirectoryOnly
-            ).First()
-        }.Execute();
+        new AmaiSosu{}.Execute();
       }
       catch (Exception exception)
       {
