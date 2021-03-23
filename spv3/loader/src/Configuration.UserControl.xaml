@@ -101,18 +101,28 @@
                      IsEnabled="{Binding Loader.ResolutionEnabled}" Grid.ColumnSpan="1" />
         </DockPanel>
         <DockPanel Margin="0,5,0,0">
-          <Label Content="V-Sync" />
-          <CheckBox IsChecked="{Binding Loader.Vsync}" 
-                    HorizontalAlignment="Left"/>
-          <TextBox  Width="50"
+          <ComboBox SelectedIndex="{Binding Loader.FramerateControl}"
+                    SelectionChanged="FramerateControl"
+                    Width="133"
+                    HorizontalAlignment="Left">
+            <ComboBoxItem Content="V-Sync"
+                          ToolTip="NOT RECOMMENDED. Use Halo's built-in V-Sync to avoid screen tearing. Significantly increases input latency." />
+            <ComboBoxItem Content="Fast Sync/Throttle"
+                          ToolTip="RECOMMENDED. Use Chimera's framerate throttle to mitigate screen tearing. A good balance of minimal screen tearing with low input latency."/>
+            <ComboBoxItem Content="Uncapped"
+                          ToolTip="The framerate is only limited by your hardware. Causes obscene screen tearing, but minimal input latency. Useful for performance benchmarks." />
+          </ComboBox>
+          <TextBox  Margin="6,0,0,0"
+                    Width="50"
                     HorizontalAlignment="Left"
                     HorizontalContentAlignment="Center"
+                    TextChanged="FramerateControl"
+                    IsEnabled="{Binding Loader.FramerateIsCapped}"
                     Text="{Binding Loader.Framerate}"
-                    IsEnabled="{Binding Loader.Vsync}"
-                    ToolTip="Set the in-game refresh rate." />
+                    ToolTip="Set the in-game refresh rate or framerate limit." />
         </DockPanel>
         <DockPanel Margin="0,5,0,0">
-          <Label Content="Gamma"/>
+          <Label Content="Gamma:"/>
           <CheckBox IsChecked="{Binding Loader.GammaOn}" 
                     HorizontalAlignment="Left"/>
           <TextBox  Width="50"
