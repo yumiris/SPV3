@@ -52,7 +52,7 @@ namespace SPV3
     private          Visibility _main     = Visible;
     private          string     _status   = _ssdRec;
     private          string     _target   = Path.Combine(GetFolderPath(Personal), "My Games", "Halo SPV3");
-    private          string     _steamExe = Path.Combine(Steam, SteamExe);
+    private          string     _steamExe = Path.Combine(HXE.Paths.Steam.Directory, HXE.Paths.Steam.SteamExe);
     private          string     _steamStatus = "Find Steam.exe or its shortcut and we'll do the rest!";
     private          string     _winStoreStatus = "Choose the drive where Halo MCC CEA is located!";
 
@@ -368,15 +368,15 @@ namespace SPV3
     {
       if (Exists(exe) && exe.Contains("steam.exe"))
       {
-        SetSteam(exe);
+        HXE.Paths.Steam.SetSteam(exe);
         Update_SteamStatus();
-        Halo1Path = Path.Combine(SteamLibrary, SteamMccH1, Halo1dll);
+        Halo1Path = Path.Combine(HXE.Paths.Steam.Library, HTMCC, Halo1dir, Halo1dll);
 
         if (!Exists(Halo1Path))
         {
           try
           {
-            MCC.Halo1.SetHalo1Path();
+            MCC.Halo1.SetHalo1Path(MCC.Halo1.Platform.Steam);
           }
           catch (Exception e)
           {
