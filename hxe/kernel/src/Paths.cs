@@ -178,12 +178,12 @@ namespace HXE
       public static readonly string SteamDefault = Combine(ProgFiles, "Steam");
 
       public static string Directory = SteamDefault; /// Change via SetSteam(steamexepath)
-      public static string LibList   = Combine(Directory, "steamapps", "libraryfolders.vdf");
+      public static string Libraries = Combine(Directory, "steamapps", "libraryfolders.vdf");
       public static string Library   = Directory;    /// Change directly or by assigning an element from Libraries.LibList[]
       public static void SetSteam(string steamexepath)
       {
         Directory = GetDirectoryName(steamexepath);
-        LibList   = Combine(Directory, "steamapps", "libraryfolders.vdf");
+        Libraries = Combine(Directory, "steamapps", "libraryfolders.vdf");
         Library   = Directory;
       }
     }
