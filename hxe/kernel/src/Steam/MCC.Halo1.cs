@@ -19,6 +19,7 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
+using System;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -48,11 +49,11 @@ namespace HXE.Steam
             break;
           case Platform.WinStore:
             // TODO
-            throw new System.NotImplementedException("TODO: Add function to find WinStore MCC files.");
+            throw new NotImplementedException("TODO: Add function to find WinStore MCC files.");
             //break;
           default:
-            throw new System.ArgumentOutOfRangeException(
-              $"Cannot set Halo1.dll path: Specified platform is invalid." + System.Environment.NewLine +
+            throw new ArgumentOutOfRangeException(
+              $"Cannot set Halo1.dll path: Specified platform is invalid." + Environment.NewLine +
               $"How did you do that?");
         }
 
@@ -60,60 +61,52 @@ namespace HXE.Steam
           throw new FileNotFoundException("Halo1.dll not found");
 
         if (!VerifyHalo1DLL())
-          throw new System.Exception("Halo1.dll is invalid.");
+          throw new Exception("Halo1.dll is invalid.");
       }
 
       /// <summary>
       /// Check if the inferred Halo1.dll is probably legitimate.
       /// </summary>
       /// <returns>
-      /// Returns true if the file's Digital Certificate is valid.
+      /// true if the file's Digital Certificate is valid.
       /// </returns>
       public static bool VerifyHalo1DLL()
       {
-        var assembly = Assembly.GetExecutingAssembly();
+        /// Known issue: This doesn't verify the file is a real Halo1.dll
+        /// It merely checks if the file's certificate is valid.
 
         /** Convert embedded resource to X509Certificate */
-        var P7B_Fallback = new X509Certificate();
+        X509Certificate P7B_Fallback;
         {
           var ms = new MemoryStream();
+          var assembly = Assembly.GetExecutingAssembly();
           assembly.GetManifestResourceStream(@"HXE.Assets.343I_DER.cer").CopyTo(ms);
-          var d = ms.ToArray();
-          P7B_Fallback = new X509Certificate(d);
+          P7B_Fallback = new X509Certificate(ms.ToArray());
         }
-
 
         /** Get 343 Industries' Public Key from internet source. */
-        // TODO: Add URI for web-accessible public key
-        var uri = string.Empty;
-        X509Certificate remoteCert;
-        try
-        {
-          remoteCert = new X509Certificate((GetWebStream(uri) as MemoryStream).ToArray());
-        }
-        catch(System.Exception)
-        {
-          remoteCert = null;
-        }
+        // TODO: Add OFFICIAL URI for web-accessible public key
+        var uri = "https://github.com/HaloSPV3/HCE/releases/download/updates/343I_DER.exp2022-04-27.cer";
+        X509Certificate remoteCert = new X509Certificate();
+        if (!string.IsNullOrEmpty(uri))
+          remoteCert = new X509Certificate(GetWebStream(uri).ToArray());
 
-        /** Get Public Key of reference Certificate.
+        /** Get Public Key of a reference Certificate.
          * If we failed to get the remote certificate,
          * fallback to the embedded resource.
+         * This allows for offline validation.
          */
-        var publicKey = remoteCert == null ?
+        var publicKey_ref = string.IsNullOrEmpty(uri) ?
             P7B_Fallback.GetPublicKey() :
             remoteCert.GetPublicKey();
 
         /** Get certificate from local Halo1.dll. */
-
-        var file = Assembly.LoadFrom(Halo1Path);
-        Module module = file.GetModules().First();
-        var cert = module.GetSignerCertificate();
+        var publicKey_file = new X509Certificate(Halo1Path).GetPublicKey();
 
         /** Return whether or not Halo1.dll is valid.
          * If the Halo1.dll certificate's public key is equal to
          * the cached PublicKey, return True. */
-        return cert.GetPublicKey() == publicKey;
+        return publicKey_file.SequenceEqual(publicKey_ref);
       }
 
       public enum Platform
@@ -122,17 +115,17 @@ namespace HXE.Steam
         WinStore
       }
 
-      public static Stream GetWebStream(string uri)
+      public static MemoryStream GetWebStream(string uri)
       {
-        Stream dataStream;
+        MemoryStream dataStream = new MemoryStream();
         var webRequest = WebRequest.Create(uri);
         webRequest.CachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.NoCacheNoStore);
 
         using (var wr = (HttpWebResponse) webRequest.GetResponse())
         using (var rs = wr.GetResponseStream())
-        using (var sr = new StreamReader(rs ?? throw new System.NullReferenceException("No response.")))
+        using (var sr = new StreamReader(rs ?? throw new NullReferenceException("No response.")))
         {
-          dataStream = sr.BaseStream;
+          sr.BaseStream.CopyTo(dataStream);
         }
 
         return dataStream;
