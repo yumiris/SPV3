@@ -26,6 +26,7 @@ using System.Net;
 using System.Net.Cache;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 using static HXE.Paths.MCC;
 
 namespace HXE.Steam
@@ -37,7 +38,7 @@ namespace HXE.Steam
       /// <summary>
       /// Set a new path for Halo1.dll
       /// </summary>
-      public static void SetHalo1Path(Platform platform)
+      public static async Task SetHalo1Path(Platform platform)
       {
         switch(platform)
         {
@@ -61,7 +62,7 @@ namespace HXE.Steam
           throw new FileNotFoundException("Halo1.dll not found");
 
         if (!VerifyHalo1DLL())
-          throw new Exception("Halo1.dll is invalid.");
+          throw new Exception("Halo1.dll is invalid.");;
       }
 
       /// <summary>

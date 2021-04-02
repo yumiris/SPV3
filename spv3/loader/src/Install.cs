@@ -214,7 +214,7 @@ namespace SPV3
       Activation  = Visible;
 
       if (Exists(SteamExePath))
-        CheckSteamPath(SteamExePath);
+        await CheckSteamPath(SteamExePath);
     }
 
     public async void Commit()
@@ -364,7 +364,7 @@ namespace SPV3
         "Find Steam.exe or a Steam shortcut and we'll do the rest!";
     }
 
-    public void CheckSteamPath(string exe)
+    public async Task CheckSteamPath(string exe)
     {
       if (Exists(exe) && exe.Contains("steam.exe"))
       {
@@ -372,11 +372,14 @@ namespace SPV3
         Update_SteamStatus();
         Halo1Path = Path.Combine(HXE.Paths.Steam.Library, HTMCC, Halo1dir, Halo1dll);
 
-        if (!Exists(Halo1Path))
-        {
+        if (Exists(Halo1Path))
+          Activate();
+        else
           try
           {
-            MCC.Halo1.SetHalo1Path(MCC.Halo1.Platform.Steam);
+            SteamStatus = "Searching for and validating Halo CEA's files...";
+            await MCC.Halo1.SetHalo1Path(MCC.Halo1.Platform.Steam);
+            Activate();
           }
           catch (Exception e)
           {
@@ -387,22 +390,22 @@ namespace SPV3
             log.AppendAllText(msg);
             return;
           }
-        }
 
-        if (Exists(Halo1Path))
-        {
-          Kernel.hxe.Tweaks.Patches |= Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS;
-          Status = "Halo CEA Located via Steam." + NewLine
-                 + _ssdRec + NewLine;
-          CanInstall = true;
-          Main       = Visible;
-          Activation = Collapsed;
-        }
-        else
+        if(!Exists(Halo1Path))
           SteamStatus = "Steam Located, but Halo CEA not found.";
       }
       else
         Update_SteamStatus();
+
+      void Activate()
+      {
+        Kernel.hxe.Tweaks.Patches |= Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS;
+        Status = "Halo CEA Located via Steam." + NewLine
+                + _ssdRec + NewLine;
+        CanInstall = true;
+        Main       = Visible;
+        Activation = Collapsed;
+      }
     }
 
     public void CheckMCCWinStorePath(string drive)
