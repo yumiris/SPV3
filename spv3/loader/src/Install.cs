@@ -52,7 +52,7 @@ namespace SPV3
     private          Visibility _main     = Visible;
     private          string     _status   = _ssdRec;
     private          string     _target   = Path.Combine(GetFolderPath(Personal), "My Games", "Halo SPV3");
-    private          string     _steamExe = Path.Combine(Steam, SteamExe);
+    private          string     _steamExe = Path.Combine(HXE.Paths.Steam.Directory, HXE.Paths.Steam.SteamExe);
     private          string     _steamStatus = "Find Steam.exe or its shortcut and we'll do the rest!";
     private          string     _winStoreStatus = "Choose the drive where Halo MCC CEA is located!";
 
@@ -368,15 +368,18 @@ namespace SPV3
     {
       if (Exists(exe) && exe.Contains("steam.exe"))
       {
-        SetSteam(exe);
+        HXE.Paths.Steam.SetSteam(exe);
         Update_SteamStatus();
-        Halo1Path = Path.Combine(SteamLibrary, SteamMccH1, Halo1dll);
+        Halo1Path = Path.Combine(HXE.Paths.Steam.Library, HTMCC, Halo1dir, Halo1dll);
 
-        if (!Exists(Halo1Path))
-        {
+        if (Exists(Halo1Path))
+          Activate();
+        else
           try
           {
-            MCC.Halo1.SetHalo1Path();
+            SteamStatus = "Searching for and validating Halo CEA's files...";
+            MCC.Halo1.SetHalo1Path(MCC.Halo1.Platform.Steam);
+            Activate();
           }
           catch (Exception e)
           {
@@ -387,22 +390,22 @@ namespace SPV3
             log.AppendAllText(msg);
             return;
           }
-        }
 
-        if (Exists(Halo1Path))
-        {
-          Kernel.hxe.Tweaks.Patches |= Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS;
-          Status = "Halo CEA Located via Steam." + NewLine
-                 + _ssdRec + NewLine;
-          CanInstall = true;
-          Main       = Visible;
-          Activation = Collapsed;
-        }
-        else
+        if (!Exists(Halo1Path))
           SteamStatus = "Steam Located, but Halo CEA not found.";
       }
       else
         Update_SteamStatus();
+
+      void Activate()
+      {
+        Kernel.hxe.Tweaks.Patches |= Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS;
+        Status = "Halo CEA Located via Steam." + NewLine
+                + _ssdRec + NewLine;
+        CanInstall = true;
+        Main = Visible;
+        Activation = Collapsed;
+      }
     }
 
     public void CheckMCCWinStorePath(string drive)

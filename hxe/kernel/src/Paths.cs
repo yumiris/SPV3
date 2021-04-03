@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2019 Emilian Roman
  * Copyright (c) 2020 Noah Sherwin
- * 
+ *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
  * arising from the use of this software.
- * 
+ *
  * Permission is granted to anyone to use this software for any purpose,
  * including commercial applications, and to alter it and redistribute it
  * freely, subject to the following restrictions:
- * 
+ *
  * 1. The origin of this software must not be misrepresented; you must not
  *    claim that you wrote the original software. If you use this software
  *    in a product, an acknowledgment in the product documentation would be
@@ -35,6 +35,7 @@ namespace HXE
     public const string Executable = "hxe.exe";
     public const string Manifest   = "manifest.bin";
 
+    public static readonly string ProgFiles     = GetFolderPath(ProgramFilesX86) ??  GetFolderPath(ProgramFiles);
     public static readonly string StartDirectory= Combine(GetDirectoryName(GetCurrentProcess().MainModule.FileName));
     public static readonly string Directory     = Combine(GetFolderPath(ApplicationData), "HXE");
     public static readonly string Configuration = Combine(Directory,                      "kernel-0x05.bin");
@@ -62,7 +63,7 @@ namespace HXE
 
       /*
        * The initiation filename is declared based on the presence of the OpenSauce DLL in the current directory or mods subdirectory.
-       * 
+       *
        * -   initc is interpreted by OpenSauce (InitC = Initiation Client file)
        * -   init is primarily used by dedicated HCE servers for startup commands
        *
@@ -163,36 +164,28 @@ namespace HXE
 
     public class MCC
     {
-      // TODO: Move Steam variables to another class
+      public const string HTMCC    = "Halo The Master Chief Collection";
+      public const string Halo1dir = "Halo1";
       public const string Halo1dll = "halo1.dll";
+
+      public static string Halo1Path = Combine(Steam.Library, HTMCC, Halo1dir, Halo1dll);
+    }
+
+    public class Steam
+    {
       public const string SteamExe = "steam.exe";
-      public const string SteamMccH1 = "steamapps\\common\\Halo The Master Chief Collection\\Halo1";
 
-      /// Determine the path for 32-bit Program Files,
-      /// then Steam's default path
-      /// and the LibraryFolders.vdf path
-      public static readonly string ProgFiles = GetFolderPath(ProgramFilesX86)
-                                                != ""
-                                                ? GetFolderPath(ProgramFilesX86)
-                                                : GetFolderPath(ProgramFiles);
       public static readonly string SteamDefault = Combine(ProgFiles, "Steam");
-      
-      public static string Steam = SteamDefault; /// Change via SetSteam(steamexepath)
-      public static string SteamLibList = Combine(Steam, "steamapps", "libraryfolders.vdf");
-      public static string SteamLibrary = Steam; /// Change directly or by assigning an element from Libraries.LibList[]
-      public static string Halo1Path = Combine(SteamLibrary, SteamMccH1, Halo1dll); ///
 
+      public static string Directory = SteamDefault; /// Change via SetSteam(steamexepath)
+      public static string Libraries = Combine(Directory, "steamapps", "libraryfolders.vdf");
+      public static string Library   = Directory;    /// Change directly or by assigning an element from Libraries.LibList[]
       public static void SetSteam(string steamexepath)
       {
-        Steam = GetDirectoryName(steamexepath);
-        SteamLibList = Combine(Steam, "steamapps", "libraryfolders.vdf");
-        SteamLibrary = Steam;
+        Directory = GetDirectoryName(steamexepath);
+        Libraries = Combine(Directory, "steamapps", "libraryfolders.vdf");
+        Library   = Directory;
       }
-      /// 1. DONE  Search for "\\Steam\\steamapps\\libraryfolder.vdf".
-      /// 2. DONE  Parse the contents for one or more Steam Libary path.
-      /// 3. DONE  Walk each library, searching for "\\{library}\\steamapps\\common\\Halo The Master Chief Collection\\halo1\\halo1.dll"
-      /// 4. DONE  (OPTIONAL) verify it by checking the file size. If it's above 20MiB, it passes the verification check.
-      /// 5. Now, do all of this for custom paths.
     }
   }
 }
