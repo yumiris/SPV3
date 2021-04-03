@@ -1,14 +1,14 @@
 /**
  * Copyright (c) 2019 Emilian Roman
- * 
+ *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
  * arising from the use of this software.
- * 
+ *
  * Permission is granted to anyone to use this software for any purpose,
  * including commercial applications, and to alter it and redistribute it
  * freely, subject to the following restrictions:
- * 
+ *
  * 1. The origin of this software must not be misrepresented; you must not
  *    claim that you wrote the original software. If you use this software
  *    in a product, an acknowledgment in the product documentation would be
@@ -107,7 +107,7 @@ namespace SPV3
     {
       try
       {
-        if (_install == null) 
+        if (_install == null)
           return;
         _install.Target = Target.Text;
       }
@@ -121,7 +121,7 @@ namespace SPV3
     {
       try
       {
-        if (_install == null) 
+        if (_install == null)
           return;
         if (SteamExePath_TextBox.Text.Contains("steam.exe"))
         {
@@ -141,15 +141,25 @@ namespace SPV3
       _install.Compress = true != _install.Compress;
 
 
-        private void DirctList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            _install.CheckMCCWinStorePath(DirctList.SelectedValue.ToString());
-        }
-
-        private void onLoadDrive(object sender, RoutedEventArgs e)
-        {
-            var allDrives = DriveInfo.GetDrives();
-            DirctList.ItemsSource = allDrives;
-        }
+    private void DirctList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+    {
+      /** After returning to the main menu to restart the
+       * Install/Activation procedure, the selection will
+       * be changed because it no longer exists.
+       */
+      try
+      {
+        _install.CheckMCCWinStorePath(DirctList.SelectedValue.ToString());
+      }
+      catch(NullReferenceException)
+      {
+        return;
+      }
     }
+
+    private void OnLoadDrive(object sender, RoutedEventArgs e)
+    {
+      DirctList.ItemsSource = DriveInfo.GetDrives();
+    }
+  }
 }

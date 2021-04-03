@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2019 Emilian Roman
  * Copyright (c) 2020 Noah Sherwin
- * 
+ *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
  * arising from the use of this software.
- * 
+ *
  * Permission is granted to anyone to use this software for any purpose,
  * including commercial applications, and to alter it and redistribute it
  * freely, subject to the following restrictions:
- * 
+ *
  * 1. The origin of this software must not be misrepresented; you must not
  *    claim that you wrote the original software. If you use this software
  *    in a product, an acknowledgment in the product documentation would be
@@ -54,7 +54,7 @@ namespace SPV3
     private          string     _target   = Path.Combine(GetFolderPath(Personal), "My Games", "Halo SPV3");
     private          string     _steamExe = Path.Combine(Steam, SteamExe);
     private          string     _steamStatus = "Find Steam.exe or its shortcut and we'll do the rest!";
-    private          string      _winStoreStatus = "Choose the drive where halo MCC CEA is!";
+    private          string     _winStoreStatus = "Choose the drive where Halo MCC CEA is located!";
 
     public bool CanInstall
     {
@@ -91,7 +91,7 @@ namespace SPV3
 
     public string SteamExePath
     {
-      get => _steamExe; 
+      get => _steamExe;
       set
       {
         if (value == _steamExe) return;
@@ -168,7 +168,7 @@ namespace SPV3
         OnPropertyChanged();
       }
     }
-    
+
     public event PropertyChangedEventHandler PropertyChanged;
 
     public void Initialise()
@@ -432,9 +432,9 @@ namespace SPV3
     public void ValidateTarget(string path)
     {
       /** Check validity of the specified target value.
-       * 
+       *
        */
-      if (string.IsNullOrEmpty(path) 
+      if (string.IsNullOrEmpty(path)
         || !Directory.Exists(Path.GetPathRoot(path)))
       {
         Status = "Enter a valid path.";
@@ -482,10 +482,10 @@ namespace SPV3
       }
 
       /** Check if the target is in Program Files or Program Files (x86)
-       * 
+       *
        */
       if (path.Contains(GetFolderPath(ProgramFiles))
-      || !string.IsNullOrEmpty(GetFolderPath(ProgramFilesX86)) 
+      || !string.IsNullOrEmpty(GetFolderPath(ProgramFilesX86))
       && path.Contains(GetFolderPath(ProgramFilesX86)))
       {
         Status = "The game does not function correctly when install to Program Files. Please choose a difference location.";
@@ -494,23 +494,23 @@ namespace SPV3
       }
 
       /** Prohibit installing to MCC's folder
-       * 
+       *
        */
       if (path.Contains("Halo The Master Chief Collection"))
       {
-        Status = "SPV3 does not run on MCC and it does not alter any game files within MCC." + NewLine 
+        Status = "SPV3 does not run on MCC and it does not alter any game files within MCC." + NewLine
                + "It is a stand alone program built on top of Halo Custom Edition.";
         CanInstall = false;
         return;
       }
 
       /** Check available disk space. This will NOT work on UNC paths!
-       * 
+       *
        */
       try
       {
-        /** First, check the user's temp folder's drive to ensure there's enough free space 
-          * for temporary extraction to %temp% 
+        /** First, check the user's temp folder's drive to ensure there's enough free space
+          * for temporary extraction to %temp%
           */
         {
           var tmpath = Path.GetPathRoot(Path.GetTempPath());
@@ -524,8 +524,8 @@ namespace SPV3
           }
         }
 
-        /** 
-          * Check if the target drive has at least 16GB of free space 
+        /**
+          * Check if the target drive has at least 16GB of free space
           */
         var targetDrive = new DriveInfo(Path.GetPathRoot(path));
 
@@ -583,7 +583,22 @@ namespace SPV3
 
     public void IsHaloOrCEARunning()
     {
-      var inferredProcess = HXE.Process.Infer();
+      var inferredProcess = HXE.Process.Type.Unknown;
+      try
+      {
+        inferredProcess = HXE.Process.Infer();
+      }
+      catch(Exception e)
+      {
+        var msg  = "Failed to infer Halo process." + NewLine
+                 + " Error:  " + e.ToString() + NewLine;
+        var log  = (HXE.File) Paths.Exception;
+        var ilog = (HXE.File) Paths.Install;
+        log.AppendAllText(msg);
+        ilog.AppendAllText(msg);
+        Status = "Failed to infer Halo process." + NewLine
+               + " Error:  " + e.Message;
+      }
 
       if (inferredProcess != HXE.Process.Type.Unknown)
       {
