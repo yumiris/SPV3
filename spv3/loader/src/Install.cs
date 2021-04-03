@@ -190,25 +190,12 @@ namespace SPV3
       {
         Status     = "Could not find manifest in the data directory.";
         CanInstall = false;
-        if (!Debug.IsDebug)
-          return;
-        else
-        {
-          var result = MessageBox.Show(
-            $"Do you want to run the Installer in Test mode?{NewLine}If not, you will be returned to Launcher mode.",
-            "Debug Dialog",
-            MessageBoxButton.YesNo,
-            MessageBoxImage.Question,
-            MessageBoxResult.No);
-          if (MessageBoxResult.No == result)
-            return;
-        }
       }
 
       /** Check Game Activation */
       {
-        bool CustomActivated = Registry.GameActivated("Custom");
-        bool RetailActivated = Registry.GameActivated("Retail");
+        bool CustomActivated = Registry.GameActivated(Registry.Game.Custom);
+        bool RetailActivated = Registry.GameActivated(Registry.Game.Retail);
 
         /** If DRM Patch enabled, stop */
         if ((Kernel.hxe.Tweaks.Patches & Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS) == 1)

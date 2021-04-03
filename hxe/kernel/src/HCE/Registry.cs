@@ -85,37 +85,33 @@ namespace HXE.HCE
       return Environment.Is64BitOperatingSystem ? x86_64 : x86;
     }
 
-    public static bool GameExists(string game)
+    public static bool GameExists(Game game)
     {
       switch(game)
       {
-        case "Retail":
+        case Game.Retail:
           return null != WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), Retail));
-        case "Custom":
+        case Game.Custom:
           return null != WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), Custom));
-        case "Trial":
+        case Game.Trial:
           return null != WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), Trial));
-        case "HEK":
+        case Game.HEK:
           return null != WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), HEK));
         default:
           throw new ArgumentException("The variable passed to GameExists() is invalid.");
       }
     }
 
-    public static bool GameActivated(string game)
+    public static bool GameActivated(Game game)
     {
-      bool keyIsValid = false;
-      bool subkeyIsValid = false;
-      RegistryKey key = null;
-      string subkey;
-
       /** Select a registry subkey based on the Game parameter */
+      string subkey;
       switch (game)
       {
-        case "Retail":
+        case Game.Retail:
           subkey = Path.Combine(WoWCheck(), Retail);
           break;
-        case "Custom":
+        case Game.Custom:
           subkey = Path.Combine(WoWCheck(), Custom);
           break;
         default:
@@ -123,24 +119,17 @@ namespace HXE.HCE
       }
 
       /** Open the subkey and read the PID entry */
+      bool keyIsValid;
+      bool subkeyIsValid = false;
       try
       {
-        var file = (File) Paths.Exception;
-        var fullPath = Path.Combine(WinReg.LocalMachine.Name, subkey);
-
-        key = WinReg.LocalMachine.OpenSubKey(subkey);
+        RegistryKey key = WinReg.LocalMachine.OpenSubKey(subkey);
         keyIsValid = key != null;
 
         if (keyIsValid)
           subkeyIsValid = !string.IsNullOrEmpty(key.GetValue("PID").ToString());
-
-        file.AppendAllText(
-          $"INFO -- Registry Key: \"{fullPath}\"{Environment.NewLine}" +
-          $"INFO -- Key is valid? {keyIsValid}{Environment.NewLine}" +
-          $"INFO -- PID is valid? {subkeyIsValid}{Environment.NewLine}"
-          );
       }
-      catch(Exception e)
+      catch (Exception e)
       {
         var file = (File) Paths.Exception;
         file.AppendAllText($"Error -- {e}");
@@ -150,7 +139,7 @@ namespace HXE.HCE
       return keyIsValid && subkeyIsValid;
     }
 
-    public static void WriteToFile(string game, Data data)
+    public static void WriteToFile(Game game, Data data)
     {
       /*Unable to use custom DPIDs*/
       /*Retail and Custom Edition DPIDs end differently*/
@@ -170,7 +159,7 @@ namespace HXE.HCE
 
       switch (game)
       {
-        case "Retail":
+        case Game.Retail:
           {
             content =
               "Windows Registry Editor Version 5.00"                                               + "\r\n" +
@@ -197,7 +186,7 @@ namespace HXE.HCE
                                                                                                      "\r\n";
           }
           break;
-        case "Custom":
+        case Game.Custom:
           {
             content =
               "Windows Registry Editor Version 5.00"                                               + "\r\n" +
@@ -223,7 +212,7 @@ namespace HXE.HCE
                                                                                                      "\r\n";
           }
           break;
-        case "Trial":
+        case Game.Trial:
           {
             content =
               "Windows Registry Editor Version 5.00"                                               + "\r\n" +
@@ -241,7 +230,7 @@ namespace HXE.HCE
                                                                                                      "\r\n";
           }
           break;
-        case "HEK":
+        case Game.HEK:
           {
             content =
               "Windows Registry Editor Version 5.00"                                               + "\r\n" +
@@ -265,11 +254,11 @@ namespace HXE.HCE
     }
 
     /// <summary>
-    /// Creates the registry keys for the given game. Uses default Data values for registry variables.
+    /// Creates the registry keys for the given game. <br />
+    /// Uses default Data values for registry variables.
     /// </summary>
     /// <remarks>Totally broken. Use WriteToFile() instead.</remarks>
-
-    public static void CreateKeys(string game)
+    public static void CreateKeys(Game game)
     {
       Data data = new Data();
       CreateKeys(game, data);
@@ -283,7 +272,7 @@ namespace HXE.HCE
     /// <param name="path">The Registry key path.</param>
     /// <param name="data">An instance of the Registry.Data class.</param>
     /// <remarks>TOTALLY BROKEN. Use WriteToFile() instead.</remarks>
-    public static void CreateKeys(string game, Data data)
+    public static void CreateKeys(Game game, Data data)
     {
       /** Temporarily Abandoned
        * This method of writing to the Windows Registry
@@ -327,8 +316,7 @@ namespace HXE.HCE
         };
         using (var process = Start(StartInfo))
         {
-          int timeout = 5000;
-          process.WaitForExit(timeout);
+          process.WaitForExit(milliseconds: 5000);
           if (process.ExitCode != 0)
             throw new Exception("Elevated process exited unexpectedly. Exit Code: " + process.ExitCode);
         }
@@ -339,7 +327,6 @@ namespace HXE.HCE
       if (key == null)
       {
         var path0 = Environment.Is64BitOperatingSystem ? @"SOFTWARE\WOW6432Node" : @"SOFTWARE";
-        var path1 = Path.Combine(path0, "Microsoft", "Microsoft Games");
         var MSGames = WinReg.LocalMachine.OpenSubKey($"{path0}\\Microsoft\\Microsoft Games", true);
 
         if (MSGames == null)
@@ -347,11 +334,31 @@ namespace HXE.HCE
           WinReg.LocalMachine.OpenSubKey(Path.Combine(path0, "Microsoft"), true).CreateSubKey("Microsoft Games");
         }
 
-        MSGames.CreateSubKey(game);
+        string gameSK = string.Empty;
+        switch(game)
+        {
+          case Game.Retail:
+            gameSK = Retail;
+            break;
+          case Game.Custom:
+            gameSK = Custom;
+            break;
+          case Game.Trial:
+            gameSK = Trial;
+            break;
+          case Game.HEK:
+            gameSK = HEK;
+            break;
+          default:
+            break;
+        }
+
+        MSGames.CreateSubKey(gameSK);
       }
+
       switch (game)
       {
-        case "Retail":
+        case Game.Retail:
           {
             key = WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), Retail));
 
@@ -371,7 +378,7 @@ namespace HXE.HCE
             key.SetValue("Zone"            , data.Zone            , RegistryValueKind.String);
           }
           break;
-        case "Custom":
+        case Game.Custom:
           {
             key = WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), Custom));
             data.Version     = "1.10";
@@ -389,7 +396,7 @@ namespace HXE.HCE
             key.SetValue("VersionType"     , data.VersionType     , RegistryValueKind.String);
           }
           break;
-        case "Trial":
+        case Game.Trial:
           {
             key = WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), Trial));
             data.DigitalProductID = null;
@@ -407,7 +414,7 @@ namespace HXE.HCE
             key.SetValue("VersionType"     , data.VersionType     , RegistryValueKind.String);
           }
           break;
-        case "HEK":
+        case Game.HEK:
           {
             key = WinReg.LocalMachine.OpenSubKey(Path.Combine(WoWCheck(), HEK));
             data.DigitalProductID = null;
@@ -436,16 +443,13 @@ namespace HXE.HCE
     /// Pass Custom to look for the Custom Edition registry entries
     /// or Retail to look for Retail registry entries.
     /// </param>
-    /// <remarks>
-    /// I would use enums instead of strings if I could.
-    /// </remarks>
-    public static Data GetRegistryKeys(string game)
+    public static Data GetRegistryKeys(Game game)
     {
       Data data = new Data();
       return GetRegistryKeys(game, data);
     }
 
-    public static Data GetRegistryKeys(string game, Data data)
+    public static Data GetRegistryKeys(Game game, Data data)
     {
       string path = WoWCheck();
       RegistryKey key;
@@ -454,7 +458,7 @@ namespace HXE.HCE
       {
         switch (game)
         {
-          case "Retail":
+          case Game.Retail:
             path = Path.Combine(path, Custom);
             key = WinReg.LocalMachine.OpenSubKey(path);
             if (key != null)// read to Data
@@ -472,7 +476,7 @@ namespace HXE.HCE
               data.VersionType      = "RetailVersion";
             }
             break;
-          case "Custom":
+          case Game.Custom:
             path = Path.Combine(path, Custom);
             key = WinReg.LocalMachine.OpenSubKey(path);
             if (key != null) // read to Data
@@ -490,7 +494,7 @@ namespace HXE.HCE
               data.VersionType      = "TrialVersion";
             }
             break;
-          case "Trial":
+          case Game.Trial:
             path = Path.Combine(path, Trial);
             key = WinReg.LocalMachine.OpenSubKey(path);
             if (key != null) // read to Data
@@ -508,7 +512,7 @@ namespace HXE.HCE
 
             }
             break;
-          case "HEK":
+          case Game.HEK:
             path = Path.Combine(path, HEK);
             key = WinReg.LocalMachine.OpenSubKey(path);
             if (key != null) // read to Data
