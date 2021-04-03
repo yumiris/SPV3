@@ -414,6 +414,17 @@ namespace HXE
               Core("BLAM.VIDEO.RESOLUTION: Resolution out of bounds. Applied native resolution to executable.");
             }
 
+            if (executable.Video.Window && !configuration.Video.Bless)
+              if (executable.Video.Width  > (ushort) (executable.Video.Width  * 0.9) ||
+                  executable.Video.Height > (ushort) (executable.Video.Height * 0.9) )
+              {
+                executable.Video.Width  = (ushort) (executable.Video.Width  * 0.9);
+                executable.Video.Height = (ushort) (executable.Video.Height * 0.9);
+
+                Core("BLAM.VIDEO.RESOLUTION: Windowed resolution too large. Resolution reduced.");
+              }
+
+
             blam.Video.Resolution.Width  = executable.Video.Width;
             blam.Video.Resolution.Height = executable.Video.Height;
 

@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2019 Emilian Roman
  * Copyright (c) 2020 Noah Sherwin
- * 
+ *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
  * arising from the use of this software.
- * 
+ *
  * Permission is granted to anyone to use this software for any purpose,
  * including commercial applications, and to alter it and redistribute it
  * freely, subject to the following restrictions:
- * 
+ *
  * 1. The origin of this software must not be misrepresented; you must not
  *    claim that you wrote the original software. If you use this software
  *    in a product, an acknowledgment in the product documentation would be
@@ -39,26 +39,26 @@ namespace SPV3
       private byte   _adapter;                                          /* physical monitor to run hce/spv3 on        */
       private bool   _borderless = false;                               /* run hce/spv3 without window borders        */
       private bool   _cinemabars = false;                               /* toggle spv3 cinematic black bars           */
+      private byte   _displayMode = 0;                                  /* display - fullscreen/window/borderless     */
       private bool   _doom     = false;                                 /* toggle spv3 doom mode                      */
       private bool   _eax      = false;                                 /* toggle hw accel. & environmental sound     */
+      private bool   _elevated = false;                                 /* runs spv3/hce in elevated (admin) mode     */
       private byte   _framerate = 60;                                   /* framerate to run spv3 at (in vsync mode)   */
       private bool   _gammaOn  = false;                                 /* when false, runs spv3/hce with -nogamma    */
       private byte   _gamma    = 150;                                   /* gamma level to run spv3 at (in vsync mode) */
       private ushort _height   = (ushort) PrimaryScreen.Bounds.Height;  /* height spv3/hce will be displayed at       */
-      private byte   _displayMode = 0;                                  /* display - fullscreen/window/borderless     */
       private bool   _photo    = false;                                 /* enables spv3 photo/blind mode              */
-      private bool   _vsync    = false;                                 /* V-sync preference (locked vs unlocked)     */
       private bool   _preset   = true;                                  /* use the built-in spv3 controller preset    */
       private bool   _resolutionEnabled = false;                        /* ability to provide custom resolution       */
       private bool   _shaders  = true;                                  /* toggle spv3 post-processing effects        */
+      private bool   _vsync    = false;                                 /* V-sync preference (locked vs unlocked)     */
       private ushort _width    = (ushort) PrimaryScreen.Bounds.Width;   /* width spv3/hce will be displayed at        */
       private bool   _window   = false;                                 /* runs spv3/hce as a windowed application    */
-      private bool   _elevated = false;                                 /* runs spv3/hce in elevated (admin) mode     */
 
        /**
        * 0 == Fullscreen
        * 1 == Window
-       * 2 == Borderless 
+       * 2 == Borderless
        */
       public byte DisplayMode
       {
@@ -68,7 +68,7 @@ namespace SPV3
           if (value == _displayMode) return;
           _displayMode = value;
           OnPropertyChanged();
-          UpdateWindowBorderless();
+          UpdateDisplayParams();
         }
       }
 
@@ -175,8 +175,8 @@ namespace SPV3
           if (value == _vsync) return;
           _vsync = value;
           OnPropertyChanged();
-          if (value == true) DisplayMode = 0;
-          // UpdateWindowBorderless() is called by DisplayMode.Set{}. Sets Borderless to False if Vsync is True.
+          if (value == true)
+            ResetDisplayMode();
         }
       }
 
@@ -254,8 +254,8 @@ namespace SPV3
           if (value == _resolutionEnabled) return;
           _resolutionEnabled = value;
           OnPropertyChanged();
-          if (value == true && DisplayMode == 2)
-            DisplayMode = 1;
+          if (value == true)
+            ResetDisplayMode();
         }
       }
 
@@ -282,17 +282,40 @@ namespace SPV3
 
       public event PropertyChangedEventHandler PropertyChanged;
 
-      public void UpdateWindowBorderless()
+      public void ResetDisplayMode()
       {
-        Window = _displayMode == 1 || _displayMode == 2;
-        if (_displayMode == 2)
+        if (DisplayMode == (byte) DisplayModes.Borderless)
+          DisplayMode = (byte) DisplayModes.Fullscreen;
+      }
+
+      public void UpdateDisplayParams()
+      {
+        switch(_displayMode)
         {
-          Borderless = true;
-          Elevated = false;
-          Vsync = false;
-          ResolutionEnabled = false;
+          case 0:
+            Borderless        = false;
+          /*Elevated          = Elevated;          */
+          /*ResolutionEnabled = ResolutionEnabled; */
+          /*Vsync             = Vsync;             */
+            Window            = false;
+            break;
+          case 1:
+            Borderless        = false;
+          /*Elevated          = Elevated;          */
+          /*ResolutionEnabled = ResolutionEnabled  */
+            Vsync             = true;
+            Window            = true;
+            break;
+          case 2:
+            Borderless        = true;
+            Elevated          = false;
+            ResolutionEnabled = false;
+            Vsync             = true;
+            Window            = true;
+            break;
+          default:
+            break;
         }
-        else Borderless = false;
       }
 
       public void Save()
