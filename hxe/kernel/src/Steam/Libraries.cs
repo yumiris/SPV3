@@ -44,13 +44,20 @@ namespace HXE.Steam
       if (!LibFoldersVdf.Exists() || LibFoldersVdf.Path == null)
         throw new FileNotFoundException("Steam Library list not found.");
 
-      var text = LibFoldersVdf.ReadAllText();
-
-      List<string> libs = text.Split(new char[] { '\"' }, System.StringSplitOptions.RemoveEmptyEntries).ToList();
-      libs = libs.Where(line => line.Contains(":")).ToList();
-      foreach(string line in libs)
+      try
       {
-        LibList.Add(line.Replace("\\\\", "\\"));
+        var text = LibFoldersVdf.ReadAllText();
+
+        List<string> libs = text.Split(new char[] { '\"' }, System.StringSplitOptions.RemoveEmptyEntries).ToList();
+        libs = libs.Where(line => line.Contains(":")).ToList();
+        foreach(string line in libs)
+        {
+          LibList.Add(line.Replace("\\\\", "\\"));
+        }
+      }
+      catch (System.Exception e)
+      {
+        throw new System.Exception("Failed to Parse Steam Libraries file", e);
       }
     }
 
@@ -81,15 +88,22 @@ namespace HXE.Steam
     public List<string> FindInLibraries(string pathInLibrary)
     {
       List<string> list = new List<string>();
-      foreach(string library in LibList)
+      try
       {
-        string path = Combine(library, "steamapps", "common", pathInLibrary);
-        if(System.IO.File.Exists(path))
-          list.Add(path);
+        foreach(string library in LibList)
+        {
+          string path = Combine(library, "steamapps", "common", pathInLibrary);
+          if(System.IO.File.Exists(path))
+            list.Add(path);
+        }
+      }
+      catch (System.Exception e)
+      {
+        throw new System.Exception($"Failed to find {pathInLibrary} in Steam Libraries.", e);
       }
 
       if(list.Count == 0)
-        throw new System.Exception("Failed to find path in Steam Libraries.");
+        throw new FileNotFoundException($"Failed to find {Path} in Steam Libraries.");
 
       return list;
     }
