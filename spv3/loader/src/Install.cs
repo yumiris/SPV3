@@ -98,8 +98,7 @@ namespace SPV3
         _steamExe = value;
         OnPropertyChanged();
 
-        CheckSteamPath(value)
-          .ContinueWith(t => SteamStatus = t.Exception.Message, TaskContinuationOptions.OnlyOnFaulted);
+        CheckSteamPath(value);
       }
     }
 
@@ -215,7 +214,7 @@ namespace SPV3
       Activation  = Visible;
 
       if (Exists(SteamExePath))
-        CheckSteamPath(SteamExePath).RunSynchronously();
+        CheckSteamPath(SteamExePath);
     }
 
     public async void Commit()
@@ -365,7 +364,7 @@ namespace SPV3
         "Find Steam.exe or a Steam shortcut and we'll do the rest!";
     }
 
-    public async Task CheckSteamPath(string exe)
+    public void CheckSteamPath(string exe)
     {
       if (Exists(exe) && exe.Contains("steam.exe"))
       {
@@ -379,7 +378,7 @@ namespace SPV3
           try
           {
             SteamStatus = "Searching for and validating Halo CEA's files...";
-            await MCC.Halo1.SetHalo1Path(MCC.Halo1.Platform.Steam);
+            MCC.Halo1.SetHalo1Path(MCC.Halo1.Platform.Steam);
             Activate();
           }
           catch (Exception e)
@@ -392,7 +391,7 @@ namespace SPV3
             return;
           }
 
-        if(!Exists(Halo1Path))
+        if (!Exists(Halo1Path))
           SteamStatus = "Steam Located, but Halo CEA not found.";
       }
       else
@@ -404,7 +403,7 @@ namespace SPV3
         Status = "Halo CEA Located via Steam." + NewLine
                 + _ssdRec + NewLine;
         CanInstall = true;
-        Main       = Visible;
+        Main = Visible;
         Activation = Collapsed;
       }
     }

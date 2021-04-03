@@ -26,7 +26,6 @@ using System.Net;
 using System.Net.Cache;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
 using static HXE.Paths.MCC;
 
 namespace HXE.Steam
@@ -38,9 +37,9 @@ namespace HXE.Steam
       /// <summary>
       /// Set a new path for Halo1.dll
       /// </summary>
-      public static async Task SetHalo1Path(Platform platform)
+      public static void SetHalo1Path(Platform platform)
       {
-        switch(platform)
+        switch (platform)
         {
           case Platform.Steam:
             var libraries = new Libraries();
@@ -51,7 +50,7 @@ namespace HXE.Steam
           case Platform.WinStore:
             // TODO
             throw new NotImplementedException("TODO: Add function to find WinStore MCC files.");
-            //break;
+          //break;
           default:
             throw new ArgumentOutOfRangeException(
               $"Cannot set Halo1.dll path: Specified platform is invalid." + Environment.NewLine +
@@ -61,8 +60,8 @@ namespace HXE.Steam
         if (Halo1Path == null)
           throw new FileNotFoundException("Halo1.dll not found");
 
-        if (!VerifyHalo1DLL())
-          throw new Exception("Halo1.dll is invalid.");;
+        if (!Halo1DLLIsCertified())
+          throw new Exception("Halo1.dll is invalid.");
       }
 
       /// <summary>
@@ -71,7 +70,7 @@ namespace HXE.Steam
       /// <returns>
       /// true if the file's Digital Certificate is valid.
       /// </returns>
-      public static bool VerifyHalo1DLL()
+      public static bool Halo1DLLIsCertified()
       {
         /// Known issue: This doesn't verify the file is a real Halo1.dll
         /// It merely checks if the file's certificate is valid.
