@@ -98,7 +98,8 @@ namespace SPV3
         _steamExe = value;
         OnPropertyChanged();
 
-        CheckSteamPath(value);
+        CheckSteamPath(value)
+          .ContinueWith(t => SteamStatus = t.Exception.Message, TaskContinuationOptions.OnlyOnFaulted);
       }
     }
 
@@ -214,7 +215,7 @@ namespace SPV3
       Activation  = Visible;
 
       if (Exists(SteamExePath))
-        await CheckSteamPath(SteamExePath);
+        CheckSteamPath(SteamExePath).RunSynchronously();
     }
 
     public async void Commit()
