@@ -17,20 +17,26 @@ namespace HXE
     ///   Generate a Player Profile and assign it as the LastProfile.
     /// </summary>
     /// <param name="scaffold"    >Inherit and pass the bool indicating if the scaffold must be created.</param>
-    /// <param name="path"        >Inherit and pass the -path parameter.</param>
+    /// <param name="pathParam"   >Inherit and pass the -path parameter.</param>
     /// <param name="lastprofile" >Inherit the LastProfile instance.</param>
     /// <param name="profile"     >Inherit the Profile instance.</param>
-    public static void Generate(string path, LastProfile lastprofile, Profile profile, bool scaffold)
+    public static void Generate(string pathParam, LastProfile lastprofile = null, Profile profile = null, bool scaffold = false)
     {
+      /* handle defaulted parameters */
+      if (profile == null)
+        profile = new Profile();
+      if (lastprofile == null)
+        lastprofile = (LastProfile) pathParam;
+
       Core("Beginning to generate a new Player Profile");
       /// todo:
       ///   populate with default settings
       ///     blam.sav has some defaults listed. What needs to be set manually?
-      profile.Path = Custom.Profile(path, profile.Details.Name);
+      profile.Path = Custom.Profile(pathParam, profile.Details.Name);
       lastprofile.Profile = profile.Details.Name;
 
       if (!scaffold)
-        Scaffold(path, lastprofile, profile);
+        Scaffold(pathParam, lastprofile, profile);
       else
       {
         profile.Save();

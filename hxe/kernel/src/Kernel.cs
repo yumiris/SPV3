@@ -107,12 +107,50 @@ namespace HXE
           configuration.Mode = Configuration.ConfigurationMode.SPV33;
       }
 
+      CheckProfileIntegrity(); /* Profile Integrity Check */
       Init(); /* initc.txt declarations */
       Blam(); /* blam.sav enhancements  */
       Open(); /* opensauce declarations */
       Exec(); /* haloce.exe invocation  */
 
       Core("CORE.MAIN: Successfully updated the initiation, profile and OS files, and invoked the HCE executable.");
+
+      void CheckProfileIntegrity()
+      {
+        try
+        {
+          var pathParam = executable.Profile.Path;
+          var lastprof = (LastProfile) Custom.LastProfile(pathParam);
+
+          if (Exists(lastprof.Path))
+          {
+            lastprof.Load();
+            var profilePath = Custom.Profile(pathParam, lastprof.Profile);
+
+            using (FileStream fs = new FileStream(profilePath, FileMode.Open, FileAccess.Read))
+            using (MemoryStream ms = new MemoryStream((int) fs.Length))
+            using (BinaryReader br = new BinaryReader(ms))
+            {
+              fs.CopyTo(ms);
+              ms.Position = 0;
+
+              var firstByte = br.ReadInt16();
+              if (firstByte != 0x09)
+              {
+                NewProfile.Generate(pathParam, lastprof, new Profile(), false);
+              }
+            }
+          }
+          else
+          {
+            NewProfile.Generate(pathParam, lastprof, new Profile(), false);
+          }
+        }
+        catch (Exception)
+        {
+
+        }
+      }
 
       /**
        * We declare the contents of the initiation file in this method before dealing with the profile enhancements and
