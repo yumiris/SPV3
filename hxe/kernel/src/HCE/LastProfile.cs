@@ -64,7 +64,6 @@ namespace HXE.HCE
         {
           var pathParam = System.IO.Path.GetDirectoryName(Path);
           var firstProfile = (Profile) Custom.Profile(pathParam, "New001");
-          var savegamesExists = Directory.Exists(Custom.Profiles(pathParam));
 
           try
           {
@@ -76,12 +75,12 @@ namespace HXE.HCE
             }
             else
             {
-              NewProfile.Generate(pathParam, this, firstProfile, makeScaffold: !savegamesExists);
+              NewProfile.Generate(pathParam, this, firstProfile);
             }
           }
           catch (System.Exception)
           {
-            NewProfile.Generate(pathParam, this, firstProfile, makeScaffold: !savegamesExists);
+            NewProfile.Generate(pathParam, this, firstProfile);
           }
         }
       }
