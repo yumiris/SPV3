@@ -37,12 +37,12 @@ namespace HXE
 
       if (profile is null)
         profile = System.IO.File.Exists(Custom.Profile(pathParam, lastprof.Profile)) ?
-          (Profile) Custom.Profile(pathParam, lastprof.Profile) :
+          (Profile) Custom.Profile(pathParam, lastprof.Profile):
           (Profile) Custom.Profile(pathParam, "New001");
 
       bool lastprofExists = lastprof.Exists();
       bool profileExists = profile.Exists();
-      bool savegameExists = System.IO.File.Exists(Custom.Progress(pathParam, profile.Name));
+      bool savegameExists = System.IO.File.Exists(Custom.Progress(pathParam, profile.Details.Name));
 
       /** Double-check for existing files to determine if the saves scaffold
        * still needs to be created.
