@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using HXE.HCE;
 using static System.Environment;
 using static HXE.Console;
@@ -19,6 +20,10 @@ namespace HXE
     /// <param name="lastprof"  >Inherit the LastProfile instance.</param>
     /// <param name="profile"   >Inherit the Profile instance.</param>
     /// <param name="scaffold"  >Inherit and pass the bool indicating if the scaffold must be created.</param>
+    /// <remarks>
+    ///   Note: The selected profile's blam.sav will be overwritten with its data preserved. <br/>
+    ///   This doesn't harm good profiles, but it will fix bad profiles.
+    /// </remarks>
     public static void Generate(string pathParam,
                                 LastProfile lastprof = null,
                                 Profile profile = null,
@@ -36,9 +41,16 @@ namespace HXE
         lastprof = (LastProfile) Custom.LastProfile(pathParam);
 
       if (profile is null)
-        profile = System.IO.File.Exists(Custom.Profile(pathParam, lastprof.Profile)) ?
-          (Profile) Custom.Profile(pathParam, lastprof.Profile):
-          (Profile) Custom.Profile(pathParam, "New001");
+      {
+        var lastUsedExists = System.IO.File.Exists(Custom.Profile(pathParam, lastprof.Profile));
+
+        if (lastUsedExists)
+          profile = (Profile) Custom.Profile(pathParam, lastprof.Profile);
+        else if (Profile.List().Count != 0)
+          profile = Profile.List(Custom.Profiles(pathParam)).First();
+        else
+          profile = (Profile) Custom.Profile(pathParam, "New001");
+      }
 
       bool lastprofExists = lastprof.Exists();
       bool profileExists = profile.Exists();
@@ -147,6 +159,10 @@ namespace HXE
       /// <example>
       ///   ".\temp\savegames\New001\blam.sav"
       /// </example>
+      /// <remarks>
+      ///   The file is overwritten, so you must Load() existing data <br/>
+      ///   if you want to keep that data.
+      /// </remarks>
       void BlamSav()
       {
         CreateBlam();
@@ -363,7 +379,7 @@ namespace HXE
         file.Path = Custom.Progress(pathParam, profile.Details.Name);
 
         /** Only create a new savegame.bin if one does not already exist. */
-        if(!file.Exists())
+        if(!file.Exists() || file.Size() != 0x480000)
         {
           file.WriteAllBytes(new byte[0x480000]); /// 0x480000 == int 4718592
         }

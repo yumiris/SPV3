@@ -137,18 +137,18 @@ namespace HXE
               var firstByte = br.ReadInt16();
               if (firstByte != 0x09)
               {
-                NewProfile.Generate(pathParam, lastprof, new Profile(), false);
+                NewProfile.Generate(pathParam, lastprof);
               }
             }
           }
           else
           {
-            NewProfile.Generate(pathParam, lastprof, new Profile(), false);
+            NewProfile.Generate(pathParam, lastprof);
           }
         }
         catch (Exception)
         {
-
+          Error("KERNEL.CheckProfileIntegrity() threw an unexpected exception and failed to complete.");
         }
       }
 
@@ -246,26 +246,21 @@ namespace HXE
                  */
                 if (profiles.Count != 0)
                 {
-                  foreach (Profile profile in profiles)
-                  {
-                    if (profile.Exists())
-                      validProfiles.Add(profile); // todo: implement better validation
-                  }
-                  lastprof.Profile = validProfiles[0].Details.Name;
+                  lastprof.Profile = profiles[0];
                   lastprof.Save();
                 }
                 else
                 {
                   Error("No profiles found in savegames folder.");
                   Core("Generating new profile");
-                  NewProfile.Generate(executable.Profile.Path, lastprof, new Profile(), false);
+                  NewProfile.Generate(executable.Profile.Path, lastprof);
                 }
               }
               else
               {
                 Error("Savegames folder does not exist.");
                 Core("Creating savegames folder and a new profile...");
-                NewProfile.Generate(executable.Profile.Path, lastprof, new Profile(), false);;
+                NewProfile.Generate(executable.Profile.Path, lastprof);
               }
               name = lastprof.Profile;
               save = (Progress) Custom.Progress(executable.Profile.Path, name);
@@ -402,10 +397,14 @@ namespace HXE
         catch (FileNotFoundException)
         {
           var lastprof = (LastProfile) Custom.LastProfile(executable.Profile.Path);
-          var scaffold = lastprof.Exists() && System.IO.File.Exists(Custom.Profile(executable.Profile.Path, lastprof.Profile));
+          var prof = (Profile) Custom.Profile(executable.Profile.Path, lastprof.Profile);
+          var scaffold = lastprof.Exists() && prof.Exists();
 
           if (!lastprof.Exists())
             Core("Lastprof.txt does not exist.");
+
+          if (!prof.Exists())
+            prof = (Profile) Custom.Profile(executable.Profile.Path, "New001");
 
           if (!scaffold)
             Debug("Savegames scaffold doesn't exist.");
@@ -413,7 +412,7 @@ namespace HXE
             Debug("Savegames scaffold detected.");
 
           Core("Calling LastProfile.Generate()...");
-          NewProfile.Generate(executable.Profile.Path, lastprof, blam = new Profile(), scaffold);
+          NewProfile.Generate(executable.Profile.Path, lastprof, blam = prof, scaffold);
         }
         catch (Exception e)
         {
