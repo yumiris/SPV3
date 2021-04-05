@@ -107,12 +107,52 @@ namespace HXE
           configuration.Mode = Configuration.ConfigurationMode.SPV33;
       }
 
+      CheckProfileIntegrity(); /* Profile Integrity Check */
       Init(); /* initc.txt declarations */
       Blam(); /* blam.sav enhancements  */
       Open(); /* opensauce declarations */
       Exec(); /* haloce.exe invocation  */
 
       Core("CORE.MAIN: Successfully updated the initiation, profile and OS files, and invoked the HCE executable.");
+
+      void CheckProfileIntegrity()
+      {
+        try
+        {
+          var pathParam = executable.Profile.Path;
+          var lastprof = (LastProfile) Custom.LastProfile(pathParam);
+
+          if (lastprof.Exists())
+          {
+            lastprof.Load();
+            var profilePath = Custom.Profile(pathParam, lastprof.Profile);
+            short firstByte = 0x09;
+
+            using (FileStream fs = new FileStream(profilePath, FileMode.Open, FileAccess.ReadWrite))
+            using (MemoryStream ms = new MemoryStream((int) fs.Length))
+            using (BinaryReader br = new BinaryReader(ms))
+            {
+              fs.CopyTo(ms);
+              ms.Position = 0;
+
+              firstByte = br.ReadInt16();
+            }
+
+            if (firstByte != 0x09)
+            {
+              NewProfile.Generate(pathParam, lastprof, profileIsGood: false);
+            }
+          }
+          else
+          {
+            NewProfile.Generate(pathParam, lastprof);
+          }
+        }
+        catch (Exception)
+        {
+          Error("KERNEL.CheckProfileIntegrity() threw an unexpected exception and failed to complete.");
+        }
+      }
 
       /**
        * We declare the contents of the initiation file in this method before dealing with the profile enhancements and
@@ -208,26 +248,21 @@ namespace HXE
                  */
                 if (profiles.Count != 0)
                 {
-                  foreach (Profile profile in profiles)
-                  {
-                    if (profile.Exists())
-                      validProfiles.Add(profile); // todo: implement better validation
-                  }
-                  lastprof.Profile = validProfiles[0].Details.Name;
+                  lastprof.Profile = profiles[0];
                   lastprof.Save();
                 }
                 else
                 {
                   Error("No profiles found in savegames folder.");
                   Core("Generating new profile");
-                  NewProfile.Generate(executable.Profile.Path, lastprof, new Profile(), false);
+                  NewProfile.Generate(executable.Profile.Path, lastprof);
                 }
               }
               else
               {
                 Error("Savegames folder does not exist.");
                 Core("Creating savegames folder and a new profile...");
-                NewProfile.Generate(executable.Profile.Path, lastprof, new Profile(), false);;
+                NewProfile.Generate(executable.Profile.Path, lastprof);
               }
               name = lastprof.Profile;
               save = (Progress) Custom.Progress(executable.Profile.Path, name);
@@ -364,18 +399,22 @@ namespace HXE
         catch (FileNotFoundException)
         {
           var lastprof = (LastProfile) Custom.LastProfile(executable.Profile.Path);
-          var scaffold = lastprof.Exists() && System.IO.File.Exists(Custom.Profile(executable.Profile.Path, lastprof.Profile));
+          var prof = (Profile) Custom.Profile(executable.Profile.Path, lastprof.Profile);
+          var createScaffold = !lastprof.Exists() || !prof.Exists();
 
           if (!lastprof.Exists())
             Core("Lastprof.txt does not exist.");
 
-          if (!scaffold)
+          if (!prof.Exists())
+            prof = (Profile) Custom.Profile(executable.Profile.Path, "New001");
+
+          if (createScaffold)
             Debug("Savegames scaffold doesn't exist.");
           else
             Debug("Savegames scaffold detected.");
 
           Core("Calling LastProfile.Generate()...");
-          NewProfile.Generate(executable.Profile.Path, lastprof, blam = new Profile(), scaffold);
+          NewProfile.Generate(executable.Profile.Path, lastprof, blam = prof, createScaffold);
         }
         catch (Exception e)
         {

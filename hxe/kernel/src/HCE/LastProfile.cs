@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2019 Emilian Roman
  * Copyright (c) 2020 Noah Sherwin
- * 
+ *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
  * arising from the use of this software.
- * 
+ *
  * Permission is granted to anyone to use this software for any purpose,
  * including commercial applications, and to alter it and redistribute it
  * freely, subject to the following restrictions:
- * 
+ *
  * 1. The origin of this software must not be misrepresented; you must not
  *    claim that you wrote the original software. If you use this software
  *    in a product, an acknowledgment in the product documentation would be
@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using static System.Environment;
 using static HXE.Console;
@@ -60,23 +59,31 @@ namespace HXE.HCE
         var log = (File) Exception;
         log.AppendAllText(msg);
         Error(e.Message + " -- LASTPROFILE.LOAD FAILED");
-        
+
         Core("Recreating LastProf.txt...");
         {
-          Profile firstProfile = new Profile();
-          string userPath = System.IO.Path.GetDirectoryName(Path);
+          var pathParam = System.IO.Path.GetDirectoryName(Path);
+          var firstProfile = (Profile) Custom.Profile(pathParam, "New001");
+
           try
           {
-            firstProfile = HCE.Profile.List(Custom.Profiles(userPath)).First();
             // TODO : validate profile. Is it corrupted?
-            Name = firstProfile.Name;
+            if (HCE.Profile.List().Count != 0)
+            {
+              firstProfile = HCE.Profile.List(Custom.Profiles(pathParam))[0];
+              Name = firstProfile.Name;
+            }
+            else
+            {
+              NewProfile.Generate(pathParam, this, firstProfile);
+            }
           }
           catch (System.Exception)
           {
-            NewProfile.Generate(userPath, this, firstProfile, Directory.Exists(Custom.Profiles(userPath)));
+            NewProfile.Generate(pathParam, this, firstProfile);
           }
         }
-      } 
+      }
     }
 
     /// <summary>
