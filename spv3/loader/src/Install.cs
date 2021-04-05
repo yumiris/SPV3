@@ -190,13 +190,6 @@ namespace SPV3
       {
         Status     = "Could not find manifest in the data directory.";
         CanInstall = false;
-        MessageBox.Show(
-          "Expected to start in Installer mode, but Install data not found." +
-          " If you meant to start in Launcer mode, check if SPV3 is starting" +
-          " in the correct folder and Halo's executable is in that folder.",
-          "Unable to install SPV3",
-          MessageBoxButton.OK,
-          MessageBoxImage.Warning);
       }
 
       /** Check Game Activation */
