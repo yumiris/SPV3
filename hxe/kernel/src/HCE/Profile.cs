@@ -410,7 +410,7 @@ namespace HXE.HCE
     /// </summary>
     public void Load()
     {
-      using (var reader = new BinaryReader(System.IO.File.Open(Path, FileMode.Open)))
+      using (var reader = new BinaryReader(System.IO.File.Open(Path, FileMode.Open, FileAccess.Read, FileShare.Read)))
       {
         bool GetBoolean(Offset offset)
         {

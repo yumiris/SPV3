@@ -16,10 +16,10 @@ namespace HXE
     /// <summary>
     ///   Generate a Player Profile and assign it as the LastProfile.
     /// </summary>
-    /// <param name="pathParam" >Inherit and pass the -path parameter.</param>
-    /// <param name="lastprof"  >Inherit the LastProfile instance.</param>
-    /// <param name="profile"   >Inherit the Profile instance.</param>
-    /// <param name="scaffold"  >Inherit and pass the bool indicating if the scaffold must be created.</param>
+    /// <param name="pathParam"    >Inherit and pass the -path parameter.</param>
+    /// <param name="lastprof"     >Inherit the LastProfile instance.</param>
+    /// <param name="profile"      >Inherit the Profile instance.</param>
+    /// <param name="makeScaffold" >Inherit and pass the bool indicating if the scaffold must be created.</param>
     /// <remarks>
     ///   Note: The selected profile's blam.sav will be overwritten with its data preserved. <br/>
     ///   This doesn't harm good profiles, but it will fix bad profiles.
@@ -27,7 +27,8 @@ namespace HXE
     public static void Generate(string pathParam,
                                 LastProfile lastprof = null,
                                 Profile profile = null,
-                                bool scaffold = false)
+                                bool makeScaffold = true,
+                                bool profileIsGood = true)
     {
       if (string.IsNullOrWhiteSpace(pathParam))
       {
@@ -56,14 +57,17 @@ namespace HXE
       bool profileExists = profile.Exists();
       bool savegameExists = System.IO.File.Exists(Custom.Progress(pathParam, profile.Details.Name));
 
-      /** Double-check for existing files to determine if the saves scaffold
-       * still needs to be created.
-       * We only do this when scaffold is false in case the scaffold structure exists and
-       * needs to be recreated.*/
-      if (!scaffold)
-        scaffold = lastprofExists
-          && profileExists
-          && savegameExists;
+      /** Double-check for existing files to determine if the
+       * savegames scaffold still needs to be created.
+       * We only do this when makeScaffold is true in case
+       * the scaffold structure exists, but needs to be recreated.*/
+      if (makeScaffold)
+      {
+        makeScaffold = !lastprofExists
+          || !profileExists
+          || !savegameExists
+          || !profileIsGood;
+      }
 
       /** Load settings from existing profile */
       if (profileExists)
@@ -71,7 +75,7 @@ namespace HXE
 
       lastprof.Profile = profile.Details.Name;
 
-      if (!scaffold)
+      if (makeScaffold)
         Scaffold(pathParam, lastprof, profile);
       else
       {
@@ -167,7 +171,7 @@ namespace HXE
       {
         CreateBlam();
         profile.Save();
-        VerifyPath(Custom.Profile(pathParam, profile.Details.Name));
+        VerifyPath(profile.Path);
 
         /// <summary>
         ///   Produces a file identical to default_profile\00.sav <br/>
@@ -176,7 +180,7 @@ namespace HXE
         /// <see cref="Profile.Offset"/>
         void CreateBlam()
         {
-          using (var fs = new FileStream(Custom.Profile(pathParam, profile.Details.Name), FileMode.OpenOrCreate))
+          using (var fs = new FileStream(profile.Path, FileMode.Create, FileAccess.Read))
           using (var ms = new MemoryStream(8192))
           using (var bw = new BinaryWriter(ms))
           {

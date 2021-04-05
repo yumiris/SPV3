@@ -76,12 +76,12 @@ namespace HXE.HCE
             }
             else
             {
-              NewProfile.Generate(pathParam, this, firstProfile, savegamesExists);
+              NewProfile.Generate(pathParam, this, firstProfile, makeScaffold: !savegamesExists);
             }
           }
           catch (System.Exception)
           {
-            NewProfile.Generate(pathParam, this, firstProfile, savegamesExists);
+            NewProfile.Generate(pathParam, this, firstProfile, makeScaffold: !savegamesExists);
           }
         }
       }

@@ -122,23 +122,25 @@ namespace HXE
           var pathParam = executable.Profile.Path;
           var lastprof = (LastProfile) Custom.LastProfile(pathParam);
 
-          if (Exists(lastprof.Path))
+          if (lastprof.Exists())
           {
             lastprof.Load();
             var profilePath = Custom.Profile(pathParam, lastprof.Profile);
+            short firstByte = 0x09;
 
-            using (FileStream fs = new FileStream(profilePath, FileMode.Open, FileAccess.Read))
+            using (FileStream fs = new FileStream(profilePath, FileMode.Open, FileAccess.ReadWrite))
             using (MemoryStream ms = new MemoryStream((int) fs.Length))
             using (BinaryReader br = new BinaryReader(ms))
             {
               fs.CopyTo(ms);
               ms.Position = 0;
 
-              var firstByte = br.ReadInt16();
-              if (firstByte != 0x09)
-              {
-                NewProfile.Generate(pathParam, lastprof);
-              }
+              firstByte = br.ReadInt16();
+            }
+
+            if (firstByte != 0x09)
+            {
+              NewProfile.Generate(pathParam, lastprof, profileIsGood: false);
             }
           }
           else
@@ -398,7 +400,7 @@ namespace HXE
         {
           var lastprof = (LastProfile) Custom.LastProfile(executable.Profile.Path);
           var prof = (Profile) Custom.Profile(executable.Profile.Path, lastprof.Profile);
-          var scaffold = lastprof.Exists() && prof.Exists();
+          var createScaffold = !lastprof.Exists() || !prof.Exists();
 
           if (!lastprof.Exists())
             Core("Lastprof.txt does not exist.");
@@ -406,13 +408,13 @@ namespace HXE
           if (!prof.Exists())
             prof = (Profile) Custom.Profile(executable.Profile.Path, "New001");
 
-          if (!scaffold)
+          if (createScaffold)
             Debug("Savegames scaffold doesn't exist.");
           else
             Debug("Savegames scaffold detected.");
 
           Core("Calling LastProfile.Generate()...");
-          NewProfile.Generate(executable.Profile.Path, lastprof, blam = prof, scaffold);
+          NewProfile.Generate(executable.Profile.Path, lastprof, blam = prof, createScaffold);
         }
         catch (Exception e)
         {
