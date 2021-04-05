@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Linq;
 using HXE.HCE;
 using static System.Environment;
 using static HXE.Console;
@@ -48,7 +47,7 @@ namespace HXE
         if (lastUsedExists)
           profile = (Profile) Custom.Profile(pathParam, lastprof.Profile);
         else if (Profile.List().Count != 0)
-          profile = Profile.List(Custom.Profiles(pathParam)).First();
+          profile = Profile.List(Custom.Profiles(pathParam))[0];
         else
           profile = (Profile) Custom.Profile(pathParam, "New001");
       }
