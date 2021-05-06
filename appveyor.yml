@@ -1,0 +1,15 @@
+version: 1.0.{build}
+configuration:
+- Debug
+- Release
+install:
+- git submodule init
+- git submodule update
+nuget:
+  project_feed: true
+before_build:
+- nuget restore
+build:
+  project: ./spv3/loader/src/spv3.sln
+  parallel: true
+  verbosity: minimal
