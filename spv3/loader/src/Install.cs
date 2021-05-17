@@ -404,7 +404,7 @@ namespace SPV3
             {
                 HXE.Paths.Steam.SetSteam(exe);
                 Update_SteamStatus();
-                Halo1Path = Path.Combine(HXE.Paths.Steam.Library, HTMCC, Halo1dir, Halo1dll);
+                Halo1Path = Path.Combine(HXE.Paths.Steam.Library, HTMCC, H1Dir, H1dll);
 
                 if (Exists(Halo1Path))
                     Activate("Steam MCC CEA found in default-ish location.");

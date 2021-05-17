@@ -43,7 +43,7 @@ namespace HXE.Steam
                 switch (platform)
                 {
                     case Platform.Steam:
-                        var mccH1 = Path.Combine(HTMCC, Halo1dir, Halo1dll);
+                        var mccH1 = Path.Combine(HTMCC, H1Dir, H1dll);
                         var libraries = new Libraries();
                         libraries.ParseLibraries();
                         Halo1Path = libraries.FindInLibraries(mccH1).First();

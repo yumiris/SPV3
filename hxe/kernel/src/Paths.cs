@@ -165,14 +165,13 @@ namespace HXE
 
         public class MCC
         {
-            // todo : rename to H1Dll, H1Dir. Why? Because.
             public const string HTMCC = "Halo The Master Chief Collection";
 
-            public const string Halo1dir = "Halo1";
-            public const string Halo1dll = "halo1.dll";
+            public const string H1Dir = "Halo1";
+            public const string H1dll = "halo1.dll";
 
             public static string UwpH1DllPath = Combine("Program Files", "ModifiableWindowsApps", "HaloMCC", "Halo1", "Halo1.dll");
-            public static string Halo1Path = Combine(Steam.Library, HTMCC, Halo1dir, Halo1dll);
+            public static string Halo1Path = Combine(Steam.Library, HTMCC, H1Dir, H1dll);
         }
 
         public class Steam

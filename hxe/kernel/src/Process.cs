@@ -108,7 +108,7 @@ namespace HXE
                         {
                             return process.Modules
                               .Cast<System.Diagnostics.ProcessModule>()
-                              .Any(module => module.ModuleName == Paths.MCC.Halo1dll);
+                              .Any(module => module.ModuleName == Paths.MCC.H1dll);
                         }
                         catch (System.Exception e)
                         {
