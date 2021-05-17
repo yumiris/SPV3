@@ -39,10 +39,10 @@ using static HXE.Paths;
 
 namespace HXE
 {
-  /// <summary>
-  ///   HXE kernel version 2.
-  /// </summary>
-  public static class Kernel
+    /// <summary>
+    ///   HXE kernel version 2.
+    /// </summary>
+    public static class Kernel
   {
     [DllImport("USER32.DLL", EntryPoint = "SetWindowPos")]
     public static extern IntPtr SetWindowPos
@@ -140,12 +140,12 @@ namespace HXE
 
             if (firstByte != 0x09)
             {
-              NewProfile.Generate(pathParam, lastprof, profileIsGood: false);
+              NewProfile.Create(pathParam, lastprof, profileIsGood: false);
             }
           }
           else
           {
-            NewProfile.Generate(pathParam, lastprof);
+            NewProfile.Create(pathParam, lastprof);
           }
         }
         catch (Exception)
@@ -255,14 +255,14 @@ namespace HXE
                 {
                   Error("No profiles found in savegames folder.");
                   Core("Generating new profile");
-                  NewProfile.Generate(executable.Profile.Path, lastprof);
+                  NewProfile.Create(executable.Profile.Path, lastprof);
                 }
               }
               else
               {
                 Error("Savegames folder does not exist.");
                 Core("Creating savegames folder and a new profile...");
-                NewProfile.Generate(executable.Profile.Path, lastprof);
+                NewProfile.Create(executable.Profile.Path, lastprof);
               }
               name = lastprof.Profile;
               save = (Progress) Custom.Progress(executable.Profile.Path, name);
@@ -414,7 +414,7 @@ namespace HXE
             Debug("Savegames scaffold detected.");
 
           Core("Calling LastProfile.Generate()...");
-          NewProfile.Generate(executable.Profile.Path, lastprof, blam = prof, createScaffold);
+          NewProfile.Create(executable.Profile.Path, lastprof, blam = prof, createScaffold);
         }
         catch (Exception e)
         {

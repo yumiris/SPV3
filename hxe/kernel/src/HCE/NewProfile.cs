@@ -1,11 +1,10 @@
 ﻿using System.IO;
-using HXE.HCE;
 using static System.Environment;
 using static HXE.Console;
 using static HXE.Paths;
 using Directory = System.IO.Directory;
 
-namespace HXE
+namespace HXE.HCE
 {
     /// <summary>
     ///   Object used for creating a new Player Profile.
@@ -23,7 +22,7 @@ namespace HXE
         ///   Note: The selected profile's blam.sav will be overwritten with its data preserved. <br/>
         ///   This doesn't harm good profiles, but it will fix bad profiles.
         /// </remarks>
-        public static void Generate(string pathParam,
+        public static void Create(string pathParam,
                                     LastProfile lastprof = null,
                                     Profile profile = null,
                                     bool makeScaffold = true,
@@ -89,7 +88,7 @@ namespace HXE
         /// <param name="pathParam"> -path parameter to pass to Halo and write to profiles.</param>
         /// <param name="lastprof" > Object reperesentation of LastProf.txt.</param>
         /// <param name="profile"  > Object representation of blam.sav.</param>
-        public static void Scaffold(string pathParam, LastProfile lastprof, Profile profile)
+        private static void Scaffold(string pathParam, LastProfile lastprof, Profile profile)
         {
             if (string.IsNullOrWhiteSpace(pathParam))
             {
