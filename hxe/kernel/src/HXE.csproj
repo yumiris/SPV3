@@ -115,7 +115,7 @@
     <Compile Include="SPV3\PP.cs" />
     <Compile Include="Status.cs" />
     <Compile Include="Steam\Libraries.cs" />
-    <Compile Include="MCC\MCC.Halo1.cs" />
+    <Compile Include="MCC\Halo1.cs" />
     <Compile Include="Update.cs" />
   </ItemGroup>
   <ItemGroup>
