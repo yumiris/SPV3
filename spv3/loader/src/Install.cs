@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2019 Emilian Roman
- * Copyright (c) 2020 Noah Sherwin
+ * Copyright (c) 2021 Noah Sherwin
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -40,78 +40,80 @@ using Process = System.Diagnostics.Process;
 
 namespace SPV3
 {
-  public class Install : INotifyPropertyChanged
-  {
-    private const    string     _ssdRec   = "SPV3 must be installed to an SSD. Otherwise, you will experience loading hitches.";
-    private readonly string     _source   = Path.Combine(CurrentDirectory, "data");
-    private          bool       _canInstall;
-    private          bool       _compress = false;
-    //private readonly Visibility _dbgPnl   = Debug.IsDebug ? Visible : Collapsed; // TODO: Implement Debug-Tools 'floating' panel, Move this to Main.cs
-    private          Visibility _activation = Collapsed;
-    private          Visibility _load     = Collapsed;
-    private          Visibility _main     = Visible;
-    private          string     _status   = _ssdRec;
-    private          string     _target   = Path.Combine(GetFolderPath(Personal), "My Games", "Halo SPV3");
-    private          string     _steamExe = Path.Combine(HXE.Paths.Steam.Directory, HXE.Paths.Steam.SteamExe);
-    private          string     _steamStatus = "Find Steam.exe or its shortcut and we'll do the rest!";
-    private          string     _winStoreStatus = "Choose the drive where Halo MCC CEA is located!";
-
-    public bool CanInstall
+    public class Install : INotifyPropertyChanged
     {
-      get => _canInstall;
-      set
-      {
-        if (value == _canInstall) return;
-        _canInstall = value;
-        OnPropertyChanged();
-      }
-    }
+        private const string _ssdRec = "SPV3 must be installed to an SSD. Otherwise, you will experience loading hitches.";
+        private readonly string _source = Path.Combine(CurrentDirectory, "data");
+        private bool _canInstall;
+        private bool _compress = false;
 
-    public bool Compress
-    {
-      get => _compress;
-      set
-      {
-        if (value == _compress) return;
-        _compress = value;
-        OnPropertyChanged();
-      }
-    }
+        //private readonly Visibility _dbgPnl   = Debug.IsDebug ? Visible : Collapsed; // TODO: Implement Debug-Tools 'floating' panel, Move this to Main.cs
+        private Visibility _activation = Collapsed;
 
-    public string Status
-    {
-      get => _status;
-      set
-      {
-        if (value == _status) return;
-        _status = value;
-        OnPropertyChanged();
-      }
-    }
+        private Visibility _load = Collapsed;
+        private Visibility _main = Visible;
+        private string _status = _ssdRec;
+        private string _target = Path.Combine(GetFolderPath(Personal), "My Games", "Halo SPV3");
+        private string _steamExe = Path.Combine(HXE.Paths.Steam.Directory, HXE.Paths.Steam.SteamExe);
+        private string _steamStatus = "Find Steam.exe or its shortcut and we'll do the rest!";
+        private string _winStoreStatus = "Choose the drive where Halo MCC CEA is located!";
 
-    public string SteamExePath
-    {
-      get => _steamExe;
-      set
-      {
-        if (value == _steamExe) return;
-        _steamExe = value;
-        OnPropertyChanged();
+        public bool CanInstall
+        {
+            get => _canInstall;
+            set
+            {
+                if (value == _canInstall) return;
+                _canInstall = value;
+                OnPropertyChanged();
+            }
+        }
 
-        CheckSteamPath(value);
-      }
-    }
+        public bool Compress
+        {
+            get => _compress;
+            set
+            {
+                if (value == _compress) return;
+                _compress = value;
+                OnPropertyChanged();
+            }
+        }
 
-    public string SteamStatus
-    {
-      get => _steamStatus;
-      set
-      {
-        if (value == _steamStatus) return;
-        _steamStatus = value;
-        OnPropertyChanged();
-      }
-    }
+        public string Status
+        {
+            get => _status;
+            set
+            {
+                if (value == _status) return;
+                _status = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string SteamExePath
+        {
+            get => _steamExe;
+            set
+            {
+                if (value == _steamExe) return;
+                _steamExe = value;
+                OnPropertyChanged();
+
+                CheckSteamPath(value);
+            }
+        }
+
+        public string SteamStatus
+        {
+            get => _steamStatus;
+            set
+            {
+                if (value == _steamStatus) return;
+                _steamStatus = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string WinStoreStatus
         {
@@ -125,317 +127,316 @@ namespace SPV3
         }
 
         public string Target
-    {
-      get => _target;
-      set
-      {
-        if (value == _target) return;
-        _target = value;
-        OnPropertyChanged();
-        ValidateTarget(value);
-      }
-    }
-
-    public Visibility Main
-    {
-      get => _main;
-      set
-      {
-        if (value == _main) return;
-        _main = value;
-        OnPropertyChanged();
-      }
-    }
-
-    public Visibility Activation
-    {
-      get => _activation;
-      set
-      {
-        if (value == _activation) return;
-        _activation = value;
-        OnPropertyChanged();
-      }
-    }
-
-    public Visibility Load
-    {
-      get => _load;
-      set
-      {
-        if (value == _load) return;
-        _load = value;
-        OnPropertyChanged();
-      }
-    }
-
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    public void Initialise()
-    {
-      Main = Visible;
-      Activation = Collapsed;
-
-      ValidateTarget(Target);
-
-      /** Determine if the current environment fulfills the installation requirements. */
-      var manifest = (Manifest) Path.Combine(_source, HXE.Paths.Manifest);
-
-      if (manifest.Exists())
-      {
-        Status     = "Waiting for user to install SPV3.";
-        CanInstall = true;
-      }
-      else
-      {
-        Status     = "Could not find manifest in the data directory.";
-        CanInstall = false;
-      }
-
-      /** Check Game Activation */
-      {
-        bool CustomActivated = Registry.GameActivated(Registry.Game.Custom);
-        bool RetailActivated = Registry.GameActivated(Registry.Game.Retail);
-
-        /** If DRM Patch enabled, stop */
-        if ((Kernel.hxe.Tweaks.Patches & Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS) == 1)
         {
-          outputInfo();
-          return;
+            get => _target;
+            set
+            {
+                if (value == _target) return;
+                _target = value;
+                OnPropertyChanged();
+                ValidateTarget(value);
+            }
         }
 
-        /** If Custom Edition is already activated, stop. */
-        if (CustomActivated)
+        public Visibility Main
         {
-          outputInfo();
-          return;
+            get => _main;
+            set
+            {
+                if (value == _main) return;
+                _main = value;
+                OnPropertyChanged();
+            }
         }
 
-        /** Activate SPV3 if Retail is installed, then stop */
-        if (RetailActivated)
+        public Visibility Activation
         {
-          Kernel.hxe.Tweaks.Patches |= Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS;
-          outputInfo();
-          return;
+            get => _activation;
+            set
+            {
+                if (value == _activation) return;
+                _activation = value;
+                OnPropertyChanged();
+            }
         }
 
-        /** Passively detect Steam MCC CEA */
-        if (Exists(SteamExePath))
-          CheckSteamPath(SteamExePath);
-
-        outputInfo();
-
-        /** Output Activation info to file */
-        void outputInfo()
+        public Visibility Load
         {
-          HXE.File file = (HXE.File) Paths.Exception;
-          string output = string.Empty;
-          output += $"INFO -- DRM patch queued: {(Kernel.hxe.Tweaks.Patches & Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS) == 1}{NewLine}";
-          output += $"INFO -- Custom Edition is activated: {CustomActivated}{NewLine}";
-          output += $"INFO -- Retail Edition is activated: {RetailActivated}{NewLine}";
-          file.WriteAllText(output);
-        }
-      }
-
-      /** else, prompt for activation */
-      Status     = "Please install a legal copy of Halo 1 before installing SPV3.";
-      CanInstall = false;
-      Main       = Collapsed;
-      Activation = Visible;
-    }
-
-    public async void Commit()
-    {
-      try
-      {
-        CanInstall = false;
-
-        var progress = new Progress<Status>();
-        progress.ProgressChanged +=
-          (o, s) => Status =
-            $"Installing SPV3. Please wait until this is finished! - {(decimal) s.Current / s.Total:P}";
-
-        try
-        {
-          await Task.Run(() => { Installer.Install(_source, _target, progress, Compress); });
-        }
-        catch(InvalidOperationException)
-        {
-          if (!Debug.IsDebug)
-            throw;
+            get => _load;
+            set
+            {
+                if (value == _load) return;
+                _load = value;
+                OnPropertyChanged();
+            }
         }
 
-        /** MCC DRM Patch */
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        try
+        public void Initialise()
         {
-          if ((Kernel.hxe.Tweaks.Patches & Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS) != 0)
-            new Patcher().Write(Kernel.hxe.Tweaks.Patches, Path.Combine(Target, HXE.Paths.HCE.Executable));
+            Main = Visible;
+            Activation = Collapsed;
+
+            ValidateTarget(Target);
+
+            /** Determine if the current environment fulfills the installation requirements. */
+            var manifest = (Manifest) Path.Combine(_source, HXE.Paths.Manifest);
+
+            if (manifest.Exists())
+            {
+                Status = "Waiting for user to install SPV3.";
+                CanInstall = true;
+            }
+            else
+            {
+                Status = "Could not find manifest in the data directory.";
+                CanInstall = false;
+            }
+
+            /** Check Game Activation */
+            {
+                bool CustomActivated = Registry.GameActivated(Registry.Game.Custom);
+                bool RetailActivated = Registry.GameActivated(Registry.Game.Retail);
+
+                /** If DRM Patch enabled, stop */
+                if ((Kernel.hxe.Tweaks.Patches & Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS) == 1)
+                {
+                    outputInfo();
+                    return;
+                }
+
+                /** If Custom Edition is already activated, stop. */
+                if (CustomActivated)
+                {
+                    outputInfo();
+                    return;
+                }
+
+                /** Activate SPV3 if Retail is installed, then stop */
+                if (RetailActivated)
+                {
+                    Kernel.hxe.Tweaks.Patches |= Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS;
+                    outputInfo();
+                    return;
+                }
+
+                /** Passively detect Steam MCC CEA */
+                if (Exists(SteamExePath))
+                    CheckSteamPath(SteamExePath);
+
+                outputInfo();
+
+                /** Output Activation info to file */
+                void outputInfo()
+                {
+                    HXE.File file = (HXE.File) Paths.Exception;
+                    string output = string.Empty;
+                    output += $"INFO -- DRM patch queued: {(Kernel.hxe.Tweaks.Patches & Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS) == 1}{NewLine}";
+                    output += $"INFO -- Custom Edition is activated: {CustomActivated}{NewLine}";
+                    output += $"INFO -- Retail Edition is activated: {RetailActivated}{NewLine}";
+                    file.WriteAllText(output);
+                }
+            }
+
+            /** else, prompt for activation */
+            Status = "Please install a legal copy of Halo 1 before installing SPV3.";
+            CanInstall = false;
+            Main = Collapsed;
+            Activation = Visible;
         }
-        catch (FileNotFoundException)
-        {
-          if (!Debug.IsDebug)
-            throw;
-        }
 
-        /** shortcuts */
+        public async void Commit()
         {
-          void Shortcut(string shortcutPath)
-          {
-            var targetFileLocation = Path.Combine(Target, Paths.Executable);
-
             try
             {
-              var shell    = new WshShell();
-              var shortcut = (IWshShortcut) shell.CreateShortcut(Path.Combine(shortcutPath, "SPV3.lnk"));
+                CanInstall = false;
 
-              shortcut.Description = "Single Player Version 3";
-              shortcut.TargetPath  = targetFileLocation;
-              shortcut.WorkingDirectory = Target;
-              shortcut.Save();
+                var progress = new Progress<Status>();
+                progress.ProgressChanged +=
+                  (o, s) => Status =
+                    $"Installing SPV3. Please wait until this is finished! - {(decimal) s.Current / s.Total:P}";
+
+                try
+                {
+                    await Task.Run(() => { Installer.Install(_source, _target, progress, Compress); });
+                }
+                catch (InvalidOperationException)
+                {
+                    if (!Debug.IsDebug)
+                        throw;
+                }
+
+                /** MCC DRM Patch */
+
+                try
+                {
+                    if ((Kernel.hxe.Tweaks.Patches & Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS) != 0)
+                        new Patcher().Write(Kernel.hxe.Tweaks.Patches, Path.Combine(Target, HXE.Paths.HCE.Executable));
+                }
+                catch (FileNotFoundException)
+                {
+                    if (!Debug.IsDebug)
+                        throw;
+                }
+
+                /** shortcuts */
+                {
+                    void Shortcut(string shortcutPath)
+                    {
+                        var targetFileLocation = Path.Combine(Target, Paths.Executable);
+
+                        try
+                        {
+                            var shell = new WshShell();
+                            var shortcut = (IWshShortcut) shell.CreateShortcut(Path.Combine(shortcutPath, "SPV3.lnk"));
+
+                            shortcut.Description = "Single Player Version 3";
+                            shortcut.TargetPath = targetFileLocation;
+                            shortcut.WorkingDirectory = Target;
+                            shortcut.Save();
+                        }
+                        catch (Exception e)
+                        {
+                            var msg = "Shortcut error.\n Error:  " + e.ToString() + "\n";
+                            var log = (HXE.File) Paths.Exception;
+                            log.AppendAllText(msg);
+                            Status = msg;
+                        }
+                    }
+
+                    var appStartMenuPath = Path.Combine
+                    (
+                      GetFolderPath(ApplicationData),
+                      "Microsoft",
+                      "Windows",
+                      "Start Menu",
+                      "Programs",
+                      "Single Player Version 3"
+                    );
+
+                    if (!Directory.Exists(appStartMenuPath))
+                        Directory.CreateDirectory(appStartMenuPath);
+
+                    Shortcut(GetFolderPath(DesktopDirectory));
+                    Shortcut(appStartMenuPath);
+                }
+
+                MessageBox.Show(
+                  "Installation has been successful! " +
+                  "Please install OpenSauce to the SPV3 folder OR Halo CE folder using AmaiSosu. Click OK to continue ...");
+
+                /** Install OpenSauce via AmaiSosu */
+                try
+                {
+                    var amaiSosu = new AmaiSosu { Path = Path.Combine(Target, Paths.AmaiSosu) };
+                    while (!Exists(Path.Combine(GetFolderPath(CommonApplicationData), "Kornner Studios", "Halo CE", "OpenSauceUI.pak"))
+                        && !Exists(Path.Combine(GetFolderPath(CommonApplicationData), "Kornner Studios", "Halo CE", "shaders", "gbuffer_shaders.shd"))
+                        && !Exists(Path.Combine(GetFolderPath(CommonApplicationData), "Kornner Studios", "Halo CE", "shaders", "pp_shaders.shd")))
+                    {
+                        try
+                        {
+                            amaiSosu.Execute();
+                            if (!amaiSosu.Exists())
+                                MessageBox.Show("Click OK after AmaiSosu is installed.");
+                        }
+                        catch (Exception e)
+                        {
+                            if (e.Message == "The operation was canceled by the user") // RunAs elevation not granted
+                                continue;
+                            else throw;
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    var msg = "Failed to install OpenSauce via Amai Sosu.\n Error:  " + e.ToString() + "\n";
+                    var log = (HXE.File) Paths.Exception;
+                    log.AppendAllText(msg);
+                    Status = msg;
+                }
+                finally
+                {
+                    Status = "Installation of SPV3 has successfully finished! " +
+                             "Enjoy SPV3, and join our Discord and Reddit communities!";
+
+                    CanInstall = true;
+
+                    if (Exists(Path.Combine(Target, Paths.Executable)))
+                    {
+                        Main = Collapsed;
+                        Activation = Collapsed;
+                        Load = Visible;
+                    }
+                    else
+                    {
+                        Status = "SPV3 loader could not be found in the target directory. Please load manually.";
+                    }
+                }
             }
             catch (Exception e)
             {
-              var msg = "Shortcut error.\n Error:  " + e.ToString() + "\n";
-              var log = (HXE.File)Paths.Exception;
-              log.AppendAllText(msg);
-              Status = msg;
+                var msg = "Failed to install SPV3.\n Error:  " + e.ToString() + "\n";
+                var log = (HXE.File) Paths.Exception;
+                log.AppendAllText(msg);
+                Status = msg;
+                CanInstall = true;
             }
-          }
-
-          var appStartMenuPath = Path.Combine
-          (
-            GetFolderPath(ApplicationData),
-            "Microsoft",
-            "Windows",
-            "Start Menu",
-            "Programs",
-            "Single Player Version 3"
-          );
-
-          if (!Directory.Exists(appStartMenuPath))
-            Directory.CreateDirectory(appStartMenuPath);
-
-          Shortcut(GetFolderPath(DesktopDirectory));
-          Shortcut(appStartMenuPath);
-
         }
 
-        MessageBox.Show(
-          "Installation has been successful! " +
-          "Please install OpenSauce to the SPV3 folder OR Halo CE folder using AmaiSosu. Click OK to continue ...");
-
-        /** Install OpenSauce via AmaiSosu */
-        try
+        public void Update_SteamStatus()
         {
-          var amaiSosu = new AmaiSosu { Path = Path.Combine(Target, Paths.AmaiSosu) };
-          while (!Exists(Path.Combine(GetFolderPath(CommonApplicationData), "Kornner Studios", "Halo CE", "OpenSauceUI.pak"))
-              && !Exists(Path.Combine(GetFolderPath(CommonApplicationData), "Kornner Studios", "Halo CE", "shaders", "gbuffer_shaders.shd"))
-              && !Exists(Path.Combine(GetFolderPath(CommonApplicationData), "Kornner Studios", "Halo CE", "shaders", "pp_shaders.shd")))
-          {
-            try
+            SteamStatus =
+              Exists(_steamExe) ?
+              "Steam located!" :
+              "Find Steam.exe or a Steam shortcut and we'll do the rest!";
+        }
+
+        public void CheckSteamPath(string exe)
+        {
+            if (Exists(exe) && exe.Contains("steam.exe"))
             {
-              amaiSosu.Execute();
-              if (!amaiSosu.Exists())
-                MessageBox.Show("Click OK after AmaiSosu is installed.");
+                HXE.Paths.Steam.SetSteam(exe);
+                Update_SteamStatus();
+                Halo1Path = Path.Combine(HXE.Paths.Steam.Library, HTMCC, Halo1dir, Halo1dll);
+
+                if (Exists(Halo1Path))
+                    Activate();
+                else
+                    try
+                    {
+                        SteamStatus = "Searching for and validating Halo CEA's files...";
+                        MCC.Halo1.SetHalo1Path(MCC.Halo1.Platform.Steam);
+                        Activate();
+                    }
+                    catch (Exception e)
+                    {
+                        SteamStatus = "Failed to find CEA";
+                        var msg = SteamStatus + NewLine
+                                + " Error: " + e.Message + NewLine;
+                        var log = (HXE.File) Paths.Exception;
+                        log.AppendAllText(msg);
+                        return;
+                    }
+
+                if (!Exists(Halo1Path))
+                    SteamStatus = "Steam Located, but Halo CEA not found.";
             }
-            catch(Exception e)
+            else
+                Update_SteamStatus();
+
+            void Activate()
             {
-              if (e.Message == "The operation was canceled by the user") // RunAs elevation not granted
-                continue;
-              else throw;
+                Kernel.hxe.Tweaks.Patches |= Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS;
+                Status = "Halo CEA Located via Steam." + NewLine
+                        + _ssdRec + NewLine;
+                CanInstall = true;
+                Main = Visible;
+                Activation = Collapsed;
             }
-          }
         }
-        catch (Exception e)
-        {
-          var msg = "Failed to install OpenSauce via Amai Sosu.\n Error:  " + e.ToString() + "\n";
-          var log = (HXE.File)Paths.Exception;
-          log.AppendAllText(msg);
-          Status = msg;
-        }
-        finally
-        {
-          Status = "Installation of SPV3 has successfully finished! " +
-                   "Enjoy SPV3, and join our Discord and Reddit communities!";
 
-          CanInstall = true;
-
-          if (Exists(Path.Combine(Target, Paths.Executable)))
-          {
-            Main = Collapsed;
-            Activation  = Collapsed;
-            Load = Visible;
-          }
-          else
-          {
-            Status = "SPV3 loader could not be found in the target directory. Please load manually.";
-          }
-        }
-      }
-      catch (Exception e)
-      {
-        var msg = "Failed to install SPV3.\n Error:  " + e.ToString() + "\n";
-        var log = (HXE.File)Paths.Exception;
-        log.AppendAllText(msg);
-        Status     = msg;
-        CanInstall = true;
-      }
-    }
-
-    public void Update_SteamStatus()
-    {
-      SteamStatus =
-        Exists(_steamExe) ?
-        "Steam located!" :
-        "Find Steam.exe or a Steam shortcut and we'll do the rest!";
-    }
-
-    public void CheckSteamPath(string exe)
-    {
-      if (Exists(exe) && exe.Contains("steam.exe"))
-      {
-        HXE.Paths.Steam.SetSteam(exe);
-        Update_SteamStatus();
-        Halo1Path = Path.Combine(HXE.Paths.Steam.Library, HTMCC, Halo1dir, Halo1dll);
-
-        if (Exists(Halo1Path))
-          Activate();
-        else
-          try
-          {
-            SteamStatus = "Searching for and validating Halo CEA's files...";
-            MCC.Halo1.SetHalo1Path(MCC.Halo1.Platform.Steam);
-            Activate();
-          }
-          catch (Exception e)
-          {
-            SteamStatus = "Failed to find CEA";
-            var msg = SteamStatus + NewLine
-                    + " Error: " + e.Message + NewLine;
-            var log = (HXE.File) Paths.Exception;
-            log.AppendAllText(msg);
-            return;
-          }
-
-        if (!Exists(Halo1Path))
-          SteamStatus = "Steam Located, but Halo CEA not found.";
-      }
-      else
-        Update_SteamStatus();
-
-      void Activate()
-      {
-        Kernel.hxe.Tweaks.Patches |= Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS;
-        Status = "Halo CEA Located via Steam." + NewLine
-                + _ssdRec + NewLine;
-        CanInstall = true;
-        Main = Visible;
-        Activation = Collapsed;
-      }
-    }
-
-    public void CheckMCCWinStorePath(string drive)
+        public void CheckMCCWinStorePath(string drive)
         {
             var path = $"{drive}Program Files\\ModifiableWindowsApps\\HaloMCC\\halo1";
 
@@ -452,231 +453,231 @@ namespace SPV3
             {
                 WinStoreStatus = "Failed to find CEA on the drive";
                 var msg = WinStoreStatus + NewLine
-                        + " Error: " + "Could not find CEA for Winstore on " +drive + NewLine;
-                var log = (HXE.File)Paths.Exception;
+                        + " Error: " + "Could not find CEA for Winstore on " + drive + NewLine;
+                var log = (HXE.File) Paths.Exception;
                 log.AppendAllText(msg);
                 return;
             }
         }
 
-    public void ValidateTarget(string path)
-    {
-      /** Check validity of the specified target value.
-       *
-       */
-      if (string.IsNullOrEmpty(path)
-        || !Directory.Exists(Path.GetPathRoot(path)))
-      {
-        Status = "Enter a valid path.";
-        CanInstall = false;
-        return;
-      }
-
-      try
-      {
-        var exists     = Directory.Exists(path);
-        var root       = Path.GetPathRoot(path);
-        var rootExists = Directory.Exists(root);
-
-        if (!exists && rootExists)
+        public void ValidateTarget(string path)
         {
-          while (!Directory.Exists(path))
-          {
-            path = Directory.GetParent(path).FullName;
-            if (path == CurrentDirectory)
+            /** Check validity of the specified target value.
+             *
+             */
+            if (string.IsNullOrEmpty(path)
+              || !Directory.Exists(Path.GetPathRoot(path)))
             {
-              Status = "Enter a valid path.";
-              CanInstall = false;
-              return;
+                Status = "Enter a valid path.";
+                CanInstall = false;
+                return;
             }
-          }
+
+            try
+            {
+                var exists = Directory.Exists(path);
+                var root = Path.GetPathRoot(path);
+                var rootExists = Directory.Exists(root);
+
+                if (!exists && rootExists)
+                {
+                    while (!Directory.Exists(path))
+                    {
+                        path = Directory.GetParent(path).FullName;
+                        if (path == CurrentDirectory)
+                        {
+                            Status = "Enter a valid path.";
+                            CanInstall = false;
+                            return;
+                        }
+                    }
+                }
+
+                // if Target and Root exist...
+                path = Path.GetFullPath(path);
+                var test = Path.Combine(path, "io.bin");
+                WriteAllBytes(test, new byte[8]);
+                Delete(test);
+
+                Status = _ssdRec;
+                CanInstall = true;
+            }
+            catch (Exception e)
+            {
+                var msg = "Installation not possible at selected path: " + path + "\n Error: " + e.ToString() + "\n";
+                var log = (HXE.File) Paths.Exception;
+                log.AppendAllText(msg);
+                Status = msg;
+                CanInstall = false;
+                return;
+            }
+
+            /** Check if the target is in Program Files or Program Files (x86)
+             *
+             */
+            if (path.Contains(GetFolderPath(ProgramFiles))
+            || !string.IsNullOrEmpty(GetFolderPath(ProgramFilesX86))
+            && path.Contains(GetFolderPath(ProgramFilesX86)))
+            {
+                Status = "The game does not function correctly when install to Program Files. Please choose a difference location.";
+                CanInstall = false;
+                return;
+            }
+
+            /** Prohibit installing to MCC's folder
+             *
+             */
+            if (path.Contains("Halo The Master Chief Collection"))
+            {
+                Status = "SPV3 does not run on MCC and it does not alter any game files within MCC." + NewLine
+                       + "It is a stand alone program built on top of Halo Custom Edition.";
+                CanInstall = false;
+                return;
+            }
+
+            /** Check available disk space. This will NOT work on UNC paths!
+             *
+             */
+            try
+            {
+                /** First, check the user's temp folder's drive to ensure there's enough free space
+                  * for temporary extraction to %temp%
+                  */
+                {
+                    var tmpath = Path.GetPathRoot(Path.GetTempPath());
+                    var systemDrive = new DriveInfo(tmpath);
+                    if (systemDrive.TotalFreeSpace < 11811160064)
+                    {
+                        Status = $"Not enough disk space (11GB required) on the {tmpath} drive. " +
+                                  "Clear junk files using Disk Cleanup or allocate more space to the volume";
+                        CanInstall = false;
+                        return;
+                    }
+                }
+
+                /**
+                  * Check if the target drive has at least 16GB of free space
+                  */
+                var targetDrive = new DriveInfo(Path.GetPathRoot(path));
+
+                if (targetDrive.IsReady && targetDrive.TotalFreeSpace > 17179869184)
+                {
+                    CanInstall = true;
+                }
+                else
+                {
+                    Status = "Not enough disk space (16GB required) at selected path: " + path;
+                    CanInstall = false;
+                    return;
+                }
+            }
+            catch (Exception e)
+            {
+                var msg = "Failed to get drive space.\n Error:  " + e.ToString() + "\n";
+                var log = (HXE.File) Paths.Exception;
+                log.AppendAllText(msg);
+                Status = msg;
+                CanInstall = false;
+            }
         }
 
-        // if Target and Root exist...
-        path = Path.GetFullPath(path);
-        var test = Path.Combine(path, "io.bin");
-        WriteAllBytes(test, new byte[8]);
-        Delete(test);
-
-        Status = _ssdRec;
-        CanInstall = true;
-      }
-      catch (Exception e)
-      {
-        var msg = "Installation not possible at selected path: " + path + "\n Error: " + e.ToString() + "\n";
-        var log = (HXE.File) Paths.Exception;
-        log.AppendAllText(msg);
-        Status = msg;
-        CanInstall = false;
-        return;
-      }
-
-      /** Check if the target is in Program Files or Program Files (x86)
-       *
-       */
-      if (path.Contains(GetFolderPath(ProgramFiles))
-      || !string.IsNullOrEmpty(GetFolderPath(ProgramFilesX86))
-      && path.Contains(GetFolderPath(ProgramFilesX86)))
-      {
-        Status = "The game does not function correctly when install to Program Files. Please choose a difference location.";
-        CanInstall = false;
-        return;
-      }
-
-      /** Prohibit installing to MCC's folder
-       *
-       */
-      if (path.Contains("Halo The Master Chief Collection"))
-      {
-        Status = "SPV3 does not run on MCC and it does not alter any game files within MCC." + NewLine
-               + "It is a stand alone program built on top of Halo Custom Edition.";
-        CanInstall = false;
-        return;
-      }
-
-      /** Check available disk space. This will NOT work on UNC paths!
-       *
-       */
-      try
-      {
-        /** First, check the user's temp folder's drive to ensure there's enough free space
-          * for temporary extraction to %temp%
-          */
+        public void ViewActivation() // Debug widget
         {
-          var tmpath = Path.GetPathRoot(Path.GetTempPath());
-          var systemDrive = new DriveInfo(tmpath);
-          if (systemDrive.TotalFreeSpace < 11811160064)
-          {
-            Status = $"Not enough disk space (11GB required) on the {tmpath} drive. " +
-                      "Clear junk files using Disk Cleanup or allocate more space to the volume";
-            CanInstall = false;
-            return;
-          }
+            Main = Collapsed;
+            Activation = Visible;
         }
 
-        /**
-          * Check if the target drive has at least 16GB of free space
-          */
-        var targetDrive = new DriveInfo(Path.GetPathRoot(path));
-
-        if (targetDrive.IsReady && targetDrive.TotalFreeSpace > 17179869184)
+        public void ViewMain()
         {
-          CanInstall = true;
+            Main = Visible;
+            Activation = Collapsed;
         }
-        else
+
+        public void InstallHce()
         {
-          Status = "Not enough disk space (16GB required) at selected path: " + path;
-          CanInstall = false;
-          return;
+            try
+            {
+                new Setup { Path = Path.Combine(Paths.Setup) }.Execute();
+            }
+            catch (Exception e)
+            {
+                var msg = "Failed to install Halo Custom Edition." + NewLine
+                         + " Error:  " + e.ToString() + NewLine;
+                var log = (HXE.File) Paths.Exception;
+                var ilog = (HXE.File) Paths.Install;
+                log.AppendAllText(msg);
+                ilog.AppendAllText(msg);
+                Status = "Failed to install Halo Custom Edition." + NewLine
+                       + " Error:  " + e.Message;
+            }
         }
-      }
-      catch (Exception e)
-      {
-        var msg = "Failed to get drive space.\n Error:  " + e.ToString() + "\n";
-        var log = (HXE.File)Paths.Exception;
-        log.AppendAllText(msg);
-        Status = msg;
-        CanInstall = false;
-      }
-    }
 
-    public void ViewActivation() // Debug widget
-    {
-      Main = Collapsed;
-      Activation  = Visible;
-    }
-
-    public void ViewMain()
-    {
-      Main = Visible;
-      Activation  = Collapsed;
-    }
-
-    public void InstallHce()
-    {
-      try
-      {
-        new Setup {Path = Path.Combine(Paths.Setup)}.Execute();
-      }
-      catch (Exception e)
-      {
-        var msg  = "Failed to install Halo Custom Edition." + NewLine
-                 + " Error:  " + e.ToString() + NewLine;
-        var log  = (HXE.File) Paths.Exception;
-        var ilog = (HXE.File) Paths.Install;
-        log.AppendAllText(msg);
-        ilog.AppendAllText(msg);
-        Status = "Failed to install Halo Custom Edition." + NewLine
-               + " Error:  " + e.Message;
-      }
-    }
-
-    public void IsHaloOrCEARunning()
-    {
-      var inferredProcess = HXE.Process.Type.Unknown;
-      try
-      {
-        inferredProcess = HXE.Process.Infer();
-      }
-      catch(Exception e)
-      {
-        var msg  = "Failed to infer Halo process." + NewLine
-                 + " Error:  " + e.ToString() + NewLine;
-        var log  = (HXE.File) Paths.Exception;
-        var ilog = (HXE.File) Paths.Install;
-        log.AppendAllText(msg);
-        ilog.AppendAllText(msg);
-        Status = "Failed to infer Halo process." + NewLine
-               + " Error:  " + e.Message;
-      }
-
-      if (inferredProcess != HXE.Process.Type.Unknown)
-      {
-        switch (inferredProcess)
+        public void IsHaloOrCEARunning()
         {
-          /**
-           * HPC/HCE
-           */
-          case HXE.Process.Type.Retail:
-          case HXE.Process.Type.HCE:
-            Kernel.hxe.Tweaks.Patches |= Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS;
-            CanInstall                =  true;
-            Main                      =  Visible;
-            Activation                =  Collapsed;
-            Status                    =  $"Process Detection: Halo PC/CE Found{NewLine}{_ssdRec}";
-            break;
+            var inferredProcess = HXE.Process.Type.Unknown;
+            try
+            {
+                inferredProcess = HXE.Process.Infer();
+            }
+            catch (Exception e)
+            {
+                var msg = "Failed to infer Halo process." + NewLine
+                         + " Error:  " + e.ToString() + NewLine;
+                var log = (HXE.File) Paths.Exception;
+                var ilog = (HXE.File) Paths.Install;
+                log.AppendAllText(msg);
+                ilog.AppendAllText(msg);
+                Status = "Failed to infer Halo process." + NewLine
+                       + " Error:  " + e.Message;
+            }
 
-          /**
-           * MCC CEA
-           */
-          case HXE.Process.Type.Steam:
-          case HXE.Process.Type.Store:
-            Kernel.hxe.Tweaks.Patches |= Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS;
-            CanInstall                =  true;
-            Main                      =  Visible;
-            Activation                =  Collapsed;
-            Status                    =  $"Process Detection: MCC CEA Found{NewLine}{_ssdRec}";
-            break;
+            if (inferredProcess != HXE.Process.Type.Unknown)
+            {
+                switch (inferredProcess)
+                {
+                    /**
+                     * HPC/HCE
+                     */
+                    case HXE.Process.Type.Retail:
+                    case HXE.Process.Type.HCE:
+                        Kernel.hxe.Tweaks.Patches |= Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS;
+                        CanInstall = true;
+                        Main = Visible;
+                        Activation = Collapsed;
+                        Status = $"Process Detection: Halo PC/CE Found{NewLine}{_ssdRec}";
+                        break;
+
+                    /**
+                     * MCC CEA
+                     */
+                    case HXE.Process.Type.Steam:
+                    case HXE.Process.Type.Store:
+                        Kernel.hxe.Tweaks.Patches |= Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS;
+                        CanInstall = true;
+                        Main = Visible;
+                        Activation = Collapsed;
+                        Status = $"Process Detection: MCC CEA Found{NewLine}{_ssdRec}";
+                        break;
+                }
+            }
+            else
+                Status = $"Process Detection: No Matching Processes{NewLine}No MCC (with CEA), HPC, or HCE processes found.";
         }
-      }
-      else
-        Status = $"Process Detection: No Matching Processes{NewLine}No MCC (with CEA), HPC, or HCE processes found.";
-    }
 
-    public void InvokeSpv3()
-    {
-      Process.Start(new ProcessStartInfo
-      {
-        FileName         = Path.Combine(Target, Paths.Executable),
-        WorkingDirectory = Target
-      });
-      Exit(0);
-    }
+        public void InvokeSpv3()
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = Path.Combine(Target, Paths.Executable),
+                WorkingDirectory = Target
+            });
+            Exit(0);
+        }
 
-    [NotifyPropertyChangedInvocator]
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-    {
-      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
-  }
 }

@@ -1,6 +1,6 @@
 <!--
  Copyright (c) 2019 Emilian Roman
- Copyright (c) 2020 Noah Sherwin
+ Copyright (c) 2021 Noah Sherwin
 
  This software is provided 'as-is', without any express or implied
  warranty. In no event will the authors be held liable for any damages
@@ -62,7 +62,7 @@
         <!-- top      -->
         <RowDefinition Height="115" />
         <!-- contents -->
-        <RowDefinition Height="*"   />
+        <RowDefinition Height="*" />
         <!-- bottom   -->
       </Grid.RowDefinitions>
 
@@ -89,9 +89,9 @@
         <DockPanel Margin="0,1,0,0">
           <Grid>
             <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="150"/>
-              <ColumnDefinition Width="*"/>
-              <ColumnDefinition Width="150"/>
+              <ColumnDefinition Width="150" />
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="150" />
             </Grid.ColumnDefinitions>
             <Button Click="Back"
                       Grid.Column="0">
@@ -102,7 +102,7 @@
                       Margin="1,0,0,0"
                       Click="Install"
                       Content="Install"
-                      IsEnabled="{Binding CanInstall}"/>
+                      IsEnabled="{Binding CanInstall}" />
             <Button x:Name="CompressButton"
                       Margin="1,0,0,0"
                       Grid.Column="2"
@@ -119,21 +119,21 @@
               </Button.ToolTip>
               <Grid Margin="-25,0" Width="auto">
                 <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="auto"/>
-                  <ColumnDefinition Width="auto"/>
-                  <ColumnDefinition Width="auto"/>
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
                 <Image Source="Assets/compressFolder.png"
                        Grid.Column="0"
                        Margin="1,0,0,0"
                        Height="auto"
-                       Width="24"/>
+                       Width="24" />
                 <CheckBox IsChecked="{Binding Compress}"
                           Click="CompressButton_Click"
                           Grid.Column="1"
                           VerticalAlignment="Center"
                           Margin="2,0,2,0"
-                          Padding="0"/>
+                          Padding="0" />
                 <TextBlock Grid.Column="2"
                            Margin="1,0,1,0"
                            VerticalAlignment="Center">
@@ -169,7 +169,7 @@
     <!-- Activation -->
     <Canvas Visibility="{Binding Activation}">
       <Image Source="Assets/background_activation.jpg"
-             Height="540"/>
+             Height="540" />
       <Canvas
         Panel.ZIndex="1"
         ClipToBounds="true"
@@ -180,7 +180,7 @@
           Source="Assets/background_activation.jpg"
           Height="540" Canvas.Top="-50">
           <Image.Effect>
-            <BlurEffect Radius="20"/>
+            <BlurEffect Radius="20" />
           </Image.Effect>
         </Image>
       </Canvas>
@@ -194,7 +194,7 @@
           Source="Assets/background_activation.jpg"
           Height="540" Canvas.Top="-200">
           <Image.Effect>
-            <BlurEffect Radius="20"/>
+            <BlurEffect Radius="20" />
           </Image.Effect>
         </Image>
       </Canvas>
@@ -208,7 +208,7 @@
                Height="540"
                Canvas.Top="-350">
           <Image.Effect>
-            <BlurEffect Radius="20"/>
+            <BlurEffect Radius="20" />
           </Image.Effect>
         </Image>
       </Canvas>
@@ -216,7 +216,7 @@
             Width="960"
             VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
-          <RowDefinition Height="50"  />
+          <RowDefinition Height="50" />
           <!-- Pick Your Poison -->
           <RowDefinition Height="Auto" />
           <!-- SteamExe -->
@@ -226,7 +226,7 @@
           <!-- Process  -->
           <RowDefinition Height="Auto" />
           <!-- HCE      -->
-          <RowDefinition Height="43"  />
+          <RowDefinition Height="43" />
           <!-- Footer   -->
         </Grid.RowDefinitions>
 
@@ -241,7 +241,7 @@
                      FontSize="25"
                      HorizontalAlignment="Center"
                      VerticalAlignment="Center"
-                     Text="Choose how to activate SPV3"/>
+                     Text="Choose how to activate SPV3" />
         </StackPanel>
 
         <!-- MCC -->
@@ -249,27 +249,27 @@
                     Width="960"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Background="#80506080" >
+                    Background="#80506080">
           <DockPanel>
             <Label Content="Locate Steam or its shortcut to find CEA's files within the Steam release of Halo MCC"
                    HorizontalAlignment="Center"
                    Foreground="White"
-                   Margin="100,0"/>
+                   Margin="100,0" />
           </DockPanel>
           <DockPanel>
             <Grid Margin="125,0">
               <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="100" />
               </Grid.ColumnDefinitions>
               <TextBox Grid.Column="0"
                        Name="SteamExePath_TextBox"
                        Text="{Binding SteamExePath}"
                        TextChanged="SteamExePath_TextChanged"
-                       VerticalContentAlignment="Center"/>
+                       VerticalContentAlignment="Center" />
               <Button Grid.Column="1"
                       Click="BrowseSteam"
-                      Content="Browse"/>
+                      Content="Browse" />
             </Grid>
           </DockPanel>
           <DockPanel>
@@ -279,7 +279,7 @@
               <TextBlock Foreground="White"
                          TextWrapping="WrapWithOverflow"
                          TextAlignment="Center"
-                         Text="{Binding SteamStatus}"/>
+                         Text="{Binding SteamStatus}" />
             </Label>
           </DockPanel>
         </StackPanel>
@@ -288,14 +288,14 @@
         <StackPanel Grid.Row="2"
                     Width="960"
                     HorizontalAlignment="Center"
-                    Background="#80506080" Margin="0,24,0,24" >
+                    Background="#80506080" Margin="0,24,0,24">
           <DockPanel>
             <TextBlock HorizontalAlignment="Center"
                        Foreground="White"
                        Margin="100,0"
                        TextAlignment="Center">
               Choose a directory to find the WinStore/Game Pass release of Halo MCC
-              <LineBreak/>
+              <LineBreak />
               The "No anti-cheat" version should be enabled; CEA must be installed.
             </TextBlock>
           </DockPanel>
@@ -305,7 +305,7 @@
                         Grid.Column="0"
                         Loaded="OnLoadDrive"
                         SelectionChanged="DirctList_SelectionChanged"
-                        Margin="240,0"/>
+                        Margin="240,0" />
             </Grid>
           </DockPanel>
           <DockPanel>
@@ -315,7 +315,7 @@
               <TextBlock Foreground="White"
                          TextWrapping="WrapWithOverflow"
                          TextAlignment="Center"
-                         Text="{Binding WinStoreStatus}"/>
+                         Text="{Binding WinStoreStatus}" />
             </Label>
           </DockPanel>
         </StackPanel>
@@ -380,23 +380,23 @@
         <Grid Grid.Row="5"
               VerticalAlignment="Center">
           <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100" />
             <ColumnDefinition />
-            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100" />
           </Grid.ColumnDefinitions>
           <Button Grid.Column="0"
                   Click="Back"
-                  Content="Go Back"/>
+                  Content="Go Back" />
           <Label Grid.Column="1"
                  Content="{Binding Status}"
                  Foreground="White"
                  HorizontalAlignment="Center"
                  VerticalAlignment="Center"
                  HorizontalContentAlignment="Center"
-                 ToolTip="{Binding Status}"/>
+                 ToolTip="{Binding Status}" />
           <Button Grid.Column="2"
                   Click="Quit"
-                  Content="Exit"/>
+                  Content="Exit" />
         </Grid>
       </Grid>
     </Canvas>

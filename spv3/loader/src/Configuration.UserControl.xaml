@@ -1,15 +1,15 @@
 <!--
  Copyright (c) 2019 Emilian Roman
- Copyright (c) 2020 Noah Sherwin
- 
+ Copyright (c) 2021 Noah Sherwin
+
  This software is provided 'as-is', without any express or implied
  warranty. In no event will the authors be held liable for any damages
  arising from the use of this software.
- 
+
  Permission is granted to anyone to use this software for any purpose,
  including commercial applications, and to alter it and redistribute it
  freely, subject to the following restrictions:
- 
+
  1. The origin of this software must not be misrepresented; you must not
     claim that you wrote the original software. If you use this software
     in a product, an acknowledgment in the product documentation would be
@@ -80,8 +80,8 @@
           <Label Content="Width &amp; Height:" />
           <CheckBox IsChecked="{Binding Loader.ResolutionEnabled}"
                     ToolTip="Allows you to use a custom resolution. Otherwise, it will use your system's current resolution."
-                    HorizontalAlignment="Left" 
-                    VerticalAlignment="Center"/>
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center" />
           <TextBox HorizontalAlignment="Left"
                      Name="ResolutionWidth"
                      HorizontalContentAlignment="Center"
@@ -102,8 +102,8 @@
         </DockPanel>
         <DockPanel Margin="0,5,0,0">
           <Label Content="V-Sync" />
-          <CheckBox IsChecked="{Binding Loader.Vsync}" 
-                    HorizontalAlignment="Left"/>
+          <CheckBox IsChecked="{Binding Loader.Vsync}"
+                    HorizontalAlignment="Left" />
           <TextBox  Width="50"
                     HorizontalAlignment="Left"
                     HorizontalContentAlignment="Center"
@@ -112,9 +112,9 @@
                     ToolTip="Set the in-game refresh rate." />
         </DockPanel>
         <DockPanel Margin="0,5,0,0">
-          <Label Content="Gamma"/>
-          <CheckBox IsChecked="{Binding Loader.GammaOn}" 
-                    HorizontalAlignment="Left"/>
+          <Label Content="Gamma" />
+          <CheckBox IsChecked="{Binding Loader.GammaOn}"
+                    HorizontalAlignment="Left" />
           <TextBox  Width="50"
                     HorizontalAlignment="Left"
                     HorizontalContentAlignment="Center"
@@ -139,9 +139,9 @@
           <Label Content="Main Display:" />
           <ComboBox SelectedIndex="{Binding Loader.Adapter}"
                     ItemsSource="{Binding Loader.Adapters }"
-                    ToolTip="Sets the display that HCE/SPV3 will run on." 
+                    ToolTip="Sets the display that HCE/SPV3 will run on."
                     HorizontalAlignment="Left"
-                    Width="125"/>
+                    Width="125" />
         </DockPanel>
         <DockPanel>
           <Label Content="Run as Admin:" />
@@ -202,7 +202,7 @@
               HorizontalAlignment="Left"
               HorizontalContentAlignment="Center"
               Width="75"
-              Margin="5,0,0,0"/>
+              Margin="5,0,0,0" />
           </Grid>
         </DockPanel>
         <DockPanel>
@@ -241,7 +241,7 @@
         </DockPanel>
         <DockPanel>
           <Label Content="Adaptive HDR:"
-                 IsEnabled="{Binding Loader.Shaders}"/>
+                 IsEnabled="{Binding Loader.Shaders}" />
           <CheckBox Name="AdaptiveHDR_CheckBox"
                     IsChecked="{Binding Shaders.AdaptiveHDR}"
                     IsEnabled="{Binding Loader.Shaders}"
@@ -254,7 +254,7 @@
                  IsEnabled="{Binding Loader.Shaders}" />
           <CheckBox IsChecked="{Binding Shaders.HudVisor}"
                     IsEnabled="{Binding Loader.Shaders}"
-                    ToolTip="Enables HUD extras like visor holograms, helmet bits, and water droplets, and ice."/>
+                    ToolTip="Enables HUD extras like visor holograms, helmet bits, and water droplets, and ice." />
         </DockPanel>
         <DockPanel>
           <Label Content="Film Grain:"
@@ -511,7 +511,7 @@
               Click="ShowAdvanced"
               HorizontalAlignment="Right"
               Margin="350,0"
-              Width="100"/>
+              Width="100" />
       <!-- Remove Visibility property when usable -->
     </StackPanel>
   </Grid>

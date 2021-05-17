@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2019 Emilian Roman
- * Copyright (c) 2020 Noah Sherwin
+ * Copyright (c) 2021 Noah Sherwin
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages

@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2019 Emilian Roman
- * Copyright (c) 2020 Noah Sherwin
- * 
+ * Copyright (c) 2021 Noah Sherwin
+ *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
  * arising from the use of this software.
- * 
+ *
  * Permission is granted to anyone to use this software for any purpose,
  * including commercial applications, and to alter it and redistribute it
  * freely, subject to the following restrictions:
- * 
+ *
  * 1. The origin of this software must not be misrepresented; you must not
  *    claim that you wrote the original software. If you use this software
  *    in a product, an acknowledgment in the product documentation would be
@@ -26,60 +26,60 @@ using static System.IO.Path;
 
 namespace SPV3
 {
-  /// <summary>
-  ///   Object representing the HCE installer.
-  /// </summary>
-  public class Setup
-  {
     /// <summary>
-    ///   Setup download path.
+    ///   Object representing the HCE installer.
     /// </summary>
-    public const string Address = "https://haloce3.com/ce/?_sft_category=official-files";
-
-    /// <summary>
-    ///   Setup executable path.
-    /// </summary>
-    public string Path { get; set; } = Combine(CurrentDirectory, Paths.Setup);
-
-    public bool Exists()
+    public class Setup
     {
-      return File.Exists(Path);
-    }
+        /// <summary>
+        ///   Setup download path.
+        /// </summary>
+        public const string Address = "https://haloce3.com/ce/?_sft_category=official-files";
 
-    public void Execute()
-    {
-      Process.Start(Exists() ? Path : Address);
-    }
+        /// <summary>
+        ///   Setup executable path.
+        /// </summary>
+        public string Path { get; set; } = Combine(CurrentDirectory, Paths.Setup);
 
-    /// <summary>
-    ///   Represents the inbound object as a string.
-    /// </summary>
-    /// <param name="setup">
-    ///   Object to represent as string.
-    /// </param>
-    /// <returns>
-    ///   String representation of the inbound object.
-    /// </returns>
-    public static implicit operator string(Setup setup)
-    {
-      return setup.Path;
-    }
+        public bool Exists()
+        {
+            return File.Exists(Path);
+        }
 
-    /// <summary>
-    ///   Represents the inbound string as an object.
-    /// </summary>
-    /// <param name="path">
-    ///   String to represent as object.
-    /// </param>
-    /// <returns>
-    ///   Object representation of the inbound string.
-    /// </returns>
-    public static explicit operator Setup(string path)
-    {
-      return new Setup
-      {
-        Path = path
-      };
+        public void Execute()
+        {
+            Process.Start(Exists() ? Path : Address);
+        }
+
+        /// <summary>
+        ///   Represents the inbound object as a string.
+        /// </summary>
+        /// <param name="setup">
+        ///   Object to represent as string.
+        /// </param>
+        /// <returns>
+        ///   String representation of the inbound object.
+        /// </returns>
+        public static implicit operator string(Setup setup)
+        {
+            return setup.Path;
+        }
+
+        /// <summary>
+        ///   Represents the inbound string as an object.
+        /// </summary>
+        /// <param name="path">
+        ///   String to represent as object.
+        /// </param>
+        /// <returns>
+        ///   Object representation of the inbound string.
+        /// </returns>
+        public static explicit operator Setup(string path)
+        {
+            return new Setup
+            {
+                Path = path
+            };
+        }
     }
-  }
 }

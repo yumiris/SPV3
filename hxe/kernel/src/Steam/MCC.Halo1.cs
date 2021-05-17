@@ -1,6 +1,6 @@
 ﻿/**
  * Copyright (c) 2019 Emilian Roman
- * Copyright (c) 2020 Noah Sherwin
+ * Copyright (c) 2021 Noah Sherwin
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -30,134 +30,135 @@ using static HXE.Paths.MCC;
 
 namespace HXE.Steam
 {
-  public partial class MCC
-  {
-    public static class Halo1
+    public partial class MCC
     {
-      /// <summary>
-      /// Set a new path for Halo1.dll
-      /// </summary>
-      public static void SetHalo1Path(Platform platform)
-      {
-        switch (platform)
+        public static class Halo1
         {
-          case Platform.Steam:
-            var libraries = new Libraries();
-            var mccH1 = Path.Combine(HTMCC, Halo1dir, Halo1dll);
-            libraries.ParseLibraries();
-            Halo1Path = libraries.FindInLibraries(mccH1).First();
-            break;
-          case Platform.WinStore:
-            // TODO
-            throw new NotImplementedException("TODO: Add function to find WinStore MCC files.");
-          //break;
-          default:
-            throw new ArgumentOutOfRangeException(
-              $"Cannot set Halo1.dll path: Specified platform is invalid." + Environment.NewLine +
-              $"How did you do that?");
+            /// <summary>
+            /// Set a new path for Halo1.dll
+            /// </summary>
+            public static void SetHalo1Path(Platform platform)
+            {
+                switch (platform)
+                {
+                    case Platform.Steam:
+                        var libraries = new Libraries();
+                        var mccH1 = Path.Combine(HTMCC, Halo1dir, Halo1dll);
+                        libraries.ParseLibraries();
+                        Halo1Path = libraries.FindInLibraries(mccH1).First();
+                        break;
+
+                    case Platform.WinStore:
+                        // TODO
+                        throw new NotImplementedException("TODO: Add function to find WinStore MCC files.");
+                    //break;
+                    default:
+                        throw new ArgumentOutOfRangeException(
+                          $"Cannot set Halo1.dll path: Specified platform is invalid." + Environment.NewLine +
+                          $"How did you do that?");
+                }
+
+                if (Halo1Path == null)
+                    throw new FileNotFoundException("Halo1.dll not found");
+
+                if (!Halo1DLLIsCertified())
+                    throw new Exception("Halo1.dll is invalid.");
+            }
+
+            /// <summary>
+            /// Check if the inferred Halo1.dll is probably legitimate.
+            /// </summary>
+            /// <returns>
+            /// true if the file's Digital Certificate is valid.
+            /// </returns>
+            public static bool Halo1DLLIsCertified()
+            {
+                /// Known issue: This doesn't verify the file is a real Halo1.dll
+                /// It merely checks if the file's certificate is valid.
+                ///
+                /// Tip:
+                /// If getting the data for 'P7B_Fallback' and 'remoteCert'
+                /// took >200ms for each to complete, we would move them to
+                /// new methods/functions as Async Tasks so they can be
+                /// executed simultaneously and wait for both to complete
+                /// (successfully or not) before the last line which compares
+                /// one of those certificates to Halo1.dll's certificate.
+                ///
+                /// However, only the remoteCert takes a significant amount of time
+                /// to complete and it has a 200ms timeout to mitigate wait time.
+
+                /** Convert embedded resource to X509Certificate */
+                X509Certificate P7B_Fallback;
+                try
+                {
+                    var ms = new MemoryStream();
+                    var assembly = Assembly.GetExecutingAssembly();
+                    assembly.GetManifestResourceStream(@"HXE.Assets.343I_DER.cer")
+                      .CopyTo(ms);
+                    P7B_Fallback = new X509Certificate(ms.ToArray());
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Failed to read our embedded copy of 343 Inudstries' code certificate",
+                      e);
+                }
+
+                /** Get 343 Industries' Public Key from internet source. */
+                // TODO: Add OFFICIAL URI for web-accessible public key
+                var uri = "https://github.com/HaloSPV3/HCE/releases/download/updates/343I_DER.exp2022-04-27.cer";
+                var remoteCert = new X509Certificate();
+                var remoteFailedOrTimedOut = false;
+                try
+                {
+                    MemoryStream ms = GetWebStream(uri);
+                    byte[] msArray = ms.ToArray();
+                    remoteCert = new X509Certificate(msArray);
+                }
+                catch (Exception)
+                {
+                    remoteFailedOrTimedOut = true;
+                }
+
+                /** Get Public Key of a reference Certificate.
+                 * If we failed to get the remote certificate,
+                 * fallback to the embedded resource.
+                 * This allows for offline validation.
+                 */
+                var publicKey_ref = remoteFailedOrTimedOut ?
+                    P7B_Fallback.GetPublicKey() :
+                    remoteCert.GetPublicKey();
+
+                /** Get certificate from local Halo1.dll. */
+                var publicKey_file = new X509Certificate(Halo1Path).GetPublicKey();
+
+                /** Return whether or not Halo1.dll is valid.
+                 * If the Halo1.dll certificate's public key is equal to
+                 * the cached PublicKey, return True. */
+                return publicKey_file.SequenceEqual(publicKey_ref);
+            }
+
+            public enum Platform
+            {
+                Steam,
+                WinStore
+            }
+
+            public static MemoryStream GetWebStream(string uri)
+            {
+                MemoryStream dataStream = new MemoryStream();
+                var webRequest = WebRequest.Create(uri);
+                webRequest.CachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.NoCacheNoStore);
+                webRequest.Timeout = 200; // in milliseconds
+
+                using (var wr = (HttpWebResponse) webRequest.GetResponse())
+                using (var rs = wr.GetResponseStream())
+                using (var sr = new StreamReader(rs ?? throw new NullReferenceException("No response.")))
+                {
+                    sr.BaseStream.CopyTo(dataStream);
+                }
+
+                return dataStream;
+            }
         }
-
-        if (Halo1Path == null)
-          throw new FileNotFoundException("Halo1.dll not found");
-
-        if (!Halo1DLLIsCertified())
-          throw new Exception("Halo1.dll is invalid.");
-      }
-
-      /// <summary>
-      /// Check if the inferred Halo1.dll is probably legitimate.
-      /// </summary>
-      /// <returns>
-      /// true if the file's Digital Certificate is valid.
-      /// </returns>
-      public static bool Halo1DLLIsCertified()
-      {
-        /// Known issue: This doesn't verify the file is a real Halo1.dll
-        /// It merely checks if the file's certificate is valid.
-        ///
-        /// Tip:
-        /// If getting the data for 'P7B_Fallback' and 'remoteCert'
-        /// took >200ms for each to complete, we would move them to
-        /// new methods/functions as Async Tasks so they can be
-        /// executed simultaneously and wait for both to complete
-        /// (successfully or not) before the last line which compares
-        /// one of those certificates to Halo1.dll's certificate.
-        ///
-        /// However, only the remoteCert takes a significant amount of time
-        /// to complete and it has a 200ms timeout to mitigate wait time.
-
-        /** Convert embedded resource to X509Certificate */
-        X509Certificate P7B_Fallback;
-        try
-        {
-          var ms = new MemoryStream();
-          var assembly = Assembly.GetExecutingAssembly();
-          assembly.GetManifestResourceStream(@"HXE.Assets.343I_DER.cer")
-            .CopyTo(ms);
-          P7B_Fallback = new X509Certificate(ms.ToArray());
-        }
-        catch (Exception e)
-        {
-          throw new Exception("Failed to read our embedded copy of 343 Inudstries' code certificate",
-            e);
-        }
-
-        /** Get 343 Industries' Public Key from internet source. */
-        // TODO: Add OFFICIAL URI for web-accessible public key
-        var uri = "https://github.com/HaloSPV3/HCE/releases/download/updates/343I_DER.exp2022-04-27.cer";
-        var remoteCert = new X509Certificate();
-        var remoteFailedOrTimedOut = false;
-        try
-        {
-          MemoryStream ms = GetWebStream(uri);
-          byte[] msArray  = ms.ToArray();
-          remoteCert      = new X509Certificate(msArray);
-        }
-        catch (Exception)
-        {
-          remoteFailedOrTimedOut = true;
-        }
-
-        /** Get Public Key of a reference Certificate.
-         * If we failed to get the remote certificate,
-         * fallback to the embedded resource.
-         * This allows for offline validation.
-         */
-        var publicKey_ref = remoteFailedOrTimedOut ?
-            P7B_Fallback.GetPublicKey() :
-            remoteCert.GetPublicKey();
-
-        /** Get certificate from local Halo1.dll. */
-        var publicKey_file = new X509Certificate(Halo1Path).GetPublicKey();
-
-        /** Return whether or not Halo1.dll is valid.
-         * If the Halo1.dll certificate's public key is equal to
-         * the cached PublicKey, return True. */
-        return publicKey_file.SequenceEqual(publicKey_ref);
-      }
-
-      public enum Platform
-      {
-        Steam,
-        WinStore
-      }
-
-      public static MemoryStream GetWebStream(string uri)
-      {
-        MemoryStream dataStream = new MemoryStream();
-        var webRequest = WebRequest.Create(uri);
-        webRequest.CachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.NoCacheNoStore);
-        webRequest.Timeout = 200; // in milliseconds
-
-        using (var wr = (HttpWebResponse) webRequest.GetResponse())
-        using (var rs = wr.GetResponseStream())
-        using (var sr = new StreamReader(rs ?? throw new NullReferenceException("No response.")))
-        {
-          sr.BaseStream.CopyTo(dataStream);
-        }
-
-        return dataStream;
-      }
     }
-  }
 }
