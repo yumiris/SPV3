@@ -140,13 +140,13 @@ namespace HXE
             if (infer)
             {
                 var descriptions = new Dictionary<Process.Type, string>
-        {
-          {Process.Type.Unknown, "N/A"},
-          {Process.Type.Retail,  "Halo: Combat Evolved"},
-          {Process.Type.HCE,     "Halo: Custom Edition"},
-          {Process.Type.Steam,   "Halo: MCC - CEA (Steam)"},
-          {Process.Type.Store,   "Halo: MCC - CEA (Store)"},
-        };
+                {
+                  {Process.Type.Unknown,  "N/A"},
+                  {Process.Type.Retail,   "Halo: Combat Evolved"},
+                  {Process.Type.HCE,      "Halo: Custom Edition"},
+                  {Process.Type.Steam,    "Halo: MCC - CEA (Steam)"},
+                  {Process.Type.StoreOld, "Halo: MCC - CEA (Store)"},
+                };
 
                 Info($"Inferred the following Halo process: {descriptions[Process.Infer()]}");
                 Info("Press any key to exit.");

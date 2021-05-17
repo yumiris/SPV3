@@ -26,6 +26,7 @@ using System.Net;
 using System.Net.Cache;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
+using static System.IO.File;
 using static HXE.Paths.MCC;
 
 namespace HXE.Steam
@@ -35,34 +36,40 @@ namespace HXE.Steam
         public static class Halo1
         {
             /// <summary>
-            /// Set a new path for Halo1.dll
+            ///     Set a new path for Halo1.dll
             /// </summary>
             public static void SetHalo1Path(Platform platform)
             {
                 switch (platform)
                 {
                     case Platform.Steam:
-                        var libraries = new Libraries();
                         var mccH1 = Path.Combine(HTMCC, Halo1dir, Halo1dll);
+                        var libraries = new Libraries();
                         libraries.ParseLibraries();
                         Halo1Path = libraries.FindInLibraries(mccH1).First();
                         break;
 
                     case Platform.WinStore:
-                        // TODO
-                        throw new NotImplementedException("TODO: Add function to find WinStore MCC files.");
-                    //break;
+                        var drives = DriveInfo.GetDrives().ToList();
+                        var driveLetter = drives.First(drive =>
+                            Exists(Path.Combine(drive.Name, UwpH1DllPath))).Name;
+                        Halo1Path = Path.Combine(driveLetter, UwpH1DllPath);
+                        break;
+
                     default:
                         throw new ArgumentOutOfRangeException(
-                          $"Cannot set Halo1.dll path: Specified platform is invalid." + Environment.NewLine +
-                          $"How did you do that?");
+                          "Cannot set Halo1.dll path: Specified platform is invalid.");
                 }
 
-                if (Halo1Path == null)
-                    throw new FileNotFoundException("Halo1.dll not found");
+                if (!Path.IsPathRooted(Halo1Path))
+                    throw new FileNotFoundException($"Halo1.dll path is invalid: {Halo1Path}");
 
-                if (!Halo1DLLIsCertified())
-                    throw new Exception("Halo1.dll is invalid.");
+                if (Halo1Path == null)
+                    throw new NullReferenceException("Halo1.dll path is null or empty.");
+
+                // this works, but it might not be worth the maintenance workload.
+                //if (!Halo1DLLIsCertified())
+                //    throw new CryptographicException("Halo1.dll is digital signature is invalid.");
             }
 
             /// <summary>

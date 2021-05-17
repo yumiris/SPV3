@@ -25,114 +25,118 @@ using static System.Environment;
 
 namespace HXE
 {
-	public class Process
-	{
-		public enum Type
-		{
-			Unknown,
-			Retail, /* Halo: Combat Evolved */
-			HCE,    /* Halo: Custom Edition */
-			Steam,  /* MCC (Steam)          */
-			Store   /* MCC (Windows Store)  */
-		}
+    public class Process
+    {
+        public enum Type
+        {
+            Unknown,
+            Retail,     /* Halo: Combat Evolved */
+            HCE,        /* Halo: Custom Edition */
+            Steam,      /* MCC (Steam)          */
+            StoreOld,   /* MCC (Windows Store)  */
+            Store       /* MCC (Windows Store)  */
+        }
 
-		public static IEnumerable<Candidate> Candidates { get; } = new List<Candidate>
-		{
-			new Candidate { Type = Type.Retail, Name = "halo"                        },
-			new Candidate { Type = Type.HCE,    Name = "haloce"                      },
-			new Candidate { Type = Type.Steam,  Name = "MCC-Win64-Shipping"          },
-			new Candidate { Type = Type.Store,  Name = "MCC-Win64-Shipping-WinStore" }
-		};
+        public static IEnumerable<Candidate> Candidates { get; } = new List<Candidate>
+    {
+      new Candidate { Type = Type.Retail,   Name = "halo"                        },
+      new Candidate { Type = Type.HCE,      Name = "haloce"                      },
+      new Candidate { Type = Type.Steam,    Name = "MCC-Win64-Shipping"          },
+      new Candidate { Type = Type.StoreOld, Name = "MCC-Win64-Shipping-WinStore" },
+      new Candidate { Type = Type.Store,    Name = "MCCWinStore-Win64-Shipping"  }
+    };
 
-		/// <summary>
-		/// Infers the running Halo executable, with support for HCE, HCE and MCC (Steam & Windows Store).
-		/// </summary>
-		/// <returns>Type of Platform</returns>
-		public static Type Infer()
-		{
-			var processCandidate = new Candidate();
-			try
-			{
-				processCandidate = Candidates
-					.FirstOrDefault(x => DeeperCheck(GetProcesses()
-						.FirstOrDefault(Processname => Processname.ProcessName == x.Name), x.Name));
-			}
-			catch(System.Exception e)
-      {
-				var msg = $" -- Process Inference failed{NewLine}Error:  { e }{NewLine}";
-				var log = (File) Paths.Exception;
-				log.AppendAllText(msg);
-				Console.Info(msg);
-				throw;
-			}
+        /// <summary>
+        /// Infers the running Halo executable, with support for HCE, HCE and MCC (Steam & Windows Store).
+        /// </summary>
+        /// <returns>Type of Platform</returns>
+        public static Type Infer()
+        {
+            var processCandidate = new Candidate();
+            try
+            {
+                processCandidate = Candidates
+                  .FirstOrDefault(x => DeeperCheck(GetProcesses()
+                    .FirstOrDefault(Processname => Processname.ProcessName == x.Name), x.Name));
+            }
+            catch (System.Exception e)
+            {
+                var msg = $" -- Process Inference failed{NewLine}Error:  { e }{NewLine}";
+                var log = (File) Paths.Exception;
+                log.AppendAllText(msg);
+                Console.Info(msg);
+                throw;
+            }
 
-			return processCandidate?.Type ?? Type.Unknown;
-		}
+            return processCandidate?.Type ?? Type.Unknown;
+        }
 
-		static bool DeeperCheck(System.Diagnostics.Process process, string candidateName)
-		{
-			/** Check for NullReferenceException (no processes match current candidate) */
-			try
-			{
-				bool check = process.ProcessName == candidateName;
-			}
-			catch(System.NullReferenceException)
-      {
-				return false;
-      }
+        private static bool DeeperCheck(System.Diagnostics.Process process, string candidateName)
+        {
+            /** Check for NullReferenceException (no processes match current candidate) */
+            try
+            {
+                bool check = process.ProcessName == candidateName;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
 
-			switch(process.ProcessName)
-			{
-				case "halo":
-				case "haloce":
-					{
-						try
-						{
-							return process.MainModule.FileVersionInfo.FileVersion == "01.00.10.0621";
-						}
-						catch (System.Exception e)
-						{
-							ErrorOutput(e, "Failed to assess Halo/HaloCE process.");
-							return false;
-						}
-					}
+            switch (process.ProcessName)
+            {
+                case "halo":
+                case "haloce":
+                    {
+                        try
+                        {
+                            return process.MainModule.FileVersionInfo.FileVersion == "01.00.10.0621";
+                        }
+                        catch (System.Exception e)
+                        {
+                            ErrorOutput(e, "Failed to assess Halo/HaloCE process.");
+                            return false;
+                        }
+                    }
 
-				case "MCC-Win64-Shipping-WinStore":
-				case "MCC-Win64-Shipping":
-					{
-						try
-						{
-							return process.Modules
-								.Cast<System.Diagnostics.ProcessModule>()
-								.Any(module => module.ModuleName == Paths.MCC.Halo1dll);
-						}
-						catch (System.Exception e)
-						{
-							var msg2 = string.Empty;
-							msg2 += Is64BitProcess ? "Current process is 64-bit." : "Current process is not 32-bit.";
-							msg2 += NewLine;
-							msg2 += Is64BitOperatingSystem ? "Operating system is 64-bit." : "Operating system is NOT 64-bit.";
-							ErrorOutput(e, msg2);
-							return false;
-						}
-					}
+                case string a when a.Contains("MCC") && a.Contains("WinStore"): // redundant, but good practice
+                case "MCC-Win64-Shipping-WinStore":
+                case "MCCWinStore-Win64-Shipping":
+                case "MCC-Win64-Shipping":
+                    {
+                        try
+                        {
+                            return process.Modules
+                              .Cast<System.Diagnostics.ProcessModule>()
+                              .Any(module => module.ModuleName == Paths.MCC.Halo1dll);
+                        }
+                        catch (System.Exception e)
+                        {
+                            var msg2 = string.Empty;
+                            msg2 += Is64BitProcess ? "Current process is 64-bit." : "Current process is not 32-bit.";
+                            msg2 += NewLine;
+                            msg2 += Is64BitOperatingSystem ? "Operating system is 64-bit." : "Operating system is NOT 64-bit.";
+                            ErrorOutput(e, msg2);
+                            return false;
+                        }
+                    }
 
-				default:
-					return false;
-			}
-			void ErrorOutput(System.Exception e, string msg2 = "")
-			{
-				var msg = $" -- Process Inference failed{NewLine}{msg2}{NewLine}Error:  { e }{NewLine}";
-				var log = (File) Paths.Exception;
-				log.AppendAllText(msg);
-				Console.Error(msg);;
-			}
-		}
+                default:
+                    return false;
+            }
+            void ErrorOutput(System.Exception e, string msg2)
+            {
+                var msg = $" -- Process Inference failed{NewLine}{msg2}{NewLine}Error:  { e }{NewLine}";
+                var log = (File) Paths.Exception;
+                log.AppendAllText(msg);
+                Console.Error(msg); ;
+            }
+        }
 
-		public class Candidate
-		{
-			public Type   Type { get; set; }
-			public string Name { get; set; }
-		}
-	}
+        public class Candidate
+        {
+            public Type Type { get; set; }
+            public string Name { get; set; }
+        }
+    }
 }

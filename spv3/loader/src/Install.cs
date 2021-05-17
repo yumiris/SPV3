@@ -183,67 +183,73 @@ namespace SPV3
             /** Determine if the current environment fulfills the installation requirements. */
             var manifest = (Manifest) Path.Combine(_source, HXE.Paths.Manifest);
 
-            if (manifest.Exists())
-            {
-                Status = "Waiting for user to install SPV3.";
-                CanInstall = true;
-            }
-            else
+            if (!manifest.Exists())
             {
                 Status = "Could not find manifest in the data directory.";
                 CanInstall = false;
+                return;
             }
 
             /** Check Game Activation */
+
+            bool CustomActivated = Registry.GameActivated(Registry.Game.Custom);
+            bool RetailActivated = Registry.GameActivated(Registry.Game.Retail);
+
+            /** If DRM Patch enabled, stop */
+            if ((Kernel.hxe.Tweaks.Patches & Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS) == 1)
             {
-                bool CustomActivated = Registry.GameActivated(Registry.Game.Custom);
-                bool RetailActivated = Registry.GameActivated(Registry.Game.Retail);
-
-                /** If DRM Patch enabled, stop */
-                if ((Kernel.hxe.Tweaks.Patches & Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS) == 1)
-                {
-                    outputInfo();
-                    return;
-                }
-
-                /** If Custom Edition is already activated, stop. */
-                if (CustomActivated)
-                {
-                    outputInfo();
-                    return;
-                }
-
-                /** Activate SPV3 if Retail is installed, then stop */
-                if (RetailActivated)
-                {
-                    Kernel.hxe.Tweaks.Patches |= Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS;
-                    outputInfo();
-                    return;
-                }
-
-                /** Passively detect Steam MCC CEA */
-                if (Exists(SteamExePath))
-                    CheckSteamPath(SteamExePath);
-
                 outputInfo();
+                return;
+            }
 
-                /** Output Activation info to file */
-                void outputInfo()
-                {
-                    HXE.File file = (HXE.File) Paths.Exception;
-                    string output = string.Empty;
-                    output += $"INFO -- DRM patch queued: {(Kernel.hxe.Tweaks.Patches & Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS) == 1}{NewLine}";
-                    output += $"INFO -- Custom Edition is activated: {CustomActivated}{NewLine}";
-                    output += $"INFO -- Retail Edition is activated: {RetailActivated}{NewLine}";
-                    file.WriteAllText(output);
-                }
+            /** If Custom Edition is already activated, stop. */
+            if (CustomActivated)
+            {
+                outputInfo();
+                return;
+            }
+
+            /** Activate SPV3 if Retail is installed, then stop */
+            if (RetailActivated)
+            {
+                Activate("Halo Retail located.");
+                outputInfo();
+                return;
+            }
+
+            /** Passively detect Steam MCC CEA */
+            if (Exists(SteamExePath))
+            {
+                CheckSteamPath(SteamExePath);
+                outputInfo();
+                return;
+            }
+
+            /** Passively detect Modifiable UWP MCC CEA */
+            if (string.IsNullOrEmpty(Halo1Path) || !Exists(Halo1Path))
+            {
+                CheckMCCWinStorePath();
+                outputInfo();
+                return;
             }
 
             /** else, prompt for activation */
+            outputInfo();
             Status = "Please install a legal copy of Halo 1 before installing SPV3.";
             CanInstall = false;
             Main = Collapsed;
             Activation = Visible;
+
+            void outputInfo()
+            {
+                HXE.File file = (HXE.File) Paths.Install;
+                string output = string.Empty;
+                output += $"INFO -- DRM patch queued: {(Kernel.hxe.Tweaks.Patches & Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS) == 1}{NewLine}";
+                output += $"INFO -- Custom Edition is activated: {CustomActivated}{NewLine}";
+                output += $"INFO -- Retail Edition is activated: {RetailActivated}{NewLine}";
+                output += $"INFO -- CEA found: {Exists(Halo1Path)}{NewLine}";
+                file.WriteAllText(output);
+            }
         }
 
         public async void Commit()
@@ -394,20 +400,21 @@ namespace SPV3
 
         public void CheckSteamPath(string exe)
         {
-            if (Exists(exe) && exe.Contains("steam.exe"))
+            if (Exists(exe) && exe.Equals("steam.exe", StringComparison.OrdinalIgnoreCase))
             {
                 HXE.Paths.Steam.SetSteam(exe);
                 Update_SteamStatus();
                 Halo1Path = Path.Combine(HXE.Paths.Steam.Library, HTMCC, Halo1dir, Halo1dll);
 
                 if (Exists(Halo1Path))
-                    Activate();
+                    Activate("Steam MCC CEA found in default-ish location.");
                 else
                     try
                     {
                         SteamStatus = "Searching for and validating Halo CEA's files...";
                         MCC.Halo1.SetHalo1Path(MCC.Halo1.Platform.Steam);
-                        Activate();
+                        if (Exists(Halo1Path))
+                            Activate("Halo CEA Located via Steam.");
                     }
                     catch (Exception e)
                     {
@@ -424,31 +431,21 @@ namespace SPV3
             }
             else
                 Update_SteamStatus();
-
-            void Activate()
-            {
-                Kernel.hxe.Tweaks.Patches |= Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS;
-                Status = "Halo CEA Located via Steam." + NewLine
-                        + _ssdRec + NewLine;
-                CanInstall = true;
-                Main = Visible;
-                Activation = Collapsed;
-            }
         }
 
-        public void CheckMCCWinStorePath(string drive)
+        public void CheckMCCWinStorePath(string drive = null)
         {
-            var path = $"{drive}Program Files\\ModifiableWindowsApps\\HaloMCC\\halo1";
-
-            if (Exists(path + "\\halo1.dll"))
+            /** SET or GET UWP MCC's Halo1.dll path */
+            if (drive == null)
+                MCC.Halo1.SetHalo1Path(MCC.Halo1.Platform.WinStore);
+            else
             {
-                Kernel.hxe.Tweaks.Patches |= Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS;
-                Status = "Halo CEA Located via WinStore Mod." + NewLine
-                 + _ssdRec + NewLine;
-                CanInstall = true;
-                Main = Visible;
-                Activation = Collapsed;
+                Halo1Path = Path.Combine(drive, UwpH1DllPath);
             }
+
+            /** If UWP MCC's Halo1.dll exists, queue up the HCE DRM patch */
+            if (Path.IsPathRooted(Halo1Path) && Exists(Halo1Path))
+                Activate("Halo CEA Located via WinStore Mod.");
             else
             {
                 WinStoreStatus = "Failed to find CEA on the drive";
@@ -456,7 +453,6 @@ namespace SPV3
                         + " Error: " + "Could not find CEA for Winstore on " + drive + NewLine;
                 var log = (HXE.File) Paths.Exception;
                 log.AppendAllText(msg);
-                return;
             }
         }
 
@@ -640,28 +636,29 @@ namespace SPV3
                      */
                     case HXE.Process.Type.Retail:
                     case HXE.Process.Type.HCE:
-                        Kernel.hxe.Tweaks.Patches |= Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS;
-                        CanInstall = true;
-                        Main = Visible;
-                        Activation = Collapsed;
-                        Status = $"Process Detection: Halo PC/CE Found{NewLine}{_ssdRec}";
+                        Activate("Process Detection: Halo PC/CE Found");
                         break;
 
                     /**
                      * MCC CEA
                      */
                     case HXE.Process.Type.Steam:
-                    case HXE.Process.Type.Store:
-                        Kernel.hxe.Tweaks.Patches |= Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS;
-                        CanInstall = true;
-                        Main = Visible;
-                        Activation = Collapsed;
-                        Status = $"Process Detection: MCC CEA Found{NewLine}{_ssdRec}";
+                    case HXE.Process.Type.StoreOld:
+                        Activate("Process Detection: MCC CEA Found");
                         break;
                 }
             }
             else
                 Status = $"Process Detection: No Matching Processes{NewLine}No MCC (with CEA), HPC, or HCE processes found.";
+        }
+
+        private void Activate(string status)
+        {
+            Kernel.hxe.Tweaks.Patches |= Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS;
+            CanInstall = true;
+            Main = Visible;
+            Activation = Collapsed;
+            Status = status + NewLine + _ssdRec;
         }
 
         public void InvokeSpv3()
