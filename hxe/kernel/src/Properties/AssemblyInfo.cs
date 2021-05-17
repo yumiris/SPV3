@@ -28,7 +28,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("A HCE wrapper and SPV3 loader")]
 [assembly: AssemblyDescription("A HCE wrapper and SPV3 loader")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Yu:Miris")]
+[assembly: AssemblyCompany("github/HaloSPV3")]
 [assembly: AssemblyProduct("HXE")]
 [assembly: AssemblyCopyright("Copyright © 2019 Emilian Roman")]
 [assembly: AssemblyTrademark("")]
