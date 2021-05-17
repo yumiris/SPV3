@@ -28,7 +28,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using HXE;
 using HXE.HCE;
-using HXE.Steam;
+using HXE.MCC;
 using IWshRuntimeLibrary;
 using SPV3.Annotations;
 using static System.Environment;
@@ -412,7 +412,7 @@ namespace SPV3
                     try
                     {
                         SteamStatus = "Searching for and validating Halo CEA's files...";
-                        MCC.Halo1.SetHalo1Path(MCC.Halo1.Platform.Steam);
+                        Halo1.SetHalo1Path(Halo1.Platform.Steam);
                         if (Exists(Halo1Path))
                             Activate("Halo CEA Located via Steam.");
                     }
@@ -437,7 +437,7 @@ namespace SPV3
         {
             /** SET or GET UWP MCC's Halo1.dll path */
             if (drive == null)
-                MCC.Halo1.SetHalo1Path(MCC.Halo1.Platform.WinStore);
+                Halo1.SetHalo1Path(Halo1.Platform.WinStore);
             else
             {
                 Halo1Path = Path.Combine(drive, UwpH1DllPath);
