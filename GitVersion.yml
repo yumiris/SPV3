@@ -1,0 +1,8 @@
+assembly-versioning-scheme: MajorMinorPatch
+mode: ContinuousDelivery
+branches:
+  main: {}
+  develop: {}
+ignore:
+  sha: []
+merge-message-formats: {}

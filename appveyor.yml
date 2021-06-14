@@ -1,9 +1,8 @@
 # Docs: https://www.appveyor.com/docs/appveyor-yml/ 
 
-# GitTools Task
-# See https://gitversion.net/docs/
-- name: GitTools
-  uses: GitTools/actions@v0.9.9
+steps:
+  - name: GitTools
+    uses: GitTools/actions@v0.9.9
 
 # version format
 version: 1.0.{build}-{commitId}
@@ -27,14 +26,32 @@ skip_non_tags: true
 
 # Skipping commits with particular message or from specific user
 #skip_commits:
-#  message: /Created.*\.(png|jpg|jpeg|bmp|gif)/      # Regex for matching commit message
-#  author: John                                      # Commit author's username, name, email or regexp maching one of these.
+#  message: /(ci\(*\):|ci:)/      # Regex for matching commit message
 
 # Skipping commits affecting specific files (GitHub only). More details here: /docs/appveyor-yml
-#skip_commits:
+skip_commits:
+  files:
+    - '*/docs/*'
+    - '**/*.html'
+
+# Including commits affecting specific files (GitHub only). More details here: /docs/appveyor-yml
+#only_commits:
 #  files:
-#    - docs/*
-#    - '**/*.html'
+#    - Project-A/
+#    - Project-B/
+
+# Do not build feature branch with open Pull Requests
+skip_branch_with_pr: true
+
+# Maximum number of concurrent jobs for the project
+max_jobs: 1
+
+#---------------------------------#
+#    environment configuration    #
+#---------------------------------#
+
+# Build worker image (VM template)
+image: Visual Studio 2019
 
 configuration:
 - Debug
@@ -42,14 +59,14 @@ configuration:
 
 assembly_info:
   patch: true
-  file: '**\spv3\loader\src\properties\AssemblyInfo.*'
+  file: 'spv3\loader\src\properties\AssemblyInfo.*'
   assembly_version: '{version}'
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
 
 dotnet_csproj:
   patch: true
-  file: '**\spv3\loader\src\*.csproj'
+  file: 'spv3\loader\src\*.csproj'
   version: '{version}'
   version_prefix: '{version}'
   package_version: '{version}'
@@ -67,6 +84,6 @@ before_build:
 - nuget restore
 
 build:
-  project: '**\spv3\loader\src\spv3.sln'
+  project: 'spv3\loader\src\spv3.sln'
   parallel: true
   verbosity: minimal

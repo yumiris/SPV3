@@ -7,9 +7,64 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3", "SPV3.csproj", "{C69
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HXE", "..\..\..\hxe\kernel\src\HXE.csproj", "{ACAA5D9F-B23D-43E1-B2DF-8C03230975A1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D2744BF2-38A7-4B53-A100-0AACF0050267}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ci", "ci", "{D2744BF2-38A7-4B53-A100-0AACF0050267}"
 	ProjectSection(SolutionItems) = preProject
+		..\..\..\appveyor.gitversion.yml = ..\..\..\appveyor.gitversion.yml
 		..\..\..\appveyor.yml = ..\..\..\appveyor.yml
+		..\..\..\GitReleaseManager.yml = ..\..\..\GitReleaseManager.yml
+		..\..\..\GitVersion.yml = ..\..\..\GitVersion.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{E445FC4E-BA45-4488-84A8-22C295B9274B}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\README.md = ..\..\..\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "hxe", "hxe", "{7222EF07-7361-4B7D-A30D-EC9AE17040F5}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\hxe\kernel\doc\_ExampleDoc.txt = ..\..\..\hxe\kernel\doc\_ExampleDoc.txt
+		..\..\..\hxe\kernel\doc\audio.txt = ..\..\..\hxe\kernel\doc\audio.txt
+		..\..\..\hxe\kernel\doc\blamsav.txt = ..\..\..\hxe\kernel\doc\blamsav.txt
+		..\..\..\hxe\kernel\doc\bless.txt = ..\..\..\hxe\kernel\doc\bless.txt
+		..\..\..\hxe\kernel\doc\chimera.txt = ..\..\..\hxe\kernel\doc\chimera.txt
+		..\..\..\hxe\kernel\doc\developer.txt = ..\..\..\hxe\kernel\doc\developer.txt
+		..\..\..\hxe\kernel\doc\exceptions.txt = ..\..\..\hxe\kernel\doc\exceptions.txt
+		..\..\..\hxe\kernel\doc\exit.txt = ..\..\..\hxe\kernel\doc\exit.txt
+		..\..\..\hxe\kernel\doc\haloce.txt = ..\..\..\hxe\kernel\doc\haloce.txt
+		..\..\..\hxe\kernel\doc\initc.txt = ..\..\..\hxe\kernel\doc\initc.txt
+		..\..\..\hxe\kernel\doc\initiation.txt = ..\..\..\hxe\kernel\doc\initiation.txt
+		..\..\..\hxe\kernel\doc\input.txt = ..\..\..\hxe\kernel\doc\input.txt
+		..\..\..\hxe\kernel\doc\kernel.txt = ..\..\..\hxe\kernel\doc\kernel.txt
+		..\..\..\hxe\kernel\doc\lastprof.txt = ..\..\..\hxe\kernel\doc\lastprof.txt
+		..\..\..\hxe\kernel\doc\opensauce.txt = ..\..\..\hxe\kernel\doc\opensauce.txt
+		..\..\..\hxe\kernel\doc\patching.txt = ..\..\..\hxe\kernel\doc\patching.txt
+		..\..\..\hxe\kernel\doc\readme.txt = ..\..\..\hxe\kernel\doc\readme.txt
+		..\..\..\hxe\kernel\doc\release.txt = ..\..\..\hxe\kernel\doc\release.txt
+		..\..\..\hxe\kernel\doc\reset.txt = ..\..\..\hxe\kernel\doc\reset.txt
+		..\..\..\hxe\kernel\doc\resume.txt = ..\..\..\hxe\kernel\doc\resume.txt
+		..\..\..\hxe\kernel\doc\savegame.txt = ..\..\..\hxe\kernel\doc\savegame.txt
+		..\..\..\hxe\kernel\doc\shaders.txt = ..\..\..\hxe\kernel\doc\shaders.txt
+		..\..\..\hxe\kernel\doc\tweaks.txt = ..\..\..\hxe\kernel\doc\tweaks.txt
+		..\..\..\hxe\kernel\doc\unlock.txt = ..\..\..\hxe\kernel\doc\unlock.txt
+		..\..\..\hxe\kernel\doc\update.txt = ..\..\..\hxe\kernel\doc\update.txt
+		..\..\..\hxe\kernel\doc\video.txt = ..\..\..\hxe\kernel\doc\video.txt
+		..\..\..\hxe\kernel\doc\waypoint.txt = ..\..\..\hxe\kernel\doc\waypoint.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "spv3", "spv3", "{28850E66-40E9-45A4-ADBE-609B72BBE3F5}"
+	ProjectSection(SolutionItems) = preProject
+		..\doc\compilation.txt = ..\doc\compilation.txt
+		..\doc\configuration.txt = ..\doc\configuration.txt
+		..\doc\loading.txt = ..\doc\loading.txt
+		..\doc\updating.txt = ..\doc\updating.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "updates", "updates", "{D5750DC6-0BF9-4AEC-B63F-49B2DFFAB784}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\updates\debugs.hxe = ..\..\updates\debugs.hxe
+		..\..\updates\latest.xml = ..\..\updates\latest.xml
+		..\..\updates\readme.txt = ..\..\updates\readme.txt
+		..\..\updates\update.hxe = ..\..\updates\update.hxe
 	EndProjectSection
 EndProject
 Global
@@ -29,6 +84,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7222EF07-7361-4B7D-A30D-EC9AE17040F5} = {E445FC4E-BA45-4488-84A8-22C295B9274B}
+		{28850E66-40E9-45A4-ADBE-609B72BBE3F5} = {E445FC4E-BA45-4488-84A8-22C295B9274B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {238701D1-9E48-4C9E-AC37-380A967E0E79}
