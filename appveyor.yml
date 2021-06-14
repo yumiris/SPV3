@@ -1,31 +1,71 @@
-version: 1.0.{build}
+# Docs: https://www.appveyor.com/docs/appveyor-yml/ 
+
+# GitTools Task
+# See https://gitversion.net/docs/
+- name: GitTools
+  uses: GitTools/actions@v0.9.9
+
+# version format
+version: 1.0.{build}-{commitId}
+
+# branches to build
+branches:
+  # whitelist
+  #include:
+  #  - master
+  #  - production
+
+  # blacklist
+  except:
+    - gh-pages
+
+# Do not build on tags (GitHub, Bitbucket, GitLab, Gitea)
+#skip_tags: true
+
+# Start builds on tags only (GitHub, BitBucket, GitLab, Gitea)
+skip_non_tags: true
+
+# Skipping commits with particular message or from specific user
+#skip_commits:
+#  message: /Created.*\.(png|jpg|jpeg|bmp|gif)/      # Regex for matching commit message
+#  author: John                                      # Commit author's username, name, email or regexp maching one of these.
+
+# Skipping commits affecting specific files (GitHub only). More details here: /docs/appveyor-yml
+#skip_commits:
+#  files:
+#    - docs/*
+#    - '**/*.html'
+
 configuration:
 - Debug
 - Release
+
 assembly_info:
   patch: true
-  file: '**\spv3/loader\src\properties\AssemblyInfo.*'
-  file: '**\hxe\kernel\src\properties\AssemblyInfo.*'
+  file: '**\spv3\loader\src\properties\AssemblyInfo.*'
   assembly_version: '{version}'
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
+
 dotnet_csproj:
   patch: true
   file: '**\spv3\loader\src\*.csproj'
-  file: '**\hxe\kernel\src\*.csproj'
   version: '{version}'
   version_prefix: '{version}'
   package_version: '{version}'
   assembly_version: '{version}'
   file_version: '{version}'
   informational_version: '{version}'
+
 install:
 - git submodule init
 - git submodule update
+
 nuget:
   project_feed: true
 before_build:
 - nuget restore
+
 build:
   project: '**\spv3\loader\src\spv3.sln'
   parallel: true

@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPV3", "SPV3.csproj", "{C69
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HXE", "..\..\..\hxe\kernel\src\HXE.csproj", "{ACAA5D9F-B23D-43E1-B2DF-8C03230975A1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D2744BF2-38A7-4B53-A100-0AACF0050267}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\appveyor.yml = ..\..\..\appveyor.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
