@@ -1,9 +1,5 @@
 # Docs: https://www.appveyor.com/docs/appveyor-yml/ 
 
-steps:
-  - name: GitTools
-    uses: GitTools/actions@v0.9.9
-
 # version format
 version: 1.0.{build}-{commitId}
 
@@ -87,3 +83,20 @@ build:
   project: 'spv3\loader\src\spv3.sln'
   parallel: true
   verbosity: minimal
+  
+  
+#---------------------------------#
+#     deployment configuration    #
+#---------------------------------#
+
+# providers: Local, FTP, WebDeploy, AzureCS, AzureBlob, S3, NuGet, Environment
+# provider names are case-sensitive!
+    # Deploy to GitHub Releases
+#deploy:
+#  - provider: GitHub
+#    artifact: /.*\.nupkg/           # upload all NuGet packages to release assets
+#    draft: false
+#    prerelease: false
+#    on:
+#      branch: master                # release from master branch only
+#      APPVEYOR_REPO_TAG: true       # deploy on tag push only
