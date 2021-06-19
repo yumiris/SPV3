@@ -7,6 +7,7 @@ on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches: [ master ]
+    #branches-ignore: [ gh-pages ]
   pull_request:
     branches: [ master ]
 
@@ -17,23 +18,67 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
+    name: Build
     # The type of runner that the job will run on
     runs-on: windows-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      ############
+      # SETUP
+      ############
+      
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Required by tj-actions/changed-files and GitVersion
 
-      - name: GitTools
-        uses: GitTools/actions@v0.9.9
+        # https://github.com/marketplace/actions/changed-files
+        # We use this to determine if an HXE or SPV3 release should be versioned and published.
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v8
+        with:
+          files: |
+          hxe/kernel/src
+          spv3/loader/src
+      - name: Set isHXE
+        run: step.changed-files
+      - name: Set isSPV3
+        run: steps.changed-files
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.0.x
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1.0.x
+
+        # https://github.com/marketplace/actions/gittools
+      - name: Set up GitTools
+        uses: GitTools/actions@v0.9.x
+      - name: Install GitVersion
+        uses: GitTools/actions/gitversion/setup@v0.9.x
+        with:
+          versionSpec: '5.x'
+      - name: Use GitVersion
+        id: gitversion
+        uses: GitTools/actions/gitversion/execute@v0.9.x
+      - run: |
+        echo "FullSemVer: ${{ steps.gitversion.outputs.fullSemVer }}"
+
+#      - name: Extract version from tag
+#        id: get-version
+#        uses: battila7/get-version-action@v2
+
+      ############
+      # BUILD
+      ############
+      
+      - name: DotNet build prep
+        run: dotnet build /p:ContinuousIntegrationBuild=true
+
+      - name: Build
+        run: dotnet build /p:Version="${{ steps.gitversion.outputs.fullSemVer }}"
+      - name: Pack
+        run: dotnet pack /p:PackageVersion="${{ steps.gitversion.outputs.fullSemVer }.{ steps.gitversion.outputs.shortSha }}"
+

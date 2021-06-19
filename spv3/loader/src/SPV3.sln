@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ci", "ci", "{D2744BF2-38A7-
 	ProjectSection(SolutionItems) = preProject
 		..\..\..\appveyor.gitversion.yml = ..\..\..\appveyor.gitversion.yml
 		..\..\..\appveyor.yml = ..\..\..\appveyor.yml
+		..\..\..\.github\workflows\codeql-analysis.yml = ..\..\..\.github\workflows\codeql-analysis.yml
 		..\..\..\GitReleaseManager.yml = ..\..\..\GitReleaseManager.yml
 		..\..\..\GitVersion.yml = ..\..\..\GitVersion.yml
 	EndProjectSection
@@ -67,6 +68,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "updates", "updates", "{D575
 		..\..\updates\update.hxe = ..\..\updates\update.hxe
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{86B5BA36-56DA-4799-AC69-E92D4DE2102E}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\.github\workflows\main.yml = ..\..\..\.github\workflows\main.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A7D09F84-E1DF-4CFE-A763-E7F15E5AD109}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +97,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{D2744BF2-38A7-4B53-A100-0AACF0050267} = {86B5BA36-56DA-4799-AC69-E92D4DE2102E}
 		{7222EF07-7361-4B7D-A30D-EC9AE17040F5} = {E445FC4E-BA45-4488-84A8-22C295B9274B}
 		{28850E66-40E9-45A4-ADBE-609B72BBE3F5} = {E445FC4E-BA45-4488-84A8-22C295B9274B}
 	EndGlobalSection
