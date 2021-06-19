@@ -1,9 +1,9 @@
 [submodule "ext/chimera"]
 	path = ext/chimera
-	url = https://source.n2.network/chimera/
+	url = https://github.com/SnowyMouse/chimera/tree/master
 [submodule "ext/halo-ce-patches"]
 	path = ext/halo-ce-patches
-	url = https://source.n2.network/halo-ce-patches/
+	url = https://github.com/pR0Ps/halo-ce-patches/tree/master
 [submodule "ext/xidi"]
 	path = ext/xidi
-	url = https://source.n2.network/xidi/
+	url = https://github.com/samuelgr/Xidi/tree/master
