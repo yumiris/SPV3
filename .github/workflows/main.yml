@@ -1,5 +1,3 @@
-# This is a basic workflow to help you get started with Actions
-
 name: main
 
 # Controls when the action will run. 
@@ -8,6 +6,10 @@ on:
   push:
     branches: [ master ]
     #branches-ignore: [ gh-pages ]
+    tags:
+    paths:
+      #- ${{variable}}/**
+      - .github/workflows/**
   pull_request:
     branches: [ master ]
 
@@ -22,6 +24,10 @@ jobs:
     # The type of runner that the job will run on
     runs-on: windows-latest
 
+    env:
+      isHXE: 0
+      isSPV3: 0
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       ############
@@ -35,17 +41,22 @@ jobs:
 
         # https://github.com/marketplace/actions/changed-files
         # We use this to determine if an HXE or SPV3 release should be versioned and published.
-      - name: Get changed files
-        id: changed-files
+      - name: Get changed files (HXE)
+        id: changed-files-hxe
         uses: tj-actions/changed-files@v8
         with:
-          files: |
-          hxe/kernel/src
-          spv3/loader/src
+          files: hxe/kernel/src
+      - name: Get changed files (SPV3)
+        id: changed-files-spv3
+        uses: tj-actions/changed-files@v8
+        with:
+          files: spv3/loader/src
       - name: Set isHXE
-        run: step.changed-files
+        if: steps.changed-files-hxe.outputs.any_changed
+        run: isHXE = 1
       - name: Set isSPV3
-        run: steps.changed-files
+        if: steps.changed-files-spv3.outputs.anychanged
+        run: isSPV3 = 1
 
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.0.x
@@ -66,9 +77,9 @@ jobs:
       - run: |
         echo "FullSemVer: ${{ steps.gitversion.outputs.fullSemVer }}"
 
-#      - name: Extract version from tag
-#        id: get-version
-#        uses: battila7/get-version-action@v2
+      #- name: Extract version from tag
+      #  id: get-version
+      #  uses: battila7/get-version-action@v2
 
       ############
       # BUILD
@@ -80,5 +91,8 @@ jobs:
       - name: Build
         run: dotnet build /p:Version="${{ steps.gitversion.outputs.fullSemVer }}"
       - name: Pack
-        run: dotnet pack /p:PackageVersion="${{ steps.gitversion.outputs.fullSemVer }.{ steps.gitversion.outputs.shortSha }}"
+        run: dotnet pack /p:PackageVersion="${{ steps.gitversion.outputs.SemVer }-{ steps.gitversion.outputs.shortSha }}"
 
+      - name: Check for SPV3/HXE release cue
+        if: isHXE == 1 && isSPV3 == 1
+        run: # version and release mechanism
