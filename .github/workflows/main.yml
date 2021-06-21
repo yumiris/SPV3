@@ -58,7 +58,7 @@ jobs:
         run: isSPV3 = 1
 
       - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v1.0.x
+        uses: microsoft/setup-msbuild@v1
 
       - name: Install Net Framework DevPacks
         run: | 
@@ -67,18 +67,18 @@ jobs:
          choco install dotnet4.6.1-devpack;
 
       - name: Setup NuGet
-        uses: NuGet/setup-nuget@v1.0.x
+        uses: NuGet/setup-nuget@v1
 
         # https://github.com/marketplace/actions/gittools
       - name: Set up GitTools
-        uses: GitTools/actions@v0.9.x
+        uses: GitTools/actions@v0.9
       - name: Install GitVersion
-        uses: GitTools/actions/gitversion/setup@v0.9.x
+        uses: GitTools/actions/gitversion/setup@v0.9
         with:
           versionSpec: '5.x'
       - name: Use GitVersion
         id: gitversion
-        uses: GitTools/actions/gitversion/execute@v0.9.x
+        uses: GitTools/actions/gitversion/execute@v0.9
       - run: echo "${{ steps.gitversion.outputs.fullSemVer }}"
 
       #- name: Extract version from tag
