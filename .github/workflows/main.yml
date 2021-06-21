@@ -90,7 +90,7 @@ jobs:
       ############
 
       - name: Check for SPV3/HXE release cue
-        if: isHXE == 1 && isSPV3 == 1
+        if: env.isHXE == 1 && env.isSPV3 == 1
         run: echo "version and release mechanism"
       
       - name: DotNet build prep
