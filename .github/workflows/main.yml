@@ -89,7 +89,7 @@ jobs:
       - name: Build
         run: dotnet build /p:Version="${{ steps.gitversion.outputs.assemblySemVer }}"
       - name: Pack
-        run: dotnet pack /p:PackageVersion="${{ steps.gitversion.outputs.semVer - steps.gitversion.outputs.shortSha }}"
+        run: dotnet pack /p:PackageVersion="${{ steps.gitversion.outputs.semVer \- steps.gitversion.outputs.shortSha }}"
 
       - name: Check for SPV3/HXE release cue
         if: isHXE == 1 && isSPV3 == 1
