@@ -6,7 +6,6 @@ on:
   push:
     branches: [ master ]
     #branches-ignore: [ gh-pages ]
-    tags:
     paths:
       #- ${{variable}}/**
       - .github/workflows/**
@@ -74,8 +73,7 @@ jobs:
       - name: Use GitVersion
         id: gitversion
         uses: GitTools/actions/gitversion/execute@v0.9.x
-      - run: |
-        echo "FullSemVer: ${{ steps.gitversion.outputs.fullSemVer }}"
+      - run: echo "${{ steps.gitversion.outputs.fullSemVer }}"
 
       #- name: Extract version from tag
       #  id: get-version
@@ -89,10 +87,10 @@ jobs:
         run: dotnet build /p:ContinuousIntegrationBuild=true
 
       - name: Build
-        run: dotnet build /p:Version="${{ steps.gitversion.outputs.fullSemVer }}"
+        run: dotnet build /p:Version="${{ steps.gitversion.outputs.assemblySemVer }}"
       - name: Pack
-        run: dotnet pack /p:PackageVersion="${{ steps.gitversion.outputs.SemVer }-{ steps.gitversion.outputs.shortSha }}"
+        run: dotnet pack /p:PackageVersion="${{ steps.gitversion.outputs.semVer }-{ steps.gitversion.outputs.shortSha }}"
 
       - name: Check for SPV3/HXE release cue
         if: isHXE == 1 && isSPV3 == 1
-        run: # version and release mechanism
+        run: echo "version and release mechanism"
