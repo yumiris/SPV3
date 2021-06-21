@@ -68,7 +68,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "updates", "updates", "{D575
 		..\..\updates\update.hxe = ..\..\updates\update.hxe
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{86B5BA36-56DA-4799-AC69-E92D4DE2102E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{86B5BA36-56DA-4799-AC69-E92D4DE2102E}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\..\.github\workflows\main.yml = ..\..\..\.github\workflows\main.yml
 	EndProjectSection
