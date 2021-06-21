@@ -60,6 +60,12 @@ jobs:
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.0.x
 
+      - name: Install Net Framework DevPacks
+        run: | 
+         choco install netfx-4.5.1-devpack;
+         choco install netfx-4.5.2-devpack;
+         choco install dotnet4.6.1-devpack;
+
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1.0.x
 
@@ -82,6 +88,10 @@ jobs:
       ############
       # BUILD
       ############
+
+      - name: Check for SPV3/HXE release cue
+        if: isHXE == 1 && isSPV3 == 1
+        run: echo "version and release mechanism"
       
       - name: DotNet build prep
         run: dotnet build /p:ContinuousIntegrationBuild=true
@@ -89,8 +99,4 @@ jobs:
       - name: Build
         run: dotnet build /p:Version="${{ steps.gitversion.outputs.assemblySemVer }}"
       - name: Pack
-        run: dotnet pack /p:PackageVersion="${{ steps.gitversion.outputs.semVer \- steps.gitversion.outputs.shortSha }}"
-
-      - name: Check for SPV3/HXE release cue
-        if: isHXE == 1 && isSPV3 == 1
-        run: echo "version and release mechanism"
+        run: dotnet pack /p:PackageVersion="${{ steps.gitversion.outputs.semVer}}-${{ steps.gitversion.outputs.shortSha }}"
