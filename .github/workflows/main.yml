@@ -52,12 +52,10 @@ jobs:
           files: spv3/loader/src
       - name: Set isHXE
         if: steps.changed-files-hxe.outputs.any_changed
-        env: 
-          isHXE: true
+        run: echo "isHXE=true" >> "$GITHUB_ENV" # weird workaround since I couldn't find a normal way to modify env vars
       - name: Set isSPV3
         if: steps.changed-files-spv3.outputs.anychanged
-        env:
-          isSPV3: true
+        run: echo "isSPV3=true" >> "$GITHUB_ENV"
 
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1
