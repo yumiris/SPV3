@@ -24,8 +24,8 @@ jobs:
     runs-on: windows-latest
 
     env:
-      isHXE: 0
-      isSPV3: 0
+      isHXE: false
+      isSPV3: false
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -52,10 +52,12 @@ jobs:
           files: spv3/loader/src
       - name: Set isHXE
         if: steps.changed-files-hxe.outputs.any_changed
-        run: env.isHXE = 1
+        env: 
+          isHXE: true
       - name: Set isSPV3
         if: steps.changed-files-spv3.outputs.anychanged
-        run: env.isSPV3 = 1
+        env:
+          isSPV3: true
 
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1
@@ -90,7 +92,7 @@ jobs:
       ############
 
       - name: Check for SPV3/HXE release cue
-        if: env.isHXE == 1 && env.isSPV3 == 1
+        if: env.isHXE == true && env.isSPV3 == false
         run: echo "version and release mechanism"
       
       - name: DotNet build prep
