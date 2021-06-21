@@ -52,10 +52,10 @@ jobs:
           files: spv3/loader/src
       - name: Set isHXE
         if: steps.changed-files-hxe.outputs.any_changed
-        run: isHXE = 1
+        run: env.isHXE = 1
       - name: Set isSPV3
         if: steps.changed-files-spv3.outputs.anychanged
-        run: isSPV3 = 1
+        run: env.isSPV3 = 1
 
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1
