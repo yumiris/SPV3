@@ -25,6 +25,20 @@ This repository is the culmination of malicious compliance spanning two or three
 
 Down the rabbit hole lies much more suffering, and if you're keen to see a bit of passionate projects that never saw the light, check out the [SPV3](spv3/legacy) and [HCE](hce/legacy) legacy folders.
 
+# Build Status
+
+### Main Branch
+| Project    | Status     |
+| ---------- | ---------- |
+| HXE        |            |
+| SPV3       | [![.github/workflows/main.yml](https://github.com/HaloSPV3/HCE/actions/workflows/main.yml/badge.svg)](https://github.com/HaloSPV3/HCE/actions/workflows/main.yml) |
+### Develop Branch
+| Project    | Status     |
+| ---------- | ---------- |
+| HXE        |            |
+| SPV3       |            |
+
+
 # Contributing
 
 Most projects are .NET C# solutions. Depending on the solution, you'll either have to adhere to the standard .NET coding conventions; or if you're unlucky: two spaces, vertical alignment.
