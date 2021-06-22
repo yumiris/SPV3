@@ -30,6 +30,13 @@ const maps SP_MAPS[] = {
 	{ "spv3_lumoria_a", "Lumoria Landfall" },
 	{ "spv3_lumoria_b", "Valley Battle" },
 	{ "spv3_lumoria_cd", "Fight for the Future" },
+	//Firefight
+	{ "spv3_rockslide_spartan", "Rockslide (UNSC/Covenant)" },
+	{ "spv3_rockslide_flood",   "Rockslide (UNSC/Flood)" },
+	{ "spv3_rockslide_elite",   "Rockslide (Covenant/Flood)" },
+	{ "spv3_engine_spartan",    "Engine Room (UNSC/Covenant)" },
+  { "spv3_engine_flood",      "Engine Room (UNSC/Flood)" },
+	{ "spv3_engine_elite",      "Engine Room (Covenant/Flood)" },
 };
 
 const char *DIFFICULTIES[] = {
@@ -53,7 +60,7 @@ HANDLE main_thread;
 std::string combined;
 int64_t start_time;
 byte CURRENT_PLAYERS;
-void main() {
+int main() {
 
 	discordInit();
 	combined = "Main Menu";;
@@ -145,6 +152,7 @@ void main() {
 			}
 		Sleep(1000);
 	}
+	return 0;
 }
 
 bool APIENTRY DllMain(HINSTANCE hDLLInst, DWORD fdwReason, LPVOID lpvReserved) {
