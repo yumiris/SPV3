@@ -1,45 +1,54 @@
 name: main
+# TODO:
 
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
-    #branches-ignore: [ gh-pages ]
+    branches: [ master, develop ]
     paths:
-      #- ${{variable}}/**
-      - .github/workflows/**
+    # Match
+    - '.github/workflows/**'
+    - 'hxe/kernel/src/**'
+    - 'spv3/loader/src/**'
+    # Ignore
+    - '!**.md'
+    - '!readme.**'
   pull_request:
-    branches: [ master ]
+    branches: [ master, develop ]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+  workflow_dispatch: # Allow manually runs
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+ # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+ # However, each Job uses separate Runners
 jobs:
-  # This workflow contains a single job called "build"
   build:
     name: Build
-    # The type of runner that the job will run on
-    runs-on: windows-latest
+    runs-on: windows-latest # The type of runner that the job will run on
 
     env:
-      isHXE: false
-      isSPV3: false
+      isHXE: false  # If $true, prep an HXE Release
+      isSPV3: false # If $true, prep an SPV3 Release
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      ############
+      ################
       # SETUP
-      ############
-      
+      ################
+
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0 # Required by tj-actions/changed-files and GitVersion
 
+      ######## PRE-REQUISITES & DEPENDENCIES ########
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        # Dependents: Semantic Release
+      - name: Setup NPM
+        uses: bahmutov/npm-install@v1
+        # Dependents: Semantic Release
+
         # https://github.com/marketplace/actions/changed-files
         # We use this to determine if an HXE or SPV3 release should be versioned and published.
+          # TODO: Split this workflow into per-Solution workflows. Create a copy of this one when it is ready for use.
       - name: Get changed files (HXE)
         id: changed-files-hxe
         uses: tj-actions/changed-files@v8
@@ -50,53 +59,115 @@ jobs:
         uses: tj-actions/changed-files@v8
         with:
           files: spv3/loader/src
+
+        # Powershell requires the 'env:' prefix
       - name: Set isHXE
         if: steps.changed-files-hxe.outputs.any_changed
-        run: echo "isHXE=true" >> "$GITHUB_ENV" # weird workaround since I couldn't find a normal way to modify env vars
+        run: |
+         echo [bool] $env:isHXE = $true;
+         echo $env:isHXE >> "$env:GITHUB_ENV"; # weird workaround; I couldn't find a normal way to modify env vars
       - name: Set isSPV3
         if: steps.changed-files-spv3.outputs.anychanged
-        run: echo "isSPV3=true" >> "$GITHUB_ENV"
+        run: |
+         echo [bool] $env:isSPV3 = $true;
+         echo $env:isSPV3 >> "$env:GITHUB_ENV";
 
+        # TODO - Cancel if Build/Release not needed. Usually handled by 'paths-ignore:'
+      #- name: Cancel - No Changes to HXE nor SPV3
+      #  uses: styfle/cancel-workflow-action@0.9.0
+      #  with:
+      #    access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      #### MSBuild, .NET Framework, NuGet ####
+
+      # Included, but NOT added to PATH by default! See
+        # https://github.com/marketplace/actions/setup-msbuild
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1
+      - name: echo MSBuild # Verify functionality
+        run: msbuild -version
 
-      - name: Install Net Framework DevPacks
-        run: | 
-         choco install netfx-4.5.1-devpack;
-         choco install netfx-4.5.2-devpack;
-         choco install dotnet4.6.1-devpack;
-
+      # Included in 'windows-latest' runners, but better safe than sorry. See
+        # https://github.com/actions/virtual-environments/blob/main/images/win/Windows2019-Readme.md#package-management
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1
 
+      # Included in 'windows-latest' runners. See
+        # https://twitter.com/mjebrahimi72/status/1252216773811875842
+        # https://github.com/actions/virtual-environments/blob/main/images/win/Windows2019-Readme.md#workloads-components-and-extensions
+        # https://github.com/actions/virtual-environments/blob/main/images/win/Windows2019-Readme.md#net-framework
+      #- name: Install .Net Framework 4.5.1 DevPack
+      #  run: choco install netfx-4.5.1-devpack;
+      #- name: Install .Net Framework 4.5.2 DevPack
+      #  run: choco install netfx-4.5.2-devpack;
+      #- name: Install .Net Framework 4.6.1 DevPack
+      #  run: choco install dotnet4.6.1-devpack;
+
+      - name: Navigate to Workspace # https://www.codingwithcalvin.net/building-net-framework-applications-with-github-actions/
+        run: cd $GITHUB_WORKSPACE
+
+        #### GitTools, GitVersion, GitReleaseManager ####
+
         # https://github.com/marketplace/actions/gittools
-      - name: Set up GitTools
-        uses: GitTools/actions@v0.9
-      - name: Install GitVersion
-        uses: GitTools/actions/gitversion/setup@v0.9
+      - name: Setup GitTools
+        uses: GitTools/actions@v0.9.9
+
+      - name: Setup GitVersion
+        uses: GitTools/actions/gitversion/setup@v0.9.9
+        id: gitV
         with:
           versionSpec: '5.x'
-      - name: Use GitVersion
-        id: gitversion
-        uses: GitTools/actions/gitversion/execute@v0.9
       - run: echo "${{ steps.gitversion.outputs.fullSemVer }}"
 
-      #- name: Extract version from tag
-      #  id: get-version
-      #  uses: battila7/get-version-action@v2
+      # https://github.com/GitTools/actions/blob/main/docs/examples/github/gitreleasemanager/index.md
+      - name: Setup GitReleaseManager
+        id: gitRM
+        uses: gittools/actions/gitreleasemanager/setup@v0.9.9
+        with:
+          versionSpec: '0.10.x'
 
-      ############
+      - name: Set up Semantic Release
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.SEMANTIC_RELEASE_BOT_NPM_TOKEN }}
+
+      ################
       # BUILD
-      ############
+      ################
 
       - name: Check for SPV3/HXE release cue
         if: env.isHXE == true && env.isSPV3 == false
         run: echo "version and release mechanism"
-      
-      - name: DotNet build prep
-        run: dotnet build /p:ContinuousIntegrationBuild=true
 
-      - name: Build
-        run: dotnet build /p:Version="${{ steps.gitversion.outputs.assemblySemVer }}"
-      - name: Pack
-        run: dotnet pack /p:PackageVersion="${{ steps.gitversion.outputs.semVer}}-${{ steps.gitversion.outputs.shortSha }}"
+        # TODO: cd to solution's directory
+
+      # Package restore handled by MSBuild '-restore' flag
+      #- name: Restore NuGet Packages (HXE)
+      #  run: nuget restore hxe/kernel/src/HXE.sln;
+      #- name: Restore NuGet Packages (SPV3)
+      #  run: nuget restore spv3/loader/src/SPV3.sln;
+
+      - name: Build Solution (HXE)
+        run: msbuild.exe "hxe/kernel/src/HXE.sln" -nologo -nr:false -restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Release";
+
+        # TODO: Finish Build commands
+
+      # .NET Framework apps cannot be built by DotNet CLI
+      # We have to fallback to MSBuild
+      # This section will remain until our apps are ported to
+      #- name: DotNet build prep
+      #  run: dotnet build /p:ContinuousIntegrationBuild=true
+      #- name: Build
+      #  run: dotnet build /p:Version="$env:{{ steps.gitversion.outputs.assemblySemVer }}"
+      #- name: Pack
+      #  run: dotnet pack /p:PackageVersion="$env:{{ steps.gitversion.outputs.semVer}}-$env:{{ steps.gitversion.outputs.shortSha }}"
+
+      ################
+      # RELEASE
+      ################
+
+      # GitReleaseManager or Semantic Release?
+
+      #- name: Publish via GitReleaseManager
+      #  run:
