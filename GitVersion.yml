@@ -1,8 +1,14 @@
+# Docs: https://gitversion.net/docs/reference/configuration
 assembly-versioning-scheme: MajorMinorPatch
 mode: ContinuousDelivery
 branches:
+  master: {}
   main: {}
   develop: {}
 ignore:
   sha: []
 merge-message-formats: {}
+buildMetaData: 399
+major-version-bump-message: "^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)(\\([\\w\\s]*\\))?(!:|:.*\\n\\n((.+\\n)+\\n)?BREAKING CHANGE:\\s.+)"
+minor-version-bump-message: "^(feat)(\\([\\w\\s]*\\))?:"
+patch-version-bump-message: "^(build|chore|ci|docs|fix|perf|refactor|revert|style|test)(\\([\\w\\s]*\\))?:"

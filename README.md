@@ -14,6 +14,18 @@
     </p>
 </html>
 
+<html>
+    <a href="https://codeclimate.com/github/HaloSPV3/HCE/maintainability">
+        <img src="https://api.codeclimate.com/v1/badges/36d2647e7e7b1db7a3cc/maintainability" />
+    </a>
+    <a href="https://codeclimate.com/github/HaloSPV3/HCE/test_coverage">
+        <img src="https://api.codeclimate.com/v1/badges/36d2647e7e7b1db7a3cc/test_coverage" />
+    </a>
+    <a href="https://codecov.io/gh/HaloSPV3/HCE">
+        <img src="https://codecov.io/gh/HaloSPV3/HCE/branch/master/graph/badge.svg?token=08V261RXR3"/>
+    </a>
+</html>
+
 # Welcome
 
 This repository is the culmination of malicious compliance spanning two or three years. What you'll find here is the source code for a few nifty projects such as:
@@ -28,15 +40,15 @@ Down the rabbit hole lies much more suffering, and if you're keen to see a bit o
 # Build Status
 
 ### Main Branch
-| Project    | Status     |
-| ---------- | ---------- |
-| HXE        |            |
-| SPV3       | [![.github/workflows/main.yml](https://github.com/HaloSPV3/HCE/actions/workflows/main.yml/badge.svg)](https://github.com/HaloSPV3/HCE/actions/workflows/main.yml) |
+| Project    | Build Status | CodeCov
+| ---------- | ------------ | -------
+| HXE        |              | 
+| SPV3       | [![.github/workflows/main.yml](https://github.com/HaloSPV3/HCE/actions/workflows/main.yml/badge.svg)](https://github.com/HaloSPV3/HCE/actions/workflows/main.yml) | 
 ### Develop Branch
-| Project    | Status     |
-| ---------- | ---------- |
-| HXE        |            |
-| SPV3       |            |
+| Project    | Status       |
+| ---------- | ------------ |
+| HXE        |              |
+| SPV3       |              |
 
 
 # Contributing
@@ -58,3 +70,21 @@ Should anything here cause any sort of quirks, feel free to post an issue about 
 # Licence
 
 Each project has its own licence, though most are permissive and one or two may coerce you into sharing your derivative work's source code for the benefit of society and detriment of enterprises & corporations.
+
+
+# Badge dump
+## Markdown
+[![codecov](https://codecov.io/gh/HaloSPV3/HCE/branch/master/graph/badge.svg?token=08V261RXR3)](https://codecov.io/gh/HaloSPV3/HCE)
+
+## HTML
+<html>
+    <a href="https://codeclimate.com/github/HaloSPV3/HCE/maintainability">
+        <img src="https://api.codeclimate.com/v1/badges/36d2647e7e7b1db7a3cc/maintainability" />
+    </a>
+    <a href="https://codeclimate.com/github/HaloSPV3/HCE/test_coverage">
+        <img src="https://api.codeclimate.com/v1/badges/36d2647e7e7b1db7a3cc/test_coverage" />
+    </a>
+    <a href="https://codecov.io/gh/HaloSPV3/HCE">
+        <img src="https://codecov.io/gh/HaloSPV3/HCE/branch/master/graph/badge.svg?token=08V261RXR3"/>
+    </a>
+</html>

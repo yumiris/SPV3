@@ -1,4 +1,4 @@
-# Docs: https://www.appveyor.com/docs/appveyor-yml/ 
+# Docs: https://www.appveyor.com/docs/appveyor-yml/
 
 # version format
 version: 1.0.{build}-{commitId}
@@ -83,8 +83,7 @@ build:
   project: 'spv3\loader\src\spv3.sln'
   parallel: true
   verbosity: minimal
-  
-  
+
 #---------------------------------#
 #     deployment configuration    #
 #---------------------------------#
