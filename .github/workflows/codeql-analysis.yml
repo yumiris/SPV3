@@ -41,6 +41,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1
+    - name: echo MSBuild # Verify functionality
+      run: msbuild -version
+
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v1
