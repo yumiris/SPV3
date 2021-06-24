@@ -42,6 +42,9 @@ jobs:
         with:
           fetch-depth: 0 # Required by tj-actions/changed-files and GitVersion
 
+      - name: Checkout Git Submodules
+        run: git submodule update --init --recursive
+
       ######## PRE-REQUISITES & DEPENDENCIES ########
       - name: Setup Node
         uses: actions/setup-node@v2
