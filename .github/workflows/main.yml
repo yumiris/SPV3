@@ -1,9 +1,13 @@
+# Ref: Building .NET Framework Applications with Github Actions
+# https://www.codingwithcalvin.net/building-net-framework-applications-with-github-actions/
+
 name: main
-# TODO:
+# TODO: Get branch name
+  # https://stackoverflow.com/a/58035262/14894786
 
 on:
   push:
-    branches: [ master, develop ]
+    branches: [ master, develop ] # TODO: Split this to HXE and SPV3, Main and Develop each
     paths:
     # Match
     - '.github/workflows/**'
@@ -72,12 +76,6 @@ jobs:
          echo [bool] $env:isSPV3 = $true;
          echo $env:isSPV3 >> "$env:GITHUB_ENV";
 
-        # TODO - Cancel if Build/Release not needed. Usually handled by 'paths-ignore:'
-      #- name: Cancel - No Changes to HXE nor SPV3
-      #  uses: styfle/cancel-workflow-action@0.9.0
-      #  with:
-      #    access_token: ${{ secrets.GITHUB_TOKEN }}
-
       #### MSBuild, .NET Framework, NuGet ####
 
       # Included, but NOT added to PATH by default! See
@@ -86,22 +84,6 @@ jobs:
         uses: microsoft/setup-msbuild@v1
       - name: echo MSBuild # Verify functionality
         run: msbuild -version
-
-      # Included in 'windows-latest' runners, but better safe than sorry. See
-        # https://github.com/actions/virtual-environments/blob/main/images/win/Windows2019-Readme.md#package-management
-      - name: Setup NuGet
-        uses: NuGet/setup-nuget@v1
-
-      # Included in 'windows-latest' runners. See
-        # https://twitter.com/mjebrahimi72/status/1252216773811875842
-        # https://github.com/actions/virtual-environments/blob/main/images/win/Windows2019-Readme.md#workloads-components-and-extensions
-        # https://github.com/actions/virtual-environments/blob/main/images/win/Windows2019-Readme.md#net-framework
-      #- name: Install .Net Framework 4.5.1 DevPack
-      #  run: choco install netfx-4.5.1-devpack;
-      #- name: Install .Net Framework 4.5.2 DevPack
-      #  run: choco install netfx-4.5.2-devpack;
-      #- name: Install .Net Framework 4.6.1 DevPack
-      #  run: choco install dotnet4.6.1-devpack;
 
       - name: Navigate to Workspace # https://www.codingwithcalvin.net/building-net-framework-applications-with-github-actions/
         run: cd $GITHUB_WORKSPACE
@@ -126,7 +108,7 @@ jobs:
         with:
           versionSpec: '0.10.x'
 
-      - name: Set up Semantic Release
+      - name: Setup Semantic Release
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -150,18 +132,49 @@ jobs:
 
       - name: Build Solution (HXE)
         run: msbuild.exe "hxe/kernel/src/HXE.sln" -nologo -nr:false -restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Release";
+      - name: Build Solution (SPV3)
+        run: msbuild.exe "spv3/loader/src/SPV3.sln" -nologo -nr:false -restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Release";
 
         # TODO: Finish Build commands
 
-      # .NET Framework apps cannot be built by DotNet CLI
-      # We have to fallback to MSBuild
-      # This section will remain until our apps are ported to
+        # .NET Framework apps cannot be built by DotNet CLI
+        # We have to fallback to MSBuild
+        # This section will remain until our apps are ported to
       #- name: DotNet build prep
       #  run: dotnet build /p:ContinuousIntegrationBuild=true
       #- name: Build
       #  run: dotnet build /p:Version="$env:{{ steps.gitversion.outputs.assemblySemVer }}"
       #- name: Pack
       #  run: dotnet pack /p:PackageVersion="$env:{{ steps.gitversion.outputs.semVer}}-$env:{{ steps.gitversion.outputs.shortSha }}"
+
+      ################
+      # Unit Tests     TODO: Move to separate worflows
+      ################
+
+      - name: Setup OpenCover, XUnit for .NET Framework
+        run: |
+         choco install opencover.portable
+         choco install xunit
+
+          # docs: https://github.com/codecov/example-csharp
+      - name: (HXE) Write Unit Test Reports
+        working-directory: ./hxe/kernel/src/
+        run: OpenCover.Console.exe -register:user -target:"xunit.console.x86.exe" -targetargs:"..\MyUnitTests\bin\Debug\MyUnitTests.dll -noshadow" -filter:"+[UnitTestTargetProject*]* -[MyUnitTests*]*" -output:"..\hxe_coverage.xml"
+
+      - name: (SPV3) Write Unit Test Reports
+        working-directory: ./spv3/loader/src/
+        run: OpenCover.Console.exe -register:user -target:"xunit.console.x86.exe" -targetargs:"..\MyUnitTests\bin\Debug\MyUnitTests.dll -noshadow" -filter:"+[UnitTestTargetProject*]* -[MyUnitTests*]*" -output:"..\spv3_coverage.xml"
+
+      - name: Upload unit test reports to CodeCoverage
+        uses: codecov/codecov-action@v1
+        with:
+          # token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+          files: ./hxe/kernel/hxe_coverage.xml,./spv3/loader/spv3_coverage.xml
+          flags: unittests # optional
+          functionalities: recursesubs # search for code in git submodules as well
+          # name: codecov-umbrella # optional
+          # fail_ci_if_error: true # optional (default = false)
+          # verbose: true # optional (default = false)
 
       ################
       # RELEASE
