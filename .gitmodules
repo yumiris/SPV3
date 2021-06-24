@@ -1,12 +1,12 @@
 [submodule "ext/chimera"]
 	path = ext/chimera
-	url = https://github.com/SnowyMouse/chimera/tree/master
+	url = https://github.com/SnowyMouse/chimera.git
 	branch = master
 [submodule "ext/halo-ce-patches"]
 	path = ext/halo-ce-patches
-	url = https://github.com/pR0Ps/halo-ce-patches/tree/master
+	url = https://github.com/pR0Ps/halo-ce-patches.git
 	branch = master
 [submodule "ext/xidi"]
 	path = ext/xidi
-	url = https://github.com/samuelgr/Xidi/tree/master
+	url = https://github.com/samuelgr/Xidi.git
 	branch = master
