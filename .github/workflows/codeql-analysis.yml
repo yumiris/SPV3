@@ -71,10 +71,10 @@ jobs:
       #    and modify them (or add more) to build your code if your project
       #    uses a compiled language
 
-      - name: Build Solution (HXE)
-        run: msbuild.exe "hxe/kernel/src/HXE.sln" -nologo -nr:false -restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Release";
-      - name: Build Solution (SPV3)
-        run: msbuild.exe "spv3/loader/src/SPV3.sln" -nologo -nr:false -restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Release";
+      - name: (HXE) Build Solution
+        run: msbuild.exe "hxe/kernel/src/HXE.sln" -nologo -nr:false -t:restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Release";
+      - name: (SPV3) Build Solution
+        run: msbuild.exe "spv3/loader/src/SPV3.sln" -nologo -nr:false -t:restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Release";
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v1
