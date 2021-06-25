@@ -1,0 +1,156 @@
+# Ref: Building .NET Framework Applications with Github Actions
+# https://www.codingwithcalvin.net/building-net-framework-applications-with-github-actions/
+
+name: release-spv3
+# TODO: Get branch name
+  # https://stackoverflow.com/a/58035262/14894786
+
+on:
+  push:
+    branches: [ master, develop ]
+    paths:
+    # Match
+    - '.github/workflows/**'
+    - 'hxe/kernel/src/**'
+    - 'spv3/loader/src/**'
+    - '.gitmodules'
+    # Ignore
+    - '!**.md'
+    - '!readme.**'
+  pull_request:
+    branches: [ master, develop ]
+
+  workflow_dispatch: # Allow manually runs
+
+ # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+ # However, each Job uses separate Runners
+jobs:
+  build:
+    name: Build
+    runs-on: windows-latest # The type of runner that the job will run on
+
+    steps:
+      ################
+      # SETUP
+      ################
+
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Required by tj-actions/changed-files and GitVersion
+
+      - name: Navigate to Workspace # https://www.codingwithcalvin.net/building-net-framework-applications-with-github-actions/
+        run: cd $GITHUB_WORKSPACE
+
+      - name: Init-Update Git Submodules
+        run: git submodule update --init --recursive
+
+      ################
+      # SETUP - Node, NPM
+      ################
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        # Dependents: Semantic Release
+      - name: Setup NPM
+        uses: bahmutov/npm-install@v1
+        # Dependents: Semantic Release
+
+      ################
+      # SETUP - MSBuild
+      ################
+
+        # Included, but NOT added to PATH by default! See
+        # https://github.com/marketplace/actions/setup-msbuild
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1
+      - name: echo MSBuild # Verify functionality
+        run: msbuild -version
+
+        ################
+        # SETUP - GitTools, GitVersion, GitReleaseManager, Semantic Release
+        ################
+
+        # https://github.com/marketplace/actions/gittools
+      - name: Setup GitTools
+        uses: GitTools/actions@v0.9.9
+
+      - name: Setup GitVersion
+        uses: GitTools/actions/gitversion/setup@v0.9.9
+        id: gitV
+        with:
+          versionSpec: '5.x'
+      - run: echo "${{ steps.gitversion.outputs.fullSemVer }}"
+
+        # https://github.com/GitTools/actions/blob/main/docs/examples/github/gitreleasemanager/index.md
+      - name: Setup GitReleaseManager
+        id: gitRM
+        uses: gittools/actions/gitreleasemanager/setup@v0.9.9
+        with:
+          versionSpec: '0.10.x'
+
+      - name: Setup Semantic Release
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.SEMANTIC_RELEASE_BOT_NPM_TOKEN }}
+
+      ################
+      # BUILD
+      ################
+
+        # Package restore handled by MSBuild '-t:restore' flag, but we'll do this anyway
+      - name: Restore NuGet Packages (HXE)
+        run: nuget restore hxe/kernel/src/HXE.sln;
+      - name: Restore NuGet Packages (SPV3)
+        run: nuget restore spv3/loader/src/SPV3.sln;
+
+      - name: Build Solutions
+        run: |
+         msbuild.exe "spv3/loader/src/SPV3.sln" -nr:false -t:restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Release";
+         msbuild.exe "spv3/loader/src/SPV3.sln" -nr:false -t:restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Debug";
+
+        # TODO: Finish Post-Build commands
+
+        # .NET Framework apps cannot be built by DotNet CLI
+        # We have to fallback to MSBuild
+        # This section will remain until our apps are ported to .NET 5 or 6
+      #- name: DotNet build prep
+      #  run: dotnet build /p:ContinuousIntegrationBuild=true
+      #- name: Build
+      #  run: dotnet build /p:Version="$env:{{ steps.gitversion.outputs.assemblySemVer }}"
+      #- name: Pack
+      #  run: dotnet pack /p:PackageVersion="$env:{{ steps.gitversion.outputs.semVer}}-$env:{{ steps.gitversion.outputs.shortSha }}"
+
+      ################
+      # UNIT TESTS     TODO: Move to separate worflows
+      ################
+
+      - name: Setup OpenCover, XUnit for .NET Framework
+        run: |
+         choco install opencover.portable
+         choco install xunit
+
+          # docs: https://github.com/codecov/example-csharp
+      - name: (SPV3) Write Unit Test Reports
+        working-directory: ./spv3/loader/src/
+        run: OpenCover.Console.exe -register:user -target:"xunit.console.x86.exe" -targetargs:"..\MyUnitTests\bin\Debug\MyUnitTests.dll -noshadow" -filter:"+[UnitTestTargetProject*]* -[MyUnitTests*]*" -output:"..\spv3_coverage.xml"
+
+      - name: Upload unit test reports to CodeCoverage
+        uses: codecov/codecov-action@v1
+        with:
+          # token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+          files: ./spv3/loader/spv3_coverage.xml
+          flags: unittests # optional
+          functionalities: recursesubs # search for code in git submodules as well
+          # name: codecov-umbrella # optional
+          # fail_ci_if_error: true # optional (default = false)
+          # verbose: true # optional (default = false)
+
+      ################
+      # RELEASE
+      ################
+
+      # GitReleaseManager or Semantic Release?
+
+      #- name: Publish via GitReleaseManager
+      #  run:
