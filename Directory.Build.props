@@ -1,0 +1,6 @@
+<Project>
+ <PropertyGroup>
+   <Deterministic>true</Deterministic>
+   <NoLogo>true</NoLogo>
+ </PropertyGroup>
+</Project>
