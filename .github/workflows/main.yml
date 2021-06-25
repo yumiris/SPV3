@@ -43,16 +43,26 @@ jobs:
         with:
           fetch-depth: 0 # Required by tj-actions/changed-files and GitVersion
 
-      - name: Checkout Git Submodules
+      - name: Navigate to Workspace # https://www.codingwithcalvin.net/building-net-framework-applications-with-github-actions/
+        run: cd $GITHUB_WORKSPACE
+
+      - name: Init-Update Git Submodules
         run: git submodule update --init --recursive
 
-      ######## PRE-REQUISITES & DEPENDENCIES ########
+      ################
+      # SETUP - Node, NPM
+      ################
       - name: Setup Node
         uses: actions/setup-node@v2
         # Dependents: Semantic Release
       - name: Setup NPM
         uses: bahmutov/npm-install@v1
         # Dependents: Semantic Release
+
+      ################
+      # SETUP - Get Changed Files (HXE/SPV3)
+      # Remove when HXE/SPV3 workflows are separated
+      ################
 
         # https://github.com/marketplace/actions/changed-files
         # We use this to determine if an HXE or SPV3 release should be versioned and published.
@@ -68,11 +78,10 @@ jobs:
         with:
           files: spv3/loader/src
 
-        # Powershell requires the 'env:' prefix
       - name: Set isHXE
         if: steps.changed-files-hxe.outputs.any_changed
         run: |
-         echo [bool] $env:isHXE = $true;
+         echo [bool] $env:isHXE = $true;       # Powershell requires the 'env:' prefix
          echo $env:isHXE >> "$env:GITHUB_ENV"; # weird workaround; I couldn't find a normal way to modify env vars
       - name: Set isSPV3
         if: steps.changed-files-spv3.outputs.anychanged
@@ -80,19 +89,20 @@ jobs:
          echo [bool] $env:isSPV3 = $true;
          echo $env:isSPV3 >> "$env:GITHUB_ENV";
 
-      #### MSBuild, .NET Framework, NuGet ####
+      ################
+      # SETUP - MSBuild
+      ################
 
-      # Included, but NOT added to PATH by default! See
+        # Included, but NOT added to PATH by default! See
         # https://github.com/marketplace/actions/setup-msbuild
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1
       - name: echo MSBuild # Verify functionality
         run: msbuild -version
 
-      - name: Navigate to Workspace # https://www.codingwithcalvin.net/building-net-framework-applications-with-github-actions/
-        run: cd $GITHUB_WORKSPACE
-
-        #### GitTools, GitVersion, GitReleaseManager ####
+        ################
+        # SETUP - GitTools, GitVersion, GitReleaseManager, Semantic Release
+        ################
 
         # https://github.com/marketplace/actions/gittools
       - name: Setup GitTools
@@ -126,24 +136,24 @@ jobs:
         if: env.isHXE == true && env.isSPV3 == false
         run: echo "version and release mechanism"
 
-        # TODO: cd to solution's directory
+      # Package restore handled by MSBuild '-t:restore' flag, but we'll do this anyway
+      - name: Restore NuGet Packages (HXE)
+        run: nuget restore hxe/kernel/src/HXE.sln;
+      - name: Restore NuGet Packages (SPV3)
+        run: nuget restore spv3/loader/src/SPV3.sln;
 
-      # Package restore handled by MSBuild '-restore' flag
-      #- name: Restore NuGet Packages (HXE)
-      #  run: nuget restore hxe/kernel/src/HXE.sln;
-      #- name: Restore NuGet Packages (SPV3)
-      #  run: nuget restore spv3/loader/src/SPV3.sln;
+      - name: Build Solutions
+        run: |
+         msbuild.exe "hxe/kernel/src/HXE.sln" -nr:false -t:restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Release";
+         msbuild.exe "hxe/kernel/src/HXE.sln" -nr:false -t:restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Debug";
+         msbuild.exe "spv3/loader/src/SPV3.sln" -nr:false -t:restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Release";
+         msbuild.exe "spv3/loader/src/SPV3.sln" -nr:false -t:restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Debug";
 
-      - name: Build Solution (HXE)
-        run: msbuild.exe "hxe/kernel/src/HXE.sln" -nologo -nr:false -t:restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Release";
-      - name: Build Solution (SPV3)
-        run: msbuild.exe "spv3/loader/src/SPV3.sln" -nologo -nr:false -t:restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Release";
-
-        # TODO: Finish Build commands
+        # TODO: Finish Post-Build commands
 
         # .NET Framework apps cannot be built by DotNet CLI
         # We have to fallback to MSBuild
-        # This section will remain until our apps are ported to
+        # This section will remain until our apps are ported to .NET 5 or 6
       #- name: DotNet build prep
       #  run: dotnet build /p:ContinuousIntegrationBuild=true
       #- name: Build
@@ -152,7 +162,7 @@ jobs:
       #  run: dotnet pack /p:PackageVersion="$env:{{ steps.gitversion.outputs.semVer}}-$env:{{ steps.gitversion.outputs.shortSha }}"
 
       ################
-      # Unit Tests     TODO: Move to separate worflows
+      # UNIT TESTS     TODO: Move to separate worflows
       ################
 
       - name: Setup OpenCover, XUnit for .NET Framework
