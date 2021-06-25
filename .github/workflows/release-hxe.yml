@@ -1,7 +1,7 @@
 # Ref: Building .NET Framework Applications with Github Actions
 # https://www.codingwithcalvin.net/building-net-framework-applications-with-github-actions/
 
-name: main
+name: release-hxe
 # TODO: Get branch name
   # https://stackoverflow.com/a/58035262/14894786
 
@@ -12,7 +12,6 @@ on:
     # Match
     - '.github/workflows/**'
     - 'hxe/kernel/src/**'
-    - 'spv3/loader/src/**'
     - '.gitmodules'
     # Ignore
     - '!**.md'
@@ -60,36 +59,6 @@ jobs:
         # Dependents: Semantic Release
 
       ################
-      # SETUP - Get Changed Files (HXE/SPV3)
-      # Remove when HXE/SPV3 workflows are separated
-      ################
-
-        # https://github.com/marketplace/actions/changed-files
-        # We use this to determine if an HXE or SPV3 release should be versioned and published.
-          # TODO: Split this workflow into per-Solution workflows. Create a copy of this one when it is ready for use.
-      - name: Get changed files (HXE)
-        id: changed-files-hxe
-        uses: tj-actions/changed-files@v8
-        with:
-          files: hxe/kernel/src
-      - name: Get changed files (SPV3)
-        id: changed-files-spv3
-        uses: tj-actions/changed-files@v8
-        with:
-          files: spv3/loader/src
-
-      - name: Set isHXE
-        if: steps.changed-files-hxe.outputs.any_changed
-        run: |
-         echo [bool] $env:isHXE = $true;       # Powershell requires the 'env:' prefix
-         echo $env:isHXE >> "$env:GITHUB_ENV"; # weird workaround; I couldn't find a normal way to modify env vars
-      - name: Set isSPV3
-        if: steps.changed-files-spv3.outputs.anychanged
-        run: |
-         echo [bool] $env:isSPV3 = $true;
-         echo $env:isSPV3 >> "$env:GITHUB_ENV";
-
-      ################
       # SETUP - MSBuild
       ################
 
@@ -115,7 +84,7 @@ jobs:
           versionSpec: '5.x'
       - run: echo "${{ steps.gitversion.outputs.fullSemVer }}"
 
-      # https://github.com/GitTools/actions/blob/main/docs/examples/github/gitreleasemanager/index.md
+        # https://github.com/GitTools/actions/blob/main/docs/examples/github/gitreleasemanager/index.md
       - name: Setup GitReleaseManager
         id: gitRM
         uses: gittools/actions/gitreleasemanager/setup@v0.9.9
@@ -132,22 +101,14 @@ jobs:
       # BUILD
       ################
 
-      - name: Check for SPV3/HXE release cue
-        if: env.isHXE == true && env.isSPV3 == false
-        run: echo "version and release mechanism"
-
       # Package restore handled by MSBuild '-t:restore' flag, but we'll do this anyway
-      - name: Restore NuGet Packages (HXE)
+      - name: Restore NuGet Packages
         run: nuget restore hxe/kernel/src/HXE.sln;
-      - name: Restore NuGet Packages (SPV3)
-        run: nuget restore spv3/loader/src/SPV3.sln;
 
       - name: Build Solutions
         run: |
          msbuild.exe "hxe/kernel/src/HXE.sln" -nr:false -t:restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Release";
          msbuild.exe "hxe/kernel/src/HXE.sln" -nr:false -t:restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Debug";
-         msbuild.exe "spv3/loader/src/SPV3.sln" -nr:false -t:restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Release";
-         msbuild.exe "spv3/loader/src/SPV3.sln" -nr:false -t:restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Debug";
 
         # TODO: Finish Post-Build commands
 
@@ -171,19 +132,15 @@ jobs:
          choco install xunit
 
           # docs: https://github.com/codecov/example-csharp
-      - name: (HXE) Write Unit Test Reports
+      - name: Write Unit Test Reports
         working-directory: ./hxe/kernel/src/
         run: OpenCover.Console.exe -register:user -target:"xunit.console.x86.exe" -targetargs:"..\MyUnitTests\bin\Debug\MyUnitTests.dll -noshadow" -filter:"+[UnitTestTargetProject*]* -[MyUnitTests*]*" -output:"..\hxe_coverage.xml"
-
-      - name: (SPV3) Write Unit Test Reports
-        working-directory: ./spv3/loader/src/
-        run: OpenCover.Console.exe -register:user -target:"xunit.console.x86.exe" -targetargs:"..\MyUnitTests\bin\Debug\MyUnitTests.dll -noshadow" -filter:"+[UnitTestTargetProject*]* -[MyUnitTests*]*" -output:"..\spv3_coverage.xml"
 
       - name: Upload unit test reports to CodeCoverage
         uses: codecov/codecov-action@v1
         with:
           # token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-          files: ./hxe/kernel/hxe_coverage.xml,./spv3/loader/spv3_coverage.xml
+          files: ./hxe/kernel/hxe_coverage.xml
           flags: unittests # optional
           functionalities: recursesubs # search for code in git submodules as well
           # name: codecov-umbrella # optional
@@ -193,6 +150,8 @@ jobs:
       ################
       # RELEASE
       ################
+
+        # If branch is master/main, make a release
 
       # GitReleaseManager or Semantic Release?
 
