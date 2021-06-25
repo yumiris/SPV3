@@ -13,10 +13,10 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, develop ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ master ]
+    branches: [ master, develop ]
   schedule:
     - cron: '35 19 * * 6'
 
@@ -75,8 +75,6 @@ jobs:
         run: |
          msbuild.exe "hxe/kernel/src/HXE.sln" -nr:false -t:restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Release";
          msbuild.exe "hxe/kernel/src/HXE.sln" -nr:false -t:restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Debug";
-         msbuild.exe "spv3/loader/src/SPV3.sln" -nr:false -t:restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Release";
-         msbuild.exe "spv3/loader/src/SPV3.sln" -nr:false -t:restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Debug";
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v1
