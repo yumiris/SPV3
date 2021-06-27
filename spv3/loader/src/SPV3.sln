@@ -68,6 +68,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		..\..\..\GitReleaseManager.yml = ..\..\..\GitReleaseManager.yml
 		..\..\..\GitVersion.yml = ..\..\..\GitVersion.yml
 		..\..\..\.github\workflows\release-hxe.yml = ..\..\..\.github\workflows\release-hxe.yml
+		..\..\..\.github\workflows\release-spv3.yml = ..\..\..\.github\workflows\release-spv3.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A7D09F84-E1DF-4CFE-A763-E7F15E5AD109}"

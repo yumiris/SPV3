@@ -10,7 +10,7 @@ on:
     branches: [ master, develop ]
     paths:
     # Match
-    - '.github/workflows/**'
+    - '.github/workflows/release-spv3.yml'
     - 'hxe/kernel/src/**'
     - 'spv3/loader/src/**'
     - '.gitmodules'

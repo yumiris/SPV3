@@ -10,7 +10,7 @@ on:
     branches: [ master, develop ] # TODO: Split this to HXE and SPV3, Main and Develop each
     paths:
     # Match
-    - '.github/workflows/**'
+    - '.github/workflows/release-hxe.yml'
     - 'hxe/kernel/src/**'
     - '.gitmodules'
     # Ignore
