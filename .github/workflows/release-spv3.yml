@@ -7,7 +7,7 @@ name: release-spv3
 
 on:
   push:
-    branches: [ master, develop ]
+    branches: [ main, develop ]
     paths:
     # Match
     - '.github/workflows/release-spv3.yml'
@@ -18,9 +18,9 @@ on:
     - '!**.md'
     - '!readme.**'
   pull_request:
-    branches: [ master, develop ]
+    branches: [ main, develop ]
 
-  workflow_dispatch: # Allow manually runs
+  workflow_dispatch: # Allow manual runs
 
  # A workflow run is made up of one or more jobs that can run sequentially or in parallel
  # However, each Job uses separate Runners
@@ -44,6 +44,10 @@ jobs:
 
       - name: Init-Update Git Submodules
         run: git submodule update --init --recursive
+
+      - name: Extract branch name
+        uses: nelonoel/branch-name@v1
+        id: extract_branch
 
       ################
       # SETUP - Node, NPM

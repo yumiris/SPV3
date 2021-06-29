@@ -22,7 +22,7 @@
         <img src="https://api.codeclimate.com/v1/badges/36d2647e7e7b1db7a3cc/test_coverage" />
     </a>
     <a href="https://codecov.io/gh/HaloSPV3/HCE">
-        <img src="https://codecov.io/gh/HaloSPV3/HCE/branch/master/graph/badge.svg?token=08V261RXR3"/>
+        <img src="https://codecov.io/gh/HaloSPV3/HCE/branch/main/graph/badge.svg?token=08V261RXR3"/>
     </a>
 </html>
 
@@ -42,14 +42,13 @@ Down the rabbit hole lies much more suffering, and if you're keen to see a bit o
 ### Main Branch
 | Project    | Build Status | CodeCov
 | ---------- | ------------ | -------
-| HXE        |              | 
-| SPV3       | [![.github/workflows/main.yml](https://github.com/HaloSPV3/HCE/actions/workflows/main.yml/badge.svg)](https://github.com/HaloSPV3/HCE/actions/workflows/main.yml) | 
+| HXE        |              |
+| SPV3       | [![.github/workflows/main.yml](https://github.com/HaloSPV3/HCE/actions/workflows/main.yml/badge.svg)](https://github.com/HaloSPV3/HCE/actions/workflows/main.yml) |
 ### Develop Branch
 | Project    | Status       |
 | ---------- | ------------ |
 | HXE        |              |
 | SPV3       |              |
-
 
 # Contributing
 
@@ -71,10 +70,9 @@ Should anything here cause any sort of quirks, feel free to post an issue about 
 
 Each project has its own licence, though most are permissive and one or two may coerce you into sharing your derivative work's source code for the benefit of society and detriment of enterprises & corporations.
 
-
 # Badge dump
 ## Markdown
-[![codecov](https://codecov.io/gh/HaloSPV3/HCE/branch/master/graph/badge.svg?token=08V261RXR3)](https://codecov.io/gh/HaloSPV3/HCE)
+[![codecov](https://codecov.io/gh/HaloSPV3/HCE/branch/main/graph/badge.svg?token=08V261RXR3)](https://codecov.io/gh/HaloSPV3/HCE)
 
 ## HTML
 <html>
@@ -85,6 +83,6 @@ Each project has its own licence, though most are permissive and one or two may 
         <img src="https://api.codeclimate.com/v1/badges/36d2647e7e7b1db7a3cc/test_coverage" />
     </a>
     <a href="https://codecov.io/gh/HaloSPV3/HCE">
-        <img src="https://codecov.io/gh/HaloSPV3/HCE/branch/master/graph/badge.svg?token=08V261RXR3"/>
+        <img src="https://codecov.io/gh/HaloSPV3/HCE/branch/main/graph/badge.svg?token=08V261RXR3"/>
     </a>
 </html>

@@ -7,7 +7,7 @@ name: release-hxe
 
 on:
   push:
-    branches: [ master, develop ] # TODO: Split this to HXE and SPV3, Main and Develop each
+    branches: [ main, develop ] # TODO: Split this to HXE and SPV3, Main and Develop each
     paths:
     # Match
     - '.github/workflows/release-hxe.yml'
@@ -17,7 +17,7 @@ on:
     - '!**.md'
     - '!readme.**'
   pull_request:
-    branches: [ master, develop ]
+    branches: [ main, develop ]
 
   workflow_dispatch: # Allow manually runs
 
@@ -151,7 +151,7 @@ jobs:
       # RELEASE
       ################
 
-        # If branch is master/main, make a release
+        # If branch is main, make a release
 
       # GitReleaseManager or Semantic Release?
 

@@ -29,76 +29,76 @@ using SPV3.Annotations;
 
 namespace SPV3
 {
-  public class News : INotifyPropertyChanged
-  {
-    private const string     Address = "https://raw.githubusercontent.com/HaloSPV3/HCE/master/spv3/updates/latest.xml";
-    private       string     _content;
-    private       string     _link;
-    private       Visibility _visibility = Visibility.Collapsed;
+		public class News : INotifyPropertyChanged
+		{
+				private const string Address = "https://raw.githubusercontent.com/HaloSPV3/HCE/main/spv3/updates/latest.xml";
+				private string _content;
+				private string _link;
+				private Visibility _visibility = Visibility.Collapsed;
 
-    [XmlIgnore]
-    public Visibility Visibility
-    {
-      get => _visibility;
-      set
-      {
-        if (value == _visibility) return;
-        _visibility = value;
-        OnPropertyChanged();
-      }
-    }
+				[XmlIgnore]
+				public Visibility Visibility
+				{
+						get => _visibility;
+						set
+						{
+								if (value == _visibility) return;
+								_visibility = value;
+								OnPropertyChanged();
+						}
+				}
 
-    public string Content
-    {
-      get => _content;
-      set
-      {
-        if (value == _content) return;
-        _content = value;
-        OnPropertyChanged();
-      }
-    }
+				public string Content
+				{
+						get => _content;
+						set
+						{
+								if (value == _content) return;
+								_content = value;
+								OnPropertyChanged();
+						}
+				}
 
-    public string Link
-    {
-      get => _link;
-      set
-      {
-        if (value == _link) return;
-        _link = value;
-        OnPropertyChanged();
-      }
-    }
+				public string Link
+				{
+						get => _link;
+						set
+						{
+								if (value == _link) return;
+								_link = value;
+								OnPropertyChanged();
+						}
+				}
 
-    public event PropertyChangedEventHandler PropertyChanged;
+				public event PropertyChangedEventHandler PropertyChanged;
 
-    public void Initialise()
-    {
-      try
-      {
-        using (var wr = (HttpWebResponse) WebRequest.Create(Address).GetResponse())
-        using (var rs = wr.GetResponseStream())
-        using (var sr = new StreamReader(rs ?? throw new NullReferenceException("No response for manifest.")))
-        {
-          using (var reader = new StringReader(sr.ReadToEnd()))
-          {
-            var news = (News) new XmlSerializer(typeof(News)).Deserialize(reader);
-            Content    = news.Content;
-            Link       = news.Link;
-            Visibility = Visibility.Visible;
-          }
-        }
-      }
-      catch (Exception)
-      {
-        Visibility = Visibility.Collapsed;
-      }
-    }
+				public void Initialise()
+				{
+						try
+						{
+								using (var wr = (HttpWebResponse) WebRequest.Create(Address).GetResponse())
+								using (var rs = wr.GetResponseStream())
+								using (var sr = new StreamReader(rs ?? throw new NullReferenceException("No response for manifest.")))
+								{
+										using (var reader = new StringReader(sr.ReadToEnd()))
+										{
+												var news = (News) new XmlSerializer(typeof(News)).Deserialize(reader);
+												Content = news.Content;
+												Link = news.Link;
+												Visibility = Visibility.Visible;
+										}
+								}
+						}
+						catch (Exception)
+						{
+								Visibility = Visibility.Collapsed;
+						}
+				}
 
-    [NotifyPropertyChangedInvocator]
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-    {
-      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-  }
+				[NotifyPropertyChangedInvocator]
+				protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+				{
+						PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+				}
+		}
 }
