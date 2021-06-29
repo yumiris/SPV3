@@ -7,7 +7,7 @@ name: release-hxe
 
 on:
   push:
-    branches: [ main, develop ] # TODO: Split this to HXE and SPV3, Main and Develop each
+    branches: [ main, develop ]
     paths:
     # Match
     - '.github/workflows/release-hxe.yml'
@@ -27,10 +27,6 @@ jobs:
   build:
     name: Build
     runs-on: windows-latest # The type of runner that the job will run on
-
-    env:
-      isHXE: false  # If $true, prep an HXE Release
-      isSPV3: false # If $true, prep an SPV3 Release
 
     steps:
       ################
