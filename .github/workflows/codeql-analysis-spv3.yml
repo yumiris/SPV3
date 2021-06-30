@@ -5,9 +5,28 @@ name: "CodeQL - SPV3"
 on:
   push:
     branches: [ main, develop ]
+    paths:
+    - 'spv3/loader/src/**'
+    - '.github/codeql/codeql-config-spv3.yml'
+    # Ignore
+    - '!**.ico'
+    - '!**.jpg'
+    - '!**.png'
+    - '!**.md'
+    - '!**.txt'
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ main, develop ]
+    paths:
+    - 'spv3/loader/src/**'
+    - '.github/codeql/codeql-config-spv3.yml'
+    # Ignore
+    - '!**.ico'
+    - '!**.jpg'
+    - '!**.png'
+    - '!**.md'
+    - '!**.txt'
+    # https://docs.github.com/en/code-security/secure-coding/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#avoiding-unnecessary-scans-of-pull-requests
   schedule:
     - cron: '35 19 * * 6'
 
@@ -26,8 +45,6 @@ jobs:
         language: [ 'csharp' ]
           # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python' ]
           # https://docs.github.com/en/free-pro-team@latest/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#changing-the-languages-that-are-analyzed
-        paths: [ 'spv3/loader/src' ]
-          # https://docs.github.com/en/code-security/secure-coding/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#specifying-directories-to-scan
 
     steps:
       - name: Checkout repository
@@ -38,16 +55,13 @@ jobs:
 
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1
-      - name: echo MSBuild # Verify functionality
-        run: msbuild -version
 
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v1
         with:
-          config-file: ./.github/codeql/codeql-config.yml
+          config-file: ./.github/codeql/codeql-config-spv3.yml
           languages: ${{ matrix.language }}
-          paths: ${{ matrix.paths }}
 
           # If you wish to specify custom queries, you can do so here or in a config file.
           # By default, queries listed here will override any specified in a config file.

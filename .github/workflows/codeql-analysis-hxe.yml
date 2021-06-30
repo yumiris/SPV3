@@ -5,9 +5,28 @@ name: "CodeQL - HXE"
 on:
   push:
     branches: [ main, develop ]
+    paths:
+    - 'hxe/kernel/src/**'
+    - '.github/codeql/codeql-config-hxe.yml'
+    # Ignore
+    - '!**.ico'
+    - '!**.jpg'
+    - '!**.png'
+    - '!**.md'
+    - '!**.txt'
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ main, develop ]
+    paths:
+    - 'hxe/kernel/src/**'
+    - '.github/codeql/codeql-config-hxe.yml'
+    # Ignore
+    - '!**.ico'
+    - '!**.jpg'
+    - '!**.png'
+    - '!**.md'
+    - '!**.txt'
+    # https://docs.github.com/en/code-security/secure-coding/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#avoiding-unnecessary-scans-of-pull-requests
   schedule:
     - cron: '35 19 * * 6'
 
@@ -26,8 +45,6 @@ jobs:
         language: [ 'csharp' ]
           # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python' ]
           # https://docs.github.com/en/free-pro-team@latest/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#changing-the-languages-that-are-analyzed
-        paths: [ 'hxe/kernel/src' ]
-          # https://docs.github.com/en/code-security/secure-coding/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#specifying-directories-to-scan
 
     steps:
       - name: Checkout repository
@@ -46,7 +63,8 @@ jobs:
         uses: github/codeql-action/init@v1
         with:
           languages: ${{ matrix.language }}
-          paths: ${{ matrix.paths }}
+          config-file: ./.github/codeql/codeql-config-hxe.yml
+            # https://docs.github.com/en/code-security/secure-coding/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#specifying-directories-to-scan
 
           # If you wish to specify custom queries, you can do so here or in a config file.
           # By default, queries listed here will override any specified in a config file.
