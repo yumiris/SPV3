@@ -78,7 +78,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "codeql", "codeql", "{5D27B0FA-7272-4F6E-943D-4ADD125EF4DD}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\..\.github\codeql\codeql-config.yml = ..\..\..\.github\codeql\codeql-config.yml
+		..\..\..\.github\codeql\codeql-config-hxe.yml = ..\..\..\.github\codeql\codeql-config-hxe.yml
+		..\..\..\.github\codeql\codeql-config-spv3.yml = ..\..\..\.github\codeql\codeql-config-spv3.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{0138261E-FE62-4F09-BE3B-2DE8DAA3B96B}"
