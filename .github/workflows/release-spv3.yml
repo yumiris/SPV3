@@ -72,18 +72,15 @@ jobs:
       # SETUP - MSBuild
       ################
 
-        # Included, but NOT added to PATH by default! See
-        # https://github.com/marketplace/actions/setup-msbuild
+      # https://github.com/marketplace/actions/setup-msbuild
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1
-      - name: echo MSBuild # Verify functionality
-        run: msbuild -version
 
-        ################
-        # SETUP - GitTools, GitVersion, GitReleaseManager, Semantic Release
-        ################
+      ################
+      # SETUP - GitTools, GitVersion, GitReleaseManager, Semantic Release
+      ################
 
-        # https://github.com/marketplace/actions/gittools
+      # https://github.com/marketplace/actions/gittools
       - name: Setup GitTools
         uses: GitTools/actions@v0.9.9
 
@@ -94,7 +91,7 @@ jobs:
           versionSpec: '5.x'
       - run: echo "${{ steps.gitversion.outputs.fullSemVer }}"
 
-        # https://github.com/GitTools/actions/blob/main/docs/examples/github/gitreleasemanager/index.md
+      # https://github.com/GitTools/actions/blob/main/docs/examples/github/gitreleasemanager/index.md
       - name: Setup GitReleaseManager
         id: gitRM
         uses: gittools/actions/gitreleasemanager/setup@v0.9.9
@@ -111,10 +108,8 @@ jobs:
       # BUILD
       ################
 
-        # Package restore handled by MSBuild '-t:restore' flag, but we'll do this anyway
-      - name: Restore NuGet Packages (HXE)
-        run: nuget restore hxe/kernel/src/HXE.sln;
-      - name: Restore NuGet Packages (SPV3)
+      # Package restore handled by MSBuild '-t:restore' flag, but we'll do this anyway
+      - name: Restore NuGet Packages
         run: nuget restore spv3/loader/src/SPV3.sln;
 
       - name: Build Solutions
@@ -144,7 +139,7 @@ jobs:
          choco install xunit
 
           # docs: https://github.com/codecov/example-csharp
-      - name: (SPV3) Write Unit Test Reports
+      - name: Write Unit Test Reports
         working-directory: ./spv3/loader/src/
         run: OpenCover.Console.exe -register:user -target:"xunit.console.x86.exe" -targetargs:"..\MyUnitTests\bin\Debug\MyUnitTests.dll -noshadow" -filter:"+[UnitTestTargetProject*]* -[MyUnitTests*]*" -output:"..\spv3_coverage.xml"
 

@@ -4,6 +4,7 @@
 name: release-hxe
 # TODO: Get branch name
   # https://stackoverflow.com/a/58035262/14894786
+# https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepsif
 
 on:
   push:
@@ -53,6 +54,10 @@ jobs:
       - name: Init-Update Git Submodules
         run: git submodule update --init --recursive
 
+      - name: Extract branch name
+        uses: nelonoel/branch-name@v1
+        id: extract_branch
+
       ################
       # SETUP - Node, NPM
       ################
@@ -67,18 +72,15 @@ jobs:
       # SETUP - MSBuild
       ################
 
-        # Included, but NOT added to PATH by default! See
-        # https://github.com/marketplace/actions/setup-msbuild
+      # https://github.com/marketplace/actions/setup-msbuild
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1
-      - name: echo MSBuild # Verify functionality
-        run: msbuild -version
 
-        ################
-        # SETUP - GitTools, GitVersion, GitReleaseManager, Semantic Release
-        ################
+      ################
+      # SETUP - GitTools, GitVersion, GitReleaseManager, Semantic Release
+      ################
 
-        # https://github.com/marketplace/actions/gittools
+      # https://github.com/marketplace/actions/gittools
       - name: Setup GitTools
         uses: GitTools/actions@v0.9.9
 
@@ -89,7 +91,7 @@ jobs:
           versionSpec: '5.x'
       - run: echo "${{ steps.gitversion.outputs.fullSemVer }}"
 
-        # https://github.com/GitTools/actions/blob/main/docs/examples/github/gitreleasemanager/index.md
+      # https://github.com/GitTools/actions/blob/main/docs/examples/github/gitreleasemanager/index.md
       - name: Setup GitReleaseManager
         id: gitRM
         uses: gittools/actions/gitreleasemanager/setup@v0.9.9
