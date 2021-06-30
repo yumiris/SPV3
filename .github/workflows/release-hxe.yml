@@ -10,14 +10,23 @@ on:
     branches: [ main, develop ]
     paths:
     # Match
-    - '.github/workflows/release-hxe.yml'
+    - '.github/workflows/release-spv3.yml'
     - 'hxe/kernel/src/**'
     - '.gitmodules'
     # Ignore
     - '!**.md'
-    - '!readme.**'
+    - '!**.txt'
   pull_request:
     branches: [ main, develop ]
+    paths:
+    # Match
+    - '.github/workflows/release-spv3.yml'
+    - 'hxe/kernel/src/**'
+    - 'spv3/loader/src/**'
+    - '.gitmodules'
+    # Ignore
+    - '!**.md'
+    - '!**.txt'
 
   workflow_dispatch: # Allow manually runs
 
