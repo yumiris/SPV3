@@ -13,3 +13,6 @@ queries:
 paths-ignore:
   - tests
   - lib
+
+  # TODO: upload SARIF to CodeCoverage if possible
+  # https://docs.github.com/en/code-security/secure-coding/integrating-with-code-scanning/uploading-a-sarif-file-to-github
