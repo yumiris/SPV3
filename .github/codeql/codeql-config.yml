@@ -1,10 +1,9 @@
 # https://github.com/github/codeql-action#configuration-file
-name: "CodeQL config for SPV3"
+# https://docs.github.com/en/code-security/secure-coding/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#using-a-custom-configuration-file
+name: "CodeQL config"
 queries:
   - uses: security-extended
   - uses: security-and-quality
-paths:
-  - spv3/loader/src
 paths-ignore:
   - tests
   - lib
