@@ -83,7 +83,8 @@ jobs:
 
       - name: Build Solutions
         run: |
-         msbuild.exe "spv3/loader/src/SPV3.sln" -nr:False -restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Debug" -p:UseSharedCompilation=False -detailedSummary:True;
+         cd ./spv3/loader/src/;
+         msbuild.exe -restore -p:platform="Any CPU" -p:configuration="Debug" -p:UseSharedCompilation=False -detailedSummary:True SPV3.sln;
         # -p:UseSharedCompilation=false is necessary for CodeQL to analyze .NET Framework builds.
         # See #5 in https://docs.github.com/en/code-security/secure-coding/automatically-scanning-your-code-for-vulnerabilities-and-errors/troubleshooting-the-codeql-workflow#no-code-found-during-the-build
 
