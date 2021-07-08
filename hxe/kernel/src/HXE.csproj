@@ -104,7 +104,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Settings.xaml.cs" />
+    <Compile Include="Settings.xaml.cs" >
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Manifest.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Paths.cs" />
