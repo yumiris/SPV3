@@ -51,14 +51,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "spv3", "spv3", "{28850E66-4
 		..\doc\updating.txt = ..\doc\updating.txt
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "updates", "updates", "{D5750DC6-0BF9-4AEC-B63F-49B2DFFAB784}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\updates\debugs.hxe = ..\..\updates\debugs.hxe
-		..\..\updates\latest.xml = ..\..\updates\latest.xml
-		..\..\updates\readme.txt = ..\..\updates\readme.txt
-		..\..\updates\update.hxe = ..\..\updates\update.hxe
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{86B5BA36-56DA-4799-AC69-E92D4DE2102E}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\..\.github\workflows\codeql-analysis-hxe.yml = ..\..\..\.github\workflows\codeql-analysis-hxe.yml
