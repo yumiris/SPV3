@@ -9,4 +9,5 @@ assets and offering announcements:
 |  -------------- | ------------------------------------------------------
 |  update.hxe     | the current xml used by hxe's update module after migrating to it (build-0076 and up)
 |  debugs.hxe     | xml used for delivering staging maps to private testers
-|  latest.xml     | xml used for storing the latest announcements
+|  news.xml       | xml used for storing the latest announcements (used to be latest.xml)
+|  latest.xml     | xml used for storing links to the latest version of the HCE repo's applications
