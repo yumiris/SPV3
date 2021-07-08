@@ -11,7 +11,6 @@ on:
     branches: [ main, develop ]
     paths:
     # Match
-    - '.github/workflows/release-spv3.yml'
     - 'hxe/kernel/src/**'
     - '.gitmodules'
     # Ignore
@@ -21,7 +20,6 @@ on:
     branches: [ main, develop ]
     paths:
     # Match
-    - '.github/workflows/release-spv3.yml'
     - 'hxe/kernel/src/**'
     - 'spv3/loader/src/**'
     - '.gitmodules'
@@ -37,6 +35,11 @@ jobs:
   build:
     name: Build
     runs-on: windows-latest # The type of runner that the job will run on
+
+    strategy:
+     fail-fast: false
+     matrix:
+      build-cfg: [ Release, Debug ]
 
     steps:
       ################
@@ -77,34 +80,6 @@ jobs:
         uses: microsoft/setup-msbuild@v1
 
       ################
-      # SETUP - GitTools, GitVersion, GitReleaseManager, Semantic Release
-      ################
-
-      # https://github.com/marketplace/actions/gittools
-      - name: Setup GitTools
-        uses: GitTools/actions@v0.9.9
-
-      - name: Setup GitVersion
-        uses: GitTools/actions/gitversion/setup@v0.9.9
-        id: gitV
-        with:
-          versionSpec: '5.x'
-      - run: echo "${{ steps.gitversion.outputs.fullSemVer }}"
-
-      # https://github.com/GitTools/actions/blob/main/docs/examples/github/gitreleasemanager/index.md
-      - name: Setup GitReleaseManager
-        id: gitRM
-        uses: gittools/actions/gitreleasemanager/setup@v0.9.9
-        with:
-          versionSpec: '0.10.x'
-
-      - name: Setup Semantic Release
-        run: npx semantic-release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.SEMANTIC_RELEASE_BOT_NPM_TOKEN }}
-
-      ################
       # BUILD
       ################
 
@@ -114,8 +89,9 @@ jobs:
 
       - name: Build Solutions
         run: |
-         msbuild.exe "hxe/kernel/src/HXE.sln" -nr:false -t:restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Release";
-         msbuild.exe "hxe/kernel/src/HXE.sln" -nr:false -t:restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Debug";
+         cd hxe/kernel/src/;
+         msbuild.exe -restore -p:platform="Any CPU" -p:configuration="Release" HXE.sln;
+         msbuild.exe -restore -p:platform="Any CPU" -p:configuration="Debug" HXE.sln;
 
         # TODO: Finish Post-Build commands
 
@@ -158,7 +134,32 @@ jobs:
       # RELEASE
       ################
 
-        # If branch is main, make a release
+      # https://github.com/marketplace/actions/gittools
+      - name: Setup GitTools
+        uses: GitTools/actions@v0.9.9
+
+      - name: Setup GitVersion
+        uses: GitTools/actions/gitversion/setup@v0.9.9
+        id: gitV
+        with:
+          versionSpec: '5.x'
+      - run: echo "${{ steps.gitversion.outputs.fullSemVer }}"
+
+      # https://github.com/GitTools/actions/blob/main/docs/examples/github/gitreleasemanager/index.md
+      - name: Setup GitReleaseManager
+        id: gitRM
+        uses: gittools/actions/gitreleasemanager/setup@v0.9.9
+        with:
+          versionSpec: '0.10.x'
+
+      - name: Setup Semantic Release
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.SEMANTIC_RELEASE_BOT_NPM_TOKEN }}
+
+      #- name: Determine if Release needed
+      #  if: ${{ env.GIT_BRANCH_NAME == 'main' }}
 
       # GitReleaseManager or Semantic Release?
 
