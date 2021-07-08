@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Latest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <App Name="HXE">
+    <Version>
+    </Version>
+    <URL>
+    </URL>
+  </App>
+  <App Name="SPV3">
+    <Version>
+    </Version>
+    <URL>
+    </URL>
+  </App>
+  <App Name="Eaxir">
+    <Version>
+    </Version>
+    <URL>
+    </URL>
+  </App>
+</Latest>
