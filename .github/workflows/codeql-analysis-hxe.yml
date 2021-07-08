@@ -7,7 +7,7 @@ on:
     branches: [ main, develop ]
     paths:
     - 'hxe/kernel/src/**'
-    - '.github/codeql/codeql-config-hxe.yml'
+    - '.github/codeql/codeql-config.yml'
     # Ignore
     - '!**.ico'
     - '!**.jpg'
@@ -19,7 +19,7 @@ on:
     branches: [ main, develop ]
     paths:
     - 'hxe/kernel/src/**'
-    - '.github/codeql/codeql-config-hxe.yml'
+    - '.github/codeql/codeql-config.yml'
     # Ignore
     - '!**.ico'
     - '!**.jpg'
@@ -55,19 +55,14 @@ jobs:
 
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1
-      - name: echo MSBuild # Verify functionality
-        run: msbuild -version
-
-      - name: CD to HXE src
-        run: cd ./hxe/kernel/src/
 
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v1
         with:
-          languages: ${{ matrix.language }}
-          config-file: ./.github/codeql/codeql-config.yml
+          config-file: .github/codeql/codeql-config.yml
             # https://docs.github.com/en/code-security/secure-coding/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#specifying-directories-to-scan
+          languages: ${{ matrix.language }}
 
           # If you wish to specify custom queries, you can do so here or in a config file.
           # By default, queries listed here will override any specified in a config file.
@@ -88,9 +83,8 @@ jobs:
 
       - name: Build Solutions
         run: |
-         msbuild.exe "./HXE.sln" -nr:False -restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Debug" -p:UseSharedCompilation=False -detailedSummary:True;
-      #   msbuild.exe "hxe/kernel/src/HXE.sln" -nr:false -t:restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Release" /p:UseSharedCompilation=false;
-        # /p:UseSharedCompilation=false is necessary for CodeQL to analyze .NET Framework builds.
+         msbuild.exe "hxe/kernel/src/HXE.sln" -nr:False -restore -p:DeleteExistingFiles=True -p:platform="Any CPU" -p:configuration="Debug" -p:UseSharedCompilation=False -detailedSummary:True;
+        # -p:UseSharedCompilation=false is necessary for CodeQL to analyze .NET Framework builds.
         # See #5 in https://docs.github.com/en/code-security/secure-coding/automatically-scanning-your-code-for-vulnerabilities-and-errors/troubleshooting-the-codeql-workflow#no-code-found-during-the-build
 
       - name: Perform CodeQL Analysis
