@@ -6,6 +6,7 @@ on:
   push:
     branches: [ main, develop ]
     paths:
+    - 'hxe/kernel/src/**'
     - 'spv3/loader/src/**'
     - '.github/codeql/codeql-config.yml'
     # Ignore
@@ -18,6 +19,7 @@ on:
     # The branches below must be a subset of the branches above
     branches: [ main, develop ]
     paths:
+    - 'hxe/kernel/src/**'
     - 'spv3/loader/src/**'
     - '.github/codeql/codeql-config.yml'
     # Ignore
@@ -45,6 +47,7 @@ jobs:
         language: [ 'csharp' ]
           # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python' ]
           # https://docs.github.com/en/free-pro-team@latest/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#changing-the-languages-that-are-analyzed
+        solution: [ 'hxe', 'spv3' ]
 
     steps:
       - name: Checkout repository
@@ -56,37 +59,25 @@ jobs:
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1
 
-      # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v1
         with:
           config-file: .github/codeql/codeql-config.yml
-            # https://docs.github.com/en/code-security/secure-coding/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#specifying-directories-to-scan
           languages: ${{ matrix.language }}
 
-          # If you wish to specify custom queries, you can do so here or in a config file.
-          # By default, queries listed here will override any specified in a config file.
-          # Prefix the list here with "+" to use these queries and those in the config file.
-          # queries: ./path/to/local/query, your-org/your-repo/queries@main
-
-      # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
-      # If this step fails, then you should remove it and run the build manually (see below)
-      # - name: Autobuild
-      #   uses: github/codeql-action/autobuild@v1
-
-      # ℹ️ Command-line programs to run using the OS shell.
-      # 📚 https://git.io/JvXDl
-
-      # ✏️ If the Autobuild fails above, remove it and uncomment the following three lines
-      #    and modify them (or add more) to build your code if your project
-      #    uses a compiled language
-
+      # -p:UseSharedCompilation=false is necessary for CodeQL to analyze .NET Framework builds.
+      # See #5 in https://docs.github.com/en/code-security/secure-coding/automatically-scanning-your-code-for-vulnerabilities-and-errors/troubleshooting-the-codeql-workflow#no-code-found-during-the-build
       - name: Build Solutions
         run: |
+         if (${{ matrix.solution }} -eq 'spv3')  {
          cd ./spv3/loader/src/;
-         msbuild.exe -restore -p:platform="Any CPU" -p:configuration="Debug" -p:UseSharedCompilation=False -detailedSummary:True SPV3.sln;
-        # -p:UseSharedCompilation=false is necessary for CodeQL to analyze .NET Framework builds.
-        # See #5 in https://docs.github.com/en/code-security/secure-coding/automatically-scanning-your-code-for-vulnerabilities-and-errors/troubleshooting-the-codeql-workflow#no-code-found-during-the-build
+         msbuild.exe -restore -p:platform="Any CPU" -p:configuration="Debug" -p:UseSharedCompilation=False -detailedSummary:True SPV3.sln
+         };
+         if (${{ matrix.solution }} -eq 'hxe')  {
+         cd ./hxe/kernel/src/;
+         msbuild.exe -restore -p:platform="Any CPU" -p:configuration="Debug" -p:UseSharedCompilation=False -detailedSummary:True HXE.sln;
+         };
+
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v1
