@@ -10,3 +10,6 @@
 	path = ext/xidi
 	url = https://github.com/samuelgr/Xidi.git
 	branch = master
+[submodule "spv3/loader"]
+	path = spv3/loader
+	url = https://github.com/HaloSPV3/SPV3-Loader.git
