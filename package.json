@@ -7,7 +7,8 @@
     "@halospv3/hce.shared-config": "^3.12.2"
   },
   "scripts": {
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "sdks": "yarn dlx @yarnpkg/sdks"
   },
   "commitlint": {
     "extends": [
